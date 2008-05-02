@@ -1,0 +1,606 @@
+\section{クラス Configuration\_\-impl}
+\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl}\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+SDO Configuration 実装クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf set\_\-device\_\-profile}
+\begin{CompactList}\small\item\em [CORBA interface] SDO の DeviceProfile のセット \item\end{CompactList}\item 
+def {\bf set\_\-service\_\-profile}
+\begin{CompactList}\small\item\em [CORBA interface] SDO の ServiceProfile のセット \item\end{CompactList}\item 
+def {\bf add\_\-organization}
+\begin{CompactList}\small\item\em [CORBA interface] Organization の追加 \item\end{CompactList}\item 
+def {\bf remove\_\-service\_\-profile}
+\begin{CompactList}\small\item\em [CORBA interface] ServiceProfile の削除 \item\end{CompactList}\item 
+def {\bf remove\_\-organization}
+\begin{CompactList}\small\item\em [CORBA interface] Organization の参照の削除 \item\end{CompactList}\item 
+def {\bf get\_\-configuration\_\-parameters}
+\begin{CompactList}\small\item\em [CORBA interface] 設定パラメータのリストの取得 \item\end{CompactList}\item 
+def {\bf get\_\-configuration\_\-parameter\_\-values}
+\begin{CompactList}\small\item\em [CORBA interface] Configuration parameter の値のリストの取得 \item\end{CompactList}\item 
+def {\bf get\_\-configuration\_\-parameter\_\-value}
+\begin{CompactList}\small\item\em [CORBA interface] Configuration parameter の値の取得 \item\end{CompactList}\item 
+def {\bf set\_\-configuration\_\-parameter}
+\begin{CompactList}\small\item\em [CORBA interface] Configuration パラメータの変更 \item\end{CompactList}\item 
+def {\bf get\_\-configuration\_\-sets}
+\begin{CompactList}\small\item\em [CORBA interface] ConfigurationSet リストの取得 \item\end{CompactList}\item 
+def {\bf get\_\-configuration\_\-set}
+\begin{CompactList}\small\item\em [CORBA interface] ConfigurationSet の取得 \item\end{CompactList}\item 
+def {\bf set\_\-configuration\_\-set\_\-values}
+\begin{CompactList}\small\item\em [CORBA interface] ConfigurationSet をセットする \item\end{CompactList}\item 
+def {\bf get\_\-active\_\-configuration\_\-set}
+\begin{CompactList}\small\item\em [CORBA interface] アクティブな ConfigurationSet を取得する \item\end{CompactList}\item 
+def {\bf add\_\-configuration\_\-set}
+\begin{CompactList}\small\item\em [CORBA interface] ConfigurationSet を追加する \item\end{CompactList}\item 
+def {\bf remove\_\-configuration\_\-set}
+\begin{CompactList}\small\item\em [CORBA interface] ConfigurationSet を削除する \item\end{CompactList}\item 
+def {\bf activate\_\-configuration\_\-set}
+\begin{CompactList}\small\item\em [CORBA interface] ConfigurationSet のアクティブ化 \item\end{CompactList}\item 
+def {\bf getObjRef}
+\begin{CompactList}\small\item\em オブジェクト　リファレンスを取得する \item\end{CompactList}\item 
+def {\bf getDeviceProfile}
+\begin{CompactList}\small\item\em SDO の DeviceProfile を取得する \item\end{CompactList}\item 
+def {\bf getServiceProfiles}
+\begin{CompactList}\small\item\em SDO の ServiceProfile のリストを取得する \item\end{CompactList}\item 
+def {\bf getServiceProfile}
+\begin{CompactList}\small\item\em SDO の ServiceProfile を取得する \item\end{CompactList}\item 
+def {\bf getOrganizations}
+\begin{CompactList}\small\item\em SDO の Organization リストを取得する \item\end{CompactList}\item 
+def {\bf getUUID}
+\begin{CompactList}\small\item\em UUIDを生成する \item\end{CompactList}\end{CompactItemize}
+\subsection*{データ構造}
+\begin{CompactItemize}
+\item 
+class {\bf config\_\-id}
+\begin{CompactList}\small\item\em ConfigurationSet用functor \item\end{CompactList}\item 
+class {\bf org\_\-id}
+\begin{CompactList}\small\item\em Organization用functor \item\end{CompactList}\item 
+class {\bf service\_\-id}
+\begin{CompactList}\small\item\em ServiceProfile用functor \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+SDO Configuration 実装クラス 
+
+Configuration interface は Resource Data Model で定義されたデータの 追加、削除等の操作を行うためのインターフェースである。 DeviceProfile, ServiceProfile, ConfigurationProfile および Organization の変更を行うためのオペレーションを備えている。SDO の仕様ではアクセス制御 およびセキュリティに関する詳細については規定していない。
+
+複数の設定 (Configuration) を保持することにより、容易かつ素早くある設定 を反映させることができる。事前に定義された複数の設定を ConfigurationSets および configuration profile として保持することができる。ひとつの ConfigurationSet は特定の設定に関連付けられた全プロパティ値のリストを、 ユニークID、詳細とともに持っている。これにより、各設定項目の詳細を記述し 区別することができる。Configuration interface のオペレーションはこれら ConfiguratioinSets の管理を支援する。
+
+\begin{itemize}
+\item ConfigurationSet: id, description, NVList から構成される1セットの設定\item ConfigurationSetList: ConfigurationSet のリスト\item Parameter: name, type, allowed\_\-values から構成されるパラメータ定義。\item ActiveConfigurationSet: 現在有効なコンフィギュレーションの1セット。\end{itemize}
+
+
+以下、SDO仕様に明記されていないもしくは解釈がわからないため独自解釈
+
+以下の関数は ParameterList に対して処理を行う。\begin{itemize}
+\item \doxyref{get\_\-configuration\_\-parameters()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_c6be24cee77ca40361cee2f31a71cf67}\end{itemize}
+
+
+以下の関数はアクティブなConfigurationSetに対する処理を行う\begin{itemize}
+\item \doxyref{get\_\-configuration\_\-parameter\_\-values()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_0192f47594a75c863a8e43f2cc9bf32d}\item \doxyref{get\_\-configuration\_\-parameter\_\-value()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_c801e14d35bcb896ea7000842631be22}\item \doxyref{set\_\-configuration\_\-parameter()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_211a4e80e3cf27e7520e641cb628fdd8}\end{itemize}
+
+
+以下の関数はConfigurationSetListに対して処理を行う\begin{itemize}
+\item \doxyref{get\_\-configuration\_\-sets()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_8fcf91aeb9af623181984f2506f7ec11}\item \doxyref{get\_\-configuration\_\-set()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_2fc053a03466123373a3654266ac021c}\item \doxyref{set\_\-configuration\_\-set\_\-values()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_11cf05ef202852f7dc5e5d49571535a4}\item \doxyref{get\_\-active\_\-configuration\_\-set()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_934b4582a1ee75738c46c0e7c27ca78a}\item \doxyref{add\_\-configuration\_\-set()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_9e168a1cd2ae2d6bbad7e0bdb1425880}\item \doxyref{remove\_\-configuration\_\-set()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_fce8c3d3cd0238b9c856aa15a0219695}\item \doxyref{activate\_\-configuration\_\-set()}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_41d5f844373e170aade1faec9b875cce}\end{itemize}
+
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ SdoConfiguration.py の 173 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em configsets})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em configsets}]ConfigurationSetList
+
+\footnotesize\begin{verbatim}
+ \var self._deviceProfile SDO DeviceProfile with mutex lock
+\end{verbatim}
+\normalsize
+ \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 190 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!set\_\-device\_\-profile@{set\_\-device\_\-profile}}
+\index{set\_\-device\_\-profile@{set\_\-device\_\-profile}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def set\_\-device\_\-profile ( {\em self},  {\em dProfile})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_85b9800a1d81fb551f70077d6d13864f}
+
+
+[CORBA interface] SDO の DeviceProfile のセット 
+
+このオペレーションは SDO の DeviceProfile をセットする。SDO が DeviceProfile を保持していない場合は新たな DeviceProfile を生成し、 DeviceProfile をすでに保持している場合は既存のものと置き換える。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em dProfile}]SDO に関連付けられる DeviceProfile。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InvalidParameter}]引数 \char`\"{}dProfile\char`\"{} が null である。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 264 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!set\_\-service\_\-profile@{set\_\-service\_\-profile}}
+\index{set\_\-service\_\-profile@{set\_\-service\_\-profile}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def set\_\-service\_\-profile ( {\em self},  {\em sProfile})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_8d0fc8dd60235b91544348dd049bce1d}
+
+
+[CORBA interface] SDO の ServiceProfile のセット 
+
+このオペレーションはこの Configuration interface を所有する対象 SDO の ServiceProfile を追加する。もし引数の ServiceProfile の id が空であれば 新しい ID が生成されその ServiceProfile を格納する。もし id が空で なければ、SDO は同じ id を持つ ServiceProfile を検索する。 同じ id が存在しなければこの ServiceProfile を追加し、id が存在すれば 上書きをする。\par
+ (注意：最新バージョンではオペレーション名がadd\_\-service\_\-profile変更)
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em sProfile}]追加する ServiceProfile\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}sProfile\char`\"{} が nullである。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 322 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!add\_\-organization@{add\_\-organization}}
+\index{add\_\-organization@{add\_\-organization}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def add\_\-organization ( {\em self},  {\em org})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_61b06c535f2eb54c701a304657f57e46}
+
+
+[CORBA interface] Organization の追加 
+
+このオペレーションは Organization object のリファレンスを追加する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em org}]追加する Organization\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InvalidParameter}]引数 \char`\"{}organization\char`\"{} が null である。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 381 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!remove\_\-service\_\-profile@{remove\_\-service\_\-profile}}
+\index{remove\_\-service\_\-profile@{remove\_\-service\_\-profile}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def remove\_\-service\_\-profile ( {\em self},  {\em id\_\-})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_b737e05526e3fb3b2cfe59522d24b2ef}
+
+
+[CORBA interface] ServiceProfile の削除 
+
+このオペレーションはこの Configuration interface を持つ SDO の Service の ServiceProfile を削除する。削除する ServiceProfile は引数により指定される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em id\_\-}]削除する ServcieProfile の serviceID。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}id\char`\"{} が null である。もしくは \char`\"{}id\char`\"{} に 関連付けられた ServiceProfile が存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 434 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!remove\_\-organization@{remove\_\-organization}}
+\index{remove\_\-organization@{remove\_\-organization}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def remove\_\-organization ( {\em self},  {\em organization\_\-id})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_cf861bf27c258a0aaf182c9d79ee89b1}
+
+
+[CORBA interface] Organization の参照の削除 
+
+このオペレーションは Organization の参照を削除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em organization\_\-id}]削除する Organization の一意な id。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}organization\_\-id\char`\"{} が null である。 もしくは \char`\"{}organization\_\-id\char`\"{} に関連付けられた OrganizationProfile が存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 485 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!get\_\-configuration\_\-parameters@{get\_\-configuration\_\-parameters}}
+\index{get\_\-configuration\_\-parameters@{get\_\-configuration\_\-parameters}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-configuration\_\-parameters ( {\em self})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_c6be24cee77ca40361cee2f31a71cf67}
+
+
+[CORBA interface] 設定パラメータのリストの取得 
+
+このオペレーションは configuration parameter のリストを返す。 SDO が設定可能なパラメータを持たなければ空のリストを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]設定を特徴付けるパラメータ定義のリスト。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 532 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!get\_\-configuration\_\-parameter\_\-values@{get\_\-configuration\_\-parameter\_\-values}}
+\index{get\_\-configuration\_\-parameter\_\-values@{get\_\-configuration\_\-parameter\_\-values}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-configuration\_\-parameter\_\-values ( {\em self})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_0192f47594a75c863a8e43f2cc9bf32d}
+
+
+[CORBA interface] Configuration parameter の値のリストの取得 
+
+このオペレーションは全ての configuration パラメータおよび値を返す。\par
+ ※本実装では常に空のリストを返す
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]全ての configuration パラメータと値のリスト。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 574 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!get\_\-configuration\_\-parameter\_\-value@{get\_\-configuration\_\-parameter\_\-value}}
+\index{get\_\-configuration\_\-parameter\_\-value@{get\_\-configuration\_\-parameter\_\-value}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-configuration\_\-parameter\_\-value ( {\em self},  {\em name})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_c801e14d35bcb896ea7000842631be22}
+
+
+[CORBA interface] Configuration parameter の値の取得 
+
+このオペレーションは引数 \char`\"{}name\char`\"{} で指定されたパラメータ値を返す。\par
+ ※本実装では常に None を返す
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]値を要求するパラメータの名前。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]指定されたパラメータの値。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}name\char`\"{} が null である。 もしくは \char`\"{}name\char`\"{} に関連付けられたパラメータが存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 621 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!set\_\-configuration\_\-parameter@{set\_\-configuration\_\-parameter}}
+\index{set\_\-configuration\_\-parameter@{set\_\-configuration\_\-parameter}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def set\_\-configuration\_\-parameter ( {\em self},  {\em name},  {\em value})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_211a4e80e3cf27e7520e641cb628fdd8}
+
+
+[CORBA interface] Configuration パラメータの変更 
+
+このオペレーションは \char`\"{}name\char`\"{} で指定したパラメータの値を \char`\"{}value\char`\"{} に 変更する。\par
+ ※本実装では常にTrueを返す
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]変更対象パラメータの名前。 \item[{\em value}]変更対象パラメータの新しい値。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数( \char`\"{}name\char`\"{}もしくは\char`\"{}value\char`\"{}) が null である。 もしくは \char`\"{}name\char`\"{} に関連付けられたパラメータが存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 671 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!get\_\-configuration\_\-sets@{get\_\-configuration\_\-sets}}
+\index{get\_\-configuration\_\-sets@{get\_\-configuration\_\-sets}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-configuration\_\-sets ( {\em self})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_8fcf91aeb9af623181984f2506f7ec11}
+
+
+[CORBA interface] ConfigurationSet リストの取得 
+
+このオペレーションは ConfigurationProfile が持つ ConfigurationSet の リストを返す。 SDO が ConfigurationSet を持たなければ空のリストを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]保持している ConfigurationSet のリストの現在値。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 712 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!get\_\-configuration\_\-set@{get\_\-configuration\_\-set}}
+\index{get\_\-configuration\_\-set@{get\_\-configuration\_\-set}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-configuration\_\-set ( {\em self},  {\em config\_\-id})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_2fc053a03466123373a3654266ac021c}
+
+
+[CORBA interface] ConfigurationSet の取得 
+
+このオペレーションは引数で指定された ConfigurationSet の ID に関連 付けられた ConfigurationSet を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em \doxyref{config\_\-id}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_1_1config__id}}]ConfigurationSet の識別子。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]引数により指定された ConfigurationSet。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]\char`\"{}config\_\-id\char`\"{} が null か、指定された ConfigurationSet が存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 769 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!set\_\-configuration\_\-set\_\-values@{set\_\-configuration\_\-set\_\-values}}
+\index{set\_\-configuration\_\-set\_\-values@{set\_\-configuration\_\-set\_\-values}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def set\_\-configuration\_\-set\_\-values ( {\em self},  {\em config\_\-id},  {\em configuration\_\-set})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_11cf05ef202852f7dc5e5d49571535a4}
+
+
+[CORBA interface] ConfigurationSet をセットする 
+
+このオペレーションは指定された id の ConfigurationSet を更新する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em \doxyref{config\_\-id}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_1_1config__id}}]変更する ConfigurationSet の ID。 \item[{\em configuration\_\-set}]変更する ConfigurationSet そのもの。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ConfigurationSet が正常に更新できた場合は true。 そうでなければ false を返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em InvalidParameter}]\doxyref{config\_\-id}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_1_1config__id} が null か、 指定された id で格納された ConfigurationSetが存在しないか、 指定された configuration\_\-set内の属性の１つが不正。 \item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 837 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!get\_\-active\_\-configuration\_\-set@{get\_\-active\_\-configuration\_\-set}}
+\index{get\_\-active\_\-configuration\_\-set@{get\_\-active\_\-configuration\_\-set}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-active\_\-configuration\_\-set ( {\em self})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_934b4582a1ee75738c46c0e7c27ca78a}
+
+
+[CORBA interface] アクティブな ConfigurationSet を取得する 
+
+このオペレーションは当該SDOの現在アクティブな ConfigurationSet を返す。 (もしSDOの現在の設定が予め定義された ConfigurationSet により設定されて いるならば。) ConfigurationSet は以下の場合にはアクティブではないものとみなされる。
+
+\begin{itemize}
+\item 現在の設定が予め定義された ConfigurationSet によりセットされていない、\item SDO の設定がアクティブになった後に変更された、\item SDO を設定する ConfigurationSet が変更された、\end{itemize}
+
+
+これらの場合には、空の ConfigurationSet が返される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]現在アクティブな ConfigurationSet。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 900 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!add\_\-configuration\_\-set@{add\_\-configuration\_\-set}}
+\index{add\_\-configuration\_\-set@{add\_\-configuration\_\-set}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def add\_\-configuration\_\-set ( {\em self},  {\em configuration\_\-set})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_9e168a1cd2ae2d6bbad7e0bdb1425880}
+
+
+[CORBA interface] ConfigurationSet を追加する 
+
+ConfigurationProfile に ConfigurationSet を追加するオペレーション。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em configuration\_\-set}]追加する ConfigurationSet。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうか。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]\char`\"{}configurationSet\char`\"{} が null か、 \char`\"{}configurationSet\char`\"{}で定義された属性の１つが不正か、 指定された configurationSet もIDが既に存在する。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 955 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!remove\_\-configuration\_\-set@{remove\_\-configuration\_\-set}}
+\index{remove\_\-configuration\_\-set@{remove\_\-configuration\_\-set}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def remove\_\-configuration\_\-set ( {\em self},  {\em config\_\-id})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_fce8c3d3cd0238b9c856aa15a0219695}
+
+
+[CORBA interface] ConfigurationSet を削除する 
+
+ConfigurationProfile から ConfigurationSet を削除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em \doxyref{config\_\-id}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_1_1config__id}}]削除する ConfigurationSet の id。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうか。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}configurationSetID\char`\"{} が null である、 もしくは、引数で指定された ConfigurationSet が存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 1009 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!activate\_\-configuration\_\-set@{activate\_\-configuration\_\-set}}
+\index{activate\_\-configuration\_\-set@{activate\_\-configuration\_\-set}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def activate\_\-configuration\_\-set ( {\em self},  {\em config\_\-id})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_41d5f844373e170aade1faec9b875cce}
+
+
+[CORBA interface] ConfigurationSet のアクティブ化 
+
+ConfigurationProfile に格納された ConfigurationSet のうち一つを アクティブにする。 このオペレーションは特定の ConfigurationSet をアクティブにする。 すなわち、SDO のコンフィギュレーション・プロパティがその格納されている ConfigurationSet により設定されるプロパティの値に変更される。 指定された ConfigurationSet の値がアクティブ・コンフィギュレーション にコピーされるということを意味する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em \doxyref{config\_\-id}{p.}{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_1_1config__id}}]アクティブ化する ConfigurationSet の id。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうか。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}config\_\-id\char`\"{} が null である、もしくは 引数で指定された ConfigurationSet が存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoConfiguration.py の 1072 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!getObjRef@{getObjRef}}
+\index{getObjRef@{getObjRef}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getObjRef ( {\em self})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_83a74ecbeec46af9311fb16356154d43}
+
+
+オブジェクト　リファレンスを取得する 
+
+対象のオブジェクトリファレンスを取得する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オブジェクトリファレンス \end{Desc}
+
+
+ SdoConfiguration.py の 1102 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!getDeviceProfile@{getDeviceProfile}}
+\index{getDeviceProfile@{getDeviceProfile}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getDeviceProfile ( {\em self})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_a14de105a7cacb86a0f467d64d2f8e58}
+
+
+SDO の DeviceProfile を取得する 
+
+SDO の DeviceProfile を取得する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]SDO の DeviceProfile \end{Desc}
+
+
+ SdoConfiguration.py の 1120 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!getServiceProfiles@{getServiceProfiles}}
+\index{getServiceProfiles@{getServiceProfiles}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getServiceProfiles ( {\em self})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_3f3879094987ae49193d7a4dea105b8a}
+
+
+SDO の ServiceProfile のリストを取得する 
+
+SDO の ServiceProfile のリストを取得する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]SDO ServiceProfileリスト \end{Desc}
+
+
+ SdoConfiguration.py の 1138 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!getServiceProfile@{getServiceProfile}}
+\index{getServiceProfile@{getServiceProfile}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getServiceProfile ( {\em self},  {\em id})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_8b85f67425723c92b69a2e93604d7b4e}
+
+
+SDO の ServiceProfile を取得する 
+
+このオペレーションは引数 \char`\"{}id\char`\"{} で指定されたSDO の ServiceProfileを返す。 \char`\"{}id\char`\"{} で指定された ServiceProfileが存在しない場合、 ServiceProfileのインスタンスを生成し返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em id}]ServiceProfile の識別子。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]指定された SDO ServiceProfile \end{Desc}
+
+
+ SdoConfiguration.py の 1159 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!getOrganizations@{getOrganizations}}
+\index{getOrganizations@{getOrganizations}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getOrganizations ( {\em self})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_9527ba02d5621daef7db8c94c3143289}
+
+
+SDO の Organization リストを取得する 
+
+SDO の Organization リストを取得する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]SDO の Organization リスト \end{Desc}
+
+
+ SdoConfiguration.py の 1183 行で定義されています。\index{source\_\-py::SdoConfiguration::Configuration\_\-impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}!getUUID@{getUUID}}
+\index{getUUID@{getUUID}!source_py::SdoConfiguration::Configuration_impl@{source\_\-py::SdoConfiguration::Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getUUID ( {\em self})}\label{classsource__py_1_1_sdo_configuration_1_1_configuration__impl_602d395a71f9de54ac204d44870f290b}
+
+
+UUIDを生成する 
+
+UUIDを生成する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]生成したUUID \end{Desc}
+
+
+ SdoConfiguration.py の 1201 行で定義されています。

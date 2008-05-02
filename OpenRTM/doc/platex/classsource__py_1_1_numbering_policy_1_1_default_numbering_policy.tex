@@ -1,0 +1,105 @@
+\section{クラス DefaultNumberingPolicy}
+\label{classsource__py_1_1_numbering_policy_1_1_default_numbering_policy}\index{source\_\-py::NumberingPolicy::DefaultNumberingPolicy@{source\_\-py::NumberingPolicy::DefaultNumberingPolicy}}
+オブジェクト生成時ネーミング・ポリシー(命名規則)管理用クラス  
+
+
+{\bf NumberingPolicy}を継承しています。
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf onCreate}
+\begin{CompactList}\small\item\em オブジェクト生成時の名称作成 \item\end{CompactList}\item 
+def {\bf onDelete}
+\begin{CompactList}\small\item\em オブジェクト削除時の名称解放 \item\end{CompactList}\item 
+def {\bf find}
+\begin{CompactList}\small\item\em オブジェクトの検索 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+オブジェクト生成時ネーミング・ポリシー(命名規則)管理用クラス 
+
+オブジェクトを生成する際のネーミング・ポリシー(命名規則)を管理するための クラス。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ NumberingPolicy.py の 106 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::NumberingPolicy::DefaultNumberingPolicy@{source\_\-py::NumberingPolicy::DefaultNumberingPolicy}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::NumberingPolicy::DefaultNumberingPolicy@{source\_\-py::NumberingPolicy::DefaultNumberingPolicy}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self})}\label{classsource__py_1_1_numbering_policy_1_1_default_numbering_policy_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ NumberingPolicy.py の 124 行で定義されています。\index{source\_\-py::NumberingPolicy::DefaultNumberingPolicy@{source\_\-py::NumberingPolicy::DefaultNumberingPolicy}!onCreate@{onCreate}}
+\index{onCreate@{onCreate}!source_py::NumberingPolicy::DefaultNumberingPolicy@{source\_\-py::NumberingPolicy::DefaultNumberingPolicy}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def onCreate ( {\em self},  {\em obj})}\label{classsource__py_1_1_numbering_policy_1_1_default_numbering_policy_012ff45ee3bfaaa3b0b02f165a228fd5}
+
+
+オブジェクト生成時の名称作成 
+
+オブジェクト生成時の名称を生成する。 生成済みインスタンスの数に応じた名称を生成する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em obj}]名称生成対象オブジェクト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]生成したオブジェクト名称 \end{Desc}
+
+
+{\bf NumberingPolicy} \doxyref{}{p.}{classsource__py_1_1_numbering_policy_1_1_numbering_policy_012ff45ee3bfaaa3b0b02f165a228fd5}を再定義しています。
+
+ NumberingPolicy.py の 145 行で定義されています。\index{source\_\-py::NumberingPolicy::DefaultNumberingPolicy@{source\_\-py::NumberingPolicy::DefaultNumberingPolicy}!onDelete@{onDelete}}
+\index{onDelete@{onDelete}!source_py::NumberingPolicy::DefaultNumberingPolicy@{source\_\-py::NumberingPolicy::DefaultNumberingPolicy}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def onDelete ( {\em self},  {\em obj})}\label{classsource__py_1_1_numbering_policy_1_1_default_numbering_policy_c9cd7e90362002fe5229029a9d5dc075}
+
+
+オブジェクト削除時の名称解放 
+
+オブジェクト削除時に名称を解放する。 オブジェクト削除時に生成済みインスタンス数を減算する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em obj}]名称解放対象オブジェクト \end{description}
+\end{Desc}
+
+
+{\bf NumberingPolicy} \doxyref{}{p.}{classsource__py_1_1_numbering_policy_1_1_numbering_policy_c9cd7e90362002fe5229029a9d5dc075}を再定義しています。
+
+ NumberingPolicy.py の 172 行で定義されています。\index{source\_\-py::NumberingPolicy::DefaultNumberingPolicy@{source\_\-py::NumberingPolicy::DefaultNumberingPolicy}!find@{find}}
+\index{find@{find}!source_py::NumberingPolicy::DefaultNumberingPolicy@{source\_\-py::NumberingPolicy::DefaultNumberingPolicy}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def find ( {\em self},  {\em obj})}\label{classsource__py_1_1_numbering_policy_1_1_default_numbering_policy_01f90f57b7acd55e177611f5d0f7df23}
+
+
+オブジェクトの検索 
+
+オブジェクトリストから指定されたオブジェクトを検索し、 該当するオブジェクトが格納されている場合にはインデックスを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em obj}]検索対象オブジェクト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オブジェクト格納インデックス \end{Desc}
+
+
+ NumberingPolicy.py の 196 行で定義されています。

@@ -1,0 +1,799 @@
+\section{クラス CorbaNaming}
+\label{classsource__py_1_1_corba_naming_1_1_corba_naming}\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+CORBA Naming Service ヘルパークラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf \_\-\_\-del\_\-\_\-}
+\begin{CompactList}\small\item\em デストラクタ \item\end{CompactList}\item 
+def {\bf init}
+\begin{CompactList}\small\item\em ネーミングサービスの初期化 \item\end{CompactList}\item 
+def {\bf bind}
+\begin{CompactList}\small\item\em Object を bind する \item\end{CompactList}\item 
+def {\bf bindByString}
+\begin{CompactList}\small\item\em Object を bind する \item\end{CompactList}\item 
+def {\bf bindRecursive}
+\begin{CompactList}\small\item\em 途中のコンテキストを bind しながら Object を bind する \item\end{CompactList}\item 
+def {\bf rebind}
+\begin{CompactList}\small\item\em Object を rebind する \item\end{CompactList}\item 
+def {\bf rebindByString}
+\begin{CompactList}\small\item\em Object を rebind する \item\end{CompactList}\item 
+def {\bf rebindRecursive}
+\begin{CompactList}\small\item\em 途中のコンテキストを bind しながら Object を rebind する \item\end{CompactList}\item 
+def {\bf bindContext}
+\begin{CompactList}\small\item\em NamingContext を bind する \item\end{CompactList}\item 
+def {\bf bindContextRecursive}
+\begin{CompactList}\small\item\em NamingContext を bind する \item\end{CompactList}\item 
+def {\bf rebindContext}
+\begin{CompactList}\small\item\em NamingContext を rebind する \item\end{CompactList}\item 
+def {\bf rebindContextRecursive}
+\begin{CompactList}\small\item\em 途中のコンテキストを再帰的に rebind し NamingContext を rebind する \# bind されるオブジェクトが NamingContext であることを除いて \doxyref{rebindRecursive()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_46e636ebef7c49df00d35e534f7a0e6b} と同じである。 \item\end{CompactList}\item 
+def {\bf resolve}
+\begin{CompactList}\small\item\em Object を name から解決する \item\end{CompactList}\item 
+def {\bf unbind}
+\begin{CompactList}\small\item\em 指定された名前のオブジェクトの bind を解除する \item\end{CompactList}\item 
+def {\bf newContext}
+\begin{CompactList}\small\item\em 新しいコンテキストを生成する \item\end{CompactList}\item 
+def {\bf bindNewContext}
+\begin{CompactList}\small\item\em 新しいコンテキストを bind する \item\end{CompactList}\item 
+def {\bf destroy}
+\begin{CompactList}\small\item\em NamingContext を非アクティブ化する \item\end{CompactList}\item 
+def {\bf destroyRecursive}
+\begin{CompactList}\small\item\em NamingContext を再帰的に下って非アクティブ化する \item\end{CompactList}\item 
+def {\bf clearAll}
+\begin{CompactList}\small\item\em すべての Binding を削除する \item\end{CompactList}\item 
+def {\bf list}
+\begin{CompactList}\small\item\em 与えられた NamingContext の Binding を取得する \item\end{CompactList}\item 
+def {\bf toString}
+\begin{CompactList}\small\item\em 与えられた NameComponent の文字列表現を返す \item\end{CompactList}\item 
+def {\bf toName}
+\begin{CompactList}\small\item\em 与えられた文字列表現を NameComponent に分解する \item\end{CompactList}\item 
+def {\bf toUrl}
+\begin{CompactList}\small\item\em 与えられた addr と string\_\-name から URL表現を取得する \item\end{CompactList}\item 
+def {\bf resolveStr}
+\begin{CompactList}\small\item\em 与えられた文字列表現を resolve しオブジェクトを返す \item\end{CompactList}\item 
+def {\bf bindOrResolve}
+\begin{CompactList}\small\item\em オブジェクトの名前をバインドまたは解決する \item\end{CompactList}\item 
+def {\bf bindOrResolveContext}
+\begin{CompactList}\small\item\em コンテキストの名前をバインドまたは解決する \item\end{CompactList}\item 
+def {\bf getNameServer}
+\begin{CompactList}\small\item\em ネームサーバの名前を取得する \item\end{CompactList}\item 
+def {\bf getRootContext}
+\begin{CompactList}\small\item\em ルートコンテキストを取得する \item\end{CompactList}\item 
+def {\bf objIsNamingContext}
+\begin{CompactList}\small\item\em オブジェクトがネーミングコンテキストか判別する \item\end{CompactList}\item 
+def {\bf nameIsNamingContext}
+\begin{CompactList}\small\item\em 与えられた名前がネーミングコンテキストかどうか判別する \item\end{CompactList}\item 
+def {\bf subName}
+\begin{CompactList}\small\item\em ネームコンポーネントの部分を返す \item\end{CompactList}\item 
+def {\bf nameToString}
+\begin{CompactList}\small\item\em ネームコンポーネントの文字列表現を取得する \item\end{CompactList}\item 
+def {\bf getNameLength}
+\begin{CompactList}\small\item\em ネームコンポーネントの文字列表現時の文字長を取得する \item\end{CompactList}\item 
+def {\bf split}
+\begin{CompactList}\small\item\em 文字列の分割 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+CORBA Naming Service ヘルパークラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+このクラスは、CosNamingNamingContext に対するラッパークラスである。 CosNaming::NamingContext が持つオペレーションとほぼ同じ機能の オペレーションを提供するとともに、ネームコンポーネント CosNaming::Name の代わりに文字列による名前表現を受け付けるオペレーションも提供する。
+
+オブジェクトは生成時、あるいは生成直後に CORBA ネームサーバに接続し 以後、このネームサーバのルートコンテキストに対して種々のオペレーション を処理する。 深い階層のネーミングコンテキストの作成やオブジェクトのバインドにおいて、 途中のコンテキストが存在しない場合でも、強制的にコンテキストをバインド し目的のコンテキストやオブジェクトのバインドを行うこともできる。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ CorbaNaming.py の 59 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em orb},  {\em name\_\-server} = {\tt None})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em orb}]ORB \item[{\em name\_\-server}]ネームサーバの名称(デフォルト値:None) \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 79 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}}
+\index{\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-del\_\-\_\- ( {\em self})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_fa251912978c7d5ccf7e5a027a4d12ee}
+
+
+デストラクタ 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 111 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!init@{init}}
+\index{init@{init}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def init ( {\em self},  {\em name\_\-server})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_c95cf511c1f2ff09ca47fe587657c2b4}
+
+
+ネーミングサービスの初期化 
+
+指定されたネームサーバ上のネーミングサービスを初期化します。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name\_\-server}]ネームサーバの名称 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 128 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!bind@{bind}}
+\index{bind@{bind}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bind ( {\em self},  {\em name\_\-list},  {\em obj},  {\em force} = {\tt None})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_aa1fb39f6268f4aaa6fdf6f5083e3362}
+
+
+Object を bind する 
+
+CosNaming::bind() とほぼ同等の働きをするが、常に与えられたネームサーバの ルートコンテキストに対してbind()が呼び出される点が異なる。
+
+Name $<$name$>$ と Object $<$obj$>$ を当該 NamingContext 上にバインドする。 c\_\-n が n 番目の NameComponent をあらわすとすると、 name が n 個の NameComponent から成るとき、以下のように扱われる。
+
+cxt-$>$bind($<$c\_\-1, c\_\-2, ... c\_\-n$>$, obj) は以下の操作と同等である。 cxt-$>$resolve($<$c\_\-1, ... c\_\-(n-1)$>$)-$>$bind($<$c\_\-n$>$, obj)
+
+すなわち、1番目からn-1番目のコンテキストを解決し、n-1番目のコンテキスト 上に name $<$n$>$ として　obj を bind する。 名前解決に参加する $<$c\_\-1, ... c\_\-(n-1)$>$ の NemingContext は、 \doxyref{bindContext()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_cee0d46ddbe4d8040619279955086558} や \doxyref{rebindContext()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_8bc7cb31915767ef8fd27eb1374a499a} で既にバインド済みでなければならない。 もし $<$c\_\-1, ... c\_\-(n-1)$>$ の NamingContext が存在しない場合には、 NotFound 例外が発生する。
+
+ただし、強制バインドフラグ force が true の時は、$<$c\_\-1, ... c\_\-(n-1)$>$ が存在しない場合にも、再帰的にコンテキストをバインドしながら、 最終的に obj を名前 name $<$c\_\-n$>$ にバインドする。
+
+いずれの場合でも、n-1番目のコンテキスト上に name$<$n$>$ のオブジェクト (Object あるいは コンテキスト) がバインドされていれば AlreadyBound 例外が発生する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name\_\-list}]オブジェクトに付ける名前の NameComponent \item[{\em obj}]関連付けられる Object \item[{\em force}]trueの場合、途中のコンテキストを強制的にバインドする (デフォルト値:None)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 name\_\-list の名前が不正。 \item[{\em AlreadyBound}]name $<$c\_\-n$>$ の Object がすでにバインドされている。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 184 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!bindByString@{bindByString}}
+\index{bindByString@{bindByString}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindByString ( {\em self},  {\em string\_\-name},  {\em obj},  {\em force} = {\tt True})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_9fbcc63451723a02e9720a2f8aa295f1}
+
+
+Object を bind する 
+
+Object を bind する際に与える名前が文字列表現であること以外は、bind() と同じである。bind(toName(string\_\-name), obj) と等価。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em string\_\-name}]オブジェクトに付ける名前の文字列表現 \item[{\em obj}]関連付けられるオブジェクト \item[{\em force}]trueの場合、途中のコンテキストを強制的にバインドする (デフォルト値:true)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 string\_\-name の名前が不正。 \item[{\em AlreadyBound}]name $<$n$>$ の Object がすでにバインドされている。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 228 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!bindRecursive@{bindRecursive}}
+\index{bindRecursive@{bindRecursive}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindRecursive ( {\em self},  {\em context},  {\em name\_\-list},  {\em obj})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_7dcd080b1afba8aae951b30a70674a65}
+
+
+途中のコンテキストを bind しながら Object を bind する 
+
+context で与えられた NamingContext に対して、name で指定された ネームコンポーネント $<$c\_\-1, ... c\_\-(n-1)$>$ を NamingContext として 解決しながら、名前 $<$c\_\-n$>$ に対して obj を bind する。 もし、$<$c\_\-1, ... c\_\-(n-1)$>$ に対応する NamingContext がない場合には 新たな NamingContext をバインドする。
+
+最終的に $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ に対応する NamingContext が生成 または解決された上で、CosNamingbind($<$c\_\-n$>$, object) が呼び出される。 このとき、すでにバインディングが存在すれば AlreadyBound例外が発生する。
+
+途中のコンテキストを解決する過程で、解決しようとするコンテキストと 同じ名前の NamingContext ではない Binding が存在する場合、 CannotProceed 例外が発生し処理を中止する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em context}]bind を開始する　NamingContext \item[{\em name\_\-list}]オブジェクトに付ける名前のネームコンポーネント \item[{\em obj}]関連付けられるオブジェクト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em CannotProceed}]$<$c\_\-1, ..., c\_\-(n-1)$>$ に対応する NamingContext のうちひとつが、すでに NamingContext 以外の object にバインド されており、処理を継続できない。 \item[{\em InvalidName}]名前 name\_\-list が不正 \item[{\em AlreadyBound}]name $<$c\_\-n$>$ にすでに何らかの object がバインド されている。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 267 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!rebind@{rebind}}
+\index{rebind@{rebind}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def rebind ( {\em self},  {\em name\_\-list},  {\em obj},  {\em force} = {\tt True})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_4acea4f7d01ced43df5c8cf75a835c10}
+
+
+Object を rebind する 
+
+name\_\-list で指定された Binding がすでに存在する場合を除いて \doxyref{bind()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_aa1fb39f6268f4aaa6fdf6f5083e3362} と同じ である。バインディングがすでに存在する場合には、新しいバインディングに 置き換えられる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name\_\-list}]オブジェクトに付ける名前の NameComponent \item[{\em obj}]関連付けられるオブジェクト \item[{\em force}]trueの場合、途中のコンテキストを強制的にバインドする (デフォルト値:true)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]名前 name\_\-list が不正 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 309 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!rebindByString@{rebindByString}}
+\index{rebindByString@{rebindByString}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def rebindByString ( {\em self},  {\em string\_\-name},  {\em obj},  {\em force} = {\tt True})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_b4f5aefbe110b2be8f9c4eccd6066d77}
+
+
+Object を rebind する 
+
+Object を rebind する際に与える名前が文字列表現であること以外は \doxyref{rebind()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_4acea4f7d01ced43df5c8cf75a835c10} と同じである。rebind(toName(string\_\-name), obj) と等価。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em string\_\-name}]オブジェクトに付ける名前の文字列表現 \item[{\em obj}]関連付けられるオブジェクト \item[{\em force}]trueの場合、途中のコンテキストを強制的にバインドする (デフォルト値:true)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 string\_\-name の名前が不正。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 354 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!rebindRecursive@{rebindRecursive}}
+\index{rebindRecursive@{rebindRecursive}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def rebindRecursive ( {\em self},  {\em context},  {\em name\_\-list},  {\em obj})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_46e636ebef7c49df00d35e534f7a0e6b}
+
+
+途中のコンテキストを bind しながら Object を rebind する 
+
+name\_\-list $<$c\_\-n$>$ で指定された NamingContext もしくは Object がすでに存在する 場合を除いて \doxyref{bindRecursive()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_7dcd080b1afba8aae951b30a70674a65} と同じである。
+
+name\_\-list $<$c\_\-n$>$ で指定されたバインディングがすでに存在する場合には、 新しいバインディングに置き換えられる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em context}]bind を開始する　NamingContext \item[{\em name\_\-list}]オブジェクトに付ける名前の NameComponent \item[{\em obj}]関連付けられるオブジェクト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em CannotProceed}]途中のコンテキストが解決できない。 \item[{\em InvalidName}]与えられた name\_\-list が不正。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 384 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!bindContext@{bindContext}}
+\index{bindContext@{bindContext}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindContext ( {\em self},  {\em name},  {\em name\_\-cxt},  {\em force} = {\tt True})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_cee0d46ddbe4d8040619279955086558}
+
+
+NamingContext を bind する 
+
+bind 対象として指定された引数 name が文字列の場合は \doxyref{bindByString()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_9fbcc63451723a02e9720a2f8aa295f1} と、 それ以外の場合は \doxyref{bind()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_aa1fb39f6268f4aaa6fdf6f5083e3362} と同じである。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]オブジェクトに付ける名前 \item[{\em name\_\-cxt}]関連付けられる NamingContext \item[{\em force}]trueの場合、途中のコンテキストを強制的にバインドする (デフォルト値:True)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 name の名前が不正。 \item[{\em AlreadyBound}]name $<$c\_\-n$>$ の Object がすでにバインドされている。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 426 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!bindContextRecursive@{bindContextRecursive}}
+\index{bindContextRecursive@{bindContextRecursive}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindContextRecursive ( {\em self},  {\em context},  {\em name\_\-list},  {\em name\_\-cxt})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_8d448668549af1f848bc6eb3d1faf568}
+
+
+NamingContext を bind する 
+
+bind されるオブジェクトが NamingContext であることを除いて \doxyref{bindRecursive()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_7dcd080b1afba8aae951b30a70674a65} と同じである。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em context}]bind を開始する　NamingContext \item[{\em name\_\-list}]オブジェクトに付ける名前のネームコンポーネント \item[{\em name\_\-cxt}]関連付けられる NamingContext \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 452 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!rebindContext@{rebindContext}}
+\index{rebindContext@{rebindContext}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def rebindContext ( {\em self},  {\em name},  {\em name\_\-cxt},  {\em force} = {\tt True})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_8bc7cb31915767ef8fd27eb1374a499a}
+
+
+NamingContext を rebind する 
+
+bind 対象として指定された引数 name が文字列の場合は \doxyref{rebindByString()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_b4f5aefbe110b2be8f9c4eccd6066d77} と、 それ以外の場合は \doxyref{rebind()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_4acea4f7d01ced43df5c8cf75a835c10} と同じである。 どちらの場合もバインディングがすでに存在する場合には、 新しいバインディングに置き換えられる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]オブジェクトに付ける名前のネームコンポーネント \item[{\em name\_\-cxt}]関連付けられる NamingContext \item[{\em force}]trueの場合、途中のコンテキストを強制的にバインドする (デフォルト値:true)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 name の名前が不正。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 480 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!rebindContextRecursive@{rebindContextRecursive}}
+\index{rebindContextRecursive@{rebindContextRecursive}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def rebindContextRecursive ( {\em self},  {\em context},  {\em name\_\-list},  {\em name\_\-cxt})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_7abf298cb743d1c91852bf4d6464dd10}
+
+
+途中のコンテキストを再帰的に rebind し NamingContext を rebind する \# bind されるオブジェクトが NamingContext であることを除いて \doxyref{rebindRecursive()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_46e636ebef7c49df00d35e534f7a0e6b} と同じである。 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em context}]bind を開始する　NamingContext \item[{\em name\_\-list}]オブジェクトに付ける名前の NameComponent \item[{\em name\_\-cxt}]関連付けられる NamingContext \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 505 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!resolve@{resolve}}
+\index{resolve@{resolve}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def resolve ( {\em self},  {\em name})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_83d01aef7d5e44a9af430db1a4af7cec}
+
+
+Object を name から解決する 
+
+name に bind されているオブジェクト参照を返す。 ネームコンポーネント $<$c\_\-1, c\_\-2, ... c\_\-n$>$ は再帰的に解決される。
+
+引数 name に与えられた値が文字列の場合にはまず最初に \doxyref{toName()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_96ab2806df3340f72e470fec670e20b9} によって NameComponent に変換される。
+
+CosNaming::resolve() とほぼ同等の働きをするが、常に与えられた ネームサーバのルートコンテキストに対して \doxyref{resolve()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_83d01aef7d5e44a9af430db1a4af7cec} が呼び出される点が 異なる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]解決すべきオブジェクトの名前のネームコンポーネント\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]解決されたオブジェクト参照\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 name の名前が不正。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 537 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!unbind@{unbind}}
+\index{unbind@{unbind}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def unbind ( {\em self},  {\em name})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_fd23af175ab9ebb88024a8ad7bdc54c0}
+
+
+指定された名前のオブジェクトの bind を解除する 
+
+name に bind されているオブジェクト参照を解除する。 ネームコンポーネント $<$c\_\-1, c\_\-2, ... c\_\-n$>$ は再帰的に解決される。
+
+引数 name に与えられた値が文字列の場合にはまず最初に \doxyref{toName()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_96ab2806df3340f72e470fec670e20b9} によって NameComponent に変換される。
+
+CosNaming::unbind() とほぼ同等の働きをするが、常に与えられた ネームサーバのルートコンテキストに対して \doxyref{unbind()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_fd23af175ab9ebb88024a8ad7bdc54c0} が呼び出される点が 異なる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]削除するオブジェクトのネームコンポーネント\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 name の名前が不正。\end{description}
+\end{Desc}
+void unbind(const CosNaming::Name\& name) throw(NotFound, CannotProceed, InvalidName); 
+
+ CorbaNaming.py の 577 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!newContext@{newContext}}
+\index{newContext@{newContext}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def newContext ( {\em self})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_44820bb8a0e0aa3a95fee8258ea11e85}
+
+
+新しいコンテキストを生成する 
+
+与えられたネームサーバ上で生成された NamingContext を返す。 返された NamingContext は bind されていない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]生成された新しい NamingContext \end{Desc}
+
+
+ CorbaNaming.py の 602 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!bindNewContext@{bindNewContext}}
+\index{bindNewContext@{bindNewContext}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindNewContext ( {\em self},  {\em name},  {\em force} = {\tt True})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_b54dc701b58284688bca69571b32090f}
+
+
+新しいコンテキストを bind する 
+
+与えられた name に対して新しいコンテキストをバインドする。 生成された　NamingContext はネームサーバ上で生成されたものである。
+
+引数 name に与えられた値が文字列の場合にはまず最初に \doxyref{toName()}{p.}{classsource__py_1_1_corba_naming_1_1_corba_naming_96ab2806df3340f72e470fec670e20b9} によって NameComponent に変換される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]NamingContextに付ける名前のネームコンポーネント \item[{\em force}]trueの場合、途中のコンテキストを強制的にバインドする (デフォルト値:true)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]生成された新しい NamingContext\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 name の名前が不正。 \item[{\em AlreadyBound}]name $<$n$>$ の Object がすでにバインドされている。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 632 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!destroy@{destroy}}
+\index{destroy@{destroy}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def destroy ( {\em self},  {\em context})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_0ced48ce1d2b232eb793c028f4a75b89}
+
+
+NamingContext を非アクティブ化する 
+
+context で指定された NamingContext を非アクティブ化する。 context に他のコンテキストがバインドされている場合は NotEmpty 例外が 発生する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em context}]非アクティブ化する NamingContext\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotEmpty}]対象context に他のコンテキストがバインドされている。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 687 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!destroyRecursive@{destroyRecursive}}
+\index{destroyRecursive@{destroyRecursive}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def destroyRecursive ( {\em self},  {\em context})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_25e284aae263e9964739f2a6502e5c09}
+
+
+NamingContext を再帰的に下って非アクティブ化する 
+
+context で与えられた NamingContext に対して、name で指定された ネームコンポーネント $<$c\_\-1, ... c\_\-(n-1)$>$ を NamingContext として 解決しながら、名前 $<$c\_\-n$>$ に対して 非アクティブ化を行う。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em context}]非アクティブ化する NamingContext\end{description}
+\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotEmpty}]対象context に他のコンテキストがバインドされている。 \item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 name の名前が不正。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 710 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!clearAll@{clearAll}}
+\index{clearAll@{clearAll}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def clearAll ( {\em self})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_a1d347fc0c6d8b8fd427276617dd6a33}
+
+
+すべての Binding を削除する 
+
+登録されている全てのBinding を削除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 749 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!list@{list}}
+\index{list@{list}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def list ( {\em self},  {\em name\_\-cxt},  {\em how\_\-many},  {\em rbl},  {\em rbi})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_9b522b4ef7526bfa60b78fe735caa55c}
+
+
+与えられた NamingContext の Binding を取得する 
+
+指定された NamingContext の Binding を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name\_\-cxt}]Binding 取得対象 NamingContext \item[{\em how\_\-many}]Binding を取得する階層の深さ \item[{\em rbl}]取得した Binding を保持するホルダ \item[{\em rbi}]取得した Binding をたどるためのイテレータ \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 768 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!toString@{toString}}
+\index{toString@{toString}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def toString ( {\em self},  {\em name\_\-list})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_a89a2bf819c0e84981711868eb7621a3}
+
+
+与えられた NameComponent の文字列表現を返す 
+
+指定された NameComponent を文字に変換する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name\_\-list}]変換対象 NameComponent\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]文字列変換結果\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em InvalidName}]引数 name\_\-list の名前が不正。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 797 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!toName@{toName}}
+\index{toName@{toName}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def toName ( {\em self},  {\em sname})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_96ab2806df3340f72e470fec670e20b9}
+
+
+与えられた文字列表現を NameComponent に分解する 
+
+指定された文字列を NameComponent に変換する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em sname}]変換対象文字列\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]NameComponent 変換結果\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em InvalidName}]引数 sname が不正。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 824 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!toUrl@{toUrl}}
+\index{toUrl@{toUrl}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def toUrl ( {\em self},  {\em addr},  {\em string\_\-name})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_c7201d2edcf0b3956b1f139d4333424c}
+
+
+与えられた addr と string\_\-name から URL表現を取得する 
+
+指定されたアドレスと名称をURLに変換する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em addr}]変換対象アドレス \item[{\em string\_\-name}]変換対象名称\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]URL 変換結果\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em InvalidAddress}]引数 addr が不正。 \item[{\em InvalidName}]引数 string\_\-name が不正。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 868 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!resolveStr@{resolveStr}}
+\index{resolveStr@{resolveStr}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def resolveStr ( {\em self},  {\em string\_\-name})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_92c016534bd0a3fc82e8675cfc95a0f7}
+
+
+与えられた文字列表現を resolve しオブジェクトを返す 
+
+指定された文字列表現をresolveし，オブジェクトを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em string\_\-name}]取得対象オブジェクト文字列表現\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]解決されたオブジェクト\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em NotFound}]途中の $<$c\_\-1, c\_\-2, ..., c\_\-(n-1)$>$ が存在しない。 \item[{\em CannotProceed}]何らかの理由で処理を継続できない。 \item[{\em InvalidName}]引数 name の名前が不正。 \item[{\em AlreadyBound}]name $<$n$>$ の Object がすでにバインドされている。 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 891 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!bindOrResolve@{bindOrResolve}}
+\index{bindOrResolve@{bindOrResolve}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindOrResolve ( {\em self},  {\em context},  {\em name\_\-list},  {\em obj})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_95a21f163a9a48f4fe02d059a0b47616}
+
+
+オブジェクトの名前をバインドまたは解決する 
+
+指定されたコンテキストに対してオブジェクトを NameComponent で指定された 位置にバインドする。 同一箇所に既に他の要素がバインド済みの場合は、既存のバインド済み要素を 取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em context}]bind もしくは resole 対象コンテキスト \item[{\em name\_\-list}]オブジェクトに付ける名前の NameComponent \item[{\em obj}]関連付けられる Object\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]NameComponent で指定された位置にバインドされているオブジェクト \end{Desc}
+
+
+ CorbaNaming.py の 919 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!bindOrResolveContext@{bindOrResolveContext}}
+\index{bindOrResolveContext@{bindOrResolveContext}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindOrResolveContext ( {\em self},  {\em context},  {\em name\_\-list},  {\em new\_\-context} = {\tt None})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_bcd55517e3e65eb7b05cb688a19df269}
+
+
+コンテキストの名前をバインドまたは解決する 
+
+指定されたコンテキストに対して Contextを NameComponent で指定された位置に バインドする。 Context が空の場合は新規コンテキストを生成してバインドする。 同一箇所に既に他の要素がバインド済みの場合は、既存のバインド済み要素を 取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em context}]bind もしくは resole 対象コンテキスト \item[{\em name\_\-list}]コンテキストに付ける名前の NameComponent \item[{\em new\_\-context}]関連付けられる Context(デフォルト値:None)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]NameComponent で指定された位置にバインドされているContext \end{Desc}
+
+
+ CorbaNaming.py の 950 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!getNameServer@{getNameServer}}
+\index{getNameServer@{getNameServer}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getNameServer ( {\em self})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_c61d46a7a96d1602caf85b0a3386dbe5}
+
+
+ネームサーバの名前を取得する 
+
+設定したネームサーバの名前を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ネームサーバの名前 \end{Desc}
+
+
+ CorbaNaming.py の 973 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!getRootContext@{getRootContext}}
+\index{getRootContext@{getRootContext}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getRootContext ( {\em self})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_1e48e5f9748b20edb43156db42e771a1}
+
+
+ルートコンテキストを取得する 
+
+設定したネームサーバのルートコンテキストを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ネームサーバのルートコンテキスト \end{Desc}
+
+
+ CorbaNaming.py の 990 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!objIsNamingContext@{objIsNamingContext}}
+\index{objIsNamingContext@{objIsNamingContext}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def objIsNamingContext ( {\em self},  {\em obj})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_5f063e99978d0ceea628d638293db64b}
+
+
+オブジェクトがネーミングコンテキストか判別する 
+
+指定した要素がネーミングコンテキストか判別する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em obj}]判別対象要素\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]判別結果(ネーミングコンテキスト:true、それ以外:false) \end{Desc}
+
+
+ CorbaNaming.py の 1008 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!nameIsNamingContext@{nameIsNamingContext}}
+\index{nameIsNamingContext@{nameIsNamingContext}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def nameIsNamingContext ( {\em self},  {\em name\_\-list})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_a3702a94623c82357266e3d7c13f4af4}
+
+
+与えられた名前がネーミングコンテキストかどうか判別する 
+
+NameComponent もしくは文字列で指定した要素がネーミングコンテキストか 判別する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name\_\-list}]判別対象\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]判別結果(ネーミングコンテキスト:true、それ以外:false) \end{Desc}
+
+
+ CorbaNaming.py の 1031 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!subName@{subName}}
+\index{subName@{subName}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def subName ( {\em self},  {\em name\_\-list},  {\em begin},  {\em end} = {\tt None})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_77253d8bb44a8c4c2034d44522677df7}
+
+
+ネームコンポーネントの部分を返す 
+
+指定された範囲のネームコンポーネントを取得する。 終了位置が指定されていない場合は、最後の要素を除いたネームコンポーネント を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name\_\-list}]検索対象NameComponent \item[{\em begin}]取得範囲開始位置 \item[{\em end}]取得範囲終了位置(デフォルト値:None)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]NameComponent 取得結果 \end{Desc}
+
+
+ CorbaNaming.py の 1053 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!nameToString@{nameToString}}
+\index{nameToString@{nameToString}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def nameToString ( {\em self},  {\em name\_\-list},  {\em string\_\-name},  {\em slen})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_121f883a7127693017bbcf8d11dd2932}
+
+
+ネームコンポーネントの文字列表現を取得する 
+
+指定した範囲のネームコンポーネントの文字列表現を取得する。 文字列表現は、NameComponentの構成が\{Nc[0],Nc[1],Nc[2]･･･\}の場合、 Nc[0]id.Nc[0].kind/Nc[1]id.Nc[1].kind/Nc[2].id/Nc[2].kind･･･ という形式で取得できる。 取得した文字列の長さが指定した長さ以上の場合は、 指定した長さで切り捨てられる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name\_\-list}]取得対象NameComponent \item[{\em string\_\-name}]取得結果文字列 \item[{\em slen}]取得対象文字列最大値 \end{description}
+\end{Desc}
+
+
+ CorbaNaming.py の 1087 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!getNameLength@{getNameLength}}
+\index{getNameLength@{getNameLength}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getNameLength ( {\em self},  {\em name\_\-list})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_f984f69e8bd467170acdaf34c2678843}
+
+
+ネームコンポーネントの文字列表現時の文字長を取得する 
+
+指定したネームコンポーネントを文字列で表現した場合の長さを取得する。 文字列表現は、NameComponentの構成が\{Nc[0],Nc[1],Nc[2]・・・\}の場合、 Nc[0]id.Nc[0].kind/Nc[1]id.Nc[1].kind/Nc[2].id/Nc[2].kind・・・ という形式で取得できる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name\_\-list}]取得対象NameComponent\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]指定したネームコンポーネントの文字列長さ \end{Desc}
+
+
+ CorbaNaming.py の 1122 行で定義されています。\index{source\_\-py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}!split@{split}}
+\index{split@{split}!source_py::CorbaNaming::CorbaNaming@{source\_\-py::CorbaNaming::CorbaNaming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def split ( {\em self},  {\em input},  {\em delimiter},  {\em results})}\label{classsource__py_1_1_corba_naming_1_1_corba_naming_a1b3eb766e0ce403f657d75fa4965fa3}
+
+
+文字列の分割 
+
+文字列を指定したデリミタで分割する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em input}]分割対象文字列 \item[{\em delimiter}]分割用デリミタ \item[{\em results}]分割結果\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]分割した文字列の要素数 \end{Desc}
+
+
+ CorbaNaming.py の 1159 行で定義されています。

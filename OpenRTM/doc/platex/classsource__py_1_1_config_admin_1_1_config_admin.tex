@@ -1,0 +1,346 @@
+\section{クラス ConfigAdmin}
+\label{classsource__py_1_1_config_admin_1_1_config_admin}\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\doxyref{ConfigAdmin}{p.}{classsource__py_1_1_config_admin_1_1_config_admin} クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf \_\-\_\-del\_\-\_\-}
+\begin{CompactList}\small\item\em デストラクタ \item\end{CompactList}\item 
+def {\bf bindParameter}
+\begin{CompactList}\small\item\em コンフィギュレーションパラメータの設定 \item\end{CompactList}\item 
+def {\bf update}
+\begin{CompactList}\small\item\em コンフィギュレーションパラメータの更新 \item\end{CompactList}\item 
+def {\bf isExist}
+\begin{CompactList}\small\item\em コンフィギュレーションパラメータの存在確認 \item\end{CompactList}\item 
+def {\bf isChanged}
+\begin{CompactList}\small\item\em コンフィギュレーションパラメータの変更確認 \item\end{CompactList}\item 
+def {\bf getActiveId}
+\begin{CompactList}\small\item\em アクティブ・コンフィギュレーションセットIDの取得 \item\end{CompactList}\item 
+def {\bf haveConfig}
+\begin{CompactList}\small\item\em コンフィギュレーションセットの存在確認 \item\end{CompactList}\item 
+def {\bf isActive}
+\begin{CompactList}\small\item\em コンフィギュレーションセットのアクティブ化確認 \item\end{CompactList}\item 
+def {\bf getConfigurationSets}
+\begin{CompactList}\small\item\em 全コンフィギュレーションセットの取得 \item\end{CompactList}\item 
+def {\bf getConfigurationSet}
+\begin{CompactList}\small\item\em 指定したIDのコンフィギュレーションセットの取得 \item\end{CompactList}\item 
+def {\bf setConfigurationSetValues}
+\begin{CompactList}\small\item\em 指定したプロパティのコンフィギュレーションセットへの追加 \item\end{CompactList}\item 
+def {\bf getActiveConfigurationSet}
+\begin{CompactList}\small\item\em アクティブ・コンフィギュレーションセットを取得 \item\end{CompactList}\item 
+def {\bf addConfigurationSet}
+\begin{CompactList}\small\item\em コンフィギュレーションセットに設定値を追加 \item\end{CompactList}\item 
+def {\bf removeConfigurationSet}
+\begin{CompactList}\small\item\em コンフィギュレーションセットの削除 \item\end{CompactList}\item 
+def {\bf activateConfigurationSet}
+\begin{CompactList}\small\item\em コンフィギュレーションセットのアクティブ化 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{ConfigAdmin}{p.}{classsource__py_1_1_config_admin_1_1_config_admin} クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+各種コンフィギュレーション情報を管理するクラス。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ ConfigAdmin.py の 163 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em configsets})}\label{classsource__py_1_1_config_admin_1_1_config_admin_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em configsets}]設定対象プロパティ名 \end{description}
+\end{Desc}
+
+
+ ConfigAdmin.py の 182 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}}
+\index{\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-del\_\-\_\- ( {\em self})}\label{classsource__py_1_1_config_admin_1_1_config_admin_fa251912978c7d5ccf7e5a027a4d12ee}
+
+
+デストラクタ 
+
+デストラクタ。 設定されているパラメータを削除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ ConfigAdmin.py の 205 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!bindParameter@{bindParameter}}
+\index{bindParameter@{bindParameter}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindParameter ( {\em self},  {\em param\_\-name},  {\em var},  {\em def\_\-val},  {\em trans} = {\tt None})}\label{classsource__py_1_1_config_admin_1_1_config_admin_5e0673fa9c7b55a81e2a30ff1a6aca5f}
+
+
+コンフィギュレーションパラメータの設定 
+
+コンフィギュレーションパラメータと変数をバインドする 指定した名称のコンフィギュレーションパラメータが既に存在する場合は falseを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em param\_\-name}]コンフィギュレーションパラメータ名 \item[{\em var}]コンフィギュレーションパラメータ格納用変数 \item[{\em def\_\-val}]コンフィギュレーションパラメータデフォルト値 \item[{\em trans}]コンフィギュレーションパラメータ文字列変換用関数 (デフォルト値:None)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]設定結果(設定成功:true，設定失敗:false) \end{Desc}
+
+
+ ConfigAdmin.py の 230 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!update@{update}}
+\index{update@{update}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def update ( {\em self},  {\em config\_\-set} = {\tt None},  {\em config\_\-param} = {\tt None})}\label{classsource__py_1_1_config_admin_1_1_config_admin_be52b977c101e59f342489ed18140819}
+
+
+コンフィギュレーションパラメータの更新 
+
+引数の設定状況によって以下の処理を行う。\begin{itemize}
+\item config\_\-setのみが設定されている場合 指定したIDのコンフィギュレーションセットに設定した値で、 コンフィギュレーションパラメータの値を更新する。 指定したIDのコンフィギュレーションセットが存在しない場合は、 何もせずに終了する。\item config\_\-setとconfig\_\-paramが設定されている場合 指定したパスのコンフィギュレーションに設定した値で、 コンフィギュレーションパラメータの値を更新する。\item config\_\-setとconfig\_\-paramが両方とも設定されていない場合 コンフィギュレーションセットが更新されている場合に、 現在アクティブになっているコンフィギュレーションに設定した値で、 コンフィギュレーションパラメータの値を更新する。 この処理での更新は、アクティブとなっているコンフィギュレーションセット が存在している場合、前回の更新からコンフィギュレーションセットの内容が 更新されている場合のみ実行される。\end{itemize}
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em config\_\-set}]コンフィギュレーション名称。「.」区切りで最後の要素を 除いた名前 \item[{\em config\_\-param}]コンフィギュレーションセットの最後の要素名 \end{description}
+\end{Desc}
+
+
+ ConfigAdmin.py の 274 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!isExist@{isExist}}
+\index{isExist@{isExist}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def isExist ( {\em self},  {\em param\_\-name})}\label{classsource__py_1_1_config_admin_1_1_config_admin_5bc0b65bf08438808a298566c7274392}
+
+
+コンフィギュレーションパラメータの存在確認 
+
+指定した名称を持つコンフィギュレーションパラメータが存在するか確認する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em param\_\-name}]コンフィギュレーションパラメータ名称。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]存在確認結果(パラメータあり:true，パラメータなし:false) \end{Desc}
+
+
+ ConfigAdmin.py の 316 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!isChanged@{isChanged}}
+\index{isChanged@{isChanged}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def isChanged ( {\em self})}\label{classsource__py_1_1_config_admin_1_1_config_admin_0dc97eed2ecb7394b13ec9590be8d036}
+
+
+コンフィギュレーションパラメータの変更確認 
+
+コンフィギュレーションパラメータが変更されたか確認する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]変更確認結果(変更あり:true、変更なし:false) \end{Desc}
+
+
+ ConfigAdmin.py の 341 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!getActiveId@{getActiveId}}
+\index{getActiveId@{getActiveId}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getActiveId ( {\em self})}\label{classsource__py_1_1_config_admin_1_1_config_admin_c5d28c36637f885b981c954e1da820e8}
+
+
+アクティブ・コンフィギュレーションセットIDの取得 
+
+現在アクティブなコンフィギュレーションセットのIDを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]アクティブ・コンフィギュレーションセットID \end{Desc}
+
+
+ ConfigAdmin.py の 359 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!haveConfig@{haveConfig}}
+\index{haveConfig@{haveConfig}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def haveConfig ( {\em self},  {\em config\_\-id})}\label{classsource__py_1_1_config_admin_1_1_config_admin_96f03245afe0ba326d14593244544605}
+
+
+コンフィギュレーションセットの存在確認 
+
+指定したコンフィギュレーションセットが存在するか確認する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em config\_\-id}]確認対象コンフィギュレーションセットID\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]存在確認結果(指定したConfigSetあり:true、なし:false) \end{Desc}
+
+
+ ConfigAdmin.py の 378 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!isActive@{isActive}}
+\index{isActive@{isActive}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def isActive ( {\em self})}\label{classsource__py_1_1_config_admin_1_1_config_admin_293f6f53f6a9c7ee4f2682a82dbadd70}
+
+
+コンフィギュレーションセットのアクティブ化確認 
+
+コンフィギュレーションセットがアクティブ化されているか確認する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]状態確認結果(アクティブ状態:true、非アクティブ状態:false) \end{Desc}
+
+
+ ConfigAdmin.py の 399 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!getConfigurationSets@{getConfigurationSets}}
+\index{getConfigurationSets@{getConfigurationSets}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getConfigurationSets ( {\em self})}\label{classsource__py_1_1_config_admin_1_1_config_admin_581f96ee67f135bf303619415df9e6fb}
+
+
+全コンフィギュレーションセットの取得 
+
+設定されている全コンフィギュレーションセットを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]全コンフィギュレーションセット \end{Desc}
+
+
+ ConfigAdmin.py の 417 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!getConfigurationSet@{getConfigurationSet}}
+\index{getConfigurationSet@{getConfigurationSet}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getConfigurationSet ( {\em self},  {\em config\_\-id})}\label{classsource__py_1_1_config_admin_1_1_config_admin_805dedeb3ee3a46ff8ae0b97e7faae64}
+
+
+指定したIDのコンフィギュレーションセットの取得 
+
+IDで指定したコンフィギュレーションセットを取得する。 指定したコンフィギュレーションセットが存在しない場合は、 空のコンフィギュレーションセットを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em config\_\-id}]取得対象コンフィギュレーションセットのID\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]コンフィギュレーションセット \end{Desc}
+
+
+ ConfigAdmin.py の 438 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!setConfigurationSetValues@{setConfigurationSetValues}}
+\index{setConfigurationSetValues@{setConfigurationSetValues}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setConfigurationSetValues ( {\em self},  {\em config\_\-id},  {\em config\_\-set})}\label{classsource__py_1_1_config_admin_1_1_config_admin_7a0643e88e0787deb1cf515d3879f8bc}
+
+
+指定したプロパティのコンフィギュレーションセットへの追加 
+
+指定したプロパティをIDで指定したコンフィギュレーションセットへ追加する。 指定したIDと一致するコンフィギュレーションセットが存在しない場合は、 false を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em config\_\-id}]追加対象コンフィギュレーションセットのID \item[{\em config\_\-set}]追加するプロパティ\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]追加処理実行結果(追加成功:true、追加失敗:false) \end{Desc}
+
+
+ ConfigAdmin.py の 463 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!getActiveConfigurationSet@{getActiveConfigurationSet}}
+\index{getActiveConfigurationSet@{getActiveConfigurationSet}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getActiveConfigurationSet ( {\em self})}\label{classsource__py_1_1_config_admin_1_1_config_admin_5e4a69b27ef9c04016d8a77c3b8cb257}
+
+
+アクティブ・コンフィギュレーションセットを取得 
+
+現在アクティブとなっているコンフィギュレーションセットを取得する。 アクティブとなっているコンフィギュレーションセットが存在しない場合は、 空のコンフィギュレーションセット を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]アクティブ・コンフィギュレーションセット \end{Desc}
+
+
+ ConfigAdmin.py の 495 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!addConfigurationSet@{addConfigurationSet}}
+\index{addConfigurationSet@{addConfigurationSet}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def addConfigurationSet ( {\em self},  {\em configset})}\label{classsource__py_1_1_config_admin_1_1_config_admin_81aff91d4ace24260aecda78279bd965}
+
+
+コンフィギュレーションセットに設定値を追加 
+
+コンフィギュレーションセットに設定値を追加する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em configset}]追加するプロパティ\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]追加処理結果(追加成功:true、追加失敗:false) \end{Desc}
+
+
+ ConfigAdmin.py の 518 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!removeConfigurationSet@{removeConfigurationSet}}
+\index{removeConfigurationSet@{removeConfigurationSet}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def removeConfigurationSet ( {\em self},  {\em config\_\-id})}\label{classsource__py_1_1_config_admin_1_1_config_admin_abeea5c1a8fa3c4d196fb2a9b71627f7}
+
+
+コンフィギュレーションセットの削除 
+
+指定したIDのコンフィギュレーションセットを削除する。 指定したIDのコンフィギュレーションセットが存在しない場合は、 falseを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em config\_\-id}]削除対象コンフィギュレーションセットのID\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]削除処理結果(削除成功:true、削除失敗:false) \end{Desc}
+
+
+ ConfigAdmin.py の 553 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}!activateConfigurationSet@{activateConfigurationSet}}
+\index{activateConfigurationSet@{activateConfigurationSet}!source_py::ConfigAdmin::ConfigAdmin@{source\_\-py::ConfigAdmin::ConfigAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def activateConfigurationSet ( {\em self},  {\em config\_\-id})}\label{classsource__py_1_1_config_admin_1_1_config_admin_9359ed8c5a935d1f8861c6a53215903e}
+
+
+コンフィギュレーションセットのアクティブ化 
+
+指定したIDのコンフィギュレーションセットをアクティブ化する。 指定したIDのコンフィギュレーションセットが存在しない場合は、 falseを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em config\_\-id}]削除対象コンフィギュレーションセットのID\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]アクティブ処理結果(成功:true、失敗:false) \end{Desc}
+
+
+ ConfigAdmin.py の 593 行で定義されています。

@@ -1,0 +1,110 @@
+\section{クラス CorbaConsumer}
+\label{classsource__py_1_1_corba_consumer_1_1_corba_consumer}\index{source\_\-py::CorbaConsumer::CorbaConsumer@{source\_\-py::CorbaConsumer::CorbaConsumer}}
+オブジェクトリファレンスを保持するプレースホルダクラス  
+
+
+{\bf CorbaConsumerBase}を継承しています。
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf equal}
+\begin{CompactList}\small\item\em 代入演算子 \item\end{CompactList}\item 
+def {\bf setObject}
+\begin{CompactList}\small\item\em オブジェクトをセットする \item\end{CompactList}\item 
+def {\bf releaseObject}
+\begin{CompactList}\small\item\em CORBAオブジェクトの設定をクリアする \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+オブジェクトリファレンスを保持するプレースホルダクラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+引数で与えられた型のCORBAオブジェクトを保持する。 オブジェクトがセットされたときに、与えられた型で narrow されるので、 \_\-ptr() で取得するリファレンスは、narrow 済みのリファレンスである。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ CorbaConsumer.py の 187 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::CorbaConsumer::CorbaConsumer@{source\_\-py::CorbaConsumer::CorbaConsumer}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::CorbaConsumer::CorbaConsumer@{source\_\-py::CorbaConsumer::CorbaConsumer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em interfaceType} = {\tt None},  {\em consumer} = {\tt None})}\label{classsource__py_1_1_corba_consumer_1_1_corba_consumer_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em interfaceType}]このホルダが保持するオブジェクトの型 (デフォルト値;None) \item[{\em consumer}]このホルダが保持するオブジェクト(デフォルト値;None) \end{description}
+\end{Desc}
+
+
+ CorbaConsumer.py の 208 行で定義されています。\index{source\_\-py::CorbaConsumer::CorbaConsumer@{source\_\-py::CorbaConsumer::CorbaConsumer}!equal@{equal}}
+\index{equal@{equal}!source_py::CorbaConsumer::CorbaConsumer@{source\_\-py::CorbaConsumer::CorbaConsumer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def equal ( {\em self},  {\em consumer})}\label{classsource__py_1_1_corba_consumer_1_1_corba_consumer_366b3de2cd1f84e51eb34d0b253998af}
+
+
+代入演算子 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em consumer}]代入元\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]代入結果 \end{Desc}
+
+
+{\bf CorbaConsumerBase} \doxyref{}{p.}{classsource__py_1_1_corba_consumer_1_1_corba_consumer_base_366b3de2cd1f84e51eb34d0b253998af}を再定義しています。
+
+ CorbaConsumer.py の 240 行で定義されています。\index{source\_\-py::CorbaConsumer::CorbaConsumer@{source\_\-py::CorbaConsumer::CorbaConsumer}!setObject@{setObject}}
+\index{setObject@{setObject}!source_py::CorbaConsumer::CorbaConsumer@{source\_\-py::CorbaConsumer::CorbaConsumer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setObject ( {\em self},  {\em obj})}\label{classsource__py_1_1_corba_consumer_1_1_corba_consumer_0cfe5f084b7dcd563077635e3d041d75}
+
+
+オブジェクトをセットする 
+
+ConsumerBase のオーバーライド。CORBAObject\_\-var にオブジェクトをセット するとともに、パラメータの型で narrow したオブジェクトを保持する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em obj}]CORBA Objecct\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オブジェクト設定結果 設定対象オブジェクトが null の場合は false が返ってくる \end{Desc}
+
+
+{\bf CorbaConsumerBase} \doxyref{}{p.}{classsource__py_1_1_corba_consumer_1_1_corba_consumer_base_0cfe5f084b7dcd563077635e3d041d75}を再定義しています。
+
+ CorbaConsumer.py の 268 行で定義されています。\index{source\_\-py::CorbaConsumer::CorbaConsumer@{source\_\-py::CorbaConsumer::CorbaConsumer}!releaseObject@{releaseObject}}
+\index{releaseObject@{releaseObject}!source_py::CorbaConsumer::CorbaConsumer@{source\_\-py::CorbaConsumer::CorbaConsumer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def releaseObject ( {\em self})}\label{classsource__py_1_1_corba_consumer_1_1_corba_consumer_06dbeba271af96851343d31696d8fb12}
+
+
+CORBAオブジェクトの設定をクリアする 
+
+設定されている CORBA オブジェクトをクリアする。 CORBAオブジェクトそのものに対しては何も操作しない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+{\bf CorbaConsumerBase} \doxyref{}{p.}{classsource__py_1_1_corba_consumer_1_1_corba_consumer_base_06dbeba271af96851343d31696d8fb12}を再定義しています。
+
+ CorbaConsumer.py の 321 行で定義されています。

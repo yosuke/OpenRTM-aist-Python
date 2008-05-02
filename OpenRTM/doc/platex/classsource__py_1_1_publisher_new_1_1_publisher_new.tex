@@ -1,0 +1,121 @@
+\section{クラス PublisherNew}
+\label{classsource__py_1_1_publisher_new_1_1_publisher_new}\index{source\_\-py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}}
+\doxyref{PublisherNew}{p.}{classsource__py_1_1_publisher_new_1_1_publisher_new} クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf \_\-\_\-del\_\-\_\-}
+\begin{CompactList}\small\item\em デストラクタ \item\end{CompactList}\item 
+def {\bf update}
+\begin{CompactList}\small\item\em Observer関数 \item\end{CompactList}\item 
+def {\bf run}
+\begin{CompactList}\small\item\em タスク開始関数 \item\end{CompactList}\item 
+def {\bf release}
+\begin{CompactList}\small\item\em タスク終了関数 \item\end{CompactList}\end{CompactItemize}
+\subsection*{データ構造}
+\begin{CompactItemize}
+\item 
+class {\bf NewData}
+\begin{CompactList}\small\item\em データ状態管理用内部クラス \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{PublisherNew}{p.}{classsource__py_1_1_publisher_new_1_1_publisher_new} クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+バッファ内に新規データが格納されたタイミングで、その新規データを送信する。 データ送出タイミングを待つコンシューマを、送出する側とは異なるスレッドで 動作させる場合に使用。 Publisherの駆動は、データ送出のタイミングになるまでブロックされ、 送出タイミングの通知を受けると、即座にコンシューマの送出処理を呼び出す。 
+
+ PublisherNew.py の 38 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em consumer},  {\em property})}\label{classsource__py_1_1_publisher_new_1_1_publisher_new_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ 本 Publisher 用新規スレッドを生成する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em consumer}]データ送出を待つコンシューマ \item[{\em property}]本Publisherの駆動制御情報を設定したPropertyオブジェクト (本Publisherでは未使用) \end{description}
+\end{Desc}
+
+
+ PublisherNew.py の 58 行で定義されています。\index{source\_\-py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}!\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}}
+\index{\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}!source_py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-del\_\-\_\- ( {\em self})}\label{classsource__py_1_1_publisher_new_1_1_publisher_new_fa251912978c7d5ccf7e5a027a4d12ee}
+
+
+デストラクタ 
+
+デストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ PublisherNew.py の 78 行で定義されています。\index{source\_\-py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}!update@{update}}
+\index{update@{update}!source_py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def update ( {\em self})}\label{classsource__py_1_1_publisher_new_1_1_publisher_new_be52b977c101e59f342489ed18140819}
+
+
+Observer関数 
+
+送出タイミング時に呼び出す。 ブロックしている当該Publisherの駆動が開始され、コンシューマへの送出処理が 行われる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ PublisherNew.py の 95 行で定義されています。\index{source\_\-py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}!run@{run}}
+\index{run@{run}!source_py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def run ( {\em self})}\label{classsource__py_1_1_publisher_new_1_1_publisher_new_edcaade7dd45761ddcc3b3cc07005314}
+
+
+タスク開始関数 
+
+本Publisher駆動制御用スレッドの実行を開始する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ PublisherNew.py の 116 行で定義されています。\index{source\_\-py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}!release@{release}}
+\index{release@{release}!source_py::PublisherNew::PublisherNew@{source\_\-py::PublisherNew::PublisherNew}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def release ( {\em self})}\label{classsource__py_1_1_publisher_new_1_1_publisher_new_8cac5263cadffde59ee3fa4fcb8d1f91}
+
+
+タスク終了関数 
+
+ACE\_\-Task::release() のオーバーライド 駆動フラグをfalseに設定し、本 Publisher の駆動を停止する。 ただし、駆動スレッドがブロックされている場合には、 最大１回コンシューマの送出処理が呼び出される場合がある。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ PublisherNew.py の 147 行で定義されています。

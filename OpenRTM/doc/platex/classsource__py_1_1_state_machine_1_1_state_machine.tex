@@ -1,0 +1,436 @@
+\section{クラス StateMachine}
+\label{classsource__py_1_1_state_machine_1_1_state_machine}\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+状態マシンクラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf setNOP}
+\begin{CompactList}\small\item\em NOP関数を登録する \item\end{CompactList}\item 
+def {\bf setListener}
+\begin{CompactList}\small\item\em Listener オブジェクトを登録する \item\end{CompactList}\item 
+def {\bf setEntryAction}
+\begin{CompactList}\small\item\em Entry action 関数を登録する \item\end{CompactList}\item 
+def {\bf setPreDoAction}
+\begin{CompactList}\small\item\em PreDo action 関数を登録する \item\end{CompactList}\item 
+def {\bf setDoAction}
+\begin{CompactList}\small\item\em Do action 関数を登録する \item\end{CompactList}\item 
+def {\bf setPostDoAction}
+\begin{CompactList}\small\item\em PostDo action 関数を登録する \item\end{CompactList}\item 
+def {\bf setExitAction}
+\begin{CompactList}\small\item\em Exit action 関数を登録する \item\end{CompactList}\item 
+def {\bf setTransitionAction}
+\begin{CompactList}\small\item\em State transition action 関数を登録する \item\end{CompactList}\item 
+def {\bf setStartState}
+\begin{CompactList}\small\item\em 初期状態をセットする \item\end{CompactList}\item 
+def {\bf getStates}
+\begin{CompactList}\small\item\em 状態を取得する \item\end{CompactList}\item 
+def {\bf getState}
+\begin{CompactList}\small\item\em 現在の状態を取得する \item\end{CompactList}\item 
+def {\bf isIn}
+\begin{CompactList}\small\item\em 現在状態を確認 \item\end{CompactList}\item 
+def {\bf goTo}
+\begin{CompactList}\small\item\em 状態を遷移 \item\end{CompactList}\item 
+def {\bf worker}
+\begin{CompactList}\small\item\em 駆動関数 \item\end{CompactList}\item 
+def {\bf setNullFunc}
+\begin{CompactList}\small\item\em NOP関数を設定 \item\end{CompactList}\item 
+def {\bf sync}
+\begin{CompactList}\small\item\em 状態の同期処理 \item\end{CompactList}\item 
+def {\bf need\_\-trans}
+\begin{CompactList}\small\item\em 遷移の必要性チェック \item\end{CompactList}\item 
+def {\bf update\_\-curr}
+\begin{CompactList}\small\item\em 現在状態の更新 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+状態マシンクラス 
+
+\doxyref{StateMachine}{p.}{classsource__py_1_1_state_machine_1_1_state_machine} クラスは状態マシンを実現するクラスである。
+
+例: ActiveObjectは状態マシンを持つアクティブオブジェクトであるとする。 状態は3状態 INACTIVE, ACTIVE, ERROR があり、各状態でのEntryやExit動作を 定義したいとすると、以下のように実現される。 \small\begin{alltt}
+ class ActiveObject:
+   class MyState:
+     INACTIVE, ACTIVE, ERROR = range(3)\end{alltt}
+\normalsize 
+
+
+\small\begin{alltt}   def \_\_init\_\_(self):
+     m\_sm = StateMachine(3)
+     m\_sm.setNOP(nullAction)
+     m\_sm.setListener(self)\end{alltt}
+\normalsize 
+
+
+\small\begin{alltt}     m\_sm.setExitAction(MyState.INACTIVE, self.inactiveExit)
+       : 
+     m\_sm.setPostDoAction(MyState.ERROR, self.errorPostDo)
+     m\_sm.setTransitionAction(self.transition);\end{alltt}
+\normalsize 
+
+
+\small\begin{alltt}   def nullAction(myStates):
+     pass
+   def inactiveExit(myStates):
+     pass
+     : 
+   def errorPostDo(myStates):
+     pass
+   def transition(myStates:
+     pass
+ \end{alltt}
+\normalsize 
+ 状態を持たせたいクラスは以下の条件を満たすように実装しなければならない。 \begin{enumerate}
+\item 内部クラスで状態を定義 \item \doxyref{StateMachine}{p.}{classsource__py_1_1_state_machine_1_1_state_machine} のコンストラクタ引数は状態の数 \item 以下のアクション関数を(Return \_\-function\_\-name\_\-(States)) の関数として設定 \begin{enumerate}
+\item 何もしない関数を必ず定義し、setNOP で与えなければならない \item 各状態毎に, set(Entry$|$PreDo$|$Do$|$PostDo$|$Exit)Action でアクションを設定 \item 状態遷移時のアクションを \doxyref{setTransitionAction()}{p.}{classsource__py_1_1_state_machine_1_1_state_machine_37b501f2bc2a7e84404e33002772379c} で設定。 \end{enumerate}
+\item 遷移時のアクションは、与えられた現在状態、次状態、前状態を元に、 ユーザが実装しなければならない。 \item 状態の変更は \doxyref{goTo()}{p.}{classsource__py_1_1_state_machine_1_1_state_machine_a37d866a8909e56771dc5cc19acca319} で、状態のチェックは isIn(state) で行う。 \item \doxyref{goTo()}{p.}{classsource__py_1_1_state_machine_1_1_state_machine_a37d866a8909e56771dc5cc19acca319}は次状態を強制的にセットする関数であり、遷移の可否は、 ユーザが現在状態を取得し判断するロジックを実装しなければならない。 \end{enumerate}
+
+
+このクラスは、一つの状態に対して、 \begin{itemize}
+\item Entry action \item PreDo action \item Do action \item PostDo action \item Exit action \end{itemize}
+5つのアクションが定義することができる。 Transition action はあらゆる状態間遷移で呼び出されるアクションで、 その振る舞いはユーザが定義しなければならない。
+
+このクラスは以下のようなタイミングで各アクションが実行される。
+
+\begin{itemize}
+\item 状態が変更され(A-$>$B)状態が遷移する場合 \par
+ (A:Exit)-$>$$|$(状態更新:A-$>$B)-$>$(B:Entry)-$>$(B:PreDo)-$>$(B:Do)-$>$(B:PostDo)
+
+\item 状態が変更されず、B状態を維持する場合 ($|$はステップの区切りを表す)\par
+ (B(n-1):PostDo)-$>$$|$(B(n):PreDo)-$>$(B(n):Do)-$>$(B(n):PostDo)-$>$$|$(B(n+1):PreDo)\par
+ PreDo, Do, PostDo が繰り返し実行される。
+
+\item 自己遷移する場合 \par
+ (B(n-1):PostDo)-$>$(B(n-1):Exit)-$>$$|$(B(n):Entry)-$>$(B(n):PreDo) \par
+ 一旦 Exit が呼ばれた後、Entry が実行され、以降は前項と同じ動作をする。 \end{itemize}
+
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ StateMachine.py の 156 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em num\_\-of\_\-state})}\label{classsource__py_1_1_state_machine_1_1_state_machine_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em num\_\-of\_\-state}]ステートマシン中の状態数 \end{description}
+\end{Desc}
+
+
+ StateMachine.py の 176 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setNOP@{setNOP}}
+\index{setNOP@{setNOP}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setNOP ( {\em self},  {\em call\_\-back})}\label{classsource__py_1_1_state_machine_1_1_state_machine_4f62013f4bad3cf6fa66b7960c94483a}
+
+
+NOP関数を登録する 
+
+NOP関数(何もしない関数)を登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em call\_\-back}]コールバック関数 \end{description}
+\end{Desc}
+
+
+ StateMachine.py の 205 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setListener@{setListener}}
+\index{setListener@{setListener}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setListener ( {\em self},  {\em listener})}\label{classsource__py_1_1_state_machine_1_1_state_machine_27942715e507466d12a5a40e2be88978}
+
+
+Listener オブジェクトを登録する 
+
+各種アクション実行時に呼び出される Listener オブジェクトを登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em listener}]Listener オブジェクト \end{description}
+\end{Desc}
+
+
+ StateMachine.py の 226 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setEntryAction@{setEntryAction}}
+\index{setEntryAction@{setEntryAction}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setEntryAction ( {\em self},  {\em state},  {\em call\_\-back})}\label{classsource__py_1_1_state_machine_1_1_state_machine_a7ea29cfa7a1c13844990f50a1c1316c}
+
+
+Entry action 関数を登録する 
+
+各状態に入った際に実行される Entry action 用コールバック関数を登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em state}]登録対象状態 \item[{\em call\_\-back}]Entry action 用コールバック関数\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]アクション実行結果 \end{Desc}
+
+
+ StateMachine.py の 245 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setPreDoAction@{setPreDoAction}}
+\index{setPreDoAction@{setPreDoAction}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setPreDoAction ( {\em self},  {\em state},  {\em call\_\-back})}\label{classsource__py_1_1_state_machine_1_1_state_machine_793d0cb005dfa6d2e45c1c2094d4281d}
+
+
+PreDo action 関数を登録する 
+
+各状態内で実行される PreDo action 用コールバック関数を登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em state}]登録対象状態 \item[{\em call\_\-back}]PreDo action 用コールバック関数\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]アクション実行結果 \end{Desc}
+
+
+ StateMachine.py の 268 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setDoAction@{setDoAction}}
+\index{setDoAction@{setDoAction}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setDoAction ( {\em self},  {\em state},  {\em call\_\-back})}\label{classsource__py_1_1_state_machine_1_1_state_machine_b3e53ca350f5444302fcbb234421e3c2}
+
+
+Do action 関数を登録する 
+
+各状態内で実行される Do action 用コールバック関数を登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em state}]登録対象状態 \item[{\em call\_\-back}]Do action 用コールバック関数\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]アクション実行結果 \end{Desc}
+
+
+ StateMachine.py の 291 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setPostDoAction@{setPostDoAction}}
+\index{setPostDoAction@{setPostDoAction}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setPostDoAction ( {\em self},  {\em state},  {\em call\_\-back})}\label{classsource__py_1_1_state_machine_1_1_state_machine_9a7d244baefbadf463864d3fa56c6638}
+
+
+PostDo action 関数を登録する 
+
+各状態内で実行される PostDo action 用コールバック関数を登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em state}]登録対象状態 \item[{\em call\_\-back}]PostDo action 用コールバック関数\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]アクション実行結果 \end{Desc}
+
+
+ StateMachine.py の 314 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setExitAction@{setExitAction}}
+\index{setExitAction@{setExitAction}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setExitAction ( {\em self},  {\em state},  {\em call\_\-back})}\label{classsource__py_1_1_state_machine_1_1_state_machine_6670a39821d7c2e46beb7b3bf19a7342}
+
+
+Exit action 関数を登録する 
+
+各状態内で実行される Exit action 用コールバック関数を登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em state}]登録対象状態 \item[{\em call\_\-back}]Exit action 用コールバック関数\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]アクション実行結果 \end{Desc}
+
+
+ StateMachine.py の 337 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setTransitionAction@{setTransitionAction}}
+\index{setTransitionAction@{setTransitionAction}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setTransitionAction ( {\em self},  {\em call\_\-back})}\label{classsource__py_1_1_state_machine_1_1_state_machine_37b501f2bc2a7e84404e33002772379c}
+
+
+State transition action 関数を登録する 
+
+状態遷移時に実行される State transition action 用コールバック関数を 登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em call\_\-back}]State transition 用コールバック関数\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]アクション実行結果 \end{Desc}
+
+
+ StateMachine.py の 360 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setStartState@{setStartState}}
+\index{setStartState@{setStartState}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setStartState ( {\em self},  {\em states})}\label{classsource__py_1_1_state_machine_1_1_state_machine_1d925456196beef27fb294f13c97ca82}
+
+
+初期状態をセットする 
+
+ステートマシンの初期状態を設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em states}]初期状態 \end{description}
+\end{Desc}
+
+
+ StateMachine.py の 377 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!getStates@{getStates}}
+\index{getStates@{getStates}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getStates ( {\em self})}\label{classsource__py_1_1_state_machine_1_1_state_machine_fe4313853d94d15e3af66f113d9b290a}
+
+
+状態を取得する 
+
+状態情報を取得する。 現在の状態、１つ前の状態、遷移予定の状態を取得することができる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]状態情報 \end{Desc}
+
+
+ StateMachine.py の 398 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!getState@{getState}}
+\index{getState@{getState}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getState ( {\em self})}\label{classsource__py_1_1_state_machine_1_1_state_machine_4ce4ebac6ce95bd44e0d8c96d2f7229c}
+
+
+現在の状態を取得する 
+
+現在の状態を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]現在の状態 \end{Desc}
+
+
+ StateMachine.py の 416 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!isIn@{isIn}}
+\index{isIn@{isIn}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def isIn ( {\em self},  {\em state})}\label{classsource__py_1_1_state_machine_1_1_state_machine_d93bee2a4e4d8d3774b422e1b876688d}
+
+
+現在状態を確認 
+
+現在の状態が、引数で指定した状態と一致するか確認する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em state}]確認対象状態\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]状態確認結果 \end{Desc}
+
+
+ StateMachine.py の 435 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!goTo@{goTo}}
+\index{goTo@{goTo}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def goTo ( {\em self},  {\em state})}\label{classsource__py_1_1_state_machine_1_1_state_machine_a37d866a8909e56771dc5cc19acca319}
+
+
+状態を遷移 
+
+指定した状態に状態を遷移する。 本関数は次状態を強制的にセットする関数である。 このため、遷移の可否は、ユーザが現在状態を取得し判断するロジックを 実装しなければならない。 遷移先が現在の状態と同じ場合には、自己遷移フラグをセットする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em state}]遷移先状態 \end{description}
+\end{Desc}
+
+
+ StateMachine.py の 459 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!worker@{worker}}
+\index{worker@{worker}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def worker ( {\em self})}\label{classsource__py_1_1_state_machine_1_1_state_machine_dcea215e03f3d5aca9fd68839a9be793}
+
+
+駆動関数 
+
+ステートマシンの駆動関数。 実際の状態遷移および状態遷移発生時の各アクションの呼びだしを実行する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ StateMachine.py の 476 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!setNullFunc@{setNullFunc}}
+\index{setNullFunc@{setNullFunc}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setNullFunc ( {\em self},  {\em s},  {\em nullfunc})}\label{classsource__py_1_1_state_machine_1_1_state_machine_190254a950c5a9265f11aeaed3e274cc}
+
+
+NOP関数を設定 
+
+NOP関数(何もしない関数)を登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em s}]コールバック関数設定先 \item[{\em nullfunc}]コールバック関数(NOP関数) \end{description}
+\end{Desc}
+
+
+ StateMachine.py の 524 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!sync@{sync}}
+\index{sync@{sync}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def sync ( {\em self},  {\em states})}\label{classsource__py_1_1_state_machine_1_1_state_machine_a13874b228d1fd4b9a35e720c1fe630b}
+
+
+状態の同期処理 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em states}]OpenRTM.StateHolder$<$RTC.LifeCycleState$>$ \end{description}
+\end{Desc}
+
+
+ StateMachine.py の 541 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!need\_\-trans@{need\_\-trans}}
+\index{need\_\-trans@{need\_\-trans}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def need\_\-trans ( {\em self})}\label{classsource__py_1_1_state_machine_1_1_state_machine_42dec51ac5170b72d31f2010531e80c8}
+
+
+遷移の必要性チェック 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]遷移必要性確認結果 \end{Desc}
+
+
+ StateMachine.py の 559 行で定義されています。\index{source\_\-py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}!update\_\-curr@{update\_\-curr}}
+\index{update\_\-curr@{update\_\-curr}!source_py::StateMachine::StateMachine@{source\_\-py::StateMachine::StateMachine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def update\_\-curr ( {\em self},  {\em curr})}\label{classsource__py_1_1_state_machine_1_1_state_machine_869c4bfc7228d32dec199562644a7c62}
+
+
+現在状態の更新 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em curr}]RTC.LifeCycleState \end{description}
+\end{Desc}
+
+
+ StateMachine.py の 573 行で定義されています。

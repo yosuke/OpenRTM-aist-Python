@@ -1,0 +1,392 @@
+\section{クラス Organization\_\-impl}
+\label{classsource__py_1_1_sdo_organization_1_1_organization__impl}\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+SDO Organization 実装クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf get\_\-organization\_\-id}
+\begin{CompactList}\small\item\em [CORBA interface] Organization ID を取得する \item\end{CompactList}\item 
+def {\bf get\_\-organization\_\-property}
+\begin{CompactList}\small\item\em [CORBA interface] OrganizationProperty の取得 \item\end{CompactList}\item 
+def {\bf get\_\-organization\_\-property\_\-value}
+\begin{CompactList}\small\item\em [CORBA interface] OrganizationProperty の特定の値の取得 \item\end{CompactList}\item 
+def {\bf set\_\-organization\_\-property}
+\begin{CompactList}\small\item\em [CORBA interface] OrganizationProperty のセット \item\end{CompactList}\item 
+def {\bf set\_\-organization\_\-property\_\-value}
+\begin{CompactList}\small\item\em [CORBA interface] OrganizationProperty の値のセット \item\end{CompactList}\item 
+def {\bf remove\_\-organization\_\-property}
+\begin{CompactList}\small\item\em [CORBA interface] OrganizationProperty の削除 \item\end{CompactList}\item 
+def {\bf get\_\-owner}
+\begin{CompactList}\small\item\em [CORBA interface] Organization のオーナーを取得する \item\end{CompactList}\item 
+def {\bf set\_\-owner}
+\begin{CompactList}\small\item\em [CORBA interface] Organization にオーナーをセットする \item\end{CompactList}\item 
+def {\bf get\_\-members}
+\begin{CompactList}\small\item\em [CORBA interface] Organization のメンバーを取得する \item\end{CompactList}\item 
+def {\bf set\_\-members}
+\begin{CompactList}\small\item\em [CORBA interface] SDO の セット \item\end{CompactList}\item 
+def {\bf add\_\-members}
+\begin{CompactList}\small\item\em [CORBA interface] SDO メンバーの追加 \item\end{CompactList}\item 
+def {\bf remove\_\-member}
+\begin{CompactList}\small\item\em [CORBA interface] SDO メンバーの削除 \item\end{CompactList}\item 
+def {\bf get\_\-dependency}
+\begin{CompactList}\small\item\em [CORBA interface] Organization の DependencyType を取得 \item\end{CompactList}\item 
+def {\bf set\_\-dependency}
+\begin{CompactList}\small\item\em [CORBA interface] Organization の DependencyType をセットする \item\end{CompactList}\end{CompactItemize}
+\subsection*{データ構造}
+\begin{CompactItemize}
+\item 
+class {\bf nv\_\-name}
+\begin{CompactList}\small\item\em NVList検索用functor \item\end{CompactList}\item 
+class {\bf sdo\_\-id}
+\begin{CompactList}\small\item\em SDO検索用functor \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+SDO Organization 実装クラス 
+
+Organization interface は Resource Data Model で定義されたデータの 追加、削除等の操作を行うためのインターフェースである。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ SdoOrganization.py の 74 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ 
+
+ SdoOrganization.py の 88 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!get\_\-organization\_\-id@{get\_\-organization\_\-id}}
+\index{get\_\-organization\_\-id@{get\_\-organization\_\-id}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-organization\_\-id ( {\em self})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_d5f57b8cdb923a6e46f100c55189fd7f}
+
+
+[CORBA interface] Organization ID を取得する 
+
+Organization の ID を返すオペレーション。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]Resource Data Model で定義された Organization ID。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 134 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!get\_\-organization\_\-property@{get\_\-organization\_\-property}}
+\index{get\_\-organization\_\-property@{get\_\-organization\_\-property}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-organization\_\-property ( {\em self})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_92dc9868487ca6b34031dde9ba4c341a}
+
+
+[CORBA interface] OrganizationProperty の取得 
+
+Organization が所有する OrganizationProperty を返すオペレーション。 Organization がプロパティを持たなければ空のリストを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]Organization のプロパティのリスト。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 173 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!get\_\-organization\_\-property\_\-value@{get\_\-organization\_\-property\_\-value}}
+\index{get\_\-organization\_\-property\_\-value@{get\_\-organization\_\-property\_\-value}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-organization\_\-property\_\-value ( {\em self},  {\em name})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_59fb26a2ac77e05d2d23cce9413fe96d}
+
+
+[CORBA interface] OrganizationProperty の特定の値の取得 
+
+OrganizationProperty の指定された値を返すオペレーション。 引数 \char`\"{}name\char`\"{} で指定されたプロパティの値を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]値を返すプロパティの名前。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]引数 \char`\"{}name\char`\"{} で指定されたプロパティの値。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}namne\char`\"{} で指定されたプロパティが 存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 219 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!set\_\-organization\_\-property@{set\_\-organization\_\-property}}
+\index{set\_\-organization\_\-property@{set\_\-organization\_\-property}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def set\_\-organization\_\-property ( {\em self},  {\em org\_\-property})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_f3bd88b8eaf046770eec7499565b4df0}
+
+
+[CORBA interface] OrganizationProperty のセット 
+
+※ SDO Specification の PIM 記述とオペレーション名が異なる。 ※ addOrganizationProperty に対応か？\par
+ OrganizationProperty を Organization に追加するオペレーション。 OrganizationProperty は Organization のプロパティ記述である。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em org\_\-property}]セットする OrganizationProperty\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]\char`\"{}org\_\-property\char`\"{} が null。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 280 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!set\_\-organization\_\-property\_\-value@{set\_\-organization\_\-property\_\-value}}
+\index{set\_\-organization\_\-property\_\-value@{set\_\-organization\_\-property\_\-value}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def set\_\-organization\_\-property\_\-value ( {\em self},  {\em name},  {\em value})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_3c70040412aaaf32581c7cf5bda49160}
+
+
+[CORBA interface] OrganizationProperty の値のセット 
+
+OrganizationProperty の NVList に name と value のセットを追加もしくは 更新するオペレーション。name と value は引数 \char`\"{}name\char`\"{} と \char`\"{}value\char`\"{} により 指定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]追加・更新されるプロパティの名前。 \item[{\em value}]追加・更新されるプロパティの値。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}name\char`\"{} で指定されたプロパティは 存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 339 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!remove\_\-organization\_\-property@{remove\_\-organization\_\-property}}
+\index{remove\_\-organization\_\-property@{remove\_\-organization\_\-property}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def remove\_\-organization\_\-property ( {\em self},  {\em name})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_d9f0f7a5c2eb19ea471eaa095bc2d64c}
+
+
+[CORBA interface] OrganizationProperty の削除 
+
+OrganizationProperty の NVList から特定のプロパティを削除する。 削除されるプロパティの名前は引数 \char`\"{}name\char`\"{} により指定される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]削除するプロパティの名前。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}name\char`\"{} で指定されたプロパティは 存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 395 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!get\_\-owner@{get\_\-owner}}
+\index{get\_\-owner@{get\_\-owner}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-owner ( {\em self})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_7bcb4acb7f1606fbbe7ff315ca8e1d31}
+
+
+[CORBA interface] Organization のオーナーを取得する 
+
+この Organization のオーナーへの参照を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オーナーオブジェクトへの参照。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 446 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!set\_\-owner@{set\_\-owner}}
+\index{set\_\-owner@{set\_\-owner}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def set\_\-owner ( {\em self},  {\em sdo})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_18147ed56d2591de012f258ee37d8611}
+
+
+[CORBA interface] Organization にオーナーをセットする 
+
+Organization に対して SDOSystemElement をオーナーとしてセットする。 引数 \char`\"{}sdo\char`\"{} にセットする SDOSystemElement を指定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em sdo}]オーナーオブジェクトの参照。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}sdo\char`\"{} が nullである、もしくは、 \char`\"{}sdo\char`\"{} が存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 491 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!get\_\-members@{get\_\-members}}
+\index{get\_\-members@{get\_\-members}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-members ( {\em self})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_8c2cf26272a10f802c1a464ea4958cc1}
+
+
+[CORBA interface] Organization のメンバーを取得する 
+
+Organization のメンバーの SDO のリストを返す。 メンバーが存在しなければ空のリストを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]Organization に含まれるメンバー SDO のリスト。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 539 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!set\_\-members@{set\_\-members}}
+\index{set\_\-members@{set\_\-members}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def set\_\-members ( {\em self},  {\em sdos})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_d8f02a016fc9247b4bfbc84ae57e7a91}
+
+
+[CORBA interface] SDO の セット 
+
+SDO のリストを Organization のメンバーとしてセットする。 Organization がすでにメンバーの SDO を管理している場合は、 与えられた SDO のリストに置き換える。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em sdos}]メンバーの SDO。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}SDOList\char`\"{} が nullである、もしくは 引数に指定された \char`\"{}SDOList\char`\"{} が存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 590 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!add\_\-members@{add\_\-members}}
+\index{add\_\-members@{add\_\-members}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def add\_\-members ( {\em self},  {\em sdo\_\-list})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_68084a2fa26686388a3bd6156485329f}
+
+
+[CORBA interface] SDO メンバーの追加 
+
+Organization にメンバーとして SDO を追加する。 引数 \char`\"{}sdo\char`\"{} に追加するメンバー SDO を指定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em sdo\_\-list}]Organization に追加される SDO のリスト。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}sdo\char`\"{} が nullである。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 641 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!remove\_\-member@{remove\_\-member}}
+\index{remove\_\-member@{remove\_\-member}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def remove\_\-member ( {\em self},  {\em id})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_ecdaec79a448eb385eca26fa770de493}
+
+
+[CORBA interface] SDO メンバーの削除 
+
+Organization から引数で指定された \char`\"{}id\char`\"{} の SDO を削除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em id}]削除する SDO の id。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}id\char`\"{} が null もしくは存在しない。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 691 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!get\_\-dependency@{get\_\-dependency}}
+\index{get\_\-dependency@{get\_\-dependency}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-dependency ( {\em self})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_e68b16ea090b26e8f333c78ee91b2d60}
+
+
+[CORBA interface] Organization の DependencyType を取得 
+
+Organization の関係を表す \char`\"{}DependencyType\char`\"{} を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]Organizaton の依存関係 DependencyType を返す。 DependencyType は OMG SDO 仕様の Section 2.2.2 2-3 ページの \char`\"{}Data Structures Used by Resource Data Model\char`\"{} を参照。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 747 行で定義されています。\index{source\_\-py::SdoOrganization::Organization\_\-impl@{source\_\-py::SdoOrganization::Organization\_\-impl}!set\_\-dependency@{set\_\-dependency}}
+\index{set\_\-dependency@{set\_\-dependency}!source_py::SdoOrganization::Organization_impl@{source\_\-py::SdoOrganization::Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def set\_\-dependency ( {\em self},  {\em dependency})}\label{classsource__py_1_1_sdo_organization_1_1_organization__impl_801373cfe9a382d19bdf9d2ef36a5549}
+
+
+[CORBA interface] Organization の DependencyType をセットする 
+
+Organization の依存関係 \char`\"{}DependencyType\char`\"{} をセットする。 引数 \char`\"{}dependencty\char`\"{} により依存関係を与える。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em dependency}]Organization の依存関係を表す DependencyType。 DependencyType は OMG SDO 仕様の Section 2.2.2、2-3 ページの \char`\"{}Data Structures Used by Resource Data Model\char`\"{} を参照。\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オペレーションが成功したかどうかを返す。\end{Desc}
+\begin{Desc}
+\item[例外:]
+\begin{description}
+\item[{\em SDONotExists}]ターゲットのSDOが存在しない。(本例外は、CORBA標準 システム例外のOBJECT\_\-NOT\_\-EXISTにマッピングされる) \item[{\em InvalidParameter}]引数 \char`\"{}sProfile\char`\"{} が nullである。 \item[{\em NotAvailable}]SDOは存在するが応答がない。 \item[{\em InternalError}]内部的エラーが発生した。 \end{description}
+\end{Desc}
+
+
+ SdoOrganization.py の 794 行で定義されています。

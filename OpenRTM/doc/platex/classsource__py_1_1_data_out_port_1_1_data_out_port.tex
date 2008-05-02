@@ -1,0 +1,126 @@
+\section{クラス DataOutPort}
+\label{classsource__py_1_1_data_out_port_1_1_data_out_port}\index{source\_\-py::DataOutPort::DataOutPort@{source\_\-py::DataOutPort::DataOutPort}}
+Outort 用 Port  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf publishInterfaces}
+\begin{CompactList}\small\item\em Interface 情報を公開する \item\end{CompactList}\item 
+def {\bf subscribeInterfaces}
+\begin{CompactList}\small\item\em Interface に接続する \item\end{CompactList}\item 
+def {\bf unsubscribeInterfaces}
+\begin{CompactList}\small\item\em Interface の接続を解除する \item\end{CompactList}\end{CompactItemize}
+\subsection*{データ構造}
+\begin{CompactItemize}
+\item 
+class {\bf subscribe}
+\begin{CompactList}\small\item\em Interface接続用Functor \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+Outort 用 Port 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+データ出力ポートの実装クラス。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ DataOutPort.py の 36 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::DataOutPort::DataOutPort@{source\_\-py::DataOutPort::DataOutPort}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::DataOutPort::DataOutPort@{source\_\-py::DataOutPort::DataOutPort}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em name},  {\em outport})}\label{classsource__py_1_1_data_out_port_1_1_data_out_port_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]ポート名称 \item[{\em outport}]当該データ出力ポートに関連付けるOutPortオブジェクト \end{description}
+\end{Desc}
+
+
+ DataOutPort.py の 55 行で定義されています。\index{source\_\-py::DataOutPort::DataOutPort@{source\_\-py::DataOutPort::DataOutPort}!publishInterfaces@{publishInterfaces}}
+\index{publishInterfaces@{publishInterfaces}!source_py::DataOutPort::DataOutPort@{source\_\-py::DataOutPort::DataOutPort}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def publishInterfaces ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_data_out_port_1_1_data_out_port_cc531607a3c2f8b651a97eb335152647}
+
+
+Interface 情報を公開する 
+
+このオペレーションは、notify\_\-connect() 処理シーケンスの始めにコール される関数である。 notify\_\-connect() では、
+
+\begin{itemize}
+\item \doxyref{publishInterfaces()}{p.}{classsource__py_1_1_data_out_port_1_1_data_out_port_cc531607a3c2f8b651a97eb335152647}\item connectNext()\item \doxyref{subscribeInterfaces()}{p.}{classsource__py_1_1_data_out_port_1_1_data_out_port_9743165933e0fee41ab3b4788dc5b749}\item updateConnectorProfile()\end{itemize}
+
+
+の順に protected 関数がコールされ接続処理が行われる。 \par
+ このオペレーションは、新規の connector\_\-id に対しては接続の生成、 既存の connector\_\-id に対しては更新が適切に行われる必要がある。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]接続に関するプロファイル情報\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ DataOutPort.py の 114 行で定義されています。\index{source\_\-py::DataOutPort::DataOutPort@{source\_\-py::DataOutPort::DataOutPort}!subscribeInterfaces@{subscribeInterfaces}}
+\index{subscribeInterfaces@{subscribeInterfaces}!source_py::DataOutPort::DataOutPort@{source\_\-py::DataOutPort::DataOutPort}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def subscribeInterfaces ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_data_out_port_1_1_data_out_port_9743165933e0fee41ab3b4788dc5b749}
+
+
+Interface に接続する 
+
+このオペレーションは、notify\_\-connect() 処理シーケンスの中間にコール される関数である。 notify\_\-connect() では、
+
+\begin{itemize}
+\item \doxyref{publishInterfaces()}{p.}{classsource__py_1_1_data_out_port_1_1_data_out_port_cc531607a3c2f8b651a97eb335152647}\item connectNext()\item \doxyref{subscribeInterfaces()}{p.}{classsource__py_1_1_data_out_port_1_1_data_out_port_9743165933e0fee41ab3b4788dc5b749}\item updateConnectorProfile()\end{itemize}
+
+
+の順に protected 関数がコールされ接続処理が行われる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]接続に関するプロファイル情報\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ DataOutPort.py の 159 行で定義されています。\index{source\_\-py::DataOutPort::DataOutPort@{source\_\-py::DataOutPort::DataOutPort}!unsubscribeInterfaces@{unsubscribeInterfaces}}
+\index{unsubscribeInterfaces@{unsubscribeInterfaces}!source_py::DataOutPort::DataOutPort@{source\_\-py::DataOutPort::DataOutPort}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def unsubscribeInterfaces ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_data_out_port_1_1_data_out_port_3bce9d1fab9e4568c5fcec276767b6dc}
+
+
+Interface の接続を解除する 
+
+このオペレーションは、notify\_\-disconnect() 処理シーケンスの終わりにコール される関数である。 notify\_\-disconnect() では、\begin{itemize}
+\item disconnectNext()\item \doxyref{unsubscribeInterfaces()}{p.}{classsource__py_1_1_data_out_port_1_1_data_out_port_3bce9d1fab9e4568c5fcec276767b6dc}\item eraseConnectorProfile() の順に protected 関数がコールされ接続解除処理が行われる。\end{itemize}
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]接続に関するプロファイル情報 \end{description}
+\end{Desc}
+
+
+ DataOutPort.py の 208 行で定義されています。

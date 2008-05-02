@@ -1,0 +1,285 @@
+\section{クラス NullBuffer}
+\label{classsource__py_1_1_buffer_base_1_1_null_buffer}\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+ダミーバッファ実装クラス  
+
+
+{\bf BufferBase}を継承しています。
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf init}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf clear}
+\begin{CompactList}\small\item\em バッファの初期化 \item\end{CompactList}\item 
+def {\bf length}
+\begin{CompactList}\small\item\em バッファ長(１固定)を取得する \item\end{CompactList}\item 
+def {\bf write}
+\begin{CompactList}\small\item\em バッファにデータを書き込む \item\end{CompactList}\item 
+def {\bf read}
+\begin{CompactList}\small\item\em バッファからデータを読み出す \item\end{CompactList}\item 
+def {\bf isFull}
+\begin{CompactList}\small\item\em バッファfullチェック \item\end{CompactList}\item 
+def {\bf isEmpty}
+\begin{CompactList}\small\item\em バッファemptyチェック \item\end{CompactList}\item 
+def {\bf isNew}
+\begin{CompactList}\small\item\em 最新データか確認する \item\end{CompactList}\item 
+def {\bf put}
+\begin{CompactList}\small\item\em バッファにデータを格納 \item\end{CompactList}\item 
+def {\bf get}
+\begin{CompactList}\small\item\em バッファからデータを取得する \item\end{CompactList}\item 
+def {\bf getRef}
+\begin{CompactList}\small\item\em 次に書き込むバッファへの参照を取得する \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+ダミーバッファ実装クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+バッファ長が１固定のダミーバッファ実装クラス。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em DataType}]バッファに格納するデータ型\end{description}
+\end{Desc}
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ BufferBase.py の 241 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em size} = {\tt None})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ バッファ長を１(固定)で初期化する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em size}]バッファ長(デフォルト値:None，ただし無効) \end{description}
+\end{Desc}
+
+
+ BufferBase.py の 261 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!init@{init}}
+\index{init@{init}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def init ( {\em self},  {\em data})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_c95cf511c1f2ff09ca47fe587657c2b4}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em data}]格納データ \end{description}
+\end{Desc}
+
+
+ BufferBase.py の 283 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!clear@{clear}}
+\index{clear@{clear}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def clear ( {\em self})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_07b95aa63e9e2d286ef0aa83d5bb34b2}
+
+
+バッファの初期化 
+
+バッファの初期化を実行する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ BufferBase.py の 299 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!length@{length}}
+\index{length@{length}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def length ( {\em self})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_de624967a623600100475a859a3cc0a4}
+
+
+バッファ長(１固定)を取得する 
+
+バッファ長を取得する。(常に１を返す。)
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]バッファ長(１固定) \end{Desc}
+
+
+{\bf BufferBase} \doxyref{}{p.}{classsource__py_1_1_buffer_base_1_1_buffer_base_de624967a623600100475a859a3cc0a4}を再定義しています。
+
+ BufferBase.py の 321 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!write@{write}}
+\index{write@{write}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def write ( {\em self},  {\em value})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_8c7fc40f1124fcf3f5ee7116cd62f413}
+
+
+バッファにデータを書き込む 
+
+引数で与えられたデータをバッファに書き込む。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em value}]書き込み対象データ\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]データ書き込み結果(true:書き込み成功，false:書き込み失敗) \end{Desc}
+
+
+{\bf BufferBase} \doxyref{}{p.}{classsource__py_1_1_buffer_base_1_1_buffer_base_8c7fc40f1124fcf3f5ee7116cd62f413}を再定義しています。
+
+ BufferBase.py の 342 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!read@{read}}
+\index{read@{read}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def read ( {\em self},  {\em value})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_fcea8c9091d60bee0f6fb79abb6e1cca}
+
+
+バッファからデータを読み出す 
+
+バッファに格納されたデータを読み出す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em value}]読み出したデータ\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]データ読み出し結果(true:読み出し成功，false:読み出し失敗) \end{Desc}
+
+
+{\bf BufferBase} \doxyref{}{p.}{classsource__py_1_1_buffer_base_1_1_buffer_base_fcea8c9091d60bee0f6fb79abb6e1cca}を再定義しています。
+
+ BufferBase.py の 364 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!isFull@{isFull}}
+\index{isFull@{isFull}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def isFull ( {\em self})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_4928b8e993df1ab082183bda426cb9b1}
+
+
+バッファfullチェック 
+
+バッファfullをチェックする。(常にfalseを返す。)
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]fullチェック結果(常にfalse) \end{Desc}
+
+
+{\bf BufferBase} \doxyref{}{p.}{classsource__py_1_1_buffer_base_1_1_buffer_base_4928b8e993df1ab082183bda426cb9b1}を再定義しています。
+
+ BufferBase.py の 387 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def isEmpty ( {\em self})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_fb7514ca88d7e70499debb1302c4497d}
+
+
+バッファemptyチェック 
+
+バッファemptyをチェックする。(常にfalseを返す。) ※要確認
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]emptyチェック結果(常にfalse) \end{Desc}
+
+
+{\bf BufferBase} \doxyref{}{p.}{classsource__py_1_1_buffer_base_1_1_buffer_base_fb7514ca88d7e70499debb1302c4497d}を再定義しています。
+
+ BufferBase.py の 408 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!isNew@{isNew}}
+\index{isNew@{isNew}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def isNew ( {\em self})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_a41773ac05767910a4cc7df88b7f814c}
+
+
+最新データか確認する 
+
+現在のバッファ位置に格納されているデータが最新データか確認する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]最新データ確認結果 ( true:最新データ．データはまだ読み出されていない false:過去のデータ．データは既に読み出されている) \end{Desc}
+
+
+ BufferBase.py の 428 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!put@{put}}
+\index{put@{put}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def put ( {\em self},  {\em data})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_6b875be2179dd1eed37edd8d7fe079ff}
+
+
+バッファにデータを格納 
+
+引数で与えられたデータをバッファに格納する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em data}]対象データ \end{description}
+\end{Desc}
+
+
+{\bf BufferBase} \doxyref{}{p.}{classsource__py_1_1_buffer_base_1_1_buffer_base_6b875be2179dd1eed37edd8d7fe079ff}を再定義しています。
+
+ BufferBase.py の 447 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!get@{get}}
+\index{get@{get}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get ( {\em self})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_444a1328efb32d5d9d2dcb2efe855d3b}
+
+
+バッファからデータを取得する 
+
+バッファに格納されたデータを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]取得データ \end{Desc}
+
+
+{\bf BufferBase} \doxyref{}{p.}{classsource__py_1_1_buffer_base_1_1_buffer_base_444a1328efb32d5d9d2dcb2efe855d3b}を再定義しています。
+
+ BufferBase.py の 469 行で定義されています。\index{source\_\-py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}!getRef@{getRef}}
+\index{getRef@{getRef}!source_py::BufferBase::NullBuffer@{source\_\-py::BufferBase::NullBuffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getRef ( {\em self})}\label{classsource__py_1_1_buffer_base_1_1_null_buffer_e1daf7a4fa2db844dc84df9a9bbf113c}
+
+
+次に書き込むバッファへの参照を取得する 
+
+書き込みバッファへの参照を取得する。 本バッファ実装ではバッファ長は固定で１であるため， 常に同じ位置への参照を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]次の書き込み対象バッファへの参照(固定) \end{Desc}
+
+
+{\bf BufferBase} \doxyref{}{p.}{classsource__py_1_1_buffer_base_1_1_buffer_base_e1daf7a4fa2db844dc84df9a9bbf113c}を再定義しています。
+
+ BufferBase.py の 492 行で定義されています。

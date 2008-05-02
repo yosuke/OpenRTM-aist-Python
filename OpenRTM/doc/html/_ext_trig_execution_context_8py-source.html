@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>OpenRTM: ExtTrigExecutionContext.py ソースファイル</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.4 -->
+<div class="tabs">
+  <ul>
+    <li><a href="index.html"><span>メインページ</span></a></li>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li class="current"><a href="files.html"><span>ファイル</span></a></li>
+  </ul>
+</div>
+<h1>ExtTrigExecutionContext.py</h1><a href="_ext_trig_execution_context_8py.html">説明を見る。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">#!/usr/bin/env python</span>
+<a name="l00002"></a>00002 <span class="comment"># -*- coding: euc-jp -*-</span>
+<a name="l00003"></a>00003 
+<a name="l00004"></a>00004 <span class="comment">##</span>
+<a name="l00005"></a>00005 <span class="comment"># @file ExtTrigExecutionContext.py</span>
+<a name="l00006"></a>00006 <span class="comment"># @brief ExtTrigExecutionContext class</span>
+<a name="l00007"></a>00007 <span class="comment"># @date $Date: 2007/09/06$</span>
+<a name="l00008"></a>00008 <span class="comment"># @author Noriaki Ando &lt;n-ando@aist.go.jp&gt; and Shinji Kurihara</span>
+<a name="l00009"></a>00009 <span class="comment">#</span>
+<a name="l00010"></a>00010 <span class="comment"># Copyright (C) 2007-2008</span>
+<a name="l00011"></a>00011 <span class="comment">#    Task-intelligence Research Group,</span>
+<a name="l00012"></a>00012 <span class="comment">#    Intelligent Systems Research Institute,</span>
+<a name="l00013"></a>00013 <span class="comment">#    National Institute of</span>
+<a name="l00014"></a>00014 <span class="comment">#        Advanced Industrial Science and Technology (AIST), Japan</span>
+<a name="l00015"></a>00015 <span class="comment">#    All rights reserved.</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">import</span> threading
+<a name="l00020"></a>00020 <span class="keyword">import</span> time
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022 <span class="keyword">import</span> OpenRTM
+<a name="l00023"></a>00023 <span class="keyword">import</span> RTC, RTC__POA
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 <span class="comment">##</span>
+<a name="l00028"></a>00028 <span class="comment"># @if jp</span>
+<a name="l00029"></a>00029 <span class="comment"># @class ExtTrigExecutionContext</span>
+<a name="l00030"></a>00030 <span class="comment"># @brief ステップ実行が可能な ExecutionContext クラス</span>
+<a name="l00031"></a>00031 <span class="comment">#</span>
+<a name="l00032"></a>00032 <span class="comment"># １周期毎の実行が可能なPeriodic Sampled Data Processing(周期実行用)</span>
+<a name="l00033"></a>00033 <span class="comment"># ExecutionContextクラス。</span>
+<a name="l00034"></a>00034 <span class="comment"># 外部からのメソッド呼びだしによって時間を１周期づつ進めることができる。</span>
+<a name="l00035"></a>00035 <span class="comment">#</span>
+<a name="l00036"></a>00036 <span class="comment"># @since 0.4.0</span>
+<a name="l00037"></a>00037 <span class="comment">#</span>
+<a name="l00038"></a>00038 <span class="comment"># @else</span>
+<a name="l00039"></a>00039 <span class="comment"># @class ExtTrigExecutionContext</span>
+<a name="l00040"></a>00040 <span class="comment"># @endif</span>
+<a name="l00041"></a><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html">00041</a> <span class="keyword">class </span><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html" title="ステップ実行が可能な ExecutionContext クラス">ExtTrigExecutionContext</a>(OpenRTM.PeriodicExecutionContext):
+<a name="l00042"></a>00042   <span class="stringliteral">"""</span>
+<a name="l00043"></a>00043 <span class="stringliteral">  """</span>
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046   <span class="comment">##</span>
+<a name="l00047"></a>00047   <span class="comment"># @if jp</span>
+<a name="l00048"></a>00048   <span class="comment"># @brief コンストラクタ</span>
+<a name="l00049"></a>00049   <span class="comment">#</span>
+<a name="l00050"></a>00050   <span class="comment"># コンストラクタ</span>
+<a name="l00051"></a>00051   <span class="comment">#</span>
+<a name="l00052"></a>00052   <span class="comment"># @param self</span>
+<a name="l00053"></a>00053   <span class="comment">#</span>
+<a name="l00054"></a>00054   <span class="comment"># @else</span>
+<a name="l00055"></a>00055   <span class="comment"># @brief Constructor</span>
+<a name="l00056"></a>00056   <span class="comment"># @endif</span>
+<a name="l00057"></a><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#c775ee34451fdfa742b318538164070e">00057</a>   <span class="keyword">def </span><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#c775ee34451fdfa742b318538164070e" title="コンストラクタ">__init__</a>(self):
+<a name="l00058"></a>00058     OpenRTM.PeriodicExecutionContext.__init__(self)
+<a name="l00059"></a>00059     self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a> = self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context_1_1_worker.html" title="ExecutionContext 駆動クラス">Worker</a>()
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062   <span class="comment">##</span>
+<a name="l00063"></a>00063   <span class="comment"># @if jp</span>
+<a name="l00064"></a>00064   <span class="comment"># @brief 処理を１ステップ進める</span>
+<a name="l00065"></a>00065   <span class="comment">#</span>
+<a name="l00066"></a>00066   <span class="comment"># ExecutionContextの処理を１周期分進める。</span>
+<a name="l00067"></a>00067   <span class="comment">#</span>
+<a name="l00068"></a>00068   <span class="comment"># @param self</span>
+<a name="l00069"></a>00069   <span class="comment">#</span>
+<a name="l00070"></a>00070   <span class="comment"># @else</span>
+<a name="l00071"></a>00071   <span class="comment">#</span>
+<a name="l00072"></a>00072   <span class="comment"># @endif</span>
+<a name="l00073"></a><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#125397433d5d1d506776ec7982be4b92">00073</a>   <span class="keyword">def </span><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#125397433d5d1d506776ec7982be4b92" title="処理を１ステップ進める">tick</a>(self):
+<a name="l00074"></a>00074     <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._cond.acquire(0):
+<a name="l00075"></a>00075       <span class="keywordflow">return</span>
+<a name="l00076"></a>00076     self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._called = <span class="keyword">True</span>
+<a name="l00077"></a>00077     self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._cond.notify()
+<a name="l00078"></a>00078     self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._cond.release()
+<a name="l00079"></a>00079     <span class="keywordflow">return</span>
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081   <span class="comment">##</span>
+<a name="l00082"></a>00082   <span class="comment"># @if jp</span>
+<a name="l00083"></a>00083   <span class="comment"># @brief 各 Component の処理を呼び出す。</span>
+<a name="l00084"></a>00084   <span class="comment"># </span>
+<a name="l00085"></a>00085   <span class="comment"># ExecutionContext に attach されている各 Component の処理を呼び出す。</span>
+<a name="l00086"></a>00086   <span class="comment"># 全 Component の処理を呼び出した後、次の呼出が発生するまで休止する。</span>
+<a name="l00087"></a>00087   <span class="comment"># </span>
+<a name="l00088"></a>00088   <span class="comment"># @param self</span>
+<a name="l00089"></a>00089   <span class="comment"># </span>
+<a name="l00090"></a>00090   <span class="comment"># @else</span>
+<a name="l00091"></a>00091   <span class="comment"># </span>
+<a name="l00092"></a>00092   <span class="comment"># @endif</span>
+<a name="l00093"></a>00093   <span class="comment"># </span>
+<a name="l00094"></a><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#edcaade7dd45761ddcc3b3cc07005314">00094</a>   <span class="keyword">def </span><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#edcaade7dd45761ddcc3b3cc07005314" title="各 Component の処理を呼び出す。">run</a>(self):
+<a name="l00095"></a>00095     flag = <span class="keyword">True</span>
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097     <span class="keywordflow">while</span> flag:
+<a name="l00098"></a>00098       flag = self._running
+<a name="l00099"></a>00099       sec_ = float(self._usec)/1000000.0
+<a name="l00100"></a>00100       self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._cond.acquire()
+<a name="l00101"></a>00101       <span class="keywordflow">while</span> <span class="keywordflow">not</span> self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._called <span class="keywordflow">and</span> self._running:
+<a name="l00102"></a>00102         self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._cond.wait()
+<a name="l00103"></a>00103       <span class="keywordflow">if</span> self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._called:
+<a name="l00104"></a>00104         self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._called = <span class="keyword">False</span>
+<a name="l00105"></a>00105         <span class="keywordflow">for</span> comp <span class="keywordflow">in</span> self._comps:
+<a name="l00106"></a>00106 <span class="comment">#          self.invoke_worker()(comp)</span>
+<a name="l00107"></a>00107           comp._sm.worker()
+<a name="l00108"></a>00108         <span class="keywordflow">while</span> <span class="keywordflow">not</span> self._running:
+<a name="l00109"></a>00109           time.sleep(sec_)
+<a name="l00110"></a>00110         time.sleep(sec_)
+<a name="l00111"></a>00111       self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context.html#faaadfac10343ebde220756cb973c2a0">_worker</a>._cond.release()
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113   <span class="comment">##</span>
+<a name="l00114"></a>00114   <span class="comment"># @if jp</span>
+<a name="l00115"></a>00115   <span class="comment"># @class Worker</span>
+<a name="l00116"></a>00116   <span class="comment"># @brief ExecutionContext 駆動クラス</span>
+<a name="l00117"></a>00117   <span class="comment">#</span>
+<a name="l00118"></a>00118   <span class="comment"># 実行処理に関する排他制御など、実際の処理を監視・制御するためのクラス。</span>
+<a name="l00119"></a>00119   <span class="comment">#</span>
+<a name="l00120"></a>00120   <span class="comment"># @since 0.4.0</span>
+<a name="l00121"></a>00121   <span class="comment">#</span>
+<a name="l00122"></a>00122   <span class="comment"># @else</span>
+<a name="l00123"></a>00123   <span class="comment">#</span>
+<a name="l00124"></a>00124   <span class="comment"># @endif</span>
+<a name="l00125"></a><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context_1_1_worker.html">00125</a>   <span class="keyword">class </span><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context_1_1_worker.html" title="ExecutionContext 駆動クラス">Worker</a>:
+<a name="l00126"></a>00126     
+<a name="l00127"></a>00127     
+<a name="l00128"></a>00128     
+<a name="l00129"></a>00129     <span class="comment">##</span>
+<a name="l00130"></a>00130     <span class="comment"># @if jp</span>
+<a name="l00131"></a>00131     <span class="comment"># @brief コンストラクタ</span>
+<a name="l00132"></a>00132     <span class="comment">#</span>
+<a name="l00133"></a>00133     <span class="comment"># コンストラクタ</span>
+<a name="l00134"></a>00134     <span class="comment">#</span>
+<a name="l00135"></a>00135     <span class="comment"># @param self</span>
+<a name="l00136"></a>00136     <span class="comment">#</span>
+<a name="l00137"></a>00137     <span class="comment"># @else</span>
+<a name="l00138"></a>00138     <span class="comment"># @brief Constructor</span>
+<a name="l00139"></a>00139     <span class="comment"># @endif</span>
+<a name="l00140"></a><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context_1_1_worker.html#c775ee34451fdfa742b318538164070e">00140</a>     <span class="keyword">def </span><a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context_1_1_worker.html#c775ee34451fdfa742b318538164070e" title="コンストラクタ">__init__</a>(self):
+<a name="l00141"></a>00141       self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context_1_1_worker.html#45228d6b0e2ec85bcc62049c35e9f343">_mutex</a> = threading.RLock()
+<a name="l00142"></a>00142       self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context_1_1_worker.html#eaa04614df7ebab23e3474f149835f3b">_cond</a> = threading.Condition(self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context_1_1_worker.html#45228d6b0e2ec85bcc62049c35e9f343">_mutex</a>)
+<a name="l00143"></a>00143       self.<a class="code" href="classsource__py_1_1_ext_trig_execution_context_1_1_ext_trig_execution_context_1_1_worker.html#d6544f5490c3222eaa1cb742d73bfa4b">_called</a> = <span class="keyword">False</span>
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146 
+<a name="l00147"></a>00147 <span class="comment">##</span>
+<a name="l00148"></a>00148 <span class="comment"># @if jp</span>
+<a name="l00149"></a>00149 <span class="comment"># @brief 当該 ExecutionContext 用Factoryクラスの登録。</span>
+<a name="l00150"></a>00150 <span class="comment">#</span>
+<a name="l00151"></a>00151 <span class="comment"># このExecutionContextを生成するFactoryクラスを</span>
+<a name="l00152"></a>00152 <span class="comment"># ExecutionContext管理用ObjectManagerに登録する。</span>
+<a name="l00153"></a>00153 <span class="comment">#</span>
+<a name="l00154"></a>00154 <span class="comment"># @else</span>
+<a name="l00155"></a>00155 <span class="comment">#</span>
+<a name="l00156"></a>00156 <span class="comment"># @endif</span>
+<a name="l00157"></a>00157 <span class="keyword">def </span>ExtTrigExecutionContextInit(manager):
+<a name="l00158"></a>00158   manager.registerECFactory(<span class="stringliteral">"ExtTrigExecutionContext"</span>,
+<a name="l00159"></a>00159                 OpenRTM.ExtTrigExecutionContext,
+<a name="l00160"></a>00160                 OpenRTM.ECDelete)
+</pre></div><hr size="1"><address style="text-align: right;"><small>OpenRTMに対してMon Mar 17 15:11:05 2008に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.4 </small></address>
+</body>
+</html>

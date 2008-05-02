@@ -1,0 +1,187 @@
+\section{クラス PortAdmin}
+\label{classsource__py_1_1_port_admin_1_1_port_admin}\index{source\_\-py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}}
+\doxyref{PortAdmin}{p.}{classsource__py_1_1_port_admin_1_1_port_admin} クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf getPortList}
+\begin{CompactList}\small\item\em Port リストの取得 \item\end{CompactList}\item 
+def {\bf getPortRef}
+\begin{CompactList}\small\item\em Port のオブジェクト参照の取得 \item\end{CompactList}\item 
+def {\bf getPort}
+\begin{CompactList}\small\item\em Port のサーバントのポインタの取得 \item\end{CompactList}\item 
+def {\bf registerPort}
+\begin{CompactList}\small\item\em Port を登録する \item\end{CompactList}\item 
+def {\bf deletePort}
+\begin{CompactList}\small\item\em Port の登録を解除する \item\end{CompactList}\item 
+def {\bf deletePortByName}
+\begin{CompactList}\small\item\em 名称指定によりPort の登録を解除する \item\end{CompactList}\item 
+def {\bf finalizePorts}
+\begin{CompactList}\small\item\em 全ての Port をdeactivateし登録を削除する \item\end{CompactList}\end{CompactItemize}
+\subsection*{データ構造}
+\begin{CompactItemize}
+\item 
+class {\bf comp\_\-op}
+\begin{CompactList}\small\item\em Port 管理用内部クラス \item\end{CompactList}\item 
+class {\bf find\_\-port\_\-name}
+\begin{CompactList}\small\item\em Port 検索用ファンクタ \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{PortAdmin}{p.}{classsource__py_1_1_port_admin_1_1_port_admin} クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+各種 Port の管理を行うクラス。 Port の登録/登録解除など各種管理操作を実行するとともに、登録されている Port の管理を行うクラス。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ PortAdmin.py の 40 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em orb},  {\em poa})}\label{classsource__py_1_1_port_admin_1_1_port_admin_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em orb}]ORB \item[{\em poa}]POA \end{description}
+\end{Desc}
+
+
+ PortAdmin.py の 94 行で定義されています。\index{source\_\-py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}!getPortList@{getPortList}}
+\index{getPortList@{getPortList}!source_py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getPortList ( {\em self})}\label{classsource__py_1_1_port_admin_1_1_port_admin_d04d521a0d67aea7b7024ca24471e69c}
+
+
+Port リストの取得 
+
+\doxyref{registerPort()}{p.}{classsource__py_1_1_port_admin_1_1_port_admin_73b550d8fd7e6ec439efe9ea98906028} により登録された Port の リストを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]Port リスト \end{Desc}
+
+
+ PortAdmin.py の 129 行で定義されています。\index{source\_\-py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}!getPortRef@{getPortRef}}
+\index{getPortRef@{getPortRef}!source_py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getPortRef ( {\em self},  {\em port\_\-name})}\label{classsource__py_1_1_port_admin_1_1_port_admin_aa2e4619544f8de404a4422177b90a68}
+
+
+Port のオブジェクト参照の取得 
+
+port\_\-name で指定した Port のオブジェクト参照を返す。 port\_\-name で指定する Port はあらかじめ \doxyref{registerPort()}{p.}{classsource__py_1_1_port_admin_1_1_port_admin_73b550d8fd7e6ec439efe9ea98906028} で登録されてい なければならない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em port\_\-name}]参照を返すPortの名前\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]Port\_\-ptr Portのオブジェクト参照 \end{Desc}
+
+
+ PortAdmin.py の 159 行で定義されています。\index{source\_\-py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}!getPort@{getPort}}
+\index{getPort@{getPort}!source_py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getPort ( {\em self},  {\em port\_\-name})}\label{classsource__py_1_1_port_admin_1_1_port_admin_ddf93e8214d0331f068bddfbb7cf2ffa}
+
+
+Port のサーバントのポインタの取得 
+
+port\_\-name で指定した Port のサーバントのポインタを返す。 port\_\-name で指定する Port はあらかじめ \doxyref{registerPort()}{p.}{classsource__py_1_1_port_admin_1_1_port_admin_73b550d8fd7e6ec439efe9ea98906028} で登録されてい なければならない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em port\_\-name}]参照を返すPortの名前\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]PortBase$\ast$ Portサーバント基底クラスのポインタ \end{Desc}
+
+
+ PortAdmin.py の 192 行で定義されています。\index{source\_\-py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}!registerPort@{registerPort}}
+\index{registerPort@{registerPort}!source_py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def registerPort ( {\em self},  {\em port})}\label{classsource__py_1_1_port_admin_1_1_port_admin_73b550d8fd7e6ec439efe9ea98906028}
+
+
+Port を登録する 
+
+引数 port で指定された Port のサーバントを登録する。 登録された Port のサーバントはコンストラクタで与えられたPOA 上で activate され、そのオブジェクト参照はPortのProfileにセットされる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em port}]Port サーバント \end{description}
+\end{Desc}
+
+
+ PortAdmin.py の 220 行で定義されています。\index{source\_\-py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}!deletePort@{deletePort}}
+\index{deletePort@{deletePort}!source_py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def deletePort ( {\em self},  {\em port})}\label{classsource__py_1_1_port_admin_1_1_port_admin_c27cc366b322fff0b31c0757db8d85dc}
+
+
+Port の登録を解除する 
+
+引数 port で指定された Port の登録を解除する。 削除時に Port は deactivate され、PortのProfileのリファレンスには、 nil値が代入される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em port}]Port サーバント \end{description}
+\end{Desc}
+
+
+ PortAdmin.py の 248 行で定義されています。\index{source\_\-py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}!deletePortByName@{deletePortByName}}
+\index{deletePortByName@{deletePortByName}!source_py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def deletePortByName ( {\em self},  {\em port\_\-name})}\label{classsource__py_1_1_port_admin_1_1_port_admin_a600c74194fdc7c5c71174387f1acfd6}
+
+
+名称指定によりPort の登録を解除する 
+
+引数で指定された名前を持つ Port の登録を削除する。 削除時に Port は deactivate され、PortのProfileのリファレンスには、 nil値が代入される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em port\_\-name}]Port の名前 \end{description}
+\end{Desc}
+
+
+ PortAdmin.py の 286 行で定義されています。\index{source\_\-py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}!finalizePorts@{finalizePorts}}
+\index{finalizePorts@{finalizePorts}!source_py::PortAdmin::PortAdmin@{source\_\-py::PortAdmin::PortAdmin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def finalizePorts ( {\em self})}\label{classsource__py_1_1_port_admin_1_1_port_admin_783731d79e96461c35ee618a24263f37}
+
+
+全ての Port をdeactivateし登録を削除する 
+
+登録されている全てのPortに対して、サーバントのdeactivateを行い、 登録リストから削除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ PortAdmin.py の 312 行で定義されています。

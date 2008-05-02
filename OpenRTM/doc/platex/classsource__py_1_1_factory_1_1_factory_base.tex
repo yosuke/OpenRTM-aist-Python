@@ -1,0 +1,127 @@
+\section{クラス FactoryBase}
+\label{classsource__py_1_1_factory_1_1_factory_base}\index{source\_\-py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}}
+\doxyref{FactoryBase}{p.}{classsource__py_1_1_factory_1_1_factory_base} 基底クラス  
+
+
+{\bf FactoryPython}に継承されています。
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf create}
+\begin{CompactList}\small\item\em コンポーネントの生成(サブクラス実装用) \item\end{CompactList}\item 
+def {\bf destroy}
+\begin{CompactList}\small\item\em コンポーネントの破棄(サブクラス実装用) \item\end{CompactList}\item 
+def {\bf profile}
+\begin{CompactList}\small\item\em コンポーネントプロファイルの取得 \item\end{CompactList}\item 
+def {\bf number}
+\begin{CompactList}\small\item\em 現在のインスタンス数の取得 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{FactoryBase}{p.}{classsource__py_1_1_factory_1_1_factory_base} 基底クラス 
+
+RTコンポーネント生成用ファクトリの基底クラス。 実際の各種ファクトリクラスを実装する場合は、本クラスを継承する形で実装する。 実際の生成、削除処理は具象サブクラスにて実装する必要がある。
+
+\begin{Desc}
+\item[から:]0.2.0 \end{Desc}
+
+
+ Factory.py の 61 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em profile})}\label{classsource__py_1_1_factory_1_1_factory_base_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em profile}]コンポーネントのプロファイル \end{description}
+\end{Desc}
+
+
+ Factory.py の 84 行で定義されています。\index{source\_\-py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}!create@{create}}
+\index{create@{create}!source_py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def create ( {\em self},  {\em mgr})}\label{classsource__py_1_1_factory_1_1_factory_base_5b7ef0221e471e99fa7f0a87a28ba1ea}
+
+
+コンポーネントの生成(サブクラス実装用) 
+
+RTComponent のインスタンスを生成するための関数。\par
+ 実際の初期化処理は、各具象クラス内にて記述する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em mgr}]マネージャオブジェクト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]生成したコンポーネント \end{Desc}
+
+
+{\bf FactoryPython} \doxyref{}{p.}{classsource__py_1_1_factory_1_1_factory_python_5b7ef0221e471e99fa7f0a87a28ba1ea}で再定義されています。
+
+ Factory.py の 113 行で定義されています。\index{source\_\-py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}!destroy@{destroy}}
+\index{destroy@{destroy}!source_py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def destroy ( {\em self},  {\em comp})}\label{classsource__py_1_1_factory_1_1_factory_base_0ced48ce1d2b232eb793c028f4a75b89}
+
+
+コンポーネントの破棄(サブクラス実装用) 
+
+RTComponent のインスタンスを破棄するための関数。\par
+ 実際の初期化処理は、各具象クラス内にて記述する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em comp}]破棄対象 RTコンポーネント \end{description}
+\end{Desc}
+
+
+{\bf FactoryPython} \doxyref{}{p.}{classsource__py_1_1_factory_1_1_factory_python_0ced48ce1d2b232eb793c028f4a75b89}で再定義されています。
+
+ Factory.py の 135 行で定義されています。\index{source\_\-py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}!profile@{profile}}
+\index{profile@{profile}!source_py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def profile ( {\em self})}\label{classsource__py_1_1_factory_1_1_factory_base_2176f1dd03d32029b802581e9c187daf}
+
+
+コンポーネントプロファイルの取得 
+
+コンポーネントのプロファイルを取得する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]コンポーネントのプロファイル \end{Desc}
+
+
+ Factory.py の 157 行で定義されています。\index{source\_\-py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}!number@{number}}
+\index{number@{number}!source_py::Factory::FactoryBase@{source\_\-py::Factory::FactoryBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def number ( {\em self})}\label{classsource__py_1_1_factory_1_1_factory_base_ed843bd16678bf8a2ec79a284765286e}
+
+
+現在のインスタンス数の取得 
+
+コンポーネントの現在のインスタンス数を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]コンポーネントのインスタンス数 \end{Desc}
+
+
+ Factory.py の 179 行で定義されています。

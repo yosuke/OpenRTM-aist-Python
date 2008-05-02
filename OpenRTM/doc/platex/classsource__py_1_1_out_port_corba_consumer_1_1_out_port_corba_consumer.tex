@@ -1,0 +1,124 @@
+\section{クラス OutPortCorbaConsumer}
+\label{classsource__py_1_1_out_port_corba_consumer_1_1_out_port_corba_consumer}\index{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}}
+\doxyref{OutPortCorbaConsumer}{p.}{classsource__py_1_1_out_port_corba_consumer_1_1_out_port_corba_consumer} クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf get}
+\begin{CompactList}\small\item\em データを読み出す \item\end{CompactList}\item 
+def {\bf pull}
+\begin{CompactList}\small\item\em ポートからデータを受信する \item\end{CompactList}\item 
+def {\bf subscribeInterface}
+\begin{CompactList}\small\item\em データ受信通知への登録 \item\end{CompactList}\item 
+def {\bf unsubscribeInterface}
+\begin{CompactList}\small\item\em データ受信通知からの登録解除 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{OutPortCorbaConsumer}{p.}{classsource__py_1_1_out_port_corba_consumer_1_1_out_port_corba_consumer} クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+通信手段に CORBA を利用した出力ポートコンシューマの実装クラス。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ OutPortCorbaConsumer.py の 40 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em buffer\_\-})}\label{classsource__py_1_1_out_port_corba_consumer_1_1_out_port_corba_consumer_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em buffer\_\-}]本ポートに割り当てるバッファ \end{description}
+\end{Desc}
+
+
+ OutPortCorbaConsumer.py の 58 行で定義されています。\index{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}!get@{get}}
+\index{get@{get}!source_py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get ( {\em self},  {\em data})}\label{classsource__py_1_1_out_port_corba_consumer_1_1_out_port_corba_consumer_444a1328efb32d5d9d2dcb2efe855d3b}
+
+
+データを読み出す 
+
+設定されたデータを読み出す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em data}]読み出したデータを受け取るオブジェクト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]データ読み出し処理結果(読み出し成功:true、読み出し失敗:false) \end{Desc}
+
+
+ OutPortCorbaConsumer.py の 77 行で定義されています。\index{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}!pull@{pull}}
+\index{pull@{pull}!source_py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def pull ( {\em self})}\label{classsource__py_1_1_out_port_corba_consumer_1_1_out_port_corba_consumer_899935adaad17975d787eb7938b7d4af}
+
+
+ポートからデータを受信する 
+
+接続先のポートからデータを受信する。 受信したデータは内部に設定されたバッファに書き込まれる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ OutPortCorbaConsumer.py の 103 行で定義されています。\index{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}!subscribeInterface@{subscribeInterface}}
+\index{subscribeInterface@{subscribeInterface}!source_py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def subscribeInterface ( {\em self},  {\em properties})}\label{classsource__py_1_1_out_port_corba_consumer_1_1_out_port_corba_consumer_ca2d71e71e01d4bc19521b4f6d9f8224}
+
+
+データ受信通知への登録 
+
+指定されたプロパティに基づいて、データ受信通知の受け取りに登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em properties}]登録情報\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]登録処理結果(登録成功:true、登録失敗:false) \end{Desc}
+
+
+ OutPortCorbaConsumer.py の 123 行で定義されています。\index{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}!unsubscribeInterface@{unsubscribeInterface}}
+\index{unsubscribeInterface@{unsubscribeInterface}!source_py::OutPortCorbaConsumer::OutPortCorbaConsumer@{source\_\-py::OutPortCorbaConsumer::OutPortCorbaConsumer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def unsubscribeInterface ( {\em self},  {\em properties})}\label{classsource__py_1_1_out_port_corba_consumer_1_1_out_port_corba_consumer_781384697b52f4034ad56b665f48d6de}
+
+
+データ受信通知からの登録解除 
+
+データ受信通知の受け取りから登録を解除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em properties}]登録解除情報 \end{description}
+\end{Desc}
+
+
+ OutPortCorbaConsumer.py の 151 行で定義されています。

@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>OpenRTM: クラス TimeValue</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.4 -->
+<div class="tabs">
+  <ul>
+    <li><a href="index.html"><span>メインページ</span></a></li>
+    <li class="current"><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="files.html"><span>ファイル</span></a></li>
+  </ul>
+</div>
+<div class="tabs">
+  <ul>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="hierarchy.html"><span>クラス階層</span></a></li>
+    <li><a href="functions.html"><span>データフィールド</span></a></li>
+  </ul>
+</div>
+<div class="nav">
+<b>source_py</b>::<b>TimeValue</b>::<a class="el" href="classsource__py_1_1_time_value_1_1_time_value.html">TimeValue</a></div>
+<h1>クラス TimeValue</h1><!-- doxytag: class="source_py::TimeValue::TimeValue" -->時間計算用クラス  
+<a href="#_details">[詳細]</a>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Public メソッド</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_time_value_1_1_time_value.html#c775ee34451fdfa742b318538164070e">__init__</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">コンストラクタ  <a href="#c775ee34451fdfa742b318538164070e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_time_value_1_1_time_value.html#92f51217c100657d0bf6f97b150c0a7c">__sub__</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">時間減算  <a href="#92f51217c100657d0bf6f97b150c0a7c"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_time_value_1_1_time_value.html#e92943b217d29a45ddcbbba2f7208afc">__add__</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">時間加算  <a href="#e92943b217d29a45ddcbbba2f7208afc"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_time_value_1_1_time_value.html#82d4f30a5a028b5f6d8a28e017a442ff">set_time</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">double型→時間型変換  <a href="#82d4f30a5a028b5f6d8a28e017a442ff"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_time_value_1_1_time_value.html#4333b58211ebc55ff0caf35944599871">toDouble</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">時間型→double型変換  <a href="#4333b58211ebc55ff0caf35944599871"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_time_value_1_1_time_value.html#a7a4b9bc0941308e362738503137460e">__str__</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">設定時間を出力する  <a href="#a7a4b9bc0941308e362738503137460e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_time_value_1_1_time_value.html#829294da9721843dcd38d5ca8f775550">sign</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">符号判定  <a href="#829294da9721843dcd38d5ca8f775550"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+時間計算用クラス 
+<p>
+<div class="fragment"><pre class="fragment">
+</pre></div><p>
+指定した時間値を保持するためのクラス。 時間値に対する各種計算用オペレーションを提供する。<p>
+<dl class="since" compact><dt><b>から:</b></dt><dd>0.4.0 </dd></dl>
+
+<p> <a class="el" href="_time_value_8py-source.html">TimeValue.py</a> の <a class="el" href="_time_value_8py-source.html#l00034">34</a> 行で定義されています。</p>
+<hr><h2>関数</h2>
+<a class="anchor" name="c775ee34451fdfa742b318538164070e"></a><!-- doxytag: member="source_py::TimeValue::TimeValue::__init__" ref="c775ee34451fdfa742b318538164070e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def __init__           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>sec</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>usec</em> = <code>None</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+コンストラクタ 
+<p>
+コンストラクタ 指定された秒，マイクロ秒で初期化する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sec</em>&nbsp;</td><td>秒(デフォルト値:None) </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>usec</em>&nbsp;</td><td>マイクロ秒(デフォルト値:None) </td></tr>
+  </table>
+</dl>
+
+<p> <a class="el" href="_time_value_8py-source.html">TimeValue.py</a> の <a class="el" href="_time_value_8py-source.html#l00055">55</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="92f51217c100657d0bf6f97b150c0a7c"></a><!-- doxytag: member="source_py::TimeValue::TimeValue::__sub__" ref="92f51217c100657d0bf6f97b150c0a7c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def __sub__           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>tm</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+時間減算 
+<p>
+設定された時間から引数で与えられた時間を減算する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>tm</em>&nbsp;</td><td>減算時間</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>減算結果 </dd></dl>
+
+<p> <a class="el" href="_time_value_8py-source.html">TimeValue.py</a> の <a class="el" href="_time_value_8py-source.html#l00082">82</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="e92943b217d29a45ddcbbba2f7208afc"></a><!-- doxytag: member="source_py::TimeValue::TimeValue::__add__" ref="e92943b217d29a45ddcbbba2f7208afc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def __add__           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>tm</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+時間加算 
+<p>
+設定された時間に引数で与えられた時間を加算する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>tm</em>&nbsp;</td><td>加算時間</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>加算結果 </dd></dl>
+
+<p> <a class="el" href="_time_value_8py-source.html">TimeValue.py</a> の <a class="el" href="_time_value_8py-source.html#l00120">120</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="82d4f30a5a028b5f6d8a28e017a442ff"></a><!-- doxytag: member="source_py::TimeValue::TimeValue::set_time" ref="82d4f30a5a028b5f6d8a28e017a442ff" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def set_time           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>time</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+double型→時間型変換 
+<p>
+引数で与えられたdouble型を時間型に変換する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>time</em>&nbsp;</td><td>変換元値</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>変換結果 </dd></dl>
+
+<p> <a class="el" href="_time_value_8py-source.html">TimeValue.py</a> の <a class="el" href="_time_value_8py-source.html#l00144">144</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="4333b58211ebc55ff0caf35944599871"></a><!-- doxytag: member="source_py::TimeValue::TimeValue::toDouble" ref="4333b58211ebc55ff0caf35944599871" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def toDouble           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+時間型→double型変換 
+<p>
+保持している内容をdouble型に変換する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>double型変換結果 </dd></dl>
+
+<p> <a class="el" href="_time_value_8py-source.html">TimeValue.py</a> の <a class="el" href="_time_value_8py-source.html#l00162">162</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="a7a4b9bc0941308e362738503137460e"></a><!-- doxytag: member="source_py::TimeValue::TimeValue::__str__" ref="a7a4b9bc0941308e362738503137460e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def __str__           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+設定時間を出力する 
+<p>
+設定時間を文字列出力する。<br>
+<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>設定時間文字列表示 </dd></dl>
+
+<p> <a class="el" href="_time_value_8py-source.html">TimeValue.py</a> の <a class="el" href="_time_value_8py-source.html#l00179">179</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="829294da9721843dcd38d5ca8f775550"></a><!-- doxytag: member="source_py::TimeValue::TimeValue::sign" ref="829294da9721843dcd38d5ca8f775550" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sign           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+符号判定 
+<p>
+保持している内容の符号を判定する。<br>
+<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>正ならば1を、負ならば-1を、0ならば0 </dd></dl>
+
+<p> <a class="el" href="_time_value_8py-source.html">TimeValue.py</a> の <a class="el" href="_time_value_8py-source.html#l00195">195</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<hr size="1"><address style="text-align: right;"><small>OpenRTMに対してMon Mar 17 15:11:08 2008に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.4 </small></address>
+</body>
+</html>

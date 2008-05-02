@@ -1,0 +1,83 @@
+\section{クラス NamingOnCorba}
+\label{classsource__py_1_1_naming_manager_1_1_naming_on_corba}\index{source\_\-py::NamingManager::NamingOnCorba@{source\_\-py::NamingManager::NamingOnCorba}}
+CORBA 用 NamingServer 管理クラス  
+
+
+{\bf NamingBase}を継承しています。
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf bindObject}
+\begin{CompactList}\small\item\em 指定した CORBA オブジェクトのNamingServiceへバインド \item\end{CompactList}\item 
+def {\bf unbindObject}
+\begin{CompactList}\small\item\em 指定した CORBA オブジェクトをNamingServiceからアンバインド \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+CORBA 用 NamingServer 管理クラス 
+
+CORBA 用 NamingServer 管理用クラス。 CORBA コンポーネントのNamingServiceへの登録、解除などを管理する。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ NamingManager.py の 149 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::NamingManager::NamingOnCorba@{source\_\-py::NamingManager::NamingOnCorba}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::NamingManager::NamingOnCorba@{source\_\-py::NamingManager::NamingOnCorba}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em orb},  {\em names})}\label{classsource__py_1_1_naming_manager_1_1_naming_on_corba_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em orb}]ORB \item[{\em names}]NamingServer 名称 \end{description}
+\end{Desc}
+
+
+ NamingManager.py の 167 行で定義されています。\index{source\_\-py::NamingManager::NamingOnCorba@{source\_\-py::NamingManager::NamingOnCorba}!bindObject@{bindObject}}
+\index{bindObject@{bindObject}!source_py::NamingManager::NamingOnCorba@{source\_\-py::NamingManager::NamingOnCorba}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindObject ( {\em self},  {\em name},  {\em rtobj})}\label{classsource__py_1_1_naming_manager_1_1_naming_on_corba_5a4a94fdd171a5f454d99c5234a5f757}
+
+
+指定した CORBA オブジェクトのNamingServiceへバインド 
+
+指定した CORBA オブジェクトを指定した名称で CORBA NamingService へ バインドする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]バインド時の名称 \item[{\em rtobj}]バインド対象オブジェクト \end{description}
+\end{Desc}
+
+
+{\bf NamingBase} \doxyref{}{p.}{classsource__py_1_1_naming_manager_1_1_naming_base_5a4a94fdd171a5f454d99c5234a5f757}を再定義しています。
+
+ NamingManager.py の 186 行で定義されています。\index{source\_\-py::NamingManager::NamingOnCorba@{source\_\-py::NamingManager::NamingOnCorba}!unbindObject@{unbindObject}}
+\index{unbindObject@{unbindObject}!source_py::NamingManager::NamingOnCorba@{source\_\-py::NamingManager::NamingOnCorba}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def unbindObject ( {\em self},  {\em name})}\label{classsource__py_1_1_naming_manager_1_1_naming_on_corba_43222960adbbcec1478c036cd9de4217}
+
+
+指定した CORBA オブジェクトをNamingServiceからアンバインド 
+
+指定した CORBA オブジェクトを CORBA NamingService からアンバインドする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]アンバインド対象オブジェクト \end{description}
+\end{Desc}
+
+
+{\bf NamingBase} \doxyref{}{p.}{classsource__py_1_1_naming_manager_1_1_naming_base_43222960adbbcec1478c036cd9de4217}を再定義しています。
+
+ NamingManager.py の 206 行で定義されています。

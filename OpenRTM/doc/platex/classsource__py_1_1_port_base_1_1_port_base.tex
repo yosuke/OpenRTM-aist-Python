@@ -1,0 +1,720 @@
+\section{クラス PortBase}
+\label{classsource__py_1_1_port_base_1_1_port_base}\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+Port の基底クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf get\_\-port\_\-profile}
+\begin{CompactList}\small\item\em [CORBA interface] PortProfileを取得する \item\end{CompactList}\item 
+def {\bf get\_\-connector\_\-profiles}
+\begin{CompactList}\small\item\em [CORBA interface] ConnectorProfileListを取得する \item\end{CompactList}\item 
+def {\bf get\_\-connector\_\-profile}
+\begin{CompactList}\small\item\em [CORBA interface] ConnectorProfile を取得する \item\end{CompactList}\item 
+def {\bf connect}
+\begin{CompactList}\small\item\em [CORBA interface] Port の接続を行う \item\end{CompactList}\item 
+def {\bf notify\_\-connect}
+\begin{CompactList}\small\item\em [CORBA interface] Port の接続通知を行う \item\end{CompactList}\item 
+def {\bf disconnect}
+\begin{CompactList}\small\item\em [CORBA interface] Port の接続を解除する \item\end{CompactList}\item 
+def {\bf notify\_\-disconnect}
+\begin{CompactList}\small\item\em [CORBA interface] Port の接続解除通知を行う \item\end{CompactList}\item 
+def {\bf disconnect\_\-all}
+\begin{CompactList}\small\item\em [CORBA interface] Port の全接続を解除する \item\end{CompactList}\item 
+def {\bf setName}
+\begin{CompactList}\small\item\em Port の名前を設定する \item\end{CompactList}\item 
+def {\bf getProfile}
+\begin{CompactList}\small\item\em PortProfileを取得する \item\end{CompactList}\item 
+def {\bf setPortRef}
+\begin{CompactList}\small\item\em Port のオブジェクト参照を設定する \item\end{CompactList}\item 
+def {\bf getPortRef}
+\begin{CompactList}\small\item\em Port のオブジェクト参照を取得する \item\end{CompactList}\item 
+def {\bf setOwner}
+\begin{CompactList}\small\item\em Port の owner の RTObject を指定する \item\end{CompactList}\item 
+def {\bf publishInterfaces}
+\begin{CompactList}\small\item\em Interface 情報を公開する(サブクラス実装用) \item\end{CompactList}\item 
+def {\bf connectNext}
+\begin{CompactList}\small\item\em 次の Port に対して \doxyref{notify\_\-connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0e7de702eb265be1f37121c229d9b216} をコールする \item\end{CompactList}\item 
+def {\bf disconnectNext}
+\begin{CompactList}\small\item\em 次の Port に対して \doxyref{notify\_\-disconnect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_df60b9f438c97b0eba13ce44034a0398} をコールする \item\end{CompactList}\item 
+def {\bf subscribeInterfaces}
+\begin{CompactList}\small\item\em Interface 情報を取得する(サブクラス実装用) \item\end{CompactList}\item 
+def {\bf unsubscribeInterfaces}
+\begin{CompactList}\small\item\em Interface の接続を解除する(サブクラス実装用) \item\end{CompactList}\item 
+def {\bf isEmptyId}
+\begin{CompactList}\small\item\em ConnectorProfile の connector\_\-id フィールドが空かどうか判定 \item\end{CompactList}\item 
+def {\bf getUUID}
+\begin{CompactList}\small\item\em UUIDを生成する \item\end{CompactList}\item 
+def {\bf setUUID}
+\begin{CompactList}\small\item\em UUIDを生成し ConnectorProfile にセットする \item\end{CompactList}\item 
+def {\bf isExistingConnId}
+\begin{CompactList}\small\item\em id が既存の ConnectorProfile のものかどうか判定する \item\end{CompactList}\item 
+def {\bf findConnProfile}
+\begin{CompactList}\small\item\em id を持つ ConnectorProfile を探す \item\end{CompactList}\item 
+def {\bf findConnProfileIndex}
+\begin{CompactList}\small\item\em id を持つ ConnectorProfile を探す \item\end{CompactList}\item 
+def {\bf updateConnectorProfile}
+\begin{CompactList}\small\item\em ConnectorProfile の追加もしくは更新 \item\end{CompactList}\item 
+def {\bf eraseConnectorProfile}
+\begin{CompactList}\small\item\em ConnectorProfile を削除する \item\end{CompactList}\item 
+def {\bf appendInterface}
+\begin{CompactList}\small\item\em PortInterfaceProfile に インターフェースを登録する \item\end{CompactList}\item 
+def {\bf deleteInterface}
+\begin{CompactList}\small\item\em PortInterfaceProfile からインターフェース登録を削除する \item\end{CompactList}\item 
+def {\bf addProperty}
+\begin{CompactList}\small\item\em PortProfile の properties に NameValue 値を追加する \item\end{CompactList}\end{CompactItemize}
+\subsection*{データ構造}
+\begin{CompactItemize}
+\item 
+class {\bf connect\_\-func}
+\begin{CompactList}\small\item\em Port の接続を行う Functor \item\end{CompactList}\item 
+class {\bf disconnect\_\-all\_\-func}
+\begin{CompactList}\small\item\em Port の全接続解除を行う Functor \item\end{CompactList}\item 
+class {\bf disconnect\_\-func}
+\begin{CompactList}\small\item\em Port の接続解除を行う Functor \item\end{CompactList}\item 
+class {\bf find\_\-conn\_\-id}
+\begin{CompactList}\small\item\em id を持つ ConnectorProfile を探す Functor \item\end{CompactList}\item 
+class {\bf find\_\-interface}
+\begin{CompactList}\small\item\em name と polarity から interface を探す Functor \item\end{CompactList}\item 
+class {\bf find\_\-port\_\-ref}
+\begin{CompactList}\small\item\em コンストラクタ引数 port\_\-ref と同じオブジェクト参照を探す Functor \item\end{CompactList}\item 
+class {\bf if\_\-name}
+\begin{CompactList}\small\item\em instance\_\-name を持つ PortInterfaceProfile を探す Functor \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+Port の基底クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+RTC::Port の基底となるクラス。 RTC::Port はほぼ UML Port の概念を継承しており、ほぼ同等のものとみなす ことができる。RT コンポーネントのコンセプトにおいては、 Port はコンポーネントに付属し、コンポーネントが他のコンポーネントと相互作用 を行う接点であり、通常幾つかのインターフェースと関連付けられる。 コンポーネントは Port を通して外部に対しインターフェースを提供または要求 することができ、Portはその接続を管理する役割を担う。 
+
+Port の具象クラスは、通常 RT コンポーネントインスタンス生成時に同時に 生成され、提供・要求インターフェースを登録した後、RT コンポーネントに 登録され、外部からアクセス可能な Port として機能することを想定している。 
+
+RTC::Port は CORBA インターフェースとして以下のオペレーションを提供する。
+
+\begin{itemize}
+\item \doxyref{get\_\-port\_\-profile()}{p.}{classsource__py_1_1_port_base_1_1_port_base_7cb08e8f778b20d1b985c683f9725cbc}\item \doxyref{get\_\-connector\_\-profiles()}{p.}{classsource__py_1_1_port_base_1_1_port_base_d56de303caa7ec45a7e3e32fce5c8bca}\item \doxyref{get\_\-connector\_\-profile()}{p.}{classsource__py_1_1_port_base_1_1_port_base_e4bbdaf0332941f67eaeeac5ad16d3cf}\item \doxyref{connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0f3e881a92d7a1b4d6d07d9e63180c98}\item \doxyref{notify\_\-connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0e7de702eb265be1f37121c229d9b216}\item \doxyref{disconnect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_fab97b4023d6e30d95344406b3655983}\item \doxyref{notify\_\-disconnect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_df60b9f438c97b0eba13ce44034a0398}\item \doxyref{disconnect\_\-all()}{p.}{classsource__py_1_1_port_base_1_1_port_base_63976ed5016b04522d44724b47e63433}\end{itemize}
+
+
+このクラスでは、これらのオペレーションの実装を提供する。 
+
+これらのオペレーションのうち、get\_\-port\_\-profile(), \doxyref{get\_\-connector\_\-profiles()}{p.}{classsource__py_1_1_port_base_1_1_port_base_d56de303caa7ec45a7e3e32fce5c8bca}, \doxyref{get\_\-connector\_\-profile()}{p.}{classsource__py_1_1_port_base_1_1_port_base_e4bbdaf0332941f67eaeeac5ad16d3cf}, \doxyref{connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0f3e881a92d7a1b4d6d07d9e63180c98}, \doxyref{disconnect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_fab97b4023d6e30d95344406b3655983}, \doxyref{disconnect\_\-all()}{p.}{classsource__py_1_1_port_base_1_1_port_base_63976ed5016b04522d44724b47e63433} は、 サブクラスにおいて特に振る舞いを変更する必要がないため、オーバーライド することは推奨されない。 
+
+\doxyref{notify\_\-connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0e7de702eb265be1f37121c229d9b216}, \doxyref{notify\_\-disconnect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_df60b9f438c97b0eba13ce44034a0398} については、サブクラスが提供・要求 するインターフェースの種類に応じて、振る舞いを変更する必要が生ずる かもしれないが、これらを直接オーバーライドすることは推奨されず、 後述の \doxyref{notify\_\-connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0e7de702eb265be1f37121c229d9b216}, \doxyref{notify\_\-disconnect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_df60b9f438c97b0eba13ce44034a0398} の項においても述べられる通り これらの関数に関連した 関数をオーバーライドすることにより振る舞いを変更する ことが推奨される。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ PortBase.py の 122 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em name} = {\tt None})}\label{classsource__py_1_1_port_base_1_1_port_base_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+\doxyref{PortBase}{p.}{classsource__py_1_1_port_base_1_1_port_base} のコンストラクタは Port 名 name を引数に取り初期化を行う と同時に、自分自身を CORBA Object として活性化し、自身の PortProfile の port\_\-ref に自身のオブジェクトリファレンスを格納する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]Port の名前(デフォルト値:None) \end{description}
+\end{Desc}
+
+
+ PortBase.py の 151 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!get\_\-port\_\-profile@{get\_\-port\_\-profile}}
+\index{get\_\-port\_\-profile@{get\_\-port\_\-profile}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-port\_\-profile ( {\em self})}\label{classsource__py_1_1_port_base_1_1_port_base_7cb08e8f778b20d1b985c683f9725cbc}
+
+
+[CORBA interface] PortProfileを取得する 
+
+Portが保持するPortProfileを返す。 PortProfile 構造体は以下のメンバーを持つ。
+
+\begin{itemize}
+\item name [string 型] Port の名前。\item interfaces [PortInterfaceProfileList 型] Port が保持する PortInterfaceProfile のシーケンス\item port\_\-ref [Port Object 型] Port 自身のオブジェクトリファレンス\item connector\_\-profile [ConnectorProfileList 型] Port が現在保持する ConnectorProfile のシーケンス\item owner [RTObject Object 型] この Port を所有する RTObjectのリファレンス\item properties [NVList 型] その他のプロパティ。\end{itemize}
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]PortProfile \end{Desc}
+
+
+ PortBase.py の 207 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!get\_\-connector\_\-profiles@{get\_\-connector\_\-profiles}}
+\index{get\_\-connector\_\-profiles@{get\_\-connector\_\-profiles}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-connector\_\-profiles ( {\em self})}\label{classsource__py_1_1_port_base_1_1_port_base_d56de303caa7ec45a7e3e32fce5c8bca}
+
+
+[CORBA interface] ConnectorProfileListを取得する 
+
+Portが保持する ConnectorProfile の sequence を返す。 ConnectorProfile は Port 間の接続プロファイル情報を保持する構造体であり、 接続時にPort間で情報交換を行い、関連するすべての Port で同一の値が 保持される。 ConnectorProfile は以下のメンバーを保持している。
+
+\begin{itemize}
+\item name [string 型] このコネクタの名前。\item connector\_\-id [string 型] ユニークなID\item ports [Port sequnce] このコネクタに関連する Port のオブジェクト リファレンスのシーケンス。\item properties [NVList 型] その他のプロパティ。\end{itemize}
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]この Port が保持する ConnectorProfile \end{Desc}
+
+
+ PortBase.py の 259 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!get\_\-connector\_\-profile@{get\_\-connector\_\-profile}}
+\index{get\_\-connector\_\-profile@{get\_\-connector\_\-profile}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def get\_\-connector\_\-profile ( {\em self},  {\em connector\_\-id})}\label{classsource__py_1_1_port_base_1_1_port_base_e4bbdaf0332941f67eaeeac5ad16d3cf}
+
+
+[CORBA interface] ConnectorProfile を取得する 
+
+connector\_\-id で指定された ConnectorProfile を返す。 指定した connector\_\-id を持つ ConnectorProfile を保持していない場合は、 空の ConnectorProfile を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-id}]ConnectorProfile の ID\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]connector\_\-id で指定された ConnectorProfile \end{Desc}
+
+
+ PortBase.py の 289 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!connect@{connect}}
+\index{connect@{connect}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def connect ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_0f3e881a92d7a1b4d6d07d9e63180c98}
+
+
+[CORBA interface] Port の接続を行う 
+
+与えられた ConnectoionProfile の情報を基に、Port間の接続を確立する。 アプリケーションプログラム側は、幾つかのコンポーネントが持つ複数の Port を接続したい場合、適切な値をセットした ConnectorProfile を \doxyref{connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0f3e881a92d7a1b4d6d07d9e63180c98} の引数として与えてコールすることにより、関連する Port の 接続を確立する。
+
+\doxyref{connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0f3e881a92d7a1b4d6d07d9e63180c98} に与える ConnectorProfile のメンバーのうち、name, ports, properties メンバーに対してデータをセットしなければならない。
+
+OutPort 側の \doxyref{connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0f3e881a92d7a1b4d6d07d9e63180c98} では以下のシーケンスで処理が行われる。
+
+1. OutPort に関連する connector 情報の生成およびセット
+
+2. InPortに関連する connector 情報の取得\begin{itemize}
+\item ConnectorProfile::properties[\char`\"{}dataport.corba\_\-any.inport\_\-ref\char`\"{}]に OutPortAny のオブジェクトリファレンスが設定されている場合、 リファレンスを取得してConsumerオブジェクトにセットする。 リファレンスがセットされていなければ無視して継続。 (OutPortがconnect() 呼び出しのエントリポイントの場合は、 InPortのオブジェクトリファレンスはセットされていないはずである。)\end{itemize}
+
+
+3. \doxyref{PortBase::connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0f3e881a92d7a1b4d6d07d9e63180c98} をコール Portの接続の基本処理が行われる。
+
+4. 上記2.でInPortのリファレンスが取得できなければ、再度InPortに 関連する connector 情報を取得する。
+
+5. ConnectorProfile::properties で与えられた情報から、 OutPort側の初期化処理を行う。
+
+\begin{itemize}
+\item [dataport.interface\_\-type]\par
+ -- CORBA\_\-Any の場合: InPortAny を通してデータ交換される。 ConnectorProfile::properties[\char`\"{}dataport.corba\_\-any.inport\_\-ref\char`\"{}]に InPortAny のオブジェクトリファレンスをセットする。\par
+\end{itemize}
+
+
+\begin{itemize}
+\item [dataport.dataflow\_\-type]\par
+ -- Pushの場合: Subscriberを生成する。Subscriberのタイプは、 dataport.subscription\_\-type に設定されている。\par
+ -- Pullの場合: InPort側がデータをPull型で取得するため、 特に何もする必要が無い。\end{itemize}
+
+
+\begin{itemize}
+\item [dataport.subscription\_\-type]\par
+ -- Onceの場合: SubscriberOnceを生成する。\par
+ -- Newの場合: SubscriberNewを生成する。\par
+ -- Periodicの場合: SubscriberPeriodicを生成する。\end{itemize}
+
+
+\begin{itemize}
+\item [dataport.push\_\-interval]\par
+ -- dataport.subscription\_\-type=Periodicの場合周期を設定する。\end{itemize}
+
+
+6. 上記の処理のうち一つでもエラーであれば、エラーリターンする。 正常に処理が行われた場合は RTC::RTC\_\-OK でリターンする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]ConnectorProfile\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ PortBase.py の 385 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!notify\_\-connect@{notify\_\-connect}}
+\index{notify\_\-connect@{notify\_\-connect}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def notify\_\-connect ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_0e7de702eb265be1f37121c229d9b216}
+
+
+[CORBA interface] Port の接続通知を行う 
+
+このオペレーションは、Port間の接続が行われる際に、Port間で内部的に 呼ばれるオペレーションである。 ConnectorProfile には接続対象 Port のリスト情報が保持されている。Port は ConnectorProfile を保持するとともに、リスト中の次 Port の notify\_\-connect を呼び出す。そして、ポートをコネクタに追加した後、ConnectorProfile に 呼びだし先の Port を設定し、呼びだし元に返す。このように ConnectorProfile を使用して接続通知が伝達されていく。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]ConnectorProfile\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ PortBase.py の 439 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def disconnect ( {\em self},  {\em connector\_\-id})}\label{classsource__py_1_1_port_base_1_1_port_base_fab97b4023d6e30d95344406b3655983}
+
+
+[CORBA interface] Port の接続を解除する 
+
+このオペレーションは接続確立時に接続に対して与えられる connector\_\-id に 対応するピア Port との接続を解除する。 Port は ConnectorProfile 中のポートリストに含まれる１つのポートの notify\_\-disconnect を呼びだす。接続解除の通知は notify\_\-disconnect によって 実行される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-id}]ConnectorProfile の ID\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ PortBase.py の 501 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!notify\_\-disconnect@{notify\_\-disconnect}}
+\index{notify\_\-disconnect@{notify\_\-disconnect}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def notify\_\-disconnect ( {\em self},  {\em connector\_\-id})}\label{classsource__py_1_1_port_base_1_1_port_base_df60b9f438c97b0eba13ce44034a0398}
+
+
+[CORBA interface] Port の接続解除通知を行う 
+
+このオペレーションは、Port間の接続解除が行われる際に、Port間で内部的に 呼ばれるオペレーションである。 このオペレーションは、該当する Port と接続されている他の Port に接続解除 を通知する。接続解除対象の Port はIDによって指定される。Port は ConnectorProfile 中のポートリスト内の次 Port の notify\_\-disconnect を呼び 出す。ポートの接続が解除されると ConnectorProfile から該当する Port の 情報が削除される。このように notify\_\-disconnect を使用して接続解除通知が 伝達されていく。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-id}]ConnectorProfile の ID\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ PortBase.py の 555 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!disconnect\_\-all@{disconnect\_\-all}}
+\index{disconnect\_\-all@{disconnect\_\-all}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def disconnect\_\-all ( {\em self})}\label{classsource__py_1_1_port_base_1_1_port_base_63976ed5016b04522d44724b47e63433}
+
+
+[CORBA interface] Port の全接続を解除する 
+
+このオペレーションはこの Port に関連した全ての接続を解除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ PortBase.py の 601 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!setName@{setName}}
+\index{setName@{setName}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setName ( {\em self},  {\em name})}\label{classsource__py_1_1_port_base_1_1_port_base_7353c2f35c0cfe24ff85fdeb1a6d1835}
+
+
+Port の名前を設定する 
+
+Port の名前を設定する。この名前は Port が保持する PortProfile.name に反映される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]Port の名前 \end{description}
+\end{Desc}
+
+
+ PortBase.py の 634 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!getProfile@{getProfile}}
+\index{getProfile@{getProfile}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getProfile ( {\em self})}\label{classsource__py_1_1_port_base_1_1_port_base_acad679051aaced1eb09f969965dcfa0}
+
+
+PortProfileを取得する 
+
+Portが保持する PortProfile の const 参照を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]この Port の PortProfile \end{Desc}
+
+
+ PortBase.py の 657 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!setPortRef@{setPortRef}}
+\index{setPortRef@{setPortRef}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setPortRef ( {\em self},  {\em port\_\-ref})}\label{classsource__py_1_1_port_base_1_1_port_base_869100fe77da2d58e11513e2110a4b1f}
+
+
+Port のオブジェクト参照を設定する 
+
+このオペレーションは Port の PortProfile にこの Port 自身の オブジェクト参照を設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em port\_\-ref}]この Port のオブジェクト参照 \end{description}
+\end{Desc}
+
+
+ PortBase.py の 683 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!getPortRef@{getPortRef}}
+\index{getPortRef@{getPortRef}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getPortRef ( {\em self})}\label{classsource__py_1_1_port_base_1_1_port_base_aa2e4619544f8de404a4422177b90a68}
+
+
+Port のオブジェクト参照を取得する 
+
+このオペレーションは Port の PortProfile が保持している この Port 自身のオブジェクト参照を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]この Port のオブジェクト参照 \end{Desc}
+
+
+ PortBase.py の 710 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!setOwner@{setOwner}}
+\index{setOwner@{setOwner}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setOwner ( {\em self},  {\em owner})}\label{classsource__py_1_1_port_base_1_1_port_base_928a3c602d679a41500cb3962e5dcc02}
+
+
+Port の owner の RTObject を指定する 
+
+このオペレーションは Port の PortProfile.owner を設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em owner}]この Port を所有する RTObject の参照 \end{description}
+\end{Desc}
+
+
+ PortBase.py の 734 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!publishInterfaces@{publishInterfaces}}
+\index{publishInterfaces@{publishInterfaces}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def publishInterfaces ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_cc531607a3c2f8b651a97eb335152647}
+
+
+Interface 情報を公開する(サブクラス実装用) 
+
+このオペレーションは、notify\_\-connect() 処理シーケンスの始めにコール される関数である。 \doxyref{notify\_\-connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0e7de702eb265be1f37121c229d9b216} では、
+
+\begin{itemize}
+\item \doxyref{publishInterfaces()}{p.}{classsource__py_1_1_port_base_1_1_port_base_cc531607a3c2f8b651a97eb335152647}\item \doxyref{connectNext()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0ea84fff5cc7823dce5db76e271b0e35}\item \doxyref{subscribeInterfaces()}{p.}{classsource__py_1_1_port_base_1_1_port_base_9743165933e0fee41ab3b4788dc5b749}\item \doxyref{updateConnectorProfile()}{p.}{classsource__py_1_1_port_base_1_1_port_base_f2f95c6d70d0ef80abd0a9b1c7d3f906}\end{itemize}
+
+
+の順に protected 関数がコールされ接続処理が行われる。 \par
+ 具象 Port ではこのオペレーションをオーバーライドし、引数として 与えられた ConnectorProfile に従い処理を行い、パラメータが不適切 であれば、RteurnCode\_\-t 型のエラーコードを返す。 通常 publishInterafaces() 内においては、この Port に属する インターフェースに関する情報を ConnectorProfile に対して適切に設定し 他の Port に通知しなければならない。 \par
+ また、この関数がコールされる段階では、他の Port の Interface に関する 情報はすべて含まれていないので、他の Port の Interface を取得する処理 は \doxyref{subscribeInterfaces()}{p.}{classsource__py_1_1_port_base_1_1_port_base_9743165933e0fee41ab3b4788dc5b749} 内で行われるべきである。 \par
+ このオペレーションは、新規の connector\_\-id に対しては接続の生成、 既存の connector\_\-id に対しては更新が適切に行われる必要がある。\par
+ ※サブクラスでの実装参照用
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]接続に関するプロファイル情報\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ PortBase.py の 806 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!connectNext@{connectNext}}
+\index{connectNext@{connectNext}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def connectNext ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_0ea84fff5cc7823dce5db76e271b0e35}
+
+
+次の Port に対して \doxyref{notify\_\-connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0e7de702eb265be1f37121c229d9b216} をコールする 
+
+ConnectorProfile の port\_\-ref 内に格納されている Port のオブジェクト リファレンスのシーケンスの中から、自身の Port の次の Port に対して \doxyref{notify\_\-connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0e7de702eb265be1f37121c229d9b216} をコールする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]接続に関するプロファイル情報\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ PortBase.py の 836 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!disconnectNext@{disconnectNext}}
+\index{disconnectNext@{disconnectNext}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def disconnectNext ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_d5405cc6b3ef2753dd19b9583305ddc9}
+
+
+次の Port に対して \doxyref{notify\_\-disconnect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_df60b9f438c97b0eba13ce44034a0398} をコールする 
+
+ConnectorProfile の port\_\-ref 内に格納されている Port のオブジェクト リファレンスのシーケンスの中から、自身の Port の次の Port に対して \doxyref{notify\_\-disconnect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_df60b9f438c97b0eba13ce44034a0398} をコールする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]接続に関するプロファイル情報\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ PortBase.py の 876 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!subscribeInterfaces@{subscribeInterfaces}}
+\index{subscribeInterfaces@{subscribeInterfaces}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def subscribeInterfaces ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_9743165933e0fee41ab3b4788dc5b749}
+
+
+Interface 情報を取得する(サブクラス実装用) 
+
+このオペレーションは、notify\_\-connect() 処理シーケンスの中間にコール される関数である。 \doxyref{notify\_\-connect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0e7de702eb265be1f37121c229d9b216} では、
+
+\begin{itemize}
+\item \doxyref{publishInterfaces()}{p.}{classsource__py_1_1_port_base_1_1_port_base_cc531607a3c2f8b651a97eb335152647}\item \doxyref{connectNext()}{p.}{classsource__py_1_1_port_base_1_1_port_base_0ea84fff5cc7823dce5db76e271b0e35}\item \doxyref{subscribeInterfaces()}{p.}{classsource__py_1_1_port_base_1_1_port_base_9743165933e0fee41ab3b4788dc5b749}\item \doxyref{updateConnectorProfile()}{p.}{classsource__py_1_1_port_base_1_1_port_base_f2f95c6d70d0ef80abd0a9b1c7d3f906}\end{itemize}
+
+
+の順に protected 関数がコールされ接続処理が行われる。 \par
+ 具象 Port ではこのオペレーションをオーバーライドし、引数として 与えられた ConnectorProfile に従い処理を行い、パラメータが不適切 であれば、RteurnCode\_\-t 型のエラーコードを返す。 引数 ConnectorProfile には他の Port の Interface に関する情報が 全て含まれている。 通常 subscribeInterafaces() 内においては、この Port が使用する Interface に関する情報を取得し、要求側のインターフェースに対して 情報を設定しなければならない。 \par
+ このオペレーションは、新規の connector\_\-id に対しては接続の生成、 既存の connector\_\-id に対しては更新が適切に行われる必要がある。\par
+ ※サブクラスでの実装参照用
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]接続に関するプロファイル情報\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ReturnCode\_\-t 型のリターンコード \end{Desc}
+
+
+ PortBase.py の 957 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!unsubscribeInterfaces@{unsubscribeInterfaces}}
+\index{unsubscribeInterfaces@{unsubscribeInterfaces}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def unsubscribeInterfaces ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_3bce9d1fab9e4568c5fcec276767b6dc}
+
+
+Interface の接続を解除する(サブクラス実装用) 
+
+このオペレーションは、notify\_\-disconnect() 処理シーケンスの終わりにコール される関数である。 \doxyref{notify\_\-disconnect()}{p.}{classsource__py_1_1_port_base_1_1_port_base_df60b9f438c97b0eba13ce44034a0398} では、\begin{itemize}
+\item \doxyref{disconnectNext()}{p.}{classsource__py_1_1_port_base_1_1_port_base_d5405cc6b3ef2753dd19b9583305ddc9}\item \doxyref{unsubscribeInterfaces()}{p.}{classsource__py_1_1_port_base_1_1_port_base_3bce9d1fab9e4568c5fcec276767b6dc}\item \doxyref{eraseConnectorProfile()}{p.}{classsource__py_1_1_port_base_1_1_port_base_be596f56c438244620fe579609f6db1d} の順に protected 関数がコールされ接続解除処理が行われる。 \par
+ 具象 Port ではこのオペレーションをオーバーライドし、引数として 与えられた ConnectorProfile に従い接続解除処理を行う。\par
+ ※サブクラスでの実装参照用\end{itemize}
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]接続に関するプロファイル情報 \end{description}
+\end{Desc}
+
+
+ PortBase.py の 999 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!isEmptyId@{isEmptyId}}
+\index{isEmptyId@{isEmptyId}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def isEmptyId ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_f066ff8b07def3af4796e778599e902e}
+
+
+ConnectorProfile の connector\_\-id フィールドが空かどうか判定 
+
+指定された ConnectorProfile の connector\_\-id が空であるかどうかの判定を 行う。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]判定対象コネクタプロファイル\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]引数で与えられた ConnectorProfile の connector\_\-id が空であれば、 true、そうでなければ false を返す。 \end{Desc}
+
+
+ PortBase.py の 1025 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!getUUID@{getUUID}}
+\index{getUUID@{getUUID}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getUUID ( {\em self})}\label{classsource__py_1_1_port_base_1_1_port_base_602d395a71f9de54ac204d44870f290b}
+
+
+UUIDを生成する 
+
+このオペレーションは UUID を生成する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]uuid \end{Desc}
+
+
+ PortBase.py の 1049 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!setUUID@{setUUID}}
+\index{setUUID@{setUUID}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setUUID ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_1602e0b8114b0ac3078863ebfde71d84}
+
+
+UUIDを生成し ConnectorProfile にセットする 
+
+このオペレーションは UUID を生成し、ConnectorProfile にセットする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]connector\_\-id をセットする ConnectorProfile \end{description}
+\end{Desc}
+
+
+ PortBase.py の 1072 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!isExistingConnId@{isExistingConnId}}
+\index{isExistingConnId@{isExistingConnId}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def isExistingConnId ( {\em self},  {\em id\_\-})}\label{classsource__py_1_1_port_base_1_1_port_base_cc4db270d0534d687ecd019e9ddd72d8}
+
+
+id が既存の ConnectorProfile のものかどうか判定する 
+
+このオペレーションは与えられた ID が既存の ConnectorProfile のリスト中に 存在するかどうか判定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em id\_\-}]判定する connector\_\-id\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]id の存在判定結果 \end{Desc}
+
+
+ PortBase.py の 1100 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!findConnProfile@{findConnProfile}}
+\index{findConnProfile@{findConnProfile}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def findConnProfile ( {\em self},  {\em id\_\-})}\label{classsource__py_1_1_port_base_1_1_port_base_67f5a09a21c3a14906dd8679b71fdb43}
+
+
+id を持つ ConnectorProfile を探す 
+
+このオペレーションは与えられた ID を持つ ConnectorProfile を Port が もつ ConnectorProfile のリスト中から探す。 もし、同一の id を持つ ConnectorProfile がなければ、空の ConnectorProfile が返される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em id\_\-}]検索する connector\_\-id\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]connector\_\-id を持つ ConnectorProfile \end{Desc}
+
+
+ PortBase.py の 1134 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!findConnProfileIndex@{findConnProfileIndex}}
+\index{findConnProfileIndex@{findConnProfileIndex}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def findConnProfileIndex ( {\em self},  {\em id\_\-})}\label{classsource__py_1_1_port_base_1_1_port_base_d715f49d66c9ab301eefa4b3cd401620}
+
+
+id を持つ ConnectorProfile を探す 
+
+このオペレーションは与えられた ID を持つ ConnectorProfile を Port が もつ ConnectorProfile のリスト中から探しインデックスを返す。 もし、同一の id を持つ ConnectorProfile がなければ、-1 を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em id\_\-}]検索する connector\_\-id\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]Port の ConnectorProfile リストのインデックス \end{Desc}
+
+
+ PortBase.py の 1171 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!updateConnectorProfile@{updateConnectorProfile}}
+\index{updateConnectorProfile@{updateConnectorProfile}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def updateConnectorProfile ( {\em self},  {\em connector\_\-profile})}\label{classsource__py_1_1_port_base_1_1_port_base_f2f95c6d70d0ef80abd0a9b1c7d3f906}
+
+
+ConnectorProfile の追加もしくは更新 
+
+このオペレーションは与えられた与えられた ConnectorProfile を Port に追加もしくは更新保存する。 与えられた ConnectorProfile の connector\_\-id と同じ ID を持つ ConnectorProfile がリストになければ、リストに追加し、 同じ ID が存在すれば ConnectorProfile を上書き保存する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em connector\_\-profile}]追加もしくは更新する ConnectorProfile \end{description}
+\end{Desc}
+
+
+ PortBase.py の 1203 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!eraseConnectorProfile@{eraseConnectorProfile}}
+\index{eraseConnectorProfile@{eraseConnectorProfile}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def eraseConnectorProfile ( {\em self},  {\em id\_\-})}\label{classsource__py_1_1_port_base_1_1_port_base_be596f56c438244620fe579609f6db1d}
+
+
+ConnectorProfile を削除する 
+
+このオペレーションは Port の PortProfile が保持している ConnectorProfileList のうち与えられた id を持つ ConnectorProfile を削除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em id\_\-}]削除する ConnectorProfile の id\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]正常に削除できた場合は true、 指定した ConnectorProfile が見つからない場合は false を返す \end{Desc}
+
+
+ PortBase.py の 1239 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!appendInterface@{appendInterface}}
+\index{appendInterface@{appendInterface}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def appendInterface ( {\em self},  {\em instance\_\-name},  {\em type\_\-name},  {\em pol})}\label{classsource__py_1_1_port_base_1_1_port_base_ac816d9b3d38eb2ac46b7f0282d1fd56}
+
+
+PortInterfaceProfile に インターフェースを登録する 
+
+このオペレーションは Port が持つ PortProfile の、PortInterfaceProfile にインターフェースの情報を追加する。 この情報は、get\_\-port\_\-profile() 似よって得られる PortProfile のうち PortInterfaceProfile の値を変更するのみであり、実際にインターフェースを 提供したり要求したりする場合には、サブクラスで、 publishInterface() , subscribeInterface() 等の関数を適切にオーバーライドしインターフェースの 提供、要求処理を行わなければならない。
+
+インターフェース(のインスタンス)名は Port 内で一意でなければならない。 同名のインターフェースがすでに登録されている場合、この関数は false を 返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em instance\_\-name}]インターフェースのインスタンスの名前 \item[{\em type\_\-name}]インターフェースの型の名前 \item[{\em pol}]インターフェースの属性 (RTC::PROVIDED もしくは RTC:REQUIRED)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]インターフェース登録処理結果。 同名のインターフェースが既に登録されていれば false を返す。 \end{Desc}
+
+
+ PortBase.py の 1302 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!deleteInterface@{deleteInterface}}
+\index{deleteInterface@{deleteInterface}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def deleteInterface ( {\em self},  {\em name},  {\em pol})}\label{classsource__py_1_1_port_base_1_1_port_base_73677d66449adc6ba24e114344c0e0e1}
+
+
+PortInterfaceProfile からインターフェース登録を削除する 
+
+このオペレーションは Port が持つ PortProfile の、PortInterfaceProfile からインターフェースの情報を削除する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]インターフェースのインスタンスの名前 \item[{\em pol}]インターフェースの属性 (RTC::PROVIDED もしくは RTC:REQUIRED)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]インターフェース削除処理結果。 インターフェースが登録されていなければ false を返す。 \end{Desc}
+
+
+ PortBase.py の 1344 行で定義されています。\index{source\_\-py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}!addProperty@{addProperty}}
+\index{addProperty@{addProperty}!source_py::PortBase::PortBase@{source\_\-py::PortBase::PortBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def addProperty ( {\em self},  {\em key},  {\em value})}\label{classsource__py_1_1_port_base_1_1_port_base_4f196f2d895f01453f0ba7640e0437d5}
+
+
+PortProfile の properties に NameValue 値を追加する 
+
+PortProfile の properties に NameValue 値を追加する。 追加するデータの型をValueTypeで指定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em key}]properties の name \item[{\em value}]properties の value \end{description}
+\end{Desc}
+
+
+ PortBase.py の 1375 行で定義されています。

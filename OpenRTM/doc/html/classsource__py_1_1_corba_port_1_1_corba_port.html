@@ -1,0 +1,406 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>OpenRTM: クラス CorbaPort</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.4 -->
+<div class="tabs">
+  <ul>
+    <li><a href="index.html"><span>メインページ</span></a></li>
+    <li class="current"><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="files.html"><span>ファイル</span></a></li>
+  </ul>
+</div>
+<div class="tabs">
+  <ul>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="hierarchy.html"><span>クラス階層</span></a></li>
+    <li><a href="functions.html"><span>データフィールド</span></a></li>
+  </ul>
+</div>
+<div class="nav">
+<b>source_py</b>::<b>CorbaPort</b>::<a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html">CorbaPort</a></div>
+<h1>クラス CorbaPort</h1><!-- doxytag: class="source_py::CorbaPort::CorbaPort" -->RT コンポーネント CORBA provider/consumer 用 Port  
+<a href="#_details">[詳細]</a>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Public メソッド</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html#c775ee34451fdfa742b318538164070e">__init__</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">コンストラクタ  <a href="#c775ee34451fdfa742b318538164070e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html#048e5b659a1a0b2f47798bfbb5287816">registerProvider</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Provider を登録する  <a href="#048e5b659a1a0b2f47798bfbb5287816"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html#6e7e745271f04fd60a4f07824a80466b">registerConsumer</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> を登録する  <a href="#6e7e745271f04fd60a4f07824a80466b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html#cc531607a3c2f8b651a97eb335152647">publishInterfaces</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Interface 情報を公開する  <a href="#cc531607a3c2f8b651a97eb335152647"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html#9743165933e0fee41ab3b4788dc5b749">subscribeInterfaces</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Interface に接続する  <a href="#9743165933e0fee41ab3b4788dc5b749"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html#3bce9d1fab9e4568c5fcec276767b6dc">unsubscribeInterfaces</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Interface への接続を解除する  <a href="#3bce9d1fab9e4568c5fcec276767b6dc"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>データ構造</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html">Consumer</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> の情報を格納する構造体  <a href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html#_details">[詳細]</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1subscribe.html">subscribe</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ConnectorProfile と Consuemr の比較をしオブジェクト参照を セットするための Functor  <a href="classsource__py_1_1_corba_port_1_1_corba_port_1_1subscribe.html#_details">[詳細]</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1unsubscribe.html">unsubscribe</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> のオブジェクトを解放するための Functor  <a href="classsource__py_1_1_corba_port_1_1_corba_port_1_1unsubscribe.html#_details">[詳細]</a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+RT コンポーネント CORBA provider/consumer 用 Port 
+<p>
+<div class="fragment"><pre class="fragment">
+</pre></div><p>
+<a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html" title="RT コンポーネント CORBA provider/consumer 用 Port">CorbaPort</a> は RT コンポーネントにおいて、ユーザ定義の CORBA オブジェクト サービスおよびコンシューマを提供する Port 実装である。 <p>
+RT コンポーネントは、Port を介してユーザが定義した CORBA サービスを提供 することができ、これを RT Service (Provider) と呼ぶ。 また、他の RT コンポーネントのサービスを利用するための CORBA オブジェクト のプレースホルダを提供することができ、これを RT Service <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> と呼ぶ。 <p>
+<a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html" title="RT コンポーネント CORBA provider/consumer 用 Port">CorbaPort</a> は任意の数の Provider および <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> を管理することができ、 Port 同士を接続する際に対応する Provider と <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> を適切に関連付ける ことができる。 <p>
+<a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html" title="RT コンポーネント CORBA provider/consumer 用 Port">CorbaPort</a> は通常以下のように利用される。<p>
+<pre>
+ # CORBAポートの初期化
+ self._myServicePort = OpenRTM.CorbaPort("MyService")</pre><p>
+<pre> // Provider側
+ # この Port が提供する Serivce Provider の初期化
+ self._mpros = MyServiceSVC_impl()
+ # Service Provider を Port に登録
+ self._myServicePort.registerProvider("myservice0", "MyService", self._mpros)</pre><p>
+<pre> // Consumer側
+ # この Port が提供する Serivce <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> の初期化
+ self._mycons = OpenRTM.CorbaConsumer(interfaceType=_GlobalIDL.MyService)
+ # Service <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> を Port に登録
+ self._myServicePort.registerConsumer("myservice0", "MyService", self._mycons)</pre><p>
+<pre> # CORBAポートへの登録
+ self.registerPort(self._myServicePort)</pre><p>
+<pre> // connect が行われた後
+ self.my_cons._ptr().your_service_function(); // YourService の関数をコール</pre><p>
+<pre> // connect された 別のコンポーネントにおいて
+ self.m_cons1._ptr().my_service_function(); // MyService の関数をコール
+ </pre><p>
+このように、提供したい Service Provider を <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html#048e5b659a1a0b2f47798bfbb5287816" title="Provider を登録する">registerProvider()</a> で登録 することにより、他のコンポーネントから利用可能にし、他方、 利用したい Service <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> を <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port.html#6e7e745271f04fd60a4f07824a80466b" title="Consumer を登録する">registerConsumer()</a> で登録することにより 他のコンポーネントの Service をコンポーネント内で利用可能にすることが できる。<p>
+<dl class="since" compact><dt><b>から:</b></dt><dd>0.4.0 </dd></dl>
+
+<p> <a class="el" href="_corba_port_8py-source.html">CorbaPort.py</a> の <a class="el" href="_corba_port_8py-source.html#l00126">126</a> 行で定義されています。</p>
+<hr><h2>関数</h2>
+<a class="anchor" name="c775ee34451fdfa742b318538164070e"></a><!-- doxytag: member="source_py::CorbaPort::CorbaPort::__init__" ref="c775ee34451fdfa742b318538164070e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def __init__           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>name</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+コンストラクタ 
+<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>Port の名前 </td></tr>
+  </table>
+</dl>
+
+<p> <a class="el" href="_corba_port_8py-source.html">CorbaPort.py</a> の <a class="el" href="_corba_port_8py-source.html#l00146">146</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="048e5b659a1a0b2f47798bfbb5287816"></a><!-- doxytag: member="source_py::CorbaPort::CorbaPort::registerProvider" ref="048e5b659a1a0b2f47798bfbb5287816" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def registerProvider           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>instance_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>type_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>provider</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Provider を登録する 
+<p>
+この Port において提供したいサーバントをこの Port に対して登録する。 サーバントは、引数で与えられる instance_name, type_name を、 サーバント自身のインスタンス名およびタイプ名として、サーバントに 関連付けられる。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>instance_name</em>&nbsp;</td><td>サーバントのインスタンス名 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>type_name</em>&nbsp;</td><td>サーバントのタイプ名 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>provider</em>&nbsp;</td><td>CORBA サーバント</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>既に同名の instance_name が登録されていれば false を返す。 </dd></dl>
+
+<p> <a class="el" href="_corba_port_8py-source.html">CorbaPort.py</a> の <a class="el" href="_corba_port_8py-source.html#l00187">187</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="6e7e745271f04fd60a4f07824a80466b"></a><!-- doxytag: member="source_py::CorbaPort::CorbaPort::registerConsumer" ref="6e7e745271f04fd60a4f07824a80466b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def registerConsumer           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>instance_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>type_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>consumer</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> を登録する 
+<p>
+この Port が要求するサービスのプレースホルダであるコンシューマ (<a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a>) を登録する。 <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> が関連付けられるサービスのインスタンス名およびタイプ名として、 引数に instance_name, type_name および <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> 自身を与えることにより、 内部でこれらが関連付けられる。 Port 間の接続 (connect) 時 には、同一の instance_name, type_name を持つ サービスが他の Port から提供 (Provide) されている場合、そのサービスの オブジェクト参照が自動的に <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> にセットされる。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>instance_name</em>&nbsp;</td><td><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> が要求するサービスのインスタンス名 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>type_name</em>&nbsp;</td><td><a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> が要求するサービスのタイプ名 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>consumer</em>&nbsp;</td><td>CORBA サービスコンシューマ</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>既に同名の instance_name が登録されていれば false を返す。 </dd></dl>
+
+<p> <a class="el" href="_corba_port_8py-source.html">CorbaPort.py</a> の <a class="el" href="_corba_port_8py-source.html#l00241">241</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="cc531607a3c2f8b651a97eb335152647"></a><!-- doxytag: member="source_py::CorbaPort::CorbaPort::publishInterfaces" ref="cc531607a3c2f8b651a97eb335152647" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def publishInterfaces           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>connector_profile</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Interface 情報を公開する 
+<p>
+この Portが所有する Provider に関する情報を ConnectorProfile::properties に代入する。 代入する情報は、NVListの name と value として以下のものが格納される。<p>
+<ul>
+<li>port.&lt;type_name&gt;.&lt;instance_name&gt;: &lt;CORBA::Object_ptr&gt;</li></ul>
+<p>
+ここで、<ul>
+<li>&lt;type_name&gt;: PortInterfaceProfile::type_name</li><li>&lt;instance_name&gt;: PortInterfaceProfile::instance_name<br>
+ である。<br>
+ ConnectorProfile::properties では、これらを .(ドット)表記で、 NameValue のキーとしている。したがって、</li></ul>
+<p>
+<pre>
+  PortInterfaceProfile
+  {
+    instance_name = "PA10_0";
+    type_name     = "Manipulator";
+    polarity      = PROVIDED;
+  }
+</pre><p>
+ならば、<p>
+<pre>
+ NameValue = { "port.Manipulator.PA10_0": &lt;Object reference&gt;=""&gt; }
+ </pre><p>
+といった値が ConnectorProfile::properties に格納され、他のポートに対して 伝達される。他の Port でこのインターフェースを使用する <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> が 存在すれば、ConnectorProfile からこのキーからオブジェクトリファレンスを 取得し何らかの形で使用される。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>connector_profile</em>&nbsp;</td><td>コネクタプロファイル</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>ReturnCode_t 型のリターンコード </dd></dl>
+
+<p> <a class="el" href="_corba_port_8py-source.html">CorbaPort.py</a> の <a class="el" href="_corba_port_8py-source.html#l00299">299</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="9743165933e0fee41ab3b4788dc5b749"></a><!-- doxytag: member="source_py::CorbaPort::CorbaPort::subscribeInterfaces" ref="9743165933e0fee41ab3b4788dc5b749" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def subscribeInterfaces           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>connector_profile</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Interface に接続する 
+<p>
+この Portが所有する <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> に適合する Provider に関する情報を ConnectorProfile::properties から抽出し <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> にオブジェクト参照 をセットする。<p>
+今、Consumer が <pre>
+  PortInterfaceProfile
+  {
+    instance_name = "PA10_0";
+    type_name     = "Manipulator";
+    polarity      = REQUIRED;
+  }
+ </pre> として登録されていれば、他の Port の <pre>
+  PortInterfaceProfile
+  {
+    instance_name = "PA10_0";
+    type_name     = "Manipulator";
+    polarity      = PROVIDED;
+  }
+ </pre> として登録されている Serivce Provider のオブジェクト参照を探し、 <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> にセットする。 実際には、ConnectorProfileproperties に <pre>
+ NameValue = { "port.Manipulator.PA10_0": &lt;Object reference&gt;=""&gt; }
+ </pre> として登録されている NameValue を探し、そのオブジェクト参照を <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> にセットする。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>connector_profile</em>&nbsp;</td><td>コネクタプロファイル</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>ReturnCode_t 型のリターンコード </dd></dl>
+
+<p> <a class="el" href="_corba_port_8py-source.html">CorbaPort.py</a> の <a class="el" href="_corba_port_8py-source.html#l00351">351</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="3bce9d1fab9e4568c5fcec276767b6dc"></a><!-- doxytag: member="source_py::CorbaPort::CorbaPort::unsubscribeInterfaces" ref="3bce9d1fab9e4568c5fcec276767b6dc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def unsubscribeInterfaces           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>connector_profile</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Interface への接続を解除する 
+<p>
+与えられた ConnectorProfile に関連する <a class="el" href="classsource__py_1_1_corba_port_1_1_corba_port_1_1_consumer.html" title="Consumer の情報を格納する構造体">Consumer</a> にセットされた すべての Object を解放し接続を解除する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>connector_profile</em>&nbsp;</td><td>コネクタプロファイル </td></tr>
+  </table>
+</dl>
+
+<p> <a class="el" href="_corba_port_8py-source.html">CorbaPort.py</a> の <a class="el" href="_corba_port_8py-source.html#l00373">373</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<hr size="1"><address style="text-align: right;"><small>OpenRTMに対してMon Mar 17 15:11:07 2008に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.4 </small></address>
+</body>
+</html>

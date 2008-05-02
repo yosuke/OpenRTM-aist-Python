@@ -1,0 +1,86 @@
+\section{クラス InPortCorbaProvider}
+\label{classsource__py_1_1_in_port_corba_provider_1_1_in_port_corba_provider}\index{source\_\-py::InPortCorbaProvider::InPortCorbaProvider@{source\_\-py::InPortCorbaProvider::InPortCorbaProvider}}
+\doxyref{InPortCorbaProvider}{p.}{classsource__py_1_1_in_port_corba_provider_1_1_in_port_corba_provider} クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf publishInterface}
+\begin{CompactList}\small\item\em Interface情報を公開する \item\end{CompactList}\item 
+def {\bf put}
+\begin{CompactList}\small\item\em バッファにデータを書き込む \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{InPortCorbaProvider}{p.}{classsource__py_1_1_in_port_corba_provider_1_1_in_port_corba_provider} クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+通信手段に CORBA を利用した入力ポートプロバイダーの実装クラス。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ InPortCorbaProvider.py の 41 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::InPortCorbaProvider::InPortCorbaProvider@{source\_\-py::InPortCorbaProvider::InPortCorbaProvider}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::InPortCorbaProvider::InPortCorbaProvider@{source\_\-py::InPortCorbaProvider::InPortCorbaProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em buffer\_\-})}\label{classsource__py_1_1_in_port_corba_provider_1_1_in_port_corba_provider_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ ポートプロパティに以下の項目を設定する。\begin{itemize}
+\item インターフェースタイプ : CORBA\_\-Any\item データフロータイプ : Push, Pull\item サブスクリプションタイプ : Any\end{itemize}
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em buffer\_\-}]当該プロバイダに割り当てるバッファオブジェクト \end{description}
+\end{Desc}
+
+
+ InPortCorbaProvider.py の 63 行で定義されています。\index{source\_\-py::InPortCorbaProvider::InPortCorbaProvider@{source\_\-py::InPortCorbaProvider::InPortCorbaProvider}!publishInterface@{publishInterface}}
+\index{publishInterface@{publishInterface}!source_py::InPortCorbaProvider::InPortCorbaProvider@{source\_\-py::InPortCorbaProvider::InPortCorbaProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def publishInterface ( {\em self},  {\em prop})}\label{classsource__py_1_1_in_port_corba_provider_1_1_in_port_corba_provider_6bb780fbfb9b2c4dd0a105fa554d692f}
+
+
+Interface情報を公開する 
+
+Interface情報を公開する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em prop}]Interface情報を受け取るプロパティ \end{description}
+\end{Desc}
+
+
+ InPortCorbaProvider.py の 89 行で定義されています。\index{source\_\-py::InPortCorbaProvider::InPortCorbaProvider@{source\_\-py::InPortCorbaProvider::InPortCorbaProvider}!put@{put}}
+\index{put@{put}!source_py::InPortCorbaProvider::InPortCorbaProvider@{source\_\-py::InPortCorbaProvider::InPortCorbaProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def put ( {\em self},  {\em data})}\label{classsource__py_1_1_in_port_corba_provider_1_1_in_port_corba_provider_6b875be2179dd1eed37edd8d7fe079ff}
+
+
+バッファにデータを書き込む 
+
+設定されたバッファにデータを書き込む。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em data}]書込対象データ \end{description}
+\end{Desc}
+
+
+ InPortCorbaProvider.py の 114 行で定義されています。

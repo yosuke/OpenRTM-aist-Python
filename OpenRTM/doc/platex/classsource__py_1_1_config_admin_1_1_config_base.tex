@@ -1,0 +1,70 @@
+\section{クラス ConfigBase}
+\label{classsource__py_1_1_config_admin_1_1_config_base}\index{source\_\-py::ConfigAdmin::ConfigBase@{source\_\-py::ConfigAdmin::ConfigBase}}
+\doxyref{ConfigBase}{p.}{classsource__py_1_1_config_admin_1_1_config_base} 抽象クラス  
+
+
+{\bf Config}に継承されています。
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf update}
+\begin{CompactList}\small\item\em コンフィギュレーションパラメータ値更新用関数(サブクラス実装用) \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{ConfigBase}{p.}{classsource__py_1_1_config_admin_1_1_config_base} 抽象クラス 
+
+各種コンフィギュレーション情報を保持するための抽象クラス。 具象コンフィギュレーションクラスは、以下の関数の実装を提供しなけれ ばならない。
+
+publicインターフェースとして以下のものを提供する。\begin{itemize}
+\item \doxyref{update()}{p.}{classsource__py_1_1_config_admin_1_1_config_base_be52b977c101e59f342489ed18140819}: コンフィギュレーションパラメータ値の更新\end{itemize}
+
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ ConfigAdmin.py の 40 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::ConfigAdmin::ConfigBase@{source\_\-py::ConfigAdmin::ConfigBase}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::ConfigAdmin::ConfigBase@{source\_\-py::ConfigAdmin::ConfigBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em name},  {\em def\_\-val})}\label{classsource__py_1_1_config_admin_1_1_config_base_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]コンフィギュレーション名 \item[{\em def\_\-val}]文字列形式のデフォルト値 \end{description}
+\end{Desc}
+
+
+ ConfigAdmin.py の 58 行で定義されています。\index{source\_\-py::ConfigAdmin::ConfigBase@{source\_\-py::ConfigAdmin::ConfigBase}!update@{update}}
+\index{update@{update}!source_py::ConfigAdmin::ConfigBase@{source\_\-py::ConfigAdmin::ConfigBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def update ( {\em self},  {\em val})}\label{classsource__py_1_1_config_admin_1_1_config_base_be52b977c101e59f342489ed18140819}
+
+
+コンフィギュレーションパラメータ値更新用関数(サブクラス実装用) 
+
+コンフィギュレーション設定値でコンフィギュレーションパラメータを更新する ための関数。\par
+ ※サブクラスでの実装参照用
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em val}]パラメータ値の文字列表現\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]設定結果 \end{Desc}
+
+
+{\bf Config} \doxyref{}{p.}{classsource__py_1_1_config_admin_1_1_config_be52b977c101e59f342489ed18140819}で再定義されています。
+
+ ConfigAdmin.py の 80 行で定義されています。

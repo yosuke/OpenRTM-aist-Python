@@ -1,0 +1,69 @@
+\section{クラス NamingBase}
+\label{classsource__py_1_1_naming_manager_1_1_naming_base}\index{source\_\-py::NamingManager::NamingBase@{source\_\-py::NamingManager::NamingBase}}
+NamingService 管理用抽象クラス  
+
+
+{\bf NamingOnCorba}に継承されています。
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf bindObject}
+\begin{CompactList}\small\item\em NamingServiceへバインドする関数(サブクラス実装用) \item\end{CompactList}\item 
+def {\bf unbindObject}
+\begin{CompactList}\small\item\em NamingServiceからアンバインドする関数(サブクラス実装用) \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+NamingService 管理用抽象クラス 
+
+NamingServer 管理用抽象インターフェースクラス。 具象管理クラスは、以下の関数の実装を提供しなければならない。\begin{itemize}
+\item \doxyref{bindObject()}{p.}{classsource__py_1_1_naming_manager_1_1_naming_base_5a4a94fdd171a5f454d99c5234a5f757} : 指定したオブジェクトのNamingServiceへのバインド\item \doxyref{unbindObject()}{p.}{classsource__py_1_1_naming_manager_1_1_naming_base_43222960adbbcec1478c036cd9de4217} : 指定したオブジェクトのNamingServiceからのアンバインド\end{itemize}
+
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ NamingManager.py の 91 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::NamingManager::NamingBase@{source\_\-py::NamingManager::NamingBase}!bindObject@{bindObject}}
+\index{bindObject@{bindObject}!source_py::NamingManager::NamingBase@{source\_\-py::NamingManager::NamingBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def bindObject ( {\em self},  {\em name},  {\em rtobj})}\label{classsource__py_1_1_naming_manager_1_1_naming_base_5a4a94fdd171a5f454d99c5234a5f757}
+
+
+NamingServiceへバインドする関数(サブクラス実装用) 
+
+指定したオブジェクトをNamingServiceへバインドする\par
+ ※サブクラスでの実装参照用
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]バインド時の名称 \item[{\em rtobj}]バインド対象オブジェクト \end{description}
+\end{Desc}
+
+
+{\bf NamingOnCorba} \doxyref{}{p.}{classsource__py_1_1_naming_manager_1_1_naming_on_corba_5a4a94fdd171a5f454d99c5234a5f757}で再定義されています。
+
+ NamingManager.py の 110 行で定義されています。\index{source\_\-py::NamingManager::NamingBase@{source\_\-py::NamingManager::NamingBase}!unbindObject@{unbindObject}}
+\index{unbindObject@{unbindObject}!source_py::NamingManager::NamingBase@{source\_\-py::NamingManager::NamingBase}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def unbindObject ( {\em self},  {\em name})}\label{classsource__py_1_1_naming_manager_1_1_naming_base_43222960adbbcec1478c036cd9de4217}
+
+
+NamingServiceからアンバインドする関数(サブクラス実装用) 
+
+指定したオブジェクトをNamingServiceからアンバインドする\par
+ ※サブクラスでの実装参照用
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]アンバインド対象オブジェクト \end{description}
+\end{Desc}
+
+
+{\bf NamingOnCorba} \doxyref{}{p.}{classsource__py_1_1_naming_manager_1_1_naming_on_corba_43222960adbbcec1478c036cd9de4217}で再定義されています。
+
+ NamingManager.py の 128 行で定義されています。

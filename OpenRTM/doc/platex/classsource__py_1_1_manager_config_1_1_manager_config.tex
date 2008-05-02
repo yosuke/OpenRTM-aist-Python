@@ -1,0 +1,190 @@
+\section{クラス ManagerConfig}
+\label{classsource__py_1_1_manager_config_1_1_manager_config}\index{source\_\-py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}}
+Manager configuration クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf init}
+\begin{CompactList}\small\item\em 初期化 \item\end{CompactList}\item 
+def {\bf configure}
+\begin{CompactList}\small\item\em Configuration 情報を Property に設定する \item\end{CompactList}\item 
+def {\bf parseArgs}
+\begin{CompactList}\small\item\em コマンド引数をパースする \item\end{CompactList}\item 
+def {\bf findConfigFile}
+\begin{CompactList}\small\item\em Configuration file の検索 \item\end{CompactList}\item 
+def {\bf setSystemInformation}
+\begin{CompactList}\small\item\em システム情報を設定する \item\end{CompactList}\item 
+def {\bf fileExist}
+\begin{CompactList}\small\item\em ファイルの存在確認 \item\end{CompactList}\end{CompactItemize}
+\subsection*{Static Public 変数}
+\begin{CompactItemize}
+\item 
+list {\bf config\_\-file\_\-path}\label{classsource__py_1_1_manager_config_1_1_manager_config_be91fccad2ba67fe71d0b546b49ca1ff}
+
+\begin{CompactList}\small\item\em Manager コンフィギュレーションのデフォルト・ファイル・パス \item\end{CompactList}\item 
+string {\bf config\_\-file\_\-env} = \char`\"{}RTC\_\-MANAGER\_\-CONFIG\char`\"{}\label{classsource__py_1_1_manager_config_1_1_manager_config_7765b5da9b3292ebe517e2d9c403e9c4}
+
+\begin{CompactList}\small\item\em デフォルト・コンフィギュレーションのファイル・パスを識別する 環境変数 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+Manager configuration クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+Manager のコンフィギュレーションを行う、コマンドライン引数を受け取り、 (あるいは引数なしで)インスタンス化される。 コマンドライン引数で指定された設定ファイル、環境変数などから Manager の プロパティ情報を設定する。
+
+各設定の優先度は以下のとおりである。 \begin{enumerate}
+\item コマンドラインオプション \char`\"{}-f\char`\"{} \item 環境変数 \char`\"{}RTC\_\-MANAGER\_\-CONFIG\char`\"{} \item デフォルト設定ファイル \char`\"{}./rtc.conf\char`\"{} \item デフォルト設定ファイル \char`\"{}/etc/rtc.conf\char`\"{} \item デフォルト設定ファイル \char`\"{}/etc/rtc/rtc.conf\char`\"{} \item デフォルト設定ファイル \char`\"{}/usr/local/etc/rtc.conf\char`\"{} \item デフォルト設定ファイル \char`\"{}/usr/local/etc/rtc/rtc.conf\char`\"{} \item 埋め込みコンフィギュレーション値 \end{enumerate}
+ただし、コマンドラインオプション \char`\"{}-d\char`\"{} が指定された場合は、 (たとえ -f で設定ファイルを指定しても)埋め込みコンフィギュレーション値 が使用される。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ ManagerConfig.py の 60 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em argv} = {\tt None})}\label{classsource__py_1_1_manager_config_1_1_manager_config_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+与えられた引数によりコンフィギュレーション情報の初期化を行う。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em argv}]コマンドライン引数(デフォルト値:None) \end{description}
+\end{Desc}
+
+
+ ManagerConfig.py の 108 行で定義されています。\index{source\_\-py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}!init@{init}}
+\index{init@{init}!source_py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def init ( {\em self},  {\em argv})}\label{classsource__py_1_1_manager_config_1_1_manager_config_c95cf511c1f2ff09ca47fe587657c2b4}
+
+
+初期化 
+
+コマンドライン引数に応じて初期化を実行する。コマンドラインオプションは 以下のものが使用可能である。
+
+-f file : コンフィギュレーションファイルを指定する。\par
+ -l module : ロードするモジュールを指定する。(未実装)\par
+ -o options: その他オプションを指定する。(未実装)\par
+ -d : デフォルトのコンフィギュレーションを使う。(未実装)\par
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em argv}]コマンドライン引数 \end{description}
+\end{Desc}
+
+
+ ManagerConfig.py の 144 行で定義されています。\index{source\_\-py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}!configure@{configure}}
+\index{configure@{configure}!source_py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def configure ( {\em self},  {\em prop})}\label{classsource__py_1_1_manager_config_1_1_manager_config_926fbba338fc9e11437beccb27e11ba7}
+
+
+Configuration 情報を Property に設定する 
+
+Manager のConfiguration 情報を指定された Property に設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em prop}]Configuration 設定対象 Property \end{description}
+\end{Desc}
+
+
+ ManagerConfig.py の 160 行で定義されています。\index{source\_\-py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}!parseArgs@{parseArgs}}
+\index{parseArgs@{parseArgs}!source_py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def parseArgs ( {\em self},  {\em argv})}\label{classsource__py_1_1_manager_config_1_1_manager_config_b9890335edef22dc1c15dd4f899a9093}
+
+
+コマンド引数をパースする 
+
+-f file : コンフィギュレーションファイルを指定する。\par
+ -l module : ロードするモジュールを指定する。(未実装)\par
+ -o options: その他オプションを指定する。(未実装)\par
+ -d : デフォルトのコンフィギュレーションを使う。(未実装)\par
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em argv}]コマンドライン引数 \end{description}
+\end{Desc}
+
+
+ ManagerConfig.py の 218 行で定義されています。\index{source\_\-py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}!findConfigFile@{findConfigFile}}
+\index{findConfigFile@{findConfigFile}!source_py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def findConfigFile ( {\em self})}\label{classsource__py_1_1_manager_config_1_1_manager_config_9aebe2d2b731e958c8b72e10eff3b8ab}
+
+
+Configuration file の検索 
+
+Configuration file を検索し、設定する。 既に Configuration file が設定済みの場合は、ファイルの存在確認を行う。
+
+Configuration file の優先順位\par
+ コマンドオプション指定＞環境変数＞デフォルトファイル＞デフォルト設定
+
+デフォルト強制オプション(-d): デフォルトファイルがあっても無視して デフォルト設定を使う
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]Configuration file 検索結果 \end{Desc}
+
+
+ ManagerConfig.py の 264 行で定義されています。\index{source\_\-py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}!setSystemInformation@{setSystemInformation}}
+\index{setSystemInformation@{setSystemInformation}!source_py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setSystemInformation ( {\em self},  {\em prop})}\label{classsource__py_1_1_manager_config_1_1_manager_config_1fed2bbe785be4d26fb4bfd54a838209}
+
+
+システム情報を設定する 
+
+システム情報を取得しプロパティにセットする。設定されるキーは以下の通り。\begin{itemize}
+\item manager.os.name : OS名\item manager.os.release : OSリリース名\item maanger.os.version : OSバージョン名\item manager.os.arch : OSアーキテクチャ\item manager.os.hostname: ホスト名\item manager.pid : プロセスID\end{itemize}
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em prop}]システム情報を設定したプロパティ \end{description}
+\end{Desc}
+
+
+ ManagerConfig.py の 314 行で定義されています。\index{source\_\-py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}!fileExist@{fileExist}}
+\index{fileExist@{fileExist}!source_py::ManagerConfig::ManagerConfig@{source\_\-py::ManagerConfig::ManagerConfig}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def fileExist ( {\em self},  {\em filename})}\label{classsource__py_1_1_manager_config_1_1_manager_config_775471182727b4e03b9ec4b20b11f754}
+
+
+ファイルの存在確認 
+
+指定されたファイルが存在するか確認する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em filename}]確認対象ファイル名称\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]対象ファイル確認結果(存在する場合にtrue) \end{Desc}
+
+
+ ManagerConfig.py の 341 行で定義されています。

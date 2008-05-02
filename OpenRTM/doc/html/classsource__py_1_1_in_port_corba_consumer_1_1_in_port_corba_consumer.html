@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>OpenRTM: クラス InPortCorbaConsumer</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.4 -->
+<div class="tabs">
+  <ul>
+    <li><a href="index.html"><span>メインページ</span></a></li>
+    <li class="current"><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="files.html"><span>ファイル</span></a></li>
+  </ul>
+</div>
+<div class="tabs">
+  <ul>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="hierarchy.html"><span>クラス階層</span></a></li>
+    <li><a href="functions.html"><span>データフィールド</span></a></li>
+  </ul>
+</div>
+<div class="nav">
+<b>source_py</b>::<b>InPortCorbaConsumer</b>::<a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html">InPortCorbaConsumer</a></div>
+<h1>クラス InPortCorbaConsumer</h1><!-- doxytag: class="source_py::InPortCorbaConsumer::InPortCorbaConsumer" --><a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html" title="InPortCorbaConsumer クラス">InPortCorbaConsumer</a> クラス  
+<a href="#_details">[詳細]</a>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Public メソッド</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html#c775ee34451fdfa742b318538164070e">__init__</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">コンストラクタ  <a href="#c775ee34451fdfa742b318538164070e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html#93ebc6dc2e84695385f622ffa0e21d2e">equal_operator</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">代入演算子  <a href="#93ebc6dc2e84695385f622ffa0e21d2e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html#6b875be2179dd1eed37edd8d7fe079ff">put</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">バッファへのデータ書込  <a href="#6b875be2179dd1eed37edd8d7fe079ff"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html#95ed48a91131865e9003666504ab0257">push</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">バッファからのデータ取出  <a href="#95ed48a91131865e9003666504ab0257"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html#4110248fff184e40b53c1cfa2bc3c649">clone</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">コピーの生成  <a href="#4110248fff184e40b53c1cfa2bc3c649"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html#ca2d71e71e01d4bc19521b4f6d9f8224">subscribeInterface</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">データ送信通知への登録  <a href="#ca2d71e71e01d4bc19521b4f6d9f8224"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html#781384697b52f4034ad56b665f48d6de">unsubscribeInterface</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">データ送信通知からの登録解除(サブクラス実装用)  <a href="#781384697b52f4034ad56b665f48d6de"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+<a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html" title="InPortCorbaConsumer クラス">InPortCorbaConsumer</a> クラス 
+<p>
+<div class="fragment"><pre class="fragment">
+</pre></div><p>
+通信手段に CORBA を利用した入力ポートコンシューマの実装クラス。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>DataType</em>&nbsp;</td><td>本ポートにて扱うデータ型</td></tr>
+  </table>
+</dl>
+<dl class="since" compact><dt><b>から:</b></dt><dd>0.4.0 </dd></dl>
+
+<p> <a class="el" href="_in_port_corba_consumer_8py-source.html">InPortCorbaConsumer.py</a> の <a class="el" href="_in_port_corba_consumer_8py-source.html#l00045">45</a> 行で定義されています。</p>
+<hr><h2>関数</h2>
+<a class="anchor" name="c775ee34451fdfa742b318538164070e"></a><!-- doxytag: member="source_py::InPortCorbaConsumer::InPortCorbaConsumer::__init__" ref="c775ee34451fdfa742b318538164070e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def __init__           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>buffer_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>consumer</em> = <code>None</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+コンストラクタ 
+<p>
+コンストラクタ<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>buffer_</em>&nbsp;</td><td>当該コンシューマに割り当てるバッファオブジェクト </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>consumer</em>&nbsp;</td><td>Consumer オブジェクト(デフォルト値:None) </td></tr>
+  </table>
+</dl>
+
+<p> <a class="el" href="_in_port_corba_consumer_8py-source.html">InPortCorbaConsumer.py</a> の <a class="el" href="_in_port_corba_consumer_8py-source.html#l00064">64</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="93ebc6dc2e84695385f622ffa0e21d2e"></a><!-- doxytag: member="source_py::InPortCorbaConsumer::InPortCorbaConsumer::equal_operator" ref="93ebc6dc2e84695385f622ffa0e21d2e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def equal_operator           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>consumer</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+代入演算子 
+<p>
+代入演算子<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>consumer</em>&nbsp;</td><td>代入元 <a class="el" href="classsource__py_1_1_in_port_corba_consumer_1_1_in_port_corba_consumer.html" title="InPortCorbaConsumer クラス">InPortCorbaConsumer</a> オブジェクト</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>代入結果 </dd></dl>
+
+<p> <a class="el" href="_in_port_corba_consumer_8py-source.html">InPortCorbaConsumer.py</a> の <a class="el" href="_in_port_corba_consumer_8py-source.html#l00088">88</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="6b875be2179dd1eed37edd8d7fe079ff"></a><!-- doxytag: member="source_py::InPortCorbaConsumer::InPortCorbaConsumer::put" ref="6b875be2179dd1eed37edd8d7fe079ff" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def put           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>data</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+バッファへのデータ書込 
+<p>
+バッファにデータを書き込む<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>data</em>&nbsp;</td><td>書込対象データ </td></tr>
+  </table>
+</dl>
+
+<p> <a class="el" href="_in_port_corba_consumer_8py-source.html">InPortCorbaConsumer.py</a> の <a class="el" href="_in_port_corba_consumer_8py-source.html#l00107">107</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="95ed48a91131865e9003666504ab0257"></a><!-- doxytag: member="source_py::InPortCorbaConsumer::InPortCorbaConsumer::push" ref="95ed48a91131865e9003666504ab0257" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def push           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+バッファからのデータ取出 
+<p>
+バッファからデータを取り出して送出する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+
+<p> <a class="el" href="_in_port_corba_consumer_8py-source.html">InPortCorbaConsumer.py</a> の <a class="el" href="_in_port_corba_consumer_8py-source.html#l00124">124</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="4110248fff184e40b53c1cfa2bc3c649"></a><!-- doxytag: member="source_py::InPortCorbaConsumer::InPortCorbaConsumer::clone" ref="4110248fff184e40b53c1cfa2bc3c649" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def clone           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+コピーの生成 
+<p>
+当該InPortCorbaConsumerオブジェクトの複製を生成する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>コピーされたInPortCorbaConsumerオブジェクト </dd></dl>
+
+<p> <a class="el" href="_in_port_corba_consumer_8py-source.html">InPortCorbaConsumer.py</a> の <a class="el" href="_in_port_corba_consumer_8py-source.html#l00158">158</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="ca2d71e71e01d4bc19521b4f6d9f8224"></a><!-- doxytag: member="source_py::InPortCorbaConsumer::InPortCorbaConsumer::subscribeInterface" ref="ca2d71e71e01d4bc19521b4f6d9f8224" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def subscribeInterface           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>properties</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+データ送信通知への登録 
+<p>
+指定されたプロパティに基づいて、データ送出通知の受け取りに登録する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>properties</em>&nbsp;</td><td>登録情報</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>登録処理結果(登録成功:true、登録失敗:false) </dd></dl>
+
+<p> <a class="el" href="_in_port_corba_consumer_8py-source.html">InPortCorbaConsumer.py</a> の <a class="el" href="_in_port_corba_consumer_8py-source.html#l00176">176</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="781384697b52f4034ad56b665f48d6de"></a><!-- doxytag: member="source_py::InPortCorbaConsumer::InPortCorbaConsumer::unsubscribeInterface" ref="781384697b52f4034ad56b665f48d6de" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def unsubscribeInterface           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>properties</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+データ送信通知からの登録解除(サブクラス実装用) 
+<p>
+データ送出通知の受け取りから登録を解除する。<br>
+ ※サブクラスでの実装参照用<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>properties</em>&nbsp;</td><td>登録解除情報 </td></tr>
+  </table>
+</dl>
+
+<p> <a class="el" href="_in_port_corba_consumer_8py-source.html">InPortCorbaConsumer.py</a> の <a class="el" href="_in_port_corba_consumer_8py-source.html#l00214">214</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<hr size="1"><address style="text-align: right;"><small>OpenRTMに対してMon Mar 17 15:11:07 2008に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.4 </small></address>
+</body>
+</html>

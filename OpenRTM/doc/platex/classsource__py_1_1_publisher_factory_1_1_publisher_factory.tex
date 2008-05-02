@@ -1,0 +1,64 @@
+\section{クラス PublisherFactory}
+\label{classsource__py_1_1_publisher_factory_1_1_publisher_factory}\index{source\_\-py::PublisherFactory::PublisherFactory@{source\_\-py::PublisherFactory::PublisherFactory}}
+\doxyref{PublisherFactory}{p.}{classsource__py_1_1_publisher_factory_1_1_publisher_factory} クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf create}
+\begin{CompactList}\small\item\em Publisherの生成 \item\end{CompactList}\item 
+def {\bf destroy}
+\begin{CompactList}\small\item\em Publisherの破棄 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{PublisherFactory}{p.}{classsource__py_1_1_publisher_factory_1_1_publisher_factory} クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+各種Publisherオブジェクトの生成・破棄を管理するファクトリクラス ※テンポラリな実装 将来的には任意のPublisherを生成できるようにする。 
+
+ PublisherFactory.py の 36 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::PublisherFactory::PublisherFactory@{source\_\-py::PublisherFactory::PublisherFactory}!create@{create}}
+\index{create@{create}!source_py::PublisherFactory::PublisherFactory@{source\_\-py::PublisherFactory::PublisherFactory}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def create ( {\em self},  {\em consumer},  {\em property})}\label{classsource__py_1_1_publisher_factory_1_1_publisher_factory_5b7ef0221e471e99fa7f0a87a28ba1ea}
+
+
+Publisherの生成 
+
+Publisherオブジェクトを生成する。 指定された引数に応じた適切なPublisher実装のオブジェクトが生成される。 生成するPublisherの種別を、指定されたPropertyオブジェクトの dataport.subscription\_\-typeメンバに設定しておく必要がある。 また、種別によっては、Publisherの駆動を制御する情報をさらに設定する必要が ある。 これらの具体的な内容は、それぞれのPublisher実装を参照のこと。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em consumer}]Publisherによってデータ送出を駆動されるコンシューマ \item[{\em property}]生成すべきPublisherを特定するための情報や、Publisherの 駆動を制御するための情報が設定されているPropertyオブジェ クト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]生成したPublisherオブジェクト。生成に失敗した場合はNullを返す。 \end{Desc}
+
+
+ PublisherFactory.py の 64 行で定義されています。\index{source\_\-py::PublisherFactory::PublisherFactory@{source\_\-py::PublisherFactory::PublisherFactory}!destroy@{destroy}}
+\index{destroy@{destroy}!source_py::PublisherFactory::PublisherFactory@{source\_\-py::PublisherFactory::PublisherFactory}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def destroy ( {\em self},  {\em publisher})}\label{classsource__py_1_1_publisher_factory_1_1_publisher_factory_0ced48ce1d2b232eb793c028f4a75b89}
+
+
+Publisherの破棄 
+
+設定されたPublisherオブジェクトを破棄する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em publisher}]破棄対象Publisherオブジェクト \end{description}
+\end{Desc}
+
+
+ PublisherFactory.py の 91 行で定義されています。

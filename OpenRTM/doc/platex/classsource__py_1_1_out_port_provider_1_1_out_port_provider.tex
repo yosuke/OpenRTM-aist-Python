@@ -1,0 +1,182 @@
+\section{クラス OutPortProvider}
+\label{classsource__py_1_1_out_port_provider_1_1_out_port_provider}\index{source\_\-py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}}
+\doxyref{OutPortProvider}{p.}{classsource__py_1_1_out_port_provider_1_1_out_port_provider}  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf publishInterfaceProfile}
+\begin{CompactList}\small\item\em InterfaceProfile情報を公開する \item\end{CompactList}\item 
+def {\bf publishInterface}
+\begin{CompactList}\small\item\em Interface情報を公開する \item\end{CompactList}\item 
+def {\bf setPortType}
+\begin{CompactList}\small\item\em ポートタイプを設定する \item\end{CompactList}\item 
+def {\bf setDataType}
+\begin{CompactList}\small\item\em データタイプを設定する \item\end{CompactList}\item 
+def {\bf setInterfaceType}
+\begin{CompactList}\small\item\em インターフェースタイプを設定する \item\end{CompactList}\item 
+def {\bf setDataFlowType}
+\begin{CompactList}\small\item\em データフロータイプを設定する \item\end{CompactList}\item 
+def {\bf setSubscriptionType}
+\begin{CompactList}\small\item\em サブスクリプションタイプを設定する \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{OutPortProvider}{p.}{classsource__py_1_1_out_port_provider_1_1_out_port_provider} 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+\begin{itemize}
+\item Port に対して何を提供しているかを宣言する。 PortProfile の properties に Provider に関する情報を追加する。\end{itemize}
+
+
+(例) OutPort を Provide する場合
+
+OutPortCorbaProvider が以下を宣言\begin{itemize}
+\item dataport.interface\_\-type = CORBA\_\-Any\item dataport.dataflow\_\-type = Push, Pull\item dataport.subscription\_\-type = Once, New, Periodic\end{itemize}
+
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ OutPortProvider.py の 44 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self})}\label{classsource__py_1_1_out_port_provider_1_1_out_port_provider_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ OutPortProvider.py の 61 行で定義されています。\index{source\_\-py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}!publishInterfaceProfile@{publishInterfaceProfile}}
+\index{publishInterfaceProfile@{publishInterfaceProfile}!source_py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def publishInterfaceProfile ( {\em self},  {\em prop})}\label{classsource__py_1_1_out_port_provider_1_1_out_port_provider_6fc1e4ce562bc27f177e7fa79b4ecbfe}
+
+
+InterfaceProfile情報を公開する 
+
+InterfaceProfile情報を公開する。 引数で指定するプロパティ情報内の NameValue オブジェクトの dataport.interface\_\-type 値を調べ、当該ポートに設定されている インターフェースタイプと一致する場合のみ情報を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em prop}]InterfaceProfile情報を受け取るプロパティ \end{description}
+\end{Desc}
+
+
+ OutPortProvider.py の 80 行で定義されています。\index{source\_\-py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}!publishInterface@{publishInterface}}
+\index{publishInterface@{publishInterface}!source_py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def publishInterface ( {\em self},  {\em prop})}\label{classsource__py_1_1_out_port_provider_1_1_out_port_provider_6bb780fbfb9b2c4dd0a105fa554d692f}
+
+
+Interface情報を公開する 
+
+Interface情報を公開する。 引数で指定するプロパティ情報内の NameValue オブジェクトの dataport.interface\_\-type 値を調べ、当該ポートに設定されていなければ NameValue に情報を追加する。 すでに同一インターフェースが登録済みの場合は何も行わない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em prop}]InterfaceProfile情報を受け取るプロパティ \end{description}
+\end{Desc}
+
+
+ OutPortProvider.py の 103 行で定義されています。\index{source\_\-py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}!setPortType@{setPortType}}
+\index{setPortType@{setPortType}!source_py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setPortType ( {\em self},  {\em port\_\-type})}\label{classsource__py_1_1_out_port_provider_1_1_out_port_provider_a00422bcfa70b6fece949ec73e07b2ea}
+
+
+ポートタイプを設定する 
+
+引数で指定したポートタイプを設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em port\_\-type}]設定対象ポートタイプ \end{description}
+\end{Desc}
+
+
+ OutPortProvider.py の 122 行で定義されています。\index{source\_\-py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}!setDataType@{setDataType}}
+\index{setDataType@{setDataType}!source_py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setDataType ( {\em self},  {\em data\_\-type})}\label{classsource__py_1_1_out_port_provider_1_1_out_port_provider_993626c65069ce404573eac9852b6dad}
+
+
+データタイプを設定する 
+
+引数で指定したデータタイプを設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em data\_\-type}]設定対象データタイプ \end{description}
+\end{Desc}
+
+
+ OutPortProvider.py の 138 行で定義されています。\index{source\_\-py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}!setInterfaceType@{setInterfaceType}}
+\index{setInterfaceType@{setInterfaceType}!source_py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setInterfaceType ( {\em self},  {\em interface\_\-type})}\label{classsource__py_1_1_out_port_provider_1_1_out_port_provider_fc937bac70f8820bebc736114407479f}
+
+
+インターフェースタイプを設定する 
+
+引数で指定したインターフェースタイプを設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em interface\_\-type}]設定対象インターフェースタイプ \end{description}
+\end{Desc}
+
+
+ OutPortProvider.py の 154 行で定義されています。\index{source\_\-py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}!setDataFlowType@{setDataFlowType}}
+\index{setDataFlowType@{setDataFlowType}!source_py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setDataFlowType ( {\em self},  {\em dataflow\_\-type})}\label{classsource__py_1_1_out_port_provider_1_1_out_port_provider_a80d9c57efcb34fb1162673fea8ef91f}
+
+
+データフロータイプを設定する 
+
+引数で指定したデータフロータイプを設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em dataflow\_\-type}]設定対象データフロータイプ \end{description}
+\end{Desc}
+
+
+ OutPortProvider.py の 170 行で定義されています。\index{source\_\-py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}!setSubscriptionType@{setSubscriptionType}}
+\index{setSubscriptionType@{setSubscriptionType}!source_py::OutPortProvider::OutPortProvider@{source\_\-py::OutPortProvider::OutPortProvider}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setSubscriptionType ( {\em self},  {\em subs\_\-type})}\label{classsource__py_1_1_out_port_provider_1_1_out_port_provider_5d4cbf7c985cb5ebe72c6e66f9fdc731}
+
+
+サブスクリプションタイプを設定する 
+
+引数で指定したサブスクリプションタイプを設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em subs\_\-type}]設定対象サブスクリプションタイプ \end{description}
+\end{Desc}
+
+
+ OutPortProvider.py の 186 行で定義されています。

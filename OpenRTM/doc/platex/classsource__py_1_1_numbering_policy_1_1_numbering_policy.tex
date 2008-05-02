@@ -1,0 +1,83 @@
+\section{クラス NumberingPolicy}
+\label{classsource__py_1_1_numbering_policy_1_1_numbering_policy}\index{source\_\-py::NumberingPolicy::NumberingPolicy@{source\_\-py::NumberingPolicy::NumberingPolicy}}
+オブジェクト生成時ネーミング・ポリシー(命名規則)管理用抽象クラス  
+
+
+{\bf DefaultNumberingPolicy}に継承されています。
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf onCreate}
+\begin{CompactList}\small\item\em オブジェクト生成時の名称作成(サブクラス実装用) \item\end{CompactList}\item 
+def {\bf onDelete}
+\begin{CompactList}\small\item\em オブジェクト削除時の名称解放(サブクラス実装用) \item\end{CompactList}\end{CompactItemize}
+\subsection*{データ構造}
+\begin{CompactItemize}
+\item 
+class {\bf ObjectNotFound}
+\begin{CompactList}\small\item\em オブジェクト未発見例外処理用内部クラス(未実装) \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+オブジェクト生成時ネーミング・ポリシー(命名規則)管理用抽象クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+オブジェクトを生成する際のネーミング・ポリシー(命名規則)を管理するための 抽象クラス。 具象クラスは、以下の関数の実装を提供しなければならない。\begin{itemize}
+\item \doxyref{onCreate()}{p.}{classsource__py_1_1_numbering_policy_1_1_numbering_policy_012ff45ee3bfaaa3b0b02f165a228fd5} : オブジェクト生成時の名称作成\item \doxyref{onDelete()}{p.}{classsource__py_1_1_numbering_policy_1_1_numbering_policy_c9cd7e90362002fe5229029a9d5dc075} : オブジェクト削除時の名称解放\end{itemize}
+
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ NumberingPolicy.py の 37 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::NumberingPolicy::NumberingPolicy@{source\_\-py::NumberingPolicy::NumberingPolicy}!onCreate@{onCreate}}
+\index{onCreate@{onCreate}!source_py::NumberingPolicy::NumberingPolicy@{source\_\-py::NumberingPolicy::NumberingPolicy}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def onCreate ( {\em self},  {\em obj})}\label{classsource__py_1_1_numbering_policy_1_1_numbering_policy_012ff45ee3bfaaa3b0b02f165a228fd5}
+
+
+オブジェクト生成時の名称作成(サブクラス実装用) 
+
+オブジェクト生成時の名称を生成するための関数\par
+ ※サブクラスでの実装参照用
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em obj}]名称生成対象オブジェクト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]生成したオブジェクト名称 \end{Desc}
+
+
+{\bf DefaultNumberingPolicy} \doxyref{}{p.}{classsource__py_1_1_numbering_policy_1_1_default_numbering_policy_012ff45ee3bfaaa3b0b02f165a228fd5}で再定義されています。
+
+ NumberingPolicy.py の 69 行で定義されています。\index{source\_\-py::NumberingPolicy::NumberingPolicy@{source\_\-py::NumberingPolicy::NumberingPolicy}!onDelete@{onDelete}}
+\index{onDelete@{onDelete}!source_py::NumberingPolicy::NumberingPolicy@{source\_\-py::NumberingPolicy::NumberingPolicy}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def onDelete ( {\em self},  {\em obj})}\label{classsource__py_1_1_numbering_policy_1_1_numbering_policy_c9cd7e90362002fe5229029a9d5dc075}
+
+
+オブジェクト削除時の名称解放(サブクラス実装用) 
+
+オブジェクト削除時に名称を解放するための関数\par
+ ※サブクラスでの実装参照用
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em obj}]名称解放対象オブジェクト \end{description}
+\end{Desc}
+
+
+{\bf DefaultNumberingPolicy} \doxyref{}{p.}{classsource__py_1_1_numbering_policy_1_1_default_numbering_policy_c9cd7e90362002fe5229029a9d5dc075}で再定義されています。
+
+ NumberingPolicy.py の 87 行で定義されています。

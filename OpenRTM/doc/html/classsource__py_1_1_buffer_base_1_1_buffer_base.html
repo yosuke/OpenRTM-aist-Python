@@ -1,0 +1,378 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>OpenRTM: クラス BufferBase</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.5.4 -->
+<div class="tabs">
+  <ul>
+    <li><a href="index.html"><span>メインページ</span></a></li>
+    <li class="current"><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="files.html"><span>ファイル</span></a></li>
+  </ul>
+</div>
+<div class="tabs">
+  <ul>
+    <li><a href="annotated.html"><span>データ構造</span></a></li>
+    <li><a href="hierarchy.html"><span>クラス階層</span></a></li>
+    <li><a href="functions.html"><span>データフィールド</span></a></li>
+  </ul>
+</div>
+<div class="nav">
+<b>source_py</b>::<b>BufferBase</b>::<a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html">BufferBase</a></div>
+<h1>クラス BufferBase</h1><!-- doxytag: class="source_py::BufferBase::BufferBase" --><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html" title="BufferBase 抽象クラス">BufferBase</a> 抽象クラス  
+<a href="#_details">[詳細]</a>
+<p>
+<a class="el" href="classsource__py_1_1_buffer_base_1_1_null_buffer.html">NullBuffer</a>に継承されています。
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Public メソッド</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#de624967a623600100475a859a3cc0a4">length</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">バッファの長さを取得する(サブクラス実装用)  <a href="#de624967a623600100475a859a3cc0a4"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#8c7fc40f1124fcf3f5ee7116cd62f413">write</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">バッファにデータを書き込む(サブクラス実装用)  <a href="#8c7fc40f1124fcf3f5ee7116cd62f413"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#fcea8c9091d60bee0f6fb79abb6e1cca">read</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">バッファからデータを読み出す(サブクラス実装用)  <a href="#fcea8c9091d60bee0f6fb79abb6e1cca"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#4928b8e993df1ab082183bda426cb9b1">isFull</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">バッファfullチェック(サブクラス実装用)  <a href="#4928b8e993df1ab082183bda426cb9b1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#fb7514ca88d7e70499debb1302c4497d">isEmpty</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">バッファemptyチェック(サブクラス実装用)  <a href="#fb7514ca88d7e70499debb1302c4497d"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#6b875be2179dd1eed37edd8d7fe079ff">put</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">バッファにデータを格納する(サブクラス実装用)  <a href="#6b875be2179dd1eed37edd8d7fe079ff"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#444a1328efb32d5d9d2dcb2efe855d3b">get</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">バッファからデータを取得する(サブクラス実装用)  <a href="#444a1328efb32d5d9d2dcb2efe855d3b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">def&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#e1daf7a4fa2db844dc84df9a9bbf113c">getRef</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">次に書き込むバッファへの参照を取得する(サブクラス実装用)  <a href="#e1daf7a4fa2db844dc84df9a9bbf113c"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+<a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html" title="BufferBase 抽象クラス">BufferBase</a> 抽象クラス 
+<p>
+<div class="fragment"><pre class="fragment">
+</pre></div><p>
+種々のバッファのための抽象インターフェースクラス。 具象バッファクラスは、以下の関数の実装を提供しなければならない。<p>
+publicインターフェースとして以下のものを提供する。<ul>
+<li><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#8c7fc40f1124fcf3f5ee7116cd62f413" title="バッファにデータを書き込む(サブクラス実装用)">write()</a>: バッファに書き込む</li><li><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#fcea8c9091d60bee0f6fb79abb6e1cca" title="バッファからデータを読み出す(サブクラス実装用)">read()</a>: バッファから読み出す</li><li><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#de624967a623600100475a859a3cc0a4" title="バッファの長さを取得する(サブクラス実装用)">length()</a>: バッファ長を返す</li><li><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#4928b8e993df1ab082183bda426cb9b1" title="バッファfullチェック(サブクラス実装用)">isFull()</a>: バッファが満杯である</li><li><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#fb7514ca88d7e70499debb1302c4497d" title="バッファemptyチェック(サブクラス実装用)">isEmpty()</a>: バッファが空である</li></ul>
+<p>
+protectedインターフェースとして以下のものを提供する。<ul>
+<li><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#6b875be2179dd1eed37edd8d7fe079ff" title="バッファにデータを格納する(サブクラス実装用)">put()</a>: バッファにデータを書き込む</li><li><a class="el" href="classsource__py_1_1_buffer_base_1_1_buffer_base.html#444a1328efb32d5d9d2dcb2efe855d3b" title="バッファからデータを取得する(サブクラス実装用)">get()</a>: バッファからデータを読み出す</li></ul>
+<p>
+<dl class="since" compact><dt><b>から:</b></dt><dd>0.4.0 </dd></dl>
+
+<p> <a class="el" href="_buffer_base_8py-source.html">BufferBase.py</a> の <a class="el" href="_buffer_base_8py-source.html#l00051">51</a> 行で定義されています。</p>
+<hr><h2>関数</h2>
+<a class="anchor" name="de624967a623600100475a859a3cc0a4"></a><!-- doxytag: member="source_py::BufferBase::BufferBase::length" ref="de624967a623600100475a859a3cc0a4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def length           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+バッファの長さを取得する(サブクラス実装用) 
+<p>
+バッファ長を取得する<br>
+ ※サブクラスでの実装参照用<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>バッファ長 </dd></dl>
+
+<p><a class="el" href="classsource__py_1_1_buffer_base_1_1_null_buffer.html#de624967a623600100475a859a3cc0a4">NullBuffer</a>で再定義されています。</p>
+
+<p> <a class="el" href="_buffer_base_8py-source.html">BufferBase.py</a> の <a class="el" href="_buffer_base_8py-source.html#l00075">75</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="8c7fc40f1124fcf3f5ee7116cd62f413"></a><!-- doxytag: member="source_py::BufferBase::BufferBase::write" ref="8c7fc40f1124fcf3f5ee7116cd62f413" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def write           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+バッファにデータを書き込む(サブクラス実装用) 
+<p>
+バッファにデータを書き込む<br>
+ ※サブクラスでの実装参照用<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>value</em>&nbsp;</td><td>書き込み対象データ</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>データ書き込み結果(true:書き込み成功，false:書き込み失敗) </dd></dl>
+
+<p><a class="el" href="classsource__py_1_1_buffer_base_1_1_null_buffer.html#8c7fc40f1124fcf3f5ee7116cd62f413">NullBuffer</a>で再定義されています。</p>
+
+<p> <a class="el" href="_buffer_base_8py-source.html">BufferBase.py</a> の <a class="el" href="_buffer_base_8py-source.html#l00097">97</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="fcea8c9091d60bee0f6fb79abb6e1cca"></a><!-- doxytag: member="source_py::BufferBase::BufferBase::read" ref="fcea8c9091d60bee0f6fb79abb6e1cca" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def read           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+バッファからデータを読み出す(サブクラス実装用) 
+<p>
+バッファからデータを読み出す<br>
+ ※サブクラスでの実装参照用<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>value</em>&nbsp;</td><td>読み出しデータ</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>データ読み出し結果(true:読み出し成功，false:読み出し失敗) </dd></dl>
+
+<p><a class="el" href="classsource__py_1_1_buffer_base_1_1_null_buffer.html#fcea8c9091d60bee0f6fb79abb6e1cca">NullBuffer</a>で再定義されています。</p>
+
+<p> <a class="el" href="_buffer_base_8py-source.html">BufferBase.py</a> の <a class="el" href="_buffer_base_8py-source.html#l00119">119</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="4928b8e993df1ab082183bda426cb9b1"></a><!-- doxytag: member="source_py::BufferBase::BufferBase::isFull" ref="4928b8e993df1ab082183bda426cb9b1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def isFull           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+バッファfullチェック(サブクラス実装用) 
+<p>
+バッファfullチェック用関数<br>
+ ※サブクラスでの実装参照用<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>fullチェック結果(true:バッファfull，false:バッファ空きあり) </dd></dl>
+
+<p><a class="el" href="classsource__py_1_1_buffer_base_1_1_null_buffer.html#4928b8e993df1ab082183bda426cb9b1">NullBuffer</a>で再定義されています。</p>
+
+<p> <a class="el" href="_buffer_base_8py-source.html">BufferBase.py</a> の <a class="el" href="_buffer_base_8py-source.html#l00140">140</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="fb7514ca88d7e70499debb1302c4497d"></a><!-- doxytag: member="source_py::BufferBase::BufferBase::isEmpty" ref="fb7514ca88d7e70499debb1302c4497d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def isEmpty           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+バッファemptyチェック(サブクラス実装用) 
+<p>
+バッファemptyチェック用関数<br>
+ ※サブクラスでの実装参照用<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>emptyチェック結果(true:バッファempty，false:バッファデータあり) </dd></dl>
+
+<p><a class="el" href="classsource__py_1_1_buffer_base_1_1_null_buffer.html#fb7514ca88d7e70499debb1302c4497d">NullBuffer</a>で再定義されています。</p>
+
+<p> <a class="el" href="_buffer_base_8py-source.html">BufferBase.py</a> の <a class="el" href="_buffer_base_8py-source.html#l00161">161</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="6b875be2179dd1eed37edd8d7fe079ff"></a><!-- doxytag: member="source_py::BufferBase::BufferBase::put" ref="6b875be2179dd1eed37edd8d7fe079ff" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def put           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>data</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+バッファにデータを格納する(サブクラス実装用) 
+<p>
+バッファへのデータ格納用関数<br>
+ ※サブクラスでの実装参照用<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>data</em>&nbsp;</td><td>対象データ </td></tr>
+  </table>
+</dl>
+
+<p><a class="el" href="classsource__py_1_1_buffer_base_1_1_null_buffer.html#6b875be2179dd1eed37edd8d7fe079ff">NullBuffer</a>で再定義されています。</p>
+
+<p> <a class="el" href="_buffer_base_8py-source.html">BufferBase.py</a> の <a class="el" href="_buffer_base_8py-source.html#l00181">181</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="444a1328efb32d5d9d2dcb2efe855d3b"></a><!-- doxytag: member="source_py::BufferBase::BufferBase::get" ref="444a1328efb32d5d9d2dcb2efe855d3b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def get           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+バッファからデータを取得する(サブクラス実装用) 
+<p>
+バッファに格納されたデータ取得用関数<br>
+ ※サブクラスでの実装参照用<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>取得データ </dd></dl>
+
+<p><a class="el" href="classsource__py_1_1_buffer_base_1_1_null_buffer.html#444a1328efb32d5d9d2dcb2efe855d3b">NullBuffer</a>で再定義されています。</p>
+
+<p> <a class="el" href="_buffer_base_8py-source.html">BufferBase.py</a> の <a class="el" href="_buffer_base_8py-source.html#l00202">202</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<a class="anchor" name="e1daf7a4fa2db844dc84df9a9bbf113c"></a><!-- doxytag: member="source_py::BufferBase::BufferBase::getRef" ref="e1daf7a4fa2db844dc84df9a9bbf113c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def getRef           </td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>self</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+次に書き込むバッファへの参照を取得する(サブクラス実装用) 
+<p>
+書き込みバッファへの参照取得用関数<br>
+ ※サブクラスでの実装参照用<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>self</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>戻り値:</b></dt><dd>次の書き込み対象バッファへの参照 </dd></dl>
+
+<p><a class="el" href="classsource__py_1_1_buffer_base_1_1_null_buffer.html#e1daf7a4fa2db844dc84df9a9bbf113c">NullBuffer</a>で再定義されています。</p>
+
+<p> <a class="el" href="_buffer_base_8py-source.html">BufferBase.py</a> の <a class="el" href="_buffer_base_8py-source.html#l00223">223</a> 行で定義されています。</p>
+
+</div>
+</div><p>
+<hr size="1"><address style="text-align: right;"><small>OpenRTMに対してMon Mar 17 15:11:07 2008に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.4 </small></address>
+</body>
+</html>

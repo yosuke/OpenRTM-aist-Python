@@ -1,0 +1,82 @@
+\section{クラス CorbaObjectManager}
+\label{classsource__py_1_1_corba_object_manager_1_1_corba_object_manager}\index{source\_\-py::CorbaObjectManager::CorbaObjectManager@{source\_\-py::CorbaObjectManager::CorbaObjectManager}}
+CORBA オブジェクトをアクティブ化、非アクティブ化する  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf activate}
+\begin{CompactList}\small\item\em CORBA オブジェクトをアクティブ化する \item\end{CompactList}\item 
+def {\bf deactivate}
+\begin{CompactList}\small\item\em CORBA オブジェクトを非アクティブ化する \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+CORBA オブジェクトをアクティブ化、非アクティブ化する 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+RTObjectのアクティブ化，非アクティブ化を行うクラスである。 保持しているORB，POAを用いて CORBA オブジェクトのアクティブ化， 非アクティブ化を行う。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ CorbaObjectManager.py の 39 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::CorbaObjectManager::CorbaObjectManager@{source\_\-py::CorbaObjectManager::CorbaObjectManager}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::CorbaObjectManager::CorbaObjectManager@{source\_\-py::CorbaObjectManager::CorbaObjectManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em orb},  {\em poa})}\label{classsource__py_1_1_corba_object_manager_1_1_corba_object_manager_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em orb}]ORB \item[{\em poa}]POA \end{description}
+\end{Desc}
+
+
+ CorbaObjectManager.py の 61 行で定義されています。\index{source\_\-py::CorbaObjectManager::CorbaObjectManager@{source\_\-py::CorbaObjectManager::CorbaObjectManager}!activate@{activate}}
+\index{activate@{activate}!source_py::CorbaObjectManager::CorbaObjectManager@{source\_\-py::CorbaObjectManager::CorbaObjectManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def activate ( {\em self},  {\em comp})}\label{classsource__py_1_1_corba_object_manager_1_1_corba_object_manager_e2a8be8d3c1486427d2685f3966c81e2}
+
+
+CORBA オブジェクトをアクティブ化する 
+
+指定されたRTObjectを CORBA オブジェクトとしてアクティブ化し、 オブジェクトリファレンスを設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em comp}]アクティブ化対象RTObject \end{description}
+\end{Desc}
+
+
+ CorbaObjectManager.py の 79 行で定義されています。\index{source\_\-py::CorbaObjectManager::CorbaObjectManager@{source\_\-py::CorbaObjectManager::CorbaObjectManager}!deactivate@{deactivate}}
+\index{deactivate@{deactivate}!source_py::CorbaObjectManager::CorbaObjectManager@{source\_\-py::CorbaObjectManager::CorbaObjectManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def deactivate ( {\em self},  {\em comp})}\label{classsource__py_1_1_corba_object_manager_1_1_corba_object_manager_688c91ef5702fb95dad6ab4121119d76}
+
+
+CORBA オブジェクトを非アクティブ化する 
+
+指定されたRTObjectの非アクティブ化を行う
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em comp}]非アクティブ化対象RTObject \end{description}
+\end{Desc}
+
+
+ CorbaObjectManager.py の 97 行で定義されています。

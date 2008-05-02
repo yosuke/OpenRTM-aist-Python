@@ -1,0 +1,651 @@
+\section{クラス Properties}
+\label{classsource__py_1_1_properties_1_1_properties}\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}}
+プロパティセットを表現するクラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf assigmentOperator}
+\begin{CompactList}\small\item\em 代入演算子 \item\end{CompactList}\item 
+def {\bf \_\-\_\-del\_\-\_\-}
+\begin{CompactList}\small\item\em デストラクタ \item\end{CompactList}\item 
+def {\bf getName}
+\begin{CompactList}\small\item\em Name の取得 \item\end{CompactList}\item 
+def {\bf getValue}
+\begin{CompactList}\small\item\em 値の取得 \item\end{CompactList}\item 
+def {\bf getDefaultValue}
+\begin{CompactList}\small\item\em デフォルト値の取得 \item\end{CompactList}\item 
+def {\bf getLeaf}
+\begin{CompactList}\small\item\em 子要素の取得 \item\end{CompactList}\item 
+def {\bf getRoot}
+\begin{CompactList}\small\item\em ルート要素の取得 \item\end{CompactList}\item 
+def {\bf getProperty}
+\begin{CompactList}\small\item\em 指定されたキーを持つプロパティを、プロパティリストから探す \item\end{CompactList}\item 
+def {\bf getDefault}
+\begin{CompactList}\small\item\em 指定されたキーに対してデフォルト値を取得する \item\end{CompactList}\item 
+def {\bf setProperty}
+\begin{CompactList}\small\item\em \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} に value を key について登録する \item\end{CompactList}\item 
+def {\bf setDefault}
+\begin{CompactList}\small\item\em デフォルト値を登録する \item\end{CompactList}\item 
+def {\bf setDefaults}
+\begin{CompactList}\small\item\em \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} にデフォルト値をまとめて登録する \item\end{CompactList}\item 
+def {\bf list}
+\begin{CompactList}\small\item\em 指定された出力ストリームに、プロパティリストを出力する \item\end{CompactList}\item 
+def {\bf load}
+\begin{CompactList}\small\item\em 入力ストリームからキーと要素が対になったプロパティリストを読み込む \item\end{CompactList}\item 
+def {\bf save}
+\begin{CompactList}\small\item\em プロパティリストを指定されたストリームに保存する \item\end{CompactList}\item 
+def {\bf store}
+\begin{CompactList}\small\item\em プロパティリストを出力ストリームへ保存する \item\end{CompactList}\item 
+def {\bf propertyNames}
+\begin{CompactList}\small\item\em プロパティのキーのリストを vector で返す \item\end{CompactList}\item 
+def {\bf size}
+\begin{CompactList}\small\item\em プロパティの数を取得する \item\end{CompactList}\item 
+def {\bf getNode}
+\begin{CompactList}\small\item\em ノードを取得する \item\end{CompactList}\item 
+def {\bf createNode}
+\begin{CompactList}\small\item\em 新規ノードを生成する \item\end{CompactList}\item 
+def {\bf removeNode}
+\begin{CompactList}\small\item\em ノードを削除する \item\end{CompactList}\item 
+def {\bf hasKey}
+\begin{CompactList}\small\item\em 子ノードにkeyがあるかどうか \item\end{CompactList}\item 
+def {\bf clear}
+\begin{CompactList}\small\item\em 子ノードを全て削除する \item\end{CompactList}\item 
+def {\bf mergeProperties}
+\begin{CompactList}\small\item\em Propertyをマージする \item\end{CompactList}\item 
+def {\bf splitKeyValue}
+\begin{CompactList}\small\item\em 文字列をキーと値のペアに分割する \item\end{CompactList}\item 
+def {\bf split}
+\begin{CompactList}\small\item\em 文字列を分割する \item\end{CompactList}\item 
+def {\bf indent}
+\begin{CompactList}\small\item\em インデントを生成する \item\end{CompactList}\item 
+def {\bf \_\-\_\-str\_\-\_\-}
+\begin{CompactList}\small\item\em プロパティの内容を出力する \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+プロパティセットを表現するクラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+\doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} クラスは、不変のプロパティセットを表す。 \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} をストリーム に保管したり、ストリームからロードしたりすることができる。 プロパティリストの各キー、およびそれに対応する値は文字列となっている。
+
+プロパティリストには、その「デフォルト値」として別のプロパティリストを持つ ことができる。元のプロパティリストでプロパティキーが見つからないと、この 2番目のプロパティリストが検索される。
+
+プロパティの取得には \doxyref{getProperty()}{p.}{classsource__py_1_1_properties_1_1_properties_9053292e0ea7f28f5949519feb49fd37} 、プロパティのセットには \doxyref{setProperty()}{p.}{classsource__py_1_1_properties_1_1_properties_11c7eae0478844b6c3982fce3d8b2b85} と いったメソッドを使用することが推奨される。
+
+プロパティをストリームに保存するとき、またはストリームからロードするとき に、ISO 8859-1 文字エンコーディングが使用される。このエンコーディングに 直接表示できない文字は、扱うことができない。
+
+このクラスは、Java の \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} クラス (java.util.Properties) とほぼ同様の メソッドを持つ。また、入出力されるファイルは Java の \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} クラスが 出力するものと互換性があるが、Unicode を含むものは扱うことができない。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ Properties.py の 83 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em key} = {\tt None},  {\em value} = {\tt None},  {\em defaults\_\-map} = {\tt None},  {\em defaults\_\-str} = {\tt None},  {\em num} = {\tt None},  {\em prop} = {\tt None})}\label{classsource__py_1_1_properties_1_1_properties_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+以下の順に引数をチェックし、インスタンスの生成を行う。
+
+引数 prop に値が設定されている場合、 引数に与えられた \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} のキー、値およびデフォルト値が 全てそのままコピーされる。
+
+引数 key に値が設定されている場合、 key と value のみを与えて Property のルートノードを作成する。 値は全てデフォルト値として設定される。
+
+引数 defaults\_\-map に値が設定されている場合、 defaults\_\-map に設定された内容をデフォルト値にもつ \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} を作成する。 値は全てデフォルト値として設定される。
+
+引数 defaults\_\-str に値が設定されている場合、 指定されたデフォルト値を持つ空のプロパティリストを作成する。 値は全てデフォルト値として設定される。 デフォルト値は char$\ast$ の配列により与えられ、key と value の対になって おり、リストの終端は配列の数を表す引数 num か、空文字の key で与えらられ なければならない。 以下に例を示す。
+
+\small\begin{alltt}
+ const char* defaults = \{
+     "key1", "value1",
+     "key2", "value2",
+     "key3", "value3",
+     "key4", "value4",
+     "key5", "value5",
+     "" \};
+ \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} p(defaults);
+ // もしくは
+ \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} p(defaults, 10);
+ \end{alltt}
+\normalsize 
+
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em key}]プロパティのキー(デフォルト値:None) \item[{\em value}]プロパティの値(デフォルト値:None) \item[{\em defaults\_\-map}]デフォルト値として指定されるmap(デフォルト値:None) \item[{\em defaults\_\-str}]デフォルト値を指定する配列(デフォルト値:None) \item[{\em num}]デフォルト値を設定する要素数(デフォルト値:None) \item[{\em prop}]デフォルト値として指定されるproperty(デフォルト値:None) \end{description}
+\end{Desc}
+
+
+ Properties.py の 166 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!assigmentOperator@{assigmentOperator}}
+\index{assigmentOperator@{assigmentOperator}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def assigmentOperator ( {\em self},  {\em prop})}\label{classsource__py_1_1_properties_1_1_properties_e3ab19d9492329b4cc333f3d8117fa09}
+
+
+代入演算子 
+
+左辺値の \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} のキー、値およびデフォルト値は全て削除され、 右辺値の \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} のキー、値およびデフォルト値が全てそのまま コピーされる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em prop}]OpenRTM.Properties \end{description}
+\end{Desc}
+
+
+ Properties.py の 233 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}}
+\index{\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-del\_\-\_\- ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_fa251912978c7d5ccf7e5a027a4d12ee}
+
+
+デストラクタ 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ Properties.py の 263 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!getName@{getName}}
+\index{getName@{getName}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getName ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_a20eb4733f75b094213b8cfd614fa526}
+
+
+Name の取得 
+
+プロパティの名称を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]プロパティ名 \end{Desc}
+
+
+ Properties.py の 287 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!getValue@{getValue}}
+\index{getValue@{getValue}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getValue ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_cc340fbd4335fa34f9d57fb454b28ed0}
+
+
+値の取得 
+
+プロパティの値を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]プロパティ値 \end{Desc}
+
+
+ Properties.py の 304 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!getDefaultValue@{getDefaultValue}}
+\index{getDefaultValue@{getDefaultValue}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getDefaultValue ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_f2b6331ad3406695ce5c9f30104a65fa}
+
+
+デフォルト値の取得 
+
+プロパティのデフォルト値を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]プロパティデフォルト値 \end{Desc}
+
+
+ Properties.py の 321 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!getLeaf@{getLeaf}}
+\index{getLeaf@{getLeaf}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getLeaf ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_c671ba81ff5c3d90309e323946e57e58}
+
+
+子要素の取得 
+
+プロパティの子要素を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]子要素 \end{Desc}
+
+
+ Properties.py の 338 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!getRoot@{getRoot}}
+\index{getRoot@{getRoot}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getRoot ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_c273065229905ac759956f516919eefc}
+
+
+ルート要素の取得 
+
+プロパティのルート要素を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ルート要素 \end{Desc}
+
+
+ Properties.py の 355 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!getProperty@{getProperty}}
+\index{getProperty@{getProperty}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getProperty ( {\em self},  {\em key},  {\em default} = {\tt None})}\label{classsource__py_1_1_properties_1_1_properties_9053292e0ea7f28f5949519feb49fd37}
+
+
+指定されたキーを持つプロパティを、プロパティリストから探す 
+
+指定されたキーを持つプロパティを、プロパティリストから探す。 そのキーがプロパティリストにない場合は、デフォルト値の引数が返される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em key}]プロパティキー \item[{\em default}]デフォルト値(デフォルト値:None)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]指定されたキー値を持つこのプロパティリストの値 \end{Desc}
+
+
+ Properties.py の 387 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!getDefault@{getDefault}}
+\index{getDefault@{getDefault}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getDefault ( {\em self},  {\em key})}\label{classsource__py_1_1_properties_1_1_properties_fe8c1424d4b100ca479b48e17da87c95}
+
+
+指定されたキーに対してデフォルト値を取得する 
+
+指定されたキーを持つプロパティのデフォルト値を返す。 指定されたキーを持つプロパティが存在しない場合には空文字を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em key}]プロパティキー\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]指定されたキー値を持つプロパティのデフォルト値 \end{Desc}
+
+
+ Properties.py の 425 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!setProperty@{setProperty}}
+\index{setProperty@{setProperty}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setProperty ( {\em self},  {\em key},  {\em value} = {\tt None})}\label{classsource__py_1_1_properties_1_1_properties_11c7eae0478844b6c3982fce3d8b2b85}
+
+
+\doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} に value を key について登録する 
+
+\doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} に value を key について登録する。 すでに key に対する値を持っている場合、戻り値に古い値を返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em key}]プロパティリストに配置されるキー \item[{\em value}]key に対応する値(デフォルト値:None)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]プロパティリストの指定されたキーの前の値。それがない場合は null \end{Desc}
+
+
+ Properties.py の 465 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!setDefault@{setDefault}}
+\index{setDefault@{setDefault}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setDefault ( {\em self},  {\em key},  {\em value})}\label{classsource__py_1_1_properties_1_1_properties_16ff4e4712d5a8a2843d7faa288cc1b9}
+
+
+デフォルト値を登録する 
+
+key で指定される要素にデフォルト値を登録する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em key}]デフォルト値を登録するプロパティのキー \item[{\em value}]登録されるデフォルト値\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]指定されたデフォルト値 \end{Desc}
+
+
+ Properties.py の 503 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!setDefaults@{setDefaults}}
+\index{setDefaults@{setDefaults}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setDefaults ( {\em self},  {\em defaults},  {\em num} = {\tt None})}\label{classsource__py_1_1_properties_1_1_properties_3ae0743e8ee68c671fd47289a50dadeb}
+
+
+\doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} にデフォルト値をまとめて登録する 
+
+配列で指定された要素にデフォルト値をまとめて登録する。 デフォルト値は char$\ast$ の配列により与えられ、key と value の対になって おり、リストの終端は配列の数を表す引数 num か、空文字の key で与えらられ なければならない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em defaults}]デフォルト値を指定する配列 \item[{\em num}]デフォルト値を設定する要素数(デフォルト値:None) \end{description}
+\end{Desc}
+
+
+ Properties.py の 538 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!list@{list}}
+\index{list@{list}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def list ( {\em self},  {\em out})}\label{classsource__py_1_1_properties_1_1_properties_9b522b4ef7526bfa60b78fe735caa55c}
+
+
+指定された出力ストリームに、プロパティリストを出力する 
+
+指定された出力ストリームに、プロパティリストを出力する。 このメソッドは主にデバッグに用いられる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em out}]出力ストリーム \end{description}
+\end{Desc}
+
+
+ Properties.py の 588 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!load@{load}}
+\index{load@{load}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def load ( {\em self},  {\em inStream})}\label{classsource__py_1_1_properties_1_1_properties_34b4d3a01c4a6233a80fcbda3ba28c7f}
+
+
+入力ストリームからキーと要素が対になったプロパティリストを読み込む 
+
+入力ストリームからキーと要素が対になったプロパティリストを読み込む。 ストリームは、ISO 8859-1 文字エンコーディングを使用しているとみなされる。 各プロパティは、入力ストリームに行単位で登録されているものとみなされ、 各行は行区切り文字 ($\backslash$n、$\backslash$r、または $\backslash$r$\backslash$n) で終わる。 入力ストリームから読み込んだ行は、入力ストリームでファイルの終わりに 達するまで処理される。
+
+空白文字だけの行、または最初の非空白文字が ASCII 文字 \# または ! である 行は無視される。つまり、\# または ! はコメント行を示す。
+
+空白行またはコメント行以外のすべての行は、テーブルに追加されるプロパティ を記述する。ただし、行の終わりが $\backslash$ の場合は、次の行があれば継続行として 扱われる (下記を参照)。 キーは、最初の非空白文字から、最初の ASCII 文字 =、:、または空白文字の直前までの、行内のすべての文字から構成される。
+
+キーの終わりを示す文字は、前に $\backslash$ を付けることによりキーに含めることも できる。キーの後ろの空白はすべてスキップされる。 キーの後ろの最初の非空白文字が = または : である場合は、これらのキーは 無視され、そのあとの空白文字もすべてスキップされる。 行内のそれ以外の文字はすべて、関連した要素文字列の一部となる。 要素文字列内では、ASCII エスケープシーケンス $\backslash$t、$\backslash$n、$\backslash$r、$\backslash$$\backslash$、$\backslash$\char`\"{}、 $\backslash$'、$\backslash$ (円記号とスペース)、および $\backslash$uxxxx は認識され、単独の文字に変換 される。 また、行の最後の文字が $\backslash$ である場合は、次の行は現在の行の継続として 扱われる。その場合、$\backslash$ と行区切り文字が破棄され、継続行の先頭に空白が あればそれもすべて破棄され、要素文字列の一部にはならない。
+
+たとえば、次の 4 行はそれぞれキー Truth と関連した要素値 Beauty を表す。
+
+Truth = Beauty \par
+ Truth:Beauty \par
+ Truth$\backslash$t$\backslash$t$\backslash$t:Beauty \par
+
+
+また、次の 3 行は 1 つのプロパティを表す。
+
+fruits$\backslash$t$\backslash$t$\backslash$t$\backslash$tapple, banana, pear, $\backslash$ \par
+ cantaloupe, watermelon, $\backslash$ \par
+ kiwi, mango \par
+ キーは fruits で、次の要素に関連付けれられる。 \char`\"{}apple, banana, pear, cantaloupe, watermelon, kiwi, mango\char`\"{} 最終的な結果でコンマのあとに必ずスペースが表示されるように、 各 $\backslash$ の前にスペースがある。行の終わりを示す $\backslash$ と、継続行の先頭にある 空白は破棄され、他の文字に置換されない。 また、次の 3 番目の例では、キーが cheeses で、関連した要素が空の文字列 であることを表す。
+
+cheeses \par
+ キーは、cheeses で、関連要素は空の文字列であることを指定している。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em inStream}]入力ストリーム \end{description}
+\end{Desc}
+
+
+ Properties.py の 755 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!save@{save}}
+\index{save@{save}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def save ( {\em self},  {\em out},  {\em header})}\label{classsource__py_1_1_properties_1_1_properties_ba0970ece8740693d3b82e656500a9c0}
+
+
+プロパティリストを指定されたストリームに保存する 
+
+プロパティリストを指定されたストリームに保存する。 このメソッドは Java \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} との互換性のために定義されている。 (内部的には store メソッドを利用している。)
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em out}]出力ストリーム \item[{\em header}]プロパティリストの記述 \end{description}
+\end{Desc}
+
+
+ Properties.py の 820 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!store@{store}}
+\index{store@{store}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def store ( {\em self},  {\em out},  {\em header})}\label{classsource__py_1_1_properties_1_1_properties_1e19ca7c00e70df9ec2ffe0077b4649b}
+
+
+プロパティリストを出力ストリームへ保存する 
+
+\doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} テーブル内のプロパティリスト (キーと要素のペア) を、load メソッドを使って \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} テーブルにロードするのに適切なフォーマットで 出力ストリームに書き込む。
+
+\doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} テーブル内のプロパティリスト (キーと要素のペア) を、load メソッドを使って \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} テーブルにロードするのに適切なフォーマットで 出力ストリームに書き込む。ストリームは、ISO 8859-1 文字 エンコーディングを使用して書き込まれる。 \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} テーブル (存在する場合) のデフォルトテーブルからの プロパティは、このメソッドによっては書き込まれない。
+
+header 引数が null でない場合は、ASCII 文字の \#、header の文字列、 および行区切り文字が最初に出力ストリームに書き込まれます。このため、 header は識別コメントとして使うことができる。
+
+次に、ASCII 文字の \#、現在の日時 (Date の toString メソッドによって 現在時刻が生成されるのと同様)、および Writer によって生成される行区切り からなるコメント行が書き込まれる。
+
+続いて、 \doxyref{Properties}{p.}{classsource__py_1_1_properties_1_1_properties} テーブル内のすべてのエントリが 1 行ずつ書き出される。 各エントリのキー文字列、ASCII 文字の=、関連した要素文字列が書き込まれる。 要素文字列の各文字は、エスケープシーケンスとして描画する必要があるか どうか確認される。ASCII 文字の $\backslash$、タブ、改行、および復帰はそれぞれ $\backslash$$\backslash$、 $\backslash$t、$\backslash$n、および $\backslash$r として書き込まれる。$\backslash$u0020 より小さい文字および $\backslash$u007E より大きい文字は、対応する 16 進値 xxxx を使って $\backslash$uxxxx として 書き込まれる。埋め込み空白文字でも後書き空白文字でもない先行空白文字は、 前に $\backslash$ を付けて書き込まれる。キーと値の文字 \#、!、=、および : は、 必ず正しくロードされるように、前にスラッシュを付けて書き込まれる。
+
+エントリが書き込まれたあとで、出力ストリームがフラッシュされる。 出力ストリームはこのメソッドから復帰したあとも開いたままとなる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em out}]出力ストリーム \item[{\em header}]プロパティリストの記述 \end{description}
+\end{Desc}
+
+
+ Properties.py の 908 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!propertyNames@{propertyNames}}
+\index{propertyNames@{propertyNames}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def propertyNames ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_71b0905cdc20d708e53181d7c65a6f24}
+
+
+プロパティのキーのリストを vector で返す 
+
+メインプロパティリストに同じ名前のキーが見つからない場合は、デフォルトの プロパティリストにある個別のキーを含む、このプロパティリストにあるすべて のキーのリストを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]プロパティリストにあるすべてのキーのリスト。 デフォルトのプロパティリストにあるキーを含む \end{Desc}
+
+
+ Properties.py の 943 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!size@{size}}
+\index{size@{size}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def size ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_8e64882b52bf2db69e0ec31977c83dc4}
+
+
+プロパティの数を取得する 
+
+設定済みのプロパティ数を取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]プロパティ数 \end{Desc}
+
+
+ Properties.py の 963 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!getNode@{getNode}}
+\index{getNode@{getNode}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getNode ( {\em self},  {\em key})}\label{classsource__py_1_1_properties_1_1_properties_fa2e1dd3f6f49dd5594d94091c1959e1}
+
+
+ノードを取得する 
+
+指定したキーを持つノードを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em key}]取得対象ノードのキー\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]対象ノード \end{Desc}
+
+
+ Properties.py の 981 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!createNode@{createNode}}
+\index{createNode@{createNode}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def createNode ( {\em self},  {\em key})}\label{classsource__py_1_1_properties_1_1_properties_715b43612ece5e1ed038935a4050142d}
+
+
+新規ノードを生成する 
+
+指定したキーを持つ新規ノードを生成する。 既に同一キーを持つノードが登録済みの場合にはエラーを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em key}]新規ノードのキー\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]新規ノード生成結果 指定したキーを持つノードが既に存在する場合にはfalse \end{Desc}
+
+
+ Properties.py の 1004 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!removeNode@{removeNode}}
+\index{removeNode@{removeNode}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def removeNode ( {\em self},  {\em leaf\_\-name})}\label{classsource__py_1_1_properties_1_1_properties_7d8a4d6c3eedc18a24c3ca163dfdca5e}
+
+
+ノードを削除する 
+
+指定した名称を持つプロパティを削除する。 削除したプロパティを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em leaf\_\-name}]削除対象プロパティ名称\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]削除したプロパティ \end{Desc}
+
+
+ Properties.py の 1028 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!hasKey@{hasKey}}
+\index{hasKey@{hasKey}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def hasKey ( {\em self},  {\em key})}\label{classsource__py_1_1_properties_1_1_properties_fc41b58e1648a184895669d580cd444c}
+
+
+子ノードにkeyがあるかどうか 
+
+指定したキーを持つ子ノードが存在するかどうか確認する。 存在する場合、子ノードを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em key}]確認対象のキー\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]子ノード \end{Desc}
+
+
+ Properties.py の 1054 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!clear@{clear}}
+\index{clear@{clear}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def clear ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_07b95aa63e9e2d286ef0aa83d5bb34b2}
+
+
+子ノードを全て削除する 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ Properties.py の 1071 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!mergeProperties@{mergeProperties}}
+\index{mergeProperties@{mergeProperties}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def mergeProperties ( {\em self},  {\em prop})}\label{classsource__py_1_1_properties_1_1_properties_042401e0e4a0e719f0cc763cfefd8891}
+
+
+Propertyをマージする 
+
+現在のプロパティに設定したプロパティをマージする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em prop}]マージするプロパティ\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]プロパティマージ結果 \end{Desc}
+
+
+ Properties.py の 1094 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!splitKeyValue@{splitKeyValue}}
+\index{splitKeyValue@{splitKeyValue}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def splitKeyValue ( {\em self},  {\em \_\-str},  {\em key},  {\em value})}\label{classsource__py_1_1_properties_1_1_properties_36b48e6fc089d16efde8e4544bed6e38}
+
+
+文字列をキーと値のペアに分割する 
+
+与えられた文字列を、設定されたデリミタでキーと値のペアに分割する。 まず最初に与えられた文字列に':'もしくは'='が含まれるかを検索し、 どちらかの文字が含まれている場合にはそれをデリミタとして使用する。 両方とも含まれていない場合には、' '(スペース)を用いて分割を試みる。 全てのデリミタ候補が含まれていない場合には、与えられた文字列をキーとして 設定し、値に空の文字列を設定する。 どのデリミタ候補についてもエスケープされている(直前に'$\backslash$'が設定されている) 場合には、デリミタとして使用しない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em \_\-str}]分割対象文字列 \item[{\em key}]分割結果キー \item[{\em value}]分割結果値 \end{description}
+\end{Desc}
+
+
+ Properties.py の 1124 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!split@{split}}
+\index{split@{split}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def split ( {\em self},  {\em \_\-str},  {\em delim},  {\em value})}\label{classsource__py_1_1_properties_1_1_properties_a1b3eb766e0ce403f657d75fa4965fa3}
+
+
+文字列を分割する 
+
+与えられた文字列を、与えられたデリミタで分割する。 与えられた文字列が空の場合は、エラーを返す。 与えられたデリミタがエスケープされている(直前に'$\backslash$'が設定されている)場合 には、デリミタとして使用しない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em \_\-str}]分割対象文字列 \item[{\em delim}]デリミタ \item[{\em value}]分割結果値リスト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]分割処理結果 \end{Desc}
+
+
+ Properties.py の 1168 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!indent@{indent}}
+\index{indent@{indent}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def indent ( {\em self},  {\em index})}\label{classsource__py_1_1_properties_1_1_properties_06fdea5005bd6d0c00b1b12679fbb258}
+
+
+インデントを生成する 
+
+指定された数字に従って生成したインデントを返す。 返されるインデントは、指定数字×2つの空白。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em index}]インデント数の指定\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]生成されたインデント \end{Desc}
+
+
+ Properties.py の 1292 行で定義されています。\index{source\_\-py::Properties::Properties@{source\_\-py::Properties::Properties}!\_\-\_\-str\_\-\_\-@{\_\-\_\-str\_\-\_\-}}
+\index{\_\-\_\-str\_\-\_\-@{\_\-\_\-str\_\-\_\-}!source_py::Properties::Properties@{source\_\-py::Properties::Properties}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-str\_\-\_\- ( {\em self})}\label{classsource__py_1_1_properties_1_1_properties_a7a4b9bc0941308e362738503137460e}
+
+
+プロパティの内容を出力する 
+
+プロパティに設定された内容を出力する。\par
+ friend std::ostream\& operator$<$$<$(std::ostream\& lhs, const Properties\& rhs); の代わりに、print objにて呼び出し可能とするためのメソッド。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]設定プロパティ文字列表示 \end{Desc}
+
+
+ Properties.py の 1356 行で定義されています。

@@ -1,0 +1,387 @@
+\section{クラス ModuleManager}
+\label{classsource__py_1_1_module_manager_1_1_module_manager}\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+モジュールマネージャクラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf \_\-\_\-del\_\-\_\-}
+\begin{CompactList}\small\item\em デストラクタ(未実装) \item\end{CompactList}\item 
+def {\bf load}
+\begin{CompactList}\small\item\em モジュールのロード、初期化 \item\end{CompactList}\item 
+def {\bf unload}
+\begin{CompactList}\small\item\em モジュールのアンロード \item\end{CompactList}\item 
+def {\bf unloadAll}
+\begin{CompactList}\small\item\em 全モジュールのアンロード \item\end{CompactList}\item 
+def {\bf symbol}
+\begin{CompactList}\small\item\em モジュールのシンボルの参照 \item\end{CompactList}\item 
+def {\bf setLoadpath}
+\begin{CompactList}\small\item\em モジュールロードパスを指定する \item\end{CompactList}\item 
+def {\bf getLoadPath}
+\begin{CompactList}\small\item\em モジュールロードパスを取得する \item\end{CompactList}\item 
+def {\bf addLoadpath}
+\begin{CompactList}\small\item\em モジュールロードパスを追加する \item\end{CompactList}\item 
+def {\bf getLoadedModules}
+\begin{CompactList}\small\item\em ロード済みのモジュールリストを取得する \item\end{CompactList}\item 
+def {\bf getLoadableModules}
+\begin{CompactList}\small\item\em ロード可能モジュールリストを取得する(未実装) \item\end{CompactList}\item 
+def {\bf allowAbsolutePath}
+\begin{CompactList}\small\item\em モジュールの絶対パス指定許可 \item\end{CompactList}\item 
+def {\bf disallowAbsolutePath}
+\begin{CompactList}\small\item\em モジュールの絶対パス指定禁止 \item\end{CompactList}\item 
+def {\bf allowModuleDownload}
+\begin{CompactList}\small\item\em モジュールのURL指定許可 \item\end{CompactList}\item 
+def {\bf disallowModuleDownload}
+\begin{CompactList}\small\item\em モジュールのURL指定禁止 \item\end{CompactList}\item 
+def {\bf findFile}
+\begin{CompactList}\small\item\em LoadPath からのファイルの検索 \item\end{CompactList}\item 
+def {\bf fileExist}
+\begin{CompactList}\small\item\em ファイルが存在するかどうかのチェック \item\end{CompactList}\item 
+def {\bf getInitFuncName}
+\begin{CompactList}\small\item\em 初期化関数シンボルを生成する \item\end{CompactList}\end{CompactItemize}
+\subsection*{データ構造}
+\begin{CompactItemize}
+\item 
+class {\bf DLL}
+\begin{CompactList}\small\item\em モジュール保持用内部クラス \item\end{CompactList}\item 
+class {\bf Error}
+\begin{CompactList}\small\item\em ファイル・オープン失敗例外処理用内部クラス \item\end{CompactList}\item 
+class {\bf FileNotFound}
+\begin{CompactList}\small\item\em 指定ファイル不明例外処理用内部クラス \item\end{CompactList}\item 
+class {\bf InvalidArguments}
+\begin{CompactList}\small\item\em 指定引数不正時例外処理用内部クラス \item\end{CompactList}\item 
+class {\bf InvalidOperation}
+\begin{CompactList}\small\item\em 指定操作不正時例外処理用内部クラス \item\end{CompactList}\item 
+class {\bf ModuleNotFound}
+\begin{CompactList}\small\item\em 指定モジュール不明例外処理用内部クラス \item\end{CompactList}\item 
+class {\bf NotAllowedOperation}
+\begin{CompactList}\small\item\em 指定操作禁止時例外処理用内部クラス \item\end{CompactList}\item 
+class {\bf NotFound}
+\begin{CompactList}\small\item\em 未実装部，指定モジュール不明例外処理用内部クラス \item\end{CompactList}\item 
+class {\bf SymbolNotFound}
+\begin{CompactList}\small\item\em 指定シンボル不明例外処理用内部クラス \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+モジュールマネージャクラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+モジュールのロード、アンロードなどを管理するクラス
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ ModuleManager.py の 53 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em prop})}\label{classsource__py_1_1_module_manager_1_1_module_manager_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ。 設定された Property オブジェクト内の情報を基に初期化を実行する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em prop}]初期化用プロパティ \end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 75 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}}
+\index{\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-del\_\-\_\- ( {\em self})}\label{classsource__py_1_1_module_manager_1_1_module_manager_fa251912978c7d5ccf7e5a027a4d12ee}
+
+
+デストラクタ(未実装) 
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 113 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!load@{load}}
+\index{load@{load}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def load ( {\em self},  {\em file\_\-name},  {\em init\_\-func} = {\tt None})}\label{classsource__py_1_1_module_manager_1_1_module_manager_34b4d3a01c4a6233a80fcbda3ba28c7f}
+
+
+モジュールのロード、初期化 
+
+指定したファイルを共有ライブラリとしてロードするとともに、 指定した初期化用オペレーションを実行する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em file\_\-name}]ロード対象モジュール名 \item[{\em init\_\-func}]初期化処理用オペレーション(デフォルト値:None)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]指定したロード対象モジュール名 \end{Desc}
+
+
+ ModuleManager.py の 243 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!unload@{unload}}
+\index{unload@{unload}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def unload ( {\em self},  {\em file\_\-name})}\label{classsource__py_1_1_module_manager_1_1_module_manager_ee3f02401627b3e5ebe960808e0aebf0}
+
+
+モジュールのアンロード 
+
+指定したロード済みモジュールをクローズし、アンロードする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em file\_\-name}]アンロード対象モジュール名 \end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 295 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!unloadAll@{unloadAll}}
+\index{unloadAll@{unloadAll}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def unloadAll ( {\em self})}\label{classsource__py_1_1_module_manager_1_1_module_manager_0b20f78be276cae8b95a2fa4c4fc715d}
+
+
+全モジュールのアンロード 
+
+全てのロード済みモジュールをアンロードする。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 314 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!symbol@{symbol}}
+\index{symbol@{symbol}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def symbol ( {\em self},  {\em file\_\-name},  {\em func\_\-name})}\label{classsource__py_1_1_module_manager_1_1_module_manager_312c55479750c2b9660e9d3c394caf27}
+
+
+モジュールのシンボルの参照 
+
+モジュールのシンボルを取得する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em file\_\-name}]取得対象ファイル名 \item[{\em func\_\-name}]取得対象関数名 \end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 333 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!setLoadpath@{setLoadpath}}
+\index{setLoadpath@{setLoadpath}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def setLoadpath ( {\em self},  {\em load\_\-path\_\-list})}\label{classsource__py_1_1_module_manager_1_1_module_manager_69ccf19991223942f13c02cb1f9c982c}
+
+
+モジュールロードパスを指定する 
+
+モジュールロード時に対象モジュールを検索するパスを指定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em load\_\-path\_\-list}]モジュール検索対象パスリスト \end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 357 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!getLoadPath@{getLoadPath}}
+\index{getLoadPath@{getLoadPath}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getLoadPath ( {\em self})}\label{classsource__py_1_1_module_manager_1_1_module_manager_c4dbcdb67a8d40342d9a8e5e0f8843db}
+
+
+モジュールロードパスを取得する 
+
+設定されているモジュールを検索対象パスリストを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]load\_\-path モジュール検索対象パスリスト \end{Desc}
+
+
+ ModuleManager.py の 375 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!addLoadpath@{addLoadpath}}
+\index{addLoadpath@{addLoadpath}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def addLoadpath ( {\em self},  {\em load\_\-path})}\label{classsource__py_1_1_module_manager_1_1_module_manager_b5969b573f13392c0608c4f0035c6f27}
+
+
+モジュールロードパスを追加する 
+
+指定されたパスリストを検索対象パスリストに追加する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em load\_\-path}]追加モジュール検索対象パスリスト \end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 391 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!getLoadedModules@{getLoadedModules}}
+\index{getLoadedModules@{getLoadedModules}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getLoadedModules ( {\em self})}\label{classsource__py_1_1_module_manager_1_1_module_manager_d0a783b76cf6531672a3d266e974c05d}
+
+
+ロード済みのモジュールリストを取得する 
+
+既にロード済みのモジュールリストを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ロード済みモジュールリスト \end{Desc}
+
+
+ ModuleManager.py の 410 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!getLoadableModules@{getLoadableModules}}
+\index{getLoadableModules@{getLoadableModules}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getLoadableModules ( {\em self})}\label{classsource__py_1_1_module_manager_1_1_module_manager_88d849c45b97319556566c9f92196b45}
+
+
+ロード可能モジュールリストを取得する(未実装) 
+
+ロード可能なモジュールのリストを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ロード可能モジュールリスト \end{Desc}
+
+
+ ModuleManager.py の 432 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!allowAbsolutePath@{allowAbsolutePath}}
+\index{allowAbsolutePath@{allowAbsolutePath}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def allowAbsolutePath ( {\em self})}\label{classsource__py_1_1_module_manager_1_1_module_manager_df5007ae76f14eb13e4795dbd46db105}
+
+
+モジュールの絶対パス指定許可 
+
+ロード対象モジュールの絶対パス指定を許可するように設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 447 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!disallowAbsolutePath@{disallowAbsolutePath}}
+\index{disallowAbsolutePath@{disallowAbsolutePath}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def disallowAbsolutePath ( {\em self})}\label{classsource__py_1_1_module_manager_1_1_module_manager_fb1798da32eb0f0659f29a71ced16c98}
+
+
+モジュールの絶対パス指定禁止 
+
+ロード対象モジュールの絶対パス指定を禁止するように設定する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 462 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!allowModuleDownload@{allowModuleDownload}}
+\index{allowModuleDownload@{allowModuleDownload}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def allowModuleDownload ( {\em self})}\label{classsource__py_1_1_module_manager_1_1_module_manager_fbe80e0d6e6af5c79a41f2dd252b9786}
+
+
+モジュールのURL指定許可 
+
+ロード対象モジュールのURL指定を許可する。 本設定が許可されている場合、モジュールをダウンロードしてロードすることが 許可される。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 479 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!disallowModuleDownload@{disallowModuleDownload}}
+\index{disallowModuleDownload@{disallowModuleDownload}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def disallowModuleDownload ( {\em self})}\label{classsource__py_1_1_module_manager_1_1_module_manager_0731a391af50a69eea9eb738a9d22383}
+
+
+モジュールのURL指定禁止 
+
+ロード対象モジュールのURL指定を禁止する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ ModuleManager.py の 494 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!findFile@{findFile}}
+\index{findFile@{findFile}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def findFile ( {\em self},  {\em fname},  {\em load\_\-path})}\label{classsource__py_1_1_module_manager_1_1_module_manager_f78b60419496daa11bd36f70340c2eef}
+
+
+LoadPath からのファイルの検索 
+
+指定されたパス内に、指定されたファイルが存在するか確認する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em fname}]検索対象ファイル名 \item[{\em load\_\-path}]検索先パスリスト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]検索されたファイル名 \end{Desc}
+
+
+ ModuleManager.py の 513 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!fileExist@{fileExist}}
+\index{fileExist@{fileExist}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def fileExist ( {\em self},  {\em filename})}\label{classsource__py_1_1_module_manager_1_1_module_manager_775471182727b4e03b9ec4b20b11f754}
+
+
+ファイルが存在するかどうかのチェック 
+
+指定されたファイルが存在するか確認する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em filename}]存在確認対象ファイル名\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]ファイル存在確認結果(ファイルあり:true，なし:false) \end{Desc}
+
+
+ ModuleManager.py の 539 行で定義されています。\index{source\_\-py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}!getInitFuncName@{getInitFuncName}}
+\index{getInitFuncName@{getInitFuncName}!source_py::ModuleManager::ModuleManager@{source\_\-py::ModuleManager::ModuleManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getInitFuncName ( {\em self},  {\em file\_\-path})}\label{classsource__py_1_1_module_manager_1_1_module_manager_ca6b6d99997111fee1669c8fc6daf845}
+
+
+初期化関数シンボルを生成する 
+
+初期化関数の名称を組み立てる。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em file\_\-path}]初期化対象モジュール名称\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]初期化関数名称組み立て結果 \end{Desc}
+
+
+ ModuleManager.py の 563 行で定義されています。

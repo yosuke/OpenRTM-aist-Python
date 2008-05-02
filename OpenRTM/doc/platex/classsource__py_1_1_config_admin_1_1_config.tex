@@ -1,0 +1,65 @@
+\section{クラス Config}
+\label{classsource__py_1_1_config_admin_1_1_config}\index{source\_\-py::ConfigAdmin::Config@{source\_\-py::ConfigAdmin::Config}}
+\doxyref{Config}{p.}{classsource__py_1_1_config_admin_1_1_config} クラス  
+
+
+{\bf ConfigBase}を継承しています。
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf update}
+\begin{CompactList}\small\item\em バインドパラメータ値を更新 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{Config}{p.}{classsource__py_1_1_config_admin_1_1_config} クラス 
+
+コンフィギュレーションパラメータの情報を保持するクラス。 コンフィギュレーションのデータ型と設定されたデータ型を文字列に変換する 変換関数を指定する。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ ConfigAdmin.py の 99 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::ConfigAdmin::Config@{source\_\-py::ConfigAdmin::Config}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::ConfigAdmin::Config@{source\_\-py::ConfigAdmin::Config}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em name},  {\em var},  {\em def\_\-val},  {\em trans} = {\tt None})}\label{classsource__py_1_1_config_admin_1_1_config_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em name}]コンフィギュレーションパラメータ名 \item[{\em var}]コンフィギュレーションパラメータ格納用変数 \item[{\em def\_\-val}]文字列形式のデフォルト値 \item[{\em trans}]文字列形式変換関数(デフォルト値:None) \end{description}
+\end{Desc}
+
+
+ ConfigAdmin.py の 119 行で定義されています。\index{source\_\-py::ConfigAdmin::Config@{source\_\-py::ConfigAdmin::Config}!update@{update}}
+\index{update@{update}!source_py::ConfigAdmin::Config@{source\_\-py::ConfigAdmin::Config}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def update ( {\em self},  {\em val})}\label{classsource__py_1_1_config_admin_1_1_config_be52b977c101e59f342489ed18140819}
+
+
+バインドパラメータ値を更新 
+
+コンフィギュレーション設定値でコンフィギュレーションパラメータを更新する
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em val}]パラメータ値の文字列表現\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]更新処理結果(更新成功:true，更新失敗:false) \end{Desc}
+
+
+{\bf ConfigBase} \doxyref{}{p.}{classsource__py_1_1_config_admin_1_1_config_base_be52b977c101e59f342489ed18140819}を再定義しています。
+
+ ConfigAdmin.py の 143 行で定義されています。

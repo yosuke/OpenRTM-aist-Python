@@ -1,0 +1,116 @@
+\section{クラス PublisherPeriodic}
+\label{classsource__py_1_1_publisher_periodic_1_1_publisher_periodic}\index{source\_\-py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}}
+\doxyref{PublisherPeriodic}{p.}{classsource__py_1_1_publisher_periodic_1_1_publisher_periodic} クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf \_\-\_\-del\_\-\_\-}
+\begin{CompactList}\small\item\em デストラクタ \item\end{CompactList}\item 
+def {\bf update}
+\begin{CompactList}\small\item\em Observer関数(未実装) \item\end{CompactList}\item 
+def {\bf run}
+\begin{CompactList}\small\item\em タスク開始関数 \item\end{CompactList}\item 
+def {\bf release}
+\begin{CompactList}\small\item\em タスク終了関数 \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+\doxyref{PublisherPeriodic}{p.}{classsource__py_1_1_publisher_periodic_1_1_publisher_periodic} クラス 
+
+
+
+\footnotesize\begin{verbatim}
+\end{verbatim}
+\normalsize
+
+
+一定周期でコンシューマの送出処理を呼び出す Publisher 定期的にデータ送信を実行する場合に使用する。 
+
+ PublisherPeriodic.py の 36 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em consumer},  {\em property})}\label{classsource__py_1_1_publisher_periodic_1_1_publisher_periodic_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ 送出処理の呼び出し間隔を、Propertyオブジェクトのdataport.push\_\-rateメンバ に設定しておく必要がある。送出間隔は、Hz単位の浮動小数文字列で指定。 たとえば、1000.0Hzの場合は、「1000.0」を設定。 上記プロパティが未設定の場合は、「1000Hz」を設定。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em consumer}]データ送出を待つコンシューマ \item[{\em property}]本Publisherの駆動制御情報を設定したPropertyオブジェクト \end{description}
+\end{Desc}
+
+
+ PublisherPeriodic.py の 59 行で定義されています。\index{source\_\-py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}!\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}}
+\index{\_\-\_\-del\_\-\_\-@{\_\-\_\-del\_\-\_\-}!source_py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-del\_\-\_\- ( {\em self})}\label{classsource__py_1_1_publisher_periodic_1_1_publisher_periodic_fa251912978c7d5ccf7e5a027a4d12ee}
+
+
+デストラクタ 
+
+デストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ PublisherPeriodic.py の 94 行で定義されています。\index{source\_\-py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}!update@{update}}
+\index{update@{update}!source_py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def update ( {\em self})}\label{classsource__py_1_1_publisher_periodic_1_1_publisher_periodic_be52b977c101e59f342489ed18140819}
+
+
+Observer関数(未実装) 
+
+本 Publisher では何も実行しない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ PublisherPeriodic.py の 110 行で定義されています。\index{source\_\-py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}!run@{run}}
+\index{run@{run}!source_py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def run ( {\em self})}\label{classsource__py_1_1_publisher_periodic_1_1_publisher_periodic_edcaade7dd45761ddcc3b3cc07005314}
+
+
+タスク開始関数 
+
+本Publisher駆動制御用スレッドの実行を開始する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ PublisherPeriodic.py の 125 行で定義されています。\index{source\_\-py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}!release@{release}}
+\index{release@{release}!source_py::PublisherPeriodic::PublisherPeriodic@{source\_\-py::PublisherPeriodic::PublisherPeriodic}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def release ( {\em self})}\label{classsource__py_1_1_publisher_periodic_1_1_publisher_periodic_8cac5263cadffde59ee3fa4fcb8d1f91}
+
+
+タスク終了関数 
+
+ACE\_\-Task::release() のオーバーライド 駆動フラグをfalseに設定し、本 Publisher の駆動を停止する。 ただし、最大１回コンシューマの送出処理が呼び出される場合がある。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+
+
+ PublisherPeriodic.py の 150 行で定義されています。

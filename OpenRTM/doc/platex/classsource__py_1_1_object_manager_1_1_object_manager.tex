@@ -1,0 +1,144 @@
+\section{クラス ObjectManager}
+\label{classsource__py_1_1_object_manager_1_1_object_manager}\index{source\_\-py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}}
+オブジェクト管理用クラス  
+
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+def {\bf \_\-\_\-init\_\-\_\-}
+\begin{CompactList}\small\item\em コンストラクタ \item\end{CompactList}\item 
+def {\bf registerObject}
+\begin{CompactList}\small\item\em 指定したオブジェクトを登録する \item\end{CompactList}\item 
+def {\bf unregisterObject}
+\begin{CompactList}\small\item\em 指定したオブジェクトを登録解除する \item\end{CompactList}\item 
+def {\bf find}
+\begin{CompactList}\small\item\em オブジェクトを検索する \item\end{CompactList}\item 
+def {\bf getObjects}
+\begin{CompactList}\small\item\em 登録されているオブジェクトのリストを取得する \item\end{CompactList}\item 
+def {\bf for\_\-each}
+\begin{CompactList}\small\item\em オブジェクトを検索する \item\end{CompactList}\end{CompactItemize}
+\subsection*{データ構造}
+\begin{CompactItemize}
+\item 
+class {\bf Objects}
+\begin{CompactList}\small\item\em オブジェクト管理用内部クラス \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{説明}
+オブジェクト管理用クラス 
+
+各種オブジェクトを管理するためのクラス。
+
+\begin{Desc}
+\item[から:]0.4.0 \end{Desc}
+
+
+ ObjectManager.py の 86 行で定義されています。
+
+\subsection{関数}
+\index{source\_\-py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}!\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}}
+\index{\_\-\_\-init\_\-\_\-@{\_\-\_\-init\_\-\_\-}!source_py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def \_\-\_\-init\_\-\_\- ( {\em self},  {\em predicate})}\label{classsource__py_1_1_object_manager_1_1_object_manager_c775ee34451fdfa742b318538164070e}
+
+
+コンストラクタ 
+
+コンストラクタ
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em predicate}]オブジェクト検索用ファンクタ \end{description}
+\end{Desc}
+
+
+ ObjectManager.py の 103 行で定義されています。\index{source\_\-py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}!registerObject@{registerObject}}
+\index{registerObject@{registerObject}!source_py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def registerObject ( {\em self},  {\em obj})}\label{classsource__py_1_1_object_manager_1_1_object_manager_fd3e6ba3f73a332eed353e5fa75ec71e}
+
+
+指定したオブジェクトを登録する 
+
+指定したオブジェクトを登録する。 同一オブジェクトが登録済みの場合は、何も行わない。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em obj}]登録対象オブジェクト\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]登録処理結果(オブジェクトを登録した場合にtrue) \end{Desc}
+
+
+ ObjectManager.py の 136 行で定義されています。\index{source\_\-py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}!unregisterObject@{unregisterObject}}
+\index{unregisterObject@{unregisterObject}!source_py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def unregisterObject ( {\em self},  {\em id})}\label{classsource__py_1_1_object_manager_1_1_object_manager_f138d062f8f8aa74d8394b2b21b624d1}
+
+
+指定したオブジェクトを登録解除する 
+
+指定したオブジェクトの登録を解除し、取得する。 指定したオブジェクトが登録されていない場合にはNULLを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em id}]登録解除対象オブジェクトのID\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]登録解除されたオブジェクト \end{Desc}
+
+
+ ObjectManager.py の 164 行で定義されています。\index{source\_\-py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}!find@{find}}
+\index{find@{find}!source_py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def find ( {\em self},  {\em id})}\label{classsource__py_1_1_object_manager_1_1_object_manager_01f90f57b7acd55e177611f5d0f7df23}
+
+
+オブジェクトを検索する 
+
+登録されているオブジェクトの中から指定した条件に合致するオブジェクトを検索 して取得する。 指定した条件に合致するオブジェクトが登録されていない場合にはNULLを返す。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em id}]検索対象オブジェクトのID\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]オブジェクトの検索結果 \end{Desc}
+
+
+ ObjectManager.py の 195 行で定義されています。\index{source\_\-py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}!getObjects@{getObjects}}
+\index{getObjects@{getObjects}!source_py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def getObjects ( {\em self})}\label{classsource__py_1_1_object_manager_1_1_object_manager_38d28fb49e2d3f0c5b1ce9ba7fa66864}
+
+
+登録されているオブジェクトのリストを取得する 
+
+登録されているオブジェクトのリストを取得する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[戻り値:]登録されているオブジェクト・リスト \end{Desc}
+
+
+ ObjectManager.py の 219 行で定義されています。\index{source\_\-py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}!for\_\-each@{for\_\-each}}
+\index{for\_\-each@{for\_\-each}!source_py::ObjectManager::ObjectManager@{source\_\-py::ObjectManager::ObjectManager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}def for\_\-each ( {\em self},  {\em p})}\label{classsource__py_1_1_object_manager_1_1_object_manager_d61817a49140809dca8bddb70c9c311c}
+
+
+オブジェクトを検索する 
+
+指定された条件に合致するオブジェクトを検索する。
+
+\begin{Desc}
+\item[引数:]
+\begin{description}
+\item[{\em self}]\item[{\em p}]オブジェクト検索用ファンクタ \end{description}
+\end{Desc}
+
+
+ ObjectManager.py の 236 行で定義されています。
