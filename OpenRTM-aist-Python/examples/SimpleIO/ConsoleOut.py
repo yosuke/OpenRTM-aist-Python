@@ -1,0 +1,71 @@
+#/usr/bin/env python
+# -*- Python -*-
+
+import sys
+import time
+
+import OpenRTM
+import RTC
+
+consoleout_spec = ["implementation_id", "ConsoleOut",
+                   "type_name",         "ConsoleOut",
+                   "description",       "Console output component",
+                   "version",           "1.0",
+                   "vendor",            "Shinji Kurihara",
+                   "category",          "example",
+                   "activity_type",     "DataFlowComponent",
+                   "max_instance",      "10",
+                   "language",          "Python",
+                   "lang_type",         "script",
+                   ""]
+
+
+class ConsoleOut(OpenRTM.DataFlowComponentBase):
+    def __init__(self, manager):
+        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+        self._data = RTC.TimedLong(RTC.Time(0,0),0)
+        self._inport = OpenRTM.InPort("in", self._data, OpenRTM.RingBuffer(8))
+
+        # Set InPort buffer
+        self.registerInPort("in", self._inport)
+
+
+    def onExecute(self, ec_id):
+        if self._inport.isNew():
+            data = self._inport.read()
+            print "Received: ", data.data
+            print "TimeStamp: ", data.tm.sec, "[s] ", data.tm.nsec, "[ns]"
+        time.sleep(0.001)
+        return RTC.RTC_OK
+
+
+def MyModuleInit(manager):
+    profile = OpenRTM.Properties(defaults_str=consoleout_spec)
+    manager.registerFactory(profile,
+                            ConsoleOut,
+                            OpenRTM.Delete)
+
+    # Create a component
+    comp = manager.createComponent("ConsoleOut")
+
+
+def main():
+    # Initialize manager
+    mgr = OpenRTM.Manager.init(len(sys.argv), sys.argv)
+
+    # Set module initialization proceduer
+    # This procedure will be invoked in activateManager() function.
+    mgr.setModuleInitProc(MyModuleInit)
+
+    # Activate manager and register to naming service
+    mgr.activateManager()
+
+    # run the manager in blocking mode
+    # runManager(False) is the default
+    mgr.runManager()
+
+    # If you want to run the manager in non-blocking mode, do like this
+    # mgr.runManager(True)
+
+if __name__ == "__main__":
+	main()

@@ -1,0 +1,419 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=euc-jp">
+<title>OpenRTM: インタフェース RTC::ExecutionContextService</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.4.1 -->
+<div class="qindex"><a class="qindex" href="index.html">メインページ</a> | <a class="qindex" href="namespaces.html">ネームスペース一覧</a> | <a class="qindex" href="hierarchy.html">クラス階層</a> | <a class="qindex" href="annotated.html">構成</a> | <a class="qindex" href="dirs.html">Directories</a> | <a class="qindex" href="files.html">ファイル一覧</a> | <a class="qindex" href="namespacemembers.html">ネームスペースメンバ</a> | <a class="qindex" href="functions.html">構成メンバ</a> | <a class="qindex" href="globals.html">ファイルメンバ</a></div>
+<div class="nav">
+<a class="el" href="namespaceRTC.html">RTC</a>::<a class="el" href="interfaceRTC_1_1ExecutionContextService.html">ExecutionContextService</a></div>
+<h1>インタフェース RTC::ExecutionContextService</h1>Introspection::ExecutionContextService interface.  
+<a href="#_details">[詳細]</a>
+<p>
+<code>import "<a class="el" href="RTC_8idl-source.html">RTC.idl</a>";</code>
+<p>
+<p>RTC::ExecutionContextServiceに対する継承グラフ
+<p><center><img src="interfaceRTC_1_1ExecutionContextService.png" usemap="#RTC::ExecutionContextService_map" border="0" alt=""></center>
+<map name="RTC::ExecutionContextService_map">
+<area href="interfaceRTC_1_1ExecutionContext.html" alt="RTC::ExecutionContext" shape="rect" coords="0,0,183,24">
+<area href="interfaceSDOPackage_1_1SDOService.html" alt="SDOPackage::SDOService" shape="rect" coords="193,0,376,24">
+</map>
+<a href="interfaceRTC_1_1ExecutionContextService-members.html">すべてのメンバ一覧</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Public メソッド</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="structRTC_1_1ExecutionContextProfile.html">ExecutionContextProfile</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContextService.html#RTC_1_1ExecutionContextServicea0">get_profile</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">boolean&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea1">is_running</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea2">start</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea3">stop</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea4">get_rate</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea5">set_rate</a> (in double rate)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea6">activate_component</a> (in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a> comp)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea7">deactivate_component</a> (in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a> comp)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea8">reset_component</a> (in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a> comp)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a29">LifeCycleState</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea9">get_component_state</a> (in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a> comp)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a30">ExecutionKind</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea10">get_kind</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea11">add</a> (in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a> comp)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ExecutionContext.html#RTC_1_1ExecutionContextServicea12">remove</a> (in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a> comp)</td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+Introspection::ExecutionContextService interface. 
+<p>
+<hr><h2>関数</h2>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea6" doxytag="RTC::ExecutionContextService::activate_component"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ExecutionContext::activate_component           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>comp</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea11" doxytag="RTC::ExecutionContextService::add"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ExecutionContext::add           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>comp</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea7" doxytag="RTC::ExecutionContextService::deactivate_component"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ExecutionContext::deactivate_component           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>comp</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea9" doxytag="RTC::ExecutionContextService::get_component_state"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a29">LifeCycleState</a> RTC::ExecutionContext::get_component_state           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>comp</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea10" doxytag="RTC::ExecutionContextService::get_kind"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a30">ExecutionKind</a> RTC::ExecutionContext::get_kind           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea0" doxytag="RTC::ExecutionContextService::get_profile"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="structRTC_1_1ExecutionContextProfile.html">ExecutionContextProfile</a> RTC::ExecutionContextService::get_profile           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea4" doxytag="RTC::ExecutionContextService::get_rate"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">double RTC::ExecutionContext::get_rate           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea1" doxytag="RTC::ExecutionContextService::is_running"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">boolean RTC::ExecutionContext::is_running           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea12" doxytag="RTC::ExecutionContextService::remove"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ExecutionContext::remove           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>comp</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea8" doxytag="RTC::ExecutionContextService::reset_component"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ExecutionContext::reset_component           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>comp</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea5" doxytag="RTC::ExecutionContextService::set_rate"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ExecutionContext::set_rate           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in double&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>rate</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea2" doxytag="RTC::ExecutionContextService::start"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ExecutionContext::start           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1ExecutionContextServicea3" doxytag="RTC::ExecutionContextService::stop"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ExecutionContext::stop           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<hr>このインタフェースの説明は次のファイルから生成されました:<ul>
+<li><a class="el" href="RTC_8idl-source.html">RTC.idl</a></ul>
+<hr size="1"><address style="align: right;"><small>OpenRTMに対してWed Sep 26 17:47:01 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.1 </small></address>
+</body>
+</html>

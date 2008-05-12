@@ -1,0 +1,241 @@
+\section{ƒNƒ‰ƒX State\-Machine}
+\label{classStateMachine}\index{StateMachine@{StateMachine}}
+ó‘Ôƒ\}ƒVƒ“ƒNƒ‰ƒX State\-Machine ƒNƒ‰ƒX‚Íó‘Ôƒ\}ƒVƒ“‚ğÀŒ»‚·‚éƒNƒ‰ƒX‚Å‚ ‚éB —á: Active\-Object‚Íó‘Ôƒ\}ƒVƒ“‚ğ‚ÂƒAƒNƒeƒBƒuƒIƒuƒWƒFƒNƒg‚Å‚ ‚é‚Æ‚·‚éB ó‘Ô‚Í3ó‘Ô INACTIVE, ACTIVE, ERROR ‚ ‚èAŠeó‘Ô‚Å‚ÌEntry‚âExit“®ì‚ğ ’è‹`‚µ‚½‚¢‚Æ‚·‚é‚ÆAˆÈ‰º‚Ì‚æ‚¤‚ÉÀŒ»‚³‚ê‚éB  
+
+
+\subsection*{Public ƒƒ$\backslash$ƒbƒh}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (num\_\-of\_\-state)
+\begin{CompactList}\small\item\em ƒRƒ“ƒXƒgƒ‰ƒNƒ^ \item\end{CompactList}\item 
+{\bf set\-NOP} (call\_\-back)
+\begin{CompactList}\small\item\em NOPŠÖ”‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf set\-Listener} (listener)
+\begin{CompactList}\small\item\em {\bf Listener}{\rm (p.\,\pageref{namespaceListener})} ƒIƒuƒWƒFƒNƒg‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf set\-Entry\-Action} (state, call\_\-back)
+\begin{CompactList}\small\item\em Entry action ŠÖ”‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf set\-Pre\-Do\-Action} (state, call\_\-back)
+\begin{CompactList}\small\item\em Pre\-Do action ŠÖ”‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf set\-Do\-Action} (state, call\_\-back)
+\begin{CompactList}\small\item\em Do action ŠÖ”‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf set\-Post\-Do\-Action} (state, call\_\-back)
+\begin{CompactList}\small\item\em Post action ŠÖ”‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf set\-Exit\-Action} (state, call\_\-back)
+\begin{CompactList}\small\item\em Exit action ŠÖ”‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf set\-Transition\-Action} (call\_\-back)
+\begin{CompactList}\small\item\em State transition action ŠÖ”‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf set\-Start\-State} (states)
+\begin{CompactList}\small\item\em ‰Šúó‘Ô‚ğƒZƒbƒg‚·‚é \item\end{CompactList}\item 
+{\bf get\-States} ()
+\begin{CompactList}\small\item\em ó‘Ô‚ğæ“¾‚·‚é \item\end{CompactList}\item 
+{\bf get\-State} ()
+\item 
+{\bf is\-In} (state)
+\begin{CompactList}\small\item\em Œ»İó‘Ô‚ğŠm”F \item\end{CompactList}\item 
+{\bf go\-To} (state)
+\begin{CompactList}\small\item\em ó‘Ô‚ğ•ÏX \item\end{CompactList}\item 
+{\bf worker} ()
+\begin{CompactList}\small\item\em ‹ì“®ŠÖ” \item\end{CompactList}\item 
+{\bf set\-Null\-Func} (s, nullfunc)
+\item 
+{\bf sync} (states)
+\item 
+{\bf need\_\-trans} ()
+\item 
+{\bf update\_\-curr} (curr)
+\end{CompactItemize}
+
+
+\subsection{à–¾}
+ó‘Ôƒ\}ƒVƒ“ƒNƒ‰ƒX State\-Machine ƒNƒ‰ƒX‚Íó‘Ôƒ\}ƒVƒ“‚ğÀŒ»‚·‚éƒNƒ‰ƒX‚Å‚ ‚éB —á: Active\-Object‚Íó‘Ôƒ\}ƒVƒ“‚ğ‚ÂƒAƒNƒeƒBƒuƒIƒuƒWƒFƒNƒg‚Å‚ ‚é‚Æ‚·‚éB ó‘Ô‚Í3ó‘Ô INACTIVE, ACTIVE, ERROR ‚ ‚èAŠeó‘Ô‚Å‚ÌEntry‚âExit“®ì‚ğ ’è‹`‚µ‚½‚¢‚Æ‚·‚é‚ÆAˆÈ‰º‚Ì‚æ‚¤‚ÉÀŒ»‚³‚ê‚éB 
+
+\small\begin{alltt}
+	class ActiveObject 
+	\{  
+	public: 
+	  enum MyState \{ INACTIVE, ACTIVE, ERROR \}; 
+	  typedef States<MyState> MyStates;\end{alltt}\normalsize 
+
+
+\small\begin{alltt}	  ActiveObject() 
+		: m\_sm(3) 
+	  \{ 
+		m\_sm.setNOP(&ActiveObject::nullAction); 
+		m\_sm.setListener(this);\end{alltt}\normalsize 
+
+
+\small\begin{alltt}		m\_sm.setExitAction(NACTIVE, &ActiveObject::inactiveExit); 
+		  : 
+		m\_sm.setPostDoAction(ERROR, &ActiveObject::errorPostDo); 
+		m\_sm.setTransitionAction(&ActiveObject:tratransitionnsition); 
+	  \};\end{alltt}\normalsize 
+
+
+\small\begin{alltt}	  bool nullAction(MyStates st) \{\}; 
+	  bool inactiveExit(MyStates st) \{\}; 
+		: 
+	  bool errorPostDo(MyStates st) \{\}; 
+	  bool transition(MyStates st) \{\};\end{alltt}\normalsize 
+
+
+\small\begin{alltt}	private: 
+	  StateMachine<MyState, bool, ActiveObject> m\_sm; 
+	\}; 
+	\end{alltt}\normalsize 
+ ó‘Ô‚ğ‚½‚¹‚½‚¢ƒNƒ‰ƒX‚ÍˆÈ‰º‚ÌğŒ‚ğ–‚½‚·‚æ‚¤‚ÉÀ‘•‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B \begin{enumerate}
+\item enum ‚Åó‘Ô‚ğ’è‹` \item State\-Machine ‚Ìƒeƒ“ƒvƒŒ[ƒgˆø”‚ÍA\par
+ $<$ó‘Ô‚ÌŒ^(My\-State), ƒAƒNƒVƒ‡ƒ“ŠÖ”‚Ì–ß‚è’l(bool), “–ŠYƒIƒuƒWƒFƒNƒg‚ÌŒ^$>$ \item State\-Machine ‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^ˆø”‚Íó‘Ô‚Ì” \item ˆÈ‰º‚ÌƒAƒNƒVƒ‡ƒ“ŠÖ”‚ğ(Return \_\-function\_\-name\_\-(States)) ‚ÌŠÖ”‚Æ‚µ‚Äİ’è \begin{enumerate}
+\item ‰½‚à‚µ‚È‚¢ŠÖ”‚ğ•K‚¸’è‹`‚µAset\-NOP ‚Å—^‚¦‚È‚¯‚ê‚Î‚È‚ç‚È‚¢ \item Šeó‘Ô–ˆ‚É, set(Entry$|$Pre\-Do$|$Do$|$Post\-Do$|$Exit)Action ‚ÅƒAƒNƒVƒ‡ƒ“‚ğİ’è \item ó‘Ô‘JˆÚ‚ÌƒAƒNƒVƒ‡ƒ“‚ğ {\bf set\-Transition\-Action()}{\rm (p.\,\pageref{classStateMachine_StateMachinea8})} ‚Åİ’èB \end{enumerate}
+\item ‘JˆÚ‚ÌƒAƒNƒVƒ‡ƒ“‚ÍA—^‚¦‚ç‚ê‚½Œ»İó‘ÔAŸó‘ÔA‘Oó‘Ô‚ğŒ³‚ÉA ƒ†[ƒU‚ªÀ‘•‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B \item ó‘Ô‚Ì•ÏX‚Í {\bf go\-To()}{\rm (p.\,\pageref{classStateMachine_StateMachinea13})} ‚ÅAó‘Ô‚Ìƒ`ƒFƒbƒN‚Í {\bf is\-In(state)}{\rm (p.\,\pageref{classStateMachine_StateMachinea12})} ‚Ås‚¤B \item {\bf go\-To()}{\rm (p.\,\pageref{classStateMachine_StateMachinea13})}‚ÍŸó‘Ô‚ğ‹­§“I‚ÉƒZƒbƒg‚·‚éŠÖ”‚Å‚ ‚èA‘JˆÚ‚Ì‰Â”Û‚ÍA ƒ†[ƒU‚ªŒ»İó‘Ô‚ğæ“¾‚µ”»’f‚·‚éƒƒWƒbƒN‚ğÀ‘•‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B \end{enumerate}
+
+
+‚±‚ÌƒNƒ‰ƒX‚ÍAˆê‚Â‚Ìó‘Ô‚É‘Î‚µ‚ÄA \begin{itemize}
+\item Entry action \item Pre\-Do action \item Do action2 \item Post\-Do action \item Exit action \end{itemize}
+5‚Â‚ÌƒAƒNƒVƒ‡ƒ“‚ª’è‹`‚·‚é‚±‚Æ‚ª‚Å‚«‚éB Transition action ‚Í‚ ‚ç‚ä‚éó‘ÔŠÔ‘JˆÚ‚ÅŒÄ‚Ño‚³‚ê‚éƒAƒNƒVƒ‡ƒ“‚ÅA ‚»‚ÌU‚é•‘‚¢‚Íƒ†[ƒU‚ª’è‹`‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B
+
+‚±‚ÌƒNƒ‰ƒX‚ÍˆÈ‰º‚Ì‚æ‚¤‚Èƒ^ƒCƒ~ƒ“ƒO‚ÅŠeƒAƒNƒVƒ‡ƒ“‚ªÀs‚³‚ê‚éB
+
+\begin{itemize}
+\item ó‘Ô‚ª•ÏX‚³‚ê(A-$>$B)ó‘Ô‚ª‘JˆÚ‚·‚éê‡ \par
+ (A:Exit)-$>$$|$(ó‘ÔXV:A-$>$B)-$>$(B:Entry)-$>$(B:Pre\-Do)-$>$(B:Do)-$>$(B:Post\-Do)
+
+\item ó‘Ô‚ª•ÏX‚³‚ê‚¸ABó‘Ô‚ğˆÛ‚·‚éê‡ ($|$‚ÍƒXƒeƒbƒv‚Ì‹æØ‚è‚ğ•$\backslash$‚·)\par
+ (B(n-1):Post\-Do)-$>$$|$(B(n):Pre\-Do)-$>$(B(n):Do)-$>$(B(n):Post\-Do)-$>$$|$(B(n+1):Pre\-Do)\par
+ Pre\-Do, Do, Post\-Do ‚ªŒJ‚è•Ô‚µÀs‚³‚ê‚éB
+
+\item ©ŒÈ‘JˆÚ‚·‚éê‡ \par
+ (B(n-1):Post\-Do)-$>$(B(n-1):Exit)-$>$$|$(B(n):Entry)-$>$(B(n):Pre\-Do) \par
+ ˆê’U Exit ‚ªŒÄ‚Î‚ê‚½ŒãAEntry ‚ªÀs‚³‚êAˆÈ~‚Í‘O€‚Æ“¯‚¶“®ì‚ğ‚·‚éB \end{itemize}
+2
+
+
+
+\subsection{ŠÖ”}
+\index{StateMachine@{State\-Machine}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::\_\-\_\-init\_\-\_\- (num\_\-of\_\-state)}\label{classStateMachine_StateMachinea0}
+
+
+ƒRƒ“ƒXƒgƒ‰ƒNƒ^ 
+
+\index{StateMachine@{State\-Machine}!getState@{getState}}
+\index{getState@{getState}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::get\-State ()}\label{classStateMachine_StateMachinea11}
+
+
+\index{StateMachine@{State\-Machine}!getStates@{getStates}}
+\index{getStates@{getStates}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::get\-States ()}\label{classStateMachine_StateMachinea10}
+
+
+ó‘Ô‚ğæ“¾‚·‚é 
+
+\index{StateMachine@{State\-Machine}!goTo@{goTo}}
+\index{goTo@{goTo}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::go\-To (state)}\label{classStateMachine_StateMachinea13}
+
+
+ó‘Ô‚ğ•ÏX 
+
+\index{StateMachine@{State\-Machine}!isIn@{isIn}}
+\index{isIn@{isIn}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::is\-In (state)}\label{classStateMachine_StateMachinea12}
+
+
+Œ»İó‘Ô‚ğŠm”F 
+
+\index{StateMachine@{State\-Machine}!need_trans@{need\_\-trans}}
+\index{need_trans@{need\_\-trans}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::need\_\-trans ()}\label{classStateMachine_StateMachinea17}
+
+
+\index{StateMachine@{State\-Machine}!setDoAction@{setDoAction}}
+\index{setDoAction@{setDoAction}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-Do\-Action (state, call\_\-back)}\label{classStateMachine_StateMachinea5}
+
+
+Do action ŠÖ”‚ğ“o˜^‚·‚é. 
+
+\index{StateMachine@{State\-Machine}!setEntryAction@{setEntryAction}}
+\index{setEntryAction@{setEntryAction}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-Entry\-Action (state, call\_\-back)}\label{classStateMachine_StateMachinea3}
+
+
+Entry action ŠÖ”‚ğ“o˜^‚·‚é. 
+
+\index{StateMachine@{State\-Machine}!setExitAction@{setExitAction}}
+\index{setExitAction@{setExitAction}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-Exit\-Action (state, call\_\-back)}\label{classStateMachine_StateMachinea7}
+
+
+Exit action ŠÖ”‚ğ“o˜^‚·‚é. 
+
+\index{StateMachine@{State\-Machine}!setListener@{setListener}}
+\index{setListener@{setListener}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-Listener (listener)}\label{classStateMachine_StateMachinea2}
+
+
+{\bf Listener}{\rm (p.\,\pageref{namespaceListener})} ƒIƒuƒWƒFƒNƒg‚ğ“o˜^‚·‚é. 
+
+\index{StateMachine@{State\-Machine}!setNOP@{setNOP}}
+\index{setNOP@{setNOP}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-NOP (call\_\-back)}\label{classStateMachine_StateMachinea1}
+
+
+NOPŠÖ”‚ğ“o˜^‚·‚é. 
+
+\index{StateMachine@{State\-Machine}!setNullFunc@{setNullFunc}}
+\index{setNullFunc@{setNullFunc}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-Null\-Func (s, nullfunc)}\label{classStateMachine_StateMachinea15}
+
+
+\index{StateMachine@{State\-Machine}!setPostDoAction@{setPostDoAction}}
+\index{setPostDoAction@{setPostDoAction}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-Post\-Do\-Action (state, call\_\-back)}\label{classStateMachine_StateMachinea6}
+
+
+Post action ŠÖ”‚ğ“o˜^‚·‚é. 
+
+\index{StateMachine@{State\-Machine}!setPreDoAction@{setPreDoAction}}
+\index{setPreDoAction@{setPreDoAction}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-Pre\-Do\-Action (state, call\_\-back)}\label{classStateMachine_StateMachinea4}
+
+
+Pre\-Do action ŠÖ”‚ğ“o˜^‚·‚é. 
+
+\index{StateMachine@{State\-Machine}!setStartState@{setStartState}}
+\index{setStartState@{setStartState}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-Start\-State (states)}\label{classStateMachine_StateMachinea9}
+
+
+‰Šúó‘Ô‚ğƒZƒbƒg‚·‚é 
+
+\index{StateMachine@{State\-Machine}!setTransitionAction@{setTransitionAction}}
+\index{setTransitionAction@{setTransitionAction}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::set\-Transition\-Action (call\_\-back)}\label{classStateMachine_StateMachinea8}
+
+
+State transition action ŠÖ”‚ğ“o˜^‚·‚é. 
+
+\index{StateMachine@{State\-Machine}!sync@{sync}}
+\index{sync@{sync}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::sync (states)}\label{classStateMachine_StateMachinea16}
+
+
+\index{StateMachine@{State\-Machine}!update_curr@{update\_\-curr}}
+\index{update_curr@{update\_\-curr}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::update\_\-curr (curr)}\label{classStateMachine_StateMachinea18}
+
+
+\index{StateMachine@{State\-Machine}!worker@{worker}}
+\index{worker@{worker}!StateMachine@{State\-Machine}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}State\-Machine::worker ()}\label{classStateMachine_StateMachinea14}
+
+
+‹ì“®ŠÖ” 
+
+
+
+‚±‚ÌƒNƒ‰ƒX‚Ìà–¾‚ÍŸ‚Ìƒtƒ@ƒCƒ‹‚©‚ç¶¬‚³‚ê‚Ü‚µ‚½:\begin{CompactItemize}
+\item 
+{\bf State\-Machine.py}\end{CompactItemize}

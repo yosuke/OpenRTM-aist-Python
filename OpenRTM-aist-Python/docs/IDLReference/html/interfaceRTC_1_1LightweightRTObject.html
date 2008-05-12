@@ -1,0 +1,538 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=euc-jp">
+<title>OpenRTM: インタフェース RTC::LightweightRTObject</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.4.1 -->
+<div class="qindex"><a class="qindex" href="index.html">メインページ</a> | <a class="qindex" href="namespaces.html">ネームスペース一覧</a> | <a class="qindex" href="hierarchy.html">クラス階層</a> | <a class="qindex" href="annotated.html">構成</a> | <a class="qindex" href="dirs.html">Directories</a> | <a class="qindex" href="files.html">ファイル一覧</a> | <a class="qindex" href="namespacemembers.html">ネームスペースメンバ</a> | <a class="qindex" href="functions.html">構成メンバ</a> | <a class="qindex" href="globals.html">ファイルメンバ</a></div>
+<div class="nav">
+<a class="el" href="namespaceRTC.html">RTC</a>::<a class="el" href="interfaceRTC_1_1LightweightRTObject.html">LightweightRTObject</a></div>
+<h1>インタフェース RTC::LightweightRTObject</h1>LightweightRTC::LightweightRTObject interface.  
+<a href="#_details">[詳細]</a>
+<p>
+<code>import "<a class="el" href="RTC_8idl-source.html">RTC.idl</a>";</code>
+<p>
+<p>RTC::LightweightRTObjectに対する継承グラフ
+<p><center><img src="interfaceRTC_1_1LightweightRTObject.png" usemap="#RTC::LightweightRTObject_map" border="0" alt=""></center>
+<map name="RTC::LightweightRTObject_map">
+<area href="interfaceRTC_1_1ComponentAction.html" alt="RTC::ComponentAction" shape="rect" coords="0,0,157,24">
+<area href="interfaceRTC_1_1RTObject.html" alt="RTC::RTObject" shape="rect" coords="0,112,157,136">
+</map>
+<a href="interfaceRTC_1_1LightweightRTObject-members.html">すべてのメンバ一覧</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Public メソッド</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1LightweightRTObject.html#RTC_1_1RTObjecta3">initialize</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1LightweightRTObject.html#RTC_1_1RTObjecta4">finalize</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1LightweightRTObject.html#RTC_1_1RTObjecta5">exit</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">boolean&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1LightweightRTObject.html#RTC_1_1RTObjecta6">is_alive</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a3">ExecutionContextList</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1LightweightRTObject.html#RTC_1_1RTObjecta7">get_contexts</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="interfaceRTC_1_1ExecutionContext.html">ExecutionContext</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1LightweightRTObject.html#RTC_1_1RTObjecta8">get_context</a> (in <a class="el" href="namespaceRTC.html#a2">UniqueId</a> ec_id)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta9">attach_executioncontext</a> (in <a class="el" href="interfaceRTC_1_1ExecutionContext.html">ExecutionContext</a> exec_context)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta10">detach_executioncontext</a> (in <a class="el" href="namespaceRTC.html#a2">UniqueId</a> ec_id)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta11">on_initialize</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta12">on_finalize</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta13">on_startup</a> (in <a class="el" href="namespaceRTC.html#a2">UniqueId</a> ec_id)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta14">on_shutdown</a> (in <a class="el" href="namespaceRTC.html#a2">UniqueId</a> ec_id)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta15">on_activated</a> (in <a class="el" href="namespaceRTC.html#a2">UniqueId</a> ec_id)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta16">on_deactivated</a> (in <a class="el" href="namespaceRTC.html#a2">UniqueId</a> ec_id)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta17">on_aborting</a> (in <a class="el" href="namespaceRTC.html#a2">UniqueId</a> ec_id)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta18">on_error</a> (in <a class="el" href="namespaceRTC.html#a2">UniqueId</a> ec_id)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceRTC_1_1ComponentAction.html#RTC_1_1RTObjecta19">on_reset</a> (in <a class="el" href="namespaceRTC.html#a2">UniqueId</a> ec_id)</td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+LightweightRTC::LightweightRTObject interface. 
+<p>
+<hr><h2>関数</h2>
+<a class="anchor" name="RTC_1_1RTObjecta9" doxytag="RTC::LightweightRTObject::attach_executioncontext"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a2">UniqueId</a> RTC::ComponentAction::attach_executioncontext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="interfaceRTC_1_1ExecutionContext.html">ExecutionContext</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>exec_context</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta10" doxytag="RTC::LightweightRTObject::detach_executioncontext"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::detach_executioncontext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>ec_id</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta5" doxytag="RTC::LightweightRTObject::exit"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::LightweightRTObject::exit           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta4" doxytag="RTC::LightweightRTObject::finalize"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::LightweightRTObject::finalize           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta8" doxytag="RTC::LightweightRTObject::get_context"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="interfaceRTC_1_1ExecutionContext.html">ExecutionContext</a> RTC::LightweightRTObject::get_context           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>ec_id</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta7" doxytag="RTC::LightweightRTObject::get_contexts"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a3">ExecutionContextList</a> RTC::LightweightRTObject::get_contexts           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta3" doxytag="RTC::LightweightRTObject::initialize"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::LightweightRTObject::initialize           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta6" doxytag="RTC::LightweightRTObject::is_alive"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">boolean RTC::LightweightRTObject::is_alive           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta17" doxytag="RTC::LightweightRTObject::on_aborting"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::on_aborting           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>ec_id</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta15" doxytag="RTC::LightweightRTObject::on_activated"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::on_activated           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>ec_id</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta16" doxytag="RTC::LightweightRTObject::on_deactivated"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::on_deactivated           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>ec_id</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta18" doxytag="RTC::LightweightRTObject::on_error"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::on_error           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>ec_id</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta12" doxytag="RTC::LightweightRTObject::on_finalize"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::on_finalize           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta11" doxytag="RTC::LightweightRTObject::on_initialize"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::on_initialize           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta19" doxytag="RTC::LightweightRTObject::on_reset"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::on_reset           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>ec_id</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta14" doxytag="RTC::LightweightRTObject::on_shutdown"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::on_shutdown           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>ec_id</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="RTC_1_1RTObjecta13" doxytag="RTC::LightweightRTObject::on_startup"></a><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"><a class="el" href="namespaceRTC.html#a28">ReturnCode_t</a> RTC::ComponentAction::on_startup           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">in <a class="el" href="namespaceRTC.html#a2">UniqueId</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>ec_id</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inherited]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<hr>このインタフェースの説明は次のファイルから生成されました:<ul>
+<li><a class="el" href="RTC_8idl-source.html">RTC.idl</a></ul>
+<hr size="1"><address style="align: right;"><small>OpenRTMに対してWed Sep 26 17:47:01 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.1 </small></address>
+</body>
+</html>

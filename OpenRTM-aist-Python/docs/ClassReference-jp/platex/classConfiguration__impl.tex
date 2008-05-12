@@ -1,0 +1,457 @@
+\section{ƒNƒ‰ƒX Configuration\_\-impl}
+\label{classConfiguration__impl}\index{Configuration_impl@{Configuration\_\-impl}}
+SDO Configuration À‘•ƒNƒ‰ƒX.  
+
+
+\subsection*{Public ƒƒ$\backslash$ƒbƒh}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (configsets)
+\item 
+{\bf set\_\-device\_\-profile} (d\-Profile)
+\begin{CompactList}\small\item\em [CORBA interface] SDO ‚Ì Device\-Profile ‚ğƒZƒbƒg‚·‚é \item\end{CompactList}\item 
+{\bf set\_\-service\_\-profile} (s\-Profile)
+\begin{CompactList}\small\item\em [CORBA interface] SDO ‚Ì Service\-Profile ‚ÌƒZƒbƒg \item\end{CompactList}\item 
+{\bf add\_\-organization} (org)
+\begin{CompactList}\small\item\em [CORBA interface] Organization ‚Ì’Ç‰Á \item\end{CompactList}\item 
+{\bf remove\_\-service\_\-profile} (id\_\-)
+\begin{CompactList}\small\item\em [CORBA interface] Service\-Profile ‚Ìíœ \item\end{CompactList}\item 
+{\bf remove\_\-organization} (organization\_\-id)
+\begin{CompactList}\small\item\em [CORBA interface] Organization ‚ÌQÆ‚Ìíœ \item\end{CompactList}\item 
+{\bf get\_\-configuration\_\-parameters} ()
+\begin{CompactList}\small\item\em [CORBA interface] İ’èƒpƒ‰ƒ[ƒ^‚ÌƒŠƒXƒg‚Ìæ“¾ \item\end{CompactList}\item 
+{\bf get\_\-configuration\_\-parameter\_\-values} ()
+\begin{CompactList}\small\item\em [CORBA interface] Configuration parameter ‚Ì’l‚ÌƒŠƒXƒg‚Ìæ“¾ \item\end{CompactList}\item 
+{\bf get\_\-configuration\_\-parameter\_\-value} (name)
+\begin{CompactList}\small\item\em [CORBA interface] Configuration parameter ‚Ì’l‚Ìæ“¾ \item\end{CompactList}\item 
+{\bf set\_\-configuration\_\-parameter} (name, value)
+\begin{CompactList}\small\item\em [CORBA interface] Configuration ƒpƒ‰ƒ[ƒ^‚Ì•ÏX \item\end{CompactList}\item 
+{\bf get\_\-configuration\_\-sets} ()
+\begin{CompactList}\small\item\em [CORBA interface] Configuration\-Set ƒŠƒXƒg‚Ìæ“¾ \item\end{CompactList}\item 
+{\bf get\_\-configuration\_\-set} ({\bf config\_\-id})
+\begin{CompactList}\small\item\em [CORBA interface] Configuration\-Set ‚Ìæ“¾ \item\end{CompactList}\item 
+{\bf set\_\-configuration\_\-set\_\-values} ({\bf config\_\-id}, configuration\_\-set)
+\begin{CompactList}\small\item\em [CORBA interface] Configuration\-Set ‚ğƒZƒbƒg‚·‚é \item\end{CompactList}\item 
+{\bf get\_\-active\_\-configuration\_\-set} ()
+\begin{CompactList}\small\item\em [CORBA interface] ƒAƒNƒeƒBƒu‚È Configuration\-Set ‚ğæ“¾‚·‚é \item\end{CompactList}\item 
+{\bf add\_\-configuration\_\-set} (configuration\_\-set)
+\begin{CompactList}\small\item\em [CORBA interface] Configuration\-Set ‚ğ’Ç‰Á‚·‚é \item\end{CompactList}\item 
+{\bf remove\_\-configuration\_\-set} ({\bf config\_\-id})
+\begin{CompactList}\small\item\em [CORBA interface] Configuration\-Set ‚ğíœ‚·‚é \item\end{CompactList}\item 
+{\bf activate\_\-configuration\_\-set} ({\bf config\_\-id})
+\begin{CompactList}\small\item\em [CORBA interface] Configuration\-Set ‚ÌƒAƒNƒeƒBƒu‰» \item\end{CompactList}\item 
+{\bf get\-Obj\-Ref} ()
+\item 
+{\bf get\-Device\-Profile} ()
+\item 
+{\bf get\-Service\-Profiles} ()
+\item 
+{\bf get\-Service\-Profile} (id)
+\item 
+{\bf get\-Organizations} ()
+\item 
+{\bf get\-UUID} ()
+\end{CompactItemize}
+\subsection*{$\backslash$¬}
+\begin{CompactItemize}
+\item 
+class {\bf config\_\-id}
+\item 
+class {\bf nv\_\-name}
+\begin{CompactList}\small\item\em ƒAƒNƒeƒBƒu‚È Configuration\-Set \item\end{CompactList}\item 
+class {\bf org\_\-id}
+\item 
+class {\bf service\_\-id}
+\end{CompactItemize}
+
+
+\subsection{à–¾}
+SDO Configuration À‘•ƒNƒ‰ƒX. 
+
+Configuration interface ‚Í Resource Data Model ‚Å’è‹`‚³‚ê‚½ƒf[ƒ^‚Ì ’Ç‰ÁAíœ“™‚Ì‘€ì‚ğs‚¤‚½‚ß‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Å‚ ‚éB Device\-Profile, Service\-Profile, Configuration\-Profile ‚¨‚æ‚Ñ Organization ‚Ì•ÏX‚ğs‚¤‚½‚ß‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚ğ”õ‚¦‚Ä‚¢‚éBSDO ‚Ìd—l‚Å‚ÍƒAƒNƒZƒX§Œä ‚¨‚æ‚ÑƒZƒLƒ…ƒŠƒeƒB‚ÉŠÖ‚·‚éÚ×‚É‚Â‚¢‚Ä‚Í‹K’è‚µ‚Ä‚¢‚È‚¢B
+
+•¡”‚Ìİ’è (Configuration) ‚ğ•Û‚·‚é‚±‚Æ‚É‚æ‚èA—eˆÕ‚©‚Â‘f‘‚­‚ ‚éİ’è ‚ğ”½‰f‚³‚¹‚é‚±‚Æ‚ª‚Å‚«‚éB–‘O‚É’è‹`‚³‚ê‚½•¡”‚Ìİ’è‚ğ Configuration\-Sets ‚¨‚æ‚Ñ configuration profile ‚Æ‚µ‚Ä•Û‚·‚é‚±‚Æ‚ª‚Å‚«‚éB‚Ğ‚Æ‚Â‚Ì Configuration\-Set ‚Í“Á’è‚Ìİ’è‚ÉŠÖ˜A•t‚¯‚ç‚ê‚½‘SƒvƒƒpƒeƒB’l‚ÌƒŠƒXƒg‚ğA ƒ†ƒj[ƒNIDAÚ×‚Æ‚Æ‚à‚É‚Á‚Ä‚¢‚éB‚±‚ê‚É‚æ‚èAŠeİ’è€–Ú‚ÌÚ×‚ğ‹Lq‚µ ‹æ•Ê‚·‚é‚±‚Æ‚ª‚Å‚«‚éBConfiguration interface ‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í‚±‚ê‚ç Configuratioin\-Sets ‚ÌŠÇ—‚ğx‰‡‚·‚éB
+
+\begin{itemize}
+\item Configuration\-Set: id, description, NVList ‚©‚ç$\backslash$¬‚³‚ê‚é1ƒZƒbƒg‚Ìİ’è\item Configuration\-Set\-List: Configuration\-Set ‚ÌƒŠƒXƒg\item Parameter: name, type, allowed\_\-values ‚©‚ç$\backslash$¬‚³‚ê‚éƒpƒ‰ƒ[ƒ^’è‹`B\item Active\-Configuration\-Set: Œ»İ—LŒø‚ÈƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒVƒ‡ƒ“‚Ì1ƒZƒbƒgB\end{itemize}
+
+
+ˆÈ‰ºASDOd—l‚É–¾‹L‚³‚ê‚Ä‚¢‚È‚¢‚à‚µ‚­‚Í‰ğß‚ª‚í‚©‚ç‚È‚¢‚½‚ß“Æ©‰ğß
+
+ˆÈ‰º‚ÌŠÖ”‚Í Parameter\-List ‚É‘Î‚µ‚Äˆ—‚ğs‚¤B\begin{itemize}
+\item {\bf get\_\-configuration\_\-parameters()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla6})}\end{itemize}
+
+
+ˆÈ‰º‚ÌŠÖ”‚ÍƒAƒNƒeƒBƒu‚ÈConfiguration\-Set‚É‘Î‚·‚éˆ—‚ğs‚¤\begin{itemize}
+\item {\bf get\_\-configuration\_\-parameter\_\-values()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla7})}\item {\bf get\_\-configuration\_\-parameter\_\-value()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla8})}\item {\bf set\_\-configuration\_\-parameter()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla9})}\end{itemize}
+
+
+ˆÈ‰º‚ÌŠÖ”‚ÍConfiguration\-Set\-List‚É‘Î‚µ‚Äˆ—‚ğs‚¤\begin{itemize}
+\item {\bf get\_\-configuration\_\-sets()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla10})}\item {\bf get\_\-configuration\_\-set()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla11})}\item {\bf set\_\-configuration\_\-set\_\-values()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla12})}\item {\bf get\_\-active\_\-configuration\_\-set()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla13})}\item {\bf add\_\-configuration\_\-set()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla14})}\item {\bf remove\_\-configuration\_\-set()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla15})}\item {\bf activate\_\-configuration\_\-set()}{\rm (p.\,\pageref{classConfiguration__impl_Configuration__impla16})}\end{itemize}
+
+
+
+
+\subsection{ŠÖ”}
+\index{Configuration_impl@{Configuration\_\-impl}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::\_\-\_\-init\_\-\_\- (configsets)}\label{classConfiguration__impl_Configuration__impla0}
+
+
+\index{Configuration_impl@{Configuration\_\-impl}!activate_configuration_set@{activate\_\-configuration\_\-set}}
+\index{activate_configuration_set@{activate\_\-configuration\_\-set}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::activate\_\-configuration\_\-set ({\bf config\_\-id})}\label{classConfiguration__impl_Configuration__impla16}
+
+
+[CORBA interface] Configuration\-Set ‚ÌƒAƒNƒeƒBƒu‰» 
+
+Configuration\-Profile ‚ÉŠi”[‚³‚ê‚½ Configuration\-Set ‚Ì‚¤‚¿ˆê‚Â‚ğ ƒAƒNƒeƒBƒu‚É‚·‚éB ‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í“Á’è‚Ì Configuration\-Set ‚ğƒAƒNƒeƒBƒu‚É‚·‚éB ‚·‚È‚í‚¿ASDO ‚ÌƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒVƒ‡ƒ“EƒvƒƒpƒeƒB‚ª‚»‚ÌŠi”[‚³‚ê‚Ä‚¢‚é Configuration\-Set ‚É‚æ‚èİ’è‚³‚ê‚éƒvƒƒpƒeƒB‚Ì’l‚É•ÏX‚³‚ê‚éB w’è‚³‚ê‚½ Configuration\-Set ‚Ì’l‚ªƒAƒNƒeƒBƒuEƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒVƒ‡ƒ“ ‚ÉƒRƒs[‚³‚ê‚é‚Æ‚¢‚¤‚±‚Æ‚ğˆÓ–¡‚·‚éB
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em {\bf config\_\-id}{\rm (p.\,\pageref{classConfiguration__impl_1_1config__id})}}]ƒAƒNƒeƒBƒu‰»‚·‚é Configuration\-Set ‚Ì idB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Invalid\-Parameter}]ˆø” \char`\"{}config\_\-id\char`\"{} ‚ª null ‚Å‚ ‚éA‚à‚µ‚­‚Í ˆø”‚Åw’è‚³‚ê‚½ Configuration\-Set ‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!add_configuration_set@{add\_\-configuration\_\-set}}
+\index{add_configuration_set@{add\_\-configuration\_\-set}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::add\_\-configuration\_\-set (configuration\_\-set)}\label{classConfiguration__impl_Configuration__impla14}
+
+
+[CORBA interface] Configuration\-Set ‚ğ’Ç‰Á‚·‚é 
+
+Configuration\-Profile ‚É Configuration\-Set ‚ğ’Ç‰Á‚·‚éƒIƒyƒŒ[ƒVƒ‡ƒ“B
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em configuration\_\-set}]’Ç‰Á‚³‚ê‚é Configuration\-SetB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!add_organization@{add\_\-organization}}
+\index{add_organization@{add\_\-organization}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::add\_\-organization (org)}\label{classConfiguration__impl_Configuration__impla3}
+
+
+[CORBA interface] Organization ‚Ì’Ç‰Á 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í Organization object ‚ÌƒŠƒtƒ@ƒŒƒ“ƒX‚ğ’Ç‰Á‚·‚éB
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em org}]’Ç‰Á‚·‚é Organization \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©‚ğ•Ô‚·B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Invalid\-Parameter}]ˆø” \char`\"{}organization\char`\"{} ‚ª null ‚Å‚ ‚éB \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!get_active_configuration_set@{get\_\-active\_\-configuration\_\-set}}
+\index{get_active_configuration_set@{get\_\-active\_\-configuration\_\-set}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\_\-active\_\-configuration\_\-set ()}\label{classConfiguration__impl_Configuration__impla13}
+
+
+[CORBA interface] ƒAƒNƒeƒBƒu‚È Configuration\-Set ‚ğæ“¾‚·‚é 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í“–ŠYSDO‚ÌŒ»İƒAƒNƒeƒBƒu‚È Configuration\-Set ‚ğ•Ô‚·B (‚à‚µSDO‚ÌŒ»İ‚Ìİ’è‚ª—$\backslash$‚ß’è‹`‚³‚ê‚½ Configuration\-Set ‚É‚æ‚èİ’è‚³‚ê‚Ä ‚¢‚é‚È‚ç‚ÎB) Configuration\-Set ‚ÍˆÈ‰º‚Ìê‡‚É‚ÍƒAƒNƒeƒBƒu‚Å‚Í‚È‚¢‚à‚Ì‚Æ‚İ‚È‚³‚ê‚éB
+
+\begin{itemize}
+\item Œ»İ‚Ìİ’è‚ª—$\backslash$‚ß’è‹`‚³‚ê‚½ Configuration\-Set ‚É‚æ‚èƒZƒbƒg‚³‚ê‚Ä‚¢‚È‚¢A\item SDO ‚Ìİ’è‚ªƒAƒNƒeƒBƒu‚É‚È‚Á‚½Œã‚É•ÏX‚³‚ê‚½A\item SDO ‚ğİ’è‚·‚é Configuration\-Set ‚ª•ÏX‚³‚ê‚½A\end{itemize}
+
+
+‚±‚ê‚ç‚Ìê‡‚É‚ÍA‹ó‚Ì Configuration\-Set ‚ª•Ô‚³‚ê‚éB
+
+\begin{Desc}
+\item[–ß‚è’l:]Œ»İƒAƒNƒeƒBƒu‚È Configuration\-SetB \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!get_configuration_parameter_value@{get\_\-configuration\_\-parameter\_\-value}}
+\index{get_configuration_parameter_value@{get\_\-configuration\_\-parameter\_\-value}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\_\-configuration\_\-parameter\_\-value (name)}\label{classConfiguration__impl_Configuration__impla8}
+
+
+[CORBA interface] Configuration parameter ‚Ì’l‚Ìæ“¾ 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Íˆø” \char`\"{}name\char`\"{} ‚Åw’è‚³‚ê‚½ƒpƒ‰ƒ[ƒ^’l‚ğ•Ô‚·B
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em name}]’l‚ğ—v‹‚·‚éƒpƒ‰ƒ[ƒ^‚Ì–¼‘OB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]w’è‚³‚ê‚½ƒpƒ‰ƒ[ƒ^‚Ì’lB \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!get_configuration_parameter_values@{get\_\-configuration\_\-parameter\_\-values}}
+\index{get_configuration_parameter_values@{get\_\-configuration\_\-parameter\_\-values}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\_\-configuration\_\-parameter\_\-values ()}\label{classConfiguration__impl_Configuration__impla7}
+
+
+[CORBA interface] Configuration parameter ‚Ì’l‚ÌƒŠƒXƒg‚Ìæ“¾ 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í configuration ƒpƒ‰ƒ[ƒ^‚¨‚æ‚Ñ’l‚ğ•Ô‚·B
+
+\begin{Desc}
+\item[–ß‚è’l:]‘S‚Ä‚Ì configuration ƒpƒ‰ƒ[ƒ^‚Æ’l‚ÌƒŠƒXƒgB \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!get_configuration_parameters@{get\_\-configuration\_\-parameters}}
+\index{get_configuration_parameters@{get\_\-configuration\_\-parameters}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\_\-configuration\_\-parameters ()}\label{classConfiguration__impl_Configuration__impla6}
+
+
+[CORBA interface] İ’èƒpƒ‰ƒ[ƒ^‚ÌƒŠƒXƒg‚Ìæ“¾ 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í configuration parameter ‚ÌƒŠƒXƒg‚ğ•Ô‚·B SDO ‚ªİ’è‰Â”$\backslash$‚Èƒpƒ‰ƒ[ƒ^‚ğ‚½‚È‚¯‚ê‚Î‹ó‚ÌƒŠƒXƒg‚ğ•Ô‚·B
+
+\begin{Desc}
+\item[–ß‚è’l:]İ’è‚ğ“Á’¥•t‚¯‚éƒpƒ‰ƒ[ƒ^’è‹`‚ÌƒŠƒXƒgB \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!get_configuration_set@{get\_\-configuration\_\-set}}
+\index{get_configuration_set@{get\_\-configuration\_\-set}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\_\-configuration\_\-set ({\bf config\_\-id})}\label{classConfiguration__impl_Configuration__impla11}
+
+
+[CORBA interface] Configuration\-Set ‚Ìæ“¾ 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Íˆø”‚Åw’è‚³‚ê‚½ Configuration\-Set ‚Ì ID ‚ÉŠÖ˜A •t‚¯‚ç‚ê‚½ Configuration\-Set ‚ğ•Ô‚·B
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em {\bf config\_\-id}{\rm (p.\,\pageref{classConfiguration__impl_1_1config__id})}}]Configuration\-Set ‚Ì¯•ÊqB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ˆø”‚É‚æ‚èw’è‚³‚ê‚½ Configuration\-SetB \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Invalid\-Parameter}]\char`\"{}config\_\-id\char`\"{} ‚ª null ‚©Aw’è‚³‚ê‚½ Configuration\-Set ‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!get_configuration_sets@{get\_\-configuration\_\-sets}}
+\index{get_configuration_sets@{get\_\-configuration\_\-sets}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\_\-configuration\_\-sets ()}\label{classConfiguration__impl_Configuration__impla10}
+
+
+[CORBA interface] Configuration\-Set ƒŠƒXƒg‚Ìæ“¾ 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í Configuration\-Profile ‚ª‚Â Configuration\-Set ‚Ì ƒŠƒXƒg‚ğ•Ô‚·B SDO ‚ª Configuration\-Set ‚ğ‚½‚È‚¯‚ê‚Î‹ó‚ÌƒŠƒXƒg‚ğ•Ô‚·B
+
+\begin{Desc}
+\item[–ß‚è’l:]•Û‚µ‚Ä‚¢‚é Configuration\-Set ‚ÌƒŠƒXƒg‚ÌŒ»İ’lB \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!getDeviceProfile@{getDeviceProfile}}
+\index{getDeviceProfile@{getDeviceProfile}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\-Device\-Profile ()}\label{classConfiguration__impl_Configuration__impla18}
+
+
+\index{Configuration_impl@{Configuration\_\-impl}!getObjRef@{getObjRef}}
+\index{getObjRef@{getObjRef}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\-Obj\-Ref ()}\label{classConfiguration__impl_Configuration__impla17}
+
+
+\index{Configuration_impl@{Configuration\_\-impl}!getOrganizations@{getOrganizations}}
+\index{getOrganizations@{getOrganizations}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\-Organizations ()}\label{classConfiguration__impl_Configuration__impla21}
+
+
+\index{Configuration_impl@{Configuration\_\-impl}!getServiceProfile@{getServiceProfile}}
+\index{getServiceProfile@{getServiceProfile}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\-Service\-Profile (id)}\label{classConfiguration__impl_Configuration__impla20}
+
+
+\index{Configuration_impl@{Configuration\_\-impl}!getServiceProfiles@{getServiceProfiles}}
+\index{getServiceProfiles@{getServiceProfiles}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\-Service\-Profiles ()}\label{classConfiguration__impl_Configuration__impla19}
+
+
+\index{Configuration_impl@{Configuration\_\-impl}!getUUID@{getUUID}}
+\index{getUUID@{getUUID}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::get\-UUID ()}\label{classConfiguration__impl_Configuration__impla22}
+
+
+\index{Configuration_impl@{Configuration\_\-impl}!remove_configuration_set@{remove\_\-configuration\_\-set}}
+\index{remove_configuration_set@{remove\_\-configuration\_\-set}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::remove\_\-configuration\_\-set ({\bf config\_\-id})}\label{classConfiguration__impl_Configuration__impla15}
+
+
+[CORBA interface] Configuration\-Set ‚ğíœ‚·‚é 
+
+Configuration\-Profile ‚©‚ç Configuration\-Set ‚ğíœ‚·‚éB
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em configu\_\-id}]íœ‚·‚é Configuration\-Set ‚Ì idB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Invalid\-Parameter}]ˆø” \char`\"{}configuration\-Set\-ID\char`\"{} ‚ª null ‚Å‚ ‚éA ‚à‚µ‚­‚ÍAˆø”‚Åw’è‚³‚ê‚½ Configuration\-Set ‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!remove_organization@{remove\_\-organization}}
+\index{remove_organization@{remove\_\-organization}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::remove\_\-organization (organization\_\-id)}\label{classConfiguration__impl_Configuration__impla5}
+
+
+[CORBA interface] Organization ‚ÌQÆ‚Ìíœ 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í Organization ‚ÌQÆ‚ğíœ‚·‚éB
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em organization\_\-id}]íœ‚·‚é Organization ‚ÌˆêˆÓ‚È idB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©‚ğ•Ô‚·B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Invalid\-Parameter}]\item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!remove_service_profile@{remove\_\-service\_\-profile}}
+\index{remove_service_profile@{remove\_\-service\_\-profile}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::remove\_\-service\_\-profile (id\_\-)}\label{classConfiguration__impl_Configuration__impla4}
+
+
+[CORBA interface] Service\-Profile ‚Ìíœ 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í‚±‚Ì Configuration interface ‚ğ‚Â SDO ‚Ì Service ‚Ì Service\-Profile ‚ğíœ‚·‚éBíœ‚·‚é Service\-Profile ‚Íˆø”‚É‚æ‚èw’è‚³‚ê‚éB
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em id}]íœ‚·‚é Servcie\-Profile ‚Ì service\-IDB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©‚ğ•Ô‚·B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Invalid\-Parameter}]ˆø” \char`\"{}id\char`\"{} ‚ª null ‚Å‚ ‚éB‚à‚µ‚­‚Í \char`\"{}id\char`\"{} ‚É ŠÖ˜A•t‚¯‚ç‚ê‚½ Service\-Profile ‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!set_configuration_parameter@{set\_\-configuration\_\-parameter}}
+\index{set_configuration_parameter@{set\_\-configuration\_\-parameter}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::set\_\-configuration\_\-parameter (name, value)}\label{classConfiguration__impl_Configuration__impla9}
+
+
+[CORBA interface] Configuration ƒpƒ‰ƒ[ƒ^‚Ì•ÏX 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í \char`\"{}name\char`\"{} ‚Åw’è‚µ‚½ƒpƒ‰ƒ[ƒ^‚Ì’l‚ğ \char`\"{}value\char`\"{} ‚É •ÏX‚·‚éB
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em name}]•ÏX‚µ‚½‚¢ƒpƒ‰ƒ[ƒ^‚Ì–¼‘OB \item[{\em value}]•ÏX‚µ‚½‚¢ƒpƒ‰ƒ[ƒ^‚Ì’lB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©‚ğ•Ô‚·B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!set_configuration_set_values@{set\_\-configuration\_\-set\_\-values}}
+\index{set_configuration_set_values@{set\_\-configuration\_\-set\_\-values}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::set\_\-configuration\_\-set\_\-values ({\bf config\_\-id}, configuration\_\-set)}\label{classConfiguration__impl_Configuration__impla12}
+
+
+[CORBA interface] Configuration\-Set ‚ğƒZƒbƒg‚·‚é 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Íw’è‚³‚ê‚½ id ‚Ì Configuration\-Set ‚ğXV‚·‚éB
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em configu\_\-id}]•ÏX‚·‚é Configuration\-Set ‚Ì IDB \item[{\em configuration\_\-set}]•ÏX‚·‚é Configuration\-Set ‚»‚Ì‚à‚ÌB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]Configuration\-Set ‚ª³í‚ÉXV‚Å‚«‚½ê‡‚Í trueB ‚»‚¤‚Å‚È‚¯‚ê‚Î false ‚ğ•Ô‚·B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em Invalid\-Parameter}]{\bf config\_\-id}{\rm (p.\,\pageref{classConfiguration__impl_1_1config__id})} ‚ª null ‚© Configuration\-Set \item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!set_device_profile@{set\_\-device\_\-profile}}
+\index{set_device_profile@{set\_\-device\_\-profile}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::set\_\-device\_\-profile (d\-Profile)}\label{classConfiguration__impl_Configuration__impla1}
+
+
+[CORBA interface] SDO ‚Ì Device\-Profile ‚ğƒZƒbƒg‚·‚é 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í SDO ‚Ì Device\-Profile ‚ğƒZƒbƒg‚·‚éBSDO ‚ª Device\-Profile ‚ğ•Û‚µ‚Ä‚¢‚éê‡‚ÍV‚½‚È Device\-Profile ‚ğ¶¬‚µA Device\-Profile ‚ğ‚·‚Å‚É•Û‚µ‚Ä‚¢‚éê‡‚ÍŠù‘¶‚Ì‚à‚Ì‚Æ’u‚«Š·‚¦‚éB
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em d\-Profile}]SDO ‚ÉŠÖ˜A•t‚¯‚ç‚ê‚é Device\-ProfileB \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©‚ğ•Ô‚·B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Invalid\-Parameter}]ˆø” \char`\"{}d\-Profile\char`\"{} ‚ª null ‚Å‚ ‚éB \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+\index{Configuration_impl@{Configuration\_\-impl}!set_service_profile@{set\_\-service\_\-profile}}
+\index{set_service_profile@{set\_\-service\_\-profile}!Configuration_impl@{Configuration\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration\_\-impl::set\_\-service\_\-profile (s\-Profile)}\label{classConfiguration__impl_Configuration__impla2}
+
+
+[CORBA interface] SDO ‚Ì Service\-Profile ‚ÌƒZƒbƒg 
+
+‚±‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“‚Í‚±‚Ì Configuration interface ‚ğŠ—L‚·‚é‘ÎÛ SDO ‚Ì Service\-Profile ‚ğİ’è‚·‚éB‚à‚µˆø”‚Ì Service\-Profile ‚Ì id ‚ª‹ó‚Å‚ ‚ê‚Î V‚µ‚¢ ID ‚ª¶¬‚³‚ê‚»‚Ì Service\-Profile ‚ğŠi”[‚·‚éB‚à‚µ id ‚ª‹ó‚Å ‚È‚¯‚ê‚ÎASDO ‚Í“¯‚¶ id ‚ğ‚Â Service\-Profile ‚ğŒŸõ‚·‚éB “¯‚¶ id ‚ª‘¶İ‚µ‚È‚¯‚ê‚Î‚±‚Ì Service\-Profile ‚ğ’Ç‰Á‚µAid ‚ª‘¶İ‚·‚ê‚Î ã‘‚«‚ğ‚·‚éB
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em s\-Profile}]’Ç‰Á‚·‚é Service\-Profile \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©‚ğ•Ô‚·B \end{Desc}
+\begin{Desc}
+\item[—áŠO:]
+\begin{description}
+\item[{\em SDONot\-Exists}]ƒ^[ƒQƒbƒg‚ÌSDO‚ª‘¶İ‚µ‚È‚¢B \item[{\em Invalid\-Parameter}]ˆø” \char`\"{}s\-Profile\char`\"{} ‚ª null‚Å‚ ‚éB \item[{\em Not\-Available}]SDO‚Í‘¶İ‚·‚é‚ª‰“š‚ª‚È‚¢B \item[{\em Internal\-Error}]“à•”“IƒGƒ‰[‚ª”­¶‚µ‚½B\end{description}
+\end{Desc}
+
+
+‚±‚ÌƒNƒ‰ƒX‚Ìà–¾‚ÍŸ‚Ìƒtƒ@ƒCƒ‹‚©‚ç¶¬‚³‚ê‚Ü‚µ‚½:\begin{CompactItemize}
+\item 
+{\bf Sdo\-Configuration.py}\end{CompactItemize}

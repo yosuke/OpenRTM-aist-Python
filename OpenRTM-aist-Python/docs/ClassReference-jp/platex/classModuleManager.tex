@@ -1,0 +1,244 @@
+\section{ƒNƒ‰ƒX Module\-Manager}
+\label{classModuleManager}\index{ModuleManager@{ModuleManager}}
+ƒ‚ƒWƒ…[ƒ‹ƒ\}ƒl[ƒWƒƒƒNƒ‰ƒX  
+
+
+\subsection*{Public ƒƒ$\backslash$ƒbƒh}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (prop)
+\item 
+{\bf \_\-\_\-del\_\-\_\-} ()
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (reason\_\-)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (name\_\-)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (name\_\-)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (name\_\-)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (name\_\-)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (reason\_\-)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (reason\_\-)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (reason\_\-)
+\item 
+{\bf load} (file\_\-name, init\_\-func=None)
+\begin{CompactList}\small\item\em ƒ‚ƒWƒ…[ƒ‹‚Ìƒ[ƒh \item\end{CompactList}\item 
+{\bf unload} (file\_\-name)
+\begin{CompactList}\small\item\em ƒ‚ƒWƒ…[ƒ‹‚ÌƒAƒ“ƒ[ƒh \item\end{CompactList}\item 
+{\bf unload\-All} ()
+\begin{CompactList}\small\item\em ‘Sƒ‚ƒWƒ…[ƒ‹‚ÌƒAƒ“ƒ[ƒh \item\end{CompactList}\item 
+{\bf symbol} (file\_\-name, func\_\-name)
+\begin{CompactList}\small\item\em ƒ‚ƒWƒ…[ƒ‹‚ÌƒVƒ“ƒ\{ƒ‹‚ÌQÆ \item\end{CompactList}\item 
+{\bf set\-Loadpath} (load\_\-path\_\-list)
+\begin{CompactList}\small\item\em ƒ‚ƒWƒ…[ƒ‹ƒ[ƒhƒpƒX‚ğw’è‚·‚é \item\end{CompactList}\item 
+{\bf get\-Load\-Path} ()
+\item 
+{\bf add\-Loadpath} (load\_\-path)
+\begin{CompactList}\small\item\em ƒ‚ƒWƒ…[ƒ‹ƒ[ƒhƒpƒX‚ğ’Ç‰Á‚·‚é \item\end{CompactList}\item 
+{\bf get\-Loaded\-Modules} ()
+\begin{CompactList}\small\item\em ƒ[ƒhÏ‚İ‚Ìƒ‚ƒWƒ…[ƒ‹ƒŠƒXƒg‚ğæ“¾‚·‚é \item\end{CompactList}\item 
+{\bf get\-Loadable\-Modules} ()
+\begin{CompactList}\small\item\em ƒ[ƒh‰Â”$\backslash$‚Èƒ‚ƒWƒ…[ƒ‹ƒŠƒXƒg‚ğæ“¾‚·‚é \item\end{CompactList}\item 
+{\bf allow\-Absolute\-Path} ()
+\begin{CompactList}\small\item\em ƒ‚ƒWƒ…[ƒ‹‚Ìâ‘ÎƒpƒXw’è‹–‚· \item\end{CompactList}\item 
+{\bf disallow\-Absolute\-Path} ()
+\begin{CompactList}\small\item\em ƒ‚ƒWƒ…[ƒ‹‚Ìâ‘ÎƒpƒXw’è‹Ö~‚·‚é \item\end{CompactList}\item 
+{\bf allow\-Module\-Download} ()
+\begin{CompactList}\small\item\em ƒ‚ƒWƒ…[ƒ‹‚Ìƒ_ƒEƒ“ƒ[ƒh‚ğ‹–‚· \item\end{CompactList}\item 
+{\bf disallow\-Module\-Download} ()
+\begin{CompactList}\small\item\em ƒ‚ƒWƒ…[ƒ‹‚Ìƒ_ƒEƒ“ƒ[ƒh‚ğ‹Ö~‚·‚é \item\end{CompactList}\item 
+{\bf find\-File} (fname, load\_\-path)
+\begin{CompactList}\small\item\em Load\-Path ‚©‚ç‚Ìƒtƒ@ƒCƒ‹‚ÌŒŸõ. \item\end{CompactList}\item 
+{\bf file\-Exist} (filename)
+\begin{CompactList}\small\item\em ƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚é‚©‚Ç‚¤‚©‚Ìƒ`ƒFƒbƒN \item\end{CompactList}\item 
+{\bf get\-Init\-Func\-Name} (file\_\-path)
+\begin{CompactList}\small\item\em ‰Šú‰»ŠÖ”ƒVƒ“ƒ\{ƒ‹‚ğ¶¬‚·‚é \item\end{CompactList}\item 
+{\bf \_\-\_\-init\_\-\_\-} (dll)
+\end{CompactItemize}
+
+
+\subsection{à–¾}
+ƒ‚ƒWƒ…[ƒ‹ƒ\}ƒl[ƒWƒƒƒNƒ‰ƒX 
+
+
+
+\subsection{ŠÖ”}
+\index{ModuleManager@{Module\-Manager}!__del__@{\_\-\_\-del\_\-\_\-}}
+\index{__del__@{\_\-\_\-del\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-del\_\-\_\- ()}\label{classModuleManager_ModuleManagera1}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (dll)}\label{classModuleManager_ModuleManagera26}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (reason\_\-)}\label{classModuleManager_ModuleManagera9}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (reason\_\-)}\label{classModuleManager_ModuleManagera8}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (reason\_\-)}\label{classModuleManager_ModuleManagera7}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (name\_\-)}\label{classModuleManager_ModuleManagera6}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (name\_\-)}\label{classModuleManager_ModuleManagera5}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (name\_\-)}\label{classModuleManager_ModuleManagera4}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (name\_\-)}\label{classModuleManager_ModuleManagera3}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (reason\_\-)}\label{classModuleManager_ModuleManagera2}
+
+
+\index{ModuleManager@{Module\-Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::\_\-\_\-init\_\-\_\- (prop)}\label{classModuleManager_ModuleManagera0}
+
+
+\index{ModuleManager@{Module\-Manager}!addLoadpath@{addLoadpath}}
+\index{addLoadpath@{addLoadpath}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::add\-Loadpath (load\_\-path)}\label{classModuleManager_ModuleManagera16}
+
+
+ƒ‚ƒWƒ…[ƒ‹ƒ[ƒhƒpƒX‚ğ’Ç‰Á‚·‚é 
+
+\index{ModuleManager@{Module\-Manager}!allowAbsolutePath@{allowAbsolutePath}}
+\index{allowAbsolutePath@{allowAbsolutePath}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::allow\-Absolute\-Path ()}\label{classModuleManager_ModuleManagera19}
+
+
+ƒ‚ƒWƒ…[ƒ‹‚Ìâ‘ÎƒpƒXw’è‹–‚· 
+
+\index{ModuleManager@{Module\-Manager}!allowModuleDownload@{allowModuleDownload}}
+\index{allowModuleDownload@{allowModuleDownload}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::allow\-Module\-Download ()}\label{classModuleManager_ModuleManagera21}
+
+
+ƒ‚ƒWƒ…[ƒ‹‚Ìƒ_ƒEƒ“ƒ[ƒh‚ğ‹–‚· 
+
+\index{ModuleManager@{Module\-Manager}!disallowAbsolutePath@{disallowAbsolutePath}}
+\index{disallowAbsolutePath@{disallowAbsolutePath}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::disallow\-Absolute\-Path ()}\label{classModuleManager_ModuleManagera20}
+
+
+ƒ‚ƒWƒ…[ƒ‹‚Ìâ‘ÎƒpƒXw’è‹Ö~‚·‚é 
+
+\index{ModuleManager@{Module\-Manager}!disallowModuleDownload@{disallowModuleDownload}}
+\index{disallowModuleDownload@{disallowModuleDownload}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::disallow\-Module\-Download ()}\label{classModuleManager_ModuleManagera22}
+
+
+ƒ‚ƒWƒ…[ƒ‹‚Ìƒ_ƒEƒ“ƒ[ƒh‚ğ‹Ö~‚·‚é 
+
+\index{ModuleManager@{Module\-Manager}!fileExist@{fileExist}}
+\index{fileExist@{fileExist}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::file\-Exist (filename)}\label{classModuleManager_ModuleManagera24}
+
+
+ƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚é‚©‚Ç‚¤‚©‚Ìƒ`ƒFƒbƒN 
+
+\index{ModuleManager@{Module\-Manager}!findFile@{findFile}}
+\index{findFile@{findFile}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::find\-File (fname, load\_\-path)}\label{classModuleManager_ModuleManagera23}
+
+
+Load\-Path ‚©‚ç‚Ìƒtƒ@ƒCƒ‹‚ÌŒŸõ. 
+
+\index{ModuleManager@{Module\-Manager}!getInitFuncName@{getInitFuncName}}
+\index{getInitFuncName@{getInitFuncName}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::get\-Init\-Func\-Name (file\_\-path)}\label{classModuleManager_ModuleManagera25}
+
+
+‰Šú‰»ŠÖ”ƒVƒ“ƒ\{ƒ‹‚ğ¶¬‚·‚é 
+
+\index{ModuleManager@{Module\-Manager}!getLoadableModules@{getLoadableModules}}
+\index{getLoadableModules@{getLoadableModules}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::get\-Loadable\-Modules ()}\label{classModuleManager_ModuleManagera18}
+
+
+ƒ[ƒh‰Â”$\backslash$‚Èƒ‚ƒWƒ…[ƒ‹ƒŠƒXƒg‚ğæ“¾‚·‚é 
+
+\index{ModuleManager@{Module\-Manager}!getLoadedModules@{getLoadedModules}}
+\index{getLoadedModules@{getLoadedModules}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::get\-Loaded\-Modules ()}\label{classModuleManager_ModuleManagera17}
+
+
+ƒ[ƒhÏ‚İ‚Ìƒ‚ƒWƒ…[ƒ‹ƒŠƒXƒg‚ğæ“¾‚·‚é 
+
+\index{ModuleManager@{Module\-Manager}!getLoadPath@{getLoadPath}}
+\index{getLoadPath@{getLoadPath}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::get\-Load\-Path ()}\label{classModuleManager_ModuleManagera15}
+
+
+\index{ModuleManager@{Module\-Manager}!load@{load}}
+\index{load@{load}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::load (file\_\-name, init\_\-func = {\tt None})}\label{classModuleManager_ModuleManagera10}
+
+
+ƒ‚ƒWƒ…[ƒ‹‚Ìƒ[ƒh 
+
+file\_\-name ‚ğDLL ‚à‚µ‚­‚Í‹¤—Lƒ‰ƒCƒuƒ‰ƒŠ‚Æ‚µ‚Äƒ[ƒh‚·‚éB file\_\-name ‚ÍŠù’è‚Ìƒ[ƒhƒpƒX (manager.modules.load\_\-path) ‚É‘Î‚·‚é ‘Š‘ÎƒpƒX‚Åw’è‚·‚éB
+
+Property manager.modules.abs\_\-path\_\-allowed ‚ª yes ‚Ìê‡A ƒ[ƒh‚·‚éƒ‚ƒWƒ…[ƒ‹‚ğâ‘ÎƒpƒX‚Åw’è‚·‚é‚±‚Æ‚ª‚Å‚«‚éB Property manager.modules.download\_\-allowed ‚ª yes ‚Ìê‡A ƒ[ƒh‚·‚éƒ‚ƒWƒ…[ƒ‹‚ğURL‚Åw’è‚·‚é‚±‚Æ‚ª‚Å‚«‚éB
+
+file\_\-name ‚Íâ‘ÎƒpƒX‚Åw’è‚·‚é‚±‚Æ‚ª‚Å‚«‚éB manager.modules.allow\-Absolute\-Path ‚ª no ‚Ìê‡A Šù’è‚Ìƒ‚ƒWƒ…[ƒ‹ƒ[ƒhƒpƒX‚©‚çAfile\_\-name ‚Ìƒ‚ƒWƒ…[ƒ‹‚ğ’T‚µƒ[ƒh‚·‚éB\index{ModuleManager@{Module\-Manager}!setLoadpath@{setLoadpath}}
+\index{setLoadpath@{setLoadpath}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::set\-Loadpath (load\_\-path\_\-list)}\label{classModuleManager_ModuleManagera14}
+
+
+ƒ‚ƒWƒ…[ƒ‹ƒ[ƒhƒpƒX‚ğw’è‚·‚é 
+
+\index{ModuleManager@{Module\-Manager}!symbol@{symbol}}
+\index{symbol@{symbol}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::symbol (file\_\-name, func\_\-name)}\label{classModuleManager_ModuleManagera13}
+
+
+ƒ‚ƒWƒ…[ƒ‹‚ÌƒVƒ“ƒ\{ƒ‹‚ÌQÆ 
+
+\index{ModuleManager@{Module\-Manager}!unload@{unload}}
+\index{unload@{unload}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::unload (file\_\-name)}\label{classModuleManager_ModuleManagera11}
+
+
+ƒ‚ƒWƒ…[ƒ‹‚ÌƒAƒ“ƒ[ƒh 
+
+\index{ModuleManager@{Module\-Manager}!unloadAll@{unloadAll}}
+\index{unloadAll@{unloadAll}!ModuleManager@{Module\-Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Module\-Manager::unload\-All ()}\label{classModuleManager_ModuleManagera12}
+
+
+‘Sƒ‚ƒWƒ…[ƒ‹‚ÌƒAƒ“ƒ[ƒh 
+
+
+
+‚±‚ÌƒNƒ‰ƒX‚Ìà–¾‚ÍŸ‚Ìƒtƒ@ƒCƒ‹‚©‚ç¶¬‚³‚ê‚Ü‚µ‚½:\begin{CompactItemize}
+\item 
+{\bf Module\-Manager.py}\end{CompactItemize}

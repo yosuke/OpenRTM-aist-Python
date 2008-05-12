@@ -1,0 +1,85 @@
+\section{RTC::Port Interface Reference}
+\label{interfaceRTC_1_1Port}\index{RTC::Port@{RTC::Port}}
+Introspection::Port interface.  
+
+
+{\tt import \char`\"{}RTC.idl\char`\"{};}
+
+Inheritance diagram for RTC::Port::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{interfaceRTC_1_1Port}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Port\-Profile} {\bf get\_\-port\_\-profile} ()
+\item 
+{\bf Connector\-Profile\-List} {\bf get\_\-connector\_\-profiles} ()
+\item 
+{\bf Connector\-Profile} {\bf get\_\-connector\_\-profile} (in {\bf Unique\-Identifier} connector\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf connect} (inout {\bf Connector\-Profile} connector\_\-profile)
+\item 
+{\bf Return\-Code\_\-t} {\bf notify\_\-connect} (inout {\bf Connector\-Profile} connector\_\-profile)
+\item 
+{\bf Return\-Code\_\-t} {\bf disconnect} (in {\bf Unique\-Identifier} connector\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf notify\_\-disconnect} (in {\bf Unique\-Identifier} connector\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf disconnect\_\-all} ()
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Introspection::Port interface. 
+
+
+
+\subsection{Member Function Documentation}
+\index{RTC::Port@{RTC::Port}!connect@{connect}}
+\index{connect@{connect}!RTC::Port@{RTC::Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Port::connect (inout {\bf Connector\-Profile} {\em connector\_\-profile})}\label{interfaceRTC_1_1Port_RTC_1_1Porta3}
+
+
+\index{RTC::Port@{RTC::Port}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!RTC::Port@{RTC::Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Port::disconnect (in {\bf Unique\-Identifier} {\em connector\_\-id})}\label{interfaceRTC_1_1Port_RTC_1_1Porta5}
+
+
+\index{RTC::Port@{RTC::Port}!disconnect_all@{disconnect\_\-all}}
+\index{disconnect_all@{disconnect\_\-all}!RTC::Port@{RTC::Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Port::disconnect\_\-all ()}\label{interfaceRTC_1_1Port_RTC_1_1Porta7}
+
+
+\index{RTC::Port@{RTC::Port}!get_connector_profile@{get\_\-connector\_\-profile}}
+\index{get_connector_profile@{get\_\-connector\_\-profile}!RTC::Port@{RTC::Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Connector\-Profile} RTC::Port::get\_\-connector\_\-profile (in {\bf Unique\-Identifier} {\em connector\_\-id})}\label{interfaceRTC_1_1Port_RTC_1_1Porta2}
+
+
+\index{RTC::Port@{RTC::Port}!get_connector_profiles@{get\_\-connector\_\-profiles}}
+\index{get_connector_profiles@{get\_\-connector\_\-profiles}!RTC::Port@{RTC::Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Connector\-Profile\-List} RTC::Port::get\_\-connector\_\-profiles ()}\label{interfaceRTC_1_1Port_RTC_1_1Porta1}
+
+
+\index{RTC::Port@{RTC::Port}!get_port_profile@{get\_\-port\_\-profile}}
+\index{get_port_profile@{get\_\-port\_\-profile}!RTC::Port@{RTC::Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Port\-Profile} RTC::Port::get\_\-port\_\-profile ()}\label{interfaceRTC_1_1Port_RTC_1_1Porta0}
+
+
+\index{RTC::Port@{RTC::Port}!notify_connect@{notify\_\-connect}}
+\index{notify_connect@{notify\_\-connect}!RTC::Port@{RTC::Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Port::notify\_\-connect (inout {\bf Connector\-Profile} {\em connector\_\-profile})}\label{interfaceRTC_1_1Port_RTC_1_1Porta4}
+
+
+\index{RTC::Port@{RTC::Port}!notify_disconnect@{notify\_\-disconnect}}
+\index{notify_disconnect@{notify\_\-disconnect}!RTC::Port@{RTC::Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Port::notify\_\-disconnect (in {\bf Unique\-Identifier} {\em connector\_\-id})}\label{interfaceRTC_1_1Port_RTC_1_1Porta6}
+
+
+
+
+The documentation for this interface was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf RTC.idl}\end{CompactItemize}

@@ -1,0 +1,441 @@
+\section{Manager Class Reference}
+\label{classManager}\index{Manager@{Manager}}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (\_\-manager=None)
+\begin{CompactList}\small\item\em Protected Copy Constructor. \item\end{CompactList}\item 
+{\bf terminate} ()
+\item 
+{\bf shutdown} ()
+\item 
+{\bf join} ()
+\item 
+{\bf set\-Module\-Init\-Proc} (proc)
+\begin{CompactList}\small\item\em Run the Manager. \item\end{CompactList}\item 
+{\bf activate\-Manager} ()
+\begin{CompactList}\small\item\em Activate Manager. \item\end{CompactList}\item 
+{\bf run\-Manager} (no\_\-block=None)
+\begin{CompactList}\small\item\em Run the Manager. \item\end{CompactList}\item 
+{\bf load} (fname, initfunc)
+\begin{CompactList}\small\item\em [CORBA interface] Load module \item\end{CompactList}\item 
+{\bf unload} (fname)
+\begin{CompactList}\small\item\em Unload module. \item\end{CompactList}\item 
+{\bf unload\-All} ()
+\begin{CompactList}\small\item\em Unload module. \item\end{CompactList}\item 
+{\bf get\-Loaded\-Modules} ()
+\begin{CompactList}\small\item\em Get loaded module names. \item\end{CompactList}\item 
+{\bf get\-Loadable\-Modules} ()
+\begin{CompactList}\small\item\em Get loadable module names. \item\end{CompactList}\item 
+{\bf register\-Factory} (profile, new\_\-func, delete\_\-func)
+\begin{CompactList}\small\item\em Register RT-Component {\bf Factory}{\rm (p.\,\pageref{namespaceFactory})}. \item\end{CompactList}\item 
+{\bf register\-ECFactory} (name, new\_\-func, delete\_\-func)
+\item 
+{\bf get\-Modules\-Factories} ()
+\begin{CompactList}\small\item\em Get the list of all RT-Component {\bf Factory}{\rm (p.\,\pageref{namespaceFactory})}. \item\end{CompactList}\item 
+{\bf create\-Component} (module\_\-name)
+\begin{CompactList}\small\item\em Create RT-Component. \item\end{CompactList}\item 
+{\bf register\-Component} (comp)
+\begin{CompactList}\small\item\em Register RT-Component directly without {\bf Factory}{\rm (p.\,\pageref{namespaceFactory})}. \item\end{CompactList}\item 
+{\bf unregister\-Component} (comp)
+\item 
+{\bf bind\-Execution\-Context} (comp)
+\item 
+{\bf delete\-Component} (instance\_\-name)
+\begin{CompactList}\small\item\em Unregister RT-Component that is registered in the Manager. \item\end{CompactList}\item 
+{\bf get\-Component} (instance\_\-name)
+\begin{CompactList}\small\item\em Get RT-Component's pointer. \item\end{CompactList}\item 
+{\bf get\-Components} ()
+\begin{CompactList}\small\item\em Get all RT-Component's pointer. \item\end{CompactList}\item 
+{\bf get\-ORB} ()
+\begin{CompactList}\small\item\em Get the pointer to the ORB. \item\end{CompactList}\item 
+{\bf get\-POA} ()
+\begin{CompactList}\small\item\em Get the pointer to the Root\-POA. \item\end{CompactList}\item 
+{\bf get\-POAManager} ()
+\item 
+{\bf init\-Manager} (argc, argv)
+\begin{CompactList}\small\item\em Manager internal initialization. \item\end{CompactList}\item 
+{\bf shutdown\-Manager} ()
+\begin{CompactList}\small\item\em Manager internal finalization. \item\end{CompactList}\item 
+{\bf init\-Logger} ()
+\begin{CompactList}\small\item\em System logger initialization. \item\end{CompactList}\item 
+{\bf shutdown\-Logger} ()
+\begin{CompactList}\small\item\em System Logger finalization. \item\end{CompactList}\item 
+{\bf init\-ORB} ()
+\begin{CompactList}\small\item\em CORBA ORB initialization. \item\end{CompactList}\item 
+{\bf create\-ORBOptions} ()
+\begin{CompactList}\small\item\em ORB command option creation. \item\end{CompactList}\item 
+{\bf shutdown\-ORB} ()
+\begin{CompactList}\small\item\em ORB finalization. \item\end{CompactList}\item 
+{\bf init\-Naming} ()
+\begin{CompactList}\small\item\em {\bf Naming\-Manager}{\rm (p.\,\pageref{classNamingManager})} initialization. \item\end{CompactList}\item 
+{\bf shutdown\-Naming} ()
+\item 
+{\bf init\-Exec\-Context} ()
+\item 
+{\bf init\-Timer} ()
+\item 
+{\bf shutdown\-Components} ()
+\item 
+{\bf cleanup\-Component} (comp)
+\item 
+{\bf configure\-Component} (comp)
+\item 
+{\bf merge\-Property} (prop, file\_\-name)
+\item 
+{\bf format\-String} (naming\_\-format, prop)
+\item 
+{\bf get\-Logbuf} ()
+\item 
+{\bf get\-Config} ()
+\end{CompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{CompactItemize}
+\item 
+static {\bf init} (argc, argv)
+\begin{CompactList}\small\item\em Initializa manager. \item\end{CompactList}\item 
+static {\bf instance} ()
+\begin{CompactList}\small\item\em Get instance of the manager. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Classes}
+\begin{CompactItemize}
+\item 
+class {\bf Instance\-Name}
+\item 
+class {\bf Instance\-Name}
+\item 
+class {\bf Instance\-Name}
+\item 
+class {\bf Instance\-Name}
+\item 
+class {\bf Orb\-Runner}
+\item 
+class {\bf Term}
+\item 
+class {\bf Terminator}
+\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Manager@{Manager}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::\_\-\_\-init\_\-\_\- (\_\-manager = {\tt None})}\label{classManager_Managera0}
+
+
+Protected Copy Constructor. 
+
+\index{Manager@{Manager}!activateManager@{activateManager}}
+\index{activateManager@{activateManager}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::activate\-Manager ()}\label{classManager_Managera5}
+
+
+Activate Manager. 
+
+This operation do the following,\begin{itemize}
+\item Activate CORBA POAManager\item Activate Manager CORBA object\item Bind object reference of the Manager to the nameserver\end{itemize}
+
+
+This operationo should be invoked after Manager:{\bf init()}{\rm (p.\,\pageref{classManager_Managere0})}, and before tun\-Manager().\index{Manager@{Manager}!bindExecutionContext@{bindExecutionContext}}
+\index{bindExecutionContext@{bindExecutionContext}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::bind\-Execution\-Context (comp)}\label{classManager_Managera18}
+
+
+\index{Manager@{Manager}!cleanupComponent@{cleanupComponent}}
+\index{cleanupComponent@{cleanupComponent}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::cleanup\-Component (comp)}\label{classManager_Managera37}
+
+
+\index{Manager@{Manager}!configureComponent@{configureComponent}}
+\index{configureComponent@{configureComponent}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::configure\-Component (comp)}\label{classManager_Managera38}
+
+
+\index{Manager@{Manager}!createComponent@{createComponent}}
+\index{createComponent@{createComponent}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::create\-Component (module\_\-name)}\label{classManager_Managera15}
+
+
+Create RT-Component. 
+
+\index{Manager@{Manager}!createORBOptions@{createORBOptions}}
+\index{createORBOptions@{createORBOptions}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::create\-ORBOptions ()}\label{classManager_Managera30}
+
+
+ORB command option creation. 
+
+\index{Manager@{Manager}!deleteComponent@{deleteComponent}}
+\index{deleteComponent@{deleteComponent}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::delete\-Component (instance\_\-name)}\label{classManager_Managera19}
+
+
+Unregister RT-Component that is registered in the Manager. 
+
+\index{Manager@{Manager}!formatString@{formatString}}
+\index{formatString@{formatString}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::format\-String (naming\_\-format, prop)}\label{classManager_Managera40}
+
+
+\index{Manager@{Manager}!getComponent@{getComponent}}
+\index{getComponent@{getComponent}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-Component (instance\_\-name)}\label{classManager_Managera20}
+
+
+Get RT-Component's pointer. 
+
+\index{Manager@{Manager}!getComponents@{getComponents}}
+\index{getComponents@{getComponents}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-Components ()}\label{classManager_Managera21}
+
+
+Get all RT-Component's pointer. 
+
+\index{Manager@{Manager}!getConfig@{getConfig}}
+\index{getConfig@{getConfig}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-Config ()}\label{classManager_Managera42}
+
+
+\index{Manager@{Manager}!getLoadableModules@{getLoadableModules}}
+\index{getLoadableModules@{getLoadableModules}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-Loadable\-Modules ()}\label{classManager_Managera11}
+
+
+Get loadable module names. 
+
+\index{Manager@{Manager}!getLoadedModules@{getLoadedModules}}
+\index{getLoadedModules@{getLoadedModules}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-Loaded\-Modules ()}\label{classManager_Managera10}
+
+
+Get loaded module names. 
+
+\index{Manager@{Manager}!getLogbuf@{getLogbuf}}
+\index{getLogbuf@{getLogbuf}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-Logbuf ()}\label{classManager_Managera41}
+
+
+\index{Manager@{Manager}!getModulesFactories@{getModulesFactories}}
+\index{getModulesFactories@{getModulesFactories}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-Modules\-Factories ()}\label{classManager_Managera14}
+
+
+Get the list of all RT-Component {\bf Factory}{\rm (p.\,\pageref{namespaceFactory})}. 
+
+\index{Manager@{Manager}!getORB@{getORB}}
+\index{getORB@{getORB}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-ORB ()}\label{classManager_Managera22}
+
+
+Get the pointer to the ORB. 
+
+\index{Manager@{Manager}!getPOA@{getPOA}}
+\index{getPOA@{getPOA}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-POA ()}\label{classManager_Managera23}
+
+
+Get the pointer to the Root\-POA. 
+
+\index{Manager@{Manager}!getPOAManager@{getPOAManager}}
+\index{getPOAManager@{getPOAManager}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::get\-POAManager ()}\label{classManager_Managera24}
+
+
+\index{Manager@{Manager}!init@{init}}
+\index{init@{init}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static Manager::init (argc, argv)\hspace{0.3cm}{\tt  [static]}}\label{classManager_Managere0}
+
+
+Initializa manager. 
+
+This is the static member function to tintialize the Manager. The Manager is initialized by given arguments. At the starting the manager, this static member function \char`\"{}must\char`\"{} be called from application program. The manager has two static functions to get the instance, \char`\"{}init()\char`\"{} and \char`\"{}instance()\char`\"{}. Since initializing process is only performed by the \char`\"{}init()\char`\"{} function, the \char`\"{}init()\char`\"{} has to be called at the beginning of the lifecycle of the Manager. function.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em argc}]The number of command line argument. \item[{\em argv}]The array of the command line arguments.\end{description}
+\end{Desc}
+\index{Manager@{Manager}!initExecContext@{initExecContext}}
+\index{initExecContext@{initExecContext}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::init\-Exec\-Context ()}\label{classManager_Managera34}
+
+
+\index{Manager@{Manager}!initLogger@{initLogger}}
+\index{initLogger@{initLogger}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::init\-Logger ()}\label{classManager_Managera27}
+
+
+System logger initialization. 
+
+\index{Manager@{Manager}!initManager@{initManager}}
+\index{initManager@{initManager}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::init\-Manager (argc, argv)}\label{classManager_Managera25}
+
+
+Manager internal initialization. 
+
+\index{Manager@{Manager}!initNaming@{initNaming}}
+\index{initNaming@{initNaming}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::init\-Naming ()}\label{classManager_Managera32}
+
+
+{\bf Naming\-Manager}{\rm (p.\,\pageref{classNamingManager})} initialization. 
+
+\index{Manager@{Manager}!initORB@{initORB}}
+\index{initORB@{initORB}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::init\-ORB ()}\label{classManager_Managera29}
+
+
+CORBA ORB initialization. 
+
+\index{Manager@{Manager}!initTimer@{initTimer}}
+\index{initTimer@{initTimer}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::init\-Timer ()}\label{classManager_Managera35}
+
+
+\index{Manager@{Manager}!instance@{instance}}
+\index{instance@{instance}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static Manager::instance ()\hspace{0.3cm}{\tt  [static]}}\label{classManager_Managere1}
+
+
+Get instance of the manager. 
+
+This is the static member function to get the instance of the Manager. Before calling this function, ensure that the initialization function \char`\"{}init()\char`\"{} is called.
+
+\begin{Desc}
+\item[Returns:]The only instance reference of the manager\end{Desc}
+\index{Manager@{Manager}!join@{join}}
+\index{join@{join}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::join ()}\label{classManager_Managera3}
+
+
+\index{Manager@{Manager}!load@{load}}
+\index{load@{load}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::load (fname, initfunc)}\label{classManager_Managera7}
+
+
+[CORBA interface] Load module 
+
+Load module (shared library, DLL etc..) by file name, and invoke initialize function.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]The module file name \item[{\em initfunc}]The initialize function name\end{description}
+\end{Desc}
+\index{Manager@{Manager}!mergeProperty@{mergeProperty}}
+\index{mergeProperty@{mergeProperty}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::merge\-Property (prop, file\_\-name)}\label{classManager_Managera39}
+
+
+\index{Manager@{Manager}!registerComponent@{registerComponent}}
+\index{registerComponent@{registerComponent}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::register\-Component (comp)}\label{classManager_Managera16}
+
+
+Register RT-Component directly without {\bf Factory}{\rm (p.\,\pageref{namespaceFactory})}. 
+
+\index{Manager@{Manager}!registerECFactory@{registerECFactory}}
+\index{registerECFactory@{registerECFactory}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::register\-ECFactory (name, new\_\-func, delete\_\-func)}\label{classManager_Managera13}
+
+
+\index{Manager@{Manager}!registerFactory@{registerFactory}}
+\index{registerFactory@{registerFactory}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::register\-Factory (profile, new\_\-func, delete\_\-func)}\label{classManager_Managera12}
+
+
+Register RT-Component {\bf Factory}{\rm (p.\,\pageref{namespaceFactory})}. 
+
+\index{Manager@{Manager}!runManager@{runManager}}
+\index{runManager@{runManager}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::run\-Manager (no\_\-block = {\tt None})}\label{classManager_Managera6}
+
+
+Run the Manager. 
+
+This operation processes the main event loop of the Manager. In this main loop, CORBA's ORB event loop or other processes are performed. As the default behavior, this operation is going to blocking mode and never returns until manager::destroy() is called. When the given argument \char`\"{}no\_\-block\char`\"{} is set to \char`\"{}true\char`\"{}, this operation creates a thread to process the event loop internally, and it doesn't block and returns. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em no\_\-block}]false: Blocking mode, true: non-blocking mode.\end{description}
+\end{Desc}
+\index{Manager@{Manager}!setModuleInitProc@{setModuleInitProc}}
+\index{setModuleInitProc@{setModuleInitProc}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::set\-Module\-Init\-Proc (proc)}\label{classManager_Managera4}
+
+
+Run the Manager. 
+
+This operation sets the initial procedure call to process module initialization, other user defined initialization and so on. The given procedure will be called at the proper timing after the manager initialization, activation and run. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em proc}]A function pointer to the initial procedure call\end{description}
+\end{Desc}
+\index{Manager@{Manager}!shutdown@{shutdown}}
+\index{shutdown@{shutdown}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::shutdown ()}\label{classManager_Managera2}
+
+
+\index{Manager@{Manager}!shutdownComponents@{shutdownComponents}}
+\index{shutdownComponents@{shutdownComponents}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::shutdown\-Components ()}\label{classManager_Managera36}
+
+
+\index{Manager@{Manager}!shutdownLogger@{shutdownLogger}}
+\index{shutdownLogger@{shutdownLogger}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::shutdown\-Logger ()}\label{classManager_Managera28}
+
+
+System Logger finalization. 
+
+\index{Manager@{Manager}!shutdownManager@{shutdownManager}}
+\index{shutdownManager@{shutdownManager}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::shutdown\-Manager ()}\label{classManager_Managera26}
+
+
+Manager internal finalization. 
+
+\index{Manager@{Manager}!shutdownNaming@{shutdownNaming}}
+\index{shutdownNaming@{shutdownNaming}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::shutdown\-Naming ()}\label{classManager_Managera33}
+
+
+\index{Manager@{Manager}!shutdownORB@{shutdownORB}}
+\index{shutdownORB@{shutdownORB}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::shutdown\-ORB ()}\label{classManager_Managera31}
+
+
+ORB finalization. 
+
+\index{Manager@{Manager}!terminate@{terminate}}
+\index{terminate@{terminate}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::terminate ()}\label{classManager_Managera1}
+
+
+\index{Manager@{Manager}!unload@{unload}}
+\index{unload@{unload}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::unload (fname)}\label{classManager_Managera8}
+
+
+Unload module. 
+
+Unload shared library. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em pathname}]Module file name\end{description}
+\end{Desc}
+\index{Manager@{Manager}!unloadAll@{unloadAll}}
+\index{unloadAll@{unloadAll}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::unload\-All ()}\label{classManager_Managera9}
+
+
+Unload module. 
+
+Unload all loaded shared library.\index{Manager@{Manager}!unregisterComponent@{unregisterComponent}}
+\index{unregisterComponent@{unregisterComponent}!Manager@{Manager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Manager::unregister\-Component (comp)}\label{classManager_Managera17}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf Manager.py}\end{CompactItemize}

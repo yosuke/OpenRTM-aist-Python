@@ -1,0 +1,127 @@
+\section{インタフェース SDOPackage::Configuration}
+\label{interfaceSDOPackage_1_1Configuration}\index{SDOPackage::Configuration@{SDOPackage::Configuration}}
+{\tt import \char`\"{}SDOPackage.idl\char`\"{};}
+
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+boolean {\bf set\_\-device\_\-profile} (in {\bf Device\-Profile} d\-Profile)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+boolean {\bf set\_\-service\_\-profile} (in {\bf Service\-Profile} s\-Profile)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+boolean {\bf add\_\-organization} (in {\bf Organization} org)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+boolean {\bf remove\_\-service\_\-profile} (in {\bf Unique\-Identifier} id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+boolean {\bf remove\_\-organization} (in {\bf Unique\-Identifier} organization\_\-id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+{\bf Parameter\-List} {\bf get\_\-configuration\_\-parameters} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf NVList} {\bf get\_\-configuration\_\-parameter\_\-values} ()  raises (Not\-Available, Internal\-Error)
+\item 
+any {\bf get\_\-configuration\_\-parameter\_\-value} (in string name)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+boolean {\bf set\_\-configuration\_\-parameter} (in string name, in any value)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+{\bf Configuration\-Set\-List} {\bf get\_\-configuration\_\-sets} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf Configuration\-Set} {\bf get\_\-configuration\_\-set} (in {\bf Unique\-Identifier} config\_\-id)  raises (Not\-Available, Internal\-Error)
+\item 
+boolean {\bf set\_\-configuration\_\-set\_\-values} (in {\bf Unique\-Identifier} config\_\-id, in {\bf Configuration\-Set} configuration\_\-set)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+{\bf Configuration\-Set} {\bf get\_\-active\_\-configuration\_\-set} ()  raises (Not\-Available, Internal\-Error)
+\item 
+boolean {\bf add\_\-configuration\_\-set} (in {\bf Configuration\-Set} configuration\_\-set)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+boolean {\bf remove\_\-configuration\_\-set} (in {\bf Unique\-Identifier} config\_\-id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+boolean {\bf activate\_\-configuration\_\-set} (in {\bf Unique\-Identifier} config\_\-id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\end{CompactItemize}
+
+
+\subsection{関数}
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!activate_configuration_set@{activate\_\-configuration\_\-set}}
+\index{activate_configuration_set@{activate\_\-configuration\_\-set}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::activate\_\-configuration\_\-set (in {\bf Unique\-Identifier} {\em config\_\-id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa15}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!add_configuration_set@{add\_\-configuration\_\-set}}
+\index{add_configuration_set@{add\_\-configuration\_\-set}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::add\_\-configuration\_\-set (in {\bf Configuration\-Set} {\em configuration\_\-set})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa13}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!add_organization@{add\_\-organization}}
+\index{add_organization@{add\_\-organization}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::add\_\-organization (in {\bf Organization} {\em org})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa2}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!get_active_configuration_set@{get\_\-active\_\-configuration\_\-set}}
+\index{get_active_configuration_set@{get\_\-active\_\-configuration\_\-set}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Configuration\-Set} SDOPackage::Configuration::get\_\-active\_\-configuration\_\-set ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa12}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!get_configuration_parameter_value@{get\_\-configuration\_\-parameter\_\-value}}
+\index{get_configuration_parameter_value@{get\_\-configuration\_\-parameter\_\-value}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}any SDOPackage::Configuration::get\_\-configuration\_\-parameter\_\-value (in string {\em name})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa7}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!get_configuration_parameter_values@{get\_\-configuration\_\-parameter\_\-values}}
+\index{get_configuration_parameter_values@{get\_\-configuration\_\-parameter\_\-values}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf NVList} SDOPackage::Configuration::get\_\-configuration\_\-parameter\_\-values ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa6}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!get_configuration_parameters@{get\_\-configuration\_\-parameters}}
+\index{get_configuration_parameters@{get\_\-configuration\_\-parameters}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Parameter\-List} SDOPackage::Configuration::get\_\-configuration\_\-parameters ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa5}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!get_configuration_set@{get\_\-configuration\_\-set}}
+\index{get_configuration_set@{get\_\-configuration\_\-set}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Configuration\-Set} SDOPackage::Configuration::get\_\-configuration\_\-set (in {\bf Unique\-Identifier} {\em config\_\-id})  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa10}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!get_configuration_sets@{get\_\-configuration\_\-sets}}
+\index{get_configuration_sets@{get\_\-configuration\_\-sets}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Configuration\-Set\-List} SDOPackage::Configuration::get\_\-configuration\_\-sets ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa9}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!remove_configuration_set@{remove\_\-configuration\_\-set}}
+\index{remove_configuration_set@{remove\_\-configuration\_\-set}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::remove\_\-configuration\_\-set (in {\bf Unique\-Identifier} {\em config\_\-id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa14}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!remove_organization@{remove\_\-organization}}
+\index{remove_organization@{remove\_\-organization}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::remove\_\-organization (in {\bf Unique\-Identifier} {\em organization\_\-id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa4}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!remove_service_profile@{remove\_\-service\_\-profile}}
+\index{remove_service_profile@{remove\_\-service\_\-profile}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::remove\_\-service\_\-profile (in {\bf Unique\-Identifier} {\em id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa3}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!set_configuration_parameter@{set\_\-configuration\_\-parameter}}
+\index{set_configuration_parameter@{set\_\-configuration\_\-parameter}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::set\_\-configuration\_\-parameter (in string {\em name}, in any {\em value})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa8}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!set_configuration_set_values@{set\_\-configuration\_\-set\_\-values}}
+\index{set_configuration_set_values@{set\_\-configuration\_\-set\_\-values}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::set\_\-configuration\_\-set\_\-values (in {\bf Unique\-Identifier} {\em config\_\-id}, in {\bf Configuration\-Set} {\em configuration\_\-set})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa11}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!set_device_profile@{set\_\-device\_\-profile}}
+\index{set_device_profile@{set\_\-device\_\-profile}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::set\_\-device\_\-profile (in {\bf Device\-Profile} {\em d\-Profile})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa0}
+
+
+\index{SDOPackage::Configuration@{SDOPackage::Configuration}!set_service_profile@{set\_\-service\_\-profile}}
+\index{set_service_profile@{set\_\-service\_\-profile}!SDOPackage::Configuration@{SDOPackage::Configuration}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean SDOPackage::Configuration::set\_\-service\_\-profile (in {\bf Service\-Profile} {\em s\-Profile})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1Configuration_SDOPackage_1_1Configurationa1}
+
+
+
+
+このインタフェースの説明は次のファイルから生成されました:\begin{CompactItemize}
+\item 
+{\bf SDOPackage.idl}\end{CompactItemize}

@@ -1,0 +1,468 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=Shift_JIS">
+<title>OpenRTM: CORBA_SeqUtil.py</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.4.3 -->
+<div class="qindex"><a class="qindex" href="index.html">メインページ</a> | <a class="qindex" href="namespaces.html">ネームスペース一覧</a> | <a class="qindex" href="hierarchy.html">クラス階層</a> | <a class="qindex" href="annotated.html">構成</a> | <a class="qindex" href="files.html">ファイル一覧</a> | <a class="qindex" href="functions.html">構成メンバ</a> | <a class="qindex" href="globals.html">ファイルメンバ</a></div>
+<h1>CORBA_SeqUtil.py</h1>CORBA sequence utility template functions. <a href="#_details">[詳細]</a>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>関数</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a0">for_each</a> (seq, f)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">CORBA sequence ヘルパーテンプレート関数CORBA sequence に対して functor を適用する.  <a href="#a0"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a1">find</a> (seq, f)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">CORBA sequence の中から functor に適合する要素のインデックスを返す.  <a href="#a1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a2">push_back</a> (seq, elem)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">CORBA sequence の最後に要素を追加する.  <a href="#a2"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a3">push_back_list</a> (seq1, seq2)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a4">insert</a> (seq, elem, index)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">CORBA sequence に要素を挿入する.  <a href="#a4"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a5">front</a> (seq)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">CORBA sequence の先頭要素を取得する.  <a href="#a5"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a6">back</a> (seq)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">CORBA sequence の末尾要素を取得する.  <a href="#a6"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a7">erase</a> (seq, index)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">CORBA sequence の指定された位置の要素を削除する.  <a href="#a7"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a8">erase_if</a> (seq, f)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="CORBA__SeqUtil_8py.html#a9">clear</a> (seq)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">CORBA sequence の全要素を削除.  <a href="#a9"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>説明</h2>
+CORBA sequence utility template functions. 
+<p>
+<dl compact><dt><b>日付:</b></dt><dd><dl compact><dt><b>Date</b></dt><dd>2007/09/03</dd></dl>
+</dd></dl>
+<dl compact><dt><b>作者:</b></dt><dd>Noriaki Ando &lt;<a href="mailto:n-ando@aist.go.jp">n-ando@aist.go.jp</a>&gt; and Shinji Kurihara</dd></dl>
+Copyright (C) 2007 Task-intelligence Research Group, Intelligent Systems Research Institute, National Institute of Advanced Industrial Science and Technology (AIST), Japan All rights reserved.<hr><h2>関数</h2>
+<a class="anchor" name="a6"></a><!-- doxytag: member=<CORBA_SeqUtil.py::back> ref=<a6> args=<(seq)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">back           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+CORBA sequence の末尾要素を取得する. 
+<p>
+seq[seq.length() - 1] と同じ。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>seq</em>&nbsp;</td><td>要素を取得する CORBA sequence</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a9"></a><!-- doxytag: member=<CORBA_SeqUtil.py::clear> ref=<a9> args=<(seq)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">clear           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+CORBA sequence の全要素を削除. 
+<p>
+seq.length(0) と同じ。    </td>
+  </tr>
+</table>
+<a class="anchor" name="a7"></a><!-- doxytag: member=<CORBA_SeqUtil.py::erase> ref=<a7> args=<(seq, index)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">erase           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>index&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+CORBA sequence の指定された位置の要素を削除する. 
+<p>
+指定されたインデックスの要素を削除する。 削除された要素は詰められ、sequence の長さは1減る。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>seq</em>&nbsp;</td><td>要素を削除する CORBA sequence </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>削除する要素のインデックス</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a8"></a><!-- doxytag: member=<CORBA_SeqUtil.py::erase_if> ref=<a8> args=<(seq, f)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">erase_if           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>f&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a1"></a><!-- doxytag: member=<CORBA_SeqUtil.py::find> ref=<a1> args=<(seq, f)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">find           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>f&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+CORBA sequence の中から functor に適合する要素のインデックスを返す. 
+<p>
+CORBA sequence 全ての要素に対して、与えられた functor を適用し、 functor が true を返すようそのインデックスを返す。 functor は bool functor(const CORBA sequence の要素) の形式をとり、 適合する要素に対して true を返す必要がある。<p>
+<dl compact><dt><b>戻り値:</b></dt><dd>Functor に適合する要素のインデックス。 見つからないときは -1 を返す。 </dd></dl>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>seq</em>&nbsp;</td><td>Functor を適用する CORBA sequence </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>functor</em>&nbsp;</td><td>CORBA sequence から要素を見つける Functor</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a0"></a><!-- doxytag: member=<CORBA_SeqUtil.py::for_each> ref=<a0> args=<(seq, f)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">for_each           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>f&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+CORBA sequence ヘルパーテンプレート関数CORBA sequence に対して functor を適用する. 
+<p>
+CORBA sequence 全ての要素に対して、与えられた functor を適用する。 functor は void functor(CORBA sequence の要素) の形式をとる必要がある。<p>
+<dl compact><dt><b>戻り値:</b></dt><dd>全ての要素を処理した Functor </dd></dl>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>seq</em>&nbsp;</td><td>Functor を適用する CORBA sequence </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>functor</em>&nbsp;</td><td>CORBA sequence の要素を処理する Functor</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a5"></a><!-- doxytag: member=<CORBA_SeqUtil.py::front> ref=<a5> args=<(seq)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">front           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+CORBA sequence の先頭要素を取得する. 
+<p>
+seq[0] と同じ。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>seq</em>&nbsp;</td><td>要素を取得する CORBA sequence</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a4"></a><!-- doxytag: member=<CORBA_SeqUtil.py::insert> ref=<a4> args=<(seq, elem, index)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">insert           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>elem&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>index&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+CORBA sequence に要素を挿入する. 
+<p>
+CORBA sequence の index の位置に要素を加える。 index が 与えられた� sequence の最大の index より大きい場合 最後の要素として加えられる。 CORBA sequence の長さは自動的に拡張される。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>seq</em>&nbsp;</td><td>要素を追加する CORBA sequence </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>elem</em>&nbsp;</td><td>追加する要素 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>要素を追加する位置</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2"></a><!-- doxytag: member=<CORBA_SeqUtil.py::push_back> ref=<a2> args=<(seq, elem)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">push_back           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>elem&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+CORBA sequence の最後に要素を追加する. 
+<p>
+CORBA sequence の最後に与えられた要素を追加する。 CORBA sequence の長さは自動的に拡張される。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>seq</em>&nbsp;</td><td>要素を追加する CORBA sequence </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>elem</em>&nbsp;</td><td>追加する要素</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a3"></a><!-- doxytag: member=<CORBA_SeqUtil.py::push_back_list> ref=<a3> args=<(seq1, seq2)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">push_back_list           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">seq1&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>seq2&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>OpenRTMに対してMon Oct 29 15:51:36 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.3 </small></address>
+</body>
+</html>

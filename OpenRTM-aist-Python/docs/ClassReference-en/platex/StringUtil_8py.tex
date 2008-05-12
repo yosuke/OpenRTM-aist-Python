@@ -1,0 +1,195 @@
+\section{String\-Util.py File Reference}
+\label{StringUtil_8py}\index{StringUtil.py@{StringUtil.py}}
+String operation utility. 
+
+{\tt \#include \char`\"{}string.py\char`\"{}}\par
+\subsection*{Classes}
+\begin{CompactItemize}
+\item 
+class {\bf escape\_\-functor}
+\begin{CompactList}\small\item\em A fanctor to escape string. \item\end{CompactList}\item 
+class {\bf unescape\_\-functor}
+\begin{CompactList}\small\item\em The functor to unescape string. \item\end{CompactList}\item 
+class {\bf Toupper}
+\begin{CompactList}\small\item\em A functor to convert to capital letter. \item\end{CompactList}\item 
+class {\bf unique\_\-strvec}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf is\-Escaped} (\_\-str, pos)
+\begin{CompactList}\small\item\em Whether the character is escaped or not. \item\end{CompactList}\item 
+{\bf for\_\-each} (\_\-str, instance)
+\item 
+{\bf escape} (\_\-str)
+\begin{CompactList}\small\item\em Escape string. \item\end{CompactList}\item 
+{\bf unescape} (\_\-str)
+\begin{CompactList}\small\item\em Unescape string. \item\end{CompactList}\item 
+{\bf erase\-Head\-Blank} (\_\-str)
+\begin{CompactList}\small\item\em Erase the head blank characters of string. \item\end{CompactList}\item 
+{\bf erase\-Tail\-Blank} (\_\-str)
+\begin{CompactList}\small\item\em Erase the tail blank characters of string. \item\end{CompactList}\item 
+{\bf replace\-String} (str, \_\-from, \_\-to)
+\begin{CompactList}\small\item\em Replace string. \item\end{CompactList}\item 
+{\bf split} (input, delimiter)
+\begin{CompactList}\small\item\em Split string by delimiter. \item\end{CompactList}\item 
+{\bf to\-Bool} (\_\-str, yes, no, default\_\-value=None)
+\begin{CompactList}\small\item\em Convert given string to bool value. \item\end{CompactList}\item 
+{\bf is\-Absolute\-Path} (str)
+\begin{CompactList}\small\item\em Investigate whether the given string is absolute path or not. \item\end{CompactList}\item 
+{\bf is\-URL} (str)
+\begin{CompactList}\small\item\em Investigate whether the given string is URL or not. \item\end{CompactList}\item 
+{\bf otos} (n)
+\begin{CompactList}\small\item\em Convert the given object to st::string. \item\end{CompactList}\item 
+{\bf \_\-string\-To\-List} (\_\-type, \_\-str)
+\item 
+{\bf string\-To} (\_\-type, \_\-str)
+\item 
+{\bf unique\_\-sv} (sv)
+\item 
+{\bf flatten} (sv)
+\item 
+{\bf to\-Argv} (args)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+String operation utility. 
+
+\begin{Desc}
+\item[Date:]\begin{Desc}
+\item[Date]\end{Desc}
+\end{Desc}
+\begin{Desc}
+\item[Author:]Noriaki Ando $<${\tt n-ando@aist.go.jp}$>$ and Shinji Kurihara\end{Desc}
+Copyright (C) 2003-2005 Task-intelligence Research Group, Intelligent Systems Research Institute, National Institute of Advanced Industrial Science and Technology (AIST), Japan All rights reserved.
+
+\subsection{Function Documentation}
+\index{StringUtil.py@{String\-Util.py}!_stringToList@{\_\-stringToList}}
+\index{_stringToList@{\_\-stringToList}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\_\-string\-To\-List (\_\-type, \_\-str)}\label{StringUtil_8py_a12}
+
+
+\index{StringUtil.py@{String\-Util.py}!eraseHeadBlank@{eraseHeadBlank}}
+\index{eraseHeadBlank@{eraseHeadBlank}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}erase\-Head\-Blank (\_\-str)}\label{StringUtil_8py_a4}
+
+
+Erase the head blank characters of string. 
+
+\index{StringUtil.py@{String\-Util.py}!eraseTailBlank@{eraseTailBlank}}
+\index{eraseTailBlank@{eraseTailBlank}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}erase\-Tail\-Blank (\_\-str)}\label{StringUtil_8py_a5}
+
+
+Erase the tail blank characters of string. 
+
+\index{StringUtil.py@{String\-Util.py}!escape@{escape}}
+\index{escape@{escape}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}escape (\_\-str)}\label{StringUtil_8py_a2}
+
+
+Escape string. 
+
+The following characters are converted. \par
+ HT -$>$ \char`\"{}$\backslash$t\char`\"{} \par
+ LF -$>$ \char`\"{}$\backslash$n\char`\"{} \par
+ CR -$>$ \char`\"{}$\backslash$r\char`\"{} \par
+ FF -$>$ \char`\"{}$\backslash$f\char`\"{} \par
+ Single quote and dobule quote are not processed.\index{StringUtil.py@{String\-Util.py}!flatten@{flatten}}
+\index{flatten@{flatten}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}flatten (sv)}\label{StringUtil_8py_a15}
+
+
+\index{StringUtil.py@{String\-Util.py}!for_each@{for\_\-each}}
+\index{for_each@{for\_\-each}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}for\_\-each (\_\-str, instance)}\label{StringUtil_8py_a1}
+
+
+\index{StringUtil.py@{String\-Util.py}!isAbsolutePath@{isAbsolutePath}}
+\index{isAbsolutePath@{isAbsolutePath}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}is\-Absolute\-Path (str)}\label{StringUtil_8py_a9}
+
+
+Investigate whether the given string is absolute path or not. 
+
+\index{StringUtil.py@{String\-Util.py}!isEscaped@{isEscaped}}
+\index{isEscaped@{isEscaped}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}is\-Escaped (\_\-str, pos)}\label{StringUtil_8py_a0}
+
+
+Whether the character is escaped or not. 
+
+This operation returns true if the specified character is escaped, and if the specified character is not escaped, it returns false
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em str}]The string thath includes the character to be investigated. \item[{\em pos}]The position of the character to be investigated. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]true: the character is escaped, false: the character is not escaped.\end{Desc}
+\index{StringUtil.py@{String\-Util.py}!isURL@{isURL}}
+\index{isURL@{isURL}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}is\-URL (str)}\label{StringUtil_8py_a10}
+
+
+Investigate whether the given string is URL or not. 
+
+\index{StringUtil.py@{String\-Util.py}!otos@{otos}}
+\index{otos@{otos}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}otos (n)}\label{StringUtil_8py_a11}
+
+
+Convert the given object to st::string. 
+
+\index{StringUtil.py@{String\-Util.py}!replaceString@{replaceString}}
+\index{replaceString@{replaceString}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}replace\-String (str, \_\-from, \_\-to)}\label{StringUtil_8py_a6}
+
+
+Replace string. 
+
+\index{StringUtil.py@{String\-Util.py}!split@{split}}
+\index{split@{split}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}split (input, delimiter)}\label{StringUtil_8py_a7}
+
+
+Split string by delimiter. 
+
+\index{StringUtil.py@{String\-Util.py}!stringTo@{stringTo}}
+\index{stringTo@{stringTo}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}string\-To (\_\-type, \_\-str)}\label{StringUtil_8py_a13}
+
+
+\index{StringUtil.py@{String\-Util.py}!toArgv@{toArgv}}
+\index{toArgv@{toArgv}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}to\-Argv (args)}\label{StringUtil_8py_a16}
+
+
+\index{StringUtil.py@{String\-Util.py}!toBool@{toBool}}
+\index{toBool@{toBool}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}to\-Bool (\_\-str, yes, no, default\_\-value = {\tt None})}\label{StringUtil_8py_a8}
+
+
+Convert given string to bool value. 
+
+\index{StringUtil.py@{String\-Util.py}!unescape@{unescape}}
+\index{unescape@{unescape}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unescape (\_\-str)}\label{StringUtil_8py_a3}
+
+
+Unescape string. 
+
+The following characters are converted. \par
+ \char`\"{}$\backslash$t\char`\"{} -$>$ HT \par
+ \char`\"{}$\backslash$n\char`\"{} -$>$ LF \par
+ \char`\"{}$\backslash$r\char`\"{} -$>$ CR \par
+ \char`\"{}$\backslash$f\char`\"{} -$>$ FF \par
+ \char`\"{}$\backslash$'\char`\"{} -$>$ ' \par
+ \char`\"{}$\backslash$\char`\"{}\char`\"{}  $\rightarrow$  \char`\"{} \par
+\index{StringUtil.py@{String\-Util.py}!unique_sv@{unique\_\-sv}}
+\index{unique_sv@{unique\_\-sv}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unique\_\-sv (sv)}\label{StringUtil_8py_a14}
+
+

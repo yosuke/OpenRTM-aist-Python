@@ -1,0 +1,197 @@
+\section{NVUtil.py File Reference}
+\label{NVUtil_8py}\index{NVUtil.py@{NVUtil.py}}
+Name\-Value and NVList utility functions. 
+
+{\tt \#include \char`\"{}omni\-ORB.py\char`\"{}}\par
+{\tt \#include \char`\"{}Open\-RTM.py\char`\"{}}\par
+{\tt \#include \char`\"{}SDOPackage.py\char`\"{}}\par
+{\tt \#include \char`\"{}SDOPackage\_\-\_\-POA.py\char`\"{}}\par
+\subsection*{Classes}
+\begin{CompactItemize}
+\item 
+class {\bf to\_\-prop}
+\item 
+class {\bf nv\_\-find}
+\begin{CompactList}\small\item\em Get value in NVList specified by name. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf new\-NV} (name, value)
+\begin{CompactList}\small\item\em Create Name\-Vale. \item\end{CompactList}\item 
+{\bf new\-NVBool} (name, value)
+\begin{CompactList}\small\item\em Create CORBA::Boolean value type Name\-Vale. \item\end{CompactList}\item 
+{\bf new\-NVOctet} (name, value)
+\begin{CompactList}\small\item\em Create CORBA::Octet value type Name\-Vale. \item\end{CompactList}\item 
+{\bf new\-NVAny} (name, value)
+\item 
+{\bf copy\-From\-Properties} (nv, prop)
+\begin{CompactList}\small\item\em Copy to NVList from Proeprties. \item\end{CompactList}\item 
+{\bf copy\-To\-Properties} (prop, nvlist)
+\item 
+{\bf to\-Properties} (nv)
+\item 
+{\bf find} (nv, name)
+\item 
+{\bf find\_\-index} (nv, name)
+\item 
+{\bf is\-String} (nv, name)
+\begin{CompactList}\small\item\em Whether the name of NVList's value is CORBA::string. \item\end{CompactList}\item 
+{\bf is\-String\-Value} (nv, name, value)
+\item 
+{\bf to\-String} (nv, name)
+\begin{CompactList}\small\item\em Get string value in NVList specified by name. \item\end{CompactList}\item 
+{\bf append\-String\-Value} (nv, name, value)
+\item 
+{\bf append} (dest, src)
+\item 
+{\bf dump} (nv)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Name\-Value and NVList utility functions. 
+
+\begin{Desc}
+\item[Date:]\begin{Desc}
+\item[Date]2007/09/11\end{Desc}
+\end{Desc}
+\begin{Desc}
+\item[Author:]Noriaki Ando $<${\tt n-ando@aist.go.jp}$>$ and Shinji Kurihara\end{Desc}
+Copyright (C) 2006 Noriaki Ando Task-intelligence Research Group, Intelligent Systems Research Institute, National Institute of Advanced Industrial Science and Technology (AIST), Japan All rights reserved.
+
+\subsection{Function Documentation}
+\index{NVUtil.py@{NVUtil.py}!append@{append}}
+\index{append@{append}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}append (dest, src)}\label{NVUtil_8py_a13}
+
+
+\index{NVUtil.py@{NVUtil.py}!appendStringValue@{appendStringValue}}
+\index{appendStringValue@{appendStringValue}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}append\-String\-Value (nv, name, value)}\label{NVUtil_8py_a12}
+
+
+\index{NVUtil.py@{NVUtil.py}!copyFromProperties@{copyFromProperties}}
+\index{copyFromProperties@{copyFromProperties}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}copy\-From\-Properties (nv, prop)}\label{NVUtil_8py_a4}
+
+
+Copy to NVList from Proeprties. 
+
+This operation copies {\bf Properties}{\rm (p.\,\pageref{classProperties})} to NVList. Created NVList's values are CORBA::string.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em nv}]NVList to store {\bf Properties}{\rm (p.\,\pageref{classProperties})} values \item[{\em prop}]{\bf Properties}{\rm (p.\,\pageref{classProperties})} that is copies from\end{description}
+\end{Desc}
+\index{NVUtil.py@{NVUtil.py}!copyToProperties@{copyToProperties}}
+\index{copyToProperties@{copyToProperties}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}copy\-To\-Properties (prop, nvlist)}\label{NVUtil_8py_a5}
+
+
+\index{NVUtil.py@{NVUtil.py}!dump@{dump}}
+\index{dump@{dump}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}dump (nv)}\label{NVUtil_8py_a14}
+
+
+\index{NVUtil.py@{NVUtil.py}!find@{find}}
+\index{find@{find}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}find (nv, name)}\label{NVUtil_8py_a7}
+
+
+\index{NVUtil.py@{NVUtil.py}!find_index@{find\_\-index}}
+\index{find_index@{find\_\-index}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}find\_\-index (nv, name)}\label{NVUtil_8py_a8}
+
+
+\index{NVUtil.py@{NVUtil.py}!isString@{isString}}
+\index{isString@{isString}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}is\-String (nv, name)}\label{NVUtil_8py_a9}
+
+
+Whether the name of NVList's value is CORBA::string. 
+
+This operation returns boolean value whether the name of NVList's value is CORBA::string.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em nv}]NVList to be searched \item[{\em prop}]name to seartch in NVList\end{description}
+\end{Desc}
+\index{NVUtil.py@{NVUtil.py}!isStringValue@{isStringValue}}
+\index{isStringValue@{isStringValue}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}is\-String\-Value (nv, name, value)}\label{NVUtil_8py_a10}
+
+
+\index{NVUtil.py@{NVUtil.py}!newNV@{newNV}}
+\index{newNV@{newNV}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}new\-NV (name, value)}\label{NVUtil_8py_a0}
+
+
+Create Name\-Vale. 
+
+This operation creates Name\-Vale. CORBA::Char, CORBA::Boolean, CORBA::Octet creation is not supported. These type of Name\-Value should be created by using new\-NVChar(), {\bf new\-NVBool()}{\rm (p.\,\pageref{NVUtil_8py_a1})}, {\bf new\-NVOctet()}{\rm (p.\,\pageref{NVUtil_8py_a2})} functions. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]name of Name\-Value \item[{\em value}]value of Name\-Value \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Name\-Value\end{Desc}
+\index{NVUtil.py@{NVUtil.py}!newNVAny@{newNVAny}}
+\index{newNVAny@{newNVAny}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}new\-NVAny (name, value)}\label{NVUtil_8py_a3}
+
+
+\index{NVUtil.py@{NVUtil.py}!newNVBool@{newNVBool}}
+\index{newNVBool@{newNVBool}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}new\-NVBool (name, value)}\label{NVUtil_8py_a1}
+
+
+Create CORBA::Boolean value type Name\-Vale. 
+
+This operation creates CORBA::Boolean value type Name\-Vale.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]name of Name\-Value \item[{\em value}]value of Name\-Value \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Name\-Value\end{Desc}
+\index{NVUtil.py@{NVUtil.py}!newNVOctet@{newNVOctet}}
+\index{newNVOctet@{newNVOctet}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}new\-NVOctet (name, value)}\label{NVUtil_8py_a2}
+
+
+Create CORBA::Octet value type Name\-Vale. 
+
+This operation creates CORBA::Octet value type Name\-Vale.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]name of Name\-Value \item[{\em value}]value of Name\-Value \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Name\-Value\end{Desc}
+\index{NVUtil.py@{NVUtil.py}!toProperties@{toProperties}}
+\index{toProperties@{toProperties}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}to\-Properties (nv)}\label{NVUtil_8py_a6}
+
+
+\index{NVUtil.py@{NVUtil.py}!toString@{toString}}
+\index{toString@{toString}!NVUtil.py@{NVUtil.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}to\-String (nv, name)}\label{NVUtil_8py_a11}
+
+
+Get string value in NVList specified by name. 
+
+This operation returns string value in NVList specified by name. If the value in NVList specified by name is not CORBA::string type this operation returns empty string value.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em nv}]NVList to be searched \item[{\em name}]name to to serach \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]string value named by name\end{Desc}

@@ -1,0 +1,563 @@
+\section{Port\-Base Class Reference}
+\label{classPortBase}\index{PortBase@{PortBase}}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (name=None)
+\begin{CompactList}\small\item\em Constructor. \item\end{CompactList}\item 
+{\bf \_\-\_\-del\_\-\_\-} ()
+\begin{CompactList}\small\item\em Destructor. \item\end{CompactList}\item 
+{\bf get\_\-port\_\-profile} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get the Port\-Profile of the Port \item\end{CompactList}\item 
+{\bf get\_\-connector\_\-profiles} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get the Connector\-Profile\-List of the Port \item\end{CompactList}\item 
+{\bf get\_\-connector\_\-profile} (connector\_\-id)
+\begin{CompactList}\small\item\em [CORBA interface] Get the Connector\-Profile \item\end{CompactList}\item 
+{\bf connect} (connector\_\-profile)
+\begin{CompactList}\small\item\em [CORBA interface] Connect the Port \item\end{CompactList}\item 
+{\bf notify\_\-connect} (connector\_\-profile)
+\begin{CompactList}\small\item\em [CORBA interface] Notify the Ports connection \item\end{CompactList}\item 
+{\bf disconnect} (connector\_\-id)
+\begin{CompactList}\small\item\em [CORBA interface] Connect the Port \item\end{CompactList}\item 
+{\bf notify\_\-disconnect} (connector\_\-id)
+\begin{CompactList}\small\item\em [CORBA interface] Notify the Ports disconnection \item\end{CompactList}\item 
+{\bf disconnect\_\-all} ()
+\begin{CompactList}\small\item\em [CORBA interface] Connect the Port \item\end{CompactList}\item 
+{\bf set\-Name} (name)
+\begin{CompactList}\small\item\em Set the name of this Port. \item\end{CompactList}\item 
+{\bf get\-Profile} ()
+\begin{CompactList}\small\item\em Get the Port\-Profile of the Port. \item\end{CompactList}\item 
+{\bf set\-Port\-Ref} (port\_\-ref)
+\begin{CompactList}\small\item\em Set the object reference of this Port. \item\end{CompactList}\item 
+{\bf get\-Port\-Ref} ()
+\begin{CompactList}\small\item\em Get the object reference of this Port. \item\end{CompactList}\item 
+{\bf set\-Owner} (owner)
+\begin{CompactList}\small\item\em Set the owner {\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} of the Port. \item\end{CompactList}\item 
+{\bf connect\-Next} (connector\_\-profile)
+\begin{CompactList}\small\item\em Call {\bf notify\_\-connect()}{\rm (p.\,\pageref{classPortBase_PortBasea6})} of the next Port. \item\end{CompactList}\item 
+{\bf disconnect\-Next} (connector\_\-profile)
+\begin{CompactList}\small\item\em Call {\bf notify\_\-disconnect()}{\rm (p.\,\pageref{classPortBase_PortBasea8})} of the next Port. \item\end{CompactList}\item 
+{\bf is\-Empty\-Id} (connector\_\-profile)
+\begin{CompactList}\small\item\em Whether connector\_\-id of Connector\-Profile is empty. \item\end{CompactList}\item 
+{\bf get\-UUID} ()
+\begin{CompactList}\small\item\em Get the {\bf UUID}{\rm (p.\,\pageref{classUUID})}. \item\end{CompactList}\item 
+{\bf set\-UUID} (connector\_\-profile)
+\begin{CompactList}\small\item\em Create and set the {\bf UUID}{\rm (p.\,\pageref{classUUID})} to the Connector\-Profile. \item\end{CompactList}\item 
+{\bf is\-Existing\-Conn\-Id} (id\_\-)
+\begin{CompactList}\small\item\em Whether the given id exists in stored Connector\-Profiles. \item\end{CompactList}\item 
+{\bf find\-Conn\-Profile} (id\_\-)
+\begin{CompactList}\small\item\em Find Connector\-Profile with id. \item\end{CompactList}\item 
+{\bf find\-Conn\-Profile\-Index} (id\_\-)
+\begin{CompactList}\small\item\em Find Connector\-Profile with id. \item\end{CompactList}\item 
+{\bf update\-Connector\-Profile} (connector\_\-profile)
+\begin{CompactList}\small\item\em Append or update the Connector\-Profile list. \item\end{CompactList}\item 
+{\bf erase\-Connector\-Profile} (id\_\-)
+\begin{CompactList}\small\item\em Delete the Connector\-Profile. \item\end{CompactList}\item 
+{\bf append\-Interface} (instance\_\-name, type\_\-name, pol)
+\begin{CompactList}\small\item\em Append an interface to the Port\-Interface\-Profile. \item\end{CompactList}\item 
+{\bf delete\-Interface} (name, pol)
+\begin{CompactList}\small\item\em Delete an interface from the Port\-Interface\-Profile. \item\end{CompactList}\item 
+{\bf add\-Property} (key, value)
+\begin{CompactList}\small\item\em Add Name\-Value data to Port\-Profile's properties. \item\end{CompactList}\item 
+{\bf \_\-\_\-init\_\-\_\-} (name)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (prof)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (id\_\-)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (cprof)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (port\_\-ref)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (port\_\-ref)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (p, prof)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (p)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (p, prof)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (p)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (p)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (p)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (name, pol)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (prof)
+\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{PortBase@{Port\-Base}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-call\_\-\_\- (prof)}\label{classPortBase_PortBasea41}
+
+
+\index{PortBase@{Port\-Base}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-call\_\-\_\- (p)}\label{classPortBase_PortBasea39}
+
+
+\index{PortBase@{Port\-Base}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-call\_\-\_\- (p)}\label{classPortBase_PortBasea37}
+
+
+\index{PortBase@{Port\-Base}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-call\_\-\_\- (p)}\label{classPortBase_PortBasea35}
+
+
+\index{PortBase@{Port\-Base}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-call\_\-\_\- (port\_\-ref)}\label{classPortBase_PortBasea33}
+
+
+\index{PortBase@{Port\-Base}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-call\_\-\_\- (cprof)}\label{classPortBase_PortBasea31}
+
+
+\index{PortBase@{Port\-Base}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-call\_\-\_\- (prof)}\label{classPortBase_PortBasea29}
+
+
+\index{PortBase@{Port\-Base}!__del__@{\_\-\_\-del\_\-\_\-}}
+\index{__del__@{\_\-\_\-del\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-del\_\-\_\- ()}\label{classPortBase_PortBasea1}
+
+
+Destructor. 
+
+\index{PortBase@{Port\-Base}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-init\_\-\_\- (name, pol)}\label{classPortBase_PortBasea40}
+
+
+\index{PortBase@{Port\-Base}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-init\_\-\_\- (p)}\label{classPortBase_PortBasea38}
+
+
+\index{PortBase@{Port\-Base}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-init\_\-\_\- (p, prof)}\label{classPortBase_PortBasea36}
+
+
+\index{PortBase@{Port\-Base}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-init\_\-\_\- (p, prof)}\label{classPortBase_PortBasea34}
+
+
+\index{PortBase@{Port\-Base}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-init\_\-\_\- (port\_\-ref)}\label{classPortBase_PortBasea32}
+
+
+\index{PortBase@{Port\-Base}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-init\_\-\_\- (id\_\-)}\label{classPortBase_PortBasea30}
+
+
+\index{PortBase@{Port\-Base}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-init\_\-\_\- (name)}\label{classPortBase_PortBasea28}
+
+
+\index{PortBase@{Port\-Base}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::\_\-\_\-init\_\-\_\- (name = {\tt None})}\label{classPortBase_PortBasea0}
+
+
+Constructor. 
+
+The constructor of the Prot\-Base class is given the name of this Port and initialized. At the same time, the Port\-Base activates itself as CORBA object and stores its object reference to the Port\-Profile's port\_\-ref member.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]The name of Port\end{description}
+\end{Desc}
+\index{PortBase@{Port\-Base}!addProperty@{addProperty}}
+\index{addProperty@{addProperty}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::add\-Property (key, value)}\label{classPortBase_PortBasea27}
+
+
+Add Name\-Value data to Port\-Profile's properties. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em Value\-Type}]The type of value \item[{\em key}]The name of properties \item[{\em value}]The value of properties\end{description}
+\end{Desc}
+\index{PortBase@{Port\-Base}!appendInterface@{appendInterface}}
+\index{appendInterface@{appendInterface}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::append\-Interface (instance\_\-name, type\_\-name, pol)}\label{classPortBase_PortBasea25}
+
+
+Append an interface to the Port\-Interface\-Profile. 
+
+This operation appends interface information to the Port\-Interface\-Profile that is owned by the Port. The given interfaces information only updates Port\-Interface\-Profile of Port\-Profile that is obtained through {\bf get\_\-port\_\-profile()}{\rm (p.\,\pageref{classPortBase_PortBasea2})}. In order to provide and require interfaces, proper functions (for example publish\-Interface(), subscribe\-Interface() and so on) should be overridden in subclasses, and these functions provide concrete interface connection and disconnection functionality.
+
+The interface (instance) name have to be unique in the Port. If the given interface name is identical with stored interface name, this function returns false.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]The instance name of the interface. \item[{\em type\_\-name}]The type name of the interface. \item[{\em pol}]The interface's polarity (RTC::PROVIDED or RTC:REQUIRED) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]false would be returned if the same name is already registered.\end{Desc}
+\index{PortBase@{Port\-Base}!connect@{connect}}
+\index{connect@{connect}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::connect (connector\_\-profile)}\label{classPortBase_PortBasea5}
+
+
+[CORBA interface] Connect the Port 
+
+This operation establishes connection according to the given Connection\-Profile inforamtion. Application programs, which is going to establish the connection among Ports owned by RT-Components, have to set valid values to the Connector\-Profile and give it to the argument of {\bf connect()}{\rm (p.\,\pageref{classPortBase_PortBasea5})} operation.
+
+name, ports, (properties) members of Connector\-Profile should be set valid values before giving to the argument of {\bf connect()}{\rm (p.\,\pageref{classPortBase_PortBasea5})} operation.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em connector\_\-profile}]The Connector\-Profile. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Return\-Code\_\-t The return code of this operation.\end{Desc}
+\index{PortBase@{Port\-Base}!connectNext@{connectNext}}
+\index{connectNext@{connectNext}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::connect\-Next (connector\_\-profile)}\label{classPortBase_PortBasea15}
+
+
+Call {\bf notify\_\-connect()}{\rm (p.\,\pageref{classPortBase_PortBasea6})} of the next Port. 
+
+This operation calls the {\bf notify\_\-connect()}{\rm (p.\,\pageref{classPortBase_PortBasea6})} of the next Port's that stored in Connector\-Profile's port\_\-ref sequence.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em connector\_\-profile}]The connection profile information \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The return code of Return\-Code\_\-t type.\end{Desc}
+\index{PortBase@{Port\-Base}!deleteInterface@{deleteInterface}}
+\index{deleteInterface@{deleteInterface}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::delete\-Interface (name, pol)}\label{classPortBase_PortBasea26}
+
+
+Delete an interface from the Port\-Interface\-Profile. 
+
+This operation deletes interface information from the Port\-Interface\-Profile that is owned by the Port.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]The instance name of the interface. \item[{\em pol}]The interface's polarity (RTC::PROVIDED or RTC:REQUIRED) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]false would be returned if the given name is not registered.\end{Desc}
+\index{PortBase@{Port\-Base}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::disconnect (connector\_\-id)}\label{classPortBase_PortBasea7}
+
+
+[CORBA interface] Connect the Port 
+
+This operation destroys connection between this port and the peer port according to given id that is given when the connection established.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em connector\_\-id}]The ID of the Connector\-Profile. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Return\-Code\_\-t The return code of this operation.\end{Desc}
+\index{PortBase@{Port\-Base}!disconnect_all@{disconnect\_\-all}}
+\index{disconnect_all@{disconnect\_\-all}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::disconnect\_\-all ()}\label{classPortBase_PortBasea9}
+
+
+[CORBA interface] Connect the Port 
+
+This operation destroys all connection channels owned by the Port.
+
+\begin{Desc}
+\item[Returns:]Return\-Code\_\-t The return code of this operation.\end{Desc}
+\index{PortBase@{Port\-Base}!disconnectNext@{disconnectNext}}
+\index{disconnectNext@{disconnectNext}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::disconnect\-Next (connector\_\-profile)}\label{classPortBase_PortBasea16}
+
+
+Call {\bf notify\_\-disconnect()}{\rm (p.\,\pageref{classPortBase_PortBasea8})} of the next Port. 
+
+This operation calls the {\bf notify\_\-disconnect()}{\rm (p.\,\pageref{classPortBase_PortBasea8})} of the next Port's that stored in Connector\-Profile's port\_\-ref sequence.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em connector\_\-profile}]The connection profile information \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The return code of Return\-Code\_\-t type.\end{Desc}
+\index{PortBase@{Port\-Base}!eraseConnectorProfile@{eraseConnectorProfile}}
+\index{eraseConnectorProfile@{eraseConnectorProfile}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::erase\-Connector\-Profile (id\_\-)}\label{classPortBase_PortBasea24}
+
+
+Delete the Connector\-Profile. 
+
+This operation deletes a Connector\-Profile specified by id from Connector\-Profile\-List owned by Port\-Profile of this Port.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em id}]The id of the Connector\-Profile to be deleted.\end{description}
+\end{Desc}
+\index{PortBase@{Port\-Base}!findConnProfile@{findConnProfile}}
+\index{findConnProfile@{findConnProfile}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::find\-Conn\-Profile (id\_\-)}\label{classPortBase_PortBasea21}
+
+
+Find Connector\-Profile with id. 
+
+This operation returns Connector\-Profile with the given id from Port's Connector\-Profiles' list. If the Connector\-Profile with connector id that is identical with the given id does not exist, empty Connector\-Profile is returned.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em id}]the connector\_\-id to be searched in Port's Connector\-Profiles \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Coonector\-Profile with connector\_\-id\end{Desc}
+\index{PortBase@{Port\-Base}!findConnProfileIndex@{findConnProfileIndex}}
+\index{findConnProfileIndex@{findConnProfileIndex}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::find\-Conn\-Profile\-Index (id\_\-)}\label{classPortBase_PortBasea22}
+
+
+Find Connector\-Profile with id. 
+
+This operation returns Connector\-Profile with the given id from Port's Connector\-Profiles' list. If the Connector\-Profile with connector id that is identical with the given id does not exist, empty Connector\-Profile is returned.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em id}]the connector\_\-id to be searched in Port's Connector\-Profiles \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The index of Connector\-Profile of the Port\end{Desc}
+\index{PortBase@{Port\-Base}!get_connector_profile@{get\_\-connector\_\-profile}}
+\index{get_connector_profile@{get\_\-connector\_\-profile}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::get\_\-connector\_\-profile (connector\_\-id)}\label{classPortBase_PortBasea4}
+
+
+[CORBA interface] Get the Connector\-Profile 
+
+This operation returns the Connector\-Profiles specified connector\_\-id.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em connector\_\-id}]ID of the Connector\-Profile \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]the Connector\-Profile identified by the connector\_\-id\end{Desc}
+\index{PortBase@{Port\-Base}!get_connector_profiles@{get\_\-connector\_\-profiles}}
+\index{get_connector_profiles@{get\_\-connector\_\-profiles}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::get\_\-connector\_\-profiles ()}\label{classPortBase_PortBasea3}
+
+
+[CORBA interface] Get the Connector\-Profile\-List of the Port 
+
+This operation returns a list of the Connector\-Profiles of the Port. Connector\-Profile includes the connection information that describes relation between (among) Ports, and Ports exchange the Connection\-Profile on connection process and hold the same information in each Port. Connection\-Profile has the following members,
+
+\begin{itemize}
+\item name [string] The name of the connection.\item connector\_\-id [string] Unique identifier.\item ports [Port sequnce] The sequence of Port's object reference that are related the connection.\item properties [NVList] The other properties.\end{itemize}
+
+
+\begin{Desc}
+\item[Returns:]the Connector\-Profile\-List of the Port\end{Desc}
+\index{PortBase@{Port\-Base}!get_port_profile@{get\_\-port\_\-profile}}
+\index{get_port_profile@{get\_\-port\_\-profile}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::get\_\-port\_\-profile ()}\label{classPortBase_PortBasea2}
+
+
+[CORBA interface] Get the Port\-Profile of the Port 
+
+This operation returns the Port\-Profile of the Port. Port\-Profile struct has the following members,
+
+\begin{itemize}
+\item name [string ] The name of the Port.\item interfaces [Port\-Interface\-Profile\-List 140$^\wedge$] The sequence of Port\-Interface\-Profile owned by the Port\item port\_\-ref [Port Object] The object reference of the Port.\item connector\_\-profile [Connector\-Profile\-List 140$^\wedge$] The sequence of Connector\-Profile owned by the Port.\item owner [{\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} Object] The object reference of {\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} that is owner of the Port.\item properties [NVList] The other properties.\end{itemize}
+
+
+\begin{Desc}
+\item[Returns:]the Port\-Profile of the Port\end{Desc}
+\index{PortBase@{Port\-Base}!getPortRef@{getPortRef}}
+\index{getPortRef@{getPortRef}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::get\-Port\-Ref ()}\label{classPortBase_PortBasea13}
+
+
+Get the object reference of this Port. 
+
+This operation returns the object reference that is stored in the Port's Port\-Profile.
+
+\begin{Desc}
+\item[Returns:]The object reference of this Port.\end{Desc}
+\index{PortBase@{Port\-Base}!getProfile@{getProfile}}
+\index{getProfile@{getProfile}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::get\-Profile ()}\label{classPortBase_PortBasea11}
+
+
+Get the Port\-Profile of the Port. 
+
+This operation returns const reference of the Port\-Profile.
+
+\begin{Desc}
+\item[Returns:]the Port\-Profile of the Port\end{Desc}
+\index{PortBase@{Port\-Base}!getUUID@{getUUID}}
+\index{getUUID@{getUUID}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::get\-UUID ()}\label{classPortBase_PortBasea18}
+
+
+Get the {\bf UUID}{\rm (p.\,\pageref{classUUID})}. 
+
+This operation generates {\bf UUID}{\rm (p.\,\pageref{classUUID})}.
+
+\begin{Desc}
+\item[Returns:]uuid\end{Desc}
+\index{PortBase@{Port\-Base}!isEmptyId@{isEmptyId}}
+\index{isEmptyId@{isEmptyId}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::is\-Empty\-Id (connector\_\-profile)}\label{classPortBase_PortBasea17}
+
+
+Whether connector\_\-id of Connector\-Profile is empty. 
+
+\begin{Desc}
+\item[Returns:]If the given Connector\-Profile's connector\_\-id is empty string, it returns true.\end{Desc}
+\index{PortBase@{Port\-Base}!isExistingConnId@{isExistingConnId}}
+\index{isExistingConnId@{isExistingConnId}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::is\-Existing\-Conn\-Id (id\_\-)}\label{classPortBase_PortBasea20}
+
+
+Whether the given id exists in stored Connector\-Profiles. 
+
+This operation returns boolean whether the given id exists in the Port's Connector\-Profiles.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em id}]connector\_\-id to be find in Port's Connector\-Profiles\end{description}
+\end{Desc}
+\index{PortBase@{Port\-Base}!notify_connect@{notify\_\-connect}}
+\index{notify_connect@{notify\_\-connect}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::notify\_\-connect (connector\_\-profile)}\label{classPortBase_PortBasea6}
+
+
+[CORBA interface] Notify the Ports connection 
+
+This operation is invoked between Ports internally when the connection
+
+is established.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em connector\_\-profile}]The Connector\-Profile. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Return\-Code\_\-t The return code of this operation.\end{Desc}
+\index{PortBase@{Port\-Base}!notify_disconnect@{notify\_\-disconnect}}
+\index{notify_disconnect@{notify\_\-disconnect}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::notify\_\-disconnect (connector\_\-id)}\label{classPortBase_PortBasea8}
+
+
+[CORBA interface] Notify the Ports disconnection 
+
+This operation is invoked between Ports internally when the connection is destroied.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em connector\_\-id}]The ID of the Connector\-Profile. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Return\-Code\_\-t The return code of this operation.\end{Desc}
+\index{PortBase@{Port\-Base}!setName@{setName}}
+\index{setName@{setName}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::set\-Name (name)}\label{classPortBase_PortBasea10}
+
+
+Set the name of this Port. 
+
+This operation sets the name of this Port. The given Port's name is applied to Port's Port\-Profile.name.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]The name of this Port.\end{description}
+\end{Desc}
+\index{PortBase@{Port\-Base}!setOwner@{setOwner}}
+\index{setOwner@{setOwner}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::set\-Owner (owner)}\label{classPortBase_PortBasea14}
+
+
+Set the owner {\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} of the Port. 
+
+This operation sets the owner {\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} of this Port.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em owner}]The owner RTObject's reference of this Port\end{description}
+\end{Desc}
+\index{PortBase@{Port\-Base}!setPortRef@{setPortRef}}
+\index{setPortRef@{setPortRef}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::set\-Port\-Ref (port\_\-ref)}\label{classPortBase_PortBasea12}
+
+
+Set the object reference of this Port. 
+
+This operation sets the object reference itself to the Port's Port\-Profile.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em The}]object reference of this Port.\end{description}
+\end{Desc}
+\index{PortBase@{Port\-Base}!setUUID@{setUUID}}
+\index{setUUID@{setUUID}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::set\-UUID (connector\_\-profile)}\label{classPortBase_PortBasea19}
+
+
+Create and set the {\bf UUID}{\rm (p.\,\pageref{classUUID})} to the Connector\-Profile. 
+
+This operation generates and set {\bf UUID}{\rm (p.\,\pageref{classUUID})} to the Connector\-Profile.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em connector\_\-profile}]Connector\-Profile to be set connector\_\-id\end{description}
+\end{Desc}
+\index{PortBase@{Port\-Base}!updateConnectorProfile@{updateConnectorProfile}}
+\index{updateConnectorProfile@{updateConnectorProfile}!PortBase@{Port\-Base}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Base::update\-Connector\-Profile (connector\_\-profile)}\label{classPortBase_PortBasea23}
+
+
+Append or update the Connector\-Profile list. 
+
+This operation appends or updates Connector\-Profile of the Port by the given Connector\-Profile. If the connector\_\-id of the given Connector\-Profile does not exist in the Port's Connector\-Profile list, the given Connector\-Profile would be append to the list. If the same id exists, the list would be updated.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em connector\_\-profile}]the Connector\-Profile to be appended or updated\end{description}
+\end{Desc}
+
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf Port\-Base.py}\end{CompactItemize}

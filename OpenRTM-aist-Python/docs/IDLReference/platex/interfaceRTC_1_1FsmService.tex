@@ -1,0 +1,127 @@
+\section{インタフェース RTC::Fsm\-Service}
+\label{interfaceRTC_1_1FsmService}\index{RTC::FsmService@{RTC::FsmService}}
+Introspection::Fsm\-Service interface.  
+
+
+{\tt import \char`\"{}RTC.idl\char`\"{};}
+
+RTC::Fsm\-Serviceに対する継承グラフ:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3cm]{interfaceRTC_1_1FsmService}
+\end{center}
+\end{figure}
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+{\bf Fsm\-Profile} {\bf get\_\-fsm\_\-profile} ()
+\item 
+{\bf Return\-Code\_\-t} {\bf set\_\-fsm\_\-profile} ()
+\item 
+{\bf Unique\-Identifier} {\bf get\_\-sdo\_\-id} ()  raises (Not\-Available, Internal\-Error)
+\item 
+string {\bf get\_\-sdo\_\-type} ()  raises (Not\-Available, Internal\-Error)
+\item 
+Device\-Profile {\bf get\_\-device\_\-profile} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf Service\-Profile\-List} {\bf get\_\-service\_\-profiles} ()  raises (Not\-Available, Internal\-Error)
+\item 
+Service\-Profile {\bf get\_\-service\_\-profile} (in {\bf Unique\-Identifier} id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+SDOService {\bf get\_\-sdo\_\-service} (in {\bf Unique\-Identifier} id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+Configuration {\bf get\_\-configuration} ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)
+\item 
+Monitoring {\bf get\_\-monitoring} ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)
+\item 
+{\bf Organization\-List} {\bf get\_\-organizations} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf NVList} {\bf get\_\-status\_\-list} ()  raises (Not\-Available, Internal\-Error)
+\item 
+any {\bf get\_\-status} (in string name)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+{\bf Organization\-List} {\bf get\_\-owned\_\-organizations} ()  raises (Not\-Available)
+\end{CompactItemize}
+
+
+\subsection{説明}
+Introspection::Fsm\-Service interface. 
+
+
+
+\subsection{関数}
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_configuration@{get\_\-configuration}}
+\index{get_configuration@{get\_\-configuration}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration SDOPackage::SDO::get\_\-configuration ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa6}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_device_profile@{get\_\-device\_\-profile}}
+\index{get_device_profile@{get\_\-device\_\-profile}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Device\-Profile SDOPackage::SDO::get\_\-device\_\-profile ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa2}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_fsm_profile@{get\_\-fsm\_\-profile}}
+\index{get_fsm_profile@{get\_\-fsm\_\-profile}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Fsm\-Profile} RTC::Fsm\-Service::get\_\-fsm\_\-profile ()}\label{interfaceRTC_1_1FsmService_RTC_1_1FsmServicea0}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_monitoring@{get\_\-monitoring}}
+\index{get_monitoring@{get\_\-monitoring}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Monitoring SDOPackage::SDO::get\_\-monitoring ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa7}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_organizations@{get\_\-organizations}}
+\index{get_organizations@{get\_\-organizations}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Organization\-List} SDOPackage::SDO::get\_\-organizations ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa8}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_owned_organizations@{get\_\-owned\_\-organizations}}
+\index{get_owned_organizations@{get\_\-owned\_\-organizations}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Organization\-List} SDOPackage::SDOSystem\-Element::get\_\-owned\_\-organizations ()  raises (Not\-Available)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDOSystemElement_SDOPackage_1_1SDOSystemElementa0}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_sdo_id@{get\_\-sdo\_\-id}}
+\index{get_sdo_id@{get\_\-sdo\_\-id}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Unique\-Identifier} SDOPackage::SDO::get\_\-sdo\_\-id ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa0}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_sdo_service@{get\_\-sdo\_\-service}}
+\index{get_sdo_service@{get\_\-sdo\_\-service}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SDOService SDOPackage::SDO::get\_\-sdo\_\-service (in {\bf Unique\-Identifier} {\em id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa5}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_sdo_type@{get\_\-sdo\_\-type}}
+\index{get_sdo_type@{get\_\-sdo\_\-type}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}string SDOPackage::SDO::get\_\-sdo\_\-type ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa1}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_service_profile@{get\_\-service\_\-profile}}
+\index{get_service_profile@{get\_\-service\_\-profile}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Service\-Profile SDOPackage::SDO::get\_\-service\_\-profile (in {\bf Unique\-Identifier} {\em id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa4}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_service_profiles@{get\_\-service\_\-profiles}}
+\index{get_service_profiles@{get\_\-service\_\-profiles}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Service\-Profile\-List} SDOPackage::SDO::get\_\-service\_\-profiles ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa3}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_status@{get\_\-status}}
+\index{get_status@{get\_\-status}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}any SDOPackage::SDO::get\_\-status (in string {\em name})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa10}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!get_status_list@{get\_\-status\_\-list}}
+\index{get_status_list@{get\_\-status\_\-list}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf NVList} SDOPackage::SDO::get\_\-status\_\-list ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa9}
+
+
+\index{RTC::FsmService@{RTC::Fsm\-Service}!set_fsm_profile@{set\_\-fsm\_\-profile}}
+\index{set_fsm_profile@{set\_\-fsm\_\-profile}!RTC::FsmService@{RTC::Fsm\-Service}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Fsm\-Service::set\_\-fsm\_\-profile ()}\label{interfaceRTC_1_1FsmService_RTC_1_1FsmServicea1}
+
+
+
+
+このインタフェースの説明は次のファイルから生成されました:\begin{CompactItemize}
+\item 
+{\bf RTC.idl}\end{CompactItemize}

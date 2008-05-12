@@ -1,0 +1,239 @@
+\section{RTC.idl File Reference}
+\label{RTC_8idl}\index{RTC.idl@{RTC.idl}}
+{\tt import \char`\"{}SDOPackage.idl\char`\"{};}\par
+\subsection*{Namespaces}
+\begin{CompactItemize}
+\item 
+namespace {\bf RTC}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf UNIQUE\_\-ID\_\-TYPE\_\-NATIVE}~long
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef {\bf SDOPackage::Unique\-Identifier} {\bf Unique\-Identifier}
+\item 
+typedef {\bf SDOPackage::NVList} {\bf NVList}
+\item 
+typedef UNIQUE\_\-ID\_\-TYPE\_\-NATIVE {\bf Unique\-Id}
+\item 
+typedef sequence$<$ Mode $>$ {\bf Mode\-List}
+\item 
+typedef sequence$<$ Port\-Interface\-Profile $>$ {\bf Port\-Interface\-Profile\-List}
+\item 
+typedef sequence$<$ RTObject $>$ {\bf RTCList}
+\item 
+typedef sequence$<$ Connector\-Profile $>$ {\bf Connector\-Profile\-List}
+\item 
+typedef sequence$<$ Port\-Profile $>$ {\bf Port\-Profile\-List}
+\item 
+typedef sequence$<$ Execution\-Context\-Profile $>$ {\bf Execution\-Context\-Profile\-List}
+\item 
+typedef sequence$<$ Component\-Profile $>$ {\bf Component\-Profile\-List}
+\item 
+typedef sequence$<$ Execution\-Context\-Service $>$ {\bf Execution\-Context\-Service\-List}
+\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum {\bf Return\-Code\_\-t} \{ \par
+{\bf RTC\_\-OK}, 
+{\bf RTC\_\-ERROR}, 
+{\bf BAD\_\-PARAMETER}, 
+{\bf UNSUPPORTED}, 
+\par
+{\bf OUT\_\-OF\_\-RESOURCES}, 
+{\bf PRECONDITION\_\-NOT\_\-MET}
+ \}
+\begin{CompactList}\small\item\em {\bf Lightweight\-RTC::Return\-Code\_\-t}{\rm (p.\,\pageref{namespaceRTC_a28})} enumeration. \item\end{CompactList}\item 
+enum {\bf Life\-Cycle\-State} \{ {\bf INACTIVE\_\-STATE}, 
+{\bf ACTIVE\_\-STATE}, 
+{\bf ERROR\_\-STATE}, 
+{\bf UNKNOWN\_\-STATE}
+ \}
+\begin{CompactList}\small\item\em {\bf Lightweight\-RTC::Life\-Cycle\-State}{\rm (p.\,\pageref{namespaceRTC_a29})} enumeration. \item\end{CompactList}\item 
+enum {\bf Execution\-Kind} \{ {\bf PERIODIC}, 
+{\bf EVENT\_\-DRIVEN}, 
+{\bf OTHER}
+ \}
+\begin{CompactList}\small\item\em {\bf Lightweight\-RTC::Execution\-Kind}{\rm (p.\,\pageref{namespaceRTC_a30})} enumeration. \item\end{CompactList}\item 
+enum {\bf Port\-Interface\-Polarity} \{ {\bf PROVIDED}, 
+{\bf REQUIRED}
+ \}
+\begin{CompactList}\small\item\em {\bf Introspection::Port\-Interface\-Polarity}{\rm (p.\,\pageref{namespaceRTC_a31})} enumeration. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+interface typedef sequence$<$ Execution\-Context $>$ {\bf Execution\-Context\-List}
+\begin{CompactList}\small\item\em forward declaration of {\bf Execution\-Context}{\rm (p.\,\pageref{interfaceRTC_1_1ExecutionContext})} \item\end{CompactList}\item 
+interface typedef sequence$<$ Port $>$ {\bf Port\-List}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{RTC.idl@{RTC.idl}!UNIQUE_ID_TYPE_NATIVE@{UNIQUE\_\-ID\_\-TYPE\_\-NATIVE}}
+\index{UNIQUE_ID_TYPE_NATIVE@{UNIQUE\_\-ID\_\-TYPE\_\-NATIVE}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UNIQUE\_\-ID\_\-TYPE\_\-NATIVE~long}\label{RTC_8idl_a0}
+
+
+
+
+\subsection{Typedef Documentation}
+\index{RTC.idl@{RTC.idl}!ComponentProfileList@{ComponentProfileList}}
+\index{ComponentProfileList@{ComponentProfileList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef sequence$<$Component\-Profile$>$ {\bf RTC::Component\-Profile\-List}}\label{namespaceRTC_file_a11}
+
+
+\index{RTC.idl@{RTC.idl}!ConnectorProfileList@{ConnectorProfileList}}
+\index{ConnectorProfileList@{ConnectorProfileList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef sequence$<$Connector\-Profile$>$ {\bf RTC::Connector\-Profile\-List}}\label{namespaceRTC_file_a8}
+
+
+\index{RTC.idl@{RTC.idl}!ExecutionContextProfileList@{ExecutionContextProfileList}}
+\index{ExecutionContextProfileList@{ExecutionContextProfileList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef sequence$<$Execution\-Context\-Profile$>$ {\bf RTC::Execution\-Context\-Profile\-List}}\label{namespaceRTC_file_a10}
+
+
+\index{RTC.idl@{RTC.idl}!ExecutionContextServiceList@{ExecutionContextServiceList}}
+\index{ExecutionContextServiceList@{ExecutionContextServiceList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef sequence$<$Execution\-Context\-Service$>$ {\bf RTC::Execution\-Context\-Service\-List}}\label{namespaceRTC_file_a12}
+
+
+\index{RTC.idl@{RTC.idl}!ModeList@{ModeList}}
+\index{ModeList@{ModeList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef sequence$<$Mode$>$ {\bf RTC::Mode\-List}}\label{namespaceRTC_file_a4}
+
+
+\index{RTC.idl@{RTC.idl}!NVList@{NVList}}
+\index{NVList@{NVList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf SDOPackage::NVList} {\bf RTC::NVList}}\label{namespaceRTC_file_a1}
+
+
+\index{RTC.idl@{RTC.idl}!PortInterfaceProfileList@{PortInterfaceProfileList}}
+\index{PortInterfaceProfileList@{PortInterfaceProfileList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef sequence$<$Port\-Interface\-Profile$>$ {\bf RTC::Port\-Interface\-Profile\-List}}\label{namespaceRTC_file_a5}
+
+
+\index{RTC.idl@{RTC.idl}!PortProfileList@{PortProfileList}}
+\index{PortProfileList@{PortProfileList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef sequence$<$Port\-Profile$>$ {\bf RTC::Port\-Profile\-List}}\label{namespaceRTC_file_a9}
+
+
+\index{RTC.idl@{RTC.idl}!RTCList@{RTCList}}
+\index{RTCList@{RTCList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef sequence$<$RTObject$>$ {\bf RTC::RTCList}}\label{namespaceRTC_file_a7}
+
+
+\index{RTC.idl@{RTC.idl}!UniqueId@{UniqueId}}
+\index{UniqueId@{UniqueId}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef UNIQUE\_\-ID\_\-TYPE\_\-NATIVE {\bf RTC::Unique\-Id}}\label{namespaceRTC_file_a2}
+
+
+\index{RTC.idl@{RTC.idl}!UniqueIdentifier@{UniqueIdentifier}}
+\index{UniqueIdentifier@{UniqueIdentifier}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf SDOPackage::Unique\-Identifier} {\bf RTC::Unique\-Identifier}}\label{namespaceRTC_file_a0}
+
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{RTC.idl@{RTC.idl}!ExecutionKind@{ExecutionKind}}
+\index{ExecutionKind@{ExecutionKind}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum {\bf RTC::Execution\-Kind}}\label{namespaceRTC_file_a30}
+
+
+{\bf Lightweight\-RTC::Execution\-Kind}{\rm (p.\,\pageref{namespaceRTC_a30})} enumeration. 
+
+\begin{Desc}
+\item[Enumeration values: ]\par
+\begin{description}
+\index{PERIODIC@{PERIODIC}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!PERIODIC@{PERIODIC}}\item[{\em 
+PERIODIC\label{namespaceRTC_a30a23}
+}]\index{EVENT_DRIVEN@{EVENT\_\-DRIVEN}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!EVENT_DRIVEN@{EVENT\_\-DRIVEN}}\item[{\em 
+EVENT\_\-DRIVEN\label{namespaceRTC_a30a24}
+}]\index{OTHER@{OTHER}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!OTHER@{OTHER}}\item[{\em 
+OTHER\label{namespaceRTC_a30a25}
+}]\end{description}
+\end{Desc}
+
+\index{RTC.idl@{RTC.idl}!LifeCycleState@{LifeCycleState}}
+\index{LifeCycleState@{LifeCycleState}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum {\bf RTC::Life\-Cycle\-State}}\label{namespaceRTC_file_a29}
+
+
+{\bf Lightweight\-RTC::Life\-Cycle\-State}{\rm (p.\,\pageref{namespaceRTC_a29})} enumeration. 
+
+\begin{Desc}
+\item[Enumeration values: ]\par
+\begin{description}
+\index{INACTIVE_STATE@{INACTIVE\_\-STATE}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!INACTIVE_STATE@{INACTIVE\_\-STATE}}\item[{\em 
+INACTIVE\_\-STATE\label{namespaceRTC_a29a19}
+}]\index{ACTIVE_STATE@{ACTIVE\_\-STATE}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!ACTIVE_STATE@{ACTIVE\_\-STATE}}\item[{\em 
+ACTIVE\_\-STATE\label{namespaceRTC_a29a20}
+}]\index{ERROR_STATE@{ERROR\_\-STATE}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!ERROR_STATE@{ERROR\_\-STATE}}\item[{\em 
+ERROR\_\-STATE\label{namespaceRTC_a29a21}
+}]\index{UNKNOWN_STATE@{UNKNOWN\_\-STATE}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!UNKNOWN_STATE@{UNKNOWN\_\-STATE}}\item[{\em 
+UNKNOWN\_\-STATE\label{namespaceRTC_a29a22}
+}]\end{description}
+\end{Desc}
+
+\index{RTC.idl@{RTC.idl}!PortInterfacePolarity@{PortInterfacePolarity}}
+\index{PortInterfacePolarity@{PortInterfacePolarity}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum {\bf RTC::Port\-Interface\-Polarity}}\label{namespaceRTC_file_a31}
+
+
+{\bf Introspection::Port\-Interface\-Polarity}{\rm (p.\,\pageref{namespaceRTC_a31})} enumeration. 
+
+\begin{Desc}
+\item[Enumeration values: ]\par
+\begin{description}
+\index{PROVIDED@{PROVIDED}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!PROVIDED@{PROVIDED}}\item[{\em 
+PROVIDED\label{namespaceRTC_a31a26}
+}]\index{REQUIRED@{REQUIRED}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!REQUIRED@{REQUIRED}}\item[{\em 
+REQUIRED\label{namespaceRTC_a31a27}
+}]\end{description}
+\end{Desc}
+
+\index{RTC.idl@{RTC.idl}!ReturnCode_t@{ReturnCode\_\-t}}
+\index{ReturnCode_t@{ReturnCode\_\-t}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum {\bf RTC::Return\-Code\_\-t}}\label{namespaceRTC_file_a28}
+
+
+{\bf Lightweight\-RTC::Return\-Code\_\-t}{\rm (p.\,\pageref{namespaceRTC_a28})} enumeration. 
+
+\begin{Desc}
+\item[Enumeration values: ]\par
+\begin{description}
+\index{RTC_OK@{RTC\_\-OK}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!RTC_OK@{RTC\_\-OK}}\item[{\em 
+RTC\_\-OK\label{namespaceRTC_a28a13}
+}]\index{RTC_ERROR@{RTC\_\-ERROR}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!RTC_ERROR@{RTC\_\-ERROR}}\item[{\em 
+RTC\_\-ERROR\label{namespaceRTC_a28a14}
+}]\index{BAD_PARAMETER@{BAD\_\-PARAMETER}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!BAD_PARAMETER@{BAD\_\-PARAMETER}}\item[{\em 
+BAD\_\-PARAMETER\label{namespaceRTC_a28a15}
+}]\index{UNSUPPORTED@{UNSUPPORTED}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!UNSUPPORTED@{UNSUPPORTED}}\item[{\em 
+UNSUPPORTED\label{namespaceRTC_a28a16}
+}]\index{OUT_OF_RESOURCES@{OUT\_\-OF\_\-RESOURCES}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!OUT_OF_RESOURCES@{OUT\_\-OF\_\-RESOURCES}}\item[{\em 
+OUT\_\-OF\_\-RESOURCES\label{namespaceRTC_a28a17}
+}]\index{PRECONDITION_NOT_MET@{PRECONDITION\_\-NOT\_\-MET}!RTC.idl@{RTC.idl}}\index{RTC.idl@{RTC.idl}!PRECONDITION_NOT_MET@{PRECONDITION\_\-NOT\_\-MET}}\item[{\em 
+PRECONDITION\_\-NOT\_\-MET\label{namespaceRTC_a28a18}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{Variable Documentation}
+\index{RTC.idl@{RTC.idl}!ExecutionContextList@{ExecutionContextList}}
+\index{ExecutionContextList@{ExecutionContextList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}interface typedef sequence$<$Execution\-Context$>$ {\bf RTC::Execution\-Context\-List}}\label{namespaceRTC_file_a3}
+
+
+forward declaration of {\bf Execution\-Context}{\rm (p.\,\pageref{interfaceRTC_1_1ExecutionContext})} 
+
+\index{RTC.idl@{RTC.idl}!PortList@{PortList}}
+\index{PortList@{PortList}!RTC.idl@{RTC.idl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}interface typedef sequence$<$Port$>$ {\bf RTC::Port\-List}}\label{namespaceRTC_file_a6}
+
+

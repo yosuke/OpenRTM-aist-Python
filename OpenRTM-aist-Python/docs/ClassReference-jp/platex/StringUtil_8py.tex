@@ -1,0 +1,195 @@
+\section{String\-Util.py}
+\label{StringUtil_8py}\index{StringUtil.py@{StringUtil.py}}
+String operation utility. 
+
+{\tt \#include \char`\"{}string.py\char`\"{}}\par
+\subsection*{$\backslash$¬}
+\begin{CompactItemize}
+\item 
+class {\bf escape\_\-functor}
+\begin{CompactList}\small\item\em •¶š—ñ‚ğƒGƒXƒP[ƒv‚·‚é‚½‚ß‚ÌFanctor \item\end{CompactList}\item 
+class {\bf unescape\_\-functor}
+\begin{CompactList}\small\item\em •¶š—ñ‚ğƒAƒ“ƒGƒXƒP[ƒv‚½‚ß‚ÌFanctor \item\end{CompactList}\item 
+class {\bf Toupper}
+\begin{CompactList}\small\item\em ‘å•¶š‚É•ÏŠ·‚·‚é Fanctor \item\end{CompactList}\item 
+class {\bf unique\_\-strvec}
+\end{CompactItemize}
+\subsection*{ŠÖ”}
+\begin{CompactItemize}
+\item 
+{\bf is\-Escaped} (\_\-str, pos)
+\begin{CompactList}\small\item\em •¶š—ñ‚ªƒGƒXƒP[ƒv‚³‚ê‚Ä‚¢‚é‚©”»’f‚·‚é \item\end{CompactList}\item 
+{\bf for\_\-each} (\_\-str, instance)
+\item 
+{\bf escape} (\_\-str)
+\begin{CompactList}\small\item\em •¶š—ñ‚ğƒGƒXƒP[ƒv‚·‚é \item\end{CompactList}\item 
+{\bf unescape} (\_\-str)
+\begin{CompactList}\small\item\em •¶š—ñ‚ÌƒGƒXƒP[ƒv‚ğ–ß‚· \item\end{CompactList}\item 
+{\bf erase\-Head\-Blank} (\_\-str)
+\begin{CompactList}\small\item\em •¶š—ñ‚Ìæ“ª‚Ì‹ó”’•¶š‚ğíœ‚·‚é \item\end{CompactList}\item 
+{\bf erase\-Tail\-Blank} (\_\-str)
+\begin{CompactList}\small\item\em •¶š—ñ‚Ì––”ö‚Ì‹ó”’•¶š‚ğíœ‚·‚é \item\end{CompactList}\item 
+{\bf replace\-String} (str, \_\-from, \_\-to)
+\begin{CompactList}\small\item\em •¶š—ñ‚ğ’u‚«Š·‚¦‚é \item\end{CompactList}\item 
+{\bf split} (input, delimiter)
+\begin{CompactList}\small\item\em •¶š—ñ‚ğ•ªŠ„•¶š‚Å•ªŠ„‚·‚é \item\end{CompactList}\item 
+{\bf to\-Bool} (\_\-str, yes, no, default\_\-value=None)
+\begin{CompactList}\small\item\em —^‚¦‚ç‚ê‚½•¶š—ñ‚ğbool’l‚É•ÏŠ·‚·‚é \item\end{CompactList}\item 
+{\bf is\-Absolute\-Path} (str)
+\begin{CompactList}\small\item\em —^‚¦‚ç‚ê‚½•¶š—ñ‚ªâ‘ÎƒpƒX‚©‚Ç‚¤‚©‚ğ”»’f‚·‚é \item\end{CompactList}\item 
+{\bf is\-URL} (str)
+\begin{CompactList}\small\item\em —^‚¦‚ç‚ê‚½•¶š—ñ‚ªURL‚©‚Ç‚¤‚©‚ğ”»’f‚·‚é \item\end{CompactList}\item 
+{\bf otos} (n)
+\begin{CompactList}\small\item\em —^‚¦‚ç‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğstdstring‚É•ÏŠ· \item\end{CompactList}\item 
+{\bf \_\-string\-To\-List} (\_\-type, \_\-str)
+\item 
+{\bf string\-To} (\_\-type, \_\-str)
+\item 
+{\bf unique\_\-sv} (sv)
+\item 
+{\bf flatten} (sv)
+\item 
+{\bf to\-Argv} (args)
+\end{CompactItemize}
+
+
+\subsection{à–¾}
+String operation utility. 
+
+\begin{Desc}
+\item[“ú•t:]\begin{Desc}
+\item[Date]\end{Desc}
+\end{Desc}
+\begin{Desc}
+\item[ìÒ:]Noriaki Ando $<${\tt n-ando@aist.go.jp}$>$ and Shinji Kurihara\end{Desc}
+Copyright (C) 2003-2005 Task-intelligence Research Group, Intelligent Systems Research Institute, National Institute of Advanced Industrial Science and Technology (AIST), Japan All rights reserved.
+
+\subsection{ŠÖ”}
+\index{StringUtil.py@{String\-Util.py}!_stringToList@{\_\-stringToList}}
+\index{_stringToList@{\_\-stringToList}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\_\-string\-To\-List (\_\-type, \_\-str)}\label{StringUtil_8py_a12}
+
+
+\index{StringUtil.py@{String\-Util.py}!eraseHeadBlank@{eraseHeadBlank}}
+\index{eraseHeadBlank@{eraseHeadBlank}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}erase\-Head\-Blank (\_\-str)}\label{StringUtil_8py_a4}
+
+
+•¶š—ñ‚Ìæ“ª‚Ì‹ó”’•¶š‚ğíœ‚·‚é 
+
+\index{StringUtil.py@{String\-Util.py}!eraseTailBlank@{eraseTailBlank}}
+\index{eraseTailBlank@{eraseTailBlank}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}erase\-Tail\-Blank (\_\-str)}\label{StringUtil_8py_a5}
+
+
+•¶š—ñ‚Ì––”ö‚Ì‹ó”’•¶š‚ğíœ‚·‚é 
+
+\index{StringUtil.py@{String\-Util.py}!escape@{escape}}
+\index{escape@{escape}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}escape (\_\-str)}\label{StringUtil_8py_a2}
+
+
+•¶š—ñ‚ğƒGƒXƒP[ƒv‚·‚é 
+
+Ÿ‚Ì•¶š‚ğƒGƒXƒP[ƒvƒV[ƒPƒ“ƒX‚É•ÏŠ·‚·‚éB\par
+ HT -$>$ \char`\"{}$\backslash$t\char`\"{} \par
+ LF -$>$ \char`\"{}$\backslash$n\char`\"{} \par
+ CR -$>$ \char`\"{}$\backslash$r\char`\"{} \par
+ FF -$>$ \char`\"{}$\backslash$f\char`\"{} \par
+ ƒVƒ“ƒOƒ‹ƒNƒI[ƒgAƒ_ƒuƒ‹ƒNƒI[ƒg‚É‚Â‚¢‚Ä‚Í‚Æ‚­‚Éˆ—‚Í‚µ‚È‚¢B\index{StringUtil.py@{String\-Util.py}!flatten@{flatten}}
+\index{flatten@{flatten}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}flatten (sv)}\label{StringUtil_8py_a15}
+
+
+\index{StringUtil.py@{String\-Util.py}!for_each@{for\_\-each}}
+\index{for_each@{for\_\-each}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}for\_\-each (\_\-str, instance)}\label{StringUtil_8py_a1}
+
+
+\index{StringUtil.py@{String\-Util.py}!isAbsolutePath@{isAbsolutePath}}
+\index{isAbsolutePath@{isAbsolutePath}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}is\-Absolute\-Path (str)}\label{StringUtil_8py_a9}
+
+
+—^‚¦‚ç‚ê‚½•¶š—ñ‚ªâ‘ÎƒpƒX‚©‚Ç‚¤‚©‚ğ”»’f‚·‚é 
+
+\index{StringUtil.py@{String\-Util.py}!isEscaped@{isEscaped}}
+\index{isEscaped@{isEscaped}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}is\-Escaped (\_\-str, pos)}\label{StringUtil_8py_a0}
+
+
+•¶š—ñ‚ªƒGƒXƒP[ƒv‚³‚ê‚Ä‚¢‚é‚©”»’f‚·‚é 
+
+w’è‚µ‚½•¶š‚ªƒGƒXƒP[ƒv‚³‚ê‚Ä‚¢‚ê‚ÎtrueA‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Îfalse‚ğ•Ô‚·B
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em str}]ƒGƒXƒP[ƒv‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©”»’f‚·‚é•¶š‚ğŠÜ‚Ş•¶š—ñ \item[{\em pos}]ƒGƒXƒP[ƒv‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©”»’f‚·‚é•¶š‚ÌˆÊ’u \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]w’è‚µ‚½•¶š‚ªƒGƒXƒP[ƒv‚³‚ê‚Ä‚¢‚ê‚Î true, ‚»‚êˆÈŠO‚Í false\end{Desc}
+\index{StringUtil.py@{String\-Util.py}!isURL@{isURL}}
+\index{isURL@{isURL}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}is\-URL (str)}\label{StringUtil_8py_a10}
+
+
+—^‚¦‚ç‚ê‚½•¶š—ñ‚ªURL‚©‚Ç‚¤‚©‚ğ”»’f‚·‚é 
+
+\index{StringUtil.py@{String\-Util.py}!otos@{otos}}
+\index{otos@{otos}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}otos (n)}\label{StringUtil_8py_a11}
+
+
+—^‚¦‚ç‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğstdstring‚É•ÏŠ· 
+
+\index{StringUtil.py@{String\-Util.py}!replaceString@{replaceString}}
+\index{replaceString@{replaceString}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}replace\-String (str, \_\-from, \_\-to)}\label{StringUtil_8py_a6}
+
+
+•¶š—ñ‚ğ’u‚«Š·‚¦‚é 
+
+\index{StringUtil.py@{String\-Util.py}!split@{split}}
+\index{split@{split}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}split (input, delimiter)}\label{StringUtil_8py_a7}
+
+
+•¶š—ñ‚ğ•ªŠ„•¶š‚Å•ªŠ„‚·‚é 
+
+\index{StringUtil.py@{String\-Util.py}!stringTo@{stringTo}}
+\index{stringTo@{stringTo}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}string\-To (\_\-type, \_\-str)}\label{StringUtil_8py_a13}
+
+
+\index{StringUtil.py@{String\-Util.py}!toArgv@{toArgv}}
+\index{toArgv@{toArgv}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}to\-Argv (args)}\label{StringUtil_8py_a16}
+
+
+\index{StringUtil.py@{String\-Util.py}!toBool@{toBool}}
+\index{toBool@{toBool}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}to\-Bool (\_\-str, yes, no, default\_\-value = {\tt None})}\label{StringUtil_8py_a8}
+
+
+—^‚¦‚ç‚ê‚½•¶š—ñ‚ğbool’l‚É•ÏŠ·‚·‚é 
+
+\index{StringUtil.py@{String\-Util.py}!unescape@{unescape}}
+\index{unescape@{unescape}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unescape (\_\-str)}\label{StringUtil_8py_a3}
+
+
+•¶š—ñ‚ÌƒGƒXƒP[ƒv‚ğ–ß‚· 
+
+Ÿ‚ÌƒGƒXƒP[ƒvƒV[ƒPƒ“ƒX‚ğ•¶š‚É•ÏŠ·‚·‚éB\par
+ \char`\"{}$\backslash$t\char`\"{} -$>$ HT \par
+ \char`\"{}$\backslash$n\char`\"{} -$>$ LF \par
+ \char`\"{}$\backslash$r\char`\"{} -$>$ CR \par
+ \char`\"{}$\backslash$f\char`\"{} -$>$ FF \par
+ \char`\"{}$\backslash$\char`\"{}\char`\"{}  $\rightarrow$  \char`\"{} \par
+ \char`\"{}$\backslash$'\char`\"{} -$>$ ' \par
+\index{StringUtil.py@{String\-Util.py}!unique_sv@{unique\_\-sv}}
+\index{unique_sv@{unique\_\-sv}!StringUtil.py@{String\-Util.py}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unique\_\-sv (sv)}\label{StringUtil_8py_a14}
+
+

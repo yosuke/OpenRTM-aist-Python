@@ -1,0 +1,162 @@
+\section{ƒNƒ‰ƒX Corba\-Port}
+\label{classCorbaPort}\index{CorbaPort@{CorbaPort}}
+\subsection*{Public ƒƒ$\backslash$ƒbƒh}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (name)
+\begin{CompactList}\small\item\em ƒRƒ“ƒXƒgƒ‰ƒNƒ^ \item\end{CompactList}\item 
+{\bf \_\-\_\-del\_\-\_\-} ()
+\begin{CompactList}\small\item\em ƒfƒXƒgƒ‰ƒNƒ^ \item\end{CompactList}\item 
+{\bf register\-Provider} (instance\_\-name, type\_\-name, provider)
+\begin{CompactList}\small\item\em Provider ‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf register\-Consumer} (instance\_\-name, type\_\-name, consumer)
+\begin{CompactList}\small\item\em Consumer ‚ğ“o˜^‚·‚é. \item\end{CompactList}\item 
+{\bf publish\-Interfaces} (connector\_\-profile)
+\begin{CompactList}\small\item\em Interface î•ñ‚ğŒöŠJ‚·‚é. \item\end{CompactList}\item 
+{\bf subscribe\-Interfaces} (connector\_\-profile)
+\begin{CompactList}\small\item\em Interface ‚ÉÚ‘±‚·‚é. \item\end{CompactList}\item 
+{\bf \_\-\_\-init\_\-\_\-} (cons)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (nv)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (cons)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (nv)
+\end{CompactItemize}
+
+
+\subsection{ŠÖ”}
+\index{CorbaPort@{Corba\-Port}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::\_\-\_\-call\_\-\_\- (nv)}\label{classCorbaPort_CorbaPorta9}
+
+
+\index{CorbaPort@{Corba\-Port}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::\_\-\_\-call\_\-\_\- (nv)}\label{classCorbaPort_CorbaPorta7}
+
+
+\index{CorbaPort@{Corba\-Port}!__del__@{\_\-\_\-del\_\-\_\-}}
+\index{__del__@{\_\-\_\-del\_\-\_\-}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::\_\-\_\-del\_\-\_\- ()}\label{classCorbaPort_CorbaPorta1}
+
+
+ƒfƒXƒgƒ‰ƒNƒ^ 
+
+\index{CorbaPort@{Corba\-Port}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::\_\-\_\-init\_\-\_\- (cons)}\label{classCorbaPort_CorbaPorta8}
+
+
+\index{CorbaPort@{Corba\-Port}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::\_\-\_\-init\_\-\_\- (cons)}\label{classCorbaPort_CorbaPorta6}
+
+
+\index{CorbaPort@{Corba\-Port}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::\_\-\_\-init\_\-\_\- (name)}\label{classCorbaPort_CorbaPorta0}
+
+
+ƒRƒ“ƒXƒgƒ‰ƒNƒ^ 
+
+\begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em name}]Port ‚Ì–¼‘O\end{description}
+\end{Desc}
+\index{CorbaPort@{Corba\-Port}!publishInterfaces@{publishInterfaces}}
+\index{publishInterfaces@{publishInterfaces}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::publish\-Interfaces (connector\_\-profile)}\label{classCorbaPort_CorbaPorta4}
+
+
+Interface î•ñ‚ğŒöŠJ‚·‚é. 
+
+‚±‚Ì Port‚ªŠ—L‚·‚é Provider ‚ÉŠÖ‚·‚éî•ñ‚ğ Connector\-Profile::properties ‚É‘ã“ü‚·‚éB ‘ã“ü‚·‚éî•ñ‚ÍANVList‚Ì name ‚Æ value ‚Æ‚µ‚ÄˆÈ‰º‚Ì‚à‚Ì‚ªŠi”[‚³‚ê‚éB
+
+\begin{itemize}
+\item port.$<$type\_\-name$>$.$<$instance\_\-name$>$: $<$CORBA::Object\_\-ptr$>$\end{itemize}
+
+
+‚±‚±‚ÅA\begin{itemize}
+\item $<$type\_\-name$>$: Port\-Interface\-Profile::type\_\-name\item $<$instance\_\-name$>$: Port\-Interface\-Profile::instance\_\-name ‚Å‚ ‚éB Connector\-Profile::properties ‚Å‚ÍA‚±‚ê‚ç‚ğ .(ƒhƒbƒg)•$\backslash$‹L‚ÅA Name\-Value ‚ÌƒL[‚Æ‚µ‚Ä‚¢‚éB‚µ‚½‚ª‚Á‚ÄA\end{itemize}
+
+
+\small\begin{alltt}
+		PortInterfaceProfile
+		\{
+        instance\_name = "PA10\_0";
+        type\_name     = "Manipulator";
+        polarity      = PROVIDED;
+		\}
+		\end{alltt}\normalsize 
+
+
+‚È‚ç‚ÎA
+
+\small\begin{alltt}
+		NameValue = \{ "port.Manipulator.PA10\_0": <object reference=""> \}
+		\end{alltt}\normalsize 
+
+
+‚Æ‚¢‚Á‚½’l‚ª Connector\-Profile::properties ‚ÉŠi”[‚³‚êA‘¼‚Ìƒ|[ƒg‚É‘Î‚µ‚Ä “`’B‚³‚ê‚éB‘¼‚Ì Port ‚Å‚±‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚ğg—p‚·‚é Consumer ‚ª ‘¶İ‚·‚ê‚ÎAConnector\-Profile ‚©‚ç‚±‚ÌƒL[‚©‚çƒIƒuƒWƒFƒNƒgƒŠƒtƒ@ƒŒƒ“ƒX‚ğ æ“¾‚µ‰½‚ç‚©‚ÌŒ`‚Åg—p‚³‚ê‚éB\index{CorbaPort@{Corba\-Port}!registerConsumer@{registerConsumer}}
+\index{registerConsumer@{registerConsumer}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::register\-Consumer (instance\_\-name, type\_\-name, consumer)}\label{classCorbaPort_CorbaPorta3}
+
+
+Consumer ‚ğ“o˜^‚·‚é. 
+
+‚±‚Ì Port ‚ª—v‹‚·‚éƒT[ƒrƒX‚ÌƒvƒŒ[ƒXƒzƒ‹ƒ_‚Å‚ ‚éƒRƒ“ƒVƒ…[ƒ\} (Consumer) ‚ğ“o˜^‚·‚éB Consumer ‚ªŠÖ˜A•t‚¯‚ç‚ê‚éƒT[ƒrƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX–¼‚¨‚æ‚Ñƒ^ƒCƒv–¼‚Æ‚µ‚ÄA ˆø”‚É instance\_\-name, type\_\-name ‚¨‚æ‚Ñ Consumer ©g‚ğ—^‚¦‚é‚±‚Æ‚É‚æ‚èA “à•”‚Å‚±‚ê‚ç‚ªŠÖ˜A•t‚¯‚ç‚ê‚éB Port ŠÔ‚ÌÚ‘± (connect)  ‚É‚ÍA“¯ˆê‚Ì instance\_\-name, type\_\-name ‚ğ‚Â ƒT[ƒrƒX‚ª‘¼‚Ì Port ‚©‚ç’ñ‹Ÿ (Provide) ‚³‚ê‚Ä‚¢‚éê‡A‚»‚ÌƒT[ƒrƒX‚Ì ƒIƒuƒWƒFƒNƒgQÆ‚ª©“®“I‚É Consumer ‚ÉƒZƒbƒg‚³‚ê‚éB \begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em instance\_\-name}]Consumer ‚ª—v‹‚·‚éƒT[ƒrƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX–¼ \item[{\em type\_\-name}]Consumer ‚ª—v‹‚·‚éƒT[ƒrƒX‚Ìƒ^ƒCƒv–¼ \item[{\em consumer}]CORBA ƒT[ƒrƒXƒRƒ“ƒVƒ…[ƒ\} \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]Šù‚É“¯–¼‚Ì instance\_\-name ‚ª“o˜^‚³‚ê‚Ä‚¢‚ê‚Î false ‚ğ•Ô‚·B\end{Desc}
+\index{CorbaPort@{Corba\-Port}!registerProvider@{registerProvider}}
+\index{registerProvider@{registerProvider}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::register\-Provider (instance\_\-name, type\_\-name, provider)}\label{classCorbaPort_CorbaPorta2}
+
+
+Provider ‚ğ“o˜^‚·‚é. 
+
+‚±‚Ì Port ‚É‚¨‚¢‚Ä’ñ‹Ÿ‚µ‚½‚¢ƒT[ƒoƒ“ƒg‚ğ‚±‚Ì Port ‚É‘Î‚µ‚Ä“o˜^‚·‚éB ƒT[ƒoƒ“ƒg‚ÍAˆø”‚Å—^‚¦‚ç‚ê‚é instance\_\-name, type\_\-name ‚ğA ƒT[ƒoƒ“ƒg©g‚ÌƒCƒ“ƒXƒ^ƒ“ƒX–¼‚¨‚æ‚Ñƒ^ƒCƒv–¼‚Æ‚µ‚ÄAƒT[ƒoƒ“ƒg‚É ŠÖ˜A•t‚¯‚ç‚ê‚éB \begin{Desc}
+\item[ˆø”:]
+\begin{description}
+\item[{\em instance\_\-name}]ƒT[ƒoƒ“ƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX–¼ \item[{\em type\_\-name}]ƒT[ƒoƒ“ƒg‚Ìƒ^ƒCƒv–¼ \item[{\em provider}]CORBA ƒT[ƒoƒ“ƒg \end{description}
+\end{Desc}
+\begin{Desc}
+\item[–ß‚è’l:]Šù‚É“¯–¼‚Ì instance\_\-name ‚ª“o˜^‚³‚ê‚Ä‚¢‚ê‚Î false ‚ğ•Ô‚·B\end{Desc}
+\index{CorbaPort@{Corba\-Port}!subscribeInterfaces@{subscribeInterfaces}}
+\index{subscribeInterfaces@{subscribeInterfaces}!CorbaPort@{Corba\-Port}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Port::subscribe\-Interfaces (connector\_\-profile)}\label{classCorbaPort_CorbaPorta5}
+
+
+Interface ‚ÉÚ‘±‚·‚é. 
+
+‚±‚Ì Port‚ªŠ—L‚·‚é Consumer ‚É“K‡‚·‚é Provider ‚ÉŠÖ‚·‚éî•ñ‚ğ Connector\-Profile::properties ‚©‚ç’Šo‚µ Consumer ‚ÉƒIƒuƒWƒFƒNƒgQÆ ‚ğƒZƒbƒg‚·‚éB
+
+¡AConsumer ‚ª \small\begin{alltt}
+			PortInterfaceProfile
+			\{
+				instance\_name = "PA10\_0";
+				type\_name     = "Manipulator";
+				polarity      = REQUIRED;
+			\}
+		\end{alltt}\normalsize 
+ ‚Æ‚µ‚Ä“o˜^‚³‚ê‚Ä‚¢‚ê‚ÎA‘¼‚Ì Port ‚Ì \small\begin{alltt}
+			PortInterfaceProfile
+			\{
+				instance\_name = "PA10\_0";
+				type\_name     = "Manipulator";
+				polarity      = PROVIDED;
+			\}
+		\end{alltt}\normalsize 
+ ‚Æ‚µ‚Ä“o˜^‚³‚ê‚Ä‚¢‚é Serivce Provider ‚ÌƒIƒuƒWƒFƒNƒgQÆ‚ğ’T‚µA Consumer ‚ÉƒZƒbƒg‚·‚éB ÀÛ‚É‚ÍAConnector\-Profileproperties ‚É \small\begin{alltt}
+		NameValue = \{ "port.Manipulator.PA10\_0": <object reference=""> \}
+		\end{alltt}\normalsize 
+ ‚Æ‚µ‚Ä“o˜^‚³‚ê‚Ä‚¢‚é Name\-Value ‚ğ’T‚µA‚»‚ÌƒIƒuƒWƒFƒNƒgQÆ‚ğ Consumer ‚ÉƒZƒbƒg‚·‚éB
+
+‚±‚ÌƒNƒ‰ƒX‚Ìà–¾‚ÍŸ‚Ìƒtƒ@ƒCƒ‹‚©‚ç¶¬‚³‚ê‚Ü‚µ‚½:\begin{CompactItemize}
+\item 
+{\bf Corba\-Port.py}\end{CompactItemize}

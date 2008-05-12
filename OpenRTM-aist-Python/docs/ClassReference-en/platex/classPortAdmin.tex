@@ -1,0 +1,156 @@
+\section{Port\-Admin Class Reference}
+\label{classPortAdmin}\index{PortAdmin@{PortAdmin}}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (name=None, factory=None)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (obj)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (name)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (p)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (pa)
+\item 
+{\bf \_\-\_\-call\_\-\_\-} (p)
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (orb, poa)
+\item 
+{\bf get\-Port\-List} ()
+\begin{CompactList}\small\item\em Get Port\-List. \item\end{CompactList}\item 
+{\bf get\-Port\-Ref} (port\_\-name)
+\begin{CompactList}\small\item\em Get Port\-List. \item\end{CompactList}\item 
+{\bf get\-Port} (port\_\-name)
+\begin{CompactList}\small\item\em Getpointer to the Port's servant. \item\end{CompactList}\item 
+{\bf register\-Port} (port)
+\begin{CompactList}\small\item\em Regsiter Port. \item\end{CompactList}\item 
+{\bf delete\-Port} (port)
+\begin{CompactList}\small\item\em Delete the Port's registration. \item\end{CompactList}\item 
+{\bf delete\-Port\-By\-Name} (port\_\-name)
+\begin{CompactList}\small\item\em Delete the Port' registration. \item\end{CompactList}\item 
+{\bf finalize\-Ports} ()
+\begin{CompactList}\small\item\em Unregister the Port. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{PortAdmin@{Port\-Admin}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::\_\-\_\-call\_\-\_\- (p)}\label{classPortAdmin_PortAdmina5}
+
+
+\index{PortAdmin@{Port\-Admin}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::\_\-\_\-call\_\-\_\- (p)}\label{classPortAdmin_PortAdmina3}
+
+
+\index{PortAdmin@{Port\-Admin}!__call__@{\_\-\_\-call\_\-\_\-}}
+\index{__call__@{\_\-\_\-call\_\-\_\-}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::\_\-\_\-call\_\-\_\- (obj)}\label{classPortAdmin_PortAdmina1}
+
+
+\index{PortAdmin@{Port\-Admin}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::\_\-\_\-init\_\-\_\- (orb, poa)}\label{classPortAdmin_PortAdmina6}
+
+
+\index{PortAdmin@{Port\-Admin}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::\_\-\_\-init\_\-\_\- (pa)}\label{classPortAdmin_PortAdmina4}
+
+
+\index{PortAdmin@{Port\-Admin}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::\_\-\_\-init\_\-\_\- (name)}\label{classPortAdmin_PortAdmina2}
+
+
+\index{PortAdmin@{Port\-Admin}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::\_\-\_\-init\_\-\_\- (name = {\tt None}, factory = {\tt None})}\label{classPortAdmin_PortAdmina0}
+
+
+\index{PortAdmin@{Port\-Admin}!deletePort@{deletePort}}
+\index{deletePort@{deletePort}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::delete\-Port (port)}\label{classPortAdmin_PortAdmina11}
+
+
+Delete the Port's registration. 
+
+This operation unregisters the Port's registration. When the Port is unregistered, Port is deactivated, and the object reference in the Port's profile is set to nil. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port}]The Port's servant.\end{description}
+\end{Desc}
+\index{PortAdmin@{Port\-Admin}!deletePortByName@{deletePortByName}}
+\index{deletePortByName@{deletePortByName}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::delete\-Port\-By\-Name (port\_\-name)}\label{classPortAdmin_PortAdmina12}
+
+
+Delete the Port' registration. 
+
+This operation delete the Port's registration specified by port\_\- name. When the Port is unregistered, Port is deactivated, and the object reference in the Port's profile is set to nil. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port\_\-name}]The Port's name.\end{description}
+\end{Desc}
+\index{PortAdmin@{Port\-Admin}!finalizePorts@{finalizePorts}}
+\index{finalizePorts@{finalizePorts}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::finalize\-Ports ()}\label{classPortAdmin_PortAdmina13}
+
+
+Unregister the Port. 
+
+This operation deactivates the all Port and deletes the all Port's registrations from the list.\index{PortAdmin@{Port\-Admin}!getPort@{getPort}}
+\index{getPort@{getPort}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::get\-Port (port\_\-name)}\label{classPortAdmin_PortAdmina9}
+
+
+Getpointer to the Port's servant. 
+
+This operation returns the pointer to the {\bf Port\-Base}{\rm (p.\,\pageref{classPortBase})} servant regsitered by {\bf register\-Port()}{\rm (p.\,\pageref{classPortAdmin_PortAdmina10})}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port\_\-name}]The name of Port to be returned the servant pointer. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]{\bf Port\-Base}{\rm (p.\,\pageref{classPortBase})} Port's servant's pointer.\end{Desc}
+\index{PortAdmin@{Port\-Admin}!getPortList@{getPortList}}
+\index{getPortList@{getPortList}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::get\-Port\-List ()}\label{classPortAdmin_PortAdmina7}
+
+
+Get Port\-List. 
+
+This operation returns the pointer to the Port\-List of Ports regsitered by {\bf register\-Port()}{\rm (p.\,\pageref{classPortAdmin_PortAdmina10})}. \begin{Desc}
+\item[Returns:]Port\-List+ The pointer points Port\-List\end{Desc}
+\index{PortAdmin@{Port\-Admin}!getPortRef@{getPortRef}}
+\index{getPortRef@{getPortRef}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::get\-Port\-Ref (port\_\-name)}\label{classPortAdmin_PortAdmina8}
+
+
+Get Port\-List. 
+
+This operation returns the pointer to the Port\-List of Ports regsitered by {\bf register\-Port()}{\rm (p.\,\pageref{classPortAdmin_PortAdmina10})}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port\_\-name}]The name of Port to be returned the reference. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Port\_\-ptr Port's object reference.\end{Desc}
+\index{PortAdmin@{Port\-Admin}!registerPort@{registerPort}}
+\index{registerPort@{registerPort}!PortAdmin@{Port\-Admin}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Port\-Admin::register\-Port (port)}\label{classPortAdmin_PortAdmina10}
+
+
+Regsiter Port. 
+
+This operation registers the Port's servant given by argument. The given Port's servant will be activated on the POA that is given to the constructor, and the created object reference is set to the Port's profile. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port}]The Port's servant.\end{description}
+\end{Desc}
+
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf Port\-Admin.py}\end{CompactItemize}

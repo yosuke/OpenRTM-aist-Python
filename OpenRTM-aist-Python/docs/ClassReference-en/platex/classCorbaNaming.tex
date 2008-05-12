@@ -1,0 +1,299 @@
+\section{Corba\-Naming Class Reference}
+\label{classCorbaNaming}\index{CorbaNaming@{CorbaNaming}}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (orb, name\_\-server=None)
+\item 
+{\bf \_\-\_\-del\_\-\_\-} ()
+\item 
+{\bf init} (name\_\-server)
+\item 
+{\bf bind} (name\_\-list, obj, force=None)
+\item 
+{\bf bind\-By\-String} (string\_\-name, obj, force=True)
+\item 
+{\bf bind\-Recursive} (context, name\_\-list, obj)
+\item 
+{\bf rebind} (name\_\-list, obj, force=True)
+\item 
+{\bf rebind\-By\-String} (string\_\-name, obj, force=True)
+\item 
+{\bf rebind\-Recursive} (context, name\_\-list, obj)
+\item 
+{\bf bind\-Context} (name, name\_\-cxt, force=True)
+\item 
+{\bf bind\-Context\-Recursive} (context, name\_\-list, name\_\-cxt)
+\item 
+{\bf rebind\-Context} (name, name\_\-cxt, force=True)
+\item 
+{\bf rebind\-Context\-Recursive} (context, name\_\-list, name\_\-cxt)
+\item 
+{\bf resolve} (name)
+\item 
+{\bf unbind} (name)
+\item 
+{\bf new\-Context} ()
+\item 
+{\bf bind\-New\-Context} (name, force=True)
+\item 
+{\bf destroy} (context)
+\begin{CompactList}\small\item\em Destroy the naming context. \item\end{CompactList}\item 
+{\bf destroy\-Recursive} (context)
+\begin{CompactList}\small\item\em Destroy the naming context recursively. \item\end{CompactList}\item 
+{\bf clear\-All} ()
+\begin{CompactList}\small\item\em Destroy all binding. \item\end{CompactList}\item 
+{\bf list} (name\_\-cxt, how\_\-many, rbl, rbi)
+\begin{CompactList}\small\item\em Get Binding on the Naming\-Context\-Destroy all binding. \item\end{CompactList}\item 
+{\bf to\-String} (name\_\-list)
+\begin{CompactList}\small\item\em Get string representation of given Name\-Component. \item\end{CompactList}\item 
+{\bf to\-Name} (sname)
+\begin{CompactList}\small\item\em Get Name\-Component from gien string name representation. \item\end{CompactList}\item 
+{\bf to\-Url} (addr, string\_\-name)
+\begin{CompactList}\small\item\em Get URL representation from given addr and string\_\-name. \item\end{CompactList}\item 
+{\bf resolve\-Str} (string\_\-name)
+\begin{CompactList}\small\item\em Resolve from name of string representation and get object. \item\end{CompactList}\item 
+{\bf bind\-Or\-Resolve} (context, name\_\-list, obj)
+\begin{CompactList}\small\item\em Bind of resolve the given name component. \item\end{CompactList}\item 
+{\bf bind\-Or\-Resolve\-Context} (context, name\_\-list, new\_\-context=None)
+\begin{CompactList}\small\item\em Bind of resolve the given name component. \item\end{CompactList}\item 
+{\bf get\-Name\-Server} ()
+\begin{CompactList}\small\item\em Get the name of naming server. \item\end{CompactList}\item 
+{\bf get\-Root\-Context} ()
+\begin{CompactList}\small\item\em Get the root context. \item\end{CompactList}\item 
+{\bf obj\-Is\-Naming\-Context} (obj)
+\begin{CompactList}\small\item\em Whether the object is Naming\-Context. \item\end{CompactList}\item 
+{\bf name\-Is\-Naming\-Context} (name\_\-list)
+\begin{CompactList}\small\item\em Whether the given name component is Naming\-Context. \item\end{CompactList}\item 
+{\bf sub\-Name} (name\_\-list, begin, end=None)
+\begin{CompactList}\small\item\em Get subset of given name component. \item\end{CompactList}\item 
+{\bf name\-To\-String} (name\_\-list, string\_\-name, slen)
+\begin{CompactList}\small\item\em Get string representation of name component. \item\end{CompactList}\item 
+{\bf get\-Name\-Length} (name\_\-list)
+\begin{CompactList}\small\item\em Get string length of the name component's string representation. \item\end{CompactList}\item 
+{\bf split} (input, delimiter, results)
+\begin{CompactList}\small\item\em Split of string. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{CorbaNaming@{Corba\-Naming}!__del__@{\_\-\_\-del\_\-\_\-}}
+\index{__del__@{\_\-\_\-del\_\-\_\-}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::\_\-\_\-del\_\-\_\- ()}\label{classCorbaNaming_CorbaNaminga1}
+
+
+\index{CorbaNaming@{Corba\-Naming}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::\_\-\_\-init\_\-\_\- (orb, name\_\-server = {\tt None})}\label{classCorbaNaming_CorbaNaminga0}
+
+
+\index{CorbaNaming@{Corba\-Naming}!bind@{bind}}
+\index{bind@{bind}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::bind (name\_\-list, obj, force = {\tt None})}\label{classCorbaNaming_CorbaNaminga3}
+
+
+\index{CorbaNaming@{Corba\-Naming}!bindByString@{bindByString}}
+\index{bindByString@{bindByString}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::bind\-By\-String (string\_\-name, obj, force = {\tt True})}\label{classCorbaNaming_CorbaNaminga4}
+
+
+\index{CorbaNaming@{Corba\-Naming}!bindContext@{bindContext}}
+\index{bindContext@{bindContext}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::bind\-Context (name, name\_\-cxt, force = {\tt True})}\label{classCorbaNaming_CorbaNaminga9}
+
+
+\index{CorbaNaming@{Corba\-Naming}!bindContextRecursive@{bindContextRecursive}}
+\index{bindContextRecursive@{bindContextRecursive}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::bind\-Context\-Recursive (context, name\_\-list, name\_\-cxt)}\label{classCorbaNaming_CorbaNaminga10}
+
+
+\index{CorbaNaming@{Corba\-Naming}!bindNewContext@{bindNewContext}}
+\index{bindNewContext@{bindNewContext}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::bind\-New\-Context (name, force = {\tt True})}\label{classCorbaNaming_CorbaNaminga16}
+
+
+\index{CorbaNaming@{Corba\-Naming}!bindOrResolve@{bindOrResolve}}
+\index{bindOrResolve@{bindOrResolve}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::bind\-Or\-Resolve (context, name\_\-list, obj)}\label{classCorbaNaming_CorbaNaminga25}
+
+
+Bind of resolve the given name component. 
+
+\index{CorbaNaming@{Corba\-Naming}!bindOrResolveContext@{bindOrResolveContext}}
+\index{bindOrResolveContext@{bindOrResolveContext}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::bind\-Or\-Resolve\-Context (context, name\_\-list, new\_\-context = {\tt None})}\label{classCorbaNaming_CorbaNaminga26}
+
+
+Bind of resolve the given name component. 
+
+\index{CorbaNaming@{Corba\-Naming}!bindRecursive@{bindRecursive}}
+\index{bindRecursive@{bindRecursive}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::bind\-Recursive (context, name\_\-list, obj)}\label{classCorbaNaming_CorbaNaminga5}
+
+
+\index{CorbaNaming@{Corba\-Naming}!clearAll@{clearAll}}
+\index{clearAll@{clearAll}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::clear\-All ()}\label{classCorbaNaming_CorbaNaminga19}
+
+
+Destroy all binding. 
+
+\index{CorbaNaming@{Corba\-Naming}!destroy@{destroy}}
+\index{destroy@{destroy}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::destroy (context)}\label{classCorbaNaming_CorbaNaminga17}
+
+
+Destroy the naming context. 
+
+Delete the specified naming context. any bindings should be $<$unbind$>$ in which the given context is bound to some names before invoking $<$destroy$>$ operation on it. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em context}]Naming\-Context which is destroied.\end{description}
+\end{Desc}
+\index{CorbaNaming@{Corba\-Naming}!destroyRecursive@{destroyRecursive}}
+\index{destroyRecursive@{destroyRecursive}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::destroy\-Recursive (context)}\label{classCorbaNaming_CorbaNaminga18}
+
+
+Destroy the naming context recursively. 
+
+\index{CorbaNaming@{Corba\-Naming}!getNameLength@{getNameLength}}
+\index{getNameLength@{getNameLength}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::get\-Name\-Length (name\_\-list)}\label{classCorbaNaming_CorbaNaminga33}
+
+
+Get string length of the name component's string representation. 
+
+\index{CorbaNaming@{Corba\-Naming}!getNameServer@{getNameServer}}
+\index{getNameServer@{getNameServer}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::get\-Name\-Server ()}\label{classCorbaNaming_CorbaNaminga27}
+
+
+Get the name of naming server. 
+
+\index{CorbaNaming@{Corba\-Naming}!getRootContext@{getRootContext}}
+\index{getRootContext@{getRootContext}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::get\-Root\-Context ()}\label{classCorbaNaming_CorbaNaminga28}
+
+
+Get the root context. 
+
+\index{CorbaNaming@{Corba\-Naming}!init@{init}}
+\index{init@{init}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::init (name\_\-server)}\label{classCorbaNaming_CorbaNaminga2}
+
+
+\index{CorbaNaming@{Corba\-Naming}!list@{list}}
+\index{list@{list}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::list (name\_\-cxt, how\_\-many, rbl, rbi)}\label{classCorbaNaming_CorbaNaminga20}
+
+
+Get Binding on the Naming\-Context\-Destroy all binding. 
+
+\index{CorbaNaming@{Corba\-Naming}!nameIsNamingContext@{nameIsNamingContext}}
+\index{nameIsNamingContext@{nameIsNamingContext}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::name\-Is\-Naming\-Context (name\_\-list)}\label{classCorbaNaming_CorbaNaminga30}
+
+
+Whether the given name component is Naming\-Context. 
+
+\index{CorbaNaming@{Corba\-Naming}!nameToString@{nameToString}}
+\index{nameToString@{nameToString}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::name\-To\-String (name\_\-list, string\_\-name, slen)}\label{classCorbaNaming_CorbaNaminga32}
+
+
+Get string representation of name component. 
+
+\index{CorbaNaming@{Corba\-Naming}!newContext@{newContext}}
+\index{newContext@{newContext}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::new\-Context ()}\label{classCorbaNaming_CorbaNaminga15}
+
+
+\index{CorbaNaming@{Corba\-Naming}!objIsNamingContext@{objIsNamingContext}}
+\index{objIsNamingContext@{objIsNamingContext}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::obj\-Is\-Naming\-Context (obj)}\label{classCorbaNaming_CorbaNaminga29}
+
+
+Whether the object is Naming\-Context. 
+
+\index{CorbaNaming@{Corba\-Naming}!rebind@{rebind}}
+\index{rebind@{rebind}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::rebind (name\_\-list, obj, force = {\tt True})}\label{classCorbaNaming_CorbaNaminga6}
+
+
+\index{CorbaNaming@{Corba\-Naming}!rebindByString@{rebindByString}}
+\index{rebindByString@{rebindByString}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::rebind\-By\-String (string\_\-name, obj, force = {\tt True})}\label{classCorbaNaming_CorbaNaminga7}
+
+
+\index{CorbaNaming@{Corba\-Naming}!rebindContext@{rebindContext}}
+\index{rebindContext@{rebindContext}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::rebind\-Context (name, name\_\-cxt, force = {\tt True})}\label{classCorbaNaming_CorbaNaminga11}
+
+
+\index{CorbaNaming@{Corba\-Naming}!rebindContextRecursive@{rebindContextRecursive}}
+\index{rebindContextRecursive@{rebindContextRecursive}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::rebind\-Context\-Recursive (context, name\_\-list, name\_\-cxt)}\label{classCorbaNaming_CorbaNaminga12}
+
+
+\index{CorbaNaming@{Corba\-Naming}!rebindRecursive@{rebindRecursive}}
+\index{rebindRecursive@{rebindRecursive}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::rebind\-Recursive (context, name\_\-list, obj)}\label{classCorbaNaming_CorbaNaminga8}
+
+
+\index{CorbaNaming@{Corba\-Naming}!resolve@{resolve}}
+\index{resolve@{resolve}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::resolve (name)}\label{classCorbaNaming_CorbaNaminga13}
+
+
+\index{CorbaNaming@{Corba\-Naming}!resolveStr@{resolveStr}}
+\index{resolveStr@{resolveStr}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::resolve\-Str (string\_\-name)}\label{classCorbaNaming_CorbaNaminga24}
+
+
+Resolve from name of string representation and get object. 
+
+\index{CorbaNaming@{Corba\-Naming}!split@{split}}
+\index{split@{split}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::split (input, delimiter, results)}\label{classCorbaNaming_CorbaNaminga34}
+
+
+Split of string. 
+
+\index{CorbaNaming@{Corba\-Naming}!subName@{subName}}
+\index{subName@{subName}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::sub\-Name (name\_\-list, begin, end = {\tt None})}\label{classCorbaNaming_CorbaNaminga31}
+
+
+Get subset of given name component. 
+
+\index{CorbaNaming@{Corba\-Naming}!toName@{toName}}
+\index{toName@{toName}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::to\-Name (sname)}\label{classCorbaNaming_CorbaNaminga22}
+
+
+Get Name\-Component from gien string name representation. 
+
+\index{CorbaNaming@{Corba\-Naming}!toString@{toString}}
+\index{toString@{toString}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::to\-String (name\_\-list)}\label{classCorbaNaming_CorbaNaminga21}
+
+
+Get string representation of given Name\-Component. 
+
+\index{CorbaNaming@{Corba\-Naming}!toUrl@{toUrl}}
+\index{toUrl@{toUrl}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::to\-Url (addr, string\_\-name)}\label{classCorbaNaming_CorbaNaminga23}
+
+
+Get URL representation from given addr and string\_\-name. 
+
+\index{CorbaNaming@{Corba\-Naming}!unbind@{unbind}}
+\index{unbind@{unbind}!CorbaNaming@{Corba\-Naming}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Corba\-Naming::unbind (name)}\label{classCorbaNaming_CorbaNaminga14}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf Corba\-Naming.py}\end{CompactItemize}

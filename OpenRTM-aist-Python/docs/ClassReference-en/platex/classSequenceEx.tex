@@ -1,0 +1,155 @@
+\section{Sequence\-Ex Class Reference}
+\label{classSequenceEx}\index{SequenceEx@{SequenceEx}}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (\_\-sq)
+\begin{CompactList}\small\item\em Copy constructor from Corba\-Sequence. \item\end{CompactList}\item 
+{\bf \_\-\_\-del\_\-\_\-} ()
+\begin{CompactList}\small\item\em Destructor. \item\end{CompactList}\item 
+{\bf size} ()
+\begin{CompactList}\small\item\em Get size of this sequence. \item\end{CompactList}\item 
+{\bf max\_\-size} ()
+\begin{CompactList}\small\item\em Get current maximum size of this sequence. \item\end{CompactList}\item 
+{\bf empty} ()
+\begin{CompactList}\small\item\em Test whether the sequence is empty. \item\end{CompactList}\item 
+{\bf resize} (new\_\-size, item)
+\begin{CompactList}\small\item\em Resize the length of the sequence. \item\end{CompactList}\item 
+{\bf insert} (position, item)
+\begin{CompactList}\small\item\em Insert a new item to the sequence. \item\end{CompactList}\item 
+{\bf erase} (position)
+\begin{CompactList}\small\item\em Erase an item of the sequence. \item\end{CompactList}\item 
+{\bf erase\_\-if} (f)
+\begin{CompactList}\small\item\em Erase an item according to the given predicate. \item\end{CompactList}\item 
+{\bf push\_\-back} (item)
+\begin{CompactList}\small\item\em Append an item to the end of the sequence. \item\end{CompactList}\item 
+{\bf pop\_\-back} ()
+\item 
+{\bf find} (f)
+\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{SequenceEx@{Sequence\-Ex}!__del__@{\_\-\_\-del\_\-\_\-}}
+\index{__del__@{\_\-\_\-del\_\-\_\-}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::\_\-\_\-del\_\-\_\- ()}\label{classSequenceEx_SequenceExa1}
+
+
+Destructor. 
+
+\index{SequenceEx@{Sequence\-Ex}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::\_\-\_\-init\_\-\_\- (\_\-sq)}\label{classSequenceEx_SequenceExa0}
+
+
+Copy constructor from Corba\-Sequence. 
+
+This constructor copies sequence contents from given Corba\-Sequence to this object.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em \_\-sq}]Copy source of Corba\-Sequence type\end{description}
+\end{Desc}
+\index{SequenceEx@{Sequence\-Ex}!empty@{empty}}
+\index{empty@{empty}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::empty ()}\label{classSequenceEx_SequenceExa4}
+
+
+Test whether the sequence is empty. 
+
+This operation returns bool value whether the sequence is empty. If the size of the sequence is 0, this operation returns true, and in other case this operation returns false. \begin{Desc}
+\item[Returns:]The bool value whether the sequence is empty.\end{Desc}
+\index{SequenceEx@{Sequence\-Ex}!erase@{erase}}
+\index{erase@{erase}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::erase (position)}\label{classSequenceEx_SequenceExa7}
+
+
+Erase an item of the sequence. 
+
+This operation erases an item from the sequence. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em position}]The position of erased item.\end{description}
+\end{Desc}
+\index{SequenceEx@{Sequence\-Ex}!erase_if@{erase\_\-if}}
+\index{erase_if@{erase\_\-if}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::erase\_\-if (f)}\label{classSequenceEx_SequenceExa8}
+
+
+Erase an item according to the given predicate. 
+
+This operation erases an item according to the given predicate. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em f}]The predicate functor to decide deletion.\end{description}
+\end{Desc}
+\index{SequenceEx@{Sequence\-Ex}!find@{find}}
+\index{find@{find}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::find (f)}\label{classSequenceEx_SequenceExa11}
+
+
+\index{SequenceEx@{Sequence\-Ex}!insert@{insert}}
+\index{insert@{insert}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::insert (position, item)}\label{classSequenceEx_SequenceExa6}
+
+
+Insert a new item to the sequence. 
+
+This operation inserts a new item to the sequence. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em position}]The position of new inserted item. \item[{\em item129@}]Sequence element to be inserted.\end{description}
+\end{Desc}
+\index{SequenceEx@{Sequence\-Ex}!max_size@{max\_\-size}}
+\index{max_size@{max\_\-size}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::max\_\-size ()}\label{classSequenceEx_SequenceExa3}
+
+
+Get current maximum size of this sequence. 
+
+This operation returns the current maximum size of the sequence. This is same as Corba\-Sequence::maximum(). \begin{Desc}
+\item[Returns:]The maximum size of the sequence.\end{Desc}
+\index{SequenceEx@{Sequence\-Ex}!pop_back@{pop\_\-back}}
+\index{pop_back@{pop\_\-back}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::pop\_\-back ()}\label{classSequenceEx_SequenceExa10}
+
+
+\index{SequenceEx@{Sequence\-Ex}!push_back@{push\_\-back}}
+\index{push_back@{push\_\-back}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::push\_\-back (item)}\label{classSequenceEx_SequenceExa9}
+
+
+Append an item to the end of the sequence. 
+
+This operation push back an item to the of the sequence. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em item}]The object to be added to the end of the sequnce.\end{description}
+\end{Desc}
+\index{SequenceEx@{Sequence\-Ex}!resize@{resize}}
+\index{resize@{resize}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::resize (new\_\-size, item)}\label{classSequenceEx_SequenceExa5}
+
+
+Resize the length of the sequence. 
+
+This operation resizes the length of the sequence. If longer length than current sequence length is given, newly allocated rooms will be assigned by element given by the argument. If shorter length than current sequence length is given, the excessive element of a sequence is deleted like behavior of Corab\-Sequence \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em new\_\-size}]The new size of the sequence \item[{\em item129@}]Sequence element to be assigned to new rooms.\end{description}
+\end{Desc}
+\index{SequenceEx@{Sequence\-Ex}!size@{size}}
+\index{size@{size}!SequenceEx@{Sequence\-Ex}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Sequence\-Ex::size ()}\label{classSequenceEx_SequenceExa2}
+
+
+Get size of this sequence. 
+
+This operation returns the size of the sequence. This is same as Corba\-Sequence::length(). \begin{Desc}
+\item[Returns:]The size of the sequence.\end{Desc}
+
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf CORBA\_\-Seq\-Ex.py}\end{CompactItemize}

@@ -1,0 +1,706 @@
+\section{RTObject\_\-impl Class Reference}
+\label{classRTObject__impl}\index{RTObject_impl@{RTObject\_\-impl}}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-del\_\-\_\-} ()
+\item 
+{\bf on\-Initialize} ()
+\item 
+{\bf on\-Finalize} ()
+\item 
+{\bf on\-Startup} (ec\_\-id)
+\item 
+{\bf on\-Shutdown} (ec\_\-id)
+\item 
+{\bf on\-Activated} (ec\_\-id)
+\item 
+{\bf on\-Deactivated} (ec\_\-id)
+\item 
+{\bf on\-Execute} (ec\_\-id)
+\item 
+{\bf on\-Aborting} (ec\_\-id)
+\item 
+{\bf on\-Error} (ec\_\-id)
+\item 
+{\bf on\-Reset} (ec\_\-id)
+\item 
+{\bf on\-State\-Update} (ec\_\-id)
+\item 
+{\bf on\-Rate\-Changed} (ec\_\-id)
+\item 
+{\bf initialize} ()
+\item 
+{\bf finalize} ()
+\begin{CompactList}\small\item\em Finalize the RTC for preparing it for destruction. \item\end{CompactList}\item 
+{\bf exit} ()
+\begin{CompactList}\small\item\em Stop the RTC's and finalize it along with its contents. \item\end{CompactList}\item 
+{\bf is\_\-alive} ()
+\begin{CompactList}\small\item\em A component is alive or not regardless of the execution context from which it is observed. However, whether or not it is Active, Inactive, or in Error is dependent on the execution context(s) in which it is running. That is, it may be Active in one context but Inactive in another. Therefore, this operation shall report whether this RTC is either Active, Inactive or in Error; which of those states a component is in with respect to a particular context may be queried from the context itself. \item\end{CompactList}\item 
+{\bf get\_\-contexts} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get Execution\-Context\-List. \item\end{CompactList}\item 
+{\bf get\_\-context} (ec\_\-id)
+\begin{CompactList}\small\item\em [CORBA interface] Get Execution\-Context. \item\end{CompactList}\item 
+{\bf get\_\-component\_\-profile} ()
+\begin{CompactList}\small\item\em [{\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} CORBA interface] Get RTC's profile \item\end{CompactList}\item 
+{\bf get\_\-ports} ()
+\begin{CompactList}\small\item\em [{\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} CORBA interface] Get Ports \item\end{CompactList}\item 
+{\bf get\_\-execution\_\-context\_\-services} ()
+\begin{CompactList}\small\item\em [{\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} CORBA interface] Get Execution\-Context\-Admin \item\end{CompactList}\item 
+{\bf attach\_\-executioncontext} (exec\_\-context)
+\item 
+{\bf detach\_\-executioncontext} (ec\_\-id)
+\item 
+{\bf on\_\-initialize} ()
+\item 
+{\bf on\_\-finalize} ()
+\item 
+{\bf on\_\-startup} (ec\_\-id)
+\item 
+{\bf on\_\-shutdown} (ec\_\-id)
+\item 
+{\bf on\_\-activated} (ec\_\-id)
+\item 
+{\bf on\_\-deactivated} (ec\_\-id)
+\item 
+{\bf on\_\-aborting} (ec\_\-id)
+\item 
+{\bf on\_\-error} (ec\_\-id)
+\item 
+{\bf on\_\-reset} (ec\_\-id)
+\item 
+{\bf on\_\-execute} (ec\_\-id)
+\item 
+{\bf on\_\-state\_\-update} (ec\_\-id)
+\item 
+{\bf on\_\-rate\_\-changed} (ec\_\-id)
+\item 
+{\bf get\_\-owned\_\-organizations} ()
+\begin{CompactList}\small\item\em [CORBA interface] Getting Organizations \item\end{CompactList}\item 
+{\bf get\_\-sdo\_\-id} ()
+\begin{CompactList}\small\item\em [CORBA interface] Getting SDO ID \item\end{CompactList}\item 
+{\bf get\_\-sdo\_\-type} ()
+\begin{CompactList}\small\item\em [CORBA interface] Getting SDO type \item\end{CompactList}\item 
+{\bf get\_\-device\_\-profile} ()
+\begin{CompactList}\small\item\em [CORBA interface] Getting SDO Device\-Profile \item\end{CompactList}\item 
+{\bf get\_\-service\_\-profiles} ()
+\begin{CompactList}\small\item\em [CORBA interface] Getting SDO Service\-Profile \item\end{CompactList}\item 
+{\bf get\_\-service\_\-profile} (\_\-id)
+\begin{CompactList}\small\item\em [CORBA interface] Getting Organizations \item\end{CompactList}\item 
+{\bf get\_\-sdo\_\-service} (\_\-id)
+\begin{CompactList}\small\item\em [CORBA interface] Getting specified SDO Service's reference \item\end{CompactList}\item 
+{\bf get\_\-configuration} ()
+\begin{CompactList}\small\item\em [CORBA interface] Getting Configuration object \item\end{CompactList}\item 
+{\bf get\_\-monitoring} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get Monitoring object \item\end{CompactList}\item 
+{\bf get\_\-organizations} ()
+\begin{CompactList}\small\item\em [CORBA interface] Getting Organizations \item\end{CompactList}\item 
+{\bf get\_\-status\_\-list} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get SDO Status \item\end{CompactList}\item 
+{\bf get\_\-status} (name)
+\begin{CompactList}\small\item\em [CORBA interface] Get SDO Status \item\end{CompactList}\item 
+{\bf get\-Instance\-Name} ()
+\item 
+{\bf set\-Instance\-Name} (instance\_\-name)
+\item 
+{\bf get\-Type\-Name} ()
+\item 
+{\bf get\-Description} ()
+\item 
+{\bf get\-Version} ()
+\item 
+{\bf get\-Vendor} ()
+\item 
+{\bf get\-Category} ()
+\item 
+{\bf get\-Naming\-Names} ()
+\item 
+{\bf set\-Obj\-Ref} (rtobj)
+\item 
+{\bf get\-Obj\-Ref} ()
+\item 
+{\bf set\-Properties} (prop)
+\begin{CompactList}\small\item\em [local interface] Set RTC property \item\end{CompactList}\item 
+{\bf get\-Properties} ()
+\begin{CompactList}\small\item\em [local interface] Get RTC property \item\end{CompactList}\item 
+{\bf bind\-Parameter} (param\_\-name, var, def\_\-val, trans=None)
+\begin{CompactList}\small\item\em var 130\'{I}131138131X131g130240147n130183149K151v130170130160130\'{e}129B \item\end{CompactList}\item 
+{\bf update\-Parameters} (config\_\-set)
+\item 
+{\bf register\-Port} (port)
+\begin{CompactList}\small\item\em [local interface] Register Port \item\end{CompactList}\item 
+{\bf register\-In\-Port} (name, inport)
+\item 
+{\bf register\-Out\-Port} (name, outport)
+\item 
+{\bf delete\-Port} (port)
+\begin{CompactList}\small\item\em [local interface] Register Port \item\end{CompactList}\item 
+{\bf delete\-Port\-By\-Name} (port\_\-name)
+\item 
+{\bf finalize\-Ports} ()
+\item 
+{\bf shutdown} ()
+\end{CompactItemize}
+\subsection*{Classes}
+\begin{CompactItemize}
+\item 
+class {\bf deactivate\_\-comps}
+\item 
+class {\bf ec\_\-copy}
+\item 
+class {\bf nv\_\-name}
+\item 
+class {\bf svc\_\-name}
+\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{RTObject_impl@{RTObject\_\-impl}!__del__@{\_\-\_\-del\_\-\_\-}}
+\index{__del__@{\_\-\_\-del\_\-\_\-}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::\_\-\_\-del\_\-\_\- ()}\label{classRTObject__impl_RTObject__impla0}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!attach_executioncontext@{attach\_\-executioncontext}}
+\index{attach_executioncontext@{attach\_\-executioncontext}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::attach\_\-executioncontext (exec\_\-context)}\label{classRTObject__impl_RTObject__impla22}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!bindParameter@{bindParameter}}
+\index{bindParameter@{bindParameter}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::bind\-Parameter (param\_\-name, var, def\_\-val, trans = {\tt None})}\label{classRTObject__impl_RTObject__impla60}
+
+
+var 130\'{I}131138131X131g130240147n130183149K151v130170130160130\'{e}129B 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em param\_\-name}]name of Parameter. \item[{\em var}]object. \item[{\em def\_\-val}]stirng of parameter.\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!deletePort@{deletePort}}
+\index{deletePort@{deletePort}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::delete\-Port (port)}\label{classRTObject__impl_RTObject__impla65}
+
+
+[local interface] Register Port 
+
+This operation registers a Port to be held by this RTC. In order to enable access to the Port from outside of RTC, the Port must be registered by this operation. The Port that is registered by this operation would be identified by Port\-Profile.name in the inside of RTC. Therefore, the Port should have unique Port\-Profile.name in the RTC. The registering Port would be activated properly, and the reference and the object reference would be stored in lists in RTC. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port}]Port which is registered in the RTC\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!deletePortByName@{deletePortByName}}
+\index{deletePortByName@{deletePortByName}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::delete\-Port\-By\-Name (port\_\-name)}\label{classRTObject__impl_RTObject__impla66}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!detach_executioncontext@{detach\_\-executioncontext}}
+\index{detach_executioncontext@{detach\_\-executioncontext}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::detach\_\-executioncontext (ec\_\-id)}\label{classRTObject__impl_RTObject__impla23}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!exit@{exit}}
+\index{exit@{exit}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::exit ()}\label{classRTObject__impl_RTObject__impla15}
+
+
+Stop the RTC's and finalize it along with its contents. 
+
+Any execution contexts for which the RTC is the owner shall be stopped. If the RTC participates in any execution contexts belonging to another RTC that contains it, directly or indirectly (i.e. the containing RTC is the owner of the Execution\-Context), it shall be deactivated in those contexts. After the RTC is no longer Active in any Running execution context, it and any RTCs contained transitively within it shall be finalized.
+
+Constraints\begin{itemize}
+\item An RTC cannot be exited if it has not yet been initialized. Any attempt to exit an RTC that is in the Created state shall fail with Return\-Code\_\-t::PRECONDITION\_\-NOT\_\-MET.\end{itemize}
+\index{RTObject_impl@{RTObject\_\-impl}!finalize@{finalize}}
+\index{finalize@{finalize}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::finalize ()}\label{classRTObject__impl_RTObject__impla14}
+
+
+Finalize the RTC for preparing it for destruction. 
+
+This invocation of this operation shall result in the invocation of the callback Component\-Action::on\_\-finalize.
+
+Constraints\begin{itemize}
+\item An RTC may not be finalized while it is Active in any Running execution context. Any attempt to invoke this operation at such a time shall fail with Return\-Code\_\-t::PRECONDITION\_\-NOT\_\-MET.\item An RTC may not be finalized while it is in the Created state. Any attempt to invoke this operation while in that state shall fail with Return\-Code\_\-t::PRECONDITION\_\-NOT\_\-MET.\item Application developers are not expected to call this operation directly; it exists for use by the RTC infrastructure.\end{itemize}
+\index{RTObject_impl@{RTObject\_\-impl}!finalizePorts@{finalizePorts}}
+\index{finalizePorts@{finalizePorts}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::finalize\-Ports ()}\label{classRTObject__impl_RTObject__impla67}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!get_component_profile@{get\_\-component\_\-profile}}
+\index{get_component_profile@{get\_\-component\_\-profile}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-component\_\-profile ()}\label{classRTObject__impl_RTObject__impla19}
+
+
+[{\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} CORBA interface] Get RTC's profile 
+
+This operation returns the Component\-Profile of the RTC\index{RTObject_impl@{RTObject\_\-impl}!get_configuration@{get\_\-configuration}}
+\index{get_configuration@{get\_\-configuration}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-configuration ()}\label{classRTObject__impl_RTObject__impla43}
+
+
+[CORBA interface] Getting Configuration object 
+
+This operation returns an object implementing the Configuration interface. The Configuration interface is one of the interfaces thatreturn RTC.BAD\_\-PARAMETER each SDO maintains. The interface is used to configure the attributes defined in Device\-Profile, Service\-Profile, and Organization. See OMG SDO specification Section 2.3.5, \char`\"{}Configuration Interface,\char`\"{} on page 2-24 for more details about the Configuration interface.
+
+\begin{Desc}
+\item[Returns:]The Configuration interface of an SDO. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em Interface\-Not\-Implemented}]The target SDO has no Configuration interface. \item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_context@{get\_\-context}}
+\index{get_context@{get\_\-context}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-context (ec\_\-id)}\label{classRTObject__impl_RTObject__impla18}
+
+
+[CORBA interface] Get Execution\-Context. 
+
+\index{RTObject_impl@{RTObject\_\-impl}!get_contexts@{get\_\-contexts}}
+\index{get_contexts@{get\_\-contexts}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-contexts ()}\label{classRTObject__impl_RTObject__impla17}
+
+
+[CORBA interface] Get Execution\-Context\-List. 
+
+\index{RTObject_impl@{RTObject\_\-impl}!get_device_profile@{get\_\-device\_\-profile}}
+\index{get_device_profile@{get\_\-device\_\-profile}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-device\_\-profile ()}\label{classRTObject__impl_RTObject__impla39}
+
+
+[CORBA interface] Getting SDO Device\-Profile 
+
+This operation returns the Device\-Profile of the SDO. If the SDO does not represent any hardware device, then a Device\-Profile with empty values are returned. This operation throws SDOException with one of the following types.
+
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em Not\-Available}]if the target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]if the target SDO cannot execute the operation completely due to some internal error. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The Device\-Profile of the SDO.\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_execution_context_services@{get\_\-execution\_\-context\_\-services}}
+\index{get_execution_context_services@{get\_\-execution\_\-context\_\-services}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-execution\_\-context\_\-services ()}\label{classRTObject__impl_RTObject__impla21}
+
+
+[{\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} CORBA interface] Get Execution\-Context\-Admin 
+
+This operation returns a list containing an Execution\-Context\-Admin for every Execution\-Context owned by the RTC.\index{RTObject_impl@{RTObject\_\-impl}!get_monitoring@{get\_\-monitoring}}
+\index{get_monitoring@{get\_\-monitoring}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-monitoring ()}\label{classRTObject__impl_RTObject__impla44}
+
+
+[CORBA interface] Get Monitoring object 
+
+This operation returns an object implementing the Monitoring interface. The Monitoring interface is one of the interfaces that each SDO maintains. The interface is used to monitor the properties of an SDO. See OMG SDO specification Section 2.3.7, \char`\"{}Monitoring Interface,\char`\"{} on page 2-35 for more details about the Monitoring interface.
+
+\begin{Desc}
+\item[Returns:]The Monitoring interface of an SDO. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em Interface\-Not\-Implemented}]The target SDO has no Configuration interface. \item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_organizations@{get\_\-organizations}}
+\index{get_organizations@{get\_\-organizations}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-organizations ()}\label{classRTObject__impl_RTObject__impla45}
+
+
+[CORBA interface] Getting Organizations 
+
+An SDO belongs to zero or more organizations. If the SDO belongs to one or more organizations, this operation returns the list of organizations that the SDO belongs to. An empty list is returned if the SDO does not belong to any Organizations.
+
+\begin{Desc}
+\item[Returns:]The list of Organizations that the SDO belong to. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_owned_organizations@{get\_\-owned\_\-organizations}}
+\index{get_owned_organizations@{get\_\-owned\_\-organizations}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-owned\_\-organizations ()}\label{classRTObject__impl_RTObject__impla36}
+
+
+[CORBA interface] Getting Organizations 
+
+SDOSystem\-Element can be the owner of zero or more organizations. If the SDOSystem\-Element owns one or more Organizations, this operation returns the list of Organizations that the SDOSystem\-Element owns. If it does not own any Organization, it returns empty list.\index{RTObject_impl@{RTObject\_\-impl}!get_ports@{get\_\-ports}}
+\index{get_ports@{get\_\-ports}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-ports ()}\label{classRTObject__impl_RTObject__impla20}
+
+
+[{\bf RTObject}{\rm (p.\,\pageref{namespaceRTObject})} CORBA interface] Get Ports 
+
+This operation returns a list of the RTCs ports.\index{RTObject_impl@{RTObject\_\-impl}!get_sdo_id@{get\_\-sdo\_\-id}}
+\index{get_sdo_id@{get\_\-sdo\_\-id}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-sdo\_\-id ()}\label{classRTObject__impl_RTObject__impla37}
+
+
+[CORBA interface] Getting SDO ID 
+
+This operation returns id of the SDO. This operation throws SDOException with one of the following types.
+
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]if the target SDO does not exist. \item[{\em Not\-Available}]if the target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]if the target SDO cannot execute the operation completely due to some internal error. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]id of the SDO defined in the resource data model.\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_sdo_service@{get\_\-sdo\_\-service}}
+\index{get_sdo_service@{get\_\-sdo\_\-service}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-sdo\_\-service (\_\-id)}\label{classRTObject__impl_RTObject__impla42}
+
+
+[CORBA interface] Getting specified SDO Service's reference 
+
+This operation returns an object implementing an SDO's service that is identified by the identifier specified as an argument. Different services provided by an SDO are distinguished with different identifiers. See OMG SDO specification Section 2.2.8, \char`\"{}Service\-Profile,\char`\"{} on page 2-12 for more details.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em id}]The identifier referring to one of the SDO Service \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The object implementing the requested service.\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_sdo_type@{get\_\-sdo\_\-type}}
+\index{get_sdo_type@{get\_\-sdo\_\-type}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-sdo\_\-type ()}\label{classRTObject__impl_RTObject__impla38}
+
+
+[CORBA interface] Getting SDO type 
+
+This operation returns sdo\-Type of the SDO. This operation throws SDOException with one of the following types.
+
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]if the target SDO does not exist. \item[{\em Not\-Available}]if the target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]if the target SDO cannot execute the operation completely due to some internal error. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Type of the SDO defined in the resource data model.\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_service_profile@{get\_\-service\_\-profile}}
+\index{get_service_profile@{get\_\-service\_\-profile}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-service\_\-profile (\_\-id)}\label{classRTObject__impl_RTObject__impla41}
+
+
+[CORBA interface] Getting Organizations 
+
+This operation returns the Service\-Profile that is specified by the argument \char`\"{}id.\char`\"{}
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em id}]The identifier referring to one of the Service\-Profiles. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The profile of the specified service. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em Not\-Available}]If the target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]If the target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_service_profiles@{get\_\-service\_\-profiles}}
+\index{get_service_profiles@{get\_\-service\_\-profiles}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-service\_\-profiles ()}\label{classRTObject__impl_RTObject__impla40}
+
+
+[CORBA interface] Getting SDO Service\-Profile 
+
+This operation returns a list of Service\-Profiles that the SDO has. If the SDO does not provide any service, then an empty list is returned. This operation throws SDOException with one of the following types.
+
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em Not\-Available}]if the target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]if the target SDO cannot execute the operation completely due to some internal error. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]List of Service\-Profiles of all the services the SDO is providing.\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_status@{get\_\-status}}
+\index{get_status@{get\_\-status}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-status (name)}\label{classRTObject__impl_RTObject__impla47}
+
+
+[CORBA interface] Get SDO Status 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]One of the parameters defining the \char`\"{}status\char`\"{} of an SDO. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The value of the specified status parameter. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Invalid\-Parameter}]The parameter defined by \char`\"{}name\char`\"{} is null or does not exist. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!get_status_list@{get\_\-status\_\-list}}
+\index{get_status_list@{get\_\-status\_\-list}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\_\-status\_\-list ()}\label{classRTObject__impl_RTObject__impla46}
+
+
+[CORBA interface] Get SDO Status 
+
+This operation returns an NVlist describing the status of an SDO.
+
+\begin{Desc}
+\item[Returns:]The actual status of an SDO. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!getCategory@{getCategory}}
+\index{getCategory@{getCategory}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\-Category ()}\label{classRTObject__impl_RTObject__impla54}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\-Description ()}\label{classRTObject__impl_RTObject__impla51}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!getInstanceName@{getInstanceName}}
+\index{getInstanceName@{getInstanceName}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\-Instance\-Name ()}\label{classRTObject__impl_RTObject__impla48}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!getNamingNames@{getNamingNames}}
+\index{getNamingNames@{getNamingNames}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\-Naming\-Names ()}\label{classRTObject__impl_RTObject__impla55}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!getObjRef@{getObjRef}}
+\index{getObjRef@{getObjRef}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\-Obj\-Ref ()}\label{classRTObject__impl_RTObject__impla57}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!getProperties@{getProperties}}
+\index{getProperties@{getProperties}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\-Properties ()}\label{classRTObject__impl_RTObject__impla59}
+
+
+[local interface] Get RTC property 
+
+This operation returns the properties of the RTC. Empty property would be returned, if RTC has no property.
+
+\begin{Desc}
+\item[Returns:]Property for RTC.\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!getTypeName@{getTypeName}}
+\index{getTypeName@{getTypeName}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\-Type\-Name ()}\label{classRTObject__impl_RTObject__impla50}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!getVendor@{getVendor}}
+\index{getVendor@{getVendor}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\-Vendor ()}\label{classRTObject__impl_RTObject__impla53}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!getVersion@{getVersion}}
+\index{getVersion@{getVersion}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::get\-Version ()}\label{classRTObject__impl_RTObject__impla52}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!initialize@{initialize}}
+\index{initialize@{initialize}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::initialize ()}\label{classRTObject__impl_RTObject__impla13}
+
+
+Initialize the RTC that realizes this interface.
+
+The invocation of this operation shall result in the invocation of the callback Component\-Action::on\_\-initialize.
+
+Constraints\begin{itemize}
+\item An RTC may be initialized only while it is in the Created state. Any attempt to invoke this operation while in another state shall fail with Return\-Code\_\-t::PRECONDITION\_\-NOT\_\-MET.\item Application developers are not expected to call this operation directly; it exists for use by the RTC infrastructure.\end{itemize}
+\index{RTObject_impl@{RTObject\_\-impl}!is_alive@{is\_\-alive}}
+\index{is_alive@{is\_\-alive}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::is\_\-alive ()}\label{classRTObject__impl_RTObject__impla16}
+
+
+A component is alive or not regardless of the execution context from which it is observed. However, whether or not it is Active, Inactive, or in Error is dependent on the execution context(s) in which it is running. That is, it may be Active in one context but Inactive in another. Therefore, this operation shall report whether this RTC is either Active, Inactive or in Error; which of those states a component is in with respect to a particular context may be queried from the context itself. 
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_aborting@{on\_\-aborting}}
+\index{on_aborting@{on\_\-aborting}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-aborting (ec\_\-id)}\label{classRTObject__impl_RTObject__impla30}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_activated@{on\_\-activated}}
+\index{on_activated@{on\_\-activated}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-activated (ec\_\-id)}\label{classRTObject__impl_RTObject__impla28}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_deactivated@{on\_\-deactivated}}
+\index{on_deactivated@{on\_\-deactivated}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-deactivated (ec\_\-id)}\label{classRTObject__impl_RTObject__impla29}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_error@{on\_\-error}}
+\index{on_error@{on\_\-error}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-error (ec\_\-id)}\label{classRTObject__impl_RTObject__impla31}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_execute@{on\_\-execute}}
+\index{on_execute@{on\_\-execute}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-execute (ec\_\-id)}\label{classRTObject__impl_RTObject__impla33}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_finalize@{on\_\-finalize}}
+\index{on_finalize@{on\_\-finalize}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-finalize ()}\label{classRTObject__impl_RTObject__impla25}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_initialize@{on\_\-initialize}}
+\index{on_initialize@{on\_\-initialize}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-initialize ()}\label{classRTObject__impl_RTObject__impla24}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_rate_changed@{on\_\-rate\_\-changed}}
+\index{on_rate_changed@{on\_\-rate\_\-changed}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-rate\_\-changed (ec\_\-id)}\label{classRTObject__impl_RTObject__impla35}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_reset@{on\_\-reset}}
+\index{on_reset@{on\_\-reset}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-reset (ec\_\-id)}\label{classRTObject__impl_RTObject__impla32}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_shutdown@{on\_\-shutdown}}
+\index{on_shutdown@{on\_\-shutdown}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-shutdown (ec\_\-id)}\label{classRTObject__impl_RTObject__impla27}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_startup@{on\_\-startup}}
+\index{on_startup@{on\_\-startup}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-startup (ec\_\-id)}\label{classRTObject__impl_RTObject__impla26}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!on_state_update@{on\_\-state\_\-update}}
+\index{on_state_update@{on\_\-state\_\-update}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\_\-state\_\-update (ec\_\-id)}\label{classRTObject__impl_RTObject__impla34}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!onAborting@{onAborting}}
+\index{onAborting@{onAborting}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Aborting (ec\_\-id)}\label{classRTObject__impl_RTObject__impla8}
+
+
+The aborting action when main logic error occurred. former rtc\_\-aborting\_\-entry()\index{RTObject_impl@{RTObject\_\-impl}!onActivated@{onActivated}}
+\index{onActivated@{onActivated}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Activated (ec\_\-id)}\label{classRTObject__impl_RTObject__impla5}
+
+
+The activated action (Active state entry action) former rtc\_\-active\_\-entry()\index{RTObject_impl@{RTObject\_\-impl}!onDeactivated@{onDeactivated}}
+\index{onDeactivated@{onDeactivated}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Deactivated (ec\_\-id)}\label{classRTObject__impl_RTObject__impla6}
+
+
+The deactivated action (Active state exit action) former rtc\_\-active\_\-exit()\index{RTObject_impl@{RTObject\_\-impl}!onError@{onError}}
+\index{onError@{onError}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Error (ec\_\-id)}\label{classRTObject__impl_RTObject__impla9}
+
+
+The error action in ERROR state former rtc\_\-error\_\-do()\index{RTObject_impl@{RTObject\_\-impl}!onExecute@{onExecute}}
+\index{onExecute@{onExecute}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Execute (ec\_\-id)}\label{classRTObject__impl_RTObject__impla7}
+
+
+The execution action that is invoked periodically former rtc\_\-active\_\-do()\index{RTObject_impl@{RTObject\_\-impl}!onFinalize@{onFinalize}}
+\index{onFinalize@{onFinalize}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Finalize ()}\label{classRTObject__impl_RTObject__impla2}
+
+
+The finalize action (on ALIVE-$>$END transition) formaer rtc\_\-exiting\_\-entry()\index{RTObject_impl@{RTObject\_\-impl}!onInitialize@{onInitialize}}
+\index{onInitialize@{onInitialize}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Initialize ()}\label{classRTObject__impl_RTObject__impla1}
+
+
+The initialize action (on CREATED-$>$ALIVE transition) formaer rtc\_\-init\_\-entry()\index{RTObject_impl@{RTObject\_\-impl}!onRateChanged@{onRateChanged}}
+\index{onRateChanged@{onRateChanged}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Rate\-Changed (ec\_\-id)}\label{classRTObject__impl_RTObject__impla12}
+
+
+The action that is invoked when execution context's rate is changed no corresponding operation exists in Open\-RTm-aist-0.2.0\index{RTObject_impl@{RTObject\_\-impl}!onReset@{onReset}}
+\index{onReset@{onReset}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Reset (ec\_\-id)}\label{classRTObject__impl_RTObject__impla10}
+
+
+The reset action that is invoked resetting This is same but different the former rtc\_\-init\_\-entry()\index{RTObject_impl@{RTObject\_\-impl}!onShutdown@{onShutdown}}
+\index{onShutdown@{onShutdown}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Shutdown (ec\_\-id)}\label{classRTObject__impl_RTObject__impla4}
+
+
+The shutdown action when Execution\-Context stop former rtc\_\-stopping\_\-entry()\index{RTObject_impl@{RTObject\_\-impl}!onStartup@{onStartup}}
+\index{onStartup@{onStartup}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-Startup (ec\_\-id)}\label{classRTObject__impl_RTObject__impla3}
+
+
+The startup action when Execution\-Context startup former rtc\_\-starting\_\-entry()\index{RTObject_impl@{RTObject\_\-impl}!onStateUpdate@{onStateUpdate}}
+\index{onStateUpdate@{onStateUpdate}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::on\-State\-Update (ec\_\-id)}\label{classRTObject__impl_RTObject__impla11}
+
+
+The state update action that is invoked after {\bf on\-Execute()}{\rm (p.\,\pageref{classRTObject__impl_RTObject__impla7})} action no corresponding operation exists in Open\-RTm-aist-0.2.0\index{RTObject_impl@{RTObject\_\-impl}!registerInPort@{registerInPort}}
+\index{registerInPort@{registerInPort}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::register\-In\-Port (name, inport)}\label{classRTObject__impl_RTObject__impla63}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!registerOutPort@{registerOutPort}}
+\index{registerOutPort@{registerOutPort}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::register\-Out\-Port (name, outport)}\label{classRTObject__impl_RTObject__impla64}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!registerPort@{registerPort}}
+\index{registerPort@{registerPort}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::register\-Port (port)}\label{classRTObject__impl_RTObject__impla62}
+
+
+[local interface] Register Port 
+
+This operation registers a Port to be held by this RTC. In order to enable access to the Port from outside of RTC, the Port must be registered by this operation. The Port that is registered by this operation would be identified by Port\-Profile.name in the inside of RTC. Therefore, the Port should have unique Port\-Profile.name in the RTC. The registering Port would be activated properly, and the reference and the object reference would be stored in lists in RTC.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port}]Port which is registered in the RTC\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!setInstanceName@{setInstanceName}}
+\index{setInstanceName@{setInstanceName}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::set\-Instance\-Name (instance\_\-name)}\label{classRTObject__impl_RTObject__impla49}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!setObjRef@{setObjRef}}
+\index{setObjRef@{setObjRef}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::set\-Obj\-Ref (rtobj)}\label{classRTObject__impl_RTObject__impla56}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!setProperties@{setProperties}}
+\index{setProperties@{setProperties}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::set\-Properties (prop)}\label{classRTObject__impl_RTObject__impla58}
+
+
+[local interface] Set RTC property 
+
+This operation sets the properties to the RTC. The given property values should include information for Component\-Profile. Generally, this operation is designed to be called from {\bf Manager}{\rm (p.\,\pageref{classManager})}, when RTC is initialized
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em prop}]Property for RTC.\end{description}
+\end{Desc}
+\index{RTObject_impl@{RTObject\_\-impl}!shutdown@{shutdown}}
+\index{shutdown@{shutdown}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::shutdown ()}\label{classRTObject__impl_RTObject__impla68}
+
+
+\index{RTObject_impl@{RTObject\_\-impl}!updateParameters@{updateParameters}}
+\index{updateParameters@{updateParameters}!RTObject_impl@{RTObject\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RTObject\_\-impl::update\-Parameters (config\_\-set)}\label{classRTObject__impl_RTObject__impla61}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf RTObject.py}\end{CompactItemize}

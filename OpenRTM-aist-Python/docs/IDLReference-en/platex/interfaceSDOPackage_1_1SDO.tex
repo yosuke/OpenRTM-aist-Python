@@ -1,0 +1,105 @@
+\section{SDOPackage::SDO Interface Reference}
+\label{interfaceSDOPackage_1_1SDO}\index{SDOPackage::SDO@{SDOPackage::SDO}}
+{\tt import \char`\"{}SDOPackage.idl\char`\"{};}
+
+Inheritance diagram for SDOPackage::SDO::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3cm]{interfaceSDOPackage_1_1SDO}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Unique\-Identifier} {\bf get\_\-sdo\_\-id} ()  raises (Not\-Available, Internal\-Error)
+\item 
+string {\bf get\_\-sdo\_\-type} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf Device\-Profile} {\bf get\_\-device\_\-profile} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf Service\-Profile\-List} {\bf get\_\-service\_\-profiles} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf Service\-Profile} {\bf get\_\-service\_\-profile} (in {\bf Unique\-Identifier} id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+{\bf SDOService} {\bf get\_\-sdo\_\-service} (in {\bf Unique\-Identifier} id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+{\bf Configuration} {\bf get\_\-configuration} ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)
+\item 
+{\bf Monitoring} {\bf get\_\-monitoring} ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)
+\item 
+{\bf Organization\-List} {\bf get\_\-organizations} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf NVList} {\bf get\_\-status\_\-list} ()  raises (Not\-Available, Internal\-Error)
+\item 
+any {\bf get\_\-status} (in string name)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+{\bf Organization\-List} {\bf get\_\-owned\_\-organizations} ()  raises (Not\-Available)
+\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_configuration@{get\_\-configuration}}
+\index{get_configuration@{get\_\-configuration}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Configuration} SDOPackage::SDO::get\_\-configuration ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa6}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_device_profile@{get\_\-device\_\-profile}}
+\index{get_device_profile@{get\_\-device\_\-profile}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Device\-Profile} SDOPackage::SDO::get\_\-device\_\-profile ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa2}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_monitoring@{get\_\-monitoring}}
+\index{get_monitoring@{get\_\-monitoring}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Monitoring} SDOPackage::SDO::get\_\-monitoring ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa7}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_organizations@{get\_\-organizations}}
+\index{get_organizations@{get\_\-organizations}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Organization\-List} SDOPackage::SDO::get\_\-organizations ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa8}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_owned_organizations@{get\_\-owned\_\-organizations}}
+\index{get_owned_organizations@{get\_\-owned\_\-organizations}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Organization\-List} SDOPackage::SDOSystem\-Element::get\_\-owned\_\-organizations ()  raises (Not\-Available)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDOSystemElement_SDOPackage_1_1SDOSystemElementa0}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_sdo_id@{get\_\-sdo\_\-id}}
+\index{get_sdo_id@{get\_\-sdo\_\-id}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Unique\-Identifier} SDOPackage::SDO::get\_\-sdo\_\-id ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa0}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_sdo_service@{get\_\-sdo\_\-service}}
+\index{get_sdo_service@{get\_\-sdo\_\-service}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf SDOService} SDOPackage::SDO::get\_\-sdo\_\-service (in {\bf Unique\-Identifier} {\em id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa5}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_sdo_type@{get\_\-sdo\_\-type}}
+\index{get_sdo_type@{get\_\-sdo\_\-type}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}string SDOPackage::SDO::get\_\-sdo\_\-type ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa1}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_service_profile@{get\_\-service\_\-profile}}
+\index{get_service_profile@{get\_\-service\_\-profile}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Service\-Profile} SDOPackage::SDO::get\_\-service\_\-profile (in {\bf Unique\-Identifier} {\em id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa4}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_service_profiles@{get\_\-service\_\-profiles}}
+\index{get_service_profiles@{get\_\-service\_\-profiles}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Service\-Profile\-List} SDOPackage::SDO::get\_\-service\_\-profiles ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa3}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_status@{get\_\-status}}
+\index{get_status@{get\_\-status}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}any SDOPackage::SDO::get\_\-status (in string {\em name})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa10}
+
+
+\index{SDOPackage::SDO@{SDOPackage::SDO}!get_status_list@{get\_\-status\_\-list}}
+\index{get_status_list@{get\_\-status\_\-list}!SDOPackage::SDO@{SDOPackage::SDO}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf NVList} SDOPackage::SDO::get\_\-status\_\-list ()  raises (Not\-Available, Internal\-Error)}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa9}
+
+
+
+
+The documentation for this interface was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf SDOPackage.idl}\end{CompactItemize}

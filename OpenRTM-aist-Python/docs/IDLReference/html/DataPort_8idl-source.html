@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=euc-jp">
+<title>OpenRTM: DataPort.idl ソースファイル</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.4.1 -->
+<div class="qindex"><a class="qindex" href="index.html">メインページ</a> | <a class="qindex" href="namespaces.html">ネームスペース一覧</a> | <a class="qindex" href="hierarchy.html">クラス階層</a> | <a class="qindex" href="annotated.html">構成</a> | <a class="qindex" href="dirs.html">Directories</a> | <a class="qindex" href="files.html">ファイル一覧</a> | <a class="qindex" href="namespacemembers.html">ネームスペースメンバ</a> | <a class="qindex" href="functions.html">構成メンバ</a> | <a class="qindex" href="globals.html">ファイルメンバ</a></div>
+<div class="nav">
+<a class="el" href="dir_000000.html">rtm</a>&nbsp;/&nbsp;<a class="el" href="dir_000001.html">idl</a></div>
+<h1>DataPort.idl</h1><a href="DataPort_8idl.html">説明を見る。</a><div class="fragment"><pre class="fragment">00001 <span class="comment">// -*- IDL -*-</span>
+00021 <span class="comment"></span><span class="comment">/*</span>
+00022 <span class="comment"> * $Log: DataPort.idl,v $</span>
+00023 <span class="comment"> * Revision 1.1  2007/01/09 15:40:14  n-ando</span>
+00024 <span class="comment"> * InPort and OutPort interface definition.</span>
+00025 <span class="comment"> *</span>
+00026 <span class="comment"> *</span>
+00027 <span class="comment"> */</span>
+00028 
+00029 
+00030 <span class="preprocessor">#ifndef DataInPort_idl</span>
+00031 <span class="preprocessor"></span><span class="preprocessor">#define DataInPort_idl</span>
+00032 <span class="preprocessor"></span>
+00033 module RTC
+00034 {
+<a name="l00035"></a><a class="code" href="interfaceRTC_1_1InPortAny.html">00035</a>   interface <a class="code" href="interfaceRTC_1_1InPortAny.html">InPortAny</a>
+00036   {
+00037     oneway <span class="keywordtype">void</span> put(in any data);
+00038   };
+00039 
+00040 
+<a name="l00041"></a><a class="code" href="interfaceRTC_1_1OutPortAny.html">00041</a>   interface <a class="code" href="interfaceRTC_1_1OutPortAny.html">OutPortAny</a>
+00042   {
+00043     any get();
+00044   };
+00045 
+00046 };
+00047 <span class="preprocessor">#endif</span>
+</pre></div><hr size="1"><address style="align: right;"><small>OpenRTMに対してWed Sep 26 17:47:01 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.1 </small></address>
+</body>
+</html>

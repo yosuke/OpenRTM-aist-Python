@@ -1,0 +1,317 @@
+\section{Organization\_\-impl Class Reference}
+\label{classOrganization__impl}\index{Organization_impl@{Organization\_\-impl}}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf get\_\-organization\_\-id} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get Organization Id \item\end{CompactList}\item 
+{\bf get\_\-organization\_\-property} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get Organization\-Property \item\end{CompactList}\item 
+{\bf get\_\-organization\_\-property\_\-value} (name)
+\begin{CompactList}\small\item\em [CORBA interface] Get specified value of Organization\-Property \item\end{CompactList}\item 
+{\bf set\_\-organization\_\-property} (org\_\-property)
+\begin{CompactList}\small\item\em [CORBA interface] Set Organization\-Property \item\end{CompactList}\item 
+{\bf set\_\-organization\_\-property\_\-value} (name, value)
+\begin{CompactList}\small\item\em [CORBA interface] Set specified value of Organization\-Property \item\end{CompactList}\item 
+{\bf remove\_\-organization\_\-property} (name)
+\begin{CompactList}\small\item\em [CORBA interface] Remove specified Organization\-Property \item\end{CompactList}\item 
+{\bf get\_\-owner} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get the owner of the SDO \item\end{CompactList}\item 
+{\bf set\_\-owner} (sdo)
+\begin{CompactList}\small\item\em [CORBA interface] Set the orner of the Organization \item\end{CompactList}\item 
+{\bf get\_\-members} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get a menber list of the Organization \item\end{CompactList}\item 
+{\bf set\_\-members} (sdos)
+\begin{CompactList}\small\item\em [CORBA interface] Set SDO's Service\-Profile \item\end{CompactList}\item 
+{\bf add\_\-members} (sdo\_\-list)
+\begin{CompactList}\small\item\em [CORBA interface] Add the menebr SDOs \item\end{CompactList}\item 
+{\bf remove\_\-member} (id)
+\begin{CompactList}\small\item\em [CORBA interface] Remove menber SDO from Organization \item\end{CompactList}\item 
+{\bf get\_\-dependency} ()
+\begin{CompactList}\small\item\em [CORBA interface] Get the Dependency\-Type of the Organization \item\end{CompactList}\item 
+{\bf set\_\-dependency} (dependency)
+\begin{CompactList}\small\item\em [CORBA interface] Set the Dependency\-Type of the Organization \item\end{CompactList}\end{CompactItemize}
+\subsection*{Classes}
+\begin{CompactItemize}
+\item 
+class {\bf nv\_\-name}
+\item 
+class {\bf sdo\_\-id}
+\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Organization_impl@{Organization\_\-impl}!add_members@{add\_\-members}}
+\index{add_members@{add\_\-members}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::add\_\-members (sdo\_\-list)}\label{classOrganization__impl_Organization__impla10}
+
+
+[CORBA interface] Add the menebr SDOs 
+
+This operation adds a member that is an SDO to the organization. The member to be added is specified by argument \char`\"{}sdo.\char`\"{}
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em sdo}]The member to be added to the organization. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]If the operation was successfully completed. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Invalid\-Parameter}]The argument \char`\"{}sdo\char`\"{} is null. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!get_dependency@{get\_\-dependency}}
+\index{get_dependency@{get\_\-dependency}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::get\_\-dependency ()}\label{classOrganization__impl_Organization__impla12}
+
+
+[CORBA interface] Get the Dependency\-Type of the Organization 
+
+This operation gets the relationship \char`\"{}Dependency\-Type\char`\"{} of the Organization.
+
+\begin{Desc}
+\item[Returns:]The relationship of the Organization as Dependency\-Type. Dependency\-Type is defined in Section 2.2.2, \char`\"{}Data Structures Used by Resource Data Model,\char`\"{} on page 2-3 of OMG SDO Specification. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!get_members@{get\_\-members}}
+\index{get_members@{get\_\-members}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::get\_\-members ()}\label{classOrganization__impl_Organization__impla8}
+
+
+[CORBA interface] Get a menber list of the Organization 
+
+This operation returns a list of SDOs that are members of an Organization. An empty list is returned if the Organization does not have any members.
+
+\begin{Desc}
+\item[Returns:]Member SDOs that are contained in the Organization object. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!get_organization_id@{get\_\-organization\_\-id}}
+\index{get_organization_id@{get\_\-organization\_\-id}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::get\_\-organization\_\-id ()}\label{classOrganization__impl_Organization__impla0}
+
+
+[CORBA interface] Get Organization Id 
+
+This operation returns the 'id' of the Organization.
+
+\begin{Desc}
+\item[Returns:]The id of the Organization defined in the resource data model. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!get_organization_property@{get\_\-organization\_\-property}}
+\index{get_organization_property@{get\_\-organization\_\-property}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::get\_\-organization\_\-property ()}\label{classOrganization__impl_Organization__impla1}
+
+
+[CORBA interface] Get Organization\-Property 
+
+This operation returns the Organization\-Property that an Organization has. An empty Organization\-Property is returned if the Organization does not have any properties.
+
+\begin{Desc}
+\item[Returns:]The list with properties of the organization. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!get_organization_property_value@{get\_\-organization\_\-property\_\-value}}
+\index{get_organization_property_value@{get\_\-organization\_\-property\_\-value}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::get\_\-organization\_\-property\_\-value (name)}\label{classOrganization__impl_Organization__impla2}
+
+
+[CORBA interface] Get specified value of Organization\-Property 
+
+This operation returns a value in the Organization\-Property. The value to be returned is specified by argument \char`\"{}name.\char`\"{}
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]The name of the value to be returned. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The value of property which is specified by argument \char`\"{}name.\char`\"{} \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!get_owner@{get\_\-owner}}
+\index{get_owner@{get\_\-owner}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::get\_\-owner ()}\label{classOrganization__impl_Organization__impla6}
+
+
+[CORBA interface] Get the owner of the SDO 
+
+This operation returns the SDOSystem\-Element that is owner of the Organization.
+
+\begin{Desc}
+\item[Returns:]Reference of owner object. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!remove_member@{remove\_\-member}}
+\index{remove_member@{remove\_\-member}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::remove\_\-member (id)}\label{classOrganization__impl_Organization__impla11}
+
+
+[CORBA interface] Remove menber SDO from Organization 
+
+This operation removes a member from the organization. The member to be removed is specified by argument \char`\"{}id.\char`\"{}
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em id}]Id of the SDO to be removed from the organization. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]If the operation was successfully completed. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Invalid\-Parameter}]The argument \char`\"{}id\char`\"{} is null or does not exist. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!remove_organization_property@{remove\_\-organization\_\-property}}
+\index{remove_organization_property@{remove\_\-organization\_\-property}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::remove\_\-organization\_\-property (name)}\label{classOrganization__impl_Organization__impla5}
+
+
+[CORBA interface] Remove specified Organization\-Property 
+
+This operation removes a property of Organization from NVList of the Organization\-Property. The property to be removed is specified by argument \char`\"{}name.\char`\"{}
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]The name of the property to be removed. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]If the operation was successfully completed. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Invalid\-Parameter}]The property that is specified by argument \char`\"{}name\char`\"{} does not exist. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!set_dependency@{set\_\-dependency}}
+\index{set_dependency@{set\_\-dependency}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::set\_\-dependency (dependency)}\label{classOrganization__impl_Organization__impla13}
+
+
+[CORBA interface] Set the Dependency\-Type of the Organization 
+
+This operation sets the relationship \char`\"{}Dependency\-Type\char`\"{} of the Organization. The value to be set is specified by argument \char`\"{}dependency.\char`\"{}
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dependency}]The relationship of the Organization as Dependency\-Type. Dependency\-Type is defined in Section 2.2.2, \char`\"{}Data Structures Used by Resource Data Model,\char`\"{} on page 2-3. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]If the operation was successfully completed. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Invalid\-Parameter}]The argument \char`\"{}dependency\char`\"{} is null. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!set_members@{set\_\-members}}
+\index{set_members@{set\_\-members}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::set\_\-members (sdos)}\label{classOrganization__impl_Organization__impla9}
+
+
+[CORBA interface] Set SDO's Service\-Profile 
+
+This operation assigns a list of SDOs to an Organization as its members. If the Organization has already maintained a member SDO(s) when it is called, the operation replaces the member(s) with specified list of SDOs.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em sdos}]Member SDOs to be assigned. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]If the operation was successfully completed. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Invalid\-Parameter}]The argument \char`\"{}SDOList\char`\"{} is null, or if the object that is specified by the argument \char`\"{}sdos\char`\"{} does not exist. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!set_organization_property@{set\_\-organization\_\-property}}
+\index{set_organization_property@{set\_\-organization\_\-property}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::set\_\-organization\_\-property (org\_\-property)}\label{classOrganization__impl_Organization__impla3}
+
+
+[CORBA interface] Set Organization\-Property 
+
+129166 SDO Specification 130\`{I} PIM 139L143q130\AE{}131I131y131140129[131V131135131147150188130170136\`{U}130\`{E}130\'{e}129B 129166 add\-Organization\-Property 130\'{E}145\^{I}137158130169129H This operation adds the Organization\-Property to an Organization. The Organization\-Property is the property description of an Organization.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em org\_\-property}]The type of organization to be added. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]If the operation was successfully completed. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Invalid\-Parameter}]The argument \char`\"{}organization\-Property\char`\"{} is null. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!set_organization_property_value@{set\_\-organization\_\-property\_\-value}}
+\index{set_organization_property_value@{set\_\-organization\_\-property\_\-value}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::set\_\-organization\_\-property\_\-value (name, value)}\label{classOrganization__impl_Organization__impla4}
+
+
+[CORBA interface] Set specified value of Organization\-Property 
+
+This operation adds or updates a pair of name and value as a property of Organization to/in NVList of the Organization\-Property. The name and the value to be added/updated are specified by argument \char`\"{}name\char`\"{} and \char`\"{}value.\char`\"{}
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]The name of the property to be added/updated. \item[{\em value}]The value of the property to be added/updated. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]If the operation was successfully completed. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Invalid\-Parameter}]The property that is specified by argument \char`\"{}name\char`\"{} does not exist. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+\index{Organization_impl@{Organization\_\-impl}!set_owner@{set\_\-owner}}
+\index{set_owner@{set\_\-owner}!Organization_impl@{Organization\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Organization\_\-impl::set\_\-owner (sdo)}\label{classOrganization__impl_Organization__impla7}
+
+
+[CORBA interface] Set the orner of the Organization 
+
+This operation sets an SDOSystem\-Element to the owner of the Organization. The SDOSystem\-Element to be set is specified by argument \char`\"{}sdo.\char`\"{}
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em sdo}]Reference of owner object. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]If the operation was successfully completed. \end{Desc}
+\begin{Desc}
+\item[Exceptions:]
+\begin{description}
+\item[{\em SDONot\-Exists}]The target SDO does not exist. \item[{\em Not\-Available}]The target SDO is reachable but cannot respond. \item[{\em Invalid\-Parameter}]The argument \char`\"{}sdo\char`\"{} is null, or the object that is specified by \char`\"{}sdo\char`\"{} in argument \char`\"{}sdo\char`\"{} does not exist. \item[{\em Internal\-Error}]The target SDO cannot execute the operation completely due to some internal error.\end{description}
+\end{Desc}
+
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf Sdo\-Organization.py}\end{CompactItemize}

@@ -1,0 +1,253 @@
+\section{インタフェース RTC::RTObject}
+\label{interfaceRTC_1_1RTObject}\index{RTC::RTObject@{RTC::RTObject}}
+Introspection::RTObject interface.  
+
+
+{\tt import \char`\"{}RTC.idl\char`\"{};}
+
+RTC::RTObjectに対する継承グラフ:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3cm]{interfaceRTC_1_1RTObject}
+\end{center}
+\end{figure}
+\subsection*{Public メソッド}
+\begin{CompactItemize}
+\item 
+{\bf Component\-Profile} {\bf get\_\-component\_\-profile} ()
+\item 
+{\bf Port\-List} {\bf get\_\-ports} ()
+\item 
+{\bf Execution\-Context\-Service\-List} {\bf get\_\-execution\_\-context\_\-services} ()
+\item 
+{\bf Return\-Code\_\-t} {\bf initialize} ()
+\item 
+{\bf Return\-Code\_\-t} {\bf finalize} ()
+\item 
+{\bf Return\-Code\_\-t} {\bf exit} ()
+\item 
+boolean {\bf is\_\-alive} ()
+\item 
+{\bf Execution\-Context\-List} {\bf get\_\-contexts} ()
+\item 
+{\bf Execution\-Context} {\bf get\_\-context} (in {\bf Unique\-Id} ec\_\-id)
+\item 
+{\bf Unique\-Id} {\bf attach\_\-executioncontext} (in {\bf Execution\-Context} exec\_\-context)
+\item 
+{\bf Return\-Code\_\-t} {\bf detach\_\-executioncontext} (in {\bf Unique\-Id} ec\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf on\_\-initialize} ()
+\item 
+{\bf Return\-Code\_\-t} {\bf on\_\-finalize} ()
+\item 
+{\bf Return\-Code\_\-t} {\bf on\_\-startup} (in {\bf Unique\-Id} ec\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf on\_\-shutdown} (in {\bf Unique\-Id} ec\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf on\_\-activated} (in {\bf Unique\-Id} ec\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf on\_\-deactivated} (in {\bf Unique\-Id} ec\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf on\_\-aborting} (in {\bf Unique\-Id} ec\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf on\_\-error} (in {\bf Unique\-Id} ec\_\-id)
+\item 
+{\bf Return\-Code\_\-t} {\bf on\_\-reset} (in {\bf Unique\-Id} ec\_\-id)
+\item 
+{\bf Unique\-Identifier} {\bf get\_\-sdo\_\-id} ()  raises (Not\-Available, Internal\-Error)
+\item 
+string {\bf get\_\-sdo\_\-type} ()  raises (Not\-Available, Internal\-Error)
+\item 
+Device\-Profile {\bf get\_\-device\_\-profile} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf Service\-Profile\-List} {\bf get\_\-service\_\-profiles} ()  raises (Not\-Available, Internal\-Error)
+\item 
+Service\-Profile {\bf get\_\-service\_\-profile} (in {\bf Unique\-Identifier} id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+SDOService {\bf get\_\-sdo\_\-service} (in {\bf Unique\-Identifier} id)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+Configuration {\bf get\_\-configuration} ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)
+\item 
+Monitoring {\bf get\_\-monitoring} ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)
+\item 
+{\bf Organization\-List} {\bf get\_\-organizations} ()  raises (Not\-Available, Internal\-Error)
+\item 
+{\bf NVList} {\bf get\_\-status\_\-list} ()  raises (Not\-Available, Internal\-Error)
+\item 
+any {\bf get\_\-status} (in string name)  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)
+\item 
+{\bf Organization\-List} {\bf get\_\-owned\_\-organizations} ()  raises (Not\-Available)
+\end{CompactItemize}
+
+
+\subsection{説明}
+Introspection::RTObject interface. 
+
+
+
+\subsection{関数}
+\index{RTC::RTObject@{RTC::RTObject}!attach_executioncontext@{attach\_\-executioncontext}}
+\index{attach_executioncontext@{attach\_\-executioncontext}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Unique\-Id} RTC::Component\-Action::attach\_\-executioncontext (in {\bf Execution\-Context} {\em exec\_\-context})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta9}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!detach_executioncontext@{detach\_\-executioncontext}}
+\index{detach_executioncontext@{detach\_\-executioncontext}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::detach\_\-executioncontext (in {\bf Unique\-Id} {\em ec\_\-id})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta10}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!exit@{exit}}
+\index{exit@{exit}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Lightweight\-RTObject::exit ()\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta5}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!finalize@{finalize}}
+\index{finalize@{finalize}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Lightweight\-RTObject::finalize ()\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta4}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_component_profile@{get\_\-component\_\-profile}}
+\index{get_component_profile@{get\_\-component\_\-profile}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Component\-Profile} RTC::RTObject::get\_\-component\_\-profile ()}\label{interfaceRTC_1_1RTObject_RTC_1_1RTObjecta0}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_configuration@{get\_\-configuration}}
+\index{get_configuration@{get\_\-configuration}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Configuration SDOPackage::SDO::get\_\-configuration ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa6}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_context@{get\_\-context}}
+\index{get_context@{get\_\-context}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Execution\-Context} RTC::Lightweight\-RTObject::get\_\-context (in {\bf Unique\-Id} {\em ec\_\-id})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta8}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_contexts@{get\_\-contexts}}
+\index{get_contexts@{get\_\-contexts}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Execution\-Context\-List} RTC::Lightweight\-RTObject::get\_\-contexts ()\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta7}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_device_profile@{get\_\-device\_\-profile}}
+\index{get_device_profile@{get\_\-device\_\-profile}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Device\-Profile SDOPackage::SDO::get\_\-device\_\-profile ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa2}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_execution_context_services@{get\_\-execution\_\-context\_\-services}}
+\index{get_execution_context_services@{get\_\-execution\_\-context\_\-services}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Execution\-Context\-Service\-List} RTC::RTObject::get\_\-execution\_\-context\_\-services ()}\label{interfaceRTC_1_1RTObject_RTC_1_1RTObjecta2}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_monitoring@{get\_\-monitoring}}
+\index{get_monitoring@{get\_\-monitoring}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Monitoring SDOPackage::SDO::get\_\-monitoring ()  raises (Interface\-Not\-Implemented, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa7}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_organizations@{get\_\-organizations}}
+\index{get_organizations@{get\_\-organizations}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Organization\-List} SDOPackage::SDO::get\_\-organizations ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa8}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_owned_organizations@{get\_\-owned\_\-organizations}}
+\index{get_owned_organizations@{get\_\-owned\_\-organizations}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Organization\-List} SDOPackage::SDOSystem\-Element::get\_\-owned\_\-organizations ()  raises (Not\-Available)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDOSystemElement_SDOPackage_1_1SDOSystemElementa0}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_ports@{get\_\-ports}}
+\index{get_ports@{get\_\-ports}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Port\-List} RTC::RTObject::get\_\-ports ()}\label{interfaceRTC_1_1RTObject_RTC_1_1RTObjecta1}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_sdo_id@{get\_\-sdo\_\-id}}
+\index{get_sdo_id@{get\_\-sdo\_\-id}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Unique\-Identifier} SDOPackage::SDO::get\_\-sdo\_\-id ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa0}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_sdo_service@{get\_\-sdo\_\-service}}
+\index{get_sdo_service@{get\_\-sdo\_\-service}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SDOService SDOPackage::SDO::get\_\-sdo\_\-service (in {\bf Unique\-Identifier} {\em id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa5}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_sdo_type@{get\_\-sdo\_\-type}}
+\index{get_sdo_type@{get\_\-sdo\_\-type}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}string SDOPackage::SDO::get\_\-sdo\_\-type ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa1}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_service_profile@{get\_\-service\_\-profile}}
+\index{get_service_profile@{get\_\-service\_\-profile}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Service\-Profile SDOPackage::SDO::get\_\-service\_\-profile (in {\bf Unique\-Identifier} {\em id})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa4}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_service_profiles@{get\_\-service\_\-profiles}}
+\index{get_service_profiles@{get\_\-service\_\-profiles}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Service\-Profile\-List} SDOPackage::SDO::get\_\-service\_\-profiles ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa3}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_status@{get\_\-status}}
+\index{get_status@{get\_\-status}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}any SDOPackage::SDO::get\_\-status (in string {\em name})  raises (Invalid\-Parameter, Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa10}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!get_status_list@{get\_\-status\_\-list}}
+\index{get_status_list@{get\_\-status\_\-list}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf NVList} SDOPackage::SDO::get\_\-status\_\-list ()  raises (Not\-Available, Internal\-Error)\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa9}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!initialize@{initialize}}
+\index{initialize@{initialize}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Lightweight\-RTObject::initialize ()\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta3}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!is_alive@{is\_\-alive}}
+\index{is_alive@{is\_\-alive}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}boolean RTC::Lightweight\-RTObject::is\_\-alive ()\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta6}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!on_aborting@{on\_\-aborting}}
+\index{on_aborting@{on\_\-aborting}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::on\_\-aborting (in {\bf Unique\-Id} {\em ec\_\-id})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta17}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!on_activated@{on\_\-activated}}
+\index{on_activated@{on\_\-activated}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::on\_\-activated (in {\bf Unique\-Id} {\em ec\_\-id})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta15}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!on_deactivated@{on\_\-deactivated}}
+\index{on_deactivated@{on\_\-deactivated}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::on\_\-deactivated (in {\bf Unique\-Id} {\em ec\_\-id})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta16}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!on_error@{on\_\-error}}
+\index{on_error@{on\_\-error}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::on\_\-error (in {\bf Unique\-Id} {\em ec\_\-id})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta18}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!on_finalize@{on\_\-finalize}}
+\index{on_finalize@{on\_\-finalize}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::on\_\-finalize ()\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta12}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!on_initialize@{on\_\-initialize}}
+\index{on_initialize@{on\_\-initialize}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::on\_\-initialize ()\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta11}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!on_reset@{on\_\-reset}}
+\index{on_reset@{on\_\-reset}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::on\_\-reset (in {\bf Unique\-Id} {\em ec\_\-id})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta19}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!on_shutdown@{on\_\-shutdown}}
+\index{on_shutdown@{on\_\-shutdown}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::on\_\-shutdown (in {\bf Unique\-Id} {\em ec\_\-id})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta14}
+
+
+\index{RTC::RTObject@{RTC::RTObject}!on_startup@{on\_\-startup}}
+\index{on_startup@{on\_\-startup}!RTC::RTObject@{RTC::RTObject}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Return\-Code\_\-t} RTC::Component\-Action::on\_\-startup (in {\bf Unique\-Id} {\em ec\_\-id})\hspace{0.3cm}{\tt  [inherited]}}\label{interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta13}
+
+
+
+
+このインタフェースの説明は次のファイルから生成されました:\begin{CompactItemize}
+\item 
+{\bf RTC.idl}\end{CompactItemize}

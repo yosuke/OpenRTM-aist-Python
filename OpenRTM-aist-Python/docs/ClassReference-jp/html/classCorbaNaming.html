@@ -1,0 +1,1565 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=Shift_JIS">
+<title>OpenRTM: クラス CorbaNaming</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- 作成： Doxygen 1.4.3 -->
+<div class="qindex"><a class="qindex" href="index.html">メインページ</a> | <a class="qindex" href="namespaces.html">ネームスペース一覧</a> | <a class="qindex" href="hierarchy.html">クラス階層</a> | <a class="qindex" href="annotated.html">構成</a> | <a class="qindex" href="files.html">ファイル一覧</a> | <a class="qindex" href="functions.html">構成メンバ</a> | <a class="qindex" href="globals.html">ファイルメンバ</a></div>
+<h1>クラス CorbaNaming</h1><!-- doxytag: class=<CorbaNaming> --><a href="classCorbaNaming-members.html">すべてのメンバ一覧</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Public メソッド</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga0">__init__</a> (orb, name_server=None)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga1">__del__</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga2">init</a> (name_server)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga3">bind</a> (name_list, obj, force=None)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Object を bind する.  <a href="#CorbaNaminga3"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga4">bindByString</a> (string_name, obj, force=True)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Object を bind する.  <a href="#CorbaNaminga4"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga5">bindRecursive</a> (context, name_list, obj)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">途中のコンテキストを bind しながら Object を bind する  <a href="#CorbaNaminga5"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga6">rebind</a> (name_list, obj, force=True)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Object を rebind する.  <a href="#CorbaNaminga6"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga7">rebindByString</a> (string_name, obj, force=True)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Object を rebind する.  <a href="#CorbaNaminga7"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga8">rebindRecursive</a> (context, name_list, obj)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">途中のコンテキストを bind しながら Object を rebind する  <a href="#CorbaNaminga8"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga9">bindContext</a> (name, name_cxt, force=True)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">NamingContext を bind する.  <a href="#CorbaNaminga9"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga10">bindContextRecursive</a> (context, name_list, name_cxt)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">NamingContext を bind する.  <a href="#CorbaNaminga10"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga11">rebindContext</a> (name, name_cxt, force=True)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">NamingContext を rebind する.  <a href="#CorbaNaminga11"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga12">rebindContextRecursive</a> (context, name_list, name_cxt)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga13">resolve</a> (name)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Object を name から解決する.  <a href="#CorbaNaminga13"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga14">unbind</a> (name)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">指定された名前のオブジェクトの bind を解除する  <a href="#CorbaNaminga14"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga15">newContext</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">新しいコンテキストを生成する  <a href="#CorbaNaminga15"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga16">bindNewContext</a> (name, force=True)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">新しいコンテキストを bind する  <a href="#CorbaNaminga16"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga17">destroy</a> (context)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">NamingContext を非アクティブ化する.  <a href="#CorbaNaminga17"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga18">destroyRecursive</a> (context)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">NamingContext を再帰的に下って非アクティブ化する.  <a href="#CorbaNaminga18"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga19">clearAll</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">すべての Binding を削除する  <a href="#CorbaNaminga19"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga20">list</a> (name_cxt, how_many, rbl, rbi)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">与えられた NamingContext の Binding を取得する  <a href="#CorbaNaminga20"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga21">toString</a> (name_list)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">与えられた NameComponent の文字列表現を返す  <a href="#CorbaNaminga21"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga22">toName</a> (sname)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">与えられた文字列表現を NameComponent に分解する  <a href="#CorbaNaminga22"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga23">toUrl</a> (addr, string_name)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">与えられた addre と string_name から URL表現を取得する  <a href="#CorbaNaminga23"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga24">resolveStr</a> (string_name)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">与えられた文字列表現を resolve しオブジェクトを返す  <a href="#CorbaNaminga24"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga25">bindOrResolve</a> (context, name_list, obj)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">名前をバインドまたは解決する  <a href="#CorbaNaminga25"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga26">bindOrResolveContext</a> (context, name_list, new_context=None)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">名前をバインドまたは解決する  <a href="#CorbaNaminga26"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga27">getNameServer</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ネームサーバの名前を取得する  <a href="#CorbaNaminga27"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga28">getRootContext</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ルートコンテキストを取得する  <a href="#CorbaNaminga28"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga29">objIsNamingContext</a> (obj)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">オブジェクトがネーミングコンテキストか判別する  <a href="#CorbaNaminga29"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga30">nameIsNamingContext</a> (name_list)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">与えられた名前がネーミングコンテキストかどうか  <a href="#CorbaNaminga30"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga31">subName</a> (name_list, begin, end=None)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ネームコンポーネントの部分を返す  <a href="#CorbaNaminga31"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga32">nameToString</a> (name_list, string_name, slen)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ネームコンポーネントの文字列表現を取得する  <a href="#CorbaNaminga32"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga33">getNameLength</a> (name_list)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ネームコンポーネントの文字列表現時の文字長を取得する  <a href="#CorbaNaminga33"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCorbaNaming.html#CorbaNaminga34">split</a> (input, delimiter, results)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">文字列の分割  <a href="#CorbaNaminga34"></a><br></td></tr>
+</table>
+<hr><h2>関数</h2>
+<a class="anchor" name="CorbaNaminga1"></a><!-- doxytag: member=<CorbaNaming::__del__> ref=<CorbaNaminga1> args=<()> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::__del__           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga0"></a><!-- doxytag: member=<CorbaNaming::__init__> ref=<CorbaNaminga0> args=<(orb, name_server=None)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::__init__           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">orb&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_server&nbsp;</td>
+          <td class="mdname" nowrap> = <code>None</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga3"></a><!-- doxytag: member=<CorbaNaming::bind> ref=<CorbaNaminga3> args=<(name_list, obj, force=None)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::bind           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>obj&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>force&nbsp;</td>
+          <td class="mdname" nowrap> = <code>None</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Object を bind する. 
+<p>
+CosNaming::bind() とほぼ同等の働きをするが、常に与えられたネームサーバの ルートコンテキストに対してbind()が呼び出される点が異なる。<p>
+Name &lt;name&gt; と Object &lt;obj&gt; を当該 NamingContext 上にバインドする。 c_n が n 番目の NameComponent をあらわすとすると、 name が n 個の NameComponent から成るとき、以下のように扱われる。<p>
+cxt-&gt;bind(&lt;c_1, c_2, ... c_n&gt;, obj) は以下の操作と同等である。 cxt-&gt;resolve(&lt;c_1, ... c_(n-1)&gt;)-&gt;bind(&lt;c_n&gt;, obj)<p>
+すなわち、1番目からn-1番目のコンテキストを解決し、n-1番目のコンテキスト 上に name &lt;n&gt; として� を bind する。 名前解決に参加する &lt;c_1, ... c_(n-1)&gt; の NemingContext は、 <a class="el" href="classCorbaNaming.html#CorbaNaminga9">bindContext()</a> や <a class="el" href="classCorbaNaming.html#CorbaNaminga11">rebindContext()</a> で既にバインド済みでなければならない。 もし &lt;c_1, ... c_(n-1)&gt; の NamingContext が存在しない場合には、 NotFound 例外が発生する。<p>
+ただし、強制バインドフラグ force が true の時は、&lt;c_1, ... c_(n-1)&gt; が存在しない場合にも、再帰的にコンテキストをバインドしながら、 最終的に obj を名前 name &lt;c_n&gt; にバインドする。<p>
+いずれの場合でも、n-1番目のコンテキスト上に name&lt;n&gt; のオブジェクト (Object あるいは コンテキスト) がバインドされていれば AlreadyBound 例外が発生する。<p>
+<dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name_list</em>&nbsp;</td><td>オブジェクトに付ける名前の NameComponentリスト </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>関連付けられる Object </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>force</em>&nbsp;</td><td>trueの場合、途中のコンテキストを強制的にバインドする</td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>例外:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>NotFound</em>&nbsp;</td><td>途中の &lt;c_1, c_2, ..., c_(n-1)&gt; が存在しない。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CannotProceed</em>&nbsp;</td><td>何らかの理由で処理を継続できない。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InvalidName</em>&nbsp;</td><td>引数 name の名前が不正。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>AlreadyBound</em>&nbsp;</td><td>name &lt;c_n&gt; の Object がすでにバインドされている。</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga4"></a><!-- doxytag: member=<CorbaNaming::bindByString> ref=<CorbaNaminga4> args=<(string_name, obj, force=True)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::bindByString           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">string_name&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>obj&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>force&nbsp;</td>
+          <td class="mdname" nowrap> = <code>True</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Object を bind する. 
+<p>
+Object を bind する際に与える名前が文字列表現であること以外は、bind() と同じである。bind(toName(string_name), obj) と等価。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>string_name</em>&nbsp;</td><td>オブジェクトに付ける名前の文字列表現 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>関連付けられるオブジェクト </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>force</em>&nbsp;</td><td>trueの場合、途中のコンテキストを強制的にバインドする </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>例外:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>NotFound</em>&nbsp;</td><td>途中の &lt;c_1, c_2, ..., c_(n-1)&gt; が存在しない。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CannotProceed</em>&nbsp;</td><td>何らかの理由で処理を継続できない。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InvalidName</em>&nbsp;</td><td>引数 name の名前が不正。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>AlreadyBound</em>&nbsp;</td><td>name &lt;n&gt; の Object がすでにバインドされている。</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga9"></a><!-- doxytag: member=<CorbaNaming::bindContext> ref=<CorbaNaminga9> args=<(name, name_cxt, force=True)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::bindContext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_cxt&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>force&nbsp;</td>
+          <td class="mdname" nowrap> = <code>True</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+NamingContext を bind する. 
+<p>
+bind されるオブジェクトが NamingContext であることを除いて <a class="el" href="classCorbaNaming.html#CorbaNaminga3">bind()</a> と同じである。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>オブジェクトに付ける名前の文字列表現または、NameComponentのリスト </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>name_cxt</em>&nbsp;</td><td>関連付けられる NamingContext </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>force</em>&nbsp;</td><td>trueの場合、途中のコンテキストを強制的にバインドする</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga10"></a><!-- doxytag: member=<CorbaNaming::bindContextRecursive> ref=<CorbaNaminga10> args=<(context, name_list, name_cxt)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::bindContextRecursive           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">context&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_cxt&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+NamingContext を bind する. 
+<p>
+bind されるオブジェクトが NamingContext であることを除いて <a class="el" href="classCorbaNaming.html#CorbaNaminga5">bindRecursive()</a> と同じである。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>context</em>&nbsp;</td><td>bind を開始する� </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>name_list</em>&nbsp;</td><td>オブジェクトに付ける名前のネームコンポーネント </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>name_cxt</em>&nbsp;</td><td>関連付けられる NamingContext </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>force</em>&nbsp;</td><td>trueの場合、途中のコンテキストを強制的にバインドする</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga16"></a><!-- doxytag: member=<CorbaNaming::bindNewContext> ref=<CorbaNaminga16> args=<(name, force=True)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::bindNewContext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>force&nbsp;</td>
+          <td class="mdname" nowrap> = <code>True</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+新しいコンテキストを bind する 
+<p>
+与えられた name に対して新しいコンテキストをバインドする。 生成された� はネームサーバ上で生成されたものである。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>NamingContextに付ける名前のネームコンポーネント 　　　　　　または、解決すべきオブジェクトの名前の文字列表現 </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>生成された新しい NamingContext</dd></dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga25"></a><!-- doxytag: member=<CorbaNaming::bindOrResolve> ref=<CorbaNaminga25> args=<(context, name_list, obj)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::bindOrResolve           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">context&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>obj&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+名前をバインドまたは解決する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga26"></a><!-- doxytag: member=<CorbaNaming::bindOrResolveContext> ref=<CorbaNaminga26> args=<(context, name_list, new_context=None)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::bindOrResolveContext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">context&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>new_context&nbsp;</td>
+          <td class="mdname" nowrap> = <code>None</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+名前をバインドまたは解決する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga5"></a><!-- doxytag: member=<CorbaNaming::bindRecursive> ref=<CorbaNaminga5> args=<(context, name_list, obj)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::bindRecursive           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">context&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>obj&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+途中のコンテキストを bind しながら Object を bind する 
+<p>
+context で与えられた NamingContext に対して、name_list で指定された ネームコンポーネント &lt;c_1, ... c_(n-1)&gt; を NamingContext として 解決しながら、名前 &lt;c_n&gt; に対して obj を bind する。 もし、&lt;c_1, ... c_(n-1)&gt; に対応する NamingContext がない場合には 新たな NamingContext をバインドする。<p>
+最終的に &lt;c_1, c_2, ..., c_(n-1)&gt; に対応する NamingContext が生成 または解決された上で、CosNamingbind(&lt;c_n&gt;, object) が呼び出される。 このとき、すでにバインディングが存在すれば AlreadyBound例外が発生する。<p>
+途中のコンテキストを解決する過程で、解決しようとするコンテキストと 同じ名前の NamingContext ではない Binding が存在する場合、 CannotProceed 例外が発生し処理を中止する。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>context</em>&nbsp;</td><td>bind を開始する� </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>オブジェクトに付ける名前のネームコンポーネント </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>関連付けられるオブジェクト </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>例外:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>CannotProceed</em>&nbsp;</td><td>&lt;c_1, ..., c_(n-1)&gt; に対応する NamingContext のうちひとつが、すでに NamingContext 以外の object にバインド されており、処理を継続できない。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InvalidName</em>&nbsp;</td><td>名前 name_list が不正 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>AlreadyBound</em>&nbsp;</td><td>name &lt;c_n&gt; にすでに何らかの object がバインド されている。</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga19"></a><!-- doxytag: member=<CorbaNaming::clearAll> ref=<CorbaNaminga19> args=<()> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::clearAll           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+すべての Binding を削除する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga17"></a><!-- doxytag: member=<CorbaNaming::destroy> ref=<CorbaNaminga17> args=<(context)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::destroy           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">context&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+NamingContext を非アクティブ化する. 
+<p>
+context で指定された NamingContext を非アクティブ化する。 context に他のコンテキストがバインドされている場合は NotEmpty 例外が 発生する。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>context</em>&nbsp;</td><td>非アクティブ化する NamingContext</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga18"></a><!-- doxytag: member=<CorbaNaming::destroyRecursive> ref=<CorbaNaminga18> args=<(context)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::destroyRecursive           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">context&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+NamingContext を再帰的に下って非アクティブ化する. 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga33"></a><!-- doxytag: member=<CorbaNaming::getNameLength> ref=<CorbaNaminga33> args=<(name_list)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::getNameLength           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name_list&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+ネームコンポーネントの文字列表現時の文字長を取得する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga27"></a><!-- doxytag: member=<CorbaNaming::getNameServer> ref=<CorbaNaminga27> args=<()> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::getNameServer           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+ネームサーバの名前を取得する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga28"></a><!-- doxytag: member=<CorbaNaming::getRootContext> ref=<CorbaNaminga28> args=<()> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::getRootContext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+ルートコンテキストを取得する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga2"></a><!-- doxytag: member=<CorbaNaming::init> ref=<CorbaNaminga2> args=<(name_server)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::init           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name_server&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga20"></a><!-- doxytag: member=<CorbaNaming::list> ref=<CorbaNaminga20> args=<(name_cxt, how_many, rbl, rbi)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::list           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name_cxt&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>how_many&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>rbl&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>rbi&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+与えられた NamingContext の Binding を取得する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga30"></a><!-- doxytag: member=<CorbaNaming::nameIsNamingContext> ref=<CorbaNaminga30> args=<(name_list)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::nameIsNamingContext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name_list&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+与えられた名前がネーミングコンテキストかどうか 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga32"></a><!-- doxytag: member=<CorbaNaming::nameToString> ref=<CorbaNaminga32> args=<(name_list, string_name, slen)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::nameToString           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>string_name&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>slen&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+ネームコンポーネントの文字列表現を取得する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga15"></a><!-- doxytag: member=<CorbaNaming::newContext> ref=<CorbaNaminga15> args=<()> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::newContext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+新しいコンテキストを生成する 
+<p>
+与えられたネームサーバ上で生成された NamingContext を返す。 返された NamingContext は bind されていない。 <dl compact><dt><b>戻り値:</b></dt><dd>生成された新しい NamingContext</dd></dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga29"></a><!-- doxytag: member=<CorbaNaming::objIsNamingContext> ref=<CorbaNaminga29> args=<(obj)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::objIsNamingContext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">obj&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+オブジェクトがネーミングコンテキストか判別する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga6"></a><!-- doxytag: member=<CorbaNaming::rebind> ref=<CorbaNaminga6> args=<(name_list, obj, force=True)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::rebind           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>obj&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>force&nbsp;</td>
+          <td class="mdname" nowrap> = <code>True</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Object を rebind する. 
+<p>
+name_list で指定された Binding がすでに存在する場合を除いて <a class="el" href="classCorbaNaming.html#CorbaNaminga3">bind()</a> と同じ である。バインディングがすでに存在する場合には、新しいバインディングに 置き換えられる。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name_list</em>&nbsp;</td><td>オブジェクトに付ける名前の NameComponent </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>関連付けられるオブジェクト </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>force</em>&nbsp;</td><td>trueの場合、途中のコンテキストを強制的にバインドする</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga7"></a><!-- doxytag: member=<CorbaNaming::rebindByString> ref=<CorbaNaminga7> args=<(string_name, obj, force=True)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::rebindByString           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">string_name&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>obj&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>force&nbsp;</td>
+          <td class="mdname" nowrap> = <code>True</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Object を rebind する. 
+<p>
+Object を rebind する際に与える名前が文字列表現であること以外は <a class="el" href="classCorbaNaming.html#CorbaNaminga6">rebind()</a> と同じである。rebind(toName(string_name), obj) と等価。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>string_name</em>&nbsp;</td><td>オブジェクトに付ける名前の文字列表現 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>関連付けられるオブジェクト </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>force</em>&nbsp;</td><td>trueの場合、途中のコンテキストを強制的にバインドする </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>例外:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>NotFound</em>&nbsp;</td><td>途中の &lt;c_1, c_2, ..., c_(n-1)&gt; が存在しない。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>CannotProceed</em>&nbsp;</td><td>何らかの理由で処理を継続できない。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InvalidName</em>&nbsp;</td><td>引数 name の名前が不正。</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga11"></a><!-- doxytag: member=<CorbaNaming::rebindContext> ref=<CorbaNaminga11> args=<(name, name_cxt, force=True)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::rebindContext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_cxt&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>force&nbsp;</td>
+          <td class="mdname" nowrap> = <code>True</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+NamingContext を rebind する. 
+<p>
+name で指定されたコンテキストがすでに存在する場合を除いて <a class="el" href="classCorbaNaming.html#CorbaNaminga9">bindContext()</a> と同じである。 バインディングがすでに存在する場合には、新しいバインディングに 置き換えられる。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>オブジェクトに付ける名前のネームコンポーネントまたは、文字列 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>name_cxt</em>&nbsp;</td><td>関連付けられる NamingContext </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>force</em>&nbsp;</td><td>trueの場合、途中のコンテキストを強制的にバインドする</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga12"></a><!-- doxytag: member=<CorbaNaming::rebindContextRecursive> ref=<CorbaNaminga12> args=<(context, name_list, name_cxt)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::rebindContextRecursive           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">context&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_cxt&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga8"></a><!-- doxytag: member=<CorbaNaming::rebindRecursive> ref=<CorbaNaminga8> args=<(context, name_list, obj)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::rebindRecursive           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">context&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>obj&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+途中のコンテキストを bind しながら Object を rebind する 
+<p>
+name &lt;c_n&gt; で指定された NamingContext もしくは Object がすでに存在する 場合を除いて <a class="el" href="classCorbaNaming.html#CorbaNaminga5">bindRecursive()</a> と同じである。<p>
+name &lt;c_n&gt; で指定されたバインディングがすでに存在する場合には、 新しいバインディングに置き換えられる。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name_list</em>&nbsp;</td><td>オブジェクトに付ける名前の文字列表現 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>obj</em>&nbsp;</td><td>関連付けられるオブジェクト </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>force</em>&nbsp;</td><td>trueの場合、途中のコンテキストを強制的にバインドする </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>例外:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>CannotProceed</em>&nbsp;</td><td>途中のコンテキストが解決できない。 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>InvalidName</em>&nbsp;</td><td>与えられた name が不正。</td></tr>
+  </table>
+</dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga13"></a><!-- doxytag: member=<CorbaNaming::resolve> ref=<CorbaNaminga13> args=<(name)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::resolve           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Object を name から解決する. 
+<p>
+name に bind されているオブジェクト参照を返す。 ネームコンポーネント &lt;c_1, c_2, ... c_n&gt; は再帰的に解決される。<p>
+CosNaming::resolve() とほぼ同等の働きをするが、常に与えられた ネームサーバのルートコンテキストに対して <a class="el" href="classCorbaNaming.html#CorbaNaminga13">resolve()</a> が呼び出される点が 異なる。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>解決すべきオブジェクトの名前のネームコンポーネント 　　　　　　または、解決すべきオブジェクトの名前の文字列表現 </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>解決されたオブジェクト参照</dd></dl>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga24"></a><!-- doxytag: member=<CorbaNaming::resolveStr> ref=<CorbaNaminga24> args=<(string_name)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::resolveStr           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">string_name&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+与えられた文字列表現を resolve しオブジェクトを返す 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga34"></a><!-- doxytag: member=<CorbaNaming::split> ref=<CorbaNaminga34> args=<(input, delimiter, results)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::split           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">input&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>delimiter&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>results&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+文字列の分割 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga31"></a><!-- doxytag: member=<CorbaNaming::subName> ref=<CorbaNaminga31> args=<(name_list, begin, end=None)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::subName           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name_list&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>begin&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>end&nbsp;</td>
+          <td class="mdname" nowrap> = <code>None</code></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+ネームコンポーネントの部分を返す 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga22"></a><!-- doxytag: member=<CorbaNaming::toName> ref=<CorbaNaminga22> args=<(sname)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::toName           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">sname&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+与えられた文字列表現を NameComponent に分解する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga21"></a><!-- doxytag: member=<CorbaNaming::toString> ref=<CorbaNaminga21> args=<(name_list)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::toString           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name_list&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+与えられた NameComponent の文字列表現を返す 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga23"></a><!-- doxytag: member=<CorbaNaming::toUrl> ref=<CorbaNaminga23> args=<(addr, string_name)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::toUrl           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">addr&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td class="md"></td>
+          <td class="md" nowrap>string_name&nbsp;</td>
+          <td class="mdname" nowrap></td>
+        </tr>
+        <tr>
+          <td class="md"></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+与えられた addre と string_name から URL表現を取得する 
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="CorbaNaminga14"></a><!-- doxytag: member=<CorbaNaming::unbind> ref=<CorbaNaminga14> args=<(name)> --><p>
+<table class="mdTable" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top">CorbaNaming::unbind           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">name&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing="5" cellpadding="0" border="0">
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+指定された名前のオブジェクトの bind を解除する 
+<p>
+name に bind されているオブジェクト参照を返す。 ネームコンポーネント &lt;c_1, c_2, ... c_n&gt; は再帰的に解決される。<p>
+CosNaming::unbind() とほぼ同等の働きをするが、常に与えられた ネームサーバのルートコンテキストに対して <a class="el" href="classCorbaNaming.html#CorbaNaminga14">unbind()</a> が呼び出される点が 異なる。 <dl compact><dt><b>引数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>解決すべきオブジェクトの名前のネームコンポーネント 　　　　　　または、解決すべきオブジェクトの名前の文字列表現 </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>戻り値:</b></dt><dd>解決されたオブジェクト参照</dd></dl>
+    </td>
+  </tr>
+</table>
+<hr>このクラスの説明は次のファイルから生成されました:<ul>
+<li><a class="el" href="CorbaNaming_8py.html">CorbaNaming.py</a></ul>
+<hr size="1"><address style="align: right;"><small>OpenRTMに対してMon Oct 29 15:51:37 2007に生成されました。&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.3 </small></address>
+</body>
+</html>

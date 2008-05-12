@@ -1,0 +1,104 @@
+\section{Factory\-Python Class Reference}
+\label{classFactoryPython}\index{FactoryPython@{FactoryPython}}
+Inheritance diagram for Factory\-Python::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{classFactoryPython}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (profile, new\_\-func, delete\_\-func, policy=None)
+\begin{CompactList}\small\item\em Factory\-Python class constructor. \item\end{CompactList}\item 
+{\bf create} (mgr)
+\begin{CompactList}\small\item\em Create component. \item\end{CompactList}\item 
+{\bf destroy} (comp)
+\begin{CompactList}\small\item\em Destroy component. \item\end{CompactList}\item 
+{\bf \_\-\_\-init\_\-\_\-} (profile)
+\begin{CompactList}\small\item\em Factory\-Base class constructor. \item\end{CompactList}\item 
+{\bf \_\-\_\-dele\_\-\_\-} ()
+\item 
+{\bf profile} ()
+\begin{CompactList}\small\item\em Get component profile. \item\end{CompactList}\item 
+{\bf number} ()
+\begin{CompactList}\small\item\em Get number of component instances. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{FactoryPython@{Factory\-Python}!__dele__@{\_\-\_\-dele\_\-\_\-}}
+\index{__dele__@{\_\-\_\-dele\_\-\_\-}!FactoryPython@{Factory\-Python}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Factory\-Base::\_\-\_\-dele\_\-\_\- ()\hspace{0.3cm}{\tt  [inherited]}}\label{classFactoryBase_FactoryPythona4}
+
+
+\index{FactoryPython@{Factory\-Python}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!FactoryPython@{Factory\-Python}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Factory\-Base::\_\-\_\-init\_\-\_\- (profile)\hspace{0.3cm}{\tt  [inherited]}}\label{classFactoryBase_FactoryPythona3}
+
+
+Factory\-Base class constructor. 
+
+Factory\-Base class constructor. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em profile}]component profile\end{description}
+\end{Desc}
+\index{FactoryPython@{Factory\-Python}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!FactoryPython@{Factory\-Python}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Factory\-Python::\_\-\_\-init\_\-\_\- (profile, new\_\-func, delete\_\-func, policy = {\tt None})}\label{classFactoryPython_FactoryPythona0}
+
+
+Factory\-Python class constructor. 
+
+Factory\-Python class constructor. Create component factory class with three arguments: component profile, component class name and delete function object. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em profile}]Component profile \item[{\em new\_\-func}]Component name \item[{\em delete\_\-func}]Delete function object\end{description}
+\end{Desc}
+\index{FactoryPython@{Factory\-Python}!create@{create}}
+\index{create@{create}!FactoryPython@{Factory\-Python}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Factory\-Python::create (mgr)}\label{classFactoryPython_FactoryPythona1}
+
+
+Create component. 
+
+Create component implemented in Python. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em mgr}]{\bf Manager}{\rm (p.\,\pageref{classManager})} object\end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Factory\-Base} {\rm (p.\,\pageref{classFactoryBase_FactoryBasea2})}.\index{FactoryPython@{Factory\-Python}!destroy@{destroy}}
+\index{destroy@{destroy}!FactoryPython@{Factory\-Python}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Factory\-Python::destroy (comp)}\label{classFactoryPython_FactoryPythona2}
+
+
+Destroy component. 
+
+Destroy component instance \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em comp}]Rtc\-Base object\end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Factory\-Base} {\rm (p.\,\pageref{classFactoryBase_FactoryBasea3})}.\index{FactoryPython@{Factory\-Python}!number@{number}}
+\index{number@{number}!FactoryPython@{Factory\-Python}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Factory\-Base::number ()\hspace{0.3cm}{\tt  [inherited]}}\label{classFactoryBase_FactoryPythona6}
+
+
+Get number of component instances. 
+
+Get number of current component instances.\index{FactoryPython@{Factory\-Python}!profile@{profile}}
+\index{profile@{profile}!FactoryPython@{Factory\-Python}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}self \_\-Profile Component Factory\-Base::profile ()\hspace{0.3cm}{\tt  [inherited]}}\label{classFactoryBase_FactoryPythona5}
+
+
+Get component profile. 
+
+Get component profile.
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf Factory.py}\end{CompactItemize}

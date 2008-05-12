@@ -1,0 +1,532 @@
+\contentsline {chapter}{\numberline {1}Open\discretionary {-}{}{}RTM Directory Hierarchy}{1}
+\contentsline {section}{\numberline {1.1}Open\discretionary {-}{}{}RTM Directories}{1}
+\contentsline {chapter}{\numberline {2}Open\discretionary {-}{}{}RTM ネームスペース索引}{3}
+\contentsline {section}{\numberline {2.1}Open\discretionary {-}{}{}RTM ネームスペース一覧}{3}
+\contentsline {chapter}{\numberline {3}Open\discretionary {-}{}{}RTM 階層索引}{5}
+\contentsline {section}{\numberline {3.1}Open\discretionary {-}{}{}RTM クラス階層}{5}
+\contentsline {chapter}{\numberline {4}Open\discretionary {-}{}{}RTM 構成索引}{7}
+\contentsline {section}{\numberline {4.1}Open\discretionary {-}{}{}RTM 構成}{7}
+\contentsline {chapter}{\numberline {5}Open\discretionary {-}{}{}RTM ファイル索引}{9}
+\contentsline {section}{\numberline {5.1}Open\discretionary {-}{}{}RTM ファイル一覧}{9}
+\contentsline {chapter}{\numberline {6}Open\discretionary {-}{}{}RTM Directory Documentation}{11}
+\contentsline {section}{\numberline {6.1}/.amd\_\discretionary {-}{}{}mnt/robofs/export/home/n-ando/Program/CVS/0.4-RELENG/Open\discretionary {-}{}{}RTM-aist/rtm/idl/ Directory Reference}{11}
+\contentsline {section}{\numberline {6.2}/.amd\_\discretionary {-}{}{}mnt/robofs/export/home/n-ando/Program/CVS/0.4-RELENG/Open\discretionary {-}{}{}RTM-aist/rtm/ Directory Reference}{12}
+\contentsline {chapter}{\numberline {7}Open\discretionary {-}{}{}RTM ネームスペース}{13}
+\contentsline {section}{\numberline {7.1}ネームスペース RTC}{13}
+\contentsline {subsection}{\numberline {7.1.1}型定義}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.1}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Component\discretionary {-}{}{}Profile}$>$ {\bf RTC::Component\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.2}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Connector\discretionary {-}{}{}Profile}$>$ {\bf RTC::Connector\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.3}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile}$>$ {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.4}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Service}$>$ {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Service\discretionary {-}{}{}List}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.5}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Mode}$>$ {\bf RTC::Mode\discretionary {-}{}{}List}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.6}\setlength {\rightskip }{0pt plus 5cm}typedef {\bf SDOPackage::NVList} {\bf RTC::NVList}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.7}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Profile}$>$ {\bf RTC::Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.8}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Port\discretionary {-}{}{}Profile}$>$ {\bf RTC::Port\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.9}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf RTObject}$>$ {\bf RTC::RTCList}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.10}\setlength {\rightskip }{0pt plus 5cm}typedef UNIQUE\_\discretionary {-}{}{}ID\_\discretionary {-}{}{}TYPE\_\discretionary {-}{}{}NATIVE {\bf RTC::Unique\discretionary {-}{}{}Id}}{16}
+\contentsline {subsubsection}{\numberline {7.1.1.11}\setlength {\rightskip }{0pt plus 5cm}typedef {\bf SDOPackage::Unique\discretionary {-}{}{}Identifier} {\bf RTC::Unique\discretionary {-}{}{}Identifier}}{16}
+\contentsline {subsection}{\numberline {7.1.2}列挙型}{16}
+\contentsline {subsubsection}{\numberline {7.1.2.1}\setlength {\rightskip }{0pt plus 5cm}enum {\bf RTC::Execution\discretionary {-}{}{}Kind}}{16}
+\contentsline {subsubsection}{\numberline {7.1.2.2}\setlength {\rightskip }{0pt plus 5cm}enum {\bf RTC::Life\discretionary {-}{}{}Cycle\discretionary {-}{}{}State}}{16}
+\contentsline {subsubsection}{\numberline {7.1.2.3}\setlength {\rightskip }{0pt plus 5cm}enum {\bf RTC::Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Polarity}}{17}
+\contentsline {subsubsection}{\numberline {7.1.2.4}\setlength {\rightskip }{0pt plus 5cm}enum {\bf RTC::Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t}}{17}
+\contentsline {subsection}{\numberline {7.1.3}変数}{17}
+\contentsline {subsubsection}{\numberline {7.1.3.1}\setlength {\rightskip }{0pt plus 5cm}interface typedef sequence$<${\bf Execution\discretionary {-}{}{}Context}$>$ {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}List}}{17}
+\contentsline {subsubsection}{\numberline {7.1.3.2}\setlength {\rightskip }{0pt plus 5cm}interface typedef sequence$<${\bf Port}$>$ {\bf RTC::Port\discretionary {-}{}{}List}}{17}
+\contentsline {section}{\numberline {7.2}ネームスペース SDOPackage}{18}
+\contentsline {subsection}{\numberline {7.2.1}型定義}{19}
+\contentsline {subsubsection}{\numberline {7.2.1.1}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Configuration\discretionary {-}{}{}Set}$>$ {\bf SDOPackage::Configuration\discretionary {-}{}{}Set\discretionary {-}{}{}List}}{19}
+\contentsline {subsubsection}{\numberline {7.2.1.2}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Name\discretionary {-}{}{}Value}$>$ {\bf SDOPackage::NVList}}{19}
+\contentsline {subsubsection}{\numberline {7.2.1.3}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Organization}$>$ {\bf SDOPackage::Organization\discretionary {-}{}{}List}}{19}
+\contentsline {subsubsection}{\numberline {7.2.1.4}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Parameter}$>$ {\bf SDOPackage::Parameter\discretionary {-}{}{}List}}{19}
+\contentsline {subsubsection}{\numberline {7.2.1.5}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf SDO}$>$ {\bf SDOPackage::SDOList}}{19}
+\contentsline {subsubsection}{\numberline {7.2.1.6}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<${\bf Service\discretionary {-}{}{}Profile}$>$ {\bf SDOPackage::Service\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{19}
+\contentsline {subsubsection}{\numberline {7.2.1.7}\setlength {\rightskip }{0pt plus 5cm}typedef string {\bf SDOPackage::Unique\discretionary {-}{}{}Identifier}}{19}
+\contentsline {subsection}{\numberline {7.2.2}列挙型}{19}
+\contentsline {subsubsection}{\numberline {7.2.2.1}\setlength {\rightskip }{0pt plus 5cm}enum {\bf SDOPackage::Complex\discretionary {-}{}{}Data\discretionary {-}{}{}Type}}{19}
+\contentsline {subsubsection}{\numberline {7.2.2.2}\setlength {\rightskip }{0pt plus 5cm}enum {\bf SDOPackage::Dependency\discretionary {-}{}{}Type}}{19}
+\contentsline {subsubsection}{\numberline {7.2.2.3}\setlength {\rightskip }{0pt plus 5cm}enum {\bf SDOPackage::Numeric\discretionary {-}{}{}Type}}{19}
+\contentsline {subsection}{\numberline {7.2.3}変数}{19}
+\contentsline {subsubsection}{\numberline {7.2.3.1}\setlength {\rightskip }{0pt plus 5cm}exception Internal\discretionary {-}{}{}Error {\bf SDOPackage::exception\_\discretionary {-}{}{}body}}{19}
+\contentsline {subsubsection}{\numberline {7.2.3.2}\setlength {\rightskip }{0pt plus 5cm}interface interface interface interface interface interface typedef sequence$<$string$>$ {\bf SDOPackage::String\discretionary {-}{}{}List}}{20}
+\contentsline {chapter}{\numberline {8}Open\discretionary {-}{}{}RTM クラス}{21}
+\contentsline {section}{\numberline {8.1}共用体 SDOPackage::Allowed\discretionary {-}{}{}Values}{21}
+\contentsline {subsection}{\numberline {8.1.1}変数}{21}
+\contentsline {subsubsection}{\numberline {8.1.1.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Enumeration\discretionary {-}{}{}Type} {\bf SDOPackage::Allowed\discretionary {-}{}{}Values::allowed\_\discretionary {-}{}{}enum}}{21}
+\contentsline {subsubsection}{\numberline {8.1.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Interval\discretionary {-}{}{}Type} {\bf SDOPackage::Allowed\discretionary {-}{}{}Values::allowed\_\discretionary {-}{}{}interval}}{21}
+\contentsline {subsubsection}{\numberline {8.1.1.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Range\discretionary {-}{}{}Type} {\bf SDOPackage::Allowed\discretionary {-}{}{}Values::allowed\_\discretionary {-}{}{}range}}{21}
+\contentsline {section}{\numberline {8.2}インタフェース RTC::Component\discretionary {-}{}{}Action}{22}
+\contentsline {subsection}{\numberline {8.2.1}説明}{22}
+\contentsline {subsection}{\numberline {8.2.2}関数}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Unique\discretionary {-}{}{}Id} RTC::Component\discretionary {-}{}{}Action::attach\_\discretionary {-}{}{}executioncontext (in {\bf Execution\discretionary {-}{}{}Context} {\em exec\_\discretionary {-}{}{}context})}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::detach\_\discretionary {-}{}{}executioncontext (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}aborting (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}activated (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}deactivated (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.6}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}error (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.7}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}finalize ()}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.8}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}initialize ()}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.9}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}reset (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.10}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}shutdown (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{23}
+\contentsline {subsubsection}{\numberline {8.2.2.11}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}startup (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{23}
+\contentsline {section}{\numberline {8.3}構造体 RTC::Component\discretionary {-}{}{}Profile}{24}
+\contentsline {subsection}{\numberline {8.3.1}説明}{24}
+\contentsline {subsection}{\numberline {8.3.2}変数}{24}
+\contentsline {subsubsection}{\numberline {8.3.2.1}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Component\discretionary {-}{}{}Profile::category}}{24}
+\contentsline {subsubsection}{\numberline {8.3.2.2}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Component\discretionary {-}{}{}Profile::description}}{24}
+\contentsline {subsubsection}{\numberline {8.3.2.3}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Component\discretionary {-}{}{}Profile::instance\_\discretionary {-}{}{}name}}{24}
+\contentsline {subsubsection}{\numberline {8.3.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf RTObject} {\bf RTC::Component\discretionary {-}{}{}Profile::parent}}{24}
+\contentsline {subsubsection}{\numberline {8.3.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Port\discretionary {-}{}{}Profile\discretionary {-}{}{}List} {\bf RTC::Component\discretionary {-}{}{}Profile::port\_\discretionary {-}{}{}profiles}}{24}
+\contentsline {subsubsection}{\numberline {8.3.2.6}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} {\bf RTC::Component\discretionary {-}{}{}Profile::properties}}{24}
+\contentsline {subsubsection}{\numberline {8.3.2.7}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Component\discretionary {-}{}{}Profile::type\_\discretionary {-}{}{}name}}{24}
+\contentsline {subsubsection}{\numberline {8.3.2.8}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Component\discretionary {-}{}{}Profile::vendor}}{24}
+\contentsline {subsubsection}{\numberline {8.3.2.9}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Component\discretionary {-}{}{}Profile::version}}{24}
+\contentsline {section}{\numberline {8.4}インタフェース SDOPackage::Configuration}{25}
+\contentsline {subsection}{\numberline {8.4.1}関数}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.1}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::activate\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}set (in {\bf Unique\discretionary {-}{}{}Identifier} {\em config\_\discretionary {-}{}{}id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.2}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::add\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}set (in {\bf Configuration\discretionary {-}{}{}Set} {\em configuration\_\discretionary {-}{}{}set}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.3}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::add\_\discretionary {-}{}{}organization (in {\bf Organization} {\em org}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Configuration\discretionary {-}{}{}Set} SDOPackage::Configuration::get\_\discretionary {-}{}{}active\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}set () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.5}\setlength {\rightskip }{0pt plus 5cm}any SDOPackage::Configuration::get\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}parameter\_\discretionary {-}{}{}value (in string {\em name}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.6}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} SDOPackage::Configuration::get\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}parameter\_\discretionary {-}{}{}values () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.7}\setlength {\rightskip }{0pt plus 5cm}{\bf Parameter\discretionary {-}{}{}List} SDOPackage::Configuration::get\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}parameters () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.8}\setlength {\rightskip }{0pt plus 5cm}{\bf Configuration\discretionary {-}{}{}Set} SDOPackage::Configuration::get\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}set (in {\bf Unique\discretionary {-}{}{}Identifier} {\em config\_\discretionary {-}{}{}id}) raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.9}\setlength {\rightskip }{0pt plus 5cm}{\bf Configuration\discretionary {-}{}{}Set\discretionary {-}{}{}List} SDOPackage::Configuration::get\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}sets () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.10}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::remove\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}set (in {\bf Unique\discretionary {-}{}{}Identifier} {\em config\_\discretionary {-}{}{}id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.11}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::remove\_\discretionary {-}{}{}organization (in {\bf Unique\discretionary {-}{}{}Identifier} {\em organization\_\discretionary {-}{}{}id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.12}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::remove\_\discretionary {-}{}{}service\_\discretionary {-}{}{}profile (in {\bf Unique\discretionary {-}{}{}Identifier} {\em id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.13}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::set\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}parameter (in string {\em name}, in any {\em value}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.14}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::set\_\discretionary {-}{}{}configuration\_\discretionary {-}{}{}set\_\discretionary {-}{}{}values (in {\bf Unique\discretionary {-}{}{}Identifier} {\em config\_\discretionary {-}{}{}id}, in {\bf Configuration\discretionary {-}{}{}Set} {\em configuration\_\discretionary {-}{}{}set}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.15}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::set\_\discretionary {-}{}{}device\_\discretionary {-}{}{}profile (in {\bf Device\discretionary {-}{}{}Profile} {\em d\discretionary {-}{}{}Profile}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {subsubsection}{\numberline {8.4.1.16}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Configuration::set\_\discretionary {-}{}{}service\_\discretionary {-}{}{}profile (in {\bf Service\discretionary {-}{}{}Profile} {\em s\discretionary {-}{}{}Profile}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{26}
+\contentsline {section}{\numberline {8.5}構造体 SDOPackage::Configuration\discretionary {-}{}{}Set}{28}
+\contentsline {subsection}{\numberline {8.5.1}変数}{28}
+\contentsline {subsubsection}{\numberline {8.5.1.1}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} {\bf SDOPackage::Configuration\discretionary {-}{}{}Set::configuration\_\discretionary {-}{}{}data}}{28}
+\contentsline {subsubsection}{\numberline {8.5.1.2}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Configuration\discretionary {-}{}{}Set::description}}{28}
+\contentsline {subsubsection}{\numberline {8.5.1.3}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Configuration\discretionary {-}{}{}Set::id}}{28}
+\contentsline {section}{\numberline {8.6}構造体 RTC::Connector\discretionary {-}{}{}Profile}{29}
+\contentsline {subsection}{\numberline {8.6.1}説明}{29}
+\contentsline {subsection}{\numberline {8.6.2}変数}{29}
+\contentsline {subsubsection}{\numberline {8.6.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Unique\discretionary {-}{}{}Identifier} {\bf RTC::Connector\discretionary {-}{}{}Profile::connector\_\discretionary {-}{}{}id}}{29}
+\contentsline {subsubsection}{\numberline {8.6.2.2}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Connector\discretionary {-}{}{}Profile::name}}{29}
+\contentsline {subsubsection}{\numberline {8.6.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Port\discretionary {-}{}{}List} {\bf RTC::Connector\discretionary {-}{}{}Profile::ports}}{29}
+\contentsline {subsubsection}{\numberline {8.6.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} {\bf RTC::Connector\discretionary {-}{}{}Profile::properties}}{29}
+\contentsline {section}{\numberline {8.7}インタフェース RTC::Data\discretionary {-}{}{}Flow\discretionary {-}{}{}Component\discretionary {-}{}{}Action}{30}
+\contentsline {subsection}{\numberline {8.7.1}説明}{30}
+\contentsline {subsection}{\numberline {8.7.2}関数}{30}
+\contentsline {subsubsection}{\numberline {8.7.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Data\discretionary {-}{}{}Flow\discretionary {-}{}{}Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}execute (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{30}
+\contentsline {subsubsection}{\numberline {8.7.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Data\discretionary {-}{}{}Flow\discretionary {-}{}{}Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}rate\_\discretionary {-}{}{}changed (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{30}
+\contentsline {subsubsection}{\numberline {8.7.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Data\discretionary {-}{}{}Flow\discretionary {-}{}{}Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}state\_\discretionary {-}{}{}update (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{30}
+\contentsline {section}{\numberline {8.8}インタフェース RTC::Data\discretionary {-}{}{}Flow\discretionary {-}{}{}Participant}{31}
+\contentsline {subsection}{\numberline {8.8.1}説明}{31}
+\contentsline {subsection}{\numberline {8.8.2}関数}{31}
+\contentsline {subsubsection}{\numberline {8.8.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Data\discretionary {-}{}{}Flow\discretionary {-}{}{}Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}execute (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{31}
+\contentsline {subsubsection}{\numberline {8.8.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Data\discretionary {-}{}{}Flow\discretionary {-}{}{}Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}rate\_\discretionary {-}{}{}changed (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{31}
+\contentsline {subsubsection}{\numberline {8.8.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Data\discretionary {-}{}{}Flow\discretionary {-}{}{}Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}state\_\discretionary {-}{}{}update (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{31}
+\contentsline {section}{\numberline {8.9}構造体 SDOPackage::Device\discretionary {-}{}{}Profile}{32}
+\contentsline {subsection}{\numberline {8.9.1}変数}{32}
+\contentsline {subsubsection}{\numberline {8.9.1.1}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Device\discretionary {-}{}{}Profile::device\_\discretionary {-}{}{}type}}{32}
+\contentsline {subsubsection}{\numberline {8.9.1.2}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Device\discretionary {-}{}{}Profile::manufacturer}}{32}
+\contentsline {subsubsection}{\numberline {8.9.1.3}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Device\discretionary {-}{}{}Profile::model}}{32}
+\contentsline {subsubsection}{\numberline {8.9.1.4}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} {\bf SDOPackage::Device\discretionary {-}{}{}Profile::properties}}{32}
+\contentsline {subsubsection}{\numberline {8.9.1.5}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Device\discretionary {-}{}{}Profile::version}}{32}
+\contentsline {section}{\numberline {8.10}構造体 SDOPackage::Enumeration\discretionary {-}{}{}Type}{33}
+\contentsline {subsection}{\numberline {8.10.1}変数}{33}
+\contentsline {subsubsection}{\numberline {8.10.1.1}\setlength {\rightskip }{0pt plus 5cm}{\bf String\discretionary {-}{}{}List} {\bf SDOPackage::Enumeration\discretionary {-}{}{}Type::enumerated\_\discretionary {-}{}{}values}}{33}
+\contentsline {section}{\numberline {8.11}インタフェース RTC::Execution\discretionary {-}{}{}Context}{34}
+\contentsline {subsection}{\numberline {8.11.1}説明}{34}
+\contentsline {subsection}{\numberline {8.11.2}関数}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::activate\_\discretionary {-}{}{}component (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::add (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::deactivate\_\discretionary {-}{}{}component (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Life\discretionary {-}{}{}Cycle\discretionary {-}{}{}State} RTC::Execution\discretionary {-}{}{}Context::get\_\discretionary {-}{}{}component\_\discretionary {-}{}{}state (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Execution\discretionary {-}{}{}Kind} RTC::Execution\discretionary {-}{}{}Context::get\_\discretionary {-}{}{}kind ()}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.6}\setlength {\rightskip }{0pt plus 5cm}double RTC::Execution\discretionary {-}{}{}Context::get\_\discretionary {-}{}{}rate ()}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.7}\setlength {\rightskip }{0pt plus 5cm}boolean RTC::Execution\discretionary {-}{}{}Context::is\_\discretionary {-}{}{}running ()}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.8}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::remove (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.9}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::reset\_\discretionary {-}{}{}component (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.10}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::set\_\discretionary {-}{}{}rate (in double {\em rate})}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.11}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::start ()}{35}
+\contentsline {subsubsection}{\numberline {8.11.2.12}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::stop ()}{35}
+\contentsline {section}{\numberline {8.12}構造体 RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile}{36}
+\contentsline {subsection}{\numberline {8.12.1}説明}{36}
+\contentsline {subsection}{\numberline {8.12.2}変数}{36}
+\contentsline {subsubsection}{\numberline {8.12.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Execution\discretionary {-}{}{}Kind} {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile::kind}}{36}
+\contentsline {subsubsection}{\numberline {8.12.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf RTObject} {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile::owner}}{36}
+\contentsline {subsubsection}{\numberline {8.12.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf RTCList} {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile::participants}}{36}
+\contentsline {subsubsection}{\numberline {8.12.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile::properties}}{36}
+\contentsline {subsubsection}{\numberline {8.12.2.5}\setlength {\rightskip }{0pt plus 5cm}double {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile::rate}}{36}
+\contentsline {section}{\numberline {8.13}インタフェース RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Service}{37}
+\contentsline {subsection}{\numberline {8.13.1}説明}{37}
+\contentsline {subsection}{\numberline {8.13.2}関数}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::activate\_\discretionary {-}{}{}component (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::add (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::deactivate\_\discretionary {-}{}{}component (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Life\discretionary {-}{}{}Cycle\discretionary {-}{}{}State} RTC::Execution\discretionary {-}{}{}Context::get\_\discretionary {-}{}{}component\_\discretionary {-}{}{}state (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Execution\discretionary {-}{}{}Kind} RTC::Execution\discretionary {-}{}{}Context::get\_\discretionary {-}{}{}kind ()\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.6}\setlength {\rightskip }{0pt plus 5cm}{\bf Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile} RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Service::get\_\discretionary {-}{}{}profile ()}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.7}\setlength {\rightskip }{0pt plus 5cm}double RTC::Execution\discretionary {-}{}{}Context::get\_\discretionary {-}{}{}rate ()\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.8}\setlength {\rightskip }{0pt plus 5cm}boolean RTC::Execution\discretionary {-}{}{}Context::is\_\discretionary {-}{}{}running ()\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.9}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::remove (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.10}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::reset\_\discretionary {-}{}{}component (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp})\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.11}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::set\_\discretionary {-}{}{}rate (in double {\em rate})\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.12}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::start ()\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {subsubsection}{\numberline {8.13.2.13}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Execution\discretionary {-}{}{}Context::stop ()\hspace {0.3cm}{\tt [inherited]}}{38}
+\contentsline {section}{\numberline {8.14}構造体 RTC::Fsm\discretionary {-}{}{}Bihavior\discretionary {-}{}{}Profile}{39}
+\contentsline {subsection}{\numberline {8.14.1}説明}{39}
+\contentsline {subsection}{\numberline {8.14.2}変数}{39}
+\contentsline {subsubsection}{\numberline {8.14.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Fsm\discretionary {-}{}{}Participant\discretionary {-}{}{}Action} {\bf RTC::Fsm\discretionary {-}{}{}Bihavior\discretionary {-}{}{}Profile::comp}}{39}
+\contentsline {subsubsection}{\numberline {8.14.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Unique\discretionary {-}{}{}Identifier} {\bf RTC::Fsm\discretionary {-}{}{}Bihavior\discretionary {-}{}{}Profile::id}}{39}
+\contentsline {section}{\numberline {8.15}インタフェース RTC::Fsm\discretionary {-}{}{}Object}{40}
+\contentsline {subsection}{\numberline {8.15.1}説明}{40}
+\contentsline {subsection}{\numberline {8.15.2}関数}{40}
+\contentsline {subsubsection}{\numberline {8.15.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Fsm\discretionary {-}{}{}Object::stimulate (in string {\em message}, in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{40}
+\contentsline {section}{\numberline {8.16}インタフェース RTC::Fsm\discretionary {-}{}{}Participant}{41}
+\contentsline {subsection}{\numberline {8.16.1}説明}{41}
+\contentsline {subsection}{\numberline {8.16.2}関数}{41}
+\contentsline {subsubsection}{\numberline {8.16.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Fsm\discretionary {-}{}{}Participant\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}action (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{41}
+\contentsline {section}{\numberline {8.17}インタフェース RTC::Fsm\discretionary {-}{}{}Participant\discretionary {-}{}{}Action}{42}
+\contentsline {subsection}{\numberline {8.17.1}説明}{42}
+\contentsline {subsection}{\numberline {8.17.2}関数}{42}
+\contentsline {subsubsection}{\numberline {8.17.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Fsm\discretionary {-}{}{}Participant\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}action (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{42}
+\contentsline {section}{\numberline {8.18}構造体 RTC::Fsm\discretionary {-}{}{}Profile}{43}
+\contentsline {subsection}{\numberline {8.18.1}説明}{43}
+\contentsline {subsection}{\numberline {8.18.2}変数}{43}
+\contentsline {subsubsection}{\numberline {8.18.2.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<${\bf Fsm\discretionary {-}{}{}Bihavior\discretionary {-}{}{}Profile}$>$ {\bf RTC::Fsm\discretionary {-}{}{}Profile::bihavior\_\discretionary {-}{}{}profiles}}{43}
+\contentsline {section}{\numberline {8.19}インタフェース RTC::Fsm\discretionary {-}{}{}Service}{44}
+\contentsline {subsection}{\numberline {8.19.1}説明}{44}
+\contentsline {subsection}{\numberline {8.19.2}関数}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.1}\setlength {\rightskip }{0pt plus 5cm}Configuration SDOPackage::SDO::get\_\discretionary {-}{}{}configuration () raises (Interface\discretionary {-}{}{}Not\discretionary {-}{}{}Implemented, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.2}\setlength {\rightskip }{0pt plus 5cm}Device\discretionary {-}{}{}Profile SDOPackage::SDO::get\_\discretionary {-}{}{}device\_\discretionary {-}{}{}profile () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Fsm\discretionary {-}{}{}Profile} RTC::Fsm\discretionary {-}{}{}Service::get\_\discretionary {-}{}{}fsm\_\discretionary {-}{}{}profile ()}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.4}\setlength {\rightskip }{0pt plus 5cm}Monitoring SDOPackage::SDO::get\_\discretionary {-}{}{}monitoring () raises (Interface\discretionary {-}{}{}Not\discretionary {-}{}{}Implemented, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Organization\discretionary {-}{}{}List} SDOPackage::SDO::get\_\discretionary {-}{}{}organizations () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.6}\setlength {\rightskip }{0pt plus 5cm}{\bf Organization\discretionary {-}{}{}List} SDOPackage::SDOSystem\discretionary {-}{}{}Element::get\_\discretionary {-}{}{}owned\_\discretionary {-}{}{}organizations () raises (Not\discretionary {-}{}{}Available)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.7}\setlength {\rightskip }{0pt plus 5cm}{\bf Unique\discretionary {-}{}{}Identifier} SDOPackage::SDO::get\_\discretionary {-}{}{}sdo\_\discretionary {-}{}{}id () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.8}\setlength {\rightskip }{0pt plus 5cm}SDOService SDOPackage::SDO::get\_\discretionary {-}{}{}sdo\_\discretionary {-}{}{}service (in {\bf Unique\discretionary {-}{}{}Identifier} {\em id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.9}\setlength {\rightskip }{0pt plus 5cm}string SDOPackage::SDO::get\_\discretionary {-}{}{}sdo\_\discretionary {-}{}{}type () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.10}\setlength {\rightskip }{0pt plus 5cm}Service\discretionary {-}{}{}Profile SDOPackage::SDO::get\_\discretionary {-}{}{}service\_\discretionary {-}{}{}profile (in {\bf Unique\discretionary {-}{}{}Identifier} {\em id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.11}\setlength {\rightskip }{0pt plus 5cm}{\bf Service\discretionary {-}{}{}Profile\discretionary {-}{}{}List} SDOPackage::SDO::get\_\discretionary {-}{}{}service\_\discretionary {-}{}{}profiles () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.12}\setlength {\rightskip }{0pt plus 5cm}any SDOPackage::SDO::get\_\discretionary {-}{}{}status (in string {\em name}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.13}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} SDOPackage::SDO::get\_\discretionary {-}{}{}status\_\discretionary {-}{}{}list () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{45}
+\contentsline {subsubsection}{\numberline {8.19.2.14}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Fsm\discretionary {-}{}{}Service::set\_\discretionary {-}{}{}fsm\_\discretionary {-}{}{}profile ()}{45}
+\contentsline {section}{\numberline {8.20}インタフェース RTC::In\discretionary {-}{}{}Port\discretionary {-}{}{}Any}{46}
+\contentsline {subsection}{\numberline {8.20.1}関数}{46}
+\contentsline {subsubsection}{\numberline {8.20.1.1}\setlength {\rightskip }{0pt plus 5cm}oneway void RTC::In\discretionary {-}{}{}Port\discretionary {-}{}{}Any::put (in any {\em data})}{46}
+\contentsline {section}{\numberline {8.21}構造体 SDOPackage::Interval\discretionary {-}{}{}Type}{47}
+\contentsline {subsection}{\numberline {8.21.1}変数}{47}
+\contentsline {subsubsection}{\numberline {8.21.1.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Numeric} {\bf SDOPackage::Interval\discretionary {-}{}{}Type::max}}{47}
+\contentsline {subsubsection}{\numberline {8.21.1.2}\setlength {\rightskip }{0pt plus 5cm}boolean {\bf SDOPackage::Interval\discretionary {-}{}{}Type::max\_\discretionary {-}{}{}inclusive}}{47}
+\contentsline {subsubsection}{\numberline {8.21.1.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Numeric} {\bf SDOPackage::Interval\discretionary {-}{}{}Type::min}}{47}
+\contentsline {subsubsection}{\numberline {8.21.1.4}\setlength {\rightskip }{0pt plus 5cm}boolean {\bf SDOPackage::Interval\discretionary {-}{}{}Type::min\_\discretionary {-}{}{}inclusive}}{47}
+\contentsline {subsubsection}{\numberline {8.21.1.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Numeric} {\bf SDOPackage::Interval\discretionary {-}{}{}Type::step}}{47}
+\contentsline {section}{\numberline {8.22}インタフェース RTC::Lightweight\discretionary {-}{}{}RTObject}{48}
+\contentsline {subsection}{\numberline {8.22.1}説明}{48}
+\contentsline {subsection}{\numberline {8.22.2}関数}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Unique\discretionary {-}{}{}Id} RTC::Component\discretionary {-}{}{}Action::attach\_\discretionary {-}{}{}executioncontext (in {\bf Execution\discretionary {-}{}{}Context} {\em exec\_\discretionary {-}{}{}context})\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::detach\_\discretionary {-}{}{}executioncontext (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Lightweight\discretionary {-}{}{}RTObject::exit ()}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Lightweight\discretionary {-}{}{}RTObject::finalize ()}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Execution\discretionary {-}{}{}Context} RTC::Lightweight\discretionary {-}{}{}RTObject::get\_\discretionary {-}{}{}context (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.6}\setlength {\rightskip }{0pt plus 5cm}{\bf Execution\discretionary {-}{}{}Context\discretionary {-}{}{}List} RTC::Lightweight\discretionary {-}{}{}RTObject::get\_\discretionary {-}{}{}contexts ()}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.7}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Lightweight\discretionary {-}{}{}RTObject::initialize ()}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.8}\setlength {\rightskip }{0pt plus 5cm}boolean RTC::Lightweight\discretionary {-}{}{}RTObject::is\_\discretionary {-}{}{}alive ()}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.9}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}aborting (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.10}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}activated (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.11}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}deactivated (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.12}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}error (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.13}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}finalize ()\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.14}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}initialize ()\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.15}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}reset (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.16}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}shutdown (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {subsubsection}{\numberline {8.22.2.17}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}startup (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{49}
+\contentsline {section}{\numberline {8.23}インタフェース RTC::Mode}{50}
+\contentsline {subsection}{\numberline {8.23.1}説明}{50}
+\contentsline {section}{\numberline {8.24}インタフェース RTC::Mode\discretionary {-}{}{}Capable}{51}
+\contentsline {subsection}{\numberline {8.24.1}説明}{51}
+\contentsline {subsection}{\numberline {8.24.2}関数}{51}
+\contentsline {subsubsection}{\numberline {8.24.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}current\_\discretionary {-}{}{}mode ()}{51}
+\contentsline {subsubsection}{\numberline {8.24.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}current\_\discretionary {-}{}{}mode\_\discretionary {-}{}{}in\_\discretionary {-}{}{}context (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{51}
+\contentsline {subsubsection}{\numberline {8.24.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}default\_\discretionary {-}{}{}mode ()}{51}
+\contentsline {subsubsection}{\numberline {8.24.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}pending\_\discretionary {-}{}{}mode ()}{51}
+\contentsline {subsubsection}{\numberline {8.24.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}pending\_\discretionary {-}{}{}mode\_\discretionary {-}{}{}in\_\discretionary {-}{}{}context (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{51}
+\contentsline {subsubsection}{\numberline {8.24.2.6}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Mode\discretionary {-}{}{}Capable::set\_\discretionary {-}{}{}mode (in {\bf Mode} {\em new\_\discretionary {-}{}{}mode}, in boolean {\em immediate})}{51}
+\contentsline {section}{\numberline {8.25}インタフェース SDOPackage::Monitoring}{52}
+\contentsline {section}{\numberline {8.26}インタフェース RTC::Multi\discretionary {-}{}{}Mode\discretionary {-}{}{}Component\discretionary {-}{}{}Action}{53}
+\contentsline {subsection}{\numberline {8.26.1}説明}{53}
+\contentsline {subsection}{\numberline {8.26.2}関数}{53}
+\contentsline {subsubsection}{\numberline {8.26.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Multi\discretionary {-}{}{}Mode\discretionary {-}{}{}Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}mode\_\discretionary {-}{}{}changed (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp}, in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})}{53}
+\contentsline {section}{\numberline {8.27}インタフェース RTC::Multi\discretionary {-}{}{}Mode\discretionary {-}{}{}Object}{54}
+\contentsline {subsection}{\numberline {8.27.1}説明}{54}
+\contentsline {subsection}{\numberline {8.27.2}関数}{54}
+\contentsline {subsubsection}{\numberline {8.27.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}current\_\discretionary {-}{}{}mode ()\hspace {0.3cm}{\tt [inherited]}}{54}
+\contentsline {subsubsection}{\numberline {8.27.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}current\_\discretionary {-}{}{}mode\_\discretionary {-}{}{}in\_\discretionary {-}{}{}context (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{54}
+\contentsline {subsubsection}{\numberline {8.27.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}default\_\discretionary {-}{}{}mode ()\hspace {0.3cm}{\tt [inherited]}}{54}
+\contentsline {subsubsection}{\numberline {8.27.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}pending\_\discretionary {-}{}{}mode ()\hspace {0.3cm}{\tt [inherited]}}{54}
+\contentsline {subsubsection}{\numberline {8.27.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Mode} RTC::Mode\discretionary {-}{}{}Capable::get\_\discretionary {-}{}{}pending\_\discretionary {-}{}{}mode\_\discretionary {-}{}{}in\_\discretionary {-}{}{}context (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{54}
+\contentsline {subsubsection}{\numberline {8.27.2.6}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Multi\discretionary {-}{}{}Mode\discretionary {-}{}{}Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}mode\_\discretionary {-}{}{}changed (in {\bf Lightweight\discretionary {-}{}{}RTObject} {\em comp}, in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{54}
+\contentsline {subsubsection}{\numberline {8.27.2.7}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Mode\discretionary {-}{}{}Capable::set\_\discretionary {-}{}{}mode (in {\bf Mode} {\em new\_\discretionary {-}{}{}mode}, in boolean {\em immediate})\hspace {0.3cm}{\tt [inherited]}}{54}
+\contentsline {section}{\numberline {8.28}構造体 SDOPackage::Name\discretionary {-}{}{}Value}{56}
+\contentsline {subsection}{\numberline {8.28.1}変数}{56}
+\contentsline {subsubsection}{\numberline {8.28.1.1}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Name\discretionary {-}{}{}Value::name}}{56}
+\contentsline {subsubsection}{\numberline {8.28.1.2}\setlength {\rightskip }{0pt plus 5cm}any {\bf SDOPackage::Name\discretionary {-}{}{}Value::value}}{56}
+\contentsline {section}{\numberline {8.29}共用体 SDOPackage::Numeric}{57}
+\contentsline {subsection}{\numberline {8.29.1}変数}{57}
+\contentsline {subsubsection}{\numberline {8.29.1.1}\setlength {\rightskip }{0pt plus 5cm}double {\bf SDOPackage::Numeric::double\_\discretionary {-}{}{}value}}{57}
+\contentsline {subsubsection}{\numberline {8.29.1.2}\setlength {\rightskip }{0pt plus 5cm}float {\bf SDOPackage::Numeric::float\_\discretionary {-}{}{}value}}{57}
+\contentsline {subsubsection}{\numberline {8.29.1.3}\setlength {\rightskip }{0pt plus 5cm}long {\bf SDOPackage::Numeric::long\_\discretionary {-}{}{}value}}{57}
+\contentsline {subsubsection}{\numberline {8.29.1.4}\setlength {\rightskip }{0pt plus 5cm}short {\bf SDOPackage::Numeric::short\_\discretionary {-}{}{}value}}{57}
+\contentsline {section}{\numberline {8.30}インタフェース SDOPackage::Organization}{58}
+\contentsline {subsection}{\numberline {8.30.1}関数}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.1}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Organization::add\_\discretionary {-}{}{}members (in {\bf SDOList} {\em sdo\_\discretionary {-}{}{}list}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Dependency\discretionary {-}{}{}Type} SDOPackage::Organization::get\_\discretionary {-}{}{}dependency () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.3}\setlength {\rightskip }{0pt plus 5cm}{\bf SDOList} SDOPackage::Organization::get\_\discretionary {-}{}{}members () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Unique\discretionary {-}{}{}Identifier} SDOPackage::Organization::get\_\discretionary {-}{}{}organization\_\discretionary {-}{}{}id () raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Organization\discretionary {-}{}{}Property} SDOPackage::Organization::get\_\discretionary {-}{}{}organization\_\discretionary {-}{}{}property () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.6}\setlength {\rightskip }{0pt plus 5cm}any SDOPackage::Organization::get\_\discretionary {-}{}{}organization\_\discretionary {-}{}{}property\_\discretionary {-}{}{}value (in string {\em name}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.7}\setlength {\rightskip }{0pt plus 5cm}{\bf SDOSystem\discretionary {-}{}{}Element} SDOPackage::Organization::get\_\discretionary {-}{}{}owner () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.8}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Organization::remove\_\discretionary {-}{}{}member (in {\bf Unique\discretionary {-}{}{}Identifier} {\em id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.9}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Organization::remove\_\discretionary {-}{}{}organization\_\discretionary {-}{}{}property (in string {\em name}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.10}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Organization::set\_\discretionary {-}{}{}dependency (in {\bf Dependency\discretionary {-}{}{}Type} {\em dependency}) raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.11}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Organization::set\_\discretionary {-}{}{}members (in {\bf SDOList} {\em sdos}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.12}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Organization::set\_\discretionary {-}{}{}organization\_\discretionary {-}{}{}property (in {\bf Organization\discretionary {-}{}{}Property} {\em organization\_\discretionary {-}{}{}property}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.13}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Organization::set\_\discretionary {-}{}{}organization\_\discretionary {-}{}{}property\_\discretionary {-}{}{}value (in string {\em name}, in any {\em value}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {subsubsection}{\numberline {8.30.1.14}\setlength {\rightskip }{0pt plus 5cm}boolean SDOPackage::Organization::set\_\discretionary {-}{}{}owner (in {\bf SDOSystem\discretionary {-}{}{}Element} {\em sdo}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{59}
+\contentsline {section}{\numberline {8.31}構造体 SDOPackage::Organization\discretionary {-}{}{}Property}{60}
+\contentsline {subsection}{\numberline {8.31.1}変数}{60}
+\contentsline {subsubsection}{\numberline {8.31.1.1}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} {\bf SDOPackage::Organization\discretionary {-}{}{}Property::properties}}{60}
+\contentsline {section}{\numberline {8.32}インタフェース RTC::Out\discretionary {-}{}{}Port\discretionary {-}{}{}Any}{61}
+\contentsline {subsection}{\numberline {8.32.1}関数}{61}
+\contentsline {subsubsection}{\numberline {8.32.1.1}\setlength {\rightskip }{0pt plus 5cm}any RTC::Out\discretionary {-}{}{}Port\discretionary {-}{}{}Any::get ()}{61}
+\contentsline {section}{\numberline {8.33}構造体 SDOPackage::Parameter}{62}
+\contentsline {subsection}{\numberline {8.33.1}変数}{62}
+\contentsline {subsubsection}{\numberline {8.33.1.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Allowed\discretionary {-}{}{}Values} {\bf SDOPackage::Parameter::allowed\_\discretionary {-}{}{}values}}{62}
+\contentsline {subsubsection}{\numberline {8.33.1.2}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Parameter::name}}{62}
+\contentsline {subsubsection}{\numberline {8.33.1.3}\setlength {\rightskip }{0pt plus 5cm}Type\discretionary {-}{}{}Code {\bf SDOPackage::Parameter::type}}{62}
+\contentsline {section}{\numberline {8.34}インタフェース RTC::Port}{63}
+\contentsline {subsection}{\numberline {8.34.1}説明}{63}
+\contentsline {subsection}{\numberline {8.34.2}関数}{64}
+\contentsline {subsubsection}{\numberline {8.34.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Port::connect (inout {\bf Connector\discretionary {-}{}{}Profile} {\em connector\_\discretionary {-}{}{}profile})}{64}
+\contentsline {subsubsection}{\numberline {8.34.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Port::disconnect (in {\bf Unique\discretionary {-}{}{}Identifier} {\em connector\_\discretionary {-}{}{}id})}{64}
+\contentsline {subsubsection}{\numberline {8.34.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Port::disconnect\_\discretionary {-}{}{}all ()}{64}
+\contentsline {subsubsection}{\numberline {8.34.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Connector\discretionary {-}{}{}Profile} RTC::Port::get\_\discretionary {-}{}{}connector\_\discretionary {-}{}{}profile (in {\bf Unique\discretionary {-}{}{}Identifier} {\em connector\_\discretionary {-}{}{}id})}{64}
+\contentsline {subsubsection}{\numberline {8.34.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Connector\discretionary {-}{}{}Profile\discretionary {-}{}{}List} RTC::Port::get\_\discretionary {-}{}{}connector\_\discretionary {-}{}{}profiles ()}{64}
+\contentsline {subsubsection}{\numberline {8.34.2.6}\setlength {\rightskip }{0pt plus 5cm}{\bf Port\discretionary {-}{}{}Profile} RTC::Port::get\_\discretionary {-}{}{}port\_\discretionary {-}{}{}profile ()}{64}
+\contentsline {subsubsection}{\numberline {8.34.2.7}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Port::notify\_\discretionary {-}{}{}connect (inout {\bf Connector\discretionary {-}{}{}Profile} {\em connector\_\discretionary {-}{}{}profile})}{64}
+\contentsline {subsubsection}{\numberline {8.34.2.8}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Port::notify\_\discretionary {-}{}{}disconnect (in {\bf Unique\discretionary {-}{}{}Identifier} {\em connector\_\discretionary {-}{}{}id})}{64}
+\contentsline {section}{\numberline {8.35}構造体 RTC::Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Profile}{65}
+\contentsline {subsection}{\numberline {8.35.1}説明}{65}
+\contentsline {subsection}{\numberline {8.35.2}変数}{65}
+\contentsline {subsubsection}{\numberline {8.35.2.1}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Profile::instance\_\discretionary {-}{}{}name}}{65}
+\contentsline {subsubsection}{\numberline {8.35.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Polarity} {\bf RTC::Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Profile::polarity}}{65}
+\contentsline {subsubsection}{\numberline {8.35.2.3}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Profile::type\_\discretionary {-}{}{}name}}{65}
+\contentsline {section}{\numberline {8.36}構造体 RTC::Port\discretionary {-}{}{}Profile}{66}
+\contentsline {subsection}{\numberline {8.36.1}説明}{66}
+\contentsline {subsection}{\numberline {8.36.2}変数}{66}
+\contentsline {subsubsection}{\numberline {8.36.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Connector\discretionary {-}{}{}Profile\discretionary {-}{}{}List} {\bf RTC::Port\discretionary {-}{}{}Profile::connector\_\discretionary {-}{}{}profiles}}{66}
+\contentsline {subsubsection}{\numberline {8.36.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Profile\discretionary {-}{}{}List} {\bf RTC::Port\discretionary {-}{}{}Profile::interfaces}}{66}
+\contentsline {subsubsection}{\numberline {8.36.2.3}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Port\discretionary {-}{}{}Profile::name}}{66}
+\contentsline {subsubsection}{\numberline {8.36.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf RTObject} {\bf RTC::Port\discretionary {-}{}{}Profile::owner}}{66}
+\contentsline {subsubsection}{\numberline {8.36.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Port} {\bf RTC::Port\discretionary {-}{}{}Profile::port\_\discretionary {-}{}{}ref}}{66}
+\contentsline {subsubsection}{\numberline {8.36.2.6}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} {\bf RTC::Port\discretionary {-}{}{}Profile::properties}}{66}
+\contentsline {section}{\numberline {8.37}構造体 SDOPackage::Range\discretionary {-}{}{}Type}{67}
+\contentsline {subsection}{\numberline {8.37.1}変数}{67}
+\contentsline {subsubsection}{\numberline {8.37.1.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Numeric} {\bf SDOPackage::Range\discretionary {-}{}{}Type::max}}{67}
+\contentsline {subsubsection}{\numberline {8.37.1.2}\setlength {\rightskip }{0pt plus 5cm}boolean {\bf SDOPackage::Range\discretionary {-}{}{}Type::max\_\discretionary {-}{}{}inclusive}}{67}
+\contentsline {subsubsection}{\numberline {8.37.1.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Numeric} {\bf SDOPackage::Range\discretionary {-}{}{}Type::min}}{67}
+\contentsline {subsubsection}{\numberline {8.37.1.4}\setlength {\rightskip }{0pt plus 5cm}boolean {\bf SDOPackage::Range\discretionary {-}{}{}Type::min\_\discretionary {-}{}{}inclusive}}{67}
+\contentsline {section}{\numberline {8.38}インタフェース RTC::RTObject}{68}
+\contentsline {subsection}{\numberline {8.38.1}説明}{69}
+\contentsline {subsection}{\numberline {8.38.2}関数}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Unique\discretionary {-}{}{}Id} RTC::Component\discretionary {-}{}{}Action::attach\_\discretionary {-}{}{}executioncontext (in {\bf Execution\discretionary {-}{}{}Context} {\em exec\_\discretionary {-}{}{}context})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::detach\_\discretionary {-}{}{}executioncontext (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Lightweight\discretionary {-}{}{}RTObject::exit ()\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Lightweight\discretionary {-}{}{}RTObject::finalize ()\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Component\discretionary {-}{}{}Profile} RTC::RTObject::get\_\discretionary {-}{}{}component\_\discretionary {-}{}{}profile ()}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.6}\setlength {\rightskip }{0pt plus 5cm}Configuration SDOPackage::SDO::get\_\discretionary {-}{}{}configuration () raises (Interface\discretionary {-}{}{}Not\discretionary {-}{}{}Implemented, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.7}\setlength {\rightskip }{0pt plus 5cm}{\bf Execution\discretionary {-}{}{}Context} RTC::Lightweight\discretionary {-}{}{}RTObject::get\_\discretionary {-}{}{}context (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.8}\setlength {\rightskip }{0pt plus 5cm}{\bf Execution\discretionary {-}{}{}Context\discretionary {-}{}{}List} RTC::Lightweight\discretionary {-}{}{}RTObject::get\_\discretionary {-}{}{}contexts ()\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.9}\setlength {\rightskip }{0pt plus 5cm}Device\discretionary {-}{}{}Profile SDOPackage::SDO::get\_\discretionary {-}{}{}device\_\discretionary {-}{}{}profile () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.10}\setlength {\rightskip }{0pt plus 5cm}{\bf Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Service\discretionary {-}{}{}List} RTC::RTObject::get\_\discretionary {-}{}{}execution\_\discretionary {-}{}{}context\_\discretionary {-}{}{}services ()}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.11}\setlength {\rightskip }{0pt plus 5cm}Monitoring SDOPackage::SDO::get\_\discretionary {-}{}{}monitoring () raises (Interface\discretionary {-}{}{}Not\discretionary {-}{}{}Implemented, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.12}\setlength {\rightskip }{0pt plus 5cm}{\bf Organization\discretionary {-}{}{}List} SDOPackage::SDO::get\_\discretionary {-}{}{}organizations () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.13}\setlength {\rightskip }{0pt plus 5cm}{\bf Organization\discretionary {-}{}{}List} SDOPackage::SDOSystem\discretionary {-}{}{}Element::get\_\discretionary {-}{}{}owned\_\discretionary {-}{}{}organizations () raises (Not\discretionary {-}{}{}Available)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.14}\setlength {\rightskip }{0pt plus 5cm}{\bf Port\discretionary {-}{}{}List} RTC::RTObject::get\_\discretionary {-}{}{}ports ()}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.15}\setlength {\rightskip }{0pt plus 5cm}{\bf Unique\discretionary {-}{}{}Identifier} SDOPackage::SDO::get\_\discretionary {-}{}{}sdo\_\discretionary {-}{}{}id () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.16}\setlength {\rightskip }{0pt plus 5cm}SDOService SDOPackage::SDO::get\_\discretionary {-}{}{}sdo\_\discretionary {-}{}{}service (in {\bf Unique\discretionary {-}{}{}Identifier} {\em id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.17}\setlength {\rightskip }{0pt plus 5cm}string SDOPackage::SDO::get\_\discretionary {-}{}{}sdo\_\discretionary {-}{}{}type () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.18}\setlength {\rightskip }{0pt plus 5cm}Service\discretionary {-}{}{}Profile SDOPackage::SDO::get\_\discretionary {-}{}{}service\_\discretionary {-}{}{}profile (in {\bf Unique\discretionary {-}{}{}Identifier} {\em id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.19}\setlength {\rightskip }{0pt plus 5cm}{\bf Service\discretionary {-}{}{}Profile\discretionary {-}{}{}List} SDOPackage::SDO::get\_\discretionary {-}{}{}service\_\discretionary {-}{}{}profiles () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.20}\setlength {\rightskip }{0pt plus 5cm}any SDOPackage::SDO::get\_\discretionary {-}{}{}status (in string {\em name}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.21}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} SDOPackage::SDO::get\_\discretionary {-}{}{}status\_\discretionary {-}{}{}list () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.22}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Lightweight\discretionary {-}{}{}RTObject::initialize ()\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.23}\setlength {\rightskip }{0pt plus 5cm}boolean RTC::Lightweight\discretionary {-}{}{}RTObject::is\_\discretionary {-}{}{}alive ()\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.24}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}aborting (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.25}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}activated (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.26}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}deactivated (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.27}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}error (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.28}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}finalize ()\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.29}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}initialize ()\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.30}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}reset (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.31}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}shutdown (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {subsubsection}{\numberline {8.38.2.32}\setlength {\rightskip }{0pt plus 5cm}{\bf Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t} RTC::Component\discretionary {-}{}{}Action::on\_\discretionary {-}{}{}startup (in {\bf Unique\discretionary {-}{}{}Id} {\em ec\_\discretionary {-}{}{}id})\hspace {0.3cm}{\tt [inherited]}}{70}
+\contentsline {section}{\numberline {8.39}インタフェース SDOPackage::SDO}{72}
+\contentsline {subsection}{\numberline {8.39.1}関数}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Configuration} SDOPackage::SDO::get\_\discretionary {-}{}{}configuration () raises (Interface\discretionary {-}{}{}Not\discretionary {-}{}{}Implemented, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Device\discretionary {-}{}{}Profile} SDOPackage::SDO::get\_\discretionary {-}{}{}device\_\discretionary {-}{}{}profile () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.3}\setlength {\rightskip }{0pt plus 5cm}{\bf Monitoring} SDOPackage::SDO::get\_\discretionary {-}{}{}monitoring () raises (Interface\discretionary {-}{}{}Not\discretionary {-}{}{}Implemented, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.4}\setlength {\rightskip }{0pt plus 5cm}{\bf Organization\discretionary {-}{}{}List} SDOPackage::SDO::get\_\discretionary {-}{}{}organizations () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.5}\setlength {\rightskip }{0pt plus 5cm}{\bf Organization\discretionary {-}{}{}List} SDOPackage::SDOSystem\discretionary {-}{}{}Element::get\_\discretionary {-}{}{}owned\_\discretionary {-}{}{}organizations () raises (Not\discretionary {-}{}{}Available)\hspace {0.3cm}{\tt [inherited]}}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.6}\setlength {\rightskip }{0pt plus 5cm}{\bf Unique\discretionary {-}{}{}Identifier} SDOPackage::SDO::get\_\discretionary {-}{}{}sdo\_\discretionary {-}{}{}id () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.7}\setlength {\rightskip }{0pt plus 5cm}{\bf SDOService} SDOPackage::SDO::get\_\discretionary {-}{}{}sdo\_\discretionary {-}{}{}service (in {\bf Unique\discretionary {-}{}{}Identifier} {\em id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.8}\setlength {\rightskip }{0pt plus 5cm}string SDOPackage::SDO::get\_\discretionary {-}{}{}sdo\_\discretionary {-}{}{}type () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.9}\setlength {\rightskip }{0pt plus 5cm}{\bf Service\discretionary {-}{}{}Profile} SDOPackage::SDO::get\_\discretionary {-}{}{}service\_\discretionary {-}{}{}profile (in {\bf Unique\discretionary {-}{}{}Identifier} {\em id}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.10}\setlength {\rightskip }{0pt plus 5cm}{\bf Service\discretionary {-}{}{}Profile\discretionary {-}{}{}List} SDOPackage::SDO::get\_\discretionary {-}{}{}service\_\discretionary {-}{}{}profiles () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.11}\setlength {\rightskip }{0pt plus 5cm}any SDOPackage::SDO::get\_\discretionary {-}{}{}status (in string {\em name}) raises (Invalid\discretionary {-}{}{}Parameter, Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {subsubsection}{\numberline {8.39.1.12}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} SDOPackage::SDO::get\_\discretionary {-}{}{}status\_\discretionary {-}{}{}list () raises (Not\discretionary {-}{}{}Available, Internal\discretionary {-}{}{}Error)}{73}
+\contentsline {section}{\numberline {8.40}インタフェース SDOPackage::SDOService}{74}
+\contentsline {section}{\numberline {8.41}インタフェース SDOPackage::SDOSystem\discretionary {-}{}{}Element}{75}
+\contentsline {subsection}{\numberline {8.41.1}説明}{75}
+\contentsline {subsection}{\numberline {8.41.2}関数}{75}
+\contentsline {subsubsection}{\numberline {8.41.2.1}\setlength {\rightskip }{0pt plus 5cm}{\bf Organization\discretionary {-}{}{}List} SDOPackage::SDOSystem\discretionary {-}{}{}Element::get\_\discretionary {-}{}{}owned\_\discretionary {-}{}{}organizations () raises (Not\discretionary {-}{}{}Available)}{75}
+\contentsline {section}{\numberline {8.42}構造体 SDOPackage::Service\discretionary {-}{}{}Profile}{76}
+\contentsline {subsection}{\numberline {8.42.1}変数}{76}
+\contentsline {subsubsection}{\numberline {8.42.1.1}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Service\discretionary {-}{}{}Profile::id}}{76}
+\contentsline {subsubsection}{\numberline {8.42.1.2}\setlength {\rightskip }{0pt plus 5cm}string {\bf SDOPackage::Service\discretionary {-}{}{}Profile::interface\_\discretionary {-}{}{}type}}{76}
+\contentsline {subsubsection}{\numberline {8.42.1.3}\setlength {\rightskip }{0pt plus 5cm}{\bf NVList} {\bf SDOPackage::Service\discretionary {-}{}{}Profile::properties}}{76}
+\contentsline {subsubsection}{\numberline {8.42.1.4}\setlength {\rightskip }{0pt plus 5cm}{\bf SDOService} {\bf SDOPackage::Service\discretionary {-}{}{}Profile::service}}{76}
+\contentsline {section}{\numberline {8.43}構造体 RTC::Time}{77}
+\contentsline {subsection}{\numberline {8.43.1}変数}{77}
+\contentsline {subsubsection}{\numberline {8.43.1.1}\setlength {\rightskip }{0pt plus 5cm}unsigned long {\bf RTC::Time::nsec}}{77}
+\contentsline {subsubsection}{\numberline {8.43.1.2}\setlength {\rightskip }{0pt plus 5cm}unsigned long {\bf RTC::Time::sec}}{77}
+\contentsline {section}{\numberline {8.44}構造体 RTC::Timed\discretionary {-}{}{}Boolean}{78}
+\contentsline {subsection}{\numberline {8.44.1}変数}{78}
+\contentsline {subsubsection}{\numberline {8.44.1.1}\setlength {\rightskip }{0pt plus 5cm}boolean {\bf RTC::Timed\discretionary {-}{}{}Boolean::data}}{78}
+\contentsline {subsubsection}{\numberline {8.44.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Boolean::tm}}{78}
+\contentsline {section}{\numberline {8.45}構造体 RTC::Timed\discretionary {-}{}{}Boolean\discretionary {-}{}{}Seq}{79}
+\contentsline {subsection}{\numberline {8.45.1}変数}{79}
+\contentsline {subsubsection}{\numberline {8.45.1.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$boolean$>$ {\bf RTC::Timed\discretionary {-}{}{}Boolean\discretionary {-}{}{}Seq::data}}{79}
+\contentsline {subsubsection}{\numberline {8.45.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Boolean\discretionary {-}{}{}Seq::tm}}{79}
+\contentsline {section}{\numberline {8.46}構造体 RTC::Timed\discretionary {-}{}{}Char}{80}
+\contentsline {subsection}{\numberline {8.46.1}変数}{80}
+\contentsline {subsubsection}{\numberline {8.46.1.1}\setlength {\rightskip }{0pt plus 5cm}char {\bf RTC::Timed\discretionary {-}{}{}Char::data}}{80}
+\contentsline {subsubsection}{\numberline {8.46.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Char::tm}}{80}
+\contentsline {section}{\numberline {8.47}構造体 RTC::Timed\discretionary {-}{}{}Char\discretionary {-}{}{}Seq}{81}
+\contentsline {subsection}{\numberline {8.47.1}変数}{81}
+\contentsline {subsubsection}{\numberline {8.47.1.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$char$>$ {\bf RTC::Timed\discretionary {-}{}{}Char\discretionary {-}{}{}Seq::data}}{81}
+\contentsline {subsubsection}{\numberline {8.47.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Char\discretionary {-}{}{}Seq::tm}}{81}
+\contentsline {section}{\numberline {8.48}構造体 RTC::Timed\discretionary {-}{}{}Double}{82}
+\contentsline {subsection}{\numberline {8.48.1}変数}{82}
+\contentsline {subsubsection}{\numberline {8.48.1.1}\setlength {\rightskip }{0pt plus 5cm}double {\bf RTC::Timed\discretionary {-}{}{}Double::data}}{82}
+\contentsline {subsubsection}{\numberline {8.48.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Double::tm}}{82}
+\contentsline {section}{\numberline {8.49}構造体 RTC::Timed\discretionary {-}{}{}Double\discretionary {-}{}{}Seq}{83}
+\contentsline {subsection}{\numberline {8.49.1}変数}{83}
+\contentsline {subsubsection}{\numberline {8.49.1.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$double$>$ {\bf RTC::Timed\discretionary {-}{}{}Double\discretionary {-}{}{}Seq::data}}{83}
+\contentsline {subsubsection}{\numberline {8.49.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Double\discretionary {-}{}{}Seq::tm}}{83}
+\contentsline {section}{\numberline {8.50}構造体 RTC::Timed\discretionary {-}{}{}Float}{84}
+\contentsline {subsection}{\numberline {8.50.1}変数}{84}
+\contentsline {subsubsection}{\numberline {8.50.1.1}\setlength {\rightskip }{0pt plus 5cm}float {\bf RTC::Timed\discretionary {-}{}{}Float::data}}{84}
+\contentsline {subsubsection}{\numberline {8.50.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Float::tm}}{84}
+\contentsline {section}{\numberline {8.51}構造体 RTC::Timed\discretionary {-}{}{}Float\discretionary {-}{}{}Seq}{85}
+\contentsline {subsection}{\numberline {8.51.1}変数}{85}
+\contentsline {subsubsection}{\numberline {8.51.1.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$float$>$ {\bf RTC::Timed\discretionary {-}{}{}Float\discretionary {-}{}{}Seq::data}}{85}
+\contentsline {subsubsection}{\numberline {8.51.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Float\discretionary {-}{}{}Seq::tm}}{85}
+\contentsline {section}{\numberline {8.52}構造体 RTC::Timed\discretionary {-}{}{}Long}{86}
+\contentsline {subsection}{\numberline {8.52.1}変数}{86}
+\contentsline {subsubsection}{\numberline {8.52.1.1}\setlength {\rightskip }{0pt plus 5cm}long {\bf RTC::Timed\discretionary {-}{}{}Long::data}}{86}
+\contentsline {subsubsection}{\numberline {8.52.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Long::tm}}{86}
+\contentsline {section}{\numberline {8.53}構造体 RTC::Timed\discretionary {-}{}{}Long\discretionary {-}{}{}Seq}{87}
+\contentsline {subsection}{\numberline {8.53.1}変数}{87}
+\contentsline {subsubsection}{\numberline {8.53.1.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$long$>$ {\bf RTC::Timed\discretionary {-}{}{}Long\discretionary {-}{}{}Seq::data}}{87}
+\contentsline {subsubsection}{\numberline {8.53.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Long\discretionary {-}{}{}Seq::tm}}{87}
+\contentsline {section}{\numberline {8.54}構造体 RTC::Timed\discretionary {-}{}{}Octet}{88}
+\contentsline {subsection}{\numberline {8.54.1}変数}{88}
+\contentsline {subsubsection}{\numberline {8.54.1.1}\setlength {\rightskip }{0pt plus 5cm}octet {\bf RTC::Timed\discretionary {-}{}{}Octet::data}}{88}
+\contentsline {subsubsection}{\numberline {8.54.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Octet::tm}}{88}
+\contentsline {section}{\numberline {8.55}構造体 RTC::Timed\discretionary {-}{}{}Octet\discretionary {-}{}{}Seq}{89}
+\contentsline {subsection}{\numberline {8.55.1}変数}{89}
+\contentsline {subsubsection}{\numberline {8.55.1.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$octet$>$ {\bf RTC::Timed\discretionary {-}{}{}Octet\discretionary {-}{}{}Seq::data}}{89}
+\contentsline {subsubsection}{\numberline {8.55.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Octet\discretionary {-}{}{}Seq::tm}}{89}
+\contentsline {section}{\numberline {8.56}構造体 RTC::Timed\discretionary {-}{}{}Short}{90}
+\contentsline {subsection}{\numberline {8.56.1}変数}{90}
+\contentsline {subsubsection}{\numberline {8.56.1.1}\setlength {\rightskip }{0pt plus 5cm}short {\bf RTC::Timed\discretionary {-}{}{}Short::data}}{90}
+\contentsline {subsubsection}{\numberline {8.56.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Short::tm}}{90}
+\contentsline {section}{\numberline {8.57}構造体 RTC::Timed\discretionary {-}{}{}Short\discretionary {-}{}{}Seq}{91}
+\contentsline {subsection}{\numberline {8.57.1}説明}{91}
+\contentsline {subsection}{\numberline {8.57.2}変数}{91}
+\contentsline {subsubsection}{\numberline {8.57.2.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$short$>$ {\bf RTC::Timed\discretionary {-}{}{}Short\discretionary {-}{}{}Seq::data}}{91}
+\contentsline {subsubsection}{\numberline {8.57.2.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}Short\discretionary {-}{}{}Seq::tm}}{91}
+\contentsline {section}{\numberline {8.58}構造体 RTC::Timed\discretionary {-}{}{}State}{92}
+\contentsline {subsection}{\numberline {8.58.1}変数}{92}
+\contentsline {subsubsection}{\numberline {8.58.1.1}\setlength {\rightskip }{0pt plus 5cm}short {\bf RTC::Timed\discretionary {-}{}{}State::data}}{92}
+\contentsline {subsubsection}{\numberline {8.58.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}State::tm}}{92}
+\contentsline {section}{\numberline {8.59}構造体 RTC::Timed\discretionary {-}{}{}String}{93}
+\contentsline {subsection}{\numberline {8.59.1}変数}{93}
+\contentsline {subsubsection}{\numberline {8.59.1.1}\setlength {\rightskip }{0pt plus 5cm}string {\bf RTC::Timed\discretionary {-}{}{}String::data}}{93}
+\contentsline {subsubsection}{\numberline {8.59.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}String::tm}}{93}
+\contentsline {section}{\numberline {8.60}構造体 RTC::Timed\discretionary {-}{}{}String\discretionary {-}{}{}Seq}{94}
+\contentsline {subsection}{\numberline {8.60.1}変数}{94}
+\contentsline {subsubsection}{\numberline {8.60.1.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$string$>$ {\bf RTC::Timed\discretionary {-}{}{}String\discretionary {-}{}{}Seq::data}}{94}
+\contentsline {subsubsection}{\numberline {8.60.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}String\discretionary {-}{}{}Seq::tm}}{94}
+\contentsline {section}{\numberline {8.61}構造体 RTC::Timed\discretionary {-}{}{}ULong}{95}
+\contentsline {subsection}{\numberline {8.61.1}変数}{95}
+\contentsline {subsubsection}{\numberline {8.61.1.1}\setlength {\rightskip }{0pt plus 5cm}unsigned long {\bf RTC::Timed\discretionary {-}{}{}ULong::data}}{95}
+\contentsline {subsubsection}{\numberline {8.61.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}ULong::tm}}{95}
+\contentsline {section}{\numberline {8.62}構造体 RTC::Timed\discretionary {-}{}{}ULong\discretionary {-}{}{}Seq}{96}
+\contentsline {subsection}{\numberline {8.62.1}変数}{96}
+\contentsline {subsubsection}{\numberline {8.62.1.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$unsigned long$>$ {\bf RTC::Timed\discretionary {-}{}{}ULong\discretionary {-}{}{}Seq::data}}{96}
+\contentsline {subsubsection}{\numberline {8.62.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}ULong\discretionary {-}{}{}Seq::tm}}{96}
+\contentsline {section}{\numberline {8.63}構造体 RTC::Timed\discretionary {-}{}{}UShort}{97}
+\contentsline {subsection}{\numberline {8.63.1}変数}{97}
+\contentsline {subsubsection}{\numberline {8.63.1.1}\setlength {\rightskip }{0pt plus 5cm}unsigned short {\bf RTC::Timed\discretionary {-}{}{}UShort::data}}{97}
+\contentsline {subsubsection}{\numberline {8.63.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}UShort::tm}}{97}
+\contentsline {section}{\numberline {8.64}構造体 RTC::Timed\discretionary {-}{}{}UShort\discretionary {-}{}{}Seq}{98}
+\contentsline {subsection}{\numberline {8.64.1}変数}{98}
+\contentsline {subsubsection}{\numberline {8.64.1.1}\setlength {\rightskip }{0pt plus 5cm}sequence$<$unsigned short$>$ {\bf RTC::Timed\discretionary {-}{}{}UShort\discretionary {-}{}{}Seq::data}}{98}
+\contentsline {subsubsection}{\numberline {8.64.1.2}\setlength {\rightskip }{0pt plus 5cm}{\bf Time} {\bf RTC::Timed\discretionary {-}{}{}UShort\discretionary {-}{}{}Seq::tm}}{98}
+\contentsline {chapter}{\numberline {9}Open\discretionary {-}{}{}RTM ファイル}{99}
+\contentsline {section}{\numberline {9.1}Basic\discretionary {-}{}{}Data\discretionary {-}{}{}Type.idl}{99}
+\contentsline {section}{\numberline {9.2}Data\discretionary {-}{}{}Port.idl}{100}
+\contentsline {subsection}{\numberline {9.2.1}説明}{100}
+\contentsline {section}{\numberline {9.3}RTC.idl}{101}
+\contentsline {subsection}{\numberline {9.3.1}マクロ定義}{102}
+\contentsline {subsubsection}{\numberline {9.3.1.1}\setlength {\rightskip }{0pt plus 5cm}\#define UNIQUE\_\discretionary {-}{}{}ID\_\discretionary {-}{}{}TYPE\_\discretionary {-}{}{}NATIVE\nobreakspace {}long}{102}
+\contentsline {subsection}{\numberline {9.3.2}型定義}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.1}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Component\discretionary {-}{}{}Profile$>$ {\bf RTC::Component\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.2}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Connector\discretionary {-}{}{}Profile$>$ {\bf RTC::Connector\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.3}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile$>$ {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.4}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Service$>$ {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}Service\discretionary {-}{}{}List}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.5}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Mode$>$ {\bf RTC::Mode\discretionary {-}{}{}List}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.6}\setlength {\rightskip }{0pt plus 5cm}typedef {\bf SDOPackage::NVList} {\bf RTC::NVList}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.7}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Profile$>$ {\bf RTC::Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.8}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Port\discretionary {-}{}{}Profile$>$ {\bf RTC::Port\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.9}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$RTObject$>$ {\bf RTC::RTCList}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.10}\setlength {\rightskip }{0pt plus 5cm}typedef UNIQUE\_\discretionary {-}{}{}ID\_\discretionary {-}{}{}TYPE\_\discretionary {-}{}{}NATIVE {\bf RTC::Unique\discretionary {-}{}{}Id}}{102}
+\contentsline {subsubsection}{\numberline {9.3.2.11}\setlength {\rightskip }{0pt plus 5cm}typedef {\bf SDOPackage::Unique\discretionary {-}{}{}Identifier} {\bf RTC::Unique\discretionary {-}{}{}Identifier}}{102}
+\contentsline {subsection}{\numberline {9.3.3}列挙型}{102}
+\contentsline {subsubsection}{\numberline {9.3.3.1}\setlength {\rightskip }{0pt plus 5cm}enum {\bf RTC::Execution\discretionary {-}{}{}Kind}}{102}
+\contentsline {subsubsection}{\numberline {9.3.3.2}\setlength {\rightskip }{0pt plus 5cm}enum {\bf RTC::Life\discretionary {-}{}{}Cycle\discretionary {-}{}{}State}}{103}
+\contentsline {subsubsection}{\numberline {9.3.3.3}\setlength {\rightskip }{0pt plus 5cm}enum {\bf RTC::Port\discretionary {-}{}{}Interface\discretionary {-}{}{}Polarity}}{103}
+\contentsline {subsubsection}{\numberline {9.3.3.4}\setlength {\rightskip }{0pt plus 5cm}enum {\bf RTC::Return\discretionary {-}{}{}Code\_\discretionary {-}{}{}t}}{103}
+\contentsline {subsection}{\numberline {9.3.4}変数}{103}
+\contentsline {subsubsection}{\numberline {9.3.4.1}\setlength {\rightskip }{0pt plus 5cm}interface typedef sequence$<$Execution\discretionary {-}{}{}Context$>$ {\bf RTC::Execution\discretionary {-}{}{}Context\discretionary {-}{}{}List}}{103}
+\contentsline {subsubsection}{\numberline {9.3.4.2}\setlength {\rightskip }{0pt plus 5cm}interface typedef sequence$<$Port$>$ {\bf RTC::Port\discretionary {-}{}{}List}}{103}
+\contentsline {section}{\numberline {9.4}SDOPackage.idl}{104}
+\contentsline {subsection}{\numberline {9.4.1}マクロ定義}{104}
+\contentsline {subsubsection}{\numberline {9.4.1.1}\setlength {\rightskip }{0pt plus 5cm}\#define {\bf exception\_\discretionary {-}{}{}body}\nobreakspace {}\{ string description; \}}{104}
+\contentsline {subsubsection}{\numberline {9.4.1.2}\setlength {\rightskip }{0pt plus 5cm}\#define Type\discretionary {-}{}{}Code\nobreakspace {}CORBA::Type\discretionary {-}{}{}Code}{105}
+\contentsline {subsection}{\numberline {9.4.2}型定義}{105}
+\contentsline {subsubsection}{\numberline {9.4.2.1}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Configuration\discretionary {-}{}{}Set$>$ {\bf SDOPackage::Configuration\discretionary {-}{}{}Set\discretionary {-}{}{}List}}{105}
+\contentsline {subsubsection}{\numberline {9.4.2.2}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Name\discretionary {-}{}{}Value$>$ {\bf SDOPackage::NVList}}{105}
+\contentsline {subsubsection}{\numberline {9.4.2.3}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Organization$>$ {\bf SDOPackage::Organization\discretionary {-}{}{}List}}{105}
+\contentsline {subsubsection}{\numberline {9.4.2.4}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Parameter$>$ {\bf SDOPackage::Parameter\discretionary {-}{}{}List}}{105}
+\contentsline {subsubsection}{\numberline {9.4.2.5}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$SDO$>$ {\bf SDOPackage::SDOList}}{105}
+\contentsline {subsubsection}{\numberline {9.4.2.6}\setlength {\rightskip }{0pt plus 5cm}typedef sequence$<$Service\discretionary {-}{}{}Profile$>$ {\bf SDOPackage::Service\discretionary {-}{}{}Profile\discretionary {-}{}{}List}}{105}
+\contentsline {subsubsection}{\numberline {9.4.2.7}\setlength {\rightskip }{0pt plus 5cm}typedef string {\bf SDOPackage::Unique\discretionary {-}{}{}Identifier}}{105}
+\contentsline {subsection}{\numberline {9.4.3}列挙型}{105}
+\contentsline {subsubsection}{\numberline {9.4.3.1}\setlength {\rightskip }{0pt plus 5cm}enum {\bf SDOPackage::Complex\discretionary {-}{}{}Data\discretionary {-}{}{}Type}}{105}
+\contentsline {subsubsection}{\numberline {9.4.3.2}\setlength {\rightskip }{0pt plus 5cm}enum {\bf SDOPackage::Dependency\discretionary {-}{}{}Type}}{105}
+\contentsline {subsubsection}{\numberline {9.4.3.3}\setlength {\rightskip }{0pt plus 5cm}enum {\bf SDOPackage::Numeric\discretionary {-}{}{}Type}}{105}
+\contentsline {subsection}{\numberline {9.4.4}変数}{105}
+\contentsline {subsubsection}{\numberline {9.4.4.1}\setlength {\rightskip }{0pt plus 5cm}exception Internal\discretionary {-}{}{}Error {\bf SDOPackage::exception\_\discretionary {-}{}{}body}}{105}
+\contentsline {subsubsection}{\numberline {9.4.4.2}\setlength {\rightskip }{0pt plus 5cm}interface interface interface interface interface interface typedef sequence$<$string$>$ {\bf SDOPackage::String\discretionary {-}{}{}List}}{106}

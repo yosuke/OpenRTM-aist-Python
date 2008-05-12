@@ -1,0 +1,140 @@
+------------------------------------------------------
+OpenRTM-aist-0.4.1(Python版)でのコンポーネント作成手順
+------------------------------------------------------
+栗原 眞二 (2007年10月19日)
+
+
+OpenRTM-aist-0.4.1/examples/SimpleIO/ConsoleInコンポーネントと同じ動作
+を行なうコンポーネントの作成をおこなっています。
+
+rtc-templateの実行
+------------------
+ここでは、rtc-templateを用いてコンポーネントの雛型を生成する方法を説明
+します。
+ 
+ $ cd ~/Projects    
+ $ mkdir SimpleIO
+ $ cd SimpleIO
+ $ python /usr/lib/python2.4/site-packages/OpenRTM/rtc-template/rtc-template.py \
+   -bpython --module-name=ConsoleIn --module-type="DataFlowComponent" \
+   --module-desc="Sample component" \
+   --module-version=0.1 --module-vendor="DrSample" \
+   --module-category=example \
+   --module-comp-type=DataFlowComponent --module-act-type=SPORADIC \
+   --module-max-inst=1 \
+   --outport=out:TimedLong
+
+rtc-templateを実行すると、README.ConsoleInとConsoleIn.pyが生成されます。
+※ Windows上でrtc-template.pyを実行する場合は、	--module-descで使用さ
+れている" \'(シングルクォート) "を" \"(ダブルクォート) "にして下さい。
+
+
+コンポーネント処理部の実装  例) SimpleIOコンポーネント
+------------------------------------------------------
+rtc-templateの実行により生成されたConsoleIn.pyを編集します。
+
+ # file : ConsoleIn.py
+ #!/usr/bin/env python
+ # -*- Python -*-
+
+ import sys
+
+ import OpenRTM
+ import RTC
+ """
+ これらはコンポーネント作成に最低限必要なモジュールですので、この
+ ままimportして下さい。
+ """
+
+ consolein_spec = ["implementation_id", "ConsoleIn",
+                  "type_name",         "ConsoleIn",
+                  "description",       "Console input component",
+                  "version",           "1.0",
+                  "vendor",            "Shinji Kurihara",
+                  "category",          "example",
+                  "activity_type",     "DataFlowComponent",
+                  "max_instance",      "10",
+                  "language",          "Python",
+                  "lang_type",         "script",
+                  ""]
+ """
+ モジュールのプロファイルリストの定義です。
+ """
+ 
+
+class ConsoleIn(OpenRTM.DataFlowComponentBase):
+    # 初期化処理
+    def __init__(self, manager):
+        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+
+	# OutPortで使用したいデータ型のインスタンスを生成
+        self._data = RTC.TimedLong(RTC.Time(0,0),0)
+	        
+	""" OutPortクラスのインスタンスを生成
+            "out"      : ポートにつける名前
+            self._data : データ型のインスタンス
+	    8          : リングバッファの長さ(指定しない場合は2)
+        """
+        self._outport = OpenRTM.OutPort("out", self._data, OpenRTM.RingBuffer(8))
+
+        # OutPortをコンポーネントに登録。
+        self.registerOutPort("out", self._outport)
+
+        
+    # コンポーネントの周期実行処理部
+    def onExecute(self, ec_id):
+        print "Please input number:"
+
+        # 標準入力からのデータをメンバ変数にセット
+        self._data.data = long(sys.stdin.readline())
+        print "Sending to subscriber: ", self._data.data
+
+        # バッファにデータをputする。
+        self._outport.write()
+        return RTC.RTC_OK
+
+
+
+# コンポーネントの登録、生成を行なう関数
+def MyModuleInit(manager):
+    profile = OpenRTM.Properties(defaults_str=consolein_spec)
+
+    # コンポーネントの登録
+    manager.registerFactory(profile,
+                            ConsoleIn,
+                            OpenRTM.Delete)
+
+    # コンポーネントの生成
+    comp = manager.createComponent("ConsoleIn")
+
+
+
+def main():
+    # Initialize manager
+    mgr = OpenRTM.Manager.init(len(sys.argv), sys.argv)
+
+    # Set module initialization proceduer
+    # This procedure will be invoked in activateManager() function.
+    mgr.setModuleInitProc(MyModuleInit)
+
+    # Activate manager and register to naming service
+    mgr.activateManager()
+
+    # run the manager in blocking mode
+    # runManager(False) is the default
+    mgr.runManager()
+
+    # If you want to run the manager in non-blocking mode, do like this
+    # mgr.runManager(True)
+
+if __name__ == "__main__":
+	main()
+
+
+
+コンポーネントの実行方法
+------------------------
+C++版と同様に、ネームサーバを記述したrtc.confファイルを作成し以下の用
+に実行します。
+
+$ python ConsoleIn.py

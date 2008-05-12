@@ -1,0 +1,1543 @@
+This is pTeX, Version 3.141592-p3.1.9 (euc) (Web2C 7.5.4) (format=platex-euc 2006.10.17)  26 SEP 2007 17:47
+**refman.tex
+(./refman.tex
+pLaTeX2e <2006/01/04>+0 (based on LaTeX2e <2003/12/01> patch level 0)
+(/usr/local/share/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2004/02/16 v1.4f Standard LaTeX document class
+(/usr/local/share/texmf-dist/tex/latex/base/bk10.clo
+File: bk10.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count81
+\c@chapter=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen118
+)
+(/usr/local/share/texmf-dist/tex/latex/a4wide/a4wide.sty
+Package: a4wide 1994/08/30
+
+(/usr/local/share/texmf-dist/tex/latex/ntgclass/a4.sty
+Package: a4 2004/04/15 v1.2g A4 based page layout
+))
+(/usr/local/share/texmf-dist/tex/latex/base/makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+)
+(/usr/local/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip43
+\f@ncyO@elh=\skip44
+\f@ncyO@erh=\skip45
+\f@ncyO@olh=\skip46
+\f@ncyO@orh=\skip47
+\f@ncyO@elf=\skip48
+\f@ncyO@erf=\skip49
+\f@ncyO@olf=\skip50
+\f@ncyO@orf=\skip51
+)
+(/usr/local/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/usr/local/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/share/texmf-dist/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: dvips.def on input line 80.
+
+(/usr/local/share/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen119
+\Gin@req@width=\dimen120
+)
+(/usr/local/share/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2004/02/14 v1.6e multicolumn formatting (FMi)
+\c@tracingmulticols=\count90
+\mult@box=\box41
+\multicol@leftmargin=\dimen121
+\c@unbalance=\count91
+\c@collectmore=\count92
+\doublecol@number=\count93
+\multicoltolerance=\count94
+\multicolpretolerance=\count95
+\full@width=\dimen122
+\page@free=\dimen123
+\premulticols=\dimen124
+\postmulticols=\dimen125
+\multicolsep=\skip52
+\multicolbaselineskip=\skip53
+\partial@page=\box42
+\last@line=\box43
+\mult@rightbox=\box44
+\mult@grightbox=\box45
+\mult@gfirstbox=\box46
+\mult@firstbox=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\@tempa=\box55
+\@tempa=\box56
+\@tempa=\box57
+\@tempa=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\@tempa=\box64
+\c@columnbadness=\count96
+\c@finalcolumnbadness=\count97
+\last@try=\dimen126
+\multicolovershoot=\dimen127
+\multicolundershoot=\dimen128
+\mult@nat@firstbox=\box65
+\colbreak@box=\box66
+)
+(/usr/local/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count98
+\float@exts=\toks16
+\float@box=\box67
+\@float@everytoks=\toks17
+\@floatcapt=\box68
+)
+(/usr/local/share/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2004/02/22 v1.99f Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+(/usr/local/share/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 311.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 312.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 313.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 314.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 315.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 316.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 317.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 318.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 319.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 320.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 321.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 322.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 323.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
+)
+(/usr/local/share/texmf-dist/tex/latex/base/alltt.sty
+Package: alltt 1997/06/16 v2.0g defines alltt environment
+) (./doxygen.sty
+Package: doxygen 
+
+(/usr/local/share/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 1998/07/07 v4.1b Infix arithmetic (KKT,FJ)
+\calc@Acount=\count99
+\calc@Bcount=\count100
+\calc@Adimen=\dimen129
+\calc@Bdimen=\dimen130
+\calc@Askip=\skip54
+\calc@Bskip=\skip55
+LaTeX Info: Redefining \setlength on input line 59.
+LaTeX Info: Redefining \addtolength on input line 60.
+\calc@denominator=\count101
+)
+(/usr/local/share/texmf-dist/tex/latex/tools/array.sty
+Package: array 2003/12/17 v2.4a Tabular extension package (FMi)
+\col@sep=\dimen131
+\extrarowheight=\dimen132
+\NC@list=\toks18
+\extratabsurround=\skip56
+\backup@length=\skip57
+)
+\tmplength=\skip58
+)
+(/usr/local/share/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
+
+(/usr/local/share/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+\@indexfile=\write3
+\openout3 = `refman.idx'.
+
+
+Writing index file refman.idx
+(./refman.aux (./dir_000000.aux) (./namespaceSDOPackage.aux)
+(./interfaceRTC_1_1ComponentAction.aux) (./structRTC_1_1ComponentProfile.aux)
+(./interfaceSDOPackage_1_1Configuration.aux)
+(./structSDOPackage_1_1ConfigurationSet.aux)
+(./structRTC_1_1ConnectorProfile.aux)
+(./interfaceRTC_1_1DataFlowComponentAction.aux)
+(./interfaceRTC_1_1DataFlowParticipant.aux
+
+LaTeX Warning: Label `interfaceRTC_1_1DataFlowComponentAction_RTC_1_1DataFlowPa
+rticipanta0' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1DataFlowComponentAction_RTC_1_1DataFlowPa
+rticipanta2' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1DataFlowComponentAction_RTC_1_1DataFlowPa
+rticipanta1' multiply defined.
+
+) (./structSDOPackage_1_1DeviceProfile.aux)
+(./structSDOPackage_1_1EnumerationType.aux)
+(./interfaceRTC_1_1ExecutionContext.aux)
+(./structRTC_1_1ExecutionContextProfile.aux)
+(./interfaceRTC_1_1ExecutionContextService.aux
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea6' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea11' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea7' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea9' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea10' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea4' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea1' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea12' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea8' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea5' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea2' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ExecutionContext_RTC_1_1ExecutionContextS
+ervicea3' multiply defined.
+
+) (./structRTC_1_1FsmBihaviorProfile.aux) (./interfaceRTC_1_1FsmObject.aux)
+(./interfaceRTC_1_1FsmParticipant.aux)
+(./interfaceRTC_1_1FsmParticipantAction.aux
+
+LaTeX Warning: Label `interfaceRTC_1_1FsmParticipantAction_RTC_1_1FsmParticipan
+tActiona0' multiply defined.
+
+) (./structRTC_1_1FsmProfile.aux) (./interfaceRTC_1_1FsmService.aux)
+(./interfaceRTC_1_1InPortAny.aux) (./structSDOPackage_1_1IntervalType.aux)
+(./interfaceRTC_1_1LightweightRTObject.aux
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta9' multip
+ly defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta10' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta17' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta15' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta16' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta18' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta12' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta11' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta19' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta14' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta13' multi
+ply defined.
+
+) (./interfaceRTC_1_1Mode.aux) (./interfaceRTC_1_1ModeCapable.aux)
+(./interfaceSDOPackage_1_1Monitoring.aux)
+(./interfaceRTC_1_1MultiModeComponentAction.aux)
+(./interfaceRTC_1_1MultiModeObject.aux
+
+LaTeX Warning: Label `interfaceRTC_1_1ModeCapable_RTC_1_1MultiModeObjecta1' mul
+tiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ModeCapable_RTC_1_1MultiModeObjecta2' mul
+tiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ModeCapable_RTC_1_1MultiModeObjecta0' mul
+tiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ModeCapable_RTC_1_1MultiModeObjecta3' mul
+tiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ModeCapable_RTC_1_1MultiModeObjecta4' mul
+tiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1MultiModeComponentAction_RTC_1_1MultiMode
+Objecta6' multiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ModeCapable_RTC_1_1MultiModeObjecta5' mul
+tiply defined.
+
+) (./structSDOPackage_1_1NameValue.aux) (./unionSDOPackage_1_1Numeric.aux)
+(./interfaceSDOPackage_1_1Organization.aux)
+(./structSDOPackage_1_1OrganizationProperty.aux)
+(./interfaceRTC_1_1OutPortAny.aux) (./structSDOPackage_1_1Parameter.aux)
+(./interfaceRTC_1_1Port.aux) (./structRTC_1_1PortInterfaceProfile.aux)
+(./structRTC_1_1PortProfile.aux) (./structSDOPackage_1_1RangeType.aux)
+(./interfaceRTC_1_1RTObject.aux
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta9' multip
+ly defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta10' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta5' mu
+ltiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta4' mu
+ltiply defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa6' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta8' mu
+ltiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta7' mu
+ltiply defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa2' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa7' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa8' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDOSystemElement_SDOPackage_1_1SDO
+SystemElementa0' multiply defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa0' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa5' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa1' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa4' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa3' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa10' multiply
+ defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa9' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta3' mu
+ltiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1LightweightRTObject_RTC_1_1RTObjecta6' mu
+ltiply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta17' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta15' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta16' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta18' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta12' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta11' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta19' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta14' multi
+ply defined.
+
+
+LaTeX Warning: Label `interfaceRTC_1_1ComponentAction_RTC_1_1RTObjecta13' multi
+ply defined.
+
+) (./interfaceSDOPackage_1_1SDO.aux
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa6' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa2' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa7' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa8' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDOSystemElement_SDOPackage_1_1SDO
+SystemElementa0' multiply defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa0' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa5' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa1' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa4' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa3' multiply 
+defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa10' multiply
+ defined.
+
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDO_SDOPackage_1_1SDOa9' multiply 
+defined.
+
+) (./interfaceSDOPackage_1_1SDOService.aux)
+(./interfaceSDOPackage_1_1SDOSystemElement.aux
+
+LaTeX Warning: Label `interfaceSDOPackage_1_1SDOSystemElement_SDOPackage_1_1SDO
+SystemElementa0' multiply defined.
+
+) (./structSDOPackage_1_1ServiceProfile.aux) (./structRTC_1_1Time.aux)
+(./structRTC_1_1TimedBoolean.aux) (./structRTC_1_1TimedBooleanSeq.aux)
+(./structRTC_1_1TimedChar.aux) (./structRTC_1_1TimedCharSeq.aux)
+(./structRTC_1_1TimedDouble.aux) (./structRTC_1_1TimedDoubleSeq.aux)
+(./structRTC_1_1TimedFloat.aux) (./structRTC_1_1TimedFloatSeq.aux)
+(./structRTC_1_1TimedLong.aux) (./structRTC_1_1TimedLongSeq.aux)
+(./structRTC_1_1TimedOctet.aux) (./structRTC_1_1TimedOctetSeq.aux)
+(./structRTC_1_1TimedShort.aux) (./structRTC_1_1TimedShortSeq.aux)
+(./structRTC_1_1TimedState.aux) (./structRTC_1_1TimedString.aux)
+(./structRTC_1_1TimedStringSeq.aux) (./structRTC_1_1TimedULong.aux)
+(./structRTC_1_1TimedULongSeq.aux) (./structRTC_1_1TimedUShort.aux)
+(./structRTC_1_1TimedUShortSeq.aux) (./DataPort_8idl.aux) (./RTC_8idl.aux
+
+LaTeX Warning: Label `namespaceRTC_a30a23' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a30a24' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a30a25' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a29a19' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a29a20' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a29a21' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a29a22' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a31a26' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a31a27' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a28a13' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a28a14' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a28a15' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a28a16' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a28a17' multiply defined.
+
+
+LaTeX Warning: Label `namespaceRTC_a28a18' multiply defined.
+
+) (./SDOPackage_8idl.aux
+
+LaTeX Warning: Label `namespaceSDOPackage_a20a13' multiply defined.
+
+
+LaTeX Warning: Label `namespaceSDOPackage_a20a14' multiply defined.
+
+
+LaTeX Warning: Label `namespaceSDOPackage_a20a15' multiply defined.
+
+
+LaTeX Warning: Label `namespaceSDOPackage_a21a16' multiply defined.
+
+
+LaTeX Warning: Label `namespaceSDOPackage_a21a17' multiply defined.
+
+
+LaTeX Warning: Label `namespaceSDOPackage_a21a18' multiply defined.
+
+
+LaTeX Warning: Label `namespaceSDOPackage_a19a9' multiply defined.
+
+
+LaTeX Warning: Label `namespaceSDOPackage_a19a10' multiply defined.
+
+
+LaTeX Warning: Label `namespaceSDOPackage_a19a11' multiply defined.
+
+
+LaTeX Warning: Label `namespaceSDOPackage_a19a12' multiply defined.
+
+))
+\openout1 = `refman.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 14.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 14.
+ (/usr/local/share/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 14.
+ [1
+
+
+] [2
+
+]
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <24.88> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 27.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <24.88> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 27.
+ (./refman.toc
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--12
+ [][] []\T1/cmr/m/n/10 /.amd_-mnt/robofs/export/home/n-ando/Program/CVS/0.4-REL
+ENG/Open- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--13
+ [][] []\T1/cmr/m/n/10 /.amd_-mnt/robofs/export/home/n-ando/Program/CVS/0.4-REL
+ENG/Open- 
+ []
+
+[1
+
+]
+Underfull \vbox (badness 1389) has occurred while \output is active []
+
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <7> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 398.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <7> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 398.
+ [2])
+\tf@toc=\write4
+\openout4 = `refman.toc'.
+
+
+[3] [4
+
+]
+Chapter 1.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <20.74> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 30.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <20.74> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 30.
+(./dirs.tex
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 1.
+) [1
+
+] [2
+
+]
+Chapter 2.
+(./namespaces.tex) [3] [4
+
+]
+Chapter 3.
+(./hierarchy.tex [5]) [6]
+Chapter 4.
+(./annotated.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--9
+ [][] \T1/cmr/bx/n/10 RTC::Data-Flow-Component-Action \T1/cmr/m/n/10 (Execution
+-Semantics::Data-Flow-Component- 
+ []
+
+[7
+
+]) [8]
+Chapter 5.
+(./files.tex) [9
+
+] [10
+
+]
+Chapter 6.
+(./dir_000001.tex
+Overfull \hbox (40.00761pt too wide) in paragraph at lines 1--1
+[]\T1/cmr/bx/n/14.4 /.amd_-mnt/robofs/export/home/n-ando/Program/CVS/0.4-
+ []
+
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 3.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 3.
+
+LaTeX Font Warning: Font shape `JT1/gt/m/it' undefined
+(Font)              using `JT1/gt/m/n' instead on input line 9.
+
+
+LaTeX Font Warning: Font shape `JY1/gt/m/it' undefined
+(Font)              using `JY1/gt/m/n' instead on input line 9.
+
+) [11]
+\openout2 = `dir_000000.aux'.
+
+ (./dir_000000.tex
+Overfull \hbox (40.00761pt too wide) in paragraph at lines 1--1
+[]\T1/cmr/bx/n/14.4 /.amd_-mnt/robofs/export/home/n-ando/Program/CVS/0.4-
+ []
+
+) [12
+
+]
+Chapter 7.
+(./namespaceRTC.tex [13
+
+
+] [14]
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <9> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 139.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <9> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 139.
+
+Underfull \hbox (badness 3029) in paragraph at lines 140--145
+[]\T1/cmr/m/n/10 enum \T1/cmr/bx/n/10 Life-Cycle-State \T1/cmr/m/n/10 { \T1/cmr
+/bx/n/10 INACTIVE_-STATE\T1/cmr/m/n/10 , \T1/cmr/bx/n/10 ACTIVE_-STATE\T1/cmr/m
+/n/10 , \T1/cmr/bx/n/10 ERROR_-
+ []
+
+[15]
+LaTeX Font Info:    Font shape `JT1/gt/bx/n' in size <10> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 235.
+LaTeX Font Info:    Font shape `JY1/gt/bx/n' in size <10> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 235.
+
+
+LaTeX Font Warning: Font shape `JT1/gt/bx/it' undefined
+(Font)              using `JT1/gt/bx/n' instead on input line 235.
+
+
+LaTeX Font Warning: Font shape `JY1/gt/bx/it' undefined
+(Font)              using `JY1/gt/bx/n' instead on input line 235.
+
+LaTeX Font Info:    Font shape `JT1/gt/bx/it' in size <10> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 237.
+LaTeX Font Info:    Font shape `JY1/gt/bx/it' in size <10> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 237.
+[16]) [17]
+\openout2 = `namespaceSDOPackage.aux'.
+
+ (./namespaceSDOPackage.tex
+Underfull \hbox (badness 10000) in paragraph at lines 62--68
+[]\T1/cmr/m/n/10 enum \T1/cmr/bx/n/10 Numeric-Type \T1/cmr/m/n/10 { \T1/cmr/bx/
+n/10 SHORT_-TYPE\T1/cmr/m/n/10 , \T1/cmr/bx/n/10 LONG_-TYPE\T1/cmr/m/n/10 , \T1
+/cmr/bx/n/10 FLOAT_-TYPE\T1/cmr/m/n/10 ,
+ []
+
+[18
+
+]) [19] [20]
+Chapter 8.
+(./unionSDOPackage_1_1AllowedValues.tex
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 3.
+
+(/usr/local/share/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)) [21
+
+
+]
+\openout2 = `interfaceRTC_1_1ComponentAction.aux'.
+
+
+(./interfaceRTC_1_1ComponentAction.tex
+File: interfaceRTC_1_1ComponentAction.eps Graphic file (type eps)
+ <interfaceRTC_1_1ComponentAction.eps>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22
+
+])
+[23]
+\openout2 = `structRTC_1_1ComponentProfile.aux'.
+
+ (./structRTC_1_1ComponentProfile.tex) [24
+
+
+]
+\openout2 = `interfaceSDOPackage_1_1Configuration.aux'.
+
+
+(./interfaceSDOPackage_1_1Configuration.tex
+Underfull \hbox (badness 1400) in paragraph at lines 28--30
+[]\T1/cmr/bx/n/10 Configuration-Set get_-configuration_-set \T1/cmr/m/n/10 (in 
+\T1/cmr/bx/n/10 Unique-Identifier \T1/cmr/m/n/10 config_-id) raises
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--32
+[]\T1/cmr/m/n/10 boolean \T1/cmr/bx/n/10 set_-configuration_-set_-values \T1/cm
+r/m/n/10 (in \T1/cmr/bx/n/10 Unique-Identifier \T1/cmr/m/n/10 config_-id, in
+ []
+
+
+Underfull \hbox (badness 4660) in paragraph at lines 34--36
+[]\T1/cmr/m/n/10 boolean \T1/cmr/bx/n/10 add_-configuration_-set \T1/cmr/m/n/10
+ (in \T1/cmr/bx/n/10 Configuration-Set \T1/cmr/m/n/10 configuration_-set) raise
+s
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [25
+
+
+]
+Overfull \vbox (50.50269pt too high) has occurred while \output is active []
+
+
+[26]) [27]
+\openout2 = `structSDOPackage_1_1ConfigurationSet.aux'.
+
+ (./structSDOPackage_1_1ConfigurationSet.tex) [28
+
+
+]
+\openout2 = `structRTC_1_1ConnectorProfile.aux'.
+
+
+(./structRTC_1_1ConnectorProfile.tex) [29
+
+
+]
+\openout2 = `interfaceRTC_1_1DataFlowComponentAction.aux'.
+
+
+(./interfaceRTC_1_1DataFlowComponentAction.tex
+File: interfaceRTC_1_1DataFlowComponentAction.eps Graphic file (type eps)
+
+<interfaceRTC_1_1DataFlowComponentAction.eps>) [30
+
+
+]
+\openout2 = `interfaceRTC_1_1DataFlowParticipant.aux'.
+
+
+(./interfaceRTC_1_1DataFlowParticipant.tex
+File: interfaceRTC_1_1DataFlowParticipant.eps Graphic file (type eps)
+
+<interfaceRTC_1_1DataFlowParticipant.eps>) [31
+
+
+]
+\openout2 = `structSDOPackage_1_1DeviceProfile.aux'.
+
+
+(./structSDOPackage_1_1DeviceProfile.tex) [32
+
+
+]
+\openout2 = `structSDOPackage_1_1EnumerationType.aux'.
+
+
+(./structSDOPackage_1_1EnumerationType.tex) [33
+
+
+]
+\openout2 = `interfaceRTC_1_1ExecutionContext.aux'.
+
+
+(./interfaceRTC_1_1ExecutionContext.tex
+File: interfaceRTC_1_1ExecutionContext.eps Graphic file (type eps)
+ <interfaceRTC_1_1ExecutionContext.eps>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [34
+
+
+])
+[35]
+\openout2 = `structRTC_1_1ExecutionContextProfile.aux'.
+
+ (./structRTC_1_1ExecutionContextProfile.tex) [36
+
+
+]
+\openout2 = `interfaceRTC_1_1ExecutionContextService.aux'.
+
+
+(./interfaceRTC_1_1ExecutionContextService.tex
+File: interfaceRTC_1_1ExecutionContextService.eps Graphic file (type eps)
+
+<interfaceRTC_1_1ExecutionContextService.eps>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [37
+
+
+])
+[38]
+\openout2 = `structRTC_1_1FsmBihaviorProfile.aux'.
+
+ (./structRTC_1_1FsmBihaviorProfile.tex) [39
+
+
+]
+\openout2 = `interfaceRTC_1_1FsmObject.aux'.
+
+
+(./interfaceRTC_1_1FsmObject.tex) [40
+
+
+]
+\openout2 = `interfaceRTC_1_1FsmParticipant.aux'.
+
+ (./interfaceRTC_1_1FsmParticipant.tex
+File: interfaceRTC_1_1FsmParticipant.eps Graphic file (type eps)
+
+<interfaceRTC_1_1FsmParticipant.eps>) [41
+
+
+]
+\openout2 = `interfaceRTC_1_1FsmParticipantAction.aux'.
+
+
+(./interfaceRTC_1_1FsmParticipantAction.tex
+File: interfaceRTC_1_1FsmParticipantAction.eps Graphic file (type eps)
+
+<interfaceRTC_1_1FsmParticipantAction.eps>) [42
+
+
+]
+\openout2 = `structRTC_1_1FsmProfile.aux'.
+
+ (./structRTC_1_1FsmProfile.tex) [43
+
+
+]
+\openout2 = `interfaceRTC_1_1FsmService.aux'.
+
+ (./interfaceRTC_1_1FsmService.tex
+File: interfaceRTC_1_1FsmService.eps Graphic file (type eps)
+ <interfaceRTC_1_1FsmService.eps>
+Underfull \hbox (badness 2165) in paragraph at lines 33--35
+[]\T1/cmr/m/n/10 Configuration \T1/cmr/bx/n/10 get_-configuration \T1/cmr/m/n/1
+0 () raises (Interface-Not-Implemented, Not-Available,
+ []
+
+
+Underfull \vbox (badness 3271) has occurred while \output is active []
+
+ [44
+
+
+])
+[45]
+\openout2 = `interfaceRTC_1_1InPortAny.aux'.
+
+ (./interfaceRTC_1_1InPortAny.tex) [46
+
+
+]
+\openout2 = `structSDOPackage_1_1IntervalType.aux'.
+
+
+(./structSDOPackage_1_1IntervalType.tex) [47
+
+
+]
+\openout2 = `interfaceRTC_1_1LightweightRTObject.aux'.
+
+
+(./interfaceRTC_1_1LightweightRTObject.tex
+File: interfaceRTC_1_1LightweightRTObject.eps Graphic file (type eps)
+
+<interfaceRTC_1_1LightweightRTObject.eps>
+Underfull \vbox (badness 2644) has occurred while \output is active []
+
+ [48
+
+
+])
+[49]
+\openout2 = `interfaceRTC_1_1Mode.aux'.
+
+ (./interfaceRTC_1_1Mode.tex) [50
+
+
+]
+\openout2 = `interfaceRTC_1_1ModeCapable.aux'.
+
+ (./interfaceRTC_1_1ModeCapable.tex
+File: interfaceRTC_1_1ModeCapable.eps Graphic file (type eps)
+
+<interfaceRTC_1_1ModeCapable.eps>) [51
+
+
+]
+\openout2 = `interfaceSDOPackage_1_1Monitoring.aux'.
+
+
+(./interfaceSDOPackage_1_1Monitoring.tex) [52
+
+
+]
+\openout2 = `interfaceRTC_1_1MultiModeComponentAction.aux'.
+
+
+(./interfaceRTC_1_1MultiModeComponentAction.tex
+Underfull \hbox (badness 5802) in paragraph at lines 1--1
+[]\T1/cmr/bx/n/14.4 RTC::Multi-Mode-Component-Action In-ter-face Ref-er-
+ []
+
+File: interfaceRTC_1_1MultiModeComponentAction.eps Graphic file (type eps)
+<interfaceRTC_1_1MultiModeComponentAction.eps>) [53
+
+
+]
+\openout2 = `interfaceRTC_1_1MultiModeObject.aux'.
+
+
+(./interfaceRTC_1_1MultiModeObject.tex
+File: interfaceRTC_1_1MultiModeObject.eps Graphic file (type eps)
+ <interfaceRTC_1_1MultiModeObject.eps>)
+[54
+
+
+] [55]
+\openout2 = `structSDOPackage_1_1NameValue.aux'.
+
+ (./structSDOPackage_1_1NameValue.tex) [56
+
+
+]
+\openout2 = `unionSDOPackage_1_1Numeric.aux'.
+
+
+(./unionSDOPackage_1_1Numeric.tex) [57
+
+
+]
+\openout2 = `interfaceSDOPackage_1_1Organization.aux'.
+
+
+(./interfaceSDOPackage_1_1Organization.tex
+Underfull \hbox (badness 1946) in paragraph at lines 8--10
+[]\T1/cmr/bx/n/10 Unique-Identifier get_-organization_-id \T1/cmr/m/n/10 () rai
+ses (Invalid-Parameter, Not-Available,
+ []
+
+
+Underfull \hbox (badness 6792) in paragraph at lines 14--16
+[]\T1/cmr/m/n/10 boolean \T1/cmr/bx/n/10 set_-organization_-property \T1/cmr/m/
+n/10 (in \T1/cmr/bx/n/10 Organization-Property \T1/cmr/m/n/10 organization_-
+ []
+
+
+Underfull \hbox (badness 1735) in paragraph at lines 22--24
+[]\T1/cmr/m/n/10 boolean \T1/cmr/bx/n/10 set_-owner \T1/cmr/m/n/10 (in \T1/cmr/
+bx/n/10 SDOSystem-Element \T1/cmr/m/n/10 sdo) raises (Invalid-Parameter, Not-
+ []
+
+
+Underfull \hbox (badness 1824) in paragraph at lines 26--28
+[]\T1/cmr/m/n/10 boolean \T1/cmr/bx/n/10 set_-members \T1/cmr/m/n/10 (in \T1/cm
+r/bx/n/10 SDOList \T1/cmr/m/n/10 sdos) raises (Invalid-Parameter, Not-Available
+,
+ []
+
+
+Underfull \hbox (badness 1082) in paragraph at lines 34--35
+[]\T1/cmr/m/n/10 boolean \T1/cmr/bx/n/10 set_-dependency \T1/cmr/m/n/10 (in \T1
+/cmr/bx/n/10 Dependency-Type \T1/cmr/m/n/10 de-pen-dency) raises (Not-Available
+,
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [58
+
+
+])
+[59]
+\openout2 = `structSDOPackage_1_1OrganizationProperty.aux'.
+
+ (./structSDOPackage_1_1OrganizationProperty.tex) [60
+
+
+]
+\openout2 = `interfaceRTC_1_1OutPortAny.aux'.
+
+
+(./interfaceRTC_1_1OutPortAny.tex) [61
+
+
+]
+\openout2 = `structSDOPackage_1_1Parameter.aux'.
+
+ (./structSDOPackage_1_1Parameter.tex)
+[62
+
+
+]
+\openout2 = `interfaceRTC_1_1Port.aux'.
+
+ (./interfaceRTC_1_1Port.tex
+File: interfaceRTC_1_1Port.eps Graphic file (type eps)
+ <interfaceRTC_1_1Port.eps>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [63
+
+
+])
+[64]
+\openout2 = `structRTC_1_1PortInterfaceProfile.aux'.
+
+ (./structRTC_1_1PortInterfaceProfile.tex) [65
+
+
+]
+\openout2 = `structRTC_1_1PortProfile.aux'.
+
+
+(./structRTC_1_1PortProfile.tex) [66
+
+
+]
+\openout2 = `structSDOPackage_1_1RangeType.aux'.
+
+ (./structSDOPackage_1_1RangeType.tex)
+[67
+
+
+]
+\openout2 = `interfaceRTC_1_1RTObject.aux'.
+
+ (./interfaceRTC_1_1RTObject.tex
+File: interfaceRTC_1_1RTObject.eps Graphic file (type eps)
+ <interfaceRTC_1_1RTObject.eps>
+Underfull \hbox (badness 2165) in paragraph at lines 69--71
+[]\T1/cmr/m/n/10 Configuration \T1/cmr/bx/n/10 get_-configuration \T1/cmr/m/n/1
+0 () raises (Interface-Not-Implemented, Not-Available,
+ []
+
+[68
+
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [69]
+Overfull \vbox (460.85815pt too high) has occurred while \output is active []
+
+
+[70]) [71]
+\openout2 = `interfaceSDOPackage_1_1SDO.aux'.
+
+ (./interfaceSDOPackage_1_1SDO.tex
+File: interfaceSDOPackage_1_1SDO.eps Graphic file (type eps)
+ <interfaceSDOPackage_1_1SDO.eps>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [72
+
+
+])
+[73]
+\openout2 = `interfaceSDOPackage_1_1SDOService.aux'.
+
+ (./interfaceSDOPackage_1_1SDOService.tex
+File: interfaceSDOPackage_1_1SDOService.eps Graphic file (type eps)
+
+<interfaceSDOPackage_1_1SDOService.eps>) [74
+
+
+]
+\openout2 = `interfaceSDOPackage_1_1SDOSystemElement.aux'.
+
+
+(./interfaceSDOPackage_1_1SDOSystemElement.tex
+File: interfaceSDOPackage_1_1SDOSystemElement.eps Graphic file (type eps)
+
+<interfaceSDOPackage_1_1SDOSystemElement.eps>) [75
+
+
+]
+\openout2 = `structSDOPackage_1_1ServiceProfile.aux'.
+
+
+(./structSDOPackage_1_1ServiceProfile.tex) [76
+
+
+]
+\openout2 = `structRTC_1_1Time.aux'.
+
+ (./structRTC_1_1Time.tex)
+[77
+
+
+]
+\openout2 = `structRTC_1_1TimedBoolean.aux'.
+
+ (./structRTC_1_1TimedBoolean.tex) [78
+
+
+]
+\openout2 = `structRTC_1_1TimedBooleanSeq.aux'.
+
+ (./structRTC_1_1TimedBooleanSeq.tex) [79
+
+
+]
+\openout2 = `structRTC_1_1TimedChar.aux'.
+
+ (./structRTC_1_1TimedChar.tex) [80
+
+
+]
+\openout2 = `structRTC_1_1TimedCharSeq.aux'.
+
+ (./structRTC_1_1TimedCharSeq.tex)
+[81
+
+
+]
+\openout2 = `structRTC_1_1TimedDouble.aux'.
+
+ (./structRTC_1_1TimedDouble.tex) [82
+
+
+]
+\openout2 = `structRTC_1_1TimedDoubleSeq.aux'.
+
+ (./structRTC_1_1TimedDoubleSeq.tex)
+[83
+
+
+]
+\openout2 = `structRTC_1_1TimedFloat.aux'.
+
+ (./structRTC_1_1TimedFloat.tex) [84
+
+
+]
+\openout2 = `structRTC_1_1TimedFloatSeq.aux'.
+
+ (./structRTC_1_1TimedFloatSeq.tex)
+[85
+
+
+]
+\openout2 = `structRTC_1_1TimedLong.aux'.
+
+ (./structRTC_1_1TimedLong.tex) [86
+
+
+]
+\openout2 = `structRTC_1_1TimedLongSeq.aux'.
+
+ (./structRTC_1_1TimedLongSeq.tex)
+[87
+
+
+]
+\openout2 = `structRTC_1_1TimedOctet.aux'.
+
+ (./structRTC_1_1TimedOctet.tex) [88
+
+
+]
+\openout2 = `structRTC_1_1TimedOctetSeq.aux'.
+
+ (./structRTC_1_1TimedOctetSeq.tex)
+[89
+
+
+]
+\openout2 = `structRTC_1_1TimedShort.aux'.
+
+ (./structRTC_1_1TimedShort.tex) [90
+
+
+]
+\openout2 = `structRTC_1_1TimedShortSeq.aux'.
+
+ (./structRTC_1_1TimedShortSeq.tex)
+[91
+
+
+]
+\openout2 = `structRTC_1_1TimedState.aux'.
+
+ (./structRTC_1_1TimedState.tex) [92
+
+
+]
+\openout2 = `structRTC_1_1TimedString.aux'.
+
+ (./structRTC_1_1TimedString.tex)
+[93
+
+
+]
+\openout2 = `structRTC_1_1TimedStringSeq.aux'.
+
+ (./structRTC_1_1TimedStringSeq.tex) [94
+
+
+]
+\openout2 = `structRTC_1_1TimedULong.aux'.
+
+ (./structRTC_1_1TimedULong.tex)
+[95
+
+
+]
+\openout2 = `structRTC_1_1TimedULongSeq.aux'.
+
+ (./structRTC_1_1TimedULongSeq.tex) [96
+
+
+]
+\openout2 = `structRTC_1_1TimedUShort.aux'.
+
+ (./structRTC_1_1TimedUShort.tex)
+[97
+
+
+]
+\openout2 = `structRTC_1_1TimedUShortSeq.aux'.
+
+ (./structRTC_1_1TimedUShortSeq.tex) [98
+
+
+]
+Chapter 9.
+(./BasicDataType_8idl.tex) [99
+
+
+]
+\openout2 = `DataPort_8idl.aux'.
+
+ (./DataPort_8idl.tex) [100
+
+]
+\openout2 = `RTC_8idl.aux'.
+
+ (./RTC_8idl.tex
+Underfull \hbox (badness 3029) in paragraph at lines 52--57
+[]\T1/cmr/m/n/10 enum \T1/cmr/bx/n/10 Life-Cycle-State \T1/cmr/m/n/10 { \T1/cmr
+/bx/n/10 INACTIVE_-STATE\T1/cmr/m/n/10 , \T1/cmr/bx/n/10 ACTIVE_-STATE\T1/cmr/m
+/n/10 , \T1/cmr/bx/n/10 ERROR_-
+ []
+
+[101
+
+
+] [102]) [103]
+\openout2 = `SDOPackage_8idl.aux'.
+
+ (./SDOPackage_8idl.tex
+Underfull \hbox (badness 10000) in paragraph at lines 35--41
+[]\T1/cmr/m/n/10 enum \T1/cmr/bx/n/10 Numeric-Type \T1/cmr/m/n/10 { \T1/cmr/bx/
+n/10 SHORT_-TYPE\T1/cmr/m/n/10 , \T1/cmr/bx/n/10 LONG_-TYPE\T1/cmr/m/n/10 , \T1
+/cmr/bx/n/10 FLOAT_-TYPE\T1/cmr/m/n/10 ,
+ []
+
+[104
+
+
+]) [105] [106] (./refman.ind
+Underfull \hbox (badness 10000) in paragraph at lines 3--5
+[]\T1/cmr/m/n/10 /.amd_-mnt/robofs/export/home/n-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--5
+\T1/cmr/m/n/10 ando/Program/CVS/0.4-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--5
+\T1/cmr/m/n/10 RELENG/OpenRTM-aist/rtm/
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--7
+[]\T1/cmr/m/n/10 /.amd_-mnt/robofs/export/home/n-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--7
+\T1/cmr/m/n/10 ando/Program/CVS/0.4-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--7
+\T1/cmr/m/n/10 RELENG/OpenRTM-aist/rtm/idl/
+ []
+
+[107
+
+
+] [108] [109] [110] [111] [112] [113] [114] [115] [116] [117])
+(./refman.aux (./dir_000000.aux) (./namespaceSDOPackage.aux)
+(./interfaceRTC_1_1ComponentAction.aux) (./structRTC_1_1ComponentProfile.aux)
+(./interfaceSDOPackage_1_1Configuration.aux)
+(./structSDOPackage_1_1ConfigurationSet.aux)
+(./structRTC_1_1ConnectorProfile.aux)
+(./interfaceRTC_1_1DataFlowComponentAction.aux)
+(./interfaceRTC_1_1DataFlowParticipant.aux)
+(./structSDOPackage_1_1DeviceProfile.aux)
+(./structSDOPackage_1_1EnumerationType.aux)
+(./interfaceRTC_1_1ExecutionContext.aux)
+(./structRTC_1_1ExecutionContextProfile.aux)
+(./interfaceRTC_1_1ExecutionContextService.aux)
+(./structRTC_1_1FsmBihaviorProfile.aux) (./interfaceRTC_1_1FsmObject.aux)
+(./interfaceRTC_1_1FsmParticipant.aux)
+(./interfaceRTC_1_1FsmParticipantAction.aux) (./structRTC_1_1FsmProfile.aux)
+(./interfaceRTC_1_1FsmService.aux) (./interfaceRTC_1_1InPortAny.aux)
+(./structSDOPackage_1_1IntervalType.aux)
+(./interfaceRTC_1_1LightweightRTObject.aux) (./interfaceRTC_1_1Mode.aux)
+(./interfaceRTC_1_1ModeCapable.aux) (./interfaceSDOPackage_1_1Monitoring.aux)
+(./interfaceRTC_1_1MultiModeComponentAction.aux)
+(./interfaceRTC_1_1MultiModeObject.aux) (./structSDOPackage_1_1NameValue.aux)
+(./unionSDOPackage_1_1Numeric.aux) (./interfaceSDOPackage_1_1Organization.aux)
+(./structSDOPackage_1_1OrganizationProperty.aux)
+(./interfaceRTC_1_1OutPortAny.aux) (./structSDOPackage_1_1Parameter.aux)
+(./interfaceRTC_1_1Port.aux) (./structRTC_1_1PortInterfaceProfile.aux)
+(./structRTC_1_1PortProfile.aux) (./structSDOPackage_1_1RangeType.aux)
+(./interfaceRTC_1_1RTObject.aux) (./interfaceSDOPackage_1_1SDO.aux)
+(./interfaceSDOPackage_1_1SDOService.aux)
+(./interfaceSDOPackage_1_1SDOSystemElement.aux)
+(./structSDOPackage_1_1ServiceProfile.aux) (./structRTC_1_1Time.aux)
+(./structRTC_1_1TimedBoolean.aux) (./structRTC_1_1TimedBooleanSeq.aux)
+(./structRTC_1_1TimedChar.aux) (./structRTC_1_1TimedCharSeq.aux)
+(./structRTC_1_1TimedDouble.aux) (./structRTC_1_1TimedDoubleSeq.aux)
+(./structRTC_1_1TimedFloat.aux) (./structRTC_1_1TimedFloatSeq.aux)
+(./structRTC_1_1TimedLong.aux) (./structRTC_1_1TimedLongSeq.aux)
+(./structRTC_1_1TimedOctet.aux) (./structRTC_1_1TimedOctetSeq.aux)
+(./structRTC_1_1TimedShort.aux) (./structRTC_1_1TimedShortSeq.aux)
+(./structRTC_1_1TimedState.aux) (./structRTC_1_1TimedString.aux)
+(./structRTC_1_1TimedStringSeq.aux) (./structRTC_1_1TimedULong.aux)
+(./structRTC_1_1TimedULongSeq.aux) (./structRTC_1_1TimedUShort.aux)
+(./structRTC_1_1TimedUShortSeq.aux) (./DataPort_8idl.aux) (./RTC_8idl.aux)
+(./SDOPackage_8idl.aux))
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 2676 strings out of 95552
+ 56189 string characters out of 1190498
+ 103801 words of memory out of 1000000
+ 5300 multiletter control sequences out of 10000+100000
+ 23290 words of font info for 64 fonts, out of 500000 for 2000
+ 14 hyphenation exceptions out of 1000
+ 38i,12n,43p,641b,745s stack positions out of 1500i,500n,5000p,200000b,5000s
+
+Output written on refman.dvi (123 pages, 255172 bytes).

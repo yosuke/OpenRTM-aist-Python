@@ -1,0 +1,189 @@
+\section{UUID Class Reference}
+\label{classUUID}\index{UUID@{UUID}}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf \_\-\_\-init\_\-\_\-} (hex=None, bytes=None, fields=None, int=None, version=None)
+\item 
+{\bf \_\-\_\-cmp\_\-\_\-} (other)
+\item 
+{\bf \_\-\_\-hash\_\-\_\-} ()
+\item 
+{\bf \_\-\_\-int\_\-\_\-} ()
+\item 
+{\bf \_\-\_\-repr\_\-\_\-} ()
+\item 
+{\bf \_\-\_\-setattr\_\-\_\-} (name, value)
+\item 
+{\bf \_\-\_\-str\_\-\_\-} ()
+\item 
+{\bf get\_\-bytes} ()
+\item 
+{\bf get\_\-fields} ()
+\item 
+{\bf get\_\-time\_\-low} ()
+\item 
+{\bf get\_\-time\_\-mid} ()
+\item 
+{\bf get\_\-time\_\-hi\_\-version} ()
+\item 
+{\bf get\_\-clock\_\-seq\_\-hi\_\-variant} ()
+\item 
+{\bf get\_\-clock\_\-seq\_\-low} ()
+\item 
+{\bf get\_\-time} ()
+\item 
+{\bf get\_\-clock\_\-seq} ()
+\item 
+{\bf get\_\-node} ()
+\item 
+{\bf get\_\-hex} ()
+\item 
+{\bf get\_\-urn} ()
+\item 
+{\bf get\_\-variant} ()
+\item 
+{\bf get\_\-version} ()
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Instances of the UUID class represent UUIDs as specified in RFC 4122. UUID objects are immutable, hashable, and usable as dictionary keys. Converting a UUID to a string with str() yields something in the form '12345678-1234-1234-1234-123456789abc'. The UUID constructor accepts four possible forms: a similar string of hexadecimal digits, or a string of 16 raw bytes as an argument named 'bytes', or a tuple of six integer fields (with 32-bit, 16-bit, 16-bit, 8-bit, 8-bit, and 48-bit values respectively) as an argument named 'fields', or a single 128-bit integer as an argument named 'int'.
+
+UUIDs have these read-only attributes:
+
+bytes the UUID as a 16-byte string
+
+fields a tuple of the six integer fields of the UUID, which are also available as six individual attributes and two derived attributes:
+
+time\_\-low the first 32 bits of the UUID time\_\-mid the next 16 bits of the UUID time\_\-hi\_\-version the next 16 bits of the UUID clock\_\-seq\_\-hi\_\-variant the next 8 bits of the UUID clock\_\-seq\_\-low the next 8 bits of the UUID node the last 48 bits of the UUID
+
+time the 60-bit timestamp clock\_\-seq the 14-bit sequence number
+
+hex the UUID as a 32-character hexadecimal string
+
+int the UUID as a 128-bit integer
+
+urn the UUID as a URN as specified in RFC 4122
+
+variant the UUID variant (one of the constants RESERVED\_\-NCS, RFC\_\-4122, RESERVED\_\-MICROSOFT, or RESERVED\_\-FUTURE)
+
+version the UUID version number (1 through 5, meaningful only when the variant is RFC\_\-4122)
+
+
+
+\subsection{Member Function Documentation}
+\index{UUID@{UUID}!__cmp__@{\_\-\_\-cmp\_\-\_\-}}
+\index{__cmp__@{\_\-\_\-cmp\_\-\_\-}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::\_\-\_\-cmp\_\-\_\- (other)}\label{classUUID_UUIDa1}
+
+
+\index{UUID@{UUID}!__hash__@{\_\-\_\-hash\_\-\_\-}}
+\index{__hash__@{\_\-\_\-hash\_\-\_\-}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::\_\-\_\-hash\_\-\_\- ()}\label{classUUID_UUIDa2}
+
+
+\index{UUID@{UUID}!__init__@{\_\-\_\-init\_\-\_\-}}
+\index{__init__@{\_\-\_\-init\_\-\_\-}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::\_\-\_\-init\_\-\_\- (hex = {\tt None}, bytes = {\tt None}, fields = {\tt None}, int = {\tt None}, version = {\tt None})}\label{classUUID_UUIDa0}
+
+
+Create a UUID from either a string of 32 hexadecimal digits, a string of 16 bytes as the 'bytes' argument, a tuple of six integers (32-bit time\_\-low, 16-bit time\_\-mid, 16-bit time\_\-hi\_\-version, 8-bit clock\_\-seq\_\-hi\_\-variant, 8-bit clock\_\-seq\_\-low, 48-bit node) as the 'fields' argument, or a single 128-bit integer as the 'int' argument. When a string of hex digits is given, curly braces, hyphens, and a URN prefix are all optional. For example, these expressions all yield the same UUID:
+
+UUID('\{12345678-1234-5678-1234-567812345678\}') UUID('12345678123456781234567812345678') UUID('urn:uuid:12345678-1234-5678-1234-567812345678') UUID(bytes=''$\ast$4) UUID(fields=(0x12345678, 0x1234, 0x5678, 0x12, 0x34, 0x567812345678)) UUID(int=0x12345678123456781234567812345678)
+
+Exactly one of 'hex', 'bytes', 'fields', or 'int' must be given. The 'version' argument is optional; if given, the resulting UUID will have its variant and version number set according to RFC 4122, overriding bits in the given 'hex', 'bytes', 'fields', or 'int'.\index{UUID@{UUID}!__int__@{\_\-\_\-int\_\-\_\-}}
+\index{__int__@{\_\-\_\-int\_\-\_\-}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::\_\-\_\-int\_\-\_\- ()}\label{classUUID_UUIDa3}
+
+
+\index{UUID@{UUID}!__repr__@{\_\-\_\-repr\_\-\_\-}}
+\index{__repr__@{\_\-\_\-repr\_\-\_\-}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::\_\-\_\-repr\_\-\_\- ()}\label{classUUID_UUIDa4}
+
+
+\index{UUID@{UUID}!__setattr__@{\_\-\_\-setattr\_\-\_\-}}
+\index{__setattr__@{\_\-\_\-setattr\_\-\_\-}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::\_\-\_\-setattr\_\-\_\- (name, value)}\label{classUUID_UUIDa5}
+
+
+\index{UUID@{UUID}!__str__@{\_\-\_\-str\_\-\_\-}}
+\index{__str__@{\_\-\_\-str\_\-\_\-}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::\_\-\_\-str\_\-\_\- ()}\label{classUUID_UUIDa6}
+
+
+\index{UUID@{UUID}!get_bytes@{get\_\-bytes}}
+\index{get_bytes@{get\_\-bytes}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-bytes ()}\label{classUUID_UUIDa7}
+
+
+\index{UUID@{UUID}!get_clock_seq@{get\_\-clock\_\-seq}}
+\index{get_clock_seq@{get\_\-clock\_\-seq}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-clock\_\-seq ()}\label{classUUID_UUIDa15}
+
+
+\index{UUID@{UUID}!get_clock_seq_hi_variant@{get\_\-clock\_\-seq\_\-hi\_\-variant}}
+\index{get_clock_seq_hi_variant@{get\_\-clock\_\-seq\_\-hi\_\-variant}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-clock\_\-seq\_\-hi\_\-variant ()}\label{classUUID_UUIDa12}
+
+
+\index{UUID@{UUID}!get_clock_seq_low@{get\_\-clock\_\-seq\_\-low}}
+\index{get_clock_seq_low@{get\_\-clock\_\-seq\_\-low}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-clock\_\-seq\_\-low ()}\label{classUUID_UUIDa13}
+
+
+\index{UUID@{UUID}!get_fields@{get\_\-fields}}
+\index{get_fields@{get\_\-fields}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-fields ()}\label{classUUID_UUIDa8}
+
+
+\index{UUID@{UUID}!get_hex@{get\_\-hex}}
+\index{get_hex@{get\_\-hex}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-hex ()}\label{classUUID_UUIDa17}
+
+
+\index{UUID@{UUID}!get_node@{get\_\-node}}
+\index{get_node@{get\_\-node}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-node ()}\label{classUUID_UUIDa16}
+
+
+\index{UUID@{UUID}!get_time@{get\_\-time}}
+\index{get_time@{get\_\-time}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-time ()}\label{classUUID_UUIDa14}
+
+
+\index{UUID@{UUID}!get_time_hi_version@{get\_\-time\_\-hi\_\-version}}
+\index{get_time_hi_version@{get\_\-time\_\-hi\_\-version}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-time\_\-hi\_\-version ()}\label{classUUID_UUIDa11}
+
+
+\index{UUID@{UUID}!get_time_low@{get\_\-time\_\-low}}
+\index{get_time_low@{get\_\-time\_\-low}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-time\_\-low ()}\label{classUUID_UUIDa9}
+
+
+\index{UUID@{UUID}!get_time_mid@{get\_\-time\_\-mid}}
+\index{get_time_mid@{get\_\-time\_\-mid}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-time\_\-mid ()}\label{classUUID_UUIDa10}
+
+
+\index{UUID@{UUID}!get_urn@{get\_\-urn}}
+\index{get_urn@{get\_\-urn}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-urn ()}\label{classUUID_UUIDa18}
+
+
+\index{UUID@{UUID}!get_variant@{get\_\-variant}}
+\index{get_variant@{get\_\-variant}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-variant ()}\label{classUUID_UUIDa19}
+
+
+\index{UUID@{UUID}!get_version@{get\_\-version}}
+\index{get_version@{get\_\-version}!UUID@{UUID}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}UUID::get\_\-version ()}\label{classUUID_UUIDa20}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf uuid.py}\end{CompactItemize}
