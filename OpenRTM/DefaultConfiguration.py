@@ -1,23 +1,33 @@
 #!/usr/bin/env python
 # -*- coding: euc-jp -*-
 
-"""
- \file DefaultConfiguration.py
- \brief RTC manager default configuration
- \date $Date: $
- \author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
+##
+# \file DefaultConfiguration.py
+# \brief RTC manager default configuration
+# \date $Date: $
+# \author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
+#
+# Copyright (C) 2006-2008
+#     Task-intelligence Research Group,
+#     Intelligent Systems Research Institute,
+#     National Institute of
+#         Advanced Industrial Science and Technology (AIST), Japan
+#     All rights reserved.
 
- Copyright (C) 2006
-     Task-intelligence Research Group,
-     Intelligent Systems Research Institute,
-     National Institute of
-         Advanced Industrial Science and Technology (AIST), Japan
-     All rights reserved.
-"""
 
 
 import OpenRTM
 
+##
+# @if jp
+# @brief Manager 用 デフォルト・コンフィギュレーション
+#
+# Managerクラス用デフォルトコンフィギュレーション。
+#
+# @since 0.4.0
+#
+# @else
+# @endif
 default_config =["config.version",         OpenRTM.openrtm_version,
                  "openrtm.version",        OpenRTM.openrtm_name,
                  "manager.name",           "manager",

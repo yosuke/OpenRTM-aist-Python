@@ -51,10 +51,9 @@ class SliderComp(OpenRTM.DataFlowComponentBase):
 
 
 	def onExecute(self, ec_id):
-		sl.update()
 		self._sl_data.data = sl.get()
 		self._slOut.write()
-#		time.sleep(0.01)
+		time.sleep(0.01)
 		return RTC.RTC_OK
 
 
@@ -78,7 +77,7 @@ def MyModuleInit(manager):
 
 def main():
 	# Initialize manager
-	mgr = OpenRTM.Manager.init(len(sys.argv), sys.argv)
+	mgr = OpenRTM.Manager.init(sys.argv)
 
 	# Set module initialization proceduer
 	# This procedure will be invoked in activateManager() function.
@@ -94,11 +93,6 @@ def main():
 	# If you want to run the manager in non-blocking mode, do like this
 	mgr.runManager(True)
 	sl.mainloop()
-#	import thread
-#	thread.start_new_thread(sl.mainloop, ())
-	mgr.runManager(False)
-
-
 
 if __name__ == "__main__":
 	main()

@@ -1,19 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: euc-jp -*-
 
-"""
- \file PortAdmin.py
- \brief RTC's Port administration class
- \date $Date: 2007/09/03 $
- \author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
-
- Copyright (C) 2006
-     Task-intelligence Research Group,
-     Intelligent Systems Research Institute,
-     National Institute of
-         Advanced Industrial Science and Technology (AIST), Japan
-     All rights reserved.
-"""
+##
+# @file PortAdmin.py
+# @brief RTC's Port administration class
+# @date $Date: 2007/09/03 $
+# @author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
+#
+# Copyright (C) 2006-2008
+#     Task-intelligence Research Group,
+#     Intelligent Systems Research Institute,
+#     National Institute of
+#         Advanced Industrial Science and Technology (AIST), Japan
+#     All rights reserved.
 
 import traceback
 import sys
@@ -22,217 +21,301 @@ import RTC, RTC__POA
 import OpenRTM
 
 
+
+##
+# @if jp
+# @class PortAdmin
+# @brief PortAdmin クラス
+#
+# 各種 Port の管理を行うクラス。
+# Port の登録/登録解除など各種管理操作を実行するとともに、登録されている
+# Port の管理を行うクラス。
+#
+# @since 0.4.0
+#
+# @else
+# @class PortAdmin
+# @brief PortAdmin class
+# @endif
 class PortAdmin:
-	class comp_op:
-		def __init__(self, name=None, factory=None):
-			if name != None:
-				self._name = name
-			if factory != None:
-				self._name = factory.getProfile().name
-
-		def __call__(self, obj):
-			name_ = obj.getProfile().name
-			return self._name == name_
-    
-
-	class find_port_name:
-		def __init__(self, name):
-			self._name = name
-
-		def __call__(self, p):
-			prof = p.get_port_profile()
-			name_ = prof.name 
-			return self._name == name_
+  """
+  """
 
 
-	class del_port:
-		def __init__(self, pa):
-			self._pa = pa
 
-		def __call__(self, p):
-			self._pa.deletePort(p)
+  ##
+  # @if jp
+  # @class comp_op
+  # @brief Port 管理用内部クラス
+  # @else
+  #
+  # @endif
+  class comp_op:
+    def __init__(self, name=None, factory=None):
+      if name:
+        self._name = name
+      if factory:
+        self._name = factory.getProfile().name
 
-
-	def __init__(self, orb, poa):
-		# ORB オブジェクト
-		self._orb = orb
-
-		# POA オブジェクト
-		self._poa = poa
-
-		# Portのオブジェクトリファレンスのリスト. PortList
-		self._portRefs = []
-
-		# サーバントを直接格納するオブジェクトマネージャ
-		self._portServants = OpenRTM.ObjectManager(self.comp_op)
+    def __call__(self, obj):
+      name_ = obj.getProfile().name
+      return self._name == name_
 
 
-	def getPortList(self):
-		"""
-		\if jp
-		\brief PortList の取得
+  ##
+  # @if jp
+  # @class find_port_name
+  # @brief Port 検索用ファンクタ
+  # @else
+  # @endif
+  class find_port_name:
+    def __init__(self, name):
+      self._name = name
 
-		registerPort() により登録された Port の PortList へのポインタを返す。
-		\return PortList PortList へのポインタ
-		\else
-		\brief Get PortList
-
-		This operation returns the pointer to the PortList of Ports regsitered
-		by registerPort().
-		\return PortList+ The pointer points PortList
-		\endif
-		"""
-		return self._portRefs
+    def __call__(self, p):
+      prof = p.get_port_profile()
+      name_ = prof.name 
+      return self._name == name_
 
 
-	def getPortRef(self, port_name):
-		"""
-		\if jp
-		\brief Port のオブジェクト参照の取得
+  ##
+  # @if jp
+  # @brief コンストラクタ
+  #
+  # コンストラクタ
+  #
+  # @param self
+  # @param orb ORB
+  # @param poa POA
+  #
+  # @else
+  # @brief Constructor
+  # @endif
+  def __init__(self, orb, poa):
+    # ORB オブジェクト
+    self._orb = orb
 
-		port_name で指定した Port のオブジェクト参照を返す。
-		port_name で指定する Port はあらかじめ registerPort() で登録されてい
-		なければならない。
-		\param port_name(string) 参照を返すPortの名前
-		\return Port_ptr Portのオブジェクト参照
-		\else
-		\brief Get PortList
+    # POA オブジェクト
+    self._poa = poa
 
-		This operation returns the pointer to the PortList of Ports regsitered
-		by registerPort().
-		\param port_name(string) The name of Port to be returned the reference.
-		\return Port_ptr Port's object reference.
-		\endif
-		"""
-		index = OpenRTM.CORBA_SeqUtil.find(self._portRefs, self.find_port_name(port_name))
-		if index >= 0:
-			return self._portRefs[index]
-		return None
+    # Portのオブジェクトリファレンスのリスト. PortList
+    self._portRefs = []
 
-
-	def getPort(self, port_name):
-		"""
-		\if jp
-		\brief Port のサーバントのポインタの取得
-
-		port_name で指定した Port のサーバントのポインタを返す。
-		port_name で指定する Port はあらかじめ registerPort() で登録されてい
-		なければならない。
-		\param port_name(string) 参照を返すPortの名前
-		\return PortBase Portサーバント基底クラスのポインタ
-		\else
-		\brief Getpointer to the Port's servant
-
-		This operation returns the pointer to the PortBase servant regsitered
-		by registerPort().
-		\param port_name(string) The name of Port to be returned the servant pointer.
-		\return PortBase Port's servant's pointer.
-		\endif
-		"""
-		return self._portServants.find(port_name)
+    # サーバントを直接格納するオブジェクトマネージャ
+    self._portServants = OpenRTM.ObjectManager(self.comp_op)
 
 
-	def registerPort(self, port):
-		"""
-		\if jp
-		\brief Port を登録する
-
-		引数 port で指定された Port のサーバントを登録する。
-		登録された Port のサーバントはコンストラクタで与えられたPOA 上で
-		activate され、そのオブジェクト参照はPortのProfileにセットされる。
-		\param port(OpenRTM.PortBase) Port サーバント
-		\else
-		\brief Regsiter Port
-
-		This operation registers the Port's servant given by argument.
-		The given Port's servant will be activated on the POA that is given
-		to the constructor, and the created object reference is set
-		to the Port's profile.
-		\param port(OpenRTM.PortBase) The Port's servant.
-		\endif
-		"""
-		self._portRefs.append(port.getPortRef())
-		self._portServants.registerObject(port)
-
-
-	def deletePort(self, port):
-		"""
-		\if jp
-		\brief Port の登録を削除する
-
-		引数 port で指定された Port の登録を削除する。
-		削除時に Port は deactivate され、PortのProfileのリファレンスには、
-		nil値が代入される。
-		\param port(OpenRTM.PortBase) Port サーバント
-		\else
-		\brief Delete the Port's registration
-
-		This operation unregisters the Port's registration.
-		When the Port is unregistered, Port is deactivated, and the object
-		reference in the Port's profile is set to nil.
-		\param port(OpenRTM.PortBase) The Port's servant.
-		\endif
-		"""
-		try:
-			port.disconnect_all()
-
-			tmp = port.getProfile().name
-			OpenRTM.CORBA_SeqUtil.erase_if(self._portRefs, self.find_port_name(tmp))
-
-			self._poa.deactivate_object(self._poa.servant_to_id(port))
-			port.setPortRef(RTC.Port._nil)
-
-			self._portServants.unregisterObject(tmp)
-		except:
-			traceback.print_exception(*sys.exc_info())
+  ##
+  # @if jp
+  #
+  # @brief Port リストの取得
+  #
+  # registerPort() により登録された Port の リストを取得する。
+  #
+  # @param self
+  #
+  # @return Port リスト
+  #
+  # @else
+  #
+  # @brief Get PortList
+  #
+  # This operation returns the pointer to the PortList of Ports regsitered
+  # by registerPort().
+  #
+  # @return PortList+ The pointer points PortList
+  #
+  # @endif
+  def getPortList(self):
+    return self._portRefs
 
 
-	def deletePortByName(self, port_name):
-		"""
-		\if jp
-		\brief Port の登録を削除する
+  ##
+  # @if jp
+  #
+  # @brief Port のオブジェクト参照の取得
+  #
+  # port_name で指定した Port のオブジェクト参照を返す。
+  # port_name で指定する Port はあらかじめ registerPort() で登録されてい
+  # なければならない。
+  #
+  # @param self
+  # @param port_name 参照を返すPortの名前
+  #
+  # @return Port_ptr Portのオブジェクト参照
+  #
+  # @else
+  #
+  # @brief Get PortList
+  #
+  # This operation returns the pointer to the PortList of Ports regsitered
+  # by registerPort().
+  #
+  # @param port_name The name of Port to be returned the reference.
+  #
+  # @return Port_ptr Port's object reference.
+  #
+  # @endif
+  def getPortRef(self, port_name):
+    index = OpenRTM.CORBA_SeqUtil.find(self._portRefs, self.find_port_name(port_name))
+    if index >= 0:
+      return self._portRefs[index]
+    return None
 
-		引数で指定された名前を持つ Port の登録を削除する。
-		削除時に Port は deactivate され、PortのProfileのリファレンスには、
-		nil値が代入される。
-		\param port_name(string) Port の名前
-		\else
-		\brief Delete the Port' registration
 
-		This operation delete the Port's registration specified by port_ name.
-		When the Port is unregistered, Port is deactivated, and the object
-		reference in the Port's profile is set to nil.
-		\param port_name(string) The Port's name.
-		\endif
-		"""
-		if not port_name:
-			return
+  ##
+  # @if jp
+  #
+  # @brief Port のサーバントのポインタの取得
+  #
+  # port_name で指定した Port のサーバントのポインタを返す。
+  # port_name で指定する Port はあらかじめ registerPort() で登録されてい
+  # なければならない。
+  #
+  # @param self
+  # @param port_name 参照を返すPortの名前
+  #
+  # @return PortBase* Portサーバント基底クラスのポインタ
+  #
+  # @else
+  #
+  # @brief Getpointer to the Port's servant
+  #
+  # This operation returns the pointer to the PortBase servant regsitered
+  # by registerPort().
+  #
+  # @param port_name The name of Port to be returned the servant pointer.
+  #
+  # @return PortBase* Port's servant's pointer.
+  #
+  # @endif
+  def getPort(self, port_name):
+    return self._portServants.find(port_name)
 
-		p = self._portServants.find(port_name)
-		self.deletePort(p)
+
+  ##
+  # @if jp
+  #
+  # @brief Port を登録する
+  #
+  # 引数 port で指定された Port のサーバントを登録する。
+  # 登録された Port のサーバントはコンストラクタで与えられたPOA 上で
+  # activate され、そのオブジェクト参照はPortのProfileにセットされる。
+  #
+  # @param self
+  # @param port Port サーバント
+  #
+  # @else
+  #
+  # @brief Regsiter Port
+  #
+  # This operation registers the Port's servant given by argument.
+  # The given Port's servant will be activated on the POA that is given
+  # to the constructor, and the created object reference is set
+  # to the Port's profile.
+  #
+  # @param port The Port's servant.
+  #
+  # @endif
+  def registerPort(self, port):
+    self._portRefs.append(port.getPortRef())
+    self._portServants.registerObject(port)
 
 
-	def finalizePorts(self):
-		"""
-		\if jp
-		\brief 全ての Port をdeactivateし登録を削除する
+  ##
+  # @if jp
+  #
+  # @brief Port の登録を解除する
+  #
+  # 引数 port で指定された Port の登録を解除する。
+  # 削除時に Port は deactivate され、PortのProfileのリファレンスには、
+  # nil値が代入される。
+  #
+  # @param self
+  # @param port Port サーバント
+  #
+  # @else
+  #
+  # @brief Delete the Port's registration
+  #
+  # This operation unregisters the Port's registration.
+  # When the Port is unregistered, Port is deactivated, and the object
+  # reference in the Port's profile is set to nil.
+  #
+  # @param port The Port's servant.
+  #
+  # @endif
+  def deletePort(self, port):
+    try:
+      port.disconnect_all()
 
-		登録されている全てのPortに対して、サーバントのdeactivateを行い、
-		登録リストから削除する。
-		\else
-		\brief Unregister the Port
+      tmp = port.getProfile().name
+      OpenRTM.CORBA_SeqUtil.erase_if(self._portRefs, self.find_port_name(tmp))
 
-		This operation deactivates the all Port and deletes the all Port's
-		registrations from the list.
-		\endif
-		"""
-		ports = []
-		ports = self._portServants.getObjects()
-		len_ = len(ports)
-		predi = self.del_port(self)
-		for i in range(len_):
-			idx = (len_ - 1) - i
-			predi(ports[idx])
-			
+      self._poa.deactivate_object(self._poa.servant_to_id(port))
+      port.setPortRef(RTC.Port._nil)
+
+      self._portServants.unregisterObject(tmp)
+    except:
+      traceback.print_exception(*sys.exc_info())
+
+
+  ##
+  # @if jp
+  #
+  # @brief 名称指定によりPort の登録を解除する
+  #
+  # 引数で指定された名前を持つ Port の登録を削除する。
+  # 削除時に Port は deactivate され、PortのProfileのリファレンスには、
+  # nil値が代入される。
+  #
+  # @param self
+  # @param port_name Port の名前
+  #
+  # @else
+  #
+  # @brief Delete the Port' registration
+  #
+  # This operation delete the Port's registration specified by port_ name.
+  # When the Port is unregistered, Port is deactivated, and the object
+  # reference in the Port's profile is set to nil.
+  #
+  # @param port_name The Port's name.
+  #
+  # @endif
+  def deletePortByName(self, port_name):
+    if not port_name:
+      return
+
+    p = self._portServants.find(port_name)
+    self.deletePort(p)
+
+
+  ##
+  # @if jp
+  #
+  # @brief 全ての Port をdeactivateし登録を削除する
+  #
+  # 登録されている全てのPortに対して、サーバントのdeactivateを行い、
+  # 登録リストから削除する。
+  #
+  # @param self
+  #
+  # @else
+  #
+  # @brief Unregister the Port
+  #
+  # This operation deactivates the all Port and deletes the all Port's
+  # registrations from the list.
+  #
+  # @endif
+  def finalizePorts(self):
+    ports = []
+    ports = self._portServants.getObjects()
+    len_ = len(ports)
+    for i in range(len_):
+      idx = (len_ - 1) - i
+      self.deletePort(ports[idx])
+
 
 

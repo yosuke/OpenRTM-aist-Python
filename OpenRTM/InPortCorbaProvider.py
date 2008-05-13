@@ -2,20 +2,19 @@
 # -*- coding: euc-jp -*-
 
 
-"""
-  \file  InPortCorbaProvider.py
-  \brief InPortCorbaProvider class
-  \date  $Date: 2007/09/25 $
-  \author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
- 
-  Copyright (C) 2006
-      Noriaki Ando
-      Task-intelligence Research Group,
-      Intelligent Systems Research Institute,
-      National Institute of
-          Advanced Industrial Science and Technology (AIST), Japan
-      All rights reserved.
-"""
+##
+# @file  InPortCorbaProvider.py
+# @brief InPortCorbaProvider class
+# @date  $Date: 2007/09/25 $
+# @author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
+#
+# Copyright (C) 2006-2008
+#     Noriaki Ando
+#     Task-intelligence Research Group,
+#     Intelligent Systems Research Institute,
+#     National Institute of
+#         Advanced Industrial Science and Technology (AIST), Japan
+#     All rights reserved.
  
 
 from  omniORB import any
@@ -26,76 +25,98 @@ import OpenRTM
 import RTC,RTC__POA
 
 
-
+##
+# @if jp
+# @class InPortCorbaProvider
+# @brief InPortCorbaProvider クラス
+#
+# 通信手段に CORBA を利用した入力ポートプロバイダーの実装クラス。
+#
+# @since 0.4.0
+#
+# @else
+# @class InPortCorbaProvider
+# @brief InPortCorbaProvider class
+# @endif
 class InPortCorbaProvider(OpenRTM.InPortProvider, RTC__POA.InPortAny):
-	"""
-	\if jp
-	\class InPortCorbaProvider
-	\brief InPortCorbaProvider クラス
-	\else
-	\class InPortCorbaProvider
-	\brief InPortCorbaProvider class
-	\endif
-	"""
+  """
+  """
 
 
-	def __init__(self, buffer_):
-		"""
-		\if jp
-		\brief コンストラクタ
-		このクラスのインスタンス生成時には、ポートオブジェクトを
-		引数のbuffer_として渡す必要がある。
-		\param buffer_(OpenRTM.BufferBase)
-		\else
-		\brief Constructor
-		\param buffer_(OpenRTM.BufferBase)
-		\endif
-		"""
-		OpenRTM.InPortProvider.__init__(self)
-		self._buffer = buffer_
 
-		# PortProfile setting
-		self.setDataType(self._buffer.getPortDataType())
-		self.setInterfaceType("CORBA_Any")
-		self.setDataFlowType("Push, Pull")
-		self.setSubscriptionType("Any")
+  ##
+  # @if jp
+  # @brief コンストラクタ
+  #
+  # コンストラクタ
+  # ポートプロパティに以下の項目を設定する。
+  #  - インターフェースタイプ : CORBA_Any
+  #  - データフロータイプ : Push, Pull
+  #  - サブスクリプションタイプ : Any
+  #
+  # @param self
+  # @param buffer_ 当該プロバイダに割り当てるバッファオブジェクト
+  #
+  # @else
+  # @brief Constructor
+  # @endif
+  def __init__(self, buffer_):
+    OpenRTM.InPortProvider.__init__(self)
+    self._buffer = buffer_
 
-		# ConnectorProfile setting
-		self._objref = self._this()
+    # PortProfile setting
+    self.setDataType(self._buffer.getPortDataType())
+    self.setInterfaceType("CORBA_Any")
+    self.setDataFlowType("Push, Pull")
+    self.setSubscriptionType("Any")
 
-
-	# prop : SDOPackage.NameValueのリスト
-	def publishInterface(self, prop):
-		"""
-		 \brief publish interface
-		 \param prop(SDOPackage::NameValueのリスト)
-		"""
-		if not OpenRTM.NVUtil.isStringValue(prop,
-						    "dataport.interface_type",
-						    "CORBA_Any"):
-			return
-
-		nv = self._properties
-		OpenRTM.CORBA_SeqUtil.push_back(nv,
-						OpenRTM.NVUtil.newNV("dataport.corba_any.inport_ref",
-								     self._objref))
-		OpenRTM.NVUtil.append(prop, nv)
+    # ConnectorProfile setting
+    self._objref = self._this()
 
 
-	def __del__(self):
-		pass
+  ##
+  # @if jp
+  # @brief Interface情報を公開する
+  #
+  # Interface情報を公開する。
+  #
+  # @param self
+  # @param prop Interface情報を受け取るプロパティ
+  #
+  # @else
+  #
+  # @endif
+  def publishInterface(self, prop):
+    if not OpenRTM.NVUtil.isStringValue(prop,
+                "dataport.interface_type",
+                "CORBA_Any"):
+      return
+
+    nv = self._properties
+    OpenRTM.CORBA_SeqUtil.push_back(nv,
+            OpenRTM.NVUtil.newNV("dataport.corba_any.inport_ref",
+                     self._objref))
+    OpenRTM.NVUtil.append(prop, nv)
 
 
-	def put(self, data):
-		"""
-		 \brief put オペレーションの実装
-		 \param data(CORBA::Any)
-		"""
-		try:
-			tmp = any.from_any(data, keep_structs=True)
-			self._buffer.write(tmp)
-		except:
-			traceback.print_exception(*sys.exc_info())
-			return
+  ##
+  # @if jp
+  # @brief バッファにデータを書き込む
+  #
+  # 設定されたバッファにデータを書き込む。
+  #
+  # @param self
+  # @param data 書込対象データ
+  #
+  # @else
+  #
+  # @endif
+  def put(self, data):
+    try:
+      tmp = any.from_any(data, keep_structs=True)
+      self._buffer.write(tmp)
+    except:
+      traceback.print_exception(*sys.exc_info())
+      return
 
-		return
+    return

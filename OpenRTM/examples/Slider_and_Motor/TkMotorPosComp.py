@@ -83,7 +83,7 @@ def MyModuleInit(manager):
 
 def main():
 	# Initialize manager
-	mgr = OpenRTM.Manager.init(len(sys.argv), sys.argv)
+	mgr = OpenRTM.Manager.init(sys.argv)
 
 	# Set module initialization proceduer
 	# This procedure will be invoked in activateManager() function.
@@ -99,8 +99,6 @@ def main():
 	# If you want to run the manager in non-blocking mode, do like this
 	mgr.runManager(True)
 	tkm.mainloop()
-
-	mgr.runManager(False)
 
 if __name__ == "__main__":
 	main()

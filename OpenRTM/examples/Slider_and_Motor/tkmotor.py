@@ -24,7 +24,6 @@ class TkMotor(Frame):
 		self.can.pack()
 		self.circ = []
 		self.line = []
-		self.text = []
 		self.x = []
 		self.y = []
 		self.x1 = []
@@ -37,7 +36,6 @@ class TkMotor(Frame):
 		self.sy2 = []
 		
 		for i in xrange(self.num):
-			self.text.append("0.0")
 			self.x.append(self.r * self.space / 2 * (i+0.5) * 2)
 			self.y.append(self.r * self.space / 2)
 			self.x1.append(self.x[i] - self.r)
@@ -66,17 +64,12 @@ class TkMotor(Frame):
 		if len(angle) != self.num: return
 		i = 0
 		for a in angle:
-			deg = a % 360
-			rad = (deg * math.pi / 180)
+			a = a * math.pi / 180
 			self.can.delete(self.line[i])
 			self.line[i] = self.can.create_line(self.x[i], self.y[i],
-								 self.x[i] + self.r * math.cos(rad),
-								 self.y[i] + self.r * math.sin(rad),
+								 self.x[i] + self.r * math.cos(a),
+								 self.y[i] + self.r * math.sin(a),
 								  fill="#700040", width=5)
-			self.can.delete(self.text[i])
-			t = '%6.2f deg' % deg
-			self.text[i] = self.can.create_text(self.x[i], self.y[i]+50, text=t)
-			
 			i = i + 1
 
 

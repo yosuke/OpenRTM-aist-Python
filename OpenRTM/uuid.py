@@ -1,99 +1,37 @@
-r"""UUID objects (universally unique identifiers) according to RFC 4122.
+#!/usr/bin/env python
+# -*- coding: euc-jp -*-
 
-This module provides immutable UUID objects (class UUID) and the functions
-uuid1(), uuid3(), uuid4(), uuid5() for generating version 1, 3, 4, and 5
-UUIDs as specified in RFC 4122.
+##
+# @file uuid.py
+# @brief 
+# @date $Date: 2006/06/12 $
+# @author Ka-Ping Yee <ping@zesty.ca>
+#
+# Copyright (C) 2008
+#     Task-intelligence Research Group,
+#     Intelligent Systems Research Institute,
+#     National Institute of
+#         Advanced Industrial Science and Technology (AIST), Japan
+#     All rights reserved.
 
-If all you want is a unique ID, you should probably call uuid1() or uuid4().
-Note that uuid1() may compromise privacy since it creates a UUID containing
-the computer's network address.  uuid4() creates a random UUID.
-
-Typical usage:
-
-    >>> import uuid
-
-    # make a UUID based on the host ID and current time
-    >>> uuid.uuid1()
-    UUID('a8098c1a-f86e-11da-bd1a-00112444be1e')
-
-    # make a UUID using an MD5 hash of a namespace UUID and a name
-    >>> uuid.uuid3(uuid.NAMESPACE_DNS, 'python.org')
-    UUID('6fa459ea-ee8a-3ca4-894e-db77e160355e')
-
-    # make a random UUID
-    >>> uuid.uuid4()
-    UUID('16fd2706-8baf-433b-82eb-8c7fada847da')
-
-    # make a UUID using a SHA-1 hash of a namespace UUID and a name
-    >>> uuid.uuid5(uuid.NAMESPACE_DNS, 'python.org')
-    UUID('886313e1-3b8a-5372-9b90-0c9aee199e5d')
-
-    # make a UUID from a string of hex digits (braces and hyphens ignored)
-    >>> x = uuid.UUID('{00010203-0405-0607-0809-0a0b0c0d0e0f}')
-
-    # convert a UUID to a string of hex digits in standard form
-    >>> str(x)
-    '00010203-0405-0607-0809-0a0b0c0d0e0f'
-
-    # get the raw 16 bytes of the UUID
-    >>> x.bytes
-    '\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f'
-
-    # make a UUID from a 16-byte string
-    >>> uuid.UUID(bytes=x.bytes)
-    UUID('00010203-0405-0607-0809-0a0b0c0d0e0f')
-
-This module works with Python 2.3 or higher."""
-
-__author__ = 'Ka-Ping Yee <ping@zesty.ca>'
-__date__ = '$Date: 2006/06/12 23:15:40 $'.split()[1].replace('/', '-')
-__version__ = '$Revision: 1.30 $'.split()[1]
 
 RESERVED_NCS, RFC_4122, RESERVED_MICROSOFT, RESERVED_FUTURE = [
     'reserved for NCS compatibility', 'specified in RFC 4122',
     'reserved for Microsoft compatibility', 'reserved for future definition']
 
+##
+# @if jp
+# @class UUID
+# @brief UUID保持クラス
+# 
+# 生成した UUID の情報を保持するためのクラス。
+#
+# @since 0.4.0
+#
+# @else
+#
+# @endif
 class UUID(object):
-    """Instances of the UUID class represent UUIDs as specified in RFC 4122.
-    UUID objects are immutable, hashable, and usable as dictionary keys.
-    Converting a UUID to a string with str() yields something in the form
-    '12345678-1234-1234-1234-123456789abc'.  The UUID constructor accepts
-    four possible forms: a similar string of hexadecimal digits, or a
-    string of 16 raw bytes as an argument named 'bytes', or a tuple of
-    six integer fields (with 32-bit, 16-bit, 16-bit, 8-bit, 8-bit, and
-    48-bit values respectively) as an argument named 'fields', or a single
-    128-bit integer as an argument named 'int'.
-    
-    UUIDs have these read-only attributes:
-
-        bytes       the UUID as a 16-byte string
-
-        fields      a tuple of the six integer fields of the UUID,
-                    which are also available as six individual attributes
-                    and two derived attributes:
-
-            time_low                the first 32 bits of the UUID
-            time_mid                the next 16 bits of the UUID
-            time_hi_version         the next 16 bits of the UUID
-            clock_seq_hi_variant    the next 8 bits of the UUID
-            clock_seq_low           the next 8 bits of the UUID
-            node                    the last 48 bits of the UUID
-
-            time                    the 60-bit timestamp
-            clock_seq               the 14-bit sequence number
-
-        hex         the UUID as a 32-character hexadecimal string
-
-        int         the UUID as a 128-bit integer
-
-        urn         the UUID as a URN as specified in RFC 4122
-
-        variant     the UUID variant (one of the constants RESERVED_NCS,
-                    RFC_4122, RESERVED_MICROSOFT, or RESERVED_FUTURE)
-
-        version     the UUID version number (1 through 5, meaningful only
-                    when the variant is RFC_4122)
-    """
 
     def __init__(self, hex=None, bytes=None, fields=None, int=None,
                        version=None):
@@ -121,17 +59,17 @@ class UUID(object):
 
         if [hex, bytes, fields, int].count(None) != 3:
             raise TypeError('need just one of hex, bytes, fields, or int')
-        if hex is not None:
+        if hex:
             hex = hex.replace('urn:', '').replace('uuid:', '')
             hex = hex.strip('{}').replace('-', '')
             if len(hex) != 32:
                 raise ValueError('badly formed hexadecimal UUID string')
             int = long(hex, 16)
-        if bytes is not None:
+        if bytes:
             if len(bytes) != 16:
                 raise ValueError('bytes is not a 16-char string')
             int = long(('%02x'*16) % tuple(map(ord, bytes)), 16)
-        if fields is not None:
+        if fields:
             if len(fields) != 6:
                 raise ValueError('fields is not a 6-tuple')
             (time_low, time_mid, time_hi_version,
@@ -151,10 +89,10 @@ class UUID(object):
             clock_seq = (clock_seq_hi_variant << 8L) | clock_seq_low
             int = ((time_low << 96L) | (time_mid << 80L) |
                    (time_hi_version << 64L) | (clock_seq << 48L) | node)
-        if int is not None:
+        if int:
             if not 0 <= int < 1<<128L:
                 raise ValueError('int is out of range (need a 128-bit value)')
-        if version is not None:
+        if version:
             if not 1 <= version <= 5:
                 raise ValueError('illegal version number')
             # Set the variant to RFC 4122.
@@ -391,7 +329,7 @@ def getnode():
     48-bit number with its eighth bit set to 1 as recommended in RFC 4122."""
 
     global _node
-    if _node is not None:
+    if _node:
         return _node
 
     import sys
@@ -405,7 +343,7 @@ def getnode():
             _node = getter()
         except:
             continue
-        if _node is not None:
+        if _node:
             return _node
 
 def uuid1(node=None, clock_seq=None):

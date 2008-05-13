@@ -21,7 +21,7 @@ from ExecutionContextBase import *
 from StateMachine import *
 from PeriodicExecutionContext import *
 import CORBA_SeqUtil
-import CORBA_SeqEx
+#import CORBA_SeqEx
 import NVUtil
 from PortAdmin import *
 from ConfigAdmin import *

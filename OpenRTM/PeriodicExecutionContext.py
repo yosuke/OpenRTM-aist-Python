@@ -1,19 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: euc-jp -*-
 
-"""
- \file PeriodicExecutionContext.py
- \brief PeriodicExecutionContext class
- \date $Date: 2007/08/29$
- \author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
-
- Copyright (C) 2006
-     Task-intelligence Research Group,
-     Intelligent Systems Research Institute,
-     National Institute of
-         Advanced Industrial Science and Technology (AIST), Japan
-     All rights reserved.
-"""
+##
+# @file PeriodicExecutionContext.py
+# @brief PeriodicExecutionContext class
+# @date $Date: 2007/08/29$
+# @author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
+#
+# Copyright (C) 2006-2008
+#     Task-intelligence Research Group,
+#     Intelligent Systems Research Institute,
+#     National Institute of
+#         Advanced Industrial Science and Technology (AIST), Japan
+#     All rights reserved.
 
 
 import copy
@@ -24,490 +23,891 @@ from omniORB import CORBA, PortableServer
 import OpenRTM
 import RTC, RTC__POA
 
+##
+# @if jp
+# @class PeriodicExecutionContext
+# @brief PeriodicExecutionContext クラス
+#
+# Periodic Sampled Data Processing(周期実行用)ExecutionContextクラス。
+#
+# @since 0.4.0
+#
+# @else
+# @class PeriodicExecutionContext
+# @brief PeriodicExecutionContext class
+# @endif
 class PeriodicExecutionContext(OpenRTM.ExecutionContextBase):
-
-	class DFP:
-		def __init__(self, obj, id_):
-			"""
-			 \param obj(Object)
-			 \param id_(long)
-			"""
-			self._obj = obj
-			self._active = True
-			self.ec_id = id_
-			self._sm = OpenRTM.StateMachine(3)
-			self._sm.setListener(self)
-			self._sm.setEntryAction (RTC.ACTIVE_STATE,
-									 self.on_activated)
-			self._sm.setDoAction    (RTC.ACTIVE_STATE,
-									 self.on_execute)
-			self._sm.setPostDoAction(RTC.ACTIVE_STATE,
-									 self.on_state_update)
-			self._sm.setExitAction  (RTC.ACTIVE_STATE,
-									 self.on_deactivated)
-			self._sm.setEntryAction (RTC.ERROR_STATE,
-									 self.on_aborting)
-			self._sm.setDoAction    (RTC.ERROR_STATE,
-									 self.on_error)
-			self._sm.setExitAction  (RTC.ERROR_STATE,
-									 self.on_reset)
-			st = OpenRTM.StateHolder()
-			st.prev = RTC.INACTIVE_STATE
-			st.curr = RTC.INACTIVE_STATE
-			st.next = RTC.INACTIVE_STATE
-			self._sm.setStartState(st)
-			self._sm.goTo(RTC.INACTIVE_STATE)
-
-
-		def __del__(self):
-			pass
-
-		def on_startup(self):
-			return self._obj.on_startup(self.ec_id)
-
-		def on_shutdown(self):
-			return self._obj.on_shutdown(self.ec_id)
-
-		def on_activated(self, st):
-			"""
-			 \param st(list of OpenRTM.StateMachine.Stateholder)
-			"""
-			if self._obj.on_activated(self.ec_id) != RTC.RTC_OK:
-				self._sm.goTo(RTC.ERROR_STATE)
-				return
-			return
-
-		def on_deactivated(self, st):
-			"""
-			 \param st(list of OpenRTM.StateMachine.Stateholder)
-			"""
-			self._obj.on_deactivated(self.ec_id)
-
-		def on_aborting(self, st):
-			"""
-			 \param st(list of OpenRTM.StateMachine.Stateholder)
-			"""
-			self._obj.on_aborting(self.ec_id)
-
-		def on_error(self, st):
-			"""
-			 \param st(list of OpenRTM.StateMachine.Stateholder)
-			"""
-			self._obj.on_error(self.ec_id)
-
-		def on_reset(self, st):
-			"""
-			 \param st(list of OpenRTM.StateMachine.Stateholder)
-			"""
-			if self._obj.on_reset(self.ec_id) != RTC.RTC_OK:
-				self._sm.goTo(RTC.ERROR_STATE)
-				return
-			return
-
-		def on_execute(self, st):
-			"""
-			 \param st(list of OpenRTM.StateMachine.Stateholder)
-			"""
-			if self._obj.on_execute(self.ec_id) != RTC.RTC_OK:
-				self._sm.goTo(RTC.ERROR_STATE)
-				return
-			return
-
-		def on_state_update(self, st):
-			"""
-			 \param st(list of OpenRTM.StateMachine.Stateholder)
-			"""
-			if self._obj.on_state_update(self.ec_id) != RTC.RTC_OK:
-				self._sm.goTo(RTC.ERROR_STATE)
-				return
-			return
-
-		def on_rate_changed(self):
-			self._obj.on_rate_changed(self.ec_id)
-
-		def worker(self):
-			return self._sm.worker()
-
-		def get_state(self):
-			return self._sm.getState()
-
-
-
-	def __init__(self, owner=None, rate=None):
-		"""
-		 \param owner(RTC.DataFlowComponent)
-		 \param rate(float)
-		"""
-		self._nowait = False
-		self._running = False
-
-		if rate == None:
-			self._rate = 1000.0
-			rate_ = 0.0
-			self._usec = long(0)
-		else:
-			self._rate = rate
-			rate_ = rate
-			if rate == 0:
-				rate_ = 0.0000001
-			self._usec = long(1000000/rate_)
-			if self._usec == 0:
-				self._nowait = True
-		self._comps = []
-		self._profile = RTC.ExecutionContextProfile(RTC.PERIODIC, rate_, None, [], [])
-		self._ref = self._this()
-		self._thread = threading.Thread(target=self.run)
-
-	def __del__(self):
-		pass
-    
-	def getRef(self):
-		return self._ref
-
-
-	def run(self):
-		"""
-		\if jp
-		\brief コンポーネントのアクティビティスレッド関数
-
-		コンポーネントの内部アクティビティスレッドの実行関数。
-		これは ACE_Task サービスクラスメソッドのオーバーライド。
-
-		\else
-
-		\brief Create internal activity thread
-
-		Run by a daemon thread to handle deferred processing.
-		ACE_Task class method override.
-
-		\endif
-		"""
-		flag = True
-
-		worker = self.invoke_worker()
-
-		while flag:
-			sec_ = float(self._usec)/1000000.0
-			for comp in self._comps:
-				worker(comp)
-
-			#while not self._running:
-				#time.sleep(sec_)
-			if not self._nowait:
-				time.sleep(sec_)
-
-			flag = self._running
-
-		return 0
-
-
-	def close(self, flags):
-		"""
-		\if jp
-		\brief コンポーネントのアクティビティスレッド終了関数
-		   コンポーネントの内部アクティビティスレッド終了時に呼ばれる。
-		   コンポーネントオブジェクトの非アクティブ化、マネージャへの通知を行う。
-		   これは ACE_Task サービスクラスメソッドのオーバーライド。
-		\param flags(long)
-		\else
-		\brief Close activity thread
-		   close() method is called when activity thread svc() is returned.
-		   This method deactivate this object and notify it to manager.
-		   ACE_Task class method override.
-		\endif
-		"""
-		return 0
-
-
-	def is_running(self):
-		"""
-		\if jp
-		\brief ExecutionContext が実行中かどうかのテスト
-		\else
-		\brief Test for ExecutionContext running state
-		\endif
-		"""
-		return self._running
-
-
-	def start(self):
-		"""
-		\if jp
-		\brief ExecutionContext をスタートさせる
-		\else
-		\brief Start the ExecutionContext
-		\endif
-		"""
-		if self._running:
-			return RTC.PRECONDITION_NOT_MET
-
-		startup = self.invoke_on_startup()
-		for comp in self._comps:
-			startup(comp)
-
-		self._running = True
-		self._thread.start()
-
-		return RTC.RTC_OK
-
-
-	def stop(self):
-		"""
-		\if jp
-		\brief ExecutionContext をストップさせる
-		\else
-		\brief Stop the ExecutionContext
-		\endif
-		"""
-		if not self._running:
-			return RTC.PRECONDITION_NOT_MET
-
-		shutdown = self.invoke_on_shutdown()
-		for comp in self._comps:
-			shutdown(comp)
-
-		self._running = False
-
-		return RTC.RTC_OK
-
-	def get_rate(self):
-		"""
-		\if jp
-		\brief 実行周期(Hz)を取得する
-		\else
-		\brief Get executionrate(Hz)
-		\endif
-		"""
-		return self._profile.rate
-
-
-	def set_rate(self, rate):
-		"""
-		\if jp
-		\brief 実行周期(Hz)を与える 
-		\param rate(float)
-		\else
-		\brief Set rate (Hz)
-		\param rate(float)
-		\endif
-		"""
-		if rate > 0.0:
-			self._profile.rate = rate
-			self._usec = long(1000000/rate)
-			rate_changed = self.invoke_on_rate_changed()
-			for comp in self._comps:
-				rate_changed(comp)
-			return RTC.RTC_OK
-		return RTC.BAD_PARAMETER
-
-
-	def activate_component(self, comp):
-		"""
-		\if jp
-		\brief コンポーネントをアクティブ化する
-		\param comp(RTC.LightweightRTObject)
-		\else
-		\brief Activate a component
-		\param comp(RTC.LightweightRTObject)
-		\endif
-		"""
-		predi = self.find_comp(comp)
-
-		for comp in self._comps:
-			if predi(comp):
-				if not comp._sm._sm.isIn(RTC.INACTIVE_STATE):
-					return RTC.PRECONDITION_NOT_MET
-				comp._sm._sm.goTo(RTC.ACTIVE_STATE)
-				return RTC.RTC_OK
-
-		return RTC.BAD_PARAMETER
-
-
-	def deactivate_component(self, comp):
-		"""
-		\if jp
-		\brief コンポーネントを非アクティブ化する
-		\param comp(RTC.LightweightRTObject)
-		\else
-		\brief Deactivate a component
-		\param comp(RTC.LightweightRTObject)
-		\endif
-		"""
-		predi = self.find_comp(comp)
-
-		for comp in self._comps:
-			if predi(comp):
-				if not comp._sm._sm.isIn(RTC.ACTIVE_STATE):
-					return RTC.PRECONDITION_NOT_MET
-				comp._sm._sm.goTo(RTC.INACTIVE_STATE)
-				return RTC.RTC_OK
-
-		return RTC.BAD_PARAMETER
-
-
-	def reset_component(self, comp):
-		"""
-		\if jp
-		\brief コンポーネントをリセットする。
-		\param comp(RTC.LightweightRTObject)
-		\else
-		\brief reset a component
-		\param comp(RTC.LightweightRTObject)
-		\endif
-		"""
-		predi = self.find_comp(comp)
-
-		for comp in self._comps:
-			if predi(comp):
-				if not comp._sm._sm.isIn(RTC.ERROR_STATE):
-					return RTC.PRECONDITION_NOT_MET
-				comp._sm._sm.goTo(RTC.INACTIVE_STATE)
-				return RTC.RTC_OK
-
-		return RTC.BAD_PARAMETER
-
-
-	def get_component_state(self, comp):
-		"""
-		\if jp
-		\brief コンポーネントの状態を取得する
-		\param comp(RTC.LightweightRTObject)
-		\else
-		\brief Get component's state
-		\param comp(RTC.LightweightRTObject)
-		\endif
-		"""
-		predi = self.find_comp(comp)
-		for comp in self._comps:
-			if predi(comp):
-				return comp._sm._sm.getState()
-
-		return RTC.UNKNOWN_STATE
-
-
-	def get_kind(self):
-		"""
-		\if jp
-		\brief ExecutionKind を取得する
-		\else
-		\brief Get the ExecutionKind
-		\endif
-		"""
-		return self._profile.kind
-
-
-	def add(self, comp):
-		"""
-		\if jp
-		\brief コンポーネントを追加する
-		\param comp(RTC.LightweightRTObject)
-		\else
-		\brief Add a component
-		\param comp(RTC.LightweightRTObject)
-		\endif
-		"""
-		if CORBA.is_nil(comp):
-			return RTC.BAD_PARAMETER
-		try:
-			dfp_  = comp._narrow(RTC.DataFlowComponent)
-			id_   = dfp_.attach_executioncontext(self._ref)
-			comp_ = self.Comp(ref=comp, dfp=dfp_, id=id_)
-			self._comps.append(comp_)
-			return RTC.RTC_OK
-		except CORBA.Exception:
-			return RTC.BAD_PARAMETER
-
-		return RTC.RTC_OK
-
-
-	def remove(self, comp):
-		"""
-		\if jp
-		\brief コンポーネントをコンポーネントリストから削除する
-		\param comp(RTC.LightweightRTObject)
-		\else
-		\brief Remove the component from component list
-		\param comp(RTC.LightweightRTObject)
-		\endif
-		"""
-		predi = self.find_comp(comp)
-		len_ = len(self._comps)
-		for i in range(len_):
-			idx = (len_ - 1) - i
-			if predi(self._comps[idx]):
-				self._comps[idx]._ref.detach_executioncontext(self._comps[idx]._sm.ec_id)
-				del self._comps[idx]
-				return RTC.RTC_OK
-
-		return RTC.BAD_PARAMETER
-
-
-	def get_profile(self):
-		"""
-		\if jp
-		\brief ExecutionContextProfile を取得する
-		\else
-		\brief Get the ExecutionContextProfile
-		\endif
-		"""
-		p = RTC.ExecutionContextProfile(self._profile.kind,
-										self._profile.rate,
-										self._profile.owner,
-										self._profile.participants,
-										self._profile.properties)
-		return p
-	
-
-	class Comp:
-		def __init__(self, ref=None, dfp=None, id=None, comp=None):
-			if comp == None:
-				self._ref = ref
-				self._sm = PeriodicExecutionContext.DFP(dfp,id)
-			else:
-				self._ref = comp._ref
-				self._sm  = PeriodicExecutionContext.DFP(comp._sm._obj,comp._sm.ec_id)
-
-
-
-	class find_comp:
-		def __init__(self, comp):
-			self._comp = comp
-		
-		def __call__(self, comp):
-			retval = comp._ref._is_equivalent(self._comp)
-			return retval
-
-	class invoke_on_startup:
-		def __init__(self):
-			pass
-
-		def __call__(self, comp):
-			comp._sm.on_startup()
-
-	class invoke_on_shutdown:
-		def __init__(self):
-			pass
-		
-		def __call__(self, comp):
-			comp._sm.on_shutdown()
-
-	class invoke_on_rate_changed:
-		def __init__(self):
-			pass
-
-		def __call__(self, comp):
-			comp._sm.on_rate_changed()
-
-	class invoke_worker:
-		def __init__(self):
-			pass
-
-		def __call__(self, comp):
-			comp._sm.worker()
-
-
-
+  """
+  """
+
+
+
+  ##
+  # @if jp
+  # @class DFP
+  # @brief DFP クラス
+  #
+  # 参加者リストに登録された DataFlowParticipant の関数を起動するための
+  # 内部クラス。
+  #
+  # @param Object 管理対象コンポーネントの型
+  #
+  # @else
+  #
+  # @endif
+  class DFP:
+
+
+
+    ##
+    # @if jp
+    # @brief デフォルトコンストラクタ
+    #
+    # デフォルトコンストラクタ
+    #
+    # @param self
+    # @param obj 管理対象コンポーネント
+    # @param id_ 所属する ExecutionContext のID
+    #
+    # @else
+    # @brief Constructor
+    # @endif
+    def __init__(self, obj, id_):
+      self._obj = obj
+      self._active = True
+      self.ec_id = id_
+      self._sm = OpenRTM.StateMachine(3)
+      self._sm.setListener(self)
+      self._sm.setEntryAction (RTC.ACTIVE_STATE,
+                   self.on_activated)
+      self._sm.setDoAction    (RTC.ACTIVE_STATE,
+                   self.on_execute)
+      self._sm.setPostDoAction(RTC.ACTIVE_STATE,
+                   self.on_state_update)
+      self._sm.setExitAction  (RTC.ACTIVE_STATE,
+                   self.on_deactivated)
+      self._sm.setEntryAction (RTC.ERROR_STATE,
+                   self.on_aborting)
+      self._sm.setDoAction    (RTC.ERROR_STATE,
+                   self.on_error)
+      self._sm.setExitAction  (RTC.ERROR_STATE,
+                   self.on_reset)
+      st = OpenRTM.StateHolder()
+      st.prev = RTC.INACTIVE_STATE
+      st.curr = RTC.INACTIVE_STATE
+      st.next = RTC.INACTIVE_STATE
+      self._sm.setStartState(st)
+      self._sm.goTo(RTC.INACTIVE_STATE)
+
+
+    ##
+    # @if jp
+    # @brief ExecutionContext 実行開始時に呼ばれる関数
+    #
+    # 参加している ExecutionContext が実行を開始する時(Running状態へ遷移時)
+    # に、管理対象コンポーネントの on_startup を呼びだす。
+    #
+    # @param self
+    #
+    # @else
+    #
+    # @brief
+    #
+    # @endif
+    def on_startup(self):
+      return self._obj.on_startup(self.ec_id)
+
+
+    ##
+    # @if jp
+    # @brief ExecutionContext 停止時に呼ばれる関数
+    #
+    # 参加している ExecutionContext が実行を停止する時(Stopped状態へ遷移時)
+    # に、管理対象コンポーネントの on_shutdown を呼びだす。
+    #
+    # @param self
+    #
+    # @else
+    #
+    # @endif
+    def on_shutdown(self):
+      return self._obj.on_shutdown(self.ec_id)
+
+
+    ##
+    # @if jp
+    # @brief RTコンポーネントがアクティブ化された時に呼ばれる関数
+    #
+    # 管理対象のRTコンポーネントがアクティブ化された時(Active状態へ遷移時)
+    # に、管理対象コンポーネントの on_activated を呼びだす。
+    # 管理対象コンポーネントのアクティブ化が失敗した場合には、ステートマシン
+    # を Error 状態に遷移させる。
+    #
+    # @param self
+    # @param st 対象RTコンポーネントの現在の状態
+    #
+    # @else
+    #
+    # @endif
+    def on_activated(self, st):
+      if self._obj.on_activated(self.ec_id) != RTC.RTC_OK:
+        self._sm.goTo(RTC.ERROR_STATE)
+        return
+      return
+
+
+    ##
+    # @if jp
+    # @brief RTコンポーネントが非アクティブ化された時に呼ばれる関数
+    #
+    # 管理対象のRTコンポーネントが非アクティブ化された時
+    # (Deactive状態へ遷移時)に、管理対象コンポーネントの on_deactivated を
+    # 呼びだす。
+    #
+    # @param self
+    # @param st 対象RTコンポーネントの現在の状態
+    #
+    # @else
+    #
+    # @endif
+    def on_deactivated(self, st):
+      self._obj.on_deactivated(self.ec_id)
+
+
+    ##
+    # @if jp
+    # @brief RTコンポーネントでエラーが発生した時に呼ばれる関数
+    #
+    # 管理対象のRTコンポーネントにエラーが発生した時(Error状態へ遷移時)
+    # に管理対象コンポーネントの on_aborting を呼びだす。
+    #
+    # @param self
+    # @param st 対象RTコンポーネントの現在の状態
+    #
+    # @else
+    #
+    # @brief
+    #
+    # @endif
+    def on_aborting(self, st):
+      self._obj.on_aborting(self.ec_id)
+
+
+    ##
+    # @if jp
+    # @brief RTコンポーネントがエラー状態の時に呼ばれる関数
+    #
+    # 管理対象のRTコンポーネントがエラー状態にいる間、 
+    # 管理対象コンポーネントの on_aborting を定期的に呼びだす。
+    #
+    # @param self
+    # @param st 対象RTコンポーネントの現在の状態
+    #
+    # @else
+    #
+    # @brief
+    #
+    # @endif
+    def on_error(self, st):
+      self._obj.on_error(self.ec_id)
+
+
+    ##
+    # @if jp
+    # @brief RTコンポーネントをリセットする時に呼ばれる関数
+    #
+    # 管理対象のRTコンポーネントをリセットする際に、管理対象コンポーネント
+    # の on_reset を呼びだす。
+    #
+    # @param self
+    # @param st 対象RTコンポーネントの現在の状態
+    #
+    # @else
+    #
+    # @endif
+    def on_reset(self, st):
+      if self._obj.on_reset(self.ec_id) != RTC.RTC_OK:
+        self._sm.goTo(RTC.ERROR_STATE)
+        return
+      return
+
+
+    ##
+    # @if jp
+    # @brief RTコンポーネント実行時に定期的に呼ばれる関数
+    #
+    # 管理対象のRTコンポーネントが Active 状態であるとともに、
+    # ExecutionContext が Running 状態の場合に、設定された動作周期で定期的に
+    # 管理対象コンポーネントの on_execute を呼びだす。
+    # 関数の実行に失敗した場合(返値が RTC_OK 以外)、管理対象コンポーネントの
+    # 状態を Error 状態に遷移させる。
+    #
+    # @param self
+    # @param st 対象RTコンポーネントの現在の状態
+    #
+    # @else
+    #
+    # @endif
+    def on_execute(self, st):
+      if self._obj.on_execute(self.ec_id) != RTC.RTC_OK:
+        self._sm.goTo(RTC.ERROR_STATE)
+        return
+      return
+
+
+    ##
+    # @if jp
+    # @brief RTコンポーネント実行時に定期的に呼ばれる関数
+    #
+    # 管理対象のRTコンポーネントが Active 状態であるとともに、
+    # ExecutionContext が Running 状態の場合に、設定された動作周期で定期的に
+    # 管理対象コンポーネントの on_state_update を呼びだす。
+    # 関数の実行に失敗した場合(返値が RTC_OK 以外)、管理対象コンポーネントの
+    # 状態を Error 状態に遷移させる。
+    #
+    # @param self
+    # @param st 対象RTコンポーネントの現在の状態
+    #
+    # @else
+    #
+    # @endif
+    def on_state_update(self, st):
+      if self._obj.on_state_update(self.ec_id) != RTC.RTC_OK:
+        self._sm.goTo(RTC.ERROR_STATE)
+        return
+      return
+
+
+    ##
+    # @if jp
+    # @brief ExecutionContext の実行周期変更時に呼ばれる関数
+    #
+    # 参加している ExecutionContext の実行周期が変更となった場合に、
+    # 管理対象コンポーネントの on_rate_changed を呼びだす。
+    #
+    # @param self
+    #
+    # @else
+    #
+    # @endif
+    def on_rate_changed(self):
+      self._obj.on_rate_changed(self.ec_id)
+
+
+    ##
+    # @if jp
+    # @brief 状態遷移を実行するワーカーを取得する
+    #
+    # 管理対象RTコンポーネントの状態遷移を実行するワーカーを取得する。
+    #
+    # @param self
+    #
+    # @return ワーカー
+    #
+    # @else
+    #
+    # @brief
+    #
+    # @endif
+    def worker(self):
+      return self._sm.worker()
+
+
+    ##
+    # @if jp
+    # @brief 現在の状態を取得する
+    #
+    # 管理対象RTコンポーネントの現在の状態を取得する。
+    #
+    # @param self
+    #
+    # @return 現在状態
+    #
+    # @else
+    #
+    # @brief
+    #
+    # @endif
+    def get_state(self):
+      return self._sm.getState()
+
+
+  ##
+  # @if jp
+  # @brief コンストラクタ
+  #
+  # コンストラクタ
+  # 設定された値をプロファイルに設定する。
+  #
+  # @param self
+  # @param owner 当該 Executioncontext の owner(デフォルト値:None)
+  # @param rate 動作周期(Hz)(デフォルト値:None)
+  #
+  # @else
+  # @brief Constructor
+  # @endif
+  def __init__(self, owner=None, rate=None):
+    self._nowait = False
+    self._running = False
+
+    if rate is None:
+      self._rate = 1000.0
+      rate_ = 0.0
+      self._usec = long(0)
+    else:
+      self._rate = rate
+      rate_ = rate
+      if rate == 0:
+        rate_ = 0.0000001
+      self._usec = long(1000000/rate_)
+      if self._usec == 0:
+        self._nowait = True
+    self._comps = []
+    self._profile = RTC.ExecutionContextProfile(RTC.PERIODIC, rate_, None, [], [])
+    self._ref = self._this()
+    self._thread = threading.Thread(target=self.run)
+
+
+  ##
+  # @if jp
+  # @brief CORBA オブジェクト参照の取得
+  #
+  # 本オブジェクトの ExecutioncontextService としての CORBA オブジェクト参照
+  # を取得する。
+  #
+  # @return CORBA オブジェクト参照
+  #
+  # @param self
+  #
+  # @else
+  #
+  # @endif
+  def getRef(self):
+    return self._ref
+
+
+  ##
+  # @if jp
+  # @brief コンポーネントのアクティビティスレッド関数
+  #
+  # コンポーネントの内部アクティビティスレッドの実行関数。
+  # ACE_Task サービスクラスメソッドのオーバーライド。
+  #
+  # @else
+  #
+  # @brief Create internal activity thread
+  #
+  # Run by a daemon thread to handle deferred processing.
+  # ACE_Task class method override.
+  #
+  # @endif
+  def run(self):
+    flag = True
+
+    while flag:
+      sec_ = float(self._usec)/1000000.0
+      for comp in self._comps:
+        comp._sm.worker()
+
+      #while not self._running:
+        #time.sleep(sec_)
+      if not self._nowait:
+        time.sleep(sec_)
+
+      flag = self._running
+
+    return 0
+
+
+  ##
+  # @if jp
+  # @brief ExecutionContext 用のスレッド実行関数
+  #
+  # ExecutionContext 用のスレッド終了時に呼ばれる。
+  # コンポーネントオブジェクトの非アクティブ化、マネージャへの通知を行う。
+  # これは ACE_Task サービスクラスメソッドのオーバーライド。
+  #
+  # @param self
+  # @param flags 終了処理フラグ
+  #
+  # @return 終了処理結果
+  #
+  # @else
+  #
+  # @brief Close activity thread
+  #
+  # close() method is called when activity thread svc() is returned.
+  # This method deactivate this object and notify it to manager.
+  # ACE_Task class method override.
+  #
+  # @endif
+  def close(self, flags):
+    return 0
+
+
+  ##
+  # @if jp
+  # @brief ExecutionContext 実行状態確認関数
+  #
+  # この操作は ExecutionContext が Runnning 状態の場合に true を返す。
+  # Executioncontext が Running の間、当該 Executioncontext に参加している
+  # 全てのアクティブRTコンポーネントが、 ExecutionContext の実行種類に応じて
+  # 実行される。
+  #
+  # @param self
+  #
+  # @return 状態確認関数(動作中:true、停止中:false)
+  #
+  # @else
+  #
+  # @brief Check for ExecutionContext running state
+  #
+  # This operation shall return true if the context is in the Running state.
+  # While the context is Running, all Active RTCs participating
+  # in the context shall be executed according to the context’s execution
+  # kind.
+  #
+  # @endif
+  def is_running(self):
+    return self._running
+
+
+  ##
+  # @if jp
+  # @brief ExecutionContext の実行を開始
+  #
+  # ExecutionContext の実行状態を Runnning とするためのリクエストを発行する。
+  # ExecutionContext の状態が遷移すると ComponentAction::on_startup が
+  # 呼び出される。
+  # 参加しているRTコンポーネントが、初期化されるまで ExecutionContext を開始
+  # することはできない。
+  # ExecutionContext は複数回開始/停止を繰り返すことができる。
+  #
+  # @param self
+  #
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  #
+  # @brief Start ExecutionContext
+  #
+  # Request that the context enter the Running state. 
+  # Once the state transition occurs, the ComponentAction::on_startup 
+  # operation will be invoked.
+  # An execution context may not be started until the RT components that
+  # participate in it have been initialized.
+  # An execution context may be started and stopped multiple times.
+  #
+  # @endif
+  def start(self):
+    if self._running:
+      return RTC.PRECONDITION_NOT_MET
+
+    for comp in self._comps:
+      comp._sm.on_startup()
+
+    self._running = True
+    self._thread.start()
+
+    return RTC.RTC_OK
+
+
+  ##
+  # @if jp
+  # @brief ExecutionContext の実行を停止
+  #
+  # ExecutionContext の状態を Stopped とするためのリクエストを発行する。
+  # 遷移が発生した場合は、 ComponentAction::on_shutdown が呼び出される。
+  # 参加しているRTコンポーネントが終了する前に ExecutionContext を停止する
+  # 必要がある。
+  # ExecutionContext は複数回開始/停止を繰り返すことができる。
+  #
+  # @param self
+  #
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  #
+  # @brief Stop ExecutionContext
+  #
+  # Request that the context enter the Stopped state. 
+  # Once the transition occurs, the ComponentAction::on_shutdown operation
+  # will be invoked.
+  # An execution context must be stopped before the RT components that
+  # participate in it are finalized.
+  # An execution context may be started and stopped multiple times.
+  #
+  # @endif
+  def stop(self):
+    if not self._running:
+      return RTC.PRECONDITION_NOT_MET
+
+    for comp in self._comps:
+      comp._sm.on_shutdown()
+
+    self._running = False
+
+    return RTC.RTC_OK
+
+
+  ##
+  # @if jp
+  # @brief ExecutionContext の実行周期(Hz)を取得する
+  #
+  # Active 状態にてRTコンポーネントが実行される周期(単位:Hz)を取得する。
+  #
+  # @param self
+  #
+  # @return 処理周期(単位:Hz)
+  #
+  # @else
+  #
+  # @brief Get ExecutionRate
+  #
+  # This operation shall return the rate (in hertz) at which its Active
+  # participating RTCs are being invoked.
+  #
+  # @endif
+  def get_rate(self):
+    return self._profile.rate
+
+
+  ##
+  # @if jp
+  # @brief ExecutionContext の実行周期(Hz)を設定する
+  #
+  # Active 状態にてRTコンポーネントが実行される周期(単位:Hz)を設定する。
+  # 実行周期の変更は、 DataFlowComponentAction の on_rate_changed によって
+  # 各RTコンポーネントに伝達される。
+  #
+  # @param self
+  # @param rate 処理周期(単位:Hz)
+  #
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  #
+  # @brief Set ExecutionRate
+  #
+  # This operation shall set the rate (in hertz) at which this context’s 
+  # Active participating RTCs are being called.
+  # If the execution kind of the context is PERIODIC, a rate change shall
+  # result in the invocation of on_rate_changed on any RTCs realizing
+  # DataFlowComponentAction that are registered with any RTCs participating
+  # in the context.
+  #
+  # @endif
+  def set_rate(self, rate):
+    if rate > 0.0:
+      self._profile.rate = rate
+      self._usec = long(1000000/rate)
+      for comp in self._comps:
+        comp._sm.on_rate_changed()
+      return RTC.RTC_OK
+    return RTC.BAD_PARAMETER
+
+
+  ##
+  # @if jp
+  # @brief RTコンポーネントをアクティブ化する
+  #
+  # Inactive 状態にあるRTコンポーネントをActive に遷移させ、アクティブ化する。
+  # この操作が呼ばれた結果、 on_activate が呼び出される。
+  # 指定したRTコンポーネントが参加者リストに含まれない場合は、 BAD_PARAMETER 
+  # が返される。
+  # 指定したRTコンポーネントの状態が Inactive 以外の場合は、
+  #  PRECONDITION_NOT_MET が返される。
+  #
+  # @param self
+  # @param comp アクティブ化対象RTコンポーネント
+  #
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  #
+  # @brief Activate a RT-component
+  #
+  # The given participant RTC is Inactive and is therefore not being invoked
+  # according to the execution context’s execution kind. This operation
+  # shall cause the RTC to transition to the Active state such that it may
+  # subsequently be invoked in this execution context.
+  # The callback on_activate shall be called as a result of calling this
+  # operation. This operation shall not return until the callback has
+  # returned, and shall result in an error if the callback does.
+  #
+  # @endif
+  def activate_component(self, comp):
+    for compIn in self._comps:
+      if compIn._ref._is_equivalent(comp):
+        if not compIn._sm._sm.isIn(RTC.INACTIVE_STATE):
+          return RTC.PRECONDITION_NOT_MET
+        compIn._sm._sm.goTo(RTC.ACTIVE_STATE)
+        return RTC.RTC_OK
+
+    return RTC.BAD_PARAMETER
+
+
+  ##
+  # @if jp
+  # @brief RTコンポーネントを非アクティブ化する
+  #
+  # Inactive 状態にあるRTコンポーネントを非アクティブ化し、
+  # Inactive に遷移させる。
+  # この操作が呼ばれた結果、 on_deactivate が呼び出される。
+  # 指定したRTコンポーネントが参加者リストに含まれない場合は、 BAD_PARAMETER 
+  # が返される。
+  # 指定したRTコンポーネントの状態が Active 以外の場合は、
+  # PRECONDITION_NOT_MET が返される。
+  #
+  # @param self
+  # @param comp 非アクティブ化対象RTコンポーネント
+  #
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  #
+  # @brief Deactivate a RT-component
+  #
+  # The given RTC is Active in the execution context. Cause it to transition 
+  # to the Inactive state such that it will not be subsequently invoked from
+  # the context unless and until it is activated again.
+  # The callback on_deactivate shall be called as a result of calling this
+  # operation. This operation shall not return until the callback has 
+  # returned, and shall result in an error if the callback does.
+  #
+  # @endif
+  def deactivate_component(self, comp):
+    for compIn in self._comps:
+      if compIn._ref._is_equivalent(comp):
+        if not compIn._sm._sm.isIn(RTC.ACTIVE_STATE):
+          return RTC.PRECONDITION_NOT_MET
+        compIn._sm._sm.goTo(RTC.INACTIVE_STATE)
+        return RTC.RTC_OK
+
+    return RTC.BAD_PARAMETER
+
+
+  ##
+  # @if jp
+  # @brief RTコンポーネントをリセットする
+  #
+  # Error 状態のRTコンポーネントの復帰を試みる。
+  # この操作が呼ばれた結果、 on_reset が呼び出される。
+  # 指定したRTコンポーネントが参加者リストに含まれない場合は、 BAD_PARAMETER
+  # が返される。
+  # 指定したRTコンポーネントの状態が Error 以外の場合は、 PRECONDITION_NOT_MET
+  # が返される。
+  #
+  # @param self
+  # @param comp リセット対象RTコンポーネント
+  #
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  #
+  # @brief Reset a RT-component
+  #
+  # Attempt to recover the RTC when it is in Error.
+  # The ComponentAction::on_reset callback shall be invoked. This operation
+  # shall not return until the callback has returned, and shall result in an
+  # error if the callback does. If possible, the RTC developer should
+  # implement that callback such that the RTC may be returned to a valid
+  # state.
+  #
+  # @endif
+  def reset_component(self, comp):
+    for compIn in self._comps:
+      if compIn._ref._is_equivalent(comp):
+        if not compIn._sm._sm.isIn(RTC.ERROR_STATE):
+          return RTC.PRECONDITION_NOT_MET
+        compIn._sm._sm.goTo(RTC.INACTIVE_STATE)
+        return RTC.RTC_OK
+
+    return RTC.BAD_PARAMETER
+
+
+  ##
+  # @if jp
+  # @brief RTコンポーネントの状態を取得する
+  #
+  # 指定したRTコンポーネントの状態(LifeCycleState)を取得する。
+  # 指定したRTコンポーネントが参加者リストに含まれない場合は、 UNKNOWN_STATE 
+  # が返される。
+  #
+  # @param self
+  # @param comp 状態取得対象RTコンポーネント
+  #
+  # @return 現在の状態(LifeCycleState)
+  #
+  # @else
+  #
+  # @brief Get RT-component's state
+  #
+  # This operation shall report the LifeCycleState of the given participant
+  # RTC.
+  #
+  # @endif
+  def get_component_state(self, comp):
+    for compIn in self._comps:
+      if compIn._ref._is_equivalent(comp):
+        return compIn._sm._sm.getState()
+
+    return RTC.UNKNOWN_STATE
+
+
+  ##
+  # @if jp
+  # @brief ExecutionKind を取得する
+  #
+  # 本 ExecutionContext の ExecutionKind を取得する
+  #
+  # @param self
+  #
+  # @return ExecutionKind
+  #
+  # @else
+  #
+  # @brief Get the ExecutionKind
+  #
+  # This operation shall report the execution kind of the execution context.
+  #
+  # @endif
+  def get_kind(self):
+    return self._profile.kind
+
+
+  ##
+  # @if jp
+  # @brief RTコンポーネントを追加する
+  #
+  # 指定したRTコンポーネントを参加者リストに追加する。
+  # 追加されたRTコンポーネントは attach_context が呼ばれ、Inactive 状態に遷移
+  # する。
+  # 指定されたRTコンポーネントがnullの場合は、BAD_PARAMETER が返される。
+  # 指定されたRTコンポーネントが DataFlowComponent 以外の場合は、
+  # BAD_PARAMETER が返される。
+  #
+  # @param self
+  # @param comp 追加対象RTコンポーネント
+  #
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  #
+  # @brief Add a RT-component
+  #
+  # The operation causes the given RTC to begin participating in the
+  # execution context.
+  # The newly added RTC will receive a call to 
+  # LightweightRTComponent::attach_context and then enter the Inactive state.
+  #
+  # @endif
+  def add(self, comp):
+    if CORBA.is_nil(comp):
+      return RTC.BAD_PARAMETER
+    try:
+      dfp_  = comp._narrow(RTC.DataFlowComponent)
+      id_   = dfp_.attach_executioncontext(self._ref)
+      comp_ = self.Comp(ref=comp, dfp=dfp_, id=id_)
+      self._comps.append(comp_)
+      return RTC.RTC_OK
+    except CORBA.Exception:
+      return RTC.BAD_PARAMETER
+
+    return RTC.RTC_OK
+
+
+  ##
+  # @if jp
+  # @brief RTコンポーネントを参加者リストから削除する
+  #
+  # 指定したRTコンポーネントを参加者リストから削除する。
+  # 削除されたRTコンポーネントは detach_context が呼ばれる。
+  # 指定されたRTコンポーネントが参加者リストに登録されていない場合は、
+  # BAD_PARAMETER が返される。
+  #
+  # @param self
+  # @param comp 削除対象RTコンポーネント
+  #
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  #
+  # @brief Remove the RT-component from participant list
+  #
+  # This operation causes a participant RTC to stop participating in the
+  # execution context.
+  # The removed RTC will receive a call to
+  # LightweightRTComponent::detach_context.
+  #
+  # @endif
+  def remove(self, comp):
+    len_ = len(self._comps)
+    for i in range(len_):
+      idx = (len_ - 1) - i
+      if self._comps[idx]._ref._is_equivalent(comp):
+        self._comps[idx]._ref.detach_executioncontext(self._comps[idx]._sm.ec_id)
+        del self._comps[idx]
+        return RTC.RTC_OK
+
+    return RTC.BAD_PARAMETER
+
+
+  ##
+  # @if jp
+  # @brief ExecutionContextProfile を取得する
+  #
+  # 本 ExecutionContext のプロファイルを取得する。
+  #
+  # @param self
+  #
+  # @return ExecutionContextProfile
+  #
+  # @else
+  #
+  # @brief Get the ExecutionContextProfile
+  #
+  # This operation provides a profile “descriptor” for the execution 
+  # context.
+  #
+  # @endif
+  def get_profile(self):
+    p = RTC.ExecutionContextProfile(self._profile.kind,
+                    self._profile.rate,
+                    self._profile.owner,
+                    self._profile.participants,
+                    self._profile.properties)
+    return p
+
+
+  ##
+  # @if jp
+  # @class Comp
+  # @brief コンポーネント管理用内部クラス
+  # @else
+  # @endif
+  class Comp:
+    def __init__(self, ref=None, dfp=None, id=None, comp=None):
+      if comp is None:
+        self._ref = ref
+        self._sm = PeriodicExecutionContext.DFP(dfp,id)
+      else:
+        self._ref = comp._ref
+        self._sm  = PeriodicExecutionContext.DFP(comp._sm._obj,comp._sm.ec_id)
+
+
+##
+# @if jp
+# @brief ExecutionContext を初期化する
+#
+# ExecutionContext 起動用ファクトリを登録する。
+#
+# @param manager マネージャオブジェクト
+#
+# @else
+#
+# @endif
 def PeriodicExecutionContextInit(manager):
-	manager.registerECFactory("PeriodicExecutionContext",
-							  OpenRTM.PeriodicExecutionContext,
-							  OpenRTM.ECDelete)
+  manager.registerECFactory("PeriodicExecutionContext",
+                OpenRTM.PeriodicExecutionContext,
+                OpenRTM.ECDelete)

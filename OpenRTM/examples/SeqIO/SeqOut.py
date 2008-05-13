@@ -112,12 +112,12 @@ def MyModuleInit(manager):
     # Create a component
     comp = manager.createComponent("SeqOut")
 
-    print "Componet created"
+    print "Component created"
 
 
 def main():
     # Initialize manager
-    mgr = OpenRTM.Manager.init(len(sys.argv), sys.argv)
+    mgr = OpenRTM.Manager.init(sys.argv)
 
     # Set module initialization proceduer
     # This procedure will be invoked in activateManager() function.

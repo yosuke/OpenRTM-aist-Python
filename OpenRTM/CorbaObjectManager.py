@@ -2,12 +2,12 @@
 # -*- coding: euc-jp -*-
 
 ##
-# @file CorbaObjManager.py
-# @brief CORBA Object manager class
-# @date $Date: 2007/08/27$
-# @author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
+# \file CorbaObjectManager.py
+# \brief CORBA Object manager class
+# \date $Date: 2007/08/27$
+# \author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
 #
-# Copyright (C) 2006
+# Copyright (C) 2006-2008
 #     Noriaki Ando
 #     Task-intelligence Research Group,
 #     Intelligent Systems Research Institute,
@@ -21,70 +21,79 @@ from omniORB import CORBA, PortableServer
 import OpenRTM
 
 
+##
+# @if jp
+# @class CorbaObjectManager
+# @brief CORBA オブジェクトをアクティブ化、非アクティブ化する
+#
+# RTObjectのアクティブ化，非アクティブ化を行うクラスである。
+# 保持しているORB，POAを用いて CORBA オブジェクトのアクティブ化，
+# 非アクティブ化を行う。
+#
+# @since 0.4.0
+#
+# @else
+# @class CorbaObjectManager
+# @brief Activate and deactivate CORBA objects
+# @endif
 class CorbaObjectManager:
-	
-	"""
-	@if jp
-	@class CorbaObjectManager
-	@brief CORBA オブジェクトをアクティブ化、非アクティブ化する
-	@else
-	@class CorbaObjectManager
-	@brief Activate and deactivate CORBA objects
-	@endif
-	"""
+  """
+  """
 
 
-	def __init__(self, orb, poa):
-		"""
-		@if jp
-		@brief コンストラクタ
-		@param orb(CORBA::ORB)
-		@param poa(PortableServer::POA)
-		@else
-		@brief Constructor
-		@param orb(CORBA::ORB)
-		@param poa(PortableServer::POA)
-		@endif
-		"""
-		self._orb = orb
-		self._poa = poa
+
+  ##
+  # @if jp
+  #
+  # @brief コンストラクタ
+  #
+  # @param self
+  # @param orb ORB
+  # @param poa POA
+  #
+  # @else
+  #
+  # @brief Consructor
+  #
+  # @param orb ORB
+  #
+  # @endif
+  def __init__(self, orb, poa):
+    self._orb = orb
+    self._poa = poa
 
 
-	def __del__(self):
-		"""
-		\if jp
-		\brief デストラクタ
-		\elqse
-		\brief Destructor
-		\endif
-		"""
-		pass
+  ##
+  # @if jp
+  # @brief CORBA オブジェクトをアクティブ化する
+  #
+  # 指定されたRTObjectを CORBA オブジェクトとしてアクティブ化し、
+  # オブジェクトリファレンスを設定する。
+  #
+  # @param self
+  # @param comp アクティブ化対象RTObject
+  #
+  # @else
+  # @brief Activate CORBA object
+  # @endif
+  def activate(self, comp):
+    id_ = self._poa.activate_object(comp)
+    obj = self._poa.id_to_reference(id_)
+    comp.setObjRef(obj._narrow(OpenRTM.RTObject_impl))
 
 
-	def activate(self, comp):
-		"""
-		\if jp
-		\brief CORBA オブジェクトをアクティブ化する
-		\param comp(OpenRTM.RTObject_impl)
-		\else
-		\brief Activate CORBA object
-		\param comp(OpenRTM.RTObject_impl)
-		\endif
-		"""
-		id_ = self._poa.activate_object(comp)
-		obj = self._poa.id_to_reference(id_)
-		comp.setObjRef(obj._narrow(OpenRTM.RTObject_impl))
-
-
-	def deactivate(self, comp):
-		"""
-		\if jp
-		\brief CORBA オブジェクトを非アクティブ化する
-		\param comp(OpenRTM.RTObject_impl)
-		\else
-		\brief Deactivate CORBA object
-		\param comp(OpenRTM.RTObject_impl)
-		\endif
-		"""
-		id_ = self._poa.servant_to_id(comp)
-		self._poa.deactivate_object(id_)
+  ##
+  # @if jp
+  # @brief CORBA オブジェクトを非アクティブ化する
+  #
+  # 指定されたRTObjectの非アクティブ化を行う
+  #
+  # @param self
+  # @param comp 非アクティブ化対象RTObject
+  #
+  # @else
+  # @brief Deactivate CORBA object
+  # @endif
+  def deactivate(self, comp):
+    id_ = self._poa.servant_to_id(comp)
+    self._poa.deactivate_object(id_)
