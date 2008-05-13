@@ -3,5 +3,3 @@ include MANIFEST.in
 include README
 recursive-include OpenRTM *.py *.pth *.conf README *.idl
 recursive-include OpenRTM/RTM_IDL *.pth *.py *.idl
-recursive-include OpenRTM/examples *.pth *.py *.idl README *.conf *.sh *.bat
-recursive-include OpenRTM/docs *.py *.html *.map *.md5 *.png *.css *.dot *.tex *.eps *.md5 *.sty *.ttf Makefile
