@@ -126,7 +126,7 @@ class InPortCorbaConsumer(OpenRTM.InPortConsumer,OpenRTM.CorbaConsumer):
     self._buffer.read(data)
     tmp = any.to_any(data[0])
 
-    if self._ptr() is None:
+    if not self._ptr():
       return
 
     obj = self._ptr()._narrow(RTC.InPortAny)

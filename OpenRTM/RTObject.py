@@ -703,7 +703,7 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
                     self._profile.version,
                     self._profile.vendor,
                     self._profile.category,
-                    self._profile.port_profiles,
+                    self._portAdmin.getPortProfileList(),
                     self._profile.parent,
                     self._profile.properties)
     
@@ -1645,7 +1645,7 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def get_service_profile(self, _id):
-    if _id is None:
+    if not _id:
       raise SDOPackage.InvalidParameter("get_service_profile(): Empty name.")
 
     try:
@@ -1708,7 +1708,7 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def get_sdo_service(self, _id):
-    if _id is None:
+    if not _id:
       raise SDOPackage.InvalidParameter("get_service(): Empty name.")
 
     try:

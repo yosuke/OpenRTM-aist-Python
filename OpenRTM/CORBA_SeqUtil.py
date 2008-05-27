@@ -160,9 +160,7 @@ def push_back_list(seq1, seq2):
 # @endif
 def insert(seq, elem, index):
   len_ = len(seq)
-  if index < 0:
-    return
-  elif index > len:
+  if index > len:
     seq.append(elem)
     return
   seq.insert(index, elem)
@@ -239,7 +237,7 @@ def back(seq):
 # 
 # @endif
 def erase(seq, index):
-  if index > len(seq) or index < 0:
+  if index > len(seq):
     return
 
   del seq[index]

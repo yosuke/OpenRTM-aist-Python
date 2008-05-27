@@ -755,7 +755,7 @@ class Properties:
   def load(self, inStream):
     pline = ""
     for readStr in inStream:
-      if readStr is None:
+      if not readStr:
         continue
       
       tmp = [readStr]

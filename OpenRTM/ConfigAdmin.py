@@ -314,7 +314,7 @@ class ConfigAdmin:
   # 
   # @endif
   def isExist(self, param_name):
-    if self._params is None:
+    if not self._params:
       return False
     
     for conf in self._params:
@@ -593,7 +593,7 @@ class ConfigAdmin:
   def activateConfigurationSet(self, config_id):
     if config_id is None:
       return False
-    if self._configsets.hasKey(config_id) is None:
+    if not self._configsets.hasKey(config_id):
       return False
     self._activeId = config_id
     self._active   = True

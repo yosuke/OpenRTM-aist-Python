@@ -217,7 +217,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def get_organization_property_value(self, name):
-    if name is None:
+    if not name:
       raise SDOPackage.InvalidParameter("Empty name.")
 
     index = OpenRTM.CORBA_SeqUtil.find(self._orgProperty.properties, self.nv_name(name))
@@ -337,7 +337,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def set_organization_property_value(self, name, value):
-    if name is None:
+    if not name:
       raise SDOPackage.InvalidParameter("set_organization_property_value(): Enpty name.")
 
     index = OpenRTM.CORBA_SeqUtil.find(self._orgProperty.properties, self.nv_name(name))
@@ -393,7 +393,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def remove_organization_property(self, name):
-    if name is None:
+    if not name:
       raise SDOPackage.InvalidParameter("remove_organization_property_value(): Enpty name.")
 
     index = OpenRTM.CORBA_SeqUtil.find(self._orgProperty.properties, self.nv_name(name))
@@ -639,7 +639,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def add_members(self, sdo_list):
-    if sdo_list is None:
+    if not sdo_list:
       raise SDOPackage.InvalidParameter("add_members(): SDOList is empty.")
 
     try:
@@ -689,7 +689,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def remove_member(self, id):
-    if id is None:
+    if not id:
       raise SDOPackage.InvalidParameter("remove_member(): Empty name.")
 
     index = OpenRTM.CORBA_SeqUtil.find(self._memberList, self.sdo_id(id))

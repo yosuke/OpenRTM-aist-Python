@@ -428,9 +428,10 @@ class CorbaPort(OpenRTM.PortBase):
   class unsubscribe:
     def __init__(self, cons):
       self._cons = cons
+      self._len  = len(cons)
 
     def __call__(self, nv):
-      for i in range(len(self._cons)):
+      for i in range(self._cons):
         name_ = nv.name
         if self._cons[i].name == name_:
           self._cons[i].consumer.releaseObject()

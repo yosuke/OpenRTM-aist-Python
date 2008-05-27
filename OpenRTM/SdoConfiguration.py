@@ -335,7 +335,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       raise SDOPackage.InvalidParameter("sProfile is empty.")
 
     try:
-      if sProfile.id is None:
+      if not sProfile.id:
         prof = sProfile
         prof.id = self.getUUID()
         OpenRTM.CORBA_SeqUtil.push_back(self._serviceProfiles, prof)
@@ -630,7 +630,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #                          completely due to some internal error.
   # @endif
   def get_configuration_parameter_value(self, name):
-    if name is None:
+    if not name:
       raise SDOPackage.InvalidParameter("Name is empty.")
 
     return None
@@ -778,7 +778,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #                          completely due to some internal error.
   # @endif
   def get_configuration_set(self, config_id):
-    if config_id is None:
+    if not config_id:
       raise SDOPackage.InvalidParameter("ID is empty")
 
     guard = ScopedLock(self._config_mutex)
@@ -846,7 +846,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #                          completely due to some internal error.
   # @endif
   def set_configuration_set_values(self, config_id, configuration_set):
-    if config_id is None:
+    if not config_id:
       raise SDOPackage.InvalidParameter("ID is empty.")
 
     try:
@@ -1018,7 +1018,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #                          completely due to some internal error.
   # @endif
   def remove_configuration_set(self, config_id):
-    if config_id is None:
+    if not config_id:
       raise SDOPackage.InvalidParameter("ID is empty.")
       
     try:
@@ -1081,7 +1081,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #                          completely due to some internal error.
   # @endif
   def activate_configuration_set(self, config_id):
-    if config_id is None:
+    if not config_id:
       raise SDOPackage.InvalidParameter("ID is empty.")
       
     try:

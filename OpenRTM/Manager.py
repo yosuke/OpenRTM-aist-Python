@@ -434,7 +434,7 @@ class Manager:
   #
   # @endif
   def runManager(self, no_block=None):
-    if no_block:
+    if no_block is None:
       no_block = False
 
     if no_block:

@@ -230,7 +230,12 @@ def eraseHeadBlank(_str):
 # @brief Erase the tail blank characters of string
 # @endif
 def eraseTailBlank(_str):
-  _str[0] = _str[0].rstrip('\t ')
+  #_str[0] = _str[0].rstrip('\t ')
+  if _str[0] == "":
+    return
+
+  while (_str[0][-1] == " " or _str[0][-1] == '\t') and not isEscaped(_str[0], len(_str[0]) - 1):
+    _str[0] = _str[0][:-1]
 
 
 ##
@@ -265,7 +270,7 @@ def replaceString(str, _from, _to):
 # @brief Split string by delimiter
 # @endif
 def split(input, delimiter):
-  if input is None:
+  if not input:
     return []
 
   del_result = input.split(delimiter)

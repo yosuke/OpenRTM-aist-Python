@@ -822,7 +822,7 @@ class CorbaNaming:
   # @brief Get NameComponent from gien string name representation
   # @endif
   def toName(self, sname):
-    if sname is None:
+    if not sname:
       raise CosNaming.NamingContext.InvalidName
 
     string_name = sname
