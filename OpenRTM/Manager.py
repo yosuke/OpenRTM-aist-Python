@@ -21,6 +21,7 @@ import sys
 import traceback
 import time
 from omniORB import CORBA
+from types import IntType, ListType
 
 import OpenRTM
 import RTC
@@ -202,10 +203,20 @@ class Manager:
   # @param argv The array of the command line arguments.
   #
   # @endif
-  def init(argv):
+  def init(*arg):
     global manager
     global mutex
     
+    if len(arg) == 1:
+      argv = arg[0]
+    elif len(arg) == 2 and \
+             isinstance(arg[0], IntType) and \
+             isinstance(arg[1], ListType):
+      argv = arg[1]
+    else:
+      print "Invalid arguments for init()"
+      print "init(argc,argv) or init(argv)"
+        
     if manager is None:
       guard = ScopedLock(mutex)
       if manager is None:
