@@ -178,7 +178,7 @@ def MyModuleInit(manager):
 
 
 def main():
-	mgr = OpenRTM.Manager.init(len(sys.argv), sys.argv)
+	mgr = OpenRTM.Manager.init(sys.argv)
 	mgr.setModuleInitProc(MyModuleInit)
 	mgr.activateManager()
 	mgr.runManager()
