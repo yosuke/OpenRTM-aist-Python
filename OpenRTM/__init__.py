@@ -1,3 +1,9 @@
+# Add path to OpenRTM/RTM_IDL if need be 2008/06/06
+_openrtm_idl_path = os.path.join(os.path.dirname(__file__), "RTM_IDL")
+if _openrtm_idl_path not in sys.path:
+    sys.path.append(_openrtm_idl_path)
+del _openrtm_idl_path
+
 from version import *
 from DefaultConfiguration import *
 from CorbaNaming import *
