@@ -20,7 +20,7 @@ import signal, os
 import sys
 import traceback
 import time
-from omniORB import CORBA
+from omniORB import CORBA, PortableServer
 from types import IntType, ListType
 
 import OpenRTM
