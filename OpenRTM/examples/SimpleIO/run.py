@@ -23,10 +23,10 @@ hostname= sysinfo[1]
 plat=sys.platform
 
 if plat == "win32":
-    os.system("start python ..\\..\\rtm-naming\\rtm-naming.py")
+    os.system("start python ..\\..\\..\\bin\\rtm-naming.py")
     os.system("start python ConsoleIn.py")
     os.system("start python Consoleout.py")
-    time.sleep(1)
+    time.sleep(3)
     os.system("python Connector.py")
 
 else:
@@ -42,10 +42,19 @@ else:
 
     if status != 0:
         print "No terminal program (kterm/xterm/gnome-terminal) exists."
-        exit
+        sys.exit(0)
 
-    os.system("python ../../rtm-naming/rtm-naming.py")
+    path = None
+    for p in sys.path:
+        if os.path.exists(os.path.join(p,"OpenRTM")):
+            path = os.path.join(p,"OpenRTM","rtm-naming")
+            break
+    if path is None:
+        print "rtm-naming directory not exist."
+        sys.exit(0)
+
+    os.system('python %s/rtm-naming.py'%path)
     os.system('%s -e python ConsoleIn.py &'%term)
     os.system('%s -e python ConsoleOut.py &'%term)
-    time.sleep(1)
+    time.sleep(3)
     os.system("python Connector.py")
