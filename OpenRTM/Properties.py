@@ -765,8 +765,7 @@ class Properties:
       if _str[0] == "#" or _str[0] == "!" or _str[0] == "\n":
         continue
 
-      if _str[-1] == "\n":
-        _str = _str[0:len(_str)-1]
+      _str = _str.rstrip('\r\n')
 
       if _str[len(_str)-1] == "\\" and not OpenRTM.isEscaped(_str, len(_str)-1):
         #_str = _str[0:len(_str)-1]
