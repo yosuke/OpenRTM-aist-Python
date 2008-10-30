@@ -431,7 +431,7 @@ class CorbaPort(OpenRTM.PortBase):
       self._len  = len(cons)
 
     def __call__(self, nv):
-      for i in range(self._cons):
+      for i in range(self._len):
         name_ = nv.name
         if self._cons[i].name == name_:
           self._cons[i].consumer.releaseObject()
