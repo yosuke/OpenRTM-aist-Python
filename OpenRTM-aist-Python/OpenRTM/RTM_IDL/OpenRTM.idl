@@ -2,7 +2,7 @@
 /*!
  * @file OpenRTM.idl
  * @brief OpenRTM interface definition
- * @date $Date: 2007/04/13 18:17:59 $
+ * @date $Date: 2007-09-21 09:19:33 $
  * @author Noriaki Ando <n-ando@aist.go.jp>
  *
  * Copyright (C) 2007
@@ -12,14 +12,7 @@
  *         Advanced Industrial Science and Technology (AIST), Japan
  *     All rights reserved.
  *
- * $Id: OpenRTM.idl,v 1.1 2007/04/13 18:17:59 n-ando Exp $
- *
- */
-
-/*
- * $Log: OpenRTM.idl,v $
- * Revision 1.1  2007/04/13 18:17:59  n-ando
- * OpenRTM specific interface definition.
+ * $Id: OpenRTM.idl 778 2008-07-29 04:59:25Z n-ando $
  *
  */
 
@@ -27,44 +20,45 @@
 
 #pragma prefix "openrtm.aist.go.jp"
 
-module RTC
+module OpenRTM
 {
 
   interface DataFlowComponent
-    : RTObject, DataFlowParticipant
+    : RTC::RTObject, RTC::DataFlowComponent
   {
   };
 
   interface FiniteStateMachineComponent
-    : RTObject, FsmParticipant
+    : RTC::RTObject, RTC::FsmParticipant
   {
   };
 
   interface DataFlowFiniteStateMachineComponent
-    : RTObject, DataFlowParticipant, FsmParticipant
+    : RTC::RTObject, RTC::DataFlowComponent, RTC::FsmParticipant
   {
   };
 
   interface DataFlowMultiModeComponent
-    : RTObject, DataFlowParticipant, MultiModeObject
+    : RTC::RTObject, RTC::DataFlowComponent, RTC::MultiModeObject
   {
   };
 
   interface FiniteStateMachineMultiModeComponent
-    : RTObject, FsmParticipant, MultiModeObject
+    : RTC::RTObject, RTC::FsmParticipant, RTC::MultiModeObject
   {
   };
 
   interface DataFlowFiniteStateMachineMultiModeComponent
-    : RTObject, DataFlowParticipant, FsmParticipant, MultiModeObject
+    : RTC::RTObject, RTC::DataFlowComponent,
+    RTC::FsmParticipant, RTC::MultiModeObject
   {
   };
 
 
   interface ExtTrigExecutionContextService
-    : ExecutionContextService
+    : RTC::ExecutionContextService
   {
-    oneway void tick();
+    void tick();
   };
 
 };
