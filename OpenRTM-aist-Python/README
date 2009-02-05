@@ -1,12 +1,12 @@
 -----------------------------
- OpenRTM-aist-0.4.1 Python版
+ OpenRTM-aist-1.0 Python版
 -----------------------------
-栗原 眞二 (2007年10月16日)
+栗原 眞二 (2009年01月30日)
 
 
 確認済み動作環境
 ---------------
- OS : Vine Linux 3.1, Windows XP Professional
+ OS : Ubuntu 8.10, Vine Linux 3.1, Windows XP Professional
    
 
 必要なもの
@@ -45,10 +45,10 @@
 [Vine Linuxの場合]
 
  1. アーカイブの解凍
-    $ tar xvzf OpenRTM-0.4.1-Python.tar.gz
+    $ tar xvzf OpenRTM-1.0-Python.tar.gz
 
  2. ビルド
-    $ cd OpenRTM-aist-0.4.1-Python
+    $ cd OpenRTM-aist-1.0-Python
     $ python setup.py build
 
  3. インストール
@@ -57,9 +57,9 @@
 
 
 [Windows XPの場合]
- <OpenRTM-aist-Python-0.4.1.zipの場合>
+ <OpenRTM-aist-Python-1.0.zipの場合>
  1. アーカイブの解凍
-    OpenRTM-0.4.1-Python.zipを解凍ソフトにて解凍して下さい。
+    OpenRTM-aist-Python-1.0.zipを解凍ソフトにて解凍して下さい。
 
  2. ビルド
     > cd <アーカイブを展開したフォルダ>
@@ -68,7 +68,7 @@
  3. インストール
     > python setup.py install
 
- <OpenRTM-aist-Python24-0.4.1.win32.exeの場合>
+ <OpenRTM-aist-Python24-1.0.win32.exeの場合>
  1. インストーラーを起動し、指示にしたがってインストールを行って下さい。
 
 
