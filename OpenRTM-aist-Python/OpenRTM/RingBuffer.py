@@ -16,7 +16,7 @@
 #     All rights reserved.
 
 import RTC
-import OpenRTM
+import OpenRTM_aist
 
 ##
 # @if jp
@@ -37,7 +37,7 @@ import OpenRTM
 # @else
 #
 # @endif
-class RingBuffer(OpenRTM.BufferBase):
+class RingBuffer(OpenRTM_aist.BufferBase):
   """
   """
 

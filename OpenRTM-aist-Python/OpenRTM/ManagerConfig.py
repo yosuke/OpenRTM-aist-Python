@@ -21,7 +21,7 @@ import re
 import getopt
 import platform
 
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -158,7 +158,7 @@ class ManagerConfig :
   # @brief Apply configuration results to Property
   # @endif
   def configure(self, prop):
-    prop.setDefaults(OpenRTM.default_config)
+    prop.setDefaults(OpenRTM_aist.default_config)
     if self.findConfigFile():
       try:
         fd = file(self._configFile,"r")

@@ -24,33 +24,33 @@ import time
 import math
 
 # Import RTM module
-import OpenRTM
+import OpenRTM_aist
 import RTC
 # This module's spesification
 # <rtc-template block="module_spec">
 mobilerobotcanvas_spec = ["implementation_id", "MobileRobotCanvas", 
-		 "type_name",         "MobileRobotCanvas", 
-		 "description",       "sample component for Python and Tkinter", 
-		 "version",           "1.0", 
-		 "vendor",            "Noriaki Ando, AIST", 
-		 "category",          "example", 
-		 "activity_type",     "DataFlowComponent", 
-		 "max_instance",      "10", 
-		 "language",          "Python", 
-		 "lang_type",         "SCRIPT",
-		 ""]
+                          "type_name",         "MobileRobotCanvas", 
+                          "description",       "sample component for Python and Tkinter", 
+                          "version",           "1.0", 
+                          "vendor",            "Noriaki Ando, AIST", 
+                          "category",          "example", 
+                          "activity_type",     "DataFlowComponent", 
+                          "max_instance",      "10", 
+                          "language",          "Python", 
+                          "lang_type",         "SCRIPT",
+                          ""]
 # </rtc-template>
 
 
-class MobileRobotCanvas(OpenRTM.DataFlowComponentBase):
+class MobileRobotCanvas(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
-        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         
         self._d_vel = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-        self._velIn = OpenRTM.InPort("vel", self._d_vel, OpenRTM.RingBuffer(8))
+        self._velIn = OpenRTM_aist.InPort("vel", self._d_vel, OpenRTM_aist.RingBuffer(8))
         
         self._d_pos = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-        self._posOut = OpenRTM.OutPort("pos", self._d_pos, OpenRTM.RingBuffer(8))
+        self._posOut = OpenRTM_aist.OutPort("pos", self._d_pos, OpenRTM_aist.RingBuffer(8))
         
         # Set InPort buffers
         self.registerInPort("vel",self._velIn)
@@ -177,7 +177,7 @@ class RobotTitle(ToggleItem):
                                                anchor=E, text=self.name)
         pos_text = '(%5.2f, %5.2f, %5.2f)' % (rx, ry, (rt*180/math.pi)%360)
         self.id_pos = self.canvas.create_text(lx1+120, ly1+8,
-                                               anchor=E, text=pos_text)
+                                              anchor=E, text=pos_text)
 
     def delete(self):
         if self.id_circle != None:
@@ -393,11 +393,11 @@ class PropertyDialog:
         t = ["Robot's name: ", "Robot's type: ", "Description: ", "Vendor: "]
         for i in range(len(t)):
             Label(master, text=t[i], anchor=W).grid(row=i, sticky=W,
-                                          padx=3, pady=3)
+                                                    padx=3, pady=3)
         l = [self.name, self.type, self.description, self.vendor]
         for i in range(len(l)):
             Label(master, text=l[i], anchor=W).grid(row=i, column=1, sticky=W,
-                                          padx=3, pady=3)
+                                                    padx=3, pady=3)
 
         
     def label_entry(self, master, label0, var, label1):
@@ -483,7 +483,7 @@ class DDMobileRobot(SimulatedObject):
         self.wr = 0.0
         self.name = "DDMobileRobot" + str(self.__class__.count)
         self.__class__.count += 1 
-        self.comp = OpenRTM.Manager.instance().createComponent("MobileRobotCanvas")
+        self.comp = OpenRTM_aist.Manager.instance().createComponent("MobileRobotCanvas")
 
         # properties
         self.rentry = StringVar()
@@ -634,8 +634,8 @@ class TkMobileRobot(Frame):
         return
 
     def init(self):
-        self.canvas = Canvas(self, bg="#eeeeee", \
-                                 width = self.width, height = self.height)
+        self.canvas = Canvas(self, bg="#eeeeee",
+                             width = self.width, height = self.height)
         self.canvas.pack(side=LEFT)
 
         self.can_grid = CanvasGrid(self.canvas, self.x0, self.y0,
@@ -842,10 +842,10 @@ class TkMobileRobot(Frame):
 def main():
     m = TkMobileRobot(Tk())
     m.master.title("Tk Mobile Robot Simulator")
-    mgr = OpenRTM.Manager.init(len(sys.argv), sys.argv)
+    mgr = OpenRTM_aist.Manager.init(sys.argv)
     mgr.activateManager()
-    profile = OpenRTM.Properties(defaults_str=mobilerobotcanvas_spec)
-    mgr.registerFactory(profile, MobileRobotCanvas, OpenRTM.Delete)
+    profile = OpenRTM_aist.Properties(defaults_str=mobilerobotcanvas_spec)
+    mgr.registerFactory(profile, MobileRobotCanvas, OpenRTM_aist.Delete)
     mgr.runManager(True)
     m.mainloop()
 

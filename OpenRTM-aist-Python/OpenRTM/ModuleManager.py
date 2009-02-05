@@ -18,7 +18,7 @@
 import string
 import os
 
-import OpenRTM
+import OpenRTM_aist
 
 
 CONFIG_EXT    = "manager.modules.config_ext"
@@ -78,20 +78,20 @@ class ModuleManager:
     self._configPath = prop.getProperty(CONFIG_PATH).split(",")
     for i in range(len(self._configPath)):
       tmp = [self._configPath[i]]
-      OpenRTM.eraseHeadBlank(tmp)
+      OpenRTM_aist.eraseHeadBlank(tmp)
       self._configPath[i] = tmp[0]
 
     self._loadPath = prop.getProperty(MOD_LOADPTH).split(",")
     for i in range(len(self._loadPath)):
       tmp = [self._loadPath[i]]
-      OpenRTM.eraseHeadBlank(tmp)
+      OpenRTM_aist.eraseHeadBlank(tmp)
       self._loadPath[i] = tmp[0]
 
-    self._absoluteAllowed = OpenRTM.toBool(prop.getProperty(ALLOW_ABSPATH),
-                         "yes", "no", False)
+    self._absoluteAllowed = OpenRTM_aist.toBool(prop.getProperty(ALLOW_ABSPATH),
+                                                "yes", "no", False)
 
-    self._downloadAllowed = OpenRTM.toBool(prop.getProperty(ALLOW_URL),
-                         "yes", "no", False)
+    self._downloadAllowed = OpenRTM_aist.toBool(prop.getProperty(ALLOW_URL),
+                                                "yes", "no", False)
 
     self._initFuncSuffix = prop.getProperty(INITFUNC_SFX)
     self._initFuncPrefix = prop.getProperty(INITFUNC_PFX)
@@ -244,13 +244,13 @@ class ModuleManager:
     if file_name == "":
       raise ModuleManager.InvalidArguments, "Invalid file name."
 
-    if OpenRTM.isURL(file_name):
+    if OpenRTM_aist.isURL(file_name):
       if not self._downloadAllowed:
         raise ModuleManager.NotAllowedOperation, "Downloading module is not allowed."
       else:
         raise ModuleManager.NotFound, "Not implemented."
 
-    if OpenRTM.isAbsolutePath(file_name):
+    if OpenRTM_aist.isAbsolutePath(file_name):
       if not self._absoluteAllowed:
         raise ModuleManager.NotAllowedOperation, "Absolute path is not allowed"
       else:

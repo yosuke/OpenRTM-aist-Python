@@ -19,7 +19,7 @@ import threading
 import traceback
 import sys
 
-import OpenRTM
+import OpenRTM_aist
 
 
 
@@ -165,7 +165,7 @@ class NamingOnCorba(NamingBase):
   #
   # @endif
   def __init__(self, orb, names):
-    self._cosnaming = OpenRTM.CorbaNaming(orb,names)
+    self._cosnaming = OpenRTM_aist.CorbaNaming(orb,names)
 
 
   ##
@@ -250,7 +250,7 @@ class NamingManager:
     self._manager = manager
     self._rtcout = manager.getLogbuf()
     #self._rtcout.setLogLevel(manager.getConfig().getProperty("logger.log_level"))
-    #self._rtcout.setLogLock(OpenRTM.toBool(manager.getConfig().getProperty("logger.stream_lock"), "enable", "disable", False))
+    #self._rtcout.setLogLock(OpenRTM_aist.toBool(manager.getConfig().getProperty("logger.stream_lock"), "enable", "disable", False))
     self._names = []
     self._namesMutex = threading.RLock()
     self._compNames = []
@@ -274,7 +274,7 @@ class NamingManager:
   # @endif
   def registerNameServer(self, method, name_server):
     self._rtcout.RTC_TRACE("NamingManager::registerNameServer(%s, %s)",
-                 (method, name_server))
+                           (method, name_server))
     name = self.createNamingObj(method, name_server)
     self._names.append(self.Names(method, name_server, name))
 
@@ -301,6 +301,13 @@ class NamingManager:
         self._names[i].ns.bindObject(name, rtobj)
     self.registerCompName(name, rtobj)
 
+  def bindManagerObject(self, name, mgr):
+    self._rtcout.RTC_TRACE("NamingManager::bindManagerObject(%s)", name)
+    guard = ScopedLock(self._namesMutex)
+    for i in range(len(self._names)):
+      if self._names[i].ns:
+        self._names[i].ns.bindObject(name, mgr)
+
 
   ##
   # @if jp
@@ -321,11 +328,11 @@ class NamingManager:
     for i in range(len(self._names)):
       if self._names[i].ns is None:
         nsobj = self.createNamingObj(self._names[i].method,
-                       self._names[i].nsname)
+                                     self._names[i].nsname)
         if nsobj:
           self._rtcout.RTC_INFO("New name server found: %s/%s",
-                      (self._names[i].method,
-                      self._names[i].nsname))
+                                (self._names[i].method,
+                                 self._names[i].nsname))
           self._names[i].ns = nsobj
           self.bindCompsTo(nsobj)
 
@@ -413,15 +420,15 @@ class NamingManager:
     mth = method
     if mth == "corba":
       try:
-        name = OpenRTM.NamingOnCorba(self._manager.getORB(),name_server)
+        name = OpenRTM_aist.NamingOnCorba(self._manager.getORB(),name_server)
         if name is None:
           return None
         self._rtcout.RTC_INFO("NameServer connection succeeded: %s/%s",
-                    (method, name_server))
+                              (method, name_server))
         return name
       except:
         self._rtcout.RTC_INFO("NameServer connection failed: %s/%s",
-                    (method, name_server))
+                              (method, name_server))
         return None
 
     return None

@@ -18,7 +18,7 @@
 import threading
 from omniORB import any
 
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -33,7 +33,7 @@ import OpenRTM
 # @class PublisherPeriodic
 # @brief PublisherPeriodic class
 # @endif
-class PublisherPeriodic(OpenRTM.PublisherBase):
+class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   """
   """
 

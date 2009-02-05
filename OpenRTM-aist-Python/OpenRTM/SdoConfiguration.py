@@ -18,7 +18,7 @@
 import copy
 import threading
 
-import OpenRTM
+import OpenRTM_aist
 ##
 # @if jp
 # @namespace SDOPackage
@@ -79,7 +79,7 @@ class ScopedLock:
 # 
 # @endif
 def toProperties(prop, conf):
-  OpenRTM.NVUtil.copyToProperties(prop, conf.configuration_data)
+  OpenRTM_aist.NVUtil.copyToProperties(prop, conf.configuration_data)
 
 
 ##
@@ -107,7 +107,7 @@ def toProperties(prop, conf):
 def toConfigurationSet(conf, prop):
   conf.description = prop.getProperty("description")
   conf.id = prop.getName()
-  OpenRTM.NVUtil.copyFromProperties(conf.configuration_data, prop)
+  OpenRTM_aist.NVUtil.copyFromProperties(conf.configuration_data, prop)
 
 
 
@@ -338,15 +338,15 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       if not sProfile.id:
         prof = sProfile
         prof.id = self.getUUID()
-        OpenRTM.CORBA_SeqUtil.push_back(self._serviceProfiles, prof)
+        OpenRTM_aist.CORBA_SeqUtil.push_back(self._serviceProfiles, prof)
         return True
 
-      index = OpenRTM.CORBA_SeqUtil.find(self._serviceProfiles,
-                         self.service_id(sProfile.id))
+      index = OpenRTM_aist.CORBA_SeqUtil.find(self._serviceProfiles,
+                                              self.service_id(sProfile.id))
       if index >= 0:
-        OpenRTM.CORBA_SeqUtil.erase(self._serviceProfiles, index)
+        OpenRTM_aist.CORBA_SeqUtil.erase(self._serviceProfiles, index)
 
-      OpenRTM.CORBA_SeqUtil.push_back(self._serviceProfiles, sProfile)
+      OpenRTM_aist.CORBA_SeqUtil.push_back(self._serviceProfiles, sProfile)
       return True
     except:
       raise SDOPackage.InternalError("Configuration.set_service_profile")
@@ -394,7 +394,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       raise SDOPackage.InvalidParameter("org is empty.")
 
     try:
-      OpenRTM.CORBA_SeqUtil.push_back(self._organizations, org)
+      OpenRTM_aist.CORBA_SeqUtil.push_back(self._organizations, org)
     except:
       raise SDOPackage.InternalError("Configuration.add_organization")
 
@@ -447,7 +447,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       raise SDOPackage.InvalidParameter("id is empty.")
 
     try:
-      OpenRTM.CORBA_SeqUtil.erase_if(self._serviceProfiles, self.service_id(id_))
+      OpenRTM_aist.CORBA_SeqUtil.erase_if(self._serviceProfiles, self.service_id(id_))
     except:
       raise SDOPackage.InternalError("Configuration.remove_service_profile")
 
@@ -499,8 +499,8 @@ class Configuration_impl(SDOPackage__POA.Configuration):
 
     try:
       guard = ScopedLock(self._org_mutex)
-      OpenRTM.CORBA_SeqUtil.erase_if(self._organizations,
-                       self.org_id(organization_id))
+      OpenRTM_aist.CORBA_SeqUtil.erase_if(self._organizations,
+                                          self.org_id(organization_id))
     except:
       raise SDOPackage.InternalError("Configuration.remove_organization")
 
@@ -850,7 +850,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       raise SDOPackage.InvalidParameter("ID is empty.")
 
     try:
-      conf = OpenRTM.Properties(key=config_id)
+      conf = OpenRTM_aist.Properties(key=config_id)
       toProperties(conf, configuration_set)
       return self._configsets.setConfigurationSetValues(config_id, conf)
     except:
@@ -970,7 +970,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
     try:
       guard = ScopedLock(self._config_mutex)
       config_id = configuration_set.id
-      config = OpenRTM.Properties(key=config_id)
+      config = OpenRTM_aist.Properties(key=config_id)
       toProperties(config, configuration_set)
       return self._configsets.addConfigurationSet(config)
     except:
@@ -1168,8 +1168,8 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #
   # @endif
   def getServiceProfile(self, id):
-    index = OpenRTM.CORBA_SeqUtil.find(self._serviceProfiles,
-                       self.service_id(id))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._serviceProfiles,
+                                            self.service_id(id))
 
     if index < 0:
       return SDOPackage.ServiceProfile("","",[],None)
@@ -1210,7 +1210,24 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #
   # @endif
   def getUUID(self):
-    return OpenRTM.uuid1()
+    return OpenRTM_aist.uuid1()
+
+
+  # functor for NVList
+  ##
+  # @if jp
+  # @class nv_name
+  # @brief  NVListÍÑfunctor
+  # @else
+  # @brief  functor for NVList
+  # @endif
+  class nv_name:
+    def __init__(self, name_):
+      self._name = str(name_)
+
+    def __call__(self, nv):
+      name_ = str(nv.name)
+      return self._name == name_
 
 
   # functor for ServiceProfile

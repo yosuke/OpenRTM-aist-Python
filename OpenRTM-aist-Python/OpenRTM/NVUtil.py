@@ -19,7 +19,7 @@ import sys
 import traceback
 from omniORB import any
 
-import OpenRTM
+import OpenRTM_aist
 import SDOPackage, SDOPackage__POA
 
 
@@ -131,7 +131,7 @@ def copyToProperties(prop, nvlist):
 # @endif
 class to_prop:
   def __init__(self):
-    self._prop = OpenRTM.Properties()
+    self._prop = OpenRTM_aist.Properties()
     
   def __call__(self, nv):
     self._prop.setProperty(nv.name, nv.value)
@@ -153,7 +153,7 @@ class to_prop:
 #
 # @endif
 def toProperties(nv):
-  p = OpenRTM.CORBA_SeqUtil.for_each(nv, to_prop())
+  p = OpenRTM_aist.CORBA_SeqUtil.for_each(nv, to_prop())
   return p._prop
 
 
@@ -199,7 +199,7 @@ class nv_find:
 #
 # @endif
 def find(nv, name):
-  index = OpenRTM.CORBA_SeqUtil.find(nv, nv_find(name))
+  index = OpenRTM_aist.CORBA_SeqUtil.find(nv, nv_find(name))
 
   if index < 0:
     raise "Not found."
@@ -224,7 +224,7 @@ def find(nv, name):
 #
 # @endif
 def find_index(nv, name):
-  return OpenRTM.CORBA_SeqUtil.find(nv, nv_find(name))
+  return OpenRTM_aist.CORBA_SeqUtil.find(nv, nv_find(name))
 
 
 ##
@@ -348,7 +348,7 @@ def appendStringValue(nv, name, value):
   if index >= 0:
     tmp_str = nv[index].value.value()
 
-    values = OpenRTM.split(tmp_str,",")
+    values = OpenRTM_aist.split(tmp_str,",")
     find_flag = False
     for val in values:
       if val == value:
@@ -359,7 +359,7 @@ def appendStringValue(nv, name, value):
       tmp_str += value
       nv[index].value = tmp_str
   else:
-    OpenRTM.CORBA_SeqUtil.push_back(nv, newNV(name, value))
+    OpenRTM_aist.CORBA_SeqUtil.push_back(nv, newNV(name, value))
 
   return True
 
@@ -380,7 +380,7 @@ def appendStringValue(nv, name, value):
 # @endif
 def append(dest, src):
   for i in range(len(src)):
-    OpenRTM.CORBA_SeqUtil.push_back(dest, src[i])
+    OpenRTM_aist.CORBA_SeqUtil.push_back(dest, src[i])
 
 
 ##

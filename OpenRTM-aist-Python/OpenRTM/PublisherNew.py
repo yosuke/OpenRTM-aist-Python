@@ -17,7 +17,7 @@
  
 import threading
 
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -35,7 +35,7 @@ import OpenRTM
 # @class PublisherNew
 # @brief PublisherNew class
 # @endif
-class PublisherNew(OpenRTM.PublisherBase):
+class PublisherNew(OpenRTM_aist.PublisherBase):
   """
   """
 

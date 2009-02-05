@@ -17,7 +17,7 @@
 #     All rights reserved.
 
 
-import OpenRTM
+import OpenRTM_aist
 
 ##
 # @if jp

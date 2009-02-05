@@ -3,7 +3,7 @@
 
 import sys
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 import random
@@ -23,9 +23,9 @@ seqout_spec = ["implementation_id", "SeqOut",
 
 
 
-class SeqOut(OpenRTM.DataFlowComponentBase):
+class SeqOut(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
-        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         self._short     = RTC.TimedShort(RTC.Time(0,0),0)
         self._long      = RTC.TimedLong(RTC.Time(0,0),0)
         self._float     = RTC.TimedFloat(RTC.Time(0,0),0)
@@ -35,14 +35,14 @@ class SeqOut(OpenRTM.DataFlowComponentBase):
         self._floatSeq  = RTC.TimedFloatSeq(RTC.Time(0,0),[])
         self._doubleSeq = RTC.TimedDoubleSeq(RTC.Time(0,0),[])
 
-        self._shortOut     = OpenRTM.OutPort("Short", self._short, OpenRTM.RingBuffer(8))
-        self._longOut      = OpenRTM.OutPort("Long", self._long, OpenRTM.RingBuffer(8))
-        self._floatOut     = OpenRTM.OutPort("Float", self._float, OpenRTM.RingBuffer(8))
-        self._doubleOut    = OpenRTM.OutPort("Double", self._double, OpenRTM.RingBuffer(8))
-        self._shortSeqOut  = OpenRTM.OutPort("ShortSeq", self._shortSeq, OpenRTM.RingBuffer(8))
-        self._longSeqOut   = OpenRTM.OutPort("LongSeq", self._longSeq, OpenRTM.RingBuffer(8))
-        self._floatSeqOut  = OpenRTM.OutPort("FloatSeq", self._floatSeq, OpenRTM.RingBuffer(8))
-        self._doubleSeqOut = OpenRTM.OutPort("DoubleSeq", self._doubleSeq, OpenRTM.RingBuffer(8))
+        self._shortOut     = OpenRTM_aist.OutPort("Short", self._short, OpenRTM_aist.RingBuffer(8))
+        self._longOut      = OpenRTM_aist.OutPort("Long", self._long, OpenRTM_aist.RingBuffer(8))
+        self._floatOut     = OpenRTM_aist.OutPort("Float", self._float, OpenRTM_aist.RingBuffer(8))
+        self._doubleOut    = OpenRTM_aist.OutPort("Double", self._double, OpenRTM_aist.RingBuffer(8))
+        self._shortSeqOut  = OpenRTM_aist.OutPort("ShortSeq", self._shortSeq, OpenRTM_aist.RingBuffer(8))
+        self._longSeqOut   = OpenRTM_aist.OutPort("LongSeq", self._longSeq, OpenRTM_aist.RingBuffer(8))
+        self._floatSeqOut  = OpenRTM_aist.OutPort("FloatSeq", self._floatSeq, OpenRTM_aist.RingBuffer(8))
+        self._doubleSeqOut = OpenRTM_aist.OutPort("DoubleSeq", self._doubleSeq, OpenRTM_aist.RingBuffer(8))
 
 
         # Set OutPort buffer
@@ -104,10 +104,10 @@ class SeqOut(OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-    profile = OpenRTM.Properties(defaults_str=seqout_spec)
+    profile = OpenRTM_aist.Properties(defaults_str=seqout_spec)
     manager.registerFactory(profile,
                             SeqOut,
-                            OpenRTM.Delete)
+                            OpenRTM_aist.Delete)
 
     # Create a component
     comp = manager.createComponent("SeqOut")
@@ -117,7 +117,7 @@ def MyModuleInit(manager):
 
 def main():
     # Initialize manager
-    mgr = OpenRTM.Manager.init(sys.argv)
+    mgr = OpenRTM_aist.Manager.init(sys.argv)
 
     # Set module initialization proceduer
     # This procedure will be invoked in activateManager() function.

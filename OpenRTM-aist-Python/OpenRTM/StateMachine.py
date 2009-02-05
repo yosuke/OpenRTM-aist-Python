@@ -17,7 +17,7 @@
 
 import threading
 
-import OpenRTM
+import OpenRTM_aist
 import RTC, RTC__POA
 
 
@@ -154,10 +154,10 @@ class StateHolder:
 #
 # @endif
 class StateMachine:
-  state_array = (RTC.INACTIVE_STATE,
-           RTC.ACTIVE_STATE,
-           RTC.ERROR_STATE,
-           RTC.UNKNOWN_STATE)
+  state_array = (RTC.CREATED_STATE,
+                 RTC.INACTIVE_STATE,
+                 RTC.ACTIVE_STATE,
+                 RTC.ERROR_STATE)
 
 
 
@@ -534,7 +534,7 @@ class StateMachine:
   # @brief 状態の同期処理
   #
   # @param self
-  # @param states OpenRTM.StateHolder<RTC.LifeCycleState>
+  # @param states OpenRTM_aist.StateHolder<RTC.LifeCycleState>
   #
   # @else
   # @endif

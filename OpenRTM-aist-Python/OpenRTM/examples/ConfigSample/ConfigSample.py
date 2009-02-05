@@ -4,7 +4,7 @@
 import sys
 import time
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 # Module specification
@@ -37,10 +37,10 @@ def ticktack():
     return str_[i]
 
 
-class ConfigSample(OpenRTM.DataFlowComponentBase):
+class ConfigSample(OpenRTM_aist.DataFlowComponentBase):
     # class constructor
     def __init__(self, manager):
-        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         self._int_param0 = [0]
         self._int_param1 = [1]
         self._double_param0 = [0.11]
@@ -113,10 +113,10 @@ class ConfigSample(OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-    profile = OpenRTM.Properties(defaults_str=configsample_spec)
+    profile = OpenRTM_aist.Properties(defaults_str=configsample_spec)
     manager.registerFactory(profile,
                             ConfigSample,
-                            OpenRTM.Delete)
+                            OpenRTM_aist.Delete)
 
     # Create a component
     comp = manager.createComponent("ConfigSample")
@@ -127,13 +127,13 @@ def MyModuleInit(manager):
     obj = poa.servant_to_reference(comp)
     rtobj = obj._narrow(RTC.RTObject)
 
-    ecs = rtobj.get_execution_context_services()
+    ecs = rtobj.get_owned_contexts()
     ecs[0].activate_component(rtobj)
     
 
 def main():
     # Initialize manager
-    mgr = OpenRTM.Manager.init(sys.argv)
+    mgr = OpenRTM_aist.Manager.init(sys.argv)
 
     # Set module initialization proceduer
     # This procedure will be invoked in activateManager() function.

@@ -16,7 +16,7 @@
 #     All rights reserved.
 
 
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -32,7 +32,7 @@ import OpenRTM
 # @class PublisherFlush
 # @brief PublisherFlush class
 # @endif
-class PublisherFlush(OpenRTM.PublisherBase):
+class PublisherFlush(OpenRTM_aist.PublisherBase):
   """
   """
 

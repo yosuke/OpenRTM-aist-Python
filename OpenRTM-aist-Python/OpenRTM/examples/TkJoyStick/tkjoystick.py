@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: euc-jp -*-
+
 #
 # @brief tk joystick
 # @date $Date$

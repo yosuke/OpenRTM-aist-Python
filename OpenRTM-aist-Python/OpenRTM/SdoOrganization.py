@@ -19,7 +19,7 @@ import omniORB.any
 from omniORB import CORBA
 import threading
 
-import OpenRTM
+import OpenRTM_aist
 import SDOPackage, SDOPackage__POA
 
 
@@ -45,11 +45,6 @@ class ScopedLock:
     self.mutex.release()
 
 
-# SdoOrganization.o 23788
-# 41892
-
-
-
 ##
 # @if jp
 # 
@@ -73,8 +68,6 @@ class ScopedLock:
 # @endif
 class Organization_impl:
 
-
-
   ##
   # @if jp
   # 
@@ -85,13 +78,15 @@ class Organization_impl:
   # @else
   # 
   # @endif
-  def __init__(self):
-    self._pId = OpenRTM.uuid1()
-    self._org_mutex = threading.RLock()
+  def __init__(self, sdo):
+    self._pId         = OpenRTM_aist.uuid1()
+    self._org_mutex   = threading.RLock()
 
     self._orgProperty = SDOPackage.OrganizationProperty([])
-    self._varOwner    = None
+    self._varOwner    = sdo
     self._memberList  = []
+    self._dependency  = SDOPackage.OWN
+    self._objref      = self._this()
 
 
   #============================================================
@@ -220,7 +215,7 @@ class Organization_impl:
     if not name:
       raise SDOPackage.InvalidParameter("Empty name.")
 
-    index = OpenRTM.CORBA_SeqUtil.find(self._orgProperty.properties, self.nv_name(name))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._orgProperty.properties, self.nv_name(name))
 
     if index < 0:
       raise SDOPackage.InvalidParameter("Not found.")
@@ -340,11 +335,11 @@ class Organization_impl:
     if not name:
       raise SDOPackage.InvalidParameter("set_organization_property_value(): Enpty name.")
 
-    index = OpenRTM.CORBA_SeqUtil.find(self._orgProperty.properties, self.nv_name(name))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._orgProperty.properties, self.nv_name(name))
 
     if index < 0:
       nv = SDOPackage.NameValue(name, value)
-      OpenRTM.CORBA_SeqUtil.push_back(self._orgProperty.properties, nv)
+      OpenRTM_aist.CORBA_SeqUtil.push_back(self._orgProperty.properties, nv)
     else:
       self._orgProperty.properties[index].value = value
 
@@ -396,13 +391,13 @@ class Organization_impl:
     if not name:
       raise SDOPackage.InvalidParameter("remove_organization_property_value(): Enpty name.")
 
-    index = OpenRTM.CORBA_SeqUtil.find(self._orgProperty.properties, self.nv_name(name))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._orgProperty.properties, self.nv_name(name))
 
     if index < 0:
       raise SDOPackage.InvalidParameter("remove_organization_property_value(): Not found.")
 
     try:
-      OpenRTM.CORBA_SeqUtil.erase(self._orgProperty.properties, index)
+      OpenRTM_aist.CORBA_SeqUtil.erase(self._orgProperty.properties, index)
       return True
     except:
       raise SDOPackage.InternalError("remove_organization_property_value()")
@@ -643,7 +638,7 @@ class Organization_impl:
       raise SDOPackage.InvalidParameter("add_members(): SDOList is empty.")
 
     try:
-      OpenRTM.CORBA_SeqUtil.push_back_list(self._memberList, sdo_list)
+      OpenRTM_aist.CORBA_SeqUtil.push_back_list(self._memberList, sdo_list)
       return True
     except:
       raise SDOPackage.InternalError("add_members()")
@@ -692,13 +687,13 @@ class Organization_impl:
     if not id:
       raise SDOPackage.InvalidParameter("remove_member(): Empty name.")
 
-    index = OpenRTM.CORBA_SeqUtil.find(self._memberList, self.sdo_id(id))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._memberList, self.sdo_id(id))
 
     if index < 0:
       raise SDOPackage.InvalidParameter("remove_member(): Not found.")
 
     try:
-      OpenRTM.CORBA_SeqUtil.erase(self._memberList, index)
+      OpenRTM_aist.CORBA_SeqUtil.erase(self._memberList, index)
       return True
     except:
       raise SDOPackage.InternalError("remove_member(): Not found.")

@@ -17,7 +17,7 @@
 
 
 import copy
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -122,7 +122,7 @@ class Config(ConfigBase):
     if trans:
       self._trans = trans
     else:
-      self._trans = OpenRTM.stringTo
+      self._trans = OpenRTM_aist.stringTo
 
 
   ##
@@ -185,7 +185,7 @@ class ConfigAdmin:
     self._active     = True
     self._changed    = False
     self._params     = []
-    self._emptyconf  = OpenRTM.Properties()
+    self._emptyconf  = OpenRTM_aist.Properties()
     self._newConfig  = []
 
 
@@ -229,12 +229,12 @@ class ConfigAdmin:
   # @endif
   def bindParameter(self, param_name, var, def_val, trans=None):
     if trans is None:
-      trans = OpenRTM.stringTo
+      trans = OpenRTM_aist.stringTo
     
     if self.isExist(param_name):
       return False
 
-    if not OpenRTM.stringTo(var, def_val):
+    if not trans(var, def_val):
       return False
     
     self._params.append(Config(param_name, var, def_val, trans))

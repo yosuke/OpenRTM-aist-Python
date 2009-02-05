@@ -16,7 +16,7 @@
 #     All rights reserved.
 
 
-import OpenRTM
+import OpenRTM_aist
 import RTC, RTC__POA
 
 
@@ -33,7 +33,7 @@ import RTC, RTC__POA
 # @class DataOutPort
 # @brief OutPort abstruct class
 # @endif
-class DataOutPort(OpenRTM.PortBase):
+class DataOutPort(OpenRTM_aist.PortBase):
   """
   """
 
@@ -52,17 +52,17 @@ class DataOutPort(OpenRTM.PortBase):
   # @else
   # @brief Constructor
   # @endif
-  def __init__(self, name, outport):
-    OpenRTM.PortBase.__init__(self, name)
+  def __init__(self, name, outport, prop):
+    OpenRTM_aist.PortBase.__init__(self, name)
     self._outport = outport
     # PortProfile::properties を設定
     self.addProperty("port.port_type", "DataOutPort")
     self._providers = []
-    self._providers.append(OpenRTM.OutPortCorbaProvider(outport))
+    self._providers.append(OpenRTM_aist.OutPortCorbaProvider(outport))
     self._providers[-1].publishInterfaceProfile(self._profile.properties)
     self._consumers = []
-    self._consumers.append(OpenRTM.InPortCorbaConsumer(outport))
-    self._pf = OpenRTM.PublisherFactory()
+    self._consumers.append(OpenRTM_aist.InPortCorbaConsumer(outport))
+    self._pf = OpenRTM_aist.PublisherFactory()
 
 
   ##
@@ -166,11 +166,12 @@ class DataOutPort(OpenRTM.PortBase):
 
     
     # Publisherを生成
-    prop = OpenRTM.NVUtil.toProperties(connector_profile.properties)
+    prop = OpenRTM_aist.NVUtil.toProperties(connector_profile.properties)
     publisher = self._pf.create(subscribe._consumer.clone(), prop)
 
     # PublisherをOutPortにアタッチ
     self._outport.attach(connector_profile.connector_id, publisher)
+    # self._outport.onConnect(connector_profile.connector_id, publisher)
 
     return RTC.RTC_OK
 
@@ -208,6 +209,7 @@ class DataOutPort(OpenRTM.PortBase):
   def unsubscribeInterfaces(self, connector_profile):
     publisher = self._outport.detach(connector_profile.connector_id)
     self._pf.destroy(publisher)
+    self._outport.onDisconnect(connector_profile.connector_id)
     return
 
 
@@ -243,7 +245,7 @@ class DataOutPort(OpenRTM.PortBase):
     def __call__(self, cons):
       """
        \brief operator()の実装
-       \param cons(OpenRTM.InPortConsumer)
+       \param cons(OpenRTM_aist.InPortConsumer)
       """
       if cons.subscribeInterface(self._prof.properties):
         self._consumer = cons

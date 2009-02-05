@@ -17,7 +17,7 @@
 
 import threading
 
-import OpenRTM
+import OpenRTM_aist
 import RTC, RTC__POA
 
 
@@ -119,7 +119,7 @@ class ScopedLock:
 #
 #
 # @endif
-class PortBase(RTC__POA.Port):
+class PortBase(RTC__POA.PortService):
   """
   """
 
@@ -149,7 +149,7 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def __init__(self, name=None):
-    self._profile = RTC.PortProfile("", [], RTC.Port._nil, [], RTC.RTObject._nil,[])
+    self._profile = RTC.PortProfile("", [], RTC.PortService._nil, [], RTC.RTObject._nil,[])
     
     if name is None:
       self._profile.name = ""
@@ -207,13 +207,17 @@ class PortBase(RTC__POA.Port):
   def get_port_profile(self):
     guard = ScopedLock(self._profile_mutex)
     prof = RTC.PortProfile(self._profile.name,
-                 self._profile.interfaces,
-                 self._profile.port_ref,
-                 self._profile.connector_profiles,
-                 self._profile.owner,
-                 self._profile.properties)
+                           self._profile.interfaces,
+                           self._profile.port_ref,
+                           self._profile.connector_profiles,
+                           self._profile.owner,
+                           self._profile.properties)
 
     return prof
+
+
+  def getPortProfile(self):
+    return self._profile
 
 
   ##
@@ -288,16 +292,16 @@ class PortBase(RTC__POA.Port):
   # @endif
   def get_connector_profile(self, connector_id):
     guard = ScopedLock(self._profile_mutex)
-    index = OpenRTM.CORBA_SeqUtil.find(self._profile.connector_profiles,
-                       self.find_conn_id(connector_id))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
+                                            self.find_conn_id(connector_id))
     if index < 0:
       conn_prof = RTC.ConnectorProfile("","",[],[])
       return conn_prof
 
     conn_prof = RTC.ConnectorProfile(self._profile.connector_profiles[index].name,
-                     self._profile.connector_profiles[index].connector_id,
-                     self._profile.connector_profiles[index].ports,
-                     self._profile.connector_profiles[index].properties)
+                                     self._profile.connector_profiles[index].connector_id,
+                                     self._profile.connector_profiles[index].ports,
+                                     self._profile.connector_profiles[index].properties)
     return conn_prof
 
 
@@ -458,8 +462,8 @@ class PortBase(RTC__POA.Port):
     # update ConnectorProfile
     index = self.findConnProfileIndex(connector_profile.connector_id)
     if index < 0:
-      OpenRTM.CORBA_SeqUtil.push_back(self._profile.connector_profiles,
-                      connector_profile)
+      OpenRTM_aist.CORBA_SeqUtil.push_back(self._profile.connector_profiles,
+                                           connector_profile)
     else:
       self._profile.connector_profiles[index] = connector_profile
 
@@ -505,9 +509,9 @@ class PortBase(RTC__POA.Port):
 
     index = self.findConnProfileIndex(connector_id)
     prof = RTC.ConnectorProfile(self._profile.connector_profiles[index].name,
-                  self._profile.connector_profiles[index].connector_id,
-                  self._profile.connector_profiles[index].ports,
-                  self._profile.connector_profiles[index].properties)
+                                self._profile.connector_profiles[index].connector_id,
+                                self._profile.connector_profiles[index].ports,
+                                self._profile.connector_profiles[index].properties)
     return prof.ports[0].notify_disconnect(connector_id)
 
 
@@ -555,7 +559,7 @@ class PortBase(RTC__POA.Port):
   def notify_disconnect(self, connector_id):
 
     # The Port of which the reference is stored in the beginning of
-    # connectorProfile's PortList is master Port.
+    # connectorProfile's PortServiceList is master Port.
     # The master Port has the responsibility of disconnecting all Ports.
     # The slave Ports have only responsibility of deleting its own
     # ConnectorProfile.
@@ -566,14 +570,14 @@ class PortBase(RTC__POA.Port):
 
     index = self.findConnProfileIndex(connector_id)
     prof = RTC.ConnectorProfile(self._profile.connector_profiles[index].name,
-                  self._profile.connector_profiles[index].connector_id,
-                  self._profile.connector_profiles[index].ports,
-                  self._profile.connector_profiles[index].properties)
+                                self._profile.connector_profiles[index].connector_id,
+                                self._profile.connector_profiles[index].ports,
+                                self._profile.connector_profiles[index].properties)
 
     self.unsubscribeInterfaces(prof)
     retval = self.disconnectNext(prof)
 
-    OpenRTM.CORBA_SeqUtil.erase(self._profile.connector_profiles, index)
+    OpenRTM_aist.CORBA_SeqUtil.erase(self._profile.connector_profiles, index)
     
     return retval
 
@@ -602,10 +606,9 @@ class PortBase(RTC__POA.Port):
     guard = ScopedLock(self._profile_mutex)
     # disconnect all connections
     # Call disconnect() for each ConnectorProfile.
-    f = OpenRTM.CORBA_SeqUtil.for_each(self._profile.connector_profiles,
-                       self.disconnect_all_func(self))
+    f = OpenRTM_aist.CORBA_SeqUtil.for_each(self._profile.connector_profiles,
+                                            self.disconnect_all_func(self))
     return f.return_code
-
 
 
   #============================================================
@@ -834,8 +837,8 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def connectNext(self, connector_profile):
-    index = OpenRTM.CORBA_SeqUtil.find(connector_profile.ports,
-                       self.find_port_ref(self._profile.port_ref))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(connector_profile.ports,
+                                            self.find_port_ref(self._profile.port_ref))
     if index < 0:
       return RTC.BAD_PARAMETER, connector_profile
 
@@ -874,8 +877,8 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def disconnectNext(self, connector_profile):
-    index = OpenRTM.CORBA_SeqUtil.find(connector_profile.ports,
-                       self.find_port_ref(self._profile.port_ref))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(connector_profile.ports,
+                                            self.find_port_ref(self._profile.port_ref))
     if index < 0:
       return RTC.BAD_PARAMETER
 
@@ -1047,7 +1050,7 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def getUUID(self):
-    return str(OpenRTM.uuid1())
+    return str(OpenRTM_aist.uuid1())
 
 
   ##
@@ -1098,8 +1101,8 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def isExistingConnId(self, id_):
-    return OpenRTM.CORBA_SeqUtil.find(self._profile.connector_profiles,
-                      self.find_conn_id(id_)) >= 0
+    return OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
+                                           self.find_conn_id(id_)) >= 0
 
 
   ##
@@ -1132,8 +1135,8 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def findConnProfile(self, id_):
-    index = OpenRTM.CORBA_SeqUtil.find(self._profile.connector_profiles,
-                       self.find_conn_id(id_))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
+                                            self.find_conn_id(id_))
     if index < 0 or index >= len(self._profile.connector_profiles):
       return RTC.ConnectorProfile("","",[],[])
 
@@ -1169,8 +1172,8 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def findConnProfileIndex(self, id_):
-    return OpenRTM.CORBA_SeqUtil.find(self._profile.connector_profiles,
-                      self.find_conn_id(id_))
+    return OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
+                                           self.find_conn_id(id_))
 
 
   ##
@@ -1201,12 +1204,12 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def updateConnectorProfile(self, connector_profile):
-    index = OpenRTM.CORBA_SeqUtil.find(self._profile.connector_profiles,
-                       self.find_conn_id(connector_profile.connector_id))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
+                                            self.find_conn_id(connector_profile.connector_id))
 
     if index < 0:
-      OpenRTM.CORBA_SeqUtil.push_back(self._profile.connector_profiles,
-                      self.connector_profile)
+      OpenRTM_aist.CORBA_SeqUtil.push_back(self._profile.connector_profiles,
+                                           self.connector_profile)
     else:
       self._profile.connector_profiles[index] = connector_profile
 
@@ -1239,13 +1242,13 @@ class PortBase(RTC__POA.Port):
   def eraseConnectorProfile(self, id_):
     guard = ScopedLock(self._profile_mutex)
 
-    index = OpenRTM.CORBA_SeqUtil.find(self._profile.connector_profiles,
-                       self.find_conn_id(id_))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
+                                            self.find_conn_id(id_))
 
     if index < 0:
       return False
 
-    OpenRTM.CORBA_SeqUtil.erase(self._profile.connector_profiles, index)
+    OpenRTM_aist.CORBA_SeqUtil.erase(self._profile.connector_profiles, index)
 
     return True
 
@@ -1300,15 +1303,15 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def appendInterface(self, instance_name, type_name, pol):
-    index = OpenRTM.CORBA_SeqUtil.find(self._profile.interfaces,
-                       self.find_interface(instance_name, pol))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.interfaces,
+                                            self.find_interface(instance_name, pol))
 
     if index >= 0:
       return False
 
     # setup PortInterfaceProfile
     prof = RTC.PortInterfaceProfile(instance_name, type_name, pol)
-    OpenRTM.CORBA_SeqUtil.push_back(self._profile.interfaces, prof)
+    OpenRTM_aist.CORBA_SeqUtil.push_back(self._profile.interfaces, prof)
 
     return True
 
@@ -1342,13 +1345,13 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def deleteInterface(self, name, pol):
-    index = OpenRTM.CORBA_SeqUtil.find(self._profile.interfaces,
-                       self.find_interface(name, pol))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.interfaces,
+                                            self.find_interface(name, pol))
 
     if index < 0:
       return False
 
-    OpenRTM.CORBA_SeqUtil.erase(self._profile.interfaces, index)
+    OpenRTM_aist.CORBA_SeqUtil.erase(self._profile.interfaces, index)
     return True
 
 
@@ -1373,8 +1376,8 @@ class PortBase(RTC__POA.Port):
   #
   # @endif
   def addProperty(self, key, value):
-    OpenRTM.CORBA_SeqUtil.push_back(self._profile.properties,
-                    OpenRTM.NVUtil.newNV(key, value))
+    OpenRTM_aist.CORBA_SeqUtil.push_back(self._profile.properties,
+                                         OpenRTM_aist.NVUtil.newNV(key, value))
 
 
   #============================================================
@@ -1426,13 +1429,13 @@ class PortBase(RTC__POA.Port):
   class find_port_ref:
     def __init__(self, port_ref):
       """
-       \param port_ref(RTC.Port)
+       \param port_ref(RTC.PortService)
       """
       self._port_ref = port_ref
 
     def __call__(self, port_ref):
       """
-       \param port_ref(RTC.Port)
+       \param port_ref(RTC.PortService)
       """
       return self._port_ref._is_equivalent(port_ref)
 
@@ -1446,7 +1449,7 @@ class PortBase(RTC__POA.Port):
   class connect_func:
     def __init__(self, p, prof):
       """
-       \param p(RTC.Port)
+       \param p(RTC.PortService)
        \param prof(RTC.ConnectorProfile)
       """
       self._port_ref = p
@@ -1455,7 +1458,7 @@ class PortBase(RTC__POA.Port):
 
     def __call__(self, p):
       """
-       \param p(RTC.Port)
+       \param p(RTC.PortService)
       """
       if not self._port_ref._is_equivalent(p):
         retval = p.notify_connect(self._connector_profile)
@@ -1472,7 +1475,7 @@ class PortBase(RTC__POA.Port):
   class disconnect_func:
     def __init__(self, p, prof):
       """
-       \param p(RTC.Port)
+       \param p(RTC.PortService)
        \param prof(RTC.ConnectorProfile)
       """
       self._port_ref = p
@@ -1481,7 +1484,7 @@ class PortBase(RTC__POA.Port):
       
     def __call__(self, p):
       """
-       \param p(RTC.Port)
+       \param p(RTC.PortService)
       """
       if not self._port_ref._is_equivalent(p):
         retval = p.disconnect(self._connector_profile.connector_id)
@@ -1498,7 +1501,7 @@ class PortBase(RTC__POA.Port):
   class disconnect_all_func:
     def __init__(self, p):
       """
-       \param p(OpenRTM.PortBase)
+       \param p(OpenRTM_aist.PortBase)
       """
       self.return_code = RTC.RTC_OK
       self._port = p

@@ -19,7 +19,7 @@
 import threading
 import time
 
-import OpenRTM
+import OpenRTM_aist
 import RTC, RTC__POA
 
 
@@ -38,7 +38,7 @@ import RTC, RTC__POA
 # @else
 # @class ExtTrigExecutionContext
 # @endif
-class ExtTrigExecutionContext(OpenRTM.PeriodicExecutionContext):
+class ExtTrigExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
   """
   """
 
@@ -55,7 +55,7 @@ class ExtTrigExecutionContext(OpenRTM.PeriodicExecutionContext):
   # @brief Constructor
   # @endif
   def __init__(self):
-    OpenRTM.PeriodicExecutionContext.__init__(self)
+    OpenRTM_aist.PeriodicExecutionContext.__init__(self)
     self._worker = self.Worker()
 
 
@@ -103,7 +103,6 @@ class ExtTrigExecutionContext(OpenRTM.PeriodicExecutionContext):
       if self._worker._called:
         self._worker._called = False
         for comp in self._comps:
-#          self.invoke_worker()(comp)
           comp._sm.worker()
         while not self._running:
           time.sleep(sec_)
@@ -156,5 +155,5 @@ class ExtTrigExecutionContext(OpenRTM.PeriodicExecutionContext):
 # @endif
 def ExtTrigExecutionContextInit(manager):
   manager.registerECFactory("ExtTrigExecutionContext",
-                OpenRTM.ExtTrigExecutionContext,
-                OpenRTM.ECDelete)
+                            OpenRTM_aist.ExtTrigExecutionContext,
+                            OpenRTM_aist.ECDelete)

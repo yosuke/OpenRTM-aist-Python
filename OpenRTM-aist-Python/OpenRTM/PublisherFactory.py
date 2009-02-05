@@ -17,7 +17,7 @@
 
 from omniORB import any
 
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -67,11 +67,11 @@ class PublisherFactory:
     if type(pub_type) != str :
       pub_type = str(any.from_any(pub_type,keep_structs=True))
     if pub_type == "New":
-      return OpenRTM.PublisherNew(consumer, property)
+      return OpenRTM_aist.PublisherNew(consumer, property)
     elif pub_type == "Periodic":
-      return OpenRTM.PublisherPeriodic(consumer, property)
+      return OpenRTM_aist.PublisherPeriodic(consumer, property)
     elif pub_type == "Flush":
-      return OpenRTM.PublisherFlush(consumer, property)
+      return OpenRTM_aist.PublisherFlush(consumer, property)
 
     return None
 

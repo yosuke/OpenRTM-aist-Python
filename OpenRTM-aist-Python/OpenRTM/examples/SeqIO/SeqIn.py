@@ -4,7 +4,7 @@
 import sys
 import time
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 seqin_spec = ["implementation_id", "SeqIn",
@@ -20,9 +20,9 @@ seqin_spec = ["implementation_id", "SeqIn",
               ""]
 
 
-class SeqIn(OpenRTM.DataFlowComponentBase):
+class SeqIn(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
-        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         self._short     = RTC.TimedShort(RTC.Time(0,0),0)
         self._long      = RTC.TimedLong(RTC.Time(0,0),0)
         self._float     = RTC.TimedFloat(RTC.Time(0,0),0)
@@ -32,14 +32,14 @@ class SeqIn(OpenRTM.DataFlowComponentBase):
         self._floatSeq  = RTC.TimedFloatSeq(RTC.Time(0,0),[])
         self._doubleSeq = RTC.TimedDoubleSeq(RTC.Time(0,0),[])
 
-        self._shortIn     = OpenRTM.InPort("Short", self._short, OpenRTM.RingBuffer(8))
-        self._longIn      = OpenRTM.InPort("Long", self._long, OpenRTM.RingBuffer(8))
-        self._floatIn     = OpenRTM.InPort("Float", self._float, OpenRTM.RingBuffer(8))
-        self._doubleIn    = OpenRTM.InPort("Double", self._double, OpenRTM.RingBuffer(8))
-        self._shortSeqIn  = OpenRTM.InPort("ShortSeq", self._shortSeq, OpenRTM.RingBuffer(8))
-        self._longSeqIn   = OpenRTM.InPort("LongSeq", self._longSeq, OpenRTM.RingBuffer(8))
-        self._floatSeqIn  = OpenRTM.InPort("FloatSeq", self._floatSeq, OpenRTM.RingBuffer(8))
-        self._doubleSeqIn = OpenRTM.InPort("DoubleSeq", self._doubleSeq, OpenRTM.RingBuffer(8))
+        self._shortIn     = OpenRTM_aist.InPort("Short", self._short, OpenRTM_aist.RingBuffer(8))
+        self._longIn      = OpenRTM_aist.InPort("Long", self._long, OpenRTM_aist.RingBuffer(8))
+        self._floatIn     = OpenRTM_aist.InPort("Float", self._float, OpenRTM_aist.RingBuffer(8))
+        self._doubleIn    = OpenRTM_aist.InPort("Double", self._double, OpenRTM_aist.RingBuffer(8))
+        self._shortSeqIn  = OpenRTM_aist.InPort("ShortSeq", self._shortSeq, OpenRTM_aist.RingBuffer(8))
+        self._longSeqIn   = OpenRTM_aist.InPort("LongSeq", self._longSeq, OpenRTM_aist.RingBuffer(8))
+        self._floatSeqIn  = OpenRTM_aist.InPort("FloatSeq", self._floatSeq, OpenRTM_aist.RingBuffer(8))
+        self._doubleSeqIn = OpenRTM_aist.InPort("DoubleSeq", self._doubleSeq, OpenRTM_aist.RingBuffer(8))
 
 
         # Set InPort buffer
@@ -96,10 +96,10 @@ class SeqIn(OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-    profile = OpenRTM.Properties(defaults_str=seqin_spec)
+    profile = OpenRTM_aist.Properties(defaults_str=seqin_spec)
     manager.registerFactory(profile,
                             SeqIn,
-                            OpenRTM.Delete)
+                            OpenRTM_aist.Delete)
 
     # Create a component
     comp = manager.createComponent("SeqIn")
@@ -107,7 +107,7 @@ def MyModuleInit(manager):
 
 def main():
     # Initialize manager
-    mgr = OpenRTM.Manager.init(sys.argv)
+    mgr = OpenRTM_aist.Manager.init(sys.argv)
 
     # Set module initialization proceduer
     # This procedure will be invoked in activateManager() function.

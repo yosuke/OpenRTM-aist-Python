@@ -18,7 +18,7 @@
 import time
 import threading
 
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -204,7 +204,7 @@ class Timer:
   #
   # @endif
   def registerListenerObj(self, obj, cbf, tm):
-    return self.registerListener(OpenRTM.ListenerObject(obj, cbf), tm)
+    return self.registerListener(OpenRTM_aist.ListenerObject(obj, cbf), tm)
 
 
   ##
@@ -223,7 +223,7 @@ class Timer:
   #
   # @endif
   def registerListenerFunc(self, cbf, tm):
-    return self.registerListener(OpenRTM.ListenerFunc(cbf), tm)
+    return self.registerListener(OpenRTM_aist.ListenerFunc(cbf), tm)
 
 
   ##

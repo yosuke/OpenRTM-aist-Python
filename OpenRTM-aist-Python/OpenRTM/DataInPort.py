@@ -16,7 +16,7 @@
 #      All rights reserved.
 
 
-import OpenRTM
+import OpenRTM_aist
 import RTC, RTC__POA
 
 
@@ -34,7 +34,7 @@ import RTC, RTC__POA
 # @class DataInPort
 # @brief InPort abstruct class
 # @endif
-class DataInPort(OpenRTM.PortBase):
+class DataInPort(OpenRTM_aist.PortBase):
   """
   """
 
@@ -49,21 +49,22 @@ class DataInPort(OpenRTM.PortBase):
   # @param self
   # @param name ポート名称
   # @param inport 当該データ入力ポートに関連付けるInPortオブジェクト
+  # @param prop   ポート設定用プロパティ
   #
   # @else
   # @brief Constructor
   # @endif
-  def __init__(self, name, inport):
-    OpenRTM.PortBase.__init__(self, name)
+  def __init__(self, name, inport, prop):
+    OpenRTM_aist.PortBase.__init__(self, name)
 
     # PortProfile::properties を設定
     self.addProperty("port.port_type", "DataInPort")
     self._providers = []
-    self._providers.append(OpenRTM.InPortCorbaProvider(inport))
+    self._providers.append(OpenRTM_aist.InPortCorbaProvider(inport))
     self._providers[-1].publishInterfaceProfile(self._profile.properties)
     self._consumers = []
-    self._consumers.append(OpenRTM.OutPortCorbaConsumer(inport))
-    self._dummy = [1]
+    self._consumers.append(OpenRTM_aist.OutPortCorbaConsumer(inport))
+    # self._dummy = [1]
 
 
   ##
@@ -83,10 +84,10 @@ class DataInPort(OpenRTM.PortBase):
   #
   # @endif
   def publishInterfaces(self, connector_profile):
-    if len(self._dummy) != 1:
-      print "Memory access violation was detected."
-      print "dummy.size(): ", len(self._dummy)
-      print "size() should be 1."
+    #if len(self._dummy) != 1:
+    #  print "Memory access violation was detected."
+    #  print "dummy.size(): ", len(self._dummy)
+    #  print "size() should be 1."
 
     for provider in self._providers:
       provider.publishInterface(connector_profile.properties)

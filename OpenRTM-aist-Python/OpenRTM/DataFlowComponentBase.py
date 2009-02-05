@@ -15,7 +15,7 @@
 #     All rights reserved.
 
 import RTC, RTC__POA
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -33,7 +33,7 @@ import OpenRTM
 # @class DataFlowComponentBase
 # @brief DataFlowComponentBase class
 # @endif
-class DataFlowComponentBase(OpenRTM.RTObject_impl):
+class DataFlowComponentBase(OpenRTM_aist.RTObject_impl):
   """
   """
 
@@ -51,7 +51,7 @@ class DataFlowComponentBase(OpenRTM.RTObject_impl):
   # @brief Constructor
   # @endif
   def __init__(self, manager):
-    OpenRTM.RTObject_impl.__init__(self, manager)
+    OpenRTM_aist.RTObject_impl.__init__(self, manager)
     self._ref = self._this()
     self._objref = self._ref
 

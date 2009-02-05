@@ -3,7 +3,7 @@
 
 import sys
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 consolein_spec = ["implementation_id", "ConsoleIn",
@@ -19,14 +19,17 @@ consolein_spec = ["implementation_id", "ConsoleIn",
                   ""]
 
 
-class ConsoleIn(OpenRTM.DataFlowComponentBase):
+class ConsoleIn(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
-        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         self._data = RTC.TimedLong(RTC.Time(0,0),0)
-        self._outport = OpenRTM.OutPort("out", self._data, OpenRTM.RingBuffer(8))
+        self._outport = OpenRTM_aist.OutPort("out", self._data, OpenRTM_aist.RingBuffer(8))
 
+
+    def onInitialize(self):
         # Set OutPort buffer
         self.registerOutPort("out", self._outport)
+        return RTC.RTC_OK
 
         
     def onExecute(self, ec_id):
@@ -38,18 +41,17 @@ class ConsoleIn(OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-    profile = OpenRTM.Properties(defaults_str=consolein_spec)
+    profile = OpenRTM_aist.Properties(defaults_str=consolein_spec)
     manager.registerFactory(profile,
                             ConsoleIn,
-                            OpenRTM.Delete)
+                            OpenRTM_aist.Delete)
 
     # Create a component
     comp = manager.createComponent("ConsoleIn")
 
-
 def main():
     # Initialize manager
-    mgr = OpenRTM.Manager.init(sys.argv)
+    mgr = OpenRTM_aist.Manager.init(sys.argv)
 
     # Set module initialization proceduer
     # This procedure will be invoked in activateManager() function.

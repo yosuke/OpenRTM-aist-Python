@@ -17,7 +17,7 @@
 
 import string
 
-import OpenRTM
+import OpenRTM_aist
 
 
 ##

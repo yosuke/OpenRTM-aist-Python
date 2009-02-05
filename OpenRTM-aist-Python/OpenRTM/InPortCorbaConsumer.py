@@ -22,7 +22,7 @@ import sys
 import traceback
 
 import RTC, RTC__POA
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -42,7 +42,7 @@ import OpenRTM
 # @class InPortCorbaConsumer
 # @brief InPortCorbaConsumer class
 # @endif
-class InPortCorbaConsumer(OpenRTM.InPortConsumer,OpenRTM.CorbaConsumer):
+class InPortCorbaConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsumer):
   """
   """
 
@@ -63,11 +63,11 @@ class InPortCorbaConsumer(OpenRTM.InPortConsumer,OpenRTM.CorbaConsumer):
   # @endif
   def __init__(self, buffer_, consumer=None):
     if consumer:
-      OpenRTM.CorbaConsumer.__init__(self, consumer=consumer)
+      OpenRTM_aist.CorbaConsumer.__init__(self, consumer=consumer)
       self._buffer = consumer._buffer
       return
     
-    OpenRTM.CorbaConsumer.__init__(self)
+    OpenRTM_aist.CorbaConsumer.__init__(self)
     self._buffer = buffer_
 
 
@@ -156,7 +156,7 @@ class InPortCorbaConsumer(OpenRTM.InPortConsumer,OpenRTM.CorbaConsumer):
   #
   # @endif
   def clone(self):
-    return OpenRTM.InPortCorbaConsumer(self, consumer=self)
+    return OpenRTM_aist.InPortCorbaConsumer(self, consumer=self)
 
 
   ##
@@ -174,13 +174,13 @@ class InPortCorbaConsumer(OpenRTM.InPortConsumer,OpenRTM.CorbaConsumer):
   #
   # @endif
   def subscribeInterface(self, properties):
-    if not OpenRTM.NVUtil.isStringValue(properties,
-                      "dataport.dataflow_type",
-                      "Push"):
+    if not OpenRTM_aist.NVUtil.isStringValue(properties,
+                                             "dataport.dataflow_type",
+                                             "Push"):
       return False
 
-    index = OpenRTM.NVUtil.find_index(properties,
-                      "dataport.corba_any.inport_ref")
+    index = OpenRTM_aist.NVUtil.find_index(properties,
+                                           "dataport.corba_any.inport_ref")
 
     if index < 0:
       return False

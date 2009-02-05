@@ -1,4 +1,4 @@
-python "C:\Program Files\OpenRTM-aist\0.4\utils\rtc-template\rtc-template.py" -bpython^
+python "C:\Program Files\OpenRTM_aist-aist\0.4\utils\rtc-template\rtc-template.py" -bpython^
  --module-name=NXTRTC --module-desc="NXT sample component"^
  --module-version=0.1 --module-vendor=AIST --module-category=example^
  --module-comp-type=DataFlowComponent --module-act-type=SPORADIC^

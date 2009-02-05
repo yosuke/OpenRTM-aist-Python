@@ -19,7 +19,7 @@
 
 from omniORB import any
 
-import OpenRTM
+import OpenRTM_aist
 
 ##
 # @if jp
@@ -88,7 +88,7 @@ class Time:
 # @else
 # 
 # @endif
-class OutPort(OpenRTM.OutPortBase):
+class OutPort(OpenRTM_aist.OutPortBase):
   """
   """
 
@@ -112,7 +112,7 @@ class OutPort(OpenRTM.OutPortBase):
   #
   # @endif
   def __init__(self, name, value, buffer_):
-    OpenRTM.OutPortBase.__init__(self, name)
+    OpenRTM_aist.OutPortBase.__init__(self, name)
     self._buffer         = buffer_
     self._value          = value
     self._timeoutTick    = 1000 # timeout tick: 1ms
@@ -126,6 +126,8 @@ class OutPort(OpenRTM.OutPortBase):
     self._OnReadConvert  = None
     self._OnOverflow     = None
     self._OnUnderflow    = None
+    self._OnConnect      = None
+    self._OnDisconnect   = None
 
 
   ##
@@ -514,6 +516,22 @@ class OutPort(OpenRTM.OutPortBase):
   # @endif
   def setOnUnderflow(self, on_underflow):
     self._OnUnderflow = on_underflow
+
+
+  def setOnConnect(self, on_connect):
+    self._OnConnect = on_connect
+
+
+  def setOnDisconnect(self, on_disconnect):
+    self._OnDisconnect = on_disconnect
+
+
+  def onConnect(self, id, publisher):
+    print "onConnect id:", id
+
+
+  def onDisconnect(self, id):
+    print "onDisconnect id:", id
 
 
   ##

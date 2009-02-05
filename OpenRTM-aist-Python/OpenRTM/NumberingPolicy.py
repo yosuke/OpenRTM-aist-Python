@@ -15,7 +15,7 @@
 #     All rights reserved.
 
 import string
-import OpenRTM
+import OpenRTM_aist
 
 ##
 # @if jp
@@ -149,10 +149,10 @@ class DefaultNumberingPolicy(NumberingPolicy):
     try:
       pos = self.find(None)
       self._objects[pos] = obj
-      return OpenRTM.otos(pos)
+      return OpenRTM_aist.otos(pos)
     except NumberingPolicy.ObjectNotFound:
       self._objects.append(obj)
-      return OpenRTM.otos(int(len(self._objects) - 1))
+      return OpenRTM_aist.otos(int(len(self._objects) - 1))
 
 
   ##

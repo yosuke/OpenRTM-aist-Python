@@ -23,21 +23,21 @@ import time
 import math
 
 # Import RTM module
-import OpenRTM
+import OpenRTM_aist
 import RTC
 # This module's spesification
 # <rtc-template block="module_spec">
 lrfviewer_spec = ["implementation_id",     "LRFViewer", 
-		 "type_name",         "LRFViewer", 
-		 "description",       "Laser Range Finder Viewer component", 
-		 "version",           "1.0", 
-		 "vendor",            "Noriaki Ando, AIST", 
-		 "category",          "example", 
-		 "activity_type",     "DataFlowComponent", 
-		 "max_instance",      "1", 
-		 "language",          "Python", 
-		 "lang_type",         "SCRIPT",
-		 ""]
+                  "type_name",         "LRFViewer", 
+                  "description",       "Laser Range Finder Viewer component", 
+                  "version",           "1.0", 
+                  "vendor",            "Noriaki Ando, AIST", 
+                  "category",          "example", 
+                  "activity_type",     "DataFlowComponent", 
+                  "max_instance",      "1", 
+                  "language",          "Python", 
+                  "lang_type",         "SCRIPT",
+                  ""]
 # </rtc-template>
 
 
@@ -45,21 +45,21 @@ lrfviewer_spec = ["implementation_id",     "LRFViewer",
 # LRFViewer component
 #
 #------------------------------------------------------------
-class LRFViewer(OpenRTM.DataFlowComponentBase):
+class LRFViewer(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
-        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         
         self._d_range = RTC.TimedShortSeq(RTC.Time(0,0),[])
-        self._rangeIn = OpenRTM.InPort("range_data", self._d_range,
-                                     OpenRTM.RingBuffer(8))
+        self._rangeIn = OpenRTM_aist.InPort("range_data", self._d_range,
+                                            OpenRTM_aist.RingBuffer(8))
         
         self._d_start = RTC.TimedShort(RTC.Time(0,0), 0)
-        self._startIn = OpenRTM.InPort("start_point", self._d_start,
-                                       OpenRTM.RingBuffer(8))
+        self._startIn = OpenRTM_aist.InPort("start_point", self._d_start,
+                                            OpenRTM_aist.RingBuffer(8))
 
         self._d_end   = RTC.TimedShort(RTC.Time(0,0), 0)
-        self._endIn   = OpenRTM.InPort("end_point", self._d_end,
-                                       OpenRTM.RingBuffer(8))
+        self._endIn   = OpenRTM_aist.InPort("end_point", self._d_end,
+                                            OpenRTM_aist.RingBuffer(8))
         
         # Set InPort buffers
         self.registerInPort("range_data",  self._rangeIn)
@@ -644,17 +644,14 @@ def main():
     m = TkLRFViewer(Tk())
     m.master.title("Laser Range Finder Viewer")
 
-    mgr = OpenRTM.Manager.init(sys.argv)
+    mgr = OpenRTM_aist.Manager.init(sys.argv)
     mgr.activateManager()
-    profile = OpenRTM.Properties(defaults_str=lrfviewer_spec)
-    mgr.registerFactory(profile, LRFViewer, OpenRTM.Delete)
+    profile = OpenRTM_aist.Properties(defaults_str=lrfviewer_spec)
+    mgr.registerFactory(profile, LRFViewer, OpenRTM_aist.Delete)
     mgr.runManager(True)
     lrf_rtc = mgr.createComponent("LRFViewer")
     m.lrf.set_data_source(lrf_rtc)
-#    tdc = test_data_creator(m.lrf)
-#    tdc.start()
     m.mainloop()
-#    tdc.stop()
     mgr.shutdown()
 
     

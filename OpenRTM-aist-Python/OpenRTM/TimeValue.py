@@ -16,7 +16,7 @@
 #     All rights reserved.
 
 
-import OpenRTM
+import OpenRTM_aist
 
 ##
 # @if jp
@@ -83,7 +83,7 @@ class TimeValue:
     try:
       res = TimeValue()
     except:
-      res = OpenRTM.TimeValue()
+      res = OpenRTM_aist.TimeValue()
     
     if self.tv_sec >= tm.tv_sec:
       if self.tv_usec >= tm.tv_usec:

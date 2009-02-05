@@ -19,7 +19,7 @@
 import sys
 import string
 
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -223,12 +223,12 @@ class Properties:
   # コピーされる。
   # 
   # @param self
-  # @param prop OpenRTM.Properties
+  # @param prop OpenRTM_aist.Properties
   # 
   # @else
   # @brief Assignment operator
   # @param self
-  # @param prop OpenRTM.Properties
+  # @param prop OpenRTM_aist.Properties
   # @endif
   def assigmentOperator(self, prop):
     self.clear()
@@ -471,7 +471,7 @@ class Properties:
       for _key in keys:
         next = curr.hasKey(_key)
         if next is None:
-          next = OpenRTM.Properties(key=_key)
+          next = OpenRTM_aist.Properties(key=_key)
           next.root = curr
           curr.leaf.append(next)
         curr = next
@@ -509,7 +509,7 @@ class Properties:
     for _key in keys:
       next = curr.hasKey(_key)
       if next is None:
-        next = OpenRTM.Properties(key=_key)
+        next = OpenRTM_aist.Properties(key=_key)
         next.root = curr
         curr.leaf.append(next)
       curr = next
@@ -548,11 +548,11 @@ class Properties:
       key = [defaults[i]]
       value = [defaults[i+1]]
 
-      OpenRTM.eraseHeadBlank(key)
-      OpenRTM.eraseTailBlank(key)
+      OpenRTM_aist.eraseHeadBlank(key)
+      OpenRTM_aist.eraseTailBlank(key)
 
-      OpenRTM.eraseHeadBlank(value)
-      OpenRTM.eraseTailBlank(value)
+      OpenRTM_aist.eraseHeadBlank(value)
+      OpenRTM_aist.eraseTailBlank(value)
 
       self.setDefault(key[0], value[0])
 
@@ -759,7 +759,7 @@ class Properties:
         continue
       
       tmp = [readStr]
-      OpenRTM.eraseHeadBlank(tmp)
+      OpenRTM_aist.eraseHeadBlank(tmp)
       _str = tmp[0]
       
       if _str[0] == "#" or _str[0] == "!" or _str[0] == "\n":
@@ -767,10 +767,10 @@ class Properties:
 
       _str = _str.rstrip('\r\n')
 
-      if _str[len(_str)-1] == "\\" and not OpenRTM.isEscaped(_str, len(_str)-1):
+      if _str[len(_str)-1] == "\\" and not OpenRTM_aist.isEscaped(_str, len(_str)-1):
         #_str = _str[0:len(_str)-1]
         tmp = [_str[0:len(_str)-1]]
-        OpenRTM.eraseTailBlank(tmp)
+        OpenRTM_aist.eraseTailBlank(tmp)
         #pline += _str
         pline += tmp[0]
         continue
@@ -781,13 +781,13 @@ class Properties:
       key = []
       value = []
       self.splitKeyValue(pline, key, value)
-      key[0] = OpenRTM.unescape(key)
-      OpenRTM.eraseHeadBlank(key)
-      OpenRTM.eraseTailBlank(key)
+      key[0] = OpenRTM_aist.unescape(key)
+      OpenRTM_aist.eraseHeadBlank(key)
+      OpenRTM_aist.eraseTailBlank(key)
 
-      value[0] = OpenRTM.unescape(value)
-      OpenRTM.eraseHeadBlank(value)
-      OpenRTM.eraseTailBlank(value)
+      value[0] = OpenRTM_aist.unescape(value)
+      OpenRTM_aist.eraseHeadBlank(value)
+      OpenRTM_aist.eraseTailBlank(value)
 
       self.setProperty(key[0], value[0])
       pline = ""
@@ -1125,7 +1125,7 @@ class Properties:
     length = len(_str)
 
     while i < length:
-      if (_str[i] == ":" or _str[i] == "=") and not OpenRTM.isEscaped(_str, i):
+      if (_str[i] == ":" or _str[i] == "=") and not OpenRTM_aist.isEscaped(_str, i):
         key.append(_str[0:i])
         value.append(_str[i+1:])
         return
@@ -1134,7 +1134,7 @@ class Properties:
     # If no ':' or '=' exist, ' ' would be delimiter.
     i = 0
     while i < length:
-      if (_str[i] == " ") and not OpenRTM.isEscaped(_str, i):
+      if (_str[i] == " ") and not OpenRTM_aist.isEscaped(_str, i):
         key.append(_str[0:i])
         value.append(_str[i+1:])
         return
@@ -1173,7 +1173,7 @@ class Properties:
     length = len(_str)
 
     while end_it < length:
-      if _str[end_it] == delim and not OpenRTM.isEscaped(_str, end_it):
+      if _str[end_it] == delim and not OpenRTM_aist.isEscaped(_str, end_it):
         value.append(_str[begin_it:end_it])
         begin_it = end_it + 1
       end_it += 1
@@ -1352,7 +1352,7 @@ class Properties:
   # @else
   #
   # @endif
-  def __str__(self):
+  def __str__(self): 
     string=[""]
     return self._dump(string, self, 0)
 

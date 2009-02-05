@@ -3,7 +3,7 @@
 import sys
 sys.path.append(".")
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 import tkmotor
@@ -26,11 +26,11 @@ mod_spec = ["implementation_id", "TkMotorComp",
 tkm = tkmotor.TkMotor(6, 40)
 #thread.start_new_thread(tkm.mainloop, ())
 
-class TkMotorComp(OpenRTM.DataFlowComponentBase):
+class TkMotorComp(OpenRTM_aist.DataFlowComponentBase):
 	def __init__(self, manager):
-		OpenRTM.DataFlowComponentBase.__init__(self, manager)
+		OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 		self._tk_data = RTC.TimedFloatSeq(RTC.Time(0,0), [])
-		self._tkIn = OpenRTM.InPort("vel", self._tk_data, OpenRTM.RingBuffer(8))
+		self._tkIn = OpenRTM_aist.InPort("vel", self._tk_data, OpenRTM_aist.RingBuffer(8))
 
 		self.registerInPort("vel", self._tkIn)
 		self._cnt = 0
@@ -70,10 +70,10 @@ class TkMotorComp(OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-	profile = OpenRTM.Properties(defaults_str=mod_spec)
+	profile = OpenRTM_aist.Properties(defaults_str=mod_spec)
 	manager.registerFactory(profile,
 				TkMotorComp,
-				OpenRTM.Delete)
+				OpenRTM_aist.Delete)
 
 	# Create a component
 	comp = manager.createComponent("TkMotorComp")
@@ -83,7 +83,7 @@ def MyModuleInit(manager):
 
 def main():
 	# Initialize manager
-	mgr = OpenRTM.Manager.init(sys.argv)
+	mgr = OpenRTM_aist.Manager.init(sys.argv)
 
 	# Set module initialization proceduer
 	# This procedure will be invoked in activateManager() function.

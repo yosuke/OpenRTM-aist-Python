@@ -5,7 +5,7 @@ import sys
 
 from omniORB import CORBA
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 
@@ -18,12 +18,12 @@ def main():
     orb = CORBA.ORB_init(sys.argv)
 
     # get NamingService
-    naming = OpenRTM.CorbaNaming(orb, "localhost")
+    naming = OpenRTM_aist.CorbaNaming(orb, "localhost")
     
-    sl  = OpenRTM.CorbaConsumer()
-    tkm = OpenRTM.CorbaConsumer()
+    sl  = OpenRTM_aist.CorbaConsumer()
+    tkm = OpenRTM_aist.CorbaConsumer()
 
-    # find ConsoleIn0 component
+    # find TkMotorComp0 component
     tkm.setObject(naming.resolve("TkMotorComp0.rtc"))
 
     # get ports
@@ -32,7 +32,7 @@ def main():
     pin[0].disconnect_all()
 
 
-    # find ConsoleOut0 component
+    # find SliderComp0 component
     sl.setObject(naming.resolve("SliderComp0.rtc"))
 
     # get ports
@@ -43,26 +43,26 @@ def main():
 
     # connect ports
     conprof = RTC.ConnectorProfile("connector0", "", [pin[0],pout[0]], [])
-    OpenRTM.CORBA_SeqUtil.push_back(conprof.properties,
-                                    OpenRTM.NVUtil.newNV("dataport.interface_type",
+    OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
+                                    OpenRTM_aist.NVUtil.newNV("dataport.interface_type",
                                                          "CORBA_Any"))
 
-    OpenRTM.CORBA_SeqUtil.push_back(conprof.properties,
-                                    OpenRTM.NVUtil.newNV("dataport.dataflow_type",
+    OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
+                                    OpenRTM_aist.NVUtil.newNV("dataport.dataflow_type",
                                                          "Push"))
 
-    OpenRTM.CORBA_SeqUtil.push_back(conprof.properties,
-                                    OpenRTM.NVUtil.newNV("dataport.subscription_type",
+    OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
+                                    OpenRTM_aist.NVUtil.newNV("dataport.subscription_type",
                                                          subs_type))
 
     ret = pin[0].connect(conprof)
     
-    # activate ConsoleIn0
-    eclistin = inobj.get_execution_context_services()
+    # activate TkMotorComp0
+    eclistin = inobj.get_owned_contexts()
     eclistin[0].activate_component(inobj)
 
-    # activate ConsoleOut0
-    eclistout = outobj.get_execution_context_services()
+    # activate SliderComp0
+    eclistout = outobj.get_owned_contexts()
     eclistout[0].activate_component(outobj)
 
 

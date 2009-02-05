@@ -6,7 +6,7 @@ import time
 sys.path.append(".")
 
 # Import RTM module
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 # Import Service implementation class
@@ -22,29 +22,29 @@ import RTC
 # This module's spesification
 # <rtc-template block="module_spec">
 AutoControl_spec = ["implementation_id", "AutoControl", 
-		 "type_name",         "AutoControl", 
-		 "description",       "Auto controller component for MobileRobot", 
-		 "version",           "1.0.0", 
-		 "vendor",            "AIST", 
-		 "category",          "example", 
-		 "activity_type",     "DataFlowComponent", 
-		 "max_instance",      "1", 
-		 "language",          "Python", 
-		 "lang_type",         "SCRIPT",
-		 "conf.default.velocity", "80.0",
-		 "conf.default.turn_velocity", "80.0",
-		 "conf.default.distance_to_env", "40.0",
-		 ""]
+		    "type_name",         "AutoControl", 
+		    "description",       "Auto controller component for MobileRobot", 
+		    "version",           "1.0.0", 
+		    "vendor",            "AIST", 
+		    "category",          "example", 
+		    "activity_type",     "DataFlowComponent", 
+		    "max_instance",      "1", 
+		    "language",          "Python", 
+		    "lang_type",         "SCRIPT",
+		    "conf.default.velocity", "80.0",
+		    "conf.default.turn_velocity", "80.0",
+		    "conf.default.distance_to_env", "40.0",
+		    ""]
 # </rtc-template>
 
-class AutoControl(OpenRTM.DataFlowComponentBase):
+class AutoControl(OpenRTM_aist.DataFlowComponentBase):
 	def __init__(self, manager):
-		OpenRTM.DataFlowComponentBase.__init__(self, manager)
+		OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 
 		self._d_sens = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._sensIn = OpenRTM.InPort("sens", self._d_sens, OpenRTM.RingBuffer(8))
+		self._sensIn = OpenRTM_aist.InPort("sens", self._d_sens, OpenRTM_aist.RingBuffer(8))
 		self._d_vel = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._velOut = OpenRTM.OutPort("vel", self._d_vel, OpenRTM.RingBuffer(8))
+		self._velOut = OpenRTM_aist.OutPort("vel", self._d_vel, OpenRTM_aist.RingBuffer(8))
 		
 		# Set InPort buffers
 		self.registerInPort("sens",self._sensIn)
@@ -105,10 +105,10 @@ class AutoControl(OpenRTM.DataFlowComponentBase):
 		
 
 def MyModuleInit(manager):
-    profile = OpenRTM.Properties(defaults_str=AutoControl_spec)
+    profile = OpenRTM_aist.Properties(defaults_str=AutoControl_spec)
     manager.registerFactory(profile,
                             AutoControl,
-                            OpenRTM.Delete)
+                            OpenRTM_aist.Delete)
 
     # Create a component
     comp = manager.createComponent("AutoControl")
@@ -116,8 +116,7 @@ def MyModuleInit(manager):
 
 
 def main():
-	mgr = OpenRTM.Manager.init(len(sys.argv), sys.argv)
-	#mgr = OpenRTM.Manager.init(sys.argv)
+	mgr = OpenRTM_aist.Manager.init(sys.argv)
 	mgr.setModuleInitProc(MyModuleInit)
 	mgr.activateManager()
 	mgr.runManager()

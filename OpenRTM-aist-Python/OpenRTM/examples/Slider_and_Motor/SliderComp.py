@@ -5,7 +5,7 @@ import sys
 import time
 sys.path.append(".")
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 import slider
@@ -34,11 +34,11 @@ mod_spec = ["implementation_id", "SliderComp",
 sl = slider.SliderMulti(channels)
 # thread.start_new_thread(sl.mainloop, ())
 
-class SliderComp(OpenRTM.DataFlowComponentBase):
+class SliderComp(OpenRTM_aist.DataFlowComponentBase):
 	def __init__(self, manager):
-		OpenRTM.DataFlowComponentBase.__init__(self, manager)
+		OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 		self._sl_data = RTC.TimedFloatSeq(RTC.Time(0,0), [])
-		self._slOut = OpenRTM.OutPort("slider", self._sl_data, OpenRTM.RingBuffer(8))
+		self._slOut = OpenRTM_aist.OutPort("slider", self._sl_data, OpenRTM_aist.RingBuffer(8))
 
 		self.registerOutPort("slider", self._slOut)
 		return
@@ -64,10 +64,10 @@ class SliderComp(OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-	profile = OpenRTM.Properties(defaults_str=mod_spec)
+	profile = OpenRTM_aist.Properties(defaults_str=mod_spec)
 	manager.registerFactory(profile,
 				SliderComp,
-				OpenRTM.Delete)
+				OpenRTM_aist.Delete)
 
 	# Create a component
 	comp = manager.createComponent("SliderComp")
@@ -77,7 +77,7 @@ def MyModuleInit(manager):
 
 def main():
 	# Initialize manager
-	mgr = OpenRTM.Manager.init(sys.argv)
+	mgr = OpenRTM_aist.Manager.init(sys.argv)
 
 	# Set module initialization proceduer
 	# This procedure will be invoked in activateManager() function.

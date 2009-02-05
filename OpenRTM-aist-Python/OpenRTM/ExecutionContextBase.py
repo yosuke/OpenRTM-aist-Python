@@ -15,8 +15,8 @@
 #    All rights reserved.
 
 
-import RTC__POA
-import OpenRTM
+import OpenRTM__POA
+import OpenRTM_aist
 
 ##
 # @if jp
@@ -29,7 +29,7 @@ import OpenRTM
 #
 # @else
 # @endif
-class ExecutionContextBase(RTC__POA.ExtTrigExecutionContextService):
+class ExecutionContextBase(OpenRTM__POA.ExtTrigExecutionContextService):
   """
   """
 
@@ -48,4 +48,8 @@ class ExecutionContextBase(RTC__POA.ExtTrigExecutionContextService):
   # @brief Destructor
   # @endif
   def tick(self):
+    pass
+
+
+  def bindComponent(rtc):
     pass

@@ -22,9 +22,12 @@ import string
 import sys
 import traceback
 
+import OpenRTM, OpenRTM__POA
 import RTC,RTC__POA
 import SDOPackage,SDOPackage__POA
-import OpenRTM
+import OpenRTM_aist
+
+ECOTHER_OFFSET = 1000
 
 default_conf = [
   "implementation_id","",
@@ -61,7 +64,7 @@ default_conf = [
 # @else
 #
 # @endif
-class RTObject_impl(RTC__POA.DataFlowComponent):
+class RTObject_impl(OpenRTM__POA.DataFlowComponent):
 
 
 
@@ -89,27 +92,28 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
       self._manager = manager
       self._orb = self._manager.getORB()
       self._poa = self._manager.getPOA()
-      self._portAdmin = OpenRTM.PortAdmin(self._manager.getORB(),self._manager.getPOA())
+      self._portAdmin = OpenRTM_aist.PortAdmin(self._manager.getORB(),self._manager.getPOA())
     else:
       self._manager = None
       self._orb = orb
       self._poa = poa
-      self._portAdmin = OpenRTM.PortAdmin(self._orb,self._poa)
+      self._portAdmin = OpenRTM_aist.PortAdmin(self._orb,self._poa)
       
     self._created = True
-    self._alive = False
-    self._properties = OpenRTM.Properties(defaults_str=default_conf)
-    self._configsets = OpenRTM.ConfigAdmin(self._properties.getNode("conf"))
+    self._properties = OpenRTM_aist.Properties(defaults_str=default_conf)
+    self._configsets = OpenRTM_aist.ConfigAdmin(self._properties.getNode("conf"))
     self._profile = RTC.ComponentProfile("","","","","","",[],None,[])
     
-    self._SdoConfigImpl = OpenRTM.Configuration_impl(self._configsets)
+    self._SdoConfigImpl = OpenRTM_aist.Configuration_impl(self._configsets)
     self._SdoConfig = self._SdoConfigImpl.getObjRef()
     self._execContexts = []
-    self._objref = None
+    self._objref = self._this()
     self._sdoOwnedOrganizations = [] #SDOPackage.OrganizationList()
     self._sdoSvcProfiles        = [] #SDOPackage.ServiceProfileList()
     self._sdoOrganizations      = [] #SDOPackage.OrganizationList()
     self._sdoStatus             = [] #SDOPackage.NVList()
+    self._ecMine = []
+    self._ecOther = []
 
     return
 
@@ -453,14 +457,21 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # 
   # @endif
   def initialize(self):
+    # at least one EC must be attached
+    if len(self._ecMine) == 0:
+      return RTC.PRECONDITION_NOT_MET
+
     ret = self.on_initialize()
+    if ret is not RTC.RTC_OK:
+      return ret
+    
     self._created = False
 
-    if ret == RTC.RTC_OK:
-      if len(self._execContexts) > 0:
-        self._execContexts[0].start()
-      self._alive = True
-    
+    # -- entering alive state --
+    for ec in self._ecMine:
+      ec.start()
+
+    # ret must be RTC_OK
     return ret
 
 
@@ -512,10 +523,11 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   def finalize(self):
     if self._created:
       return RTC.PRECONDITION_NOT_MET
-
-    for execContext in self._execContexts:
-      if execContext.is_running():
-        return RTC.PRECONDITION_NOT_MET
+    
+    # Return RTC::PRECONDITION_NOT_MET,
+    # When the component is registered in ExecutionContext.
+    if len(self._ecOther) is not 0:
+      return RTC.PRECONDITION_NOT_MET
 
     ret = self.on_finalize()
     self.shutdown()
@@ -567,12 +579,26 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # 
   # @endif
   def exit(self):
-    if len(self._execContexts) > 0:
-      self._execContexts[0].stop()
-      self._alive = False
+    if self._created:
+      return RTC.PRECONDITION_NOT_MET
 
-    OpenRTM.CORBA_SeqUtil.for_each(self._execContexts,
-                     self.deactivate_comps(self._objref))
+    # deactivate myself on owned EC
+    OpenRTM_aist.CORBA_SeqUtil.for_each(self._ecMine,
+                                        self.deactivate_comps(self._objref))
+    # deactivate myself on other EC
+    OpenRTM_aist.CORBA_SeqUtil.for_each(self._ecOther,
+                                        self.deactivate_comps(self._objref))
+
+    # stop and detach myself from owned EC
+    for ec in self._ecMine:
+      ec.stop()
+    #  ec.remove_component(self._this())
+
+    # detach myself from other EC
+    for ec in self._ecOther:
+      # ec.stop()
+      ec.remove_component(self._this())
+
     return self.finalize()
 
 
@@ -590,6 +616,8 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # Error の場合には Alive 状態として返す。
   #
   # @param self
+  #
+  # @param exec_context 取得対象 ExecutionContext ハンドル
   #
   # @return Alive 状態確認結果
   #
@@ -609,8 +637,16 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # @return Result of Alive state confirmation
   #
   # @endif
-  def is_alive(self):
-    return self._alive
+  def is_alive(self, exec_context):
+    for ec in self._ecMine:
+      if exec_context._is_equivalent(ec):
+        return True
+
+    for ec in self._ecOther:
+      if exec_context._is_equivalent(ec):
+        return True
+
+    return False
 
 
   ##
@@ -631,10 +667,10 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # @return ExecutionContext List
   #
   # @endif
-  def get_contexts(self):
-    execlist = []
-    OpenRTM.CORBA_SeqUtil.for_each(self._execContexts, self.ec_copy(execlist))
-    return execlist
+  #def get_contexts(self):
+  #  execlist = []
+  #  OpenRTM_aist.CORBA_SeqUtil.for_each(self._execContexts, self.ec_copy(execlist))
+  #  return execlist
 
 
   ##
@@ -665,10 +701,102 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def get_context(self, ec_id):
-    if ec_id > (len(self._execContexts) - 1):
-      return RTC.ExecutionContext._nil
+    global ECOTHER_OFFSET
 
-    return self._execContexts[ec_id]
+    # owned EC
+    if ec_id < ECOTHER_OFFSET:
+      if ec_id < len(self._ecMine):
+        return self._ecMine[ec_id]
+      else:
+        return RTC.ExecutionContext._nil
+
+    # participating EC
+    index = ec_id - ECOTHER_OFFSET
+
+    if index < len(self._ecOther):
+      return self._ecOther[index]
+
+    return RTC.ExecutionContext._nil
+
+
+  ##
+  # @if jp
+  # @brief [CORBA interface] 所有する ExecutionContextListを 取得する
+  #
+  # この RTC が所有する ExecutionContext のリストを取得する。
+  #
+  # @return ExecutionContext リスト
+  #
+  # @else
+  # @brief [CORBA interface] Get ExecutionContextList.
+  #
+  # This operation returns a list of all execution contexts owned by this
+  # RTC.
+  #
+  # @return ExecutionContext List
+  #
+  # @endif
+  def get_owned_contexts(self):
+    execlist = []
+    OpenRTM_aist.CORBA_SeqUtil.for_each(self._ecMine, self.ec_copy(execlist))
+    
+    return execlist # ExecutionContextList* 
+
+
+  ##
+  # @if jp
+  # @brief [CORBA interface] 参加している ExecutionContextList を取得する
+  #
+  # この RTC が参加している ExecutionContext のリストを取得する。
+  #
+  # @return ExecutionContext リスト
+  #
+  # @else
+  # @brief [CORBA interface] Get participating ExecutionContextList.
+  #
+  # This operation returns a list of all execution contexts in
+  # which this RTC participates.
+  #
+  # @return ExecutionContext List
+  #
+  # @endif
+  def get_participating_contexts(self):
+    execlist = []
+    OpenRTM_aist.CORBA_SeqUtil.for_each(self._ecOther, self.ec_copy(execlist))
+    
+    return execlist # ExecutionContextList*
+
+
+  #
+  # @if jp
+  # @brief [CORBA interface] ExecutionContext のハンドルを返す
+  #
+  # @param ExecutionContext 実行コンテキスト
+  #
+  # @return ExecutionContextHandle
+  #
+  # 与えられた実行コンテキストに関連付けられたハンドルを返す。
+  #
+  # @else
+  # @brief [CORBA interface] Return a handle of a ExecutionContext
+  #
+  # @param ExecutionContext
+  #
+  # @return ExecutionContextHandle
+  #
+  # This operation returns a handle that is associated with the given
+  # execution context.
+  #
+  # @endif
+  #
+  def get_context_handle(self, cxt):
+    # ec_id 0 : owned context
+    # ec_id 1-: participating context
+    if cxt._is_equivalent(self._ecMine[0]):
+      return 0
+
+    num = OpenRTM_aist.CORBA_SeqUtil.find(self._ecOther, self.ec_find(cxt))
+    return num + 1 #ExecutionContextHandle_t
 
 
   #============================================================
@@ -735,44 +863,13 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # @endif
   def get_ports(self):
     try:
-      return self._portAdmin.getPortList()
+      return self._portAdmin.getPortServiceList()
     except:
       traceback.print_exception(*sys.exc_info())
 
     assert(False)
     return 0
 
-
-  ##
-  # @if jp
-  #
-  # @brief [RTObject CORBA interface] ExecutionContextAdmin を取得する
-  #
-  # このオペレーションは当該　RTC が所属する ExecutionContextに関連した
-  # ExecutionContextService のリストを返す。
-  #
-  # @param self
-  #
-  # @return ExecutionContextService リスト
-  #
-  # @else
-  #
-  # @brief [RTObject CORBA interface] Get ExecutionContextAdmin
-  #
-  # This operation returns a list containing an ExecutionContextAdmin for
-  # every ExecutionContext owned by the RTC.  
-  #
-  # @return ExecutionContextService List
-  #
-  # @endif
-  def get_execution_context_services(self):
-    try:
-      return self._execContexts
-    except:
-      traceback.print_exception(*sys.exc_info())
-
-    assert(False)
-    return 0
 
 
   # RTC::ComponentAction
@@ -807,14 +904,47 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # @return ExecutionContext Handle
   #
   # @endif
-  def attach_executioncontext(self, exec_context):
+  def attach_context(self, exec_context):
+    # ID: 0 - (offset-1) : owned ec
+    # ID: offset -       : participating ec
+    # owned       ec index = ID
+    # participate ec index = ID - offset
     ecs = exec_context._narrow(RTC.ExecutionContextService)
     if CORBA.is_nil(ecs):
       return -1
+    
+    # if m_ecOther has nil element, insert attached ec to there.
+    for i in range(len(self._ecOther)):
+      if CORBA.is_nil(self._ecOther[i]):
+        self._ecOther[i] = ecs
+        return i + ECOTHER_OFFSET
 
-    self._execContexts.append(ecs)
+    # no space in the list, push back ec to the last.
+    OpenRTM_aist.CORBA_SeqUtil.push_back(self._ecOther,ecs)
+    
+    return long(len(self._ecOther) - 1 + ECOTHER_OFFSET)
 
-    return long(len(self._execContexts) -1)
+
+  def bindContext(self, exec_context):
+    # ID: 0 - (offset-1) : owned ec
+    # ID: offset -       : participating ec
+    # owned       ec index = ID
+    # participate ec index = ID - offset
+    ecs = exec_context._narrow(RTC.ExecutionContextService)
+
+    if CORBA.is_nil(ecs):
+      return -1
+    
+    # if m_ecMine has nil element, insert attached ec to there.
+    for i in range(len(self._ecMine)):
+      if CORBA.is_nil(self._ecMine[i]):
+        self._ecMine[i] = ecs
+        return i + ECOTHER_OFFSET
+
+    # no space in the list, push back ec to the last.
+    OpenRTM_aist.CORBA_SeqUtil.push_back(self._ecMine,ecs)
+    
+    return long(len(self._ecMine) - 1 + ECOTHER_OFFSET)
 
 
   ##
@@ -858,14 +988,24 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # @return
   #
   # @endif
-  def detach_executioncontext(self, ec_id):
-    if ec_id > (len(self._execContexts) - 1):
-      return RTC.BAD_PARAMETER
+  def detach_context(self, ec_id):
+    _len = len(self._ecOther)
 
-    if CORBA.is_nil(self._execContexts[ec_id]):
+    # ID: 0 - (offset-1) : owned ec
+    # ID: offset -       : participating ec
+    # owned       ec index = ID
+    # participate ec index = ID - offset
+    if (long(ec_id) < long(ECOTHER_OFFSET)) or \
+          (long(ec_id - ECOTHER_OFFSET) > _len):
       return RTC.BAD_PARAMETER
     
-    self._execContexts[ec_id] = RTC.ExecutionContextService._nil
+    index = long(ec_id - ECOTHER_OFFSET)
+
+    if CORBA.is_nil(self._ecOther[index]):
+      return RTC.BAD_PARAMETER
+    
+    OpenRTM_aist.CORBA_SeqUtil.erase(self._ecOther, index)
+
     return RTC.RTC_OK
 
 
@@ -896,10 +1036,18 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   def on_initialize(self):
     ret = RTC.RTC_ERROR
     try:
+      active_config = self._properties.getProperty("active_config")
+      if ((active_config is None) or (active_config is "") or (active_config == [])):
+        self._configsets.update("default")
+      else:
+        if self._configsets.haveConfig(active_config):
+          self._configsets.update(active_config)
+        else:
+          self._configsets.update("default")
       ret = self.onInitialize()
     except:
       return RTC.RTC_ERROR
-    
+
     return ret
 
 
@@ -1169,6 +1317,7 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
     ret = RTC.RTC_ERROR
     try:
       ret = self.onError(ec_id)
+      self._configsets.update()
     except:
       return RTC.RTC_ERROR
     
@@ -1543,11 +1692,11 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # @endif
   def get_device_profile(self):
     try:
-      dprofile = SDOPackage.DeviceProfile(self._profile.category,
-                        self._profile.vendor,
-                        self._profile.type_name,
-                        self._profile.version,
-                        self._profile.properties)
+      dprofile = SDOPackage.DeviceProfile(self._SdoConfigImpl.device_type,
+                                          self._SdoConfigImpl.manufacturer,
+                                          self._SdoConfigImpl.model,
+                                          self._SdoConfigImpl.version,
+                                          self._SdoConfigImpl.properties)
       return dprofile
     except:
       raise SDOPackage.InternalError("get_device_profile()")
@@ -1594,6 +1743,7 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def get_service_profiles(self):
+    self._sdoSvcProfiles = self._SdoConfigImpl.getServiceProfiles()
     try:
       return self._sdoSvcProfiles
     except:
@@ -1645,11 +1795,12 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def get_service_profile(self, _id):
+    self._sdoSvcProfiles = self._SdoConfigImpl.getServiceProfiles()
     if not _id:
       raise SDOPackage.InvalidParameter("get_service_profile(): Empty name.")
 
     try:
-      index = OpenRTM.CORBA_SeqUtil.find(self._sdoSvcProfiles, self.svc_name(_id))
+      index = OpenRTM_aist.CORBA_SeqUtil.find(self._sdoSvcProfiles, self.svc_name(_id))
 
       if index < 0:
         raise SDOPackage.InvalidParameter("get_service_profile(): Not found")
@@ -1708,11 +1859,13 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def get_sdo_service(self, _id):
+    self._sdoSvcProfiles = self._SdoConfigImpl.getServiceProfiles()
+
     if not _id:
       raise SDOPackage.InvalidParameter("get_service(): Empty name.")
 
     try:
-      index = OpenRTM.CORBA_SeqUtil.find(self._sdoSvcProfiles, self.svc_name(_id))
+      index = OpenRTM_aist.CORBA_SeqUtil.find(self._sdoSvcProfiles, self.svc_name(_id))
 
       if index < 0:
         raise SDOPackage.InvalidParameter("get_service(): Not found")
@@ -1864,6 +2017,7 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #                          completely due to some internal error.
   # @endif
   def get_organizations(self):
+    self._sdoOrganizations = self._SdoConfigImpl.getOrganizations()
     try:
       return self._sdoOrganizations
     except:
@@ -1948,7 +2102,7 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def get_status(self, name):
-    index = OpenRTM.CORBA_SeqUtil.find(self._sdoStatus, self.nv_name(name))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._sdoStatus, self.nv_name(name))
     if index < 0:
       raise SDOPackage.InvalidParameter("get_status(): Not found")
 
@@ -2225,9 +2379,9 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def bindParameter(self, param_name, var,
-            def_val, trans=None):
+                    def_val, trans=None):
     if trans is None:
-      _trans = OpenRTM.stringTo
+      _trans = OpenRTM_aist.stringTo
     else:
       _trans = trans
     self._configsets.bindParameter(param_name, var, def_val, _trans)
@@ -2268,6 +2422,8 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # 
   # @param self
   # @param port RTC に登録する Port
+  # @param port_type if port is PortBase, port_type is None,
+  #                  if port is PortService, port_type is True
   #
   # @else
   #
@@ -2284,8 +2440,10 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   # @param port Port which is registered in the RTC
   #
   # @endif
-  def registerPort(self, port):
+  def registerPort(self, port, port_type=None):
     self._portAdmin.registerPort(port)
+    if port_type is not None:
+      port.setOwner(self.getObjRef())
     return
 
 
@@ -2307,7 +2465,11 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def registerInPort(self, name, inport):
-    port = OpenRTM.DataInPort(name, inport)
+    propkey = "port.dataport."
+    propkey += name
+    propkey += ".tcp_any"
+    self._properties.setProperty(propkey,self._properties.getProperty(propkey))
+    port = OpenRTM_aist.DataInPort(name, inport, self._properties.getNode(propkey))
     self.registerPort(port)
     return
 
@@ -2330,7 +2492,11 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
   #
   # @endif
   def registerOutPort(self, name, outport):
-    port = OpenRTM.DataOutPort(name, outport)
+    propkey = "port.dataport."
+    propkey += name
+    propkey += ".tcp_any"
+    self._properties.setProperty(propkey,self._properties.getProperty(propkey))
+    port = OpenRTM_aist.DataOutPort(name, outport, self._properties.getNode(propkey))
     self.registerPort(port)
     return
 
@@ -2462,10 +2628,32 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
     def __call__(self, nv):
       return self._name == nv.name
 
+
+  ##
+  # @if jp
+  # @class ec_find
+  # @brief ExecutionContext 検索用ファンクタ
+  # @else
+  #
+  # @endif
+  class ec_find:
+    def __init__(self, ec):
+      self._ec = _ec
+
+    def __call__(self, ecs):
+      try:
+        ec = ecs._narrow(RTC.ExecutionContext)
+        return self._ec._is_equivalent(ec)
+      except:
+        return False
+
+      return False
+
+
   ##
   # @if jp
   # @class ec_copy
-  # @brief ExecutionContext 検索用ファンクタ
+  # @brief ExecutionContext Copy用ファンクタ
   # @else
   #
   # @endif
@@ -2475,6 +2663,7 @@ class RTObject_impl(RTC__POA.DataFlowComponent):
 
     def __call__(self, ecs):
       self._eclist.append(ecs)
+
 
   ##
   # @if jp

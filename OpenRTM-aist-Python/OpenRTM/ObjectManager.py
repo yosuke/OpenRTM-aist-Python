@@ -19,7 +19,7 @@ import sys
 import string
 import threading
 
-import OpenRTM
+import OpenRTM_aist
 
 
 

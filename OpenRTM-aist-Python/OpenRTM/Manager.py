@@ -23,7 +23,7 @@ import time
 from omniORB import CORBA, PortableServer
 from types import IntType, ListType
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 import SDOPackage
 
@@ -63,7 +63,7 @@ mutex = threading.RLock()
 #
 # @endif
 def handler(signum, frame):
-  mgr = OpenRTM.Manager.instance()
+  mgr = OpenRTM_aist.Manager.instance()
   mgr.terminate()
 
 
@@ -153,9 +153,9 @@ class Manager:
     self._initProc   = None
     self._runner     = None
     self._terminator = None
-    self._compManager = OpenRTM.ObjectManager(self.InstanceName)
-    self._factory = OpenRTM.ObjectManager(self.FactoryPredicate)
-    self._ecfactory = OpenRTM.ObjectManager(self.ECFactoryPredicate)
+    self._compManager = OpenRTM_aist.ObjectManager(self.InstanceName)
+    self._factory = OpenRTM_aist.ObjectManager(self.FactoryPredicate)
+    self._ecfactory = OpenRTM_aist.ObjectManager(self.ECFactoryPredicate)
     self._terminate = self.Term()
     self._ecs = []
     self._timer = None
@@ -227,6 +227,7 @@ class Manager:
         manager.initNaming()
         manager.initExecContext()
         manager.initTimer()
+        manager.initManagerServant()
 
     return manager
   
@@ -266,7 +267,9 @@ class Manager:
         manager.initORB()
         manager.initNaming()
         manager.initExecContext()
+        #manager.initComposite()
         manager.initTimer()
+        manager.initManagerServant()
 
     return manager
 
@@ -596,11 +599,24 @@ class Manager:
   def registerFactory(self, profile, new_func, delete_func):
     self._rtcout.RTC_DEBUG("Manager::registerFactory(%s)", profile.getProperty("type_name"))
     try:
-      factory = OpenRTM.FactoryPython(profile, new_func, delete_func)
+      factory = OpenRTM_aist.FactoryPython(profile, new_func, delete_func)
       self._factory.registerObject(factory)
       return True
     except:
       return False
+
+
+  def getFactoryProfiles(self):
+    factories = self._factory.getObjects()
+
+    if factories is None or factories is []:
+      return []
+      
+    props = []
+    for factory in factories:
+      props.append(factory.profile())
+
+    return props
 
 
   ##
@@ -622,7 +638,7 @@ class Manager:
   def registerECFactory(self, name, new_func, delete_func):
     self._rtcout.RTC_DEBUG("Manager::registerECFactory(%s)", name)
     try:
-      self._ecfactory.registerObject(OpenRTM.ECFactoryPython(name, new_func, delete_func))
+      self._ecfactory.registerObject(OpenRTM_aist.ECFactoryPython(name, new_func, delete_func))
       return True
     except:
       return False
@@ -685,14 +701,17 @@ class Manager:
 
     self.configureComponent(comp)
 
-    if comp.initialize() != RTC.RTC_OK:
+    if self.bindExecutionContext(comp) is not True:
+      comp.exit()
+      return None
+
+    if comp.initialize() is not RTC.RTC_OK:
       self._rtcout.RTC_DEBUG("RTC initialization failed: %s", module_name)
       comp.exit()
       self._rtcout.RTC_DEBUG("%s was finalized", module_name)
       return None
 
     self._rtcout.RTC_DEBUG("RTC initialization succeeded: %s", module_name)
-    self.bindExecutionContext(comp)
     self.registerComponent(comp)
     return comp
 
@@ -776,7 +795,7 @@ class Manager:
 
     exec_cxt = None
 
-    if OpenRTM.isDataFlowParticipant(rtobj):
+    if OpenRTM_aist.isDataFlowComponent(rtobj):
       ectype = self._config.getProperty("exec_cxt.periodic.type")
       exec_cxt = self._ecfactory.find(ectype).create()
       rate = self._config.getProperty("exec_cxt.periodic.rate")
@@ -784,7 +803,7 @@ class Manager:
     else:
       ectype = self._config.getProperty("exec_cxt.evdriven.type")
       exec_cxt = self._ecfactory.find(ectype).create()
-    exec_cxt.add(rtobj)
+    exec_cxt.bindComponent(comp)
     exec_cxt.start()
     self._ecs.append(exec_cxt)
     return True
@@ -804,6 +823,12 @@ class Manager:
   # @endif
   def deleteComponent(self, instance_name):
     self._rtcout.RTC_DEBUG("Manager::deleteComponent(%s)", instance_name)
+    comp = self._compManager.find(instance_name)
+    if comp is None:
+      return
+
+    comp.exit()
+    self._compManager.unregisterObject(instance_name)
 
 
   ##
@@ -924,22 +949,22 @@ class Manager:
   # @brief Manager internal initialization
   # @endif
   def initManager(self, argv):
-    config = OpenRTM.ManagerConfig(argv)
-    self._config = config.configure(OpenRTM.Properties())
+    config = OpenRTM_aist.ManagerConfig(argv)
+    self._config = config.configure(OpenRTM_aist.Properties())
     self._config.setProperty("logger.file_name",self.formatString(self._config.getProperty("logger.file_name"), self._config))
 
-    self._module = OpenRTM.ModuleManager(self._config)
+    self._module = OpenRTM_aist.ModuleManager(self._config)
     self._terminator = self.Terminator(self)
     guard = ScopedLock(self._terminate.mutex)
     self._terminate.waiting = 0
     del guard
 
-    if OpenRTM.toBool(self._config.getProperty("timer.enable"), "YES", "NO", True):
-      tm = OpenRTM.TimeValue(0, 100000)
+    if OpenRTM_aist.toBool(self._config.getProperty("timer.enable"), "YES", "NO", True):
+      tm = OpenRTM_aist.TimeValue(0, 100000)
       tick = self._config.getProperty("timer.tick")
       if tick != "":
         tm = tm.set_time(float(tick))
-        self._timer = OpenRTM.Timer(tm)
+        self._timer = OpenRTM_aist.Timer(tm)
         self._timer.start()
 
 
@@ -985,11 +1010,11 @@ class Manager:
     if logfile == "":
       logfile = "./rtc.log"
 
-    if OpenRTM.toBool(self._config.getProperty("logger.enable"), "YES", "NO", True):
-      self._Logbuf = OpenRTM.Logbuf(fileName = logfile)
-      self._rtcout = OpenRTM.LogStream(self._Logbuf)
+    if OpenRTM_aist.toBool(self._config.getProperty("logger.enable"), "YES", "NO", True):
+      self._Logbuf = OpenRTM_aist.Logbuf(fileName = logfile)
+      self._rtcout = OpenRTM_aist.LogStream(self._Logbuf)
       self._rtcout.setLogLevel(self._config.getProperty("logger.log_level"))
-      self._rtcout.setLogLock(OpenRTM.toBool(self._config.getProperty("logger.stream_lock"),
+      self._rtcout.setLogLock(OpenRTM_aist.toBool(self._config.getProperty("logger.stream_lock"),
                           "enable", "disable", False))
 
       self._rtcout.RTC_INFO("%s", self._config.getProperty("openrtm.version"))
@@ -1000,7 +1025,7 @@ class Manager:
       self._rtcout.RTC_INFO("Manager starting.")
       self._rtcout.RTC_INFO("Starting local logging.")
     else:
-      self._rtcout = OpenRTM.LogStream()
+      self._rtcout = OpenRTM_aist.LogStream()
 
     return True
 
@@ -1042,8 +1067,8 @@ class Manager:
     self._rtcout.RTC_DEBUG("Manager::initORB()")
 
     try:
-      args = OpenRTM.split(self.createORBOptions(), " ")
-      argv = OpenRTM.toArgv(args)
+      args = OpenRTM_aist.split(self.createORBOptions(), " ")
+      argv = OpenRTM_aist.toArgv(args)
       self._orb = CORBA.ORB_init(argv)
 
       self._poa = self._orb.resolve_initial_references("RootPOA")
@@ -1053,7 +1078,6 @@ class Manager:
         return False
 
       self._poaManager = self._poa._get_the_POAManager()
-      self._objManager = OpenRTM.CorbaObjectManager(self._orb, self._poa)
     except:
       self._rtcout.RTC_ERROR("Exception: Caught unknown exception in initORB().")
       return False
@@ -1169,27 +1193,27 @@ class Manager:
   # @endif
   def initNaming(self):
     self._rtcout.RTC_DEBUG("Manager::initNaming()")
-    self._namingManager = OpenRTM.NamingManager(self)
+    self._namingManager = OpenRTM_aist.NamingManager(self)
 
-    if not OpenRTM.toBool(self._config.getProperty("naming.enable"), "YES", "NO", True):
+    if not OpenRTM_aist.toBool(self._config.getProperty("naming.enable"), "YES", "NO", True):
       return True
 
-    meths = OpenRTM.split(self._config.getProperty("naming.type"),",")
+    meths = OpenRTM_aist.split(self._config.getProperty("naming.type"),",")
     
     for meth in meths:
-      names = OpenRTM.split(self._config.getProperty(meth+".nameservers"), ",")
+      names = OpenRTM_aist.split(self._config.getProperty(meth+".nameservers"), ",")
       for name in names:
         self._rtcout.RTC_DEBUG("Register Naming Server: %s/%s", (meth, name))
         self._namingManager.registerNameServer(meth,name)
 
-    if OpenRTM.toBool(self._config.getProperty("naming.update.enable"), "YES", "NO", True):
-      tm = OpenRTM.TimeValue(10,0)
+    if OpenRTM_aist.toBool(self._config.getProperty("naming.update.enable"), "YES", "NO", True):
+      tm = OpenRTM_aist.TimeValue(10,0)
       intr = self._config.getProperty("naming.update.interval")
       if intr != "":
-        tm = OpenRTM.TimeValue(intr)
+        tm = OpenRTM_aist.TimeValue(intr)
 
       if self._timer:
-        self._timer.registerListenerObj(self._namingManager,OpenRTM.NamingManager.update,tm)
+        self._timer.registerListenerObj(self._namingManager,OpenRTM_aist.NamingManager.update,tm)
   
     return True
 
@@ -1228,8 +1252,9 @@ class Manager:
   # @endif
   def initExecContext(self):
     self._rtcout.RTC_DEBUG("Manager::initExecContext()")
-    OpenRTM.PeriodicExecutionContextInit(self)
-    OpenRTM.ExtTrigExecutionContextInit(self)
+    OpenRTM_aist.PeriodicExecutionContextInit(self)
+    OpenRTM_aist.ExtTrigExecutionContextInit(self)
+    OpenRTM_aist.OpenHRPExecutionContextInit(self)
     return True
 
 
@@ -1251,6 +1276,33 @@ class Manager:
     return True
 
 
+  def initManagerServant(self):
+    self._mgrservant = OpenRTM_aist.ManagerServant()
+    prop = self._config.getNode("manager")
+    names = OpenRTM_aist.split(prop.getProperty("naming_formats"),",")
+
+    for name in names:
+      mgr_name = self.formatString(name, prop)
+      self._namingManager.bindManagerObject(mgr_name, self._mgrservant)
+
+    otherref = None
+
+    try:
+      otherref = file(self._config.getProperty("manager.refstring_path"),'r')
+    except:
+      print "Not found. : %s" % self._config.getProperty("manager.refstring_path")
+    else:
+      otherref.close()
+      try:
+        reffile = file(self._config.getProperty("manager.refstring_path"),'w')
+      except:
+        return False
+      else:
+        reffile.write(self._pORB.object_to_string(self._mgrservant.getObjRef()))
+        reffile.close()
+    return True
+
+  
   ##
   # @if jp
   # @brief NamingManager に登録されている全コンポーネントの終了処理
@@ -1269,7 +1321,7 @@ class Manager:
     for comp in comps:
       try:
         comp.exit()
-        p = OpenRTM.Properties(key=comp.getInstanceName())
+        p = OpenRTM_aist.Properties(key=comp.getInstanceName())
         p.mergeProperties(comp.getProperties())
       except:
         traceback.print_exception(*sys.exc_info())
@@ -1323,9 +1375,9 @@ class Manager:
     type_conf = category + "." + type_name + ".config_file"
     name_conf = category + "." + inst_name + ".config_file"
 
-    type_prop = OpenRTM.Properties()
+    type_prop = OpenRTM_aist.Properties()
 
-    name_prop = OpenRTM.Properties()
+    name_prop = OpenRTM_aist.Properties()
 
     if self._config.getProperty(name_conf) != "":
       try:
@@ -1347,12 +1399,12 @@ class Manager:
     comp.getProperties().mergeProperties(type_prop)
 
     naming_formats = ""
-    comp_prop = OpenRTM.Properties(prop=comp.getProperties())
+    comp_prop = OpenRTM_aist.Properties(prop=comp.getProperties())
 
     naming_formats += self._config.getProperty("naming.formats")
     naming_formats += ", " + comp_prop.getProperty("naming.formats")
 
-    naming_formats = OpenRTM.flatten(OpenRTM.unique_sv(OpenRTM.split(naming_formats, ",")))
+    naming_formats = OpenRTM_aist.flatten(OpenRTM_aist.unique_sv(OpenRTM_aist.split(naming_formats, ",")))
 
     naming_names = self.formatString(naming_formats, comp.getProperties())
     comp.getProperties().setProperty("naming.formats",naming_formats)
@@ -1440,7 +1492,7 @@ class Manager:
           elif n == "V": str_ += prop.getProperty("vendor")
           elif n == "c": str_ += prop.getProperty("category")
           elif n == "h": str_ += self._config.getProperty("manager.os.hostname")
-          elif n == "M": str_ += self._config.getProperty("manager.name")
+          elif n == "M": str_ += self._config.getProperty("manager.instance_name")
           elif n == "p": str_ += str(self._config.getProperty("manager.pid"))
           else: str_ += n
         else:

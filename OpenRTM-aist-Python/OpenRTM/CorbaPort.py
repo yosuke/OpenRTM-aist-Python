@@ -19,7 +19,7 @@ from omniORB import any
 import traceback
 import sys
 
-import OpenRTM
+import OpenRTM_aist
 import RTC, RTC__POA
 
 
@@ -45,7 +45,7 @@ import RTC, RTC__POA
 #
 # <pre>
 # # CORBAポートの初期化
-# self._myServicePort = OpenRTM.CorbaPort("MyService")
+# self._myServicePort = OpenRTM_aist.CorbaPort("MyService")
 #
 # // Provider側
 # # この Port が提供する Serivce Provider の初期化
@@ -55,7 +55,7 @@ import RTC, RTC__POA
 #
 # // Consumer側
 # # この Port が提供する Serivce Consumer の初期化
-# self._mycons = OpenRTM.CorbaConsumer(interfaceType=_GlobalIDL.MyService)
+# self._mycons = OpenRTM_aist.CorbaConsumer(interfaceType=_GlobalIDL.MyService)
 # # Service Consumer を Port に登録
 # self._myServicePort.registerConsumer("myservice0", "MyService", self._mycons)
 #
@@ -123,7 +123,7 @@ import RTC, RTC__POA
 # @since 0.4.0
 #
 # @endif
-class CorbaPort(OpenRTM.PortBase):
+class CorbaPort(OpenRTM_aist.PortBase):
   """
   """
 
@@ -144,7 +144,7 @@ class CorbaPort(OpenRTM.PortBase):
   #
   # @endif
   def __init__(self, name):
-    OpenRTM.PortBase.__init__(self, name)
+    OpenRTM_aist.PortBase.__init__(self, name)
     self.addProperty("port.port_type", "CorbaPort")
     self._providers = []
     self._consumers = []
@@ -194,8 +194,8 @@ class CorbaPort(OpenRTM.PortBase):
     key = "port"
     key = key + "." + str(type_name) + "." + str(instance_name)
 
-    OpenRTM.CORBA_SeqUtil.push_back(self._providers,
-                    OpenRTM.NVUtil.newNV(key, obj))
+    OpenRTM_aist.CORBA_SeqUtil.push_back(self._providers,
+                                         OpenRTM_aist.NVUtil.newNV(key, obj))
 
     return True
 
@@ -297,8 +297,8 @@ class CorbaPort(OpenRTM.PortBase):
   #
   # @endif
   def publishInterfaces(self, connector_profile):
-    OpenRTM.CORBA_SeqUtil.push_back_list(connector_profile.properties,
-                       self._providers)
+    OpenRTM_aist.CORBA_SeqUtil.push_back_list(connector_profile.properties,
+                                              self._providers)
     return RTC.RTC_OK
 
 
@@ -350,7 +350,7 @@ class CorbaPort(OpenRTM.PortBase):
   # @endif
   def subscribeInterfaces(self, connector_profile):
     nv = connector_profile.properties
-    OpenRTM.CORBA_SeqUtil.for_each(nv, self.subscribe(self._consumers))
+    OpenRTM_aist.CORBA_SeqUtil.for_each(nv, self.subscribe(self._consumers))
     return RTC.RTC_OK
 
 
@@ -373,7 +373,7 @@ class CorbaPort(OpenRTM.PortBase):
   def unsubscribeInterfaces(self, connector_profile):
     nv = connector_profile.properties
 
-    OpenRTM.CORBA_SeqUtil.for_each(nv, self.unsubscribe(self._consumers))
+    OpenRTM_aist.CORBA_SeqUtil.for_each(nv, self.unsubscribe(self._consumers))
 
 
 

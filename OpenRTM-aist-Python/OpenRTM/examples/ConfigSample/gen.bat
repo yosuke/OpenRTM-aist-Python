@@ -1,4 +1,4 @@
-python C:\Python24\Lib\site-packages\OpenRTM\rtc-template\rtc-template.py -bpython^
+python C:\Python24\Lib\site-packages\OpenRTM_aist\rtc-template\rtc-template.py -bpython^
     --module-name=ConfigSample --module-type="DataFlowComponent"^
     --module-desc="Configuration example component"^
     --module-version=1.0 --module-vendor="Shinji Kurihara"^

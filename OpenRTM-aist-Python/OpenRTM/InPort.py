@@ -18,7 +18,7 @@ from omniORB import any
 import sys
 import traceback
 
-import OpenRTM
+import OpenRTM_aist
 
 TIMEOUT_TICK_USEC = 10.0
 USEC_PER_SEC      = 1000000.0

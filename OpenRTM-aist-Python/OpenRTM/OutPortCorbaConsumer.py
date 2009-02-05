@@ -18,7 +18,7 @@
 from omniORB import any
 from omniORB import CORBA
 
-import OpenRTM
+import OpenRTM_aist
 import RTC, RTC__POA 
 
 
@@ -37,7 +37,7 @@ import RTC, RTC__POA
 # @class OutPortCorbaConsumer
 # @brief OutPortCorbaConsumer class
 # @endif
-class OutPortCorbaConsumer(OpenRTM.OutPortConsumer,OpenRTM.CorbaConsumer):
+class OutPortCorbaConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaConsumer):
   """
   """
 
@@ -57,7 +57,7 @@ class OutPortCorbaConsumer(OpenRTM.OutPortConsumer,OpenRTM.CorbaConsumer):
   # @endif
   def __init__(self, buffer_):
     self._buffer = buffer_
-    OpenRTM.CorbaConsumer.__init__(self)
+    OpenRTM_aist.CorbaConsumer.__init__(self)
 
 
   ##
@@ -121,8 +121,8 @@ class OutPortCorbaConsumer(OpenRTM.OutPortConsumer,OpenRTM.CorbaConsumer):
   #
   # @endif
   def subscribeInterface(self, properties):
-    index = OpenRTM.NVUtil.find_index(properties,
-                      "dataport.corba_any.outport_ref")
+    index = OpenRTM_aist.NVUtil.find_index(properties,
+                                           "dataport.corba_any.outport_ref")
     if index < 0:
       return False
 
@@ -149,8 +149,8 @@ class OutPortCorbaConsumer(OpenRTM.OutPortConsumer,OpenRTM.CorbaConsumer):
   #
   # @endif
   def unsubscribeInterface(self, properties):
-    index = OpenRTM.NVUtil.find_index(properties,
-                      "dataport.corba_any.outport_ref")
+    index = OpenRTM_aist.NVUtil.find_index(properties,
+                                           "dataport.corba_any.outport_ref")
     if index < 0:
       return
 

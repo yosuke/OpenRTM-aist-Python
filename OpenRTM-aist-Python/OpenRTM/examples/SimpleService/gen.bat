@@ -1,4 +1,4 @@
-python C:\Python24\Lib\site-packages\OpenRTM\rtc-template\rtc-template.py -bpython^
+python C:\Python24\Lib\site-packages\OpenRTM_aist\rtc-template\rtc-template.py -bpython^
     --module-name=MyServiceProvider --module-type="MyServiceProvider"^
     --module-desc="MyService Provider Sample component"^
     --module-version=0.1 --module-vendor=AIST --module-category=Generic^
@@ -7,7 +7,7 @@ python C:\Python24\Lib\site-packages\OpenRTM\rtc-template\rtc-template.py -bpyth
     --service=MyService:myservice0:MyService^
     --service-idl=MyService.idl
 
-python C:\Python24\Lib\site-packages\OpenRTM\rtc-template\rtc-template.py -bpython^
+python C:\Python24\Lib\site-packages\OpenRTM_aist\rtc-template\rtc-template.py -bpython^
     --module-name=MyServiceConsumer --module-type="MyServiceConsumer"^
     --module-desc="MyService Consumer Sample component"^
     --module-version=0.1 --module-vendor=AIST --module-category=Generic^

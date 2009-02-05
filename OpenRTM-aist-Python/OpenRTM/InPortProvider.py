@@ -16,7 +16,7 @@
 #     All rights reserved.
 
 
-import OpenRTM
+import OpenRTM_aist
 import SDOPackage, SDOPackage__POA
 
 
@@ -71,14 +71,14 @@ class InPortProvider:
   #
   # @endif
   def publishInterfaceProfile(self, prop):
-    OpenRTM.NVUtil.appendStringValue(prop, "dataport.data_type",
-             self._dataType)
-    OpenRTM.NVUtil.appendStringValue(prop, "dataport.interface_type",
-             self._interfaceType)
-    OpenRTM.NVUtil.appendStringValue(prop, "dataport.dataflow_type",
-             self._dataflowType)
-    OpenRTM.NVUtil.appendStringValue(prop, "dataport.subscription_type",
-             self._subscriptionType)
+    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.data_type",
+                                          self._dataType)
+    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.interface_type",
+                                          self._interfaceType)
+    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.dataflow_type",
+                                          self._dataflowType)
+    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.subscription_type",
+                                          self._subscriptionType)
 
 
   ##
@@ -94,12 +94,12 @@ class InPortProvider:
   #
   # @endif
   def publishInterface(self, prop):
-    if not OpenRTM.NVUtil.isStringValue(prop,
-                "dataport.interface_type",
-                self._interfaceType):
+    if not OpenRTM_aist.NVUtil.isStringValue(prop,
+                                             "dataport.interface_type",
+                                             self._interfaceType):
       return
 
-    OpenRTM.NVUtil.append(prop, self._properties)
+    OpenRTM_aist.NVUtil.append(prop, self._properties)
 
 
   ##

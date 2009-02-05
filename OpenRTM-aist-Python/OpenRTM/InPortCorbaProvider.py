@@ -21,7 +21,7 @@ from  omniORB import any
 import sys
 import traceback
 
-import OpenRTM
+import OpenRTM_aist
 import RTC,RTC__POA
 
 
@@ -38,7 +38,7 @@ import RTC,RTC__POA
 # @class InPortCorbaProvider
 # @brief InPortCorbaProvider class
 # @endif
-class InPortCorbaProvider(OpenRTM.InPortProvider, RTC__POA.InPortAny):
+class InPortCorbaProvider(OpenRTM_aist.InPortProvider, RTC__POA.InPortAny):
   """
   """
 
@@ -61,7 +61,7 @@ class InPortCorbaProvider(OpenRTM.InPortProvider, RTC__POA.InPortAny):
   # @brief Constructor
   # @endif
   def __init__(self, buffer_):
-    OpenRTM.InPortProvider.__init__(self)
+    OpenRTM_aist.InPortProvider.__init__(self)
     self._buffer = buffer_
 
     # PortProfile setting
@@ -87,16 +87,16 @@ class InPortCorbaProvider(OpenRTM.InPortProvider, RTC__POA.InPortAny):
   #
   # @endif
   def publishInterface(self, prop):
-    if not OpenRTM.NVUtil.isStringValue(prop,
-                "dataport.interface_type",
-                "CORBA_Any"):
+    if not OpenRTM_aist.NVUtil.isStringValue(prop,
+                                             "dataport.interface_type",
+                                             "CORBA_Any"):
       return
 
     nv = self._properties
-    OpenRTM.CORBA_SeqUtil.push_back(nv,
-            OpenRTM.NVUtil.newNV("dataport.corba_any.inport_ref",
-                     self._objref))
-    OpenRTM.NVUtil.append(prop, nv)
+    OpenRTM_aist.CORBA_SeqUtil.push_back(nv,
+                                         OpenRTM_aist.NVUtil.newNV("dataport.corba_any.inport_ref",
+                                                                   self._objref))
+    OpenRTM_aist.NVUtil.append(prop, nv)
 
 
   ##

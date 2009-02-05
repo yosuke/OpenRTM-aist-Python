@@ -4,7 +4,7 @@
 import sys
 import string
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 import _GlobalIDL
 
@@ -21,16 +21,16 @@ myserviceconsumer_spec = ["implementation_id", "MyServiceConsumer",
                           ""]
 
 
-class MyServiceConsumer(OpenRTM.DataFlowComponentBase):
+class MyServiceConsumer(OpenRTM_aist.DataFlowComponentBase):
     # constructor
     def __init__(self, manager):
-        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 
         # initialization of CORBA Port
-        self._myServicePort = OpenRTM.CorbaPort("MyService")
+        self._myServicePort = OpenRTM_aist.CorbaPort("MyService")
 
         # initialization of Consumer
-        self._myservice0 = OpenRTM.CorbaConsumer(interfaceType=_GlobalIDL.MyService)
+        self._myservice0 = OpenRTM_aist.CorbaConsumer(interfaceType=_GlobalIDL.MyService)
         
         # Set service consumers to Ports
         self._myServicePort.registerConsumer("myservice0", "MyService", self._myservice0)
@@ -72,12 +72,12 @@ class MyServiceConsumer(OpenRTM.DataFlowComponentBase):
             return RTC.RTC_OK;
       
         if argv[0] == "get_echo_history":
-            OpenRTM.CORBA_SeqUtil.for_each(self._myservice0._ptr().get_echo_history(),
+            OpenRTM_aist.CORBA_SeqUtil.for_each(self._myservice0._ptr().get_echo_history(),
                                            self.seq_print())
             return RTC.RTC_OK
       
         if argv[0] == "get_value_history":
-            OpenRTM.CORBA_SeqUtil.for_each(self._myservice0._ptr().get_value_history(),
+            OpenRTM_aist.CORBA_SeqUtil.for_each(self._myservice0._ptr().get_value_history(),
                                            self.seq_print())
             return RTC.RTC_OK
       
@@ -97,10 +97,10 @@ class MyServiceConsumer(OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-    profile = OpenRTM.Properties(defaults_str=myserviceconsumer_spec)
+    profile = OpenRTM_aist.Properties(defaults_str=myserviceconsumer_spec)
     manager.registerFactory(profile,
                             MyServiceConsumer,
-                            OpenRTM.Delete)
+                            OpenRTM_aist.Delete)
 
     # Create a component
     comp = manager.createComponent("MyServiceConsumer")
@@ -109,7 +109,7 @@ def MyModuleInit(manager):
 
 def main():
     # Initialize manager
-    mgr = OpenRTM.Manager.init(sys.argv)
+    mgr = OpenRTM_aist.Manager.init(sys.argv)
 
     # Set module initialization proceduer
     # This procedure will be invoked in activateManager() function.

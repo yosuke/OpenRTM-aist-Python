@@ -4,7 +4,7 @@
 import sys
 import string
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 import _GlobalIDL, _GlobalIDL__POA
 
@@ -42,18 +42,18 @@ class MyServiceSVC_impl(_GlobalIDL__POA.MyService):
         pass
 
     def echo(self, msg):
-        OpenRTM.CORBA_SeqUtil.push_back(self._echoList, msg)
+        OpenRTM_aist.CORBA_SeqUtil.push_back(self._echoList, msg)
         print "MyService::echo() was called."
         print "Message: ", msg
         return msg
 
     def get_echo_history(self):
         print "MyService::get_echo_history() was called."
-        OpenRTM.CORBA_SeqUtil.for_each(self._echoList, seq_print())
+        OpenRTM_aist.CORBA_SeqUtil.for_each(self._echoList, seq_print())
         return self._echoList
 
     def set_value(self, value):
-        OpenRTM.CORBA_SeqUtil.push_back(self._valueList, value)
+        OpenRTM_aist.CORBA_SeqUtil.push_back(self._valueList, value)
         self._value = value
         print "MyService::set_value() was called."
         print "Current value: ", self._value
@@ -65,18 +65,18 @@ class MyServiceSVC_impl(_GlobalIDL__POA.MyService):
 
     def get_value_history(self):
         print "MyService::get_value_history() was called."
-        OpenRTM.CORBA_SeqUtil.for_each(self._valueList, seq_print())
+        OpenRTM_aist.CORBA_SeqUtil.for_each(self._valueList, seq_print())
 
         return self._valueList
 
 
 
-class MyServiceProvider(OpenRTM.DataFlowComponentBase):
+class MyServiceProvider(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
-        OpenRTM.DataFlowComponentBase.__init__(self, manager)
+        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 
         # initialization of CORBA Port
-        self._myServicePort = OpenRTM.CorbaPort("MyService")
+        self._myServicePort = OpenRTM_aist.CorbaPort("MyService")
 
         # initialization of Provider
         self._myservice0 = MyServiceSVC_impl()
@@ -91,10 +91,10 @@ class MyServiceProvider(OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-    profile = OpenRTM.Properties(defaults_str=myserviceprovider_spec)
+    profile = OpenRTM_aist.Properties(defaults_str=myserviceprovider_spec)
     manager.registerFactory(profile,
                             MyServiceProvider,
-                            OpenRTM.Delete)
+                            OpenRTM_aist.Delete)
 
     # Create a component
     comp = manager.createComponent("MyServiceProvider")
@@ -108,7 +108,7 @@ def MyModuleInit(manager):
 
 def main():
     # Initialize manager
-    mgr = OpenRTM.Manager.init(sys.argv)
+    mgr = OpenRTM_aist.Manager.init(sys.argv)
 
     # Set module initialization proceduer
     # This procedure will be invoked in activateManager() function.

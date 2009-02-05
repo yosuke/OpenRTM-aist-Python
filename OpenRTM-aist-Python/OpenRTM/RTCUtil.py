@@ -18,7 +18,7 @@
 from omniORB import CORBA
 
 import RTC, RTC__POA
-
+import OpenRTM, OpenRTM__POA
 
 ##
 # @if jp
@@ -39,8 +39,8 @@ import RTC, RTC__POA
 # @else
 #
 # @endif
-def isDataFlowParticipant(obj):
-  dfp = obj._narrow(RTC.DataFlowParticipant)
+def isDataFlowComponent(obj):
+  dfp = obj._narrow(OpenRTM.DataFlowComponent)
   return not CORBA.is_nil(dfp)
 
 

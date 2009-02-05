@@ -14,7 +14,7 @@
 #         Advanced Industrial Science and Technology (AIST), Japan
 #     All rights reserved.
 
-import OpenRTM
+import OpenRTM_aist
 
 
 ##
@@ -239,7 +239,7 @@ class FactoryPython(FactoryBase):
     FactoryBase.__init__(self, profile)
     
     if policy is None:
-      self._policy = OpenRTM.DefaultNumberingPolicy()
+      self._policy = OpenRTM_aist.DefaultNumberingPolicy()
     else:
       self._policy = policy
 

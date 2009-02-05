@@ -18,7 +18,7 @@
 
 from omniORB import any
 
-import OpenRTM
+import OpenRTM_aist
 import RTC, RTC__POA
 
 
@@ -36,7 +36,7 @@ import RTC, RTC__POA
 # @class OutPortCorbaProvider
 # @brief OutPortCorbaProvider class
 # @endif
-class OutPortCorbaProvider(OpenRTM.OutPortProvider, RTC__POA.OutPortAny):
+class OutPortCorbaProvider(OpenRTM_aist.OutPortProvider, RTC__POA.OutPortAny):
   """
   """
 
@@ -55,7 +55,7 @@ class OutPortCorbaProvider(OpenRTM.OutPortProvider, RTC__POA.OutPortAny):
   # @brief Constructor
   # @endif
   def __init__(self, buffer_):
-    OpenRTM.OutPortProvider.__init__(self)
+    OpenRTM_aist.OutPortProvider.__init__(self)
     self._buffer = buffer_
 
     # PortProfile setting
@@ -66,9 +66,9 @@ class OutPortCorbaProvider(OpenRTM.OutPortProvider, RTC__POA.OutPortAny):
 
     # ConnectorProfile setting
     self._objref = self._this()
-    OpenRTM.CORBA_SeqUtil.push_back(self._properties,
-                    OpenRTM.NVUtil.newNV("dataport.corba_any.outport_ref",
-                               self._objref))
+    OpenRTM_aist.CORBA_SeqUtil.push_back(self._properties,
+                                         OpenRTM_aist.NVUtil.newNV("dataport.corba_any.outport_ref",
+                                                                   self._objref))
 
 
   ##

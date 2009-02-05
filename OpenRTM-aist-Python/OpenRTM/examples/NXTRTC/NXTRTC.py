@@ -7,7 +7,7 @@ import time
 sys.path.append(".")
 
 # Import RTM module
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 
@@ -18,37 +18,37 @@ import NXTBrick
 # This module's spesification
 # <rtc-template block="module_spec">
 nxtrtc_spec = ["implementation_id", "NXTRTC", 
-		 "type_name",         "NXTRTC", 
-		 "description",       "NXT sample component", 
-		 "version",           "0.1", 
-		 "vendor",            "AIST", 
-		 "category",          "example", 
-		 "activity_type",     "DataFlowComponent", 
-		 "max_instance",      "10", 
-		 "language",          "Python", 
-		 "lang_type",         "SCRIPT",
-		 "conf.default.map", "A,B",
-		 ""]
+	       "type_name",         "NXTRTC", 
+	       "description",       "NXT sample component", 
+	       "version",           "0.1", 
+	       "vendor",            "AIST", 
+	       "category",          "example", 
+	       "activity_type",     "DataFlowComponent", 
+	       "max_instance",      "10", 
+	       "language",          "Python", 
+	       "lang_type",         "SCRIPT",
+	       "conf.default.map", "A,B",
+	       ""]
 
 # </rtc-template>
 
-class NXTRTC(OpenRTM.DataFlowComponentBase):
+class NXTRTC(OpenRTM_aist.DataFlowComponentBase):
 	def __init__(self, manager):
-		OpenRTM.DataFlowComponentBase.__init__(self, manager)
+		OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 
 		# DataPorts initialization
 		# <rtc-template block="data_ports">
 		self._d_vel = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._velIn = OpenRTM.InPort("vel", self._d_vel,
-					     OpenRTM.RingBuffer(8))
+		self._velIn = OpenRTM_aist.InPort("vel", self._d_vel,
+						  OpenRTM_aist.RingBuffer(8))
 		self.registerInPort("vel",self._velIn)
 		self._d_pos = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._posOut = OpenRTM.OutPort("pos", self._d_pos,
-					       OpenRTM.RingBuffer(8))
+		self._posOut = OpenRTM_aist.OutPort("pos", self._d_pos,
+						    OpenRTM_aist.RingBuffer(8))
 		self.registerOutPort("pos",self._posOut)
 		self._d_sens = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._sensOut = OpenRTM.OutPort("sens", self._d_sens,
-						OpenRTM.RingBuffer(8))
+		self._sensOut = OpenRTM_aist.OutPort("sens", self._d_sens,
+						     OpenRTM_aist.RingBuffer(8))
 		self.registerOutPort("sens",self._sensOut)
 
 		# initialize of configuration-data.
@@ -121,10 +121,10 @@ class NXTRTC(OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-    profile = OpenRTM.Properties(defaults_str=nxtrtc_spec)
+    profile = OpenRTM_aist.Properties(defaults_str=nxtrtc_spec)
     manager.registerFactory(profile,
                             NXTRTC,
-                            OpenRTM.Delete)
+                            OpenRTM_aist.Delete)
 
     # Create a component
     comp = manager.createComponent("NXTRTC")
@@ -132,8 +132,7 @@ def MyModuleInit(manager):
 
 
 def main():
-	mgr = OpenRTM.Manager.init(len(sys.argv), sys.argv)
-	#mgr = OpenRTM.Manager.init(sys.argv)
+	mgr = OpenRTM_aist.Manager.init(sys.argv)
 	mgr.setModuleInitProc(MyModuleInit)
 	mgr.activateManager()
 	mgr.runManager()

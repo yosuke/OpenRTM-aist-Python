@@ -18,7 +18,7 @@ import traceback
 import sys
 
 import RTC, RTC__POA
-import OpenRTM
+import OpenRTM_aist
 
 
 
@@ -98,11 +98,11 @@ class PortAdmin:
     # POA オブジェクト
     self._poa = poa
 
-    # Portのオブジェクトリファレンスのリスト. PortList
+    # Portのオブジェクトリファレンスのリスト. PortServiceList
     self._portRefs = []
 
     # サーバントを直接格納するオブジェクトマネージャ
-    self._portServants = OpenRTM.ObjectManager(self.comp_op)
+    self._portServants = OpenRTM_aist.ObjectManager(self.comp_op)
 
 
   ##
@@ -118,16 +118,24 @@ class PortAdmin:
   #
   # @else
   #
-  # @brief Get PortList
+  # @brief Get PortServiceList
   #
-  # This operation returns the pointer to the PortList of Ports regsitered
+  # This operation returns the pointer to the PortServiceList of Ports regsitered
   # by registerPort().
   #
-  # @return PortList+ The pointer points PortList
+  # @return PortServiceList+ The pointer points PortServiceList
   #
   # @endif
-  def getPortList(self):
+  def getPortServiceList(self):
     return self._portRefs
+
+
+  def getPortProfileList(self):
+    ret = []
+    for p in self._portRefs:
+      ret.append(p.get_port_profile())
+
+    return ret
 
 
   ##
@@ -146,9 +154,9 @@ class PortAdmin:
   #
   # @else
   #
-  # @brief Get PortList
+  # @brief Get PortServiceList
   #
-  # This operation returns the pointer to the PortList of Ports regsitered
+  # This operation returns the pointer to the PortServiceList of Ports regsitered
   # by registerPort().
   #
   # @param port_name The name of Port to be returned the reference.
@@ -157,7 +165,7 @@ class PortAdmin:
   #
   # @endif
   def getPortRef(self, port_name):
-    index = OpenRTM.CORBA_SeqUtil.find(self._portRefs, self.find_port_name(port_name))
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._portRefs, self.find_port_name(port_name))
     if index >= 0:
       return self._portRefs[index]
     return None
@@ -250,10 +258,10 @@ class PortAdmin:
       port.disconnect_all()
 
       tmp = port.getProfile().name
-      OpenRTM.CORBA_SeqUtil.erase_if(self._portRefs, self.find_port_name(tmp))
+      OpenRTM_aist.CORBA_SeqUtil.erase_if(self._portRefs, self.find_port_name(tmp))
 
       self._poa.deactivate_object(self._poa.servant_to_id(port))
-      port.setPortRef(RTC.Port._nil)
+      port.setPortRef(RTC.PortService._nil)
 
       self._portServants.unregisterObject(tmp)
     except:

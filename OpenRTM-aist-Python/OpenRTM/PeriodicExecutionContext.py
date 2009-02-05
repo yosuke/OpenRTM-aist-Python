@@ -20,7 +20,8 @@ import threading
 import time
 from omniORB import CORBA, PortableServer
 
-import OpenRTM
+import OpenRTM_aist
+import OpenRTM, OpenRTM__POA
 import RTC, RTC__POA
 
 ##
@@ -36,7 +37,7 @@ import RTC, RTC__POA
 # @class PeriodicExecutionContext
 # @brief PeriodicExecutionContext class
 # @endif
-class PeriodicExecutionContext(OpenRTM.ExecutionContextBase):
+class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   """
   """
 
@@ -76,23 +77,23 @@ class PeriodicExecutionContext(OpenRTM.ExecutionContextBase):
       self._obj = obj
       self._active = True
       self.ec_id = id_
-      self._sm = OpenRTM.StateMachine(3)
+      self._sm = OpenRTM_aist.StateMachine(3)
       self._sm.setListener(self)
       self._sm.setEntryAction (RTC.ACTIVE_STATE,
-                   self.on_activated)
+                               self.on_activated)
       self._sm.setDoAction    (RTC.ACTIVE_STATE,
-                   self.on_execute)
+                               self.on_execute)
       self._sm.setPostDoAction(RTC.ACTIVE_STATE,
-                   self.on_state_update)
+                               self.on_state_update)
       self._sm.setExitAction  (RTC.ACTIVE_STATE,
-                   self.on_deactivated)
+                               self.on_deactivated)
       self._sm.setEntryAction (RTC.ERROR_STATE,
-                   self.on_aborting)
+                               self.on_aborting)
       self._sm.setDoAction    (RTC.ERROR_STATE,
-                   self.on_error)
+                               self.on_error)
       self._sm.setExitAction  (RTC.ERROR_STATE,
-                   self.on_reset)
-      st = OpenRTM.StateHolder()
+                               self.on_reset)
+      st = OpenRTM_aist.StateHolder()
       st.prev = RTC.INACTIVE_STATE
       st.curr = RTC.INACTIVE_STATE
       st.next = RTC.INACTIVE_STATE
@@ -731,7 +732,7 @@ class PeriodicExecutionContext(OpenRTM.ExecutionContextBase):
   # @brief RTコンポーネントの状態を取得する
   #
   # 指定したRTコンポーネントの状態(LifeCycleState)を取得する。
-  # 指定したRTコンポーネントが参加者リストに含まれない場合は、 UNKNOWN_STATE 
+  # 指定したRTコンポーネントが参加者リストに含まれない場合は、 CREATED_STATE 
   # が返される。
   #
   # @param self
@@ -752,7 +753,7 @@ class PeriodicExecutionContext(OpenRTM.ExecutionContextBase):
       if compIn._ref._is_equivalent(comp):
         return compIn._sm._sm.getState()
 
-    return RTC.UNKNOWN_STATE
+    return RTC.CREATED_STATE
 
 
   ##
@@ -802,18 +803,29 @@ class PeriodicExecutionContext(OpenRTM.ExecutionContextBase):
   # LightweightRTComponent::attach_context and then enter the Inactive state.
   #
   # @endif
-  def add(self, comp):
+  def add_component(self, comp):
     if CORBA.is_nil(comp):
       return RTC.BAD_PARAMETER
     try:
-      dfp_  = comp._narrow(RTC.DataFlowComponent)
-      id_   = dfp_.attach_executioncontext(self._ref)
+      dfp_  = comp._narrow(OpenRTM.DataFlowComponent)
+      id_   = dfp_.attach_context(self._ref)
       comp_ = self.Comp(ref=comp, dfp=dfp_, id=id_)
       self._comps.append(comp_)
       return RTC.RTC_OK
     except CORBA.Exception:
       return RTC.BAD_PARAMETER
 
+    return RTC.RTC_OK
+
+
+  def bindComponent(self, rtc):
+    if rtc is None:
+      return RTC.BAD_PARAMETER
+
+    comp_ = rtc.getObjRef()
+    dfp_  = comp_._narrow(OpenRTM.DataFlowComponent)
+    id_   = rtc.bindContext(self._ref)
+    self._comps.append(self.Comp(ref=comp_, dfp=dfp_, id=id_))
     return RTC.RTC_OK
 
 
@@ -841,12 +853,12 @@ class PeriodicExecutionContext(OpenRTM.ExecutionContextBase):
   # LightweightRTComponent::detach_context.
   #
   # @endif
-  def remove(self, comp):
+  def remove_component(self, comp):
     len_ = len(self._comps)
     for i in range(len_):
       idx = (len_ - 1) - i
       if self._comps[idx]._ref._is_equivalent(comp):
-        self._comps[idx]._ref.detach_executioncontext(self._comps[idx]._sm.ec_id)
+        self._comps[idx]._ref.detach_context(self._comps[idx]._sm.ec_id)
         del self._comps[idx]
         return RTC.RTC_OK
 
@@ -873,10 +885,10 @@ class PeriodicExecutionContext(OpenRTM.ExecutionContextBase):
   # @endif
   def get_profile(self):
     p = RTC.ExecutionContextProfile(self._profile.kind,
-                    self._profile.rate,
-                    self._profile.owner,
-                    self._profile.participants,
-                    self._profile.properties)
+                                    self._profile.rate,
+                                    self._profile.owner,
+                                    self._profile.participants,
+                                    self._profile.properties)
     return p
 
 
@@ -909,5 +921,5 @@ class PeriodicExecutionContext(OpenRTM.ExecutionContextBase):
 # @endif
 def PeriodicExecutionContextInit(manager):
   manager.registerECFactory("PeriodicExecutionContext",
-                OpenRTM.PeriodicExecutionContext,
-                OpenRTM.ECDelete)
+                            OpenRTM_aist.PeriodicExecutionContext,
+                            OpenRTM_aist.ECDelete)
