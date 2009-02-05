@@ -12,7 +12,7 @@ from distutils.command import build
 
 
 core.DEBUG = False
-modules = ["BasicDataType", "DataPort", "OpenRTM", "RTC", "SDOPackage"]
+modules = ["BasicDataType", "DataPort", "Manager", "OpenRTM", "RTC", "SDOPackage"]
 sample_modules = ["MyService"]
 
 if os.sep == '/':
@@ -63,27 +63,26 @@ class Build_idl (cmd.Command):
 		self.idldir  = None
 		self.omniidl = None
 		self.omniidl_params = ["-bpython"]
-		self.idlfiles = ["BasicDataType", "DataPort", "OpenRTM", "RTC", "SDOPackage"]
+		self.idlfiles = ["BasicDataType", "DataPort", "Manager", "OpenRTM", "RTC", "SDOPackage"]
 
 	def finalize_options(self):
 		if not self.omniidl:
 			self.omniidl = "omniidl"
 		if not self.idldir:
-			self.idldir = os.path.join(os.getcwd(),"OpenRTM","RTM_IDL")
+			self.idldir = os.path.join(os.getcwd(),"OpenRTM_aist","RTM_IDL")
 
 	def run(self):
 		global modules
 
-		#self.omniidl_params.append("-Wbpackage=OpenRTM.RTM_IDL")
-		self.omniidl_params.append("-COpenRTM/RTM_IDL")
+		#self.omniidl_params.append("-Wbpackage=OpenRTM_aist.RTM_IDL")
+		self.omniidl_params.append("-COpenRTM_aist/RTM_IDL")
 		util.execute(compile_idl,
 			(self.omniidl, self.omniidl_params,
 				[ gen_idl_name(self.idldir, module) for module in modules ]),
 				"Generating python stubs from IDL files")
-
-		self.idldir = os.path.join(os.getcwd(),"OpenRTM","examples","SimpleService")
+		self.idldir = os.path.join(os.getcwd(),"OpenRTM_aist","examples","SimpleService")
 		self.idlfiles = ["MyService"]
-		self.omniidl_params[-1]=("-COpenRTM/examples/SimpleService")
+		self.omniidl_params[-1]=("-COpenRTM_aist/examples/SimpleService")
 		util.execute(compile_idl,
 			(self.omniidl, self.omniidl_params,
 				[ gen_idl_name(self.idldir, module) for module in sample_modules ]),
@@ -119,8 +118,8 @@ class Build (build.build):
 
 try:
 	core.setup(name = "OpenRTM-aist-Python",
-		   version = "0.4.1",
-		   description = "Python modules for OpenRTM-aist-0.4.1",
+		   version = "1.0.0",
+		   description = "Python modules for OpenRTM-aist-1.0",
 		   author = "Shinji Kurihara",
 		   author_email = "shinji.kurihara@aist.go.jp",
 		   url = "http://www.is.aist.go.jp/rt/OpenRTM-aist/html/",
@@ -133,21 +132,26 @@ try:
 		   Please see http://www.is.aist.go.jp/rt/OpenRTM-aist/html/ for more detail.",
 		   license = "LGPL",
 		   cmdclass = { "build":Build, "build_idl":Build_idl },
-		   packages = ["OpenRTM",
-			       "OpenRTM.RTM_IDL",
-			       "OpenRTM.RTM_IDL.RTC",
-			       "OpenRTM.RTM_IDL.RTC__POA",
-			       "OpenRTM.RTM_IDL.SDOPackage",
-			       "OpenRTM.RTM_IDL.SDOPackage__POA",
-			       "OpenRTM.rtc-template",
-			       "OpenRTM.rtm-naming"],
-		   data_files = [(sitedir,['OpenRTM.pth']),
-				 (os.path.join(sitedir,'OpenRTM/RTM_IDL'),['OpenRTM/RTM_IDL/OpenRTM.pth']),
-				 (os.path.join(sitedir,'OpenRTM/RTM_IDL'),['OpenRTM/RTM_IDL/BasicDataType.idl']),
-				 (os.path.join(sitedir,'OpenRTM/RTM_IDL'),['OpenRTM/RTM_IDL/DataPort.idl']),
-				 (os.path.join(sitedir,'OpenRTM/RTM_IDL'),['OpenRTM/RTM_IDL/OpenRTM.idl']),
-				 (os.path.join(sitedir,'OpenRTM/RTM_IDL'),['OpenRTM/RTM_IDL/RTC.idl']),
-				 (os.path.join(sitedir,'OpenRTM/RTM_IDL'),['OpenRTM/RTM_IDL/SDOPackage.idl'])])
+		   packages = ["OpenRTM_aist",
+			       "OpenRTM_aist.RTM_IDL",
+			       "OpenRTM_aist.RTM_IDL.OpenRTM",
+			       "OpenRTM_aist.RTM_IDL.OpenRTM__POA",
+			       "OpenRTM_aist.RTM_IDL.RTC",
+			       "OpenRTM_aist.RTM_IDL.RTC__POA",
+			       "OpenRTM_aist.RTM_IDL.RTM",
+			       "OpenRTM_aist.RTM_IDL.RTM__POA",
+			       "OpenRTM_aist.RTM_IDL.SDOPackage",
+			       "OpenRTM_aist.RTM_IDL.SDOPackage__POA",
+			       "OpenRTM_aist.rtc-template",
+			       "OpenRTM_aist.rtm-naming"],
+		   data_files = [(sitedir,['OpenRTM-aist.pth']),
+				 (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/OpenRTM-aist.pth']),
+				 (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/BasicDataType.idl']),
+				 (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/DataPort.idl']),
+				 (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/Manager.idl']),
+				 (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/OpenRTM.idl']),
+				 (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/RTC.idl']),
+				 (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/SDOPackage.idl'])])
 	
 except Exception, e:
 	log.error("Error: %s", e)
