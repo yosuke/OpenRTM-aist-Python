@@ -226,6 +226,7 @@ class Manager:
         manager.initORB()
         manager.initNaming()
         manager.initExecContext()
+        manager.initComposite()
         manager.initTimer()
         manager.initManagerServant()
 
@@ -267,7 +268,7 @@ class Manager:
         manager.initORB()
         manager.initNaming()
         manager.initExecContext()
-        #manager.initComposite()
+        manager.initComposite()
         manager.initTimer()
         manager.initManagerServant()
 
@@ -691,15 +692,33 @@ class Manager:
   # @brief Create RT-Component
   # @endif
   def createComponent(self, module_name):
+    prop = OpenRTM_aist.Properties()
+    arg = str(module_name)
+    comp_and_conf = arg.split("?")
+    if len(comp_and_conf) == 0:
+      return None
+
+    module_name = comp_and_conf[0]
+
+    if len(comp_and_conf) > 1:
+      conf = comp_and_conf[1].split("&")
+      for i in range(len(conf)):
+        keyval = conf[i].split("=")
+        prop.setProperty(keyval[0],keyval[1])
+
     self._rtcout.RTC_DEBUG("Manager::createComponent(%s)", module_name)
 
     obj = self._factory.find(module_name)
+    if obj is None:
+      print "Manager.createComponent: Not found module_name: ", module_name
+      return None
+
     comp = obj.create(self)
     if comp is None:
       return None
     self._rtcout.RTC_DEBUG("RTC Created: %s", module_name)
 
-    self.configureComponent(comp)
+    self.configureComponent(comp,prop)
 
     if self.bindExecutionContext(comp) is not True:
       comp.exit()
@@ -1258,6 +1277,12 @@ class Manager:
     return True
 
 
+  def initComposite(self):
+    self._rtcout.RTC_DEBUG("Manager::initComposite()")
+    OpenRTM_aist.PeriodicECSharedCompositeInit(self)
+    return True
+
+  
   ##
   # @if jp
   # @brief Timer の初期化
@@ -1367,7 +1392,7 @@ class Manager:
   # @else
   #
   # @endif
-  def configureComponent(self, comp):
+  def configureComponent(self, comp, prop):
     category  = comp.getCategory()
     type_name = comp.getTypeName()
     inst_name = comp.getInstanceName()
@@ -1397,6 +1422,7 @@ class Manager:
 
     type_prop = type_prop.mergeProperties(name_prop)
     comp.getProperties().mergeProperties(type_prop)
+    comp.getProperties().mergeProperties(prop)
 
     naming_formats = ""
     comp_prop = OpenRTM_aist.Properties(prop=comp.getProperties())
@@ -1492,7 +1518,7 @@ class Manager:
           elif n == "V": str_ += prop.getProperty("vendor")
           elif n == "c": str_ += prop.getProperty("category")
           elif n == "h": str_ += self._config.getProperty("manager.os.hostname")
-          elif n == "M": str_ += self._config.getProperty("manager.instance_name")
+          elif n == "M": str_ += self._config.getProperty("manager.name")
           elif n == "p": str_ += str(self._config.getProperty("manager.pid"))
           else: str_ += n
         else:
@@ -1664,6 +1690,10 @@ class Manager:
       self._th = threading.Thread(target=self.run)
       self._th.start()
       self._evt = threading.Event()
+
+
+    def __del__(self):
+      self._th.join()
 
 
     ##
