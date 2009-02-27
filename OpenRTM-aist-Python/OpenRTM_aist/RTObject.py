@@ -112,9 +112,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     self._sdoSvcProfiles        = [] #SDOPackage.ServiceProfileList()
     self._sdoOrganizations      = [] #SDOPackage.OrganizationList()
     self._sdoStatus             = [] #SDOPackage.NVList()
-    self._ecMine = []
+    self._ecMine  = []
     self._ecOther = []
-
+    self._eclist  = []
     return
 
 
@@ -457,19 +457,34 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def initialize(self):
-    # at least one EC must be attached
-    if len(self._ecMine) == 0:
-      return RTC.PRECONDITION_NOT_MET
-
     ret = self.on_initialize()
     if ret is not RTC.RTC_OK:
       return ret
     
     self._created = False
 
+    ec_args = self._properties.getProperty("exec_cxt.periodic.type")
+    ec_args += "?"
+    ec_args += "rate="
+    ec_args += self._properties.getProperty("exec_cxt.periodic.rate")
+    print "ec_args: ", ec_args
+
+    ec = OpenRTM_aist.Manager.instance().createContext(ec_args)
+    if ec is None:
+      return RTC.RTC_ERROR
+
+    ec.set_rate(float(self._properties.getProperty("exec_cxt.periodic.rate")))
+    self._eclist.append(ec)
+
+    ec.bindComponent(self)
+
+    # at least one EC must be attached
+    if len(self._ecMine) == 0:
+      return RTC.PRECONDITION_NOT_MET
+
     # -- entering alive state --
-    for ec in self._ecMine:
-      ec.start()
+    for ecm in self._ecMine:
+      ecm.start()
 
     # ret must be RTC_OK
     return ret
@@ -526,7 +541,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     
     # Return RTC::PRECONDITION_NOT_MET,
     # When the component is registered in ExecutionContext.
-    if len(self._ecOther) is not 0:
+    if len(self._ecOther) != 0:
       return RTC.PRECONDITION_NOT_MET
 
     ret = self.on_finalize()
@@ -838,7 +853,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     except:
       traceback.print_exception(*sys.exc_info())
     assert(False)
-    return 0
+    return None
 
 
   ##
@@ -868,7 +883,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       traceback.print_exception(*sys.exc_info())
 
     assert(False)
-    return 0
+    return []
 
 
 
@@ -1558,7 +1573,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._sdoOwnedOrganizations
     except:
-      raise SDOPackage.NotAvailable
+      raise SDOPackage.NotAvailable("NotAvailable: get_owned_organizations")
 
     return []
 
@@ -1692,11 +1707,11 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @endif
   def get_device_profile(self):
     try:
-      dprofile = SDOPackage.DeviceProfile(self._SdoConfigImpl.device_type,
-                                          self._SdoConfigImpl.manufacturer,
-                                          self._SdoConfigImpl.model,
-                                          self._SdoConfigImpl.version,
-                                          self._SdoConfigImpl.properties)
+      dprofile = SDOPackage.DeviceProfile(self._SdoConfigImpl.getDeviceProfile().device_type,
+                                          self._SdoConfigImpl.getDeviceProfile().manufacturer,
+                                          self._SdoConfigImpl.getDeviceProfile().model,
+                                          self._SdoConfigImpl.getDeviceProfile().version,
+                                          self._SdoConfigImpl.getDeviceProfile().properties)
       return dprofile
     except:
       raise SDOPackage.InternalError("get_device_profile()")
@@ -1864,12 +1879,12 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     if not _id:
       raise SDOPackage.InvalidParameter("get_service(): Empty name.")
 
+    index = OpenRTM_aist.CORBA_SeqUtil.find(self._sdoSvcProfiles, self.svc_name(_id))
+
+    if index < 0:
+      raise SDOPackage.InvalidParameter("get_service(): Not found")
+
     try:
-      index = OpenRTM_aist.CORBA_SeqUtil.find(self._sdoSvcProfiles, self.svc_name(_id))
-
-      if index < 0:
-        raise SDOPackage.InvalidParameter("get_service(): Not found")
-
       return self._sdoSvcProfiles[index].service
     except:
       raise SDOPackage.InternalError("get_service()")
@@ -1923,7 +1938,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @endif
   def get_configuration(self):
     if self._SdoConfig is None:
-      raise SODPackage.InterfaceNotImplemented()
+      raise SODPackage.InterfaceNotImplemented("InterfaceNotImplemented: get_configuration")
     try:
       return self._SdoConfig
     except:
@@ -2441,8 +2456,8 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def registerPort(self, port, port_type=None):
-    self._portAdmin.registerPort(port)
-    if port_type is not None:
+    self._portAdmin.registerPort(port, port_type)
+    if port_type is None:
       port.setOwner(self.getObjRef())
     return
 
@@ -2565,6 +2580,13 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     return
 
 
+  def finalizeContexts(self):
+    for i in range(len(self._eclist)):
+      self._eclist[i].stop()
+      self._poa.deactivate_object(self._poa.servant_to_id(self._eclist[i]))
+      del self._eclist[i]
+
+
   ##
   # @if jp
   #
@@ -2582,6 +2604,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   def shutdown(self):
     try:
       self.finalizePorts()
+      self.finalizeContexts()
       self._poa.deactivate_object(self._poa.servant_to_id(self._SdoConfigImpl))
       self._poa.deactivate_object(self._poa.servant_to_id(self))
     except:
@@ -2677,7 +2700,10 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       self._comp = comp
 
     def __call__(self, ec):
-      ec.deactivate_component(self._comp)
+      try:
+        ec.deactivate_component(self._comp)
+      except:
+        pass
 
 
 # RtcBase = RTObject_impl
