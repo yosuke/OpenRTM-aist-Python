@@ -64,7 +64,7 @@ default_conf = [
 # @else
 #
 # @endif
-class RTObject_impl(RTC__POA.DataFlowComponent):
+class RTObject_impl(OpenRTM__POA.DataFlowComponent):
 
 
 
