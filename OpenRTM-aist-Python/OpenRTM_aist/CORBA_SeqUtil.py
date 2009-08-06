@@ -14,7 +14,7 @@
 #          Advanced Industrial Science and Technology (AIST), Japan
 #      All rights reserved.
 
-
+import OpenRTM_aist
 
 ##
 # @if jp
@@ -279,3 +279,15 @@ def erase_if(seq, f):
 # @endif
 def clear(seq):
   del seq[0:]
+
+
+## coil::vstring refToVstring(const CorbaRefSequence& objlist)
+def refToVstring(objlist):
+  iorlist = []
+  orb = OpenRTM_aist.Manager.instance().getORB()
+  
+  for obj in objlist:
+    iorlist.append(orb.object_to_string(obj))
+
+  return iorlist
+

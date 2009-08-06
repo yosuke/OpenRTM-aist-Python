@@ -16,58 +16,10 @@
 
 
 import threading
+import copy
 
 import OpenRTM_aist
 import RTC, RTC__POA
-
-
-
-##
-# @if jp
-# @class ScopedLock
-# @brief ScopedLock クラス
-#
-# 排他処理用ロッククラス。
-#
-# @since 0.4.0
-#
-# @else
-#
-# @endif
-class ScopedLock:
-
-
-
-  ##
-  # @if jp
-  # @brief コンストラクタ
-  #
-  # コンストラクタ
-  #
-  # @param self
-  # @param mutex ロック用ミューテックス
-  #
-  # @else
-  #
-  # @endif
-  def __init__(self, mutex):
-    self.mutex = mutex
-    self.mutex.acquire()
-
-
-  ##
-  # @if jp
-  # @brief デストラクタ
-  #
-  # デストラクタ
-  #
-  # @param self
-  #
-  # @else
-  #
-  # @endif
-  def __del__(self):
-    self.mutex.release()
 
 
 
@@ -160,7 +112,18 @@ class PortBase(RTC__POA.PortService):
     self._profile.port_ref = self._objref
     self._profile.owner = RTC.RTObject._nil
     self._profile_mutex = threading.RLock()
+    self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf(name)
 
+
+  def __del__(self):
+    self._rtcout.RTC_TRACE("PortBase.__del__()")
+    try:
+      mgr = OpenRTM_aist.Manager.instance().getPOA()
+      oid = mgr.servant_to_id(self)
+      mgr.deactivate_object(oid)
+    except:
+      self._rtcout.RTC_WARN("Unknown exception caught.")
+    
 
   ##
   # @if jp
@@ -205,7 +168,8 @@ class PortBase(RTC__POA.PortService):
   #
   # @endif
   def get_port_profile(self):
-    guard = ScopedLock(self._profile_mutex)
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
+
     prof = RTC.PortProfile(self._profile.name,
                            self._profile.interfaces,
                            self._profile.port_ref,
@@ -217,6 +181,7 @@ class PortBase(RTC__POA.PortService):
 
 
   def getPortProfile(self):
+    self._rtcout.RTC_TRACE("getPortProfile()")
     return self._profile
 
 
@@ -260,8 +225,10 @@ class PortBase(RTC__POA.PortService):
   # @return the ConnectorProfileList of the Port
   #
   # @endif
+  # virtual ConnectorProfileList* get_connector_profiles()
   def get_connector_profiles(self):
-    guard = ScopedLock(self._profile_mutex)
+    self._rtcout.RTC_TRACE("get_connector_profiles()")
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     return self._profile.connector_profiles
 
 
@@ -291,7 +258,8 @@ class PortBase(RTC__POA.PortService):
   #
   # @endif
   def get_connector_profile(self, connector_id):
-    guard = ScopedLock(self._profile_mutex)
+    self._rtcout.RTC_TRACE("get_connector_profile(%s)", connector_id)
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
                                             self.find_conn_id(connector_id))
     if index < 0:
@@ -357,7 +325,7 @@ class PortBase(RTC__POA.PortService):
   # -- Newの場合: SubscriberNewを生成する。<BR>
   # -- Periodicの場合: SubscriberPeriodicを生成する。
   #
-  # - [dataport.push_interval]<BR>
+  # - [dataport.push_rate]<BR>
   # -- dataport.subscription_type=Periodicの場合周期を設定する。
   #
   # 6. 上記の処理のうち一つでもエラーであれば、エラーリターンする。
@@ -386,13 +354,27 @@ class PortBase(RTC__POA.PortService):
   # @return ReturnCode_t The return code of this operation.
   #
   # @endif
+  # virtual ReturnCode_t connect(ConnectorProfile& connector_profile)
   def connect(self, connector_profile):
+    self._rtcout.RTC_TRACE("connect()")
     if self.isEmptyId(connector_profile):
+      guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
       self.setUUID(connector_profile)
       assert(not self.isExistingConnId(connector_profile.connector_id))
+      del guard
+    else:
+      guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
+      if self.isExistingConnId(connector_profile.connector_id):
+        self._rtcout.RTC_ERROR("Connection already exists.")
+        return (RTC.PRECONDITION_NOT_MET,connector_profile)
+      del guard
 
     try:
       retval,connector_profile = connector_profile.ports[0].notify_connect(connector_profile)
+      if retval != RTC.RTC_OK:
+        self._rtcout.RTC_ERROR("Connection failed. cleanup.")
+        self.disconnect(connector_profile.connector_id)
+    
       return (retval, connector_profile)
       #return connector_profile.ports[0].notify_connect(connector_profile)
     except:
@@ -441,33 +423,46 @@ class PortBase(RTC__POA.PortService):
   #
   # @endif
   def notify_connect(self, connector_profile):
-    # publish owned interface information to the ConnectorProfile
-    retval = self.publishInterfaces(connector_profile)
+    self._rtcout.RTC_TRACE("notify_connect()")
 
-    if retval != RTC.RTC_OK:
-      return (retval, connector_profile)
+    # publish owned interface information to the ConnectorProfile
+    retval = [RTC.RTC_OK for i in range(3)]
+
+    retval[0] = self.publishInterfaces(connector_profile)
+    if retval[0] != RTC.RTC_OK:
+      self._rtcout.RTC_ERROR("publishInterfaces() in notify_connect() failed.")
 
     # call notify_connect() of the next Port
-    retval, connector_profile = self.connectNext(connector_profile)
-    if retval != RTC.RTC_OK:
-      return (retval, connector_profile)
+    retval[1], connector_profile = self.connectNext(connector_profile)
+    if retval[1] != RTC.RTC_OK:
+      self._rtcout.RTC_ERROR("connectNext() in notify_connect() failed.")
 
     # subscribe interface from the ConnectorProfile's information
-    retval = self.subscribeInterfaces(connector_profile)
-    if retval != RTC.RTC_OK:
-      #cleanup this connection for downstream ports
-      self.notify_disconnect(connector_profile.connector_id)
-      return (retval, connector_profile)
+    retval[2] = self.subscribeInterfaces(connector_profile)
+    if retval[2] != RTC.RTC_OK:
+      self._rtcout.RTC_ERROR("subscribeInterfaces() in notify_connect() failed.")
+      #self.notify_disconnect(connector_profile.connector_id)
 
+    self._rtcout.RTC_PARANOID("%d connectors are existing",
+                              len(self._profile.connector_profiles))
+
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     # update ConnectorProfile
     index = self.findConnProfileIndex(connector_profile.connector_id)
     if index < 0:
       OpenRTM_aist.CORBA_SeqUtil.push_back(self._profile.connector_profiles,
                                            connector_profile)
+      self._rtcout.RTC_PARANOID("New connector_id. Push backed.")
+
     else:
       self._profile.connector_profiles[index] = connector_profile
+      self._rtcout.RTC_PARANOID("Existing connector_id. Updated.")
 
-    return (retval, connector_profile)
+    for ret in retval:
+      if ret != RTC.RTC_OK:
+        return (ret, connector_profile)
+
+    return (RTC.RTC_OK, connector_profile)
 
 
   ##
@@ -502,17 +497,34 @@ class PortBase(RTC__POA.PortService):
   # @return ReturnCode_t The return code of this operation.
   #
   # @endif
+  # virtual ReturnCode_t disconnect(const char* connector_id)
   def disconnect(self, connector_id):
-    # find connector_profile
-    if not self.isExistingConnId(connector_id):
-      return RTC.BAD_PARAMETER
+    self._rtcout.RTC_TRACE("disconnect(%s)", connector_id)
 
     index = self.findConnProfileIndex(connector_id)
-    prof = RTC.ConnectorProfile(self._profile.connector_profiles[index].name,
-                                self._profile.connector_profiles[index].connector_id,
-                                self._profile.connector_profiles[index].ports,
-                                self._profile.connector_profiles[index].properties)
-    return prof.ports[0].notify_disconnect(connector_id)
+
+    if index < 0:
+      self._rtcout.RTC_ERROR("Invalid connector id: %s", connector_id)
+      return RTC.BAD_PARAMETER
+
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
+    prof = self._profile.connector_profiles[index]
+    del guard
+    
+    if len(prof.ports) < 1:
+      self._rtcout.RTC_FATAL("ConnectorProfile has empty port list.")
+      return RTC.PRECONDITION_NOT_MET
+
+    for i in range(len(prof.ports)):
+      p = prof.ports[i]
+      try:
+        return p.notify_disconnect(connector_id)
+      except:
+        self._rtcout.RTC_WARN("Unknown exception caught.")
+        continue
+
+    self._rtcout.RTC_ERROR("notify_disconnect() for all ports failed.")
+    return RTC.RTC_ERROR
 
 
   ##
@@ -556,7 +568,9 @@ class PortBase(RTC__POA.PortService):
   # @return ReturnCode_t The return code of this operation.
   #
   # @endif
+  # virtual ReturnCode_t notify_disconnect(const char* connector_id)
   def notify_disconnect(self, connector_id):
+    self._rtcout.RTC_TRACE("notify_disconnect(%s)", connector_id)
 
     # The Port of which the reference is stored in the beginning of
     # connectorProfile's PortServiceList is master Port.
@@ -564,18 +578,21 @@ class PortBase(RTC__POA.PortService):
     # The slave Ports have only responsibility of deleting its own
     # ConnectorProfile.
 
-    # find connector_profile
-    if not self.isExistingConnId(connector_id):
-      return RTC.BAD_PARAMETER
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
 
     index = self.findConnProfileIndex(connector_id)
+
+    if index < 0:
+      self._rtcout.RTC_ERROR("Invalid connector id: %s", connector_id)
+      return RTC.BAD_PARAMETER
+
     prof = RTC.ConnectorProfile(self._profile.connector_profiles[index].name,
                                 self._profile.connector_profiles[index].connector_id,
                                 self._profile.connector_profiles[index].ports,
                                 self._profile.connector_profiles[index].properties)
 
-    self.unsubscribeInterfaces(prof)
     retval = self.disconnectNext(prof)
+    self.unsubscribeInterfaces(prof)
 
     OpenRTM_aist.CORBA_SeqUtil.erase(self._profile.connector_profiles, index)
     
@@ -602,13 +619,25 @@ class PortBase(RTC__POA.PortService):
   # @return ReturnCode_t The return code of this operation.
   #
   # @endif
+  # virtual ReturnCode_t disconnect_all()
   def disconnect_all(self):
-    guard = ScopedLock(self._profile_mutex)
+    self._rtcout.RTC_TRACE("disconnect_all()")
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
+    plist = copy.deepcopy(self._profile.connector_profiles)
+    del guard
+    
+    retcode = RTC.RTC_OK
+    len_ = len(plist)
+    self._rtcout.RTC_DEBUG("disconnecting %d connections.", len_)
+
     # disconnect all connections
     # Call disconnect() for each ConnectorProfile.
-    f = OpenRTM_aist.CORBA_SeqUtil.for_each(self._profile.connector_profiles,
-                                            self.disconnect_all_func(self))
-    return f.return_code
+    for i in range(len_):
+      tmpret = self.disconnect(plist[i].connector_id)
+      if tmpret != RTC.RTC_OK:
+        retcode = tmpret
+
+    return retcode
 
 
   #============================================================
@@ -634,8 +663,10 @@ class PortBase(RTC__POA.PortService):
   # @param name The name of this Port.
   #
   # @endif
+  # void setName(const char* name);
   def setName(self, name):
-    guard = ScopedLock(self._profile_mutex)
+    self._rtcout.RTC_TRACE("setName(%s)", name)
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     self._profile.name = name
 
 
@@ -657,8 +688,10 @@ class PortBase(RTC__POA.PortService):
   # @return the PortProfile of the Port
   #
   # @endif
+  # const PortProfile& getProfile() const;
   def getProfile(self):
-    guard = ScopedLock(self._profile_mutex)
+    self._rtcout.RTC_TRACE("getProfile()")
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     return self._profile
 
 
@@ -683,8 +716,10 @@ class PortBase(RTC__POA.PortService):
   # @param The object reference of this Port.
   #
   # @endif
+  # void setPortRef(PortService_ptr port_ref);
   def setPortRef(self, port_ref):
-    guard = ScopedLock(self._profile_mutex)
+    self._rtcout.RTC_TRACE("setPortRef()")
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     self._profile.port_ref = port_ref
 
 
@@ -710,8 +745,10 @@ class PortBase(RTC__POA.PortService):
   # @return The object reference of this Port.
   #
   # @endif
+  # PortService_ptr getPortRef();
   def getPortRef(self):
-    guard = ScopedLock(self._profile_mutex)
+    self._rtcout.RTC_TRACE("getPortRef()")
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     return self._profile.port_ref
 
 
@@ -734,8 +771,10 @@ class PortBase(RTC__POA.PortService):
   # @param owner The owner RTObject's reference of this Port
   #
   # @endif
+  # void setOwner(RTObject_ptr owner);
   def setOwner(self, owner):
-    guard = ScopedLock(self._profile_mutex)
+    self._rtcout.RTC_TRACE("setOwner()")
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     self._profile.owner = owner
 
 
@@ -836,6 +875,7 @@ class PortBase(RTC__POA.PortService):
   # @return The return code of ReturnCode_t type.
   #
   # @endif
+  # virtual ReturnCode_t connectNext(ConnectorProfile& connector_profile);
   def connectNext(self, connector_profile):
     index = OpenRTM_aist.CORBA_SeqUtil.find(connector_profile.ports,
                                             self.find_port_ref(self._profile.port_ref))
@@ -847,7 +887,7 @@ class PortBase(RTC__POA.PortService):
       p = connector_profile.ports[index]
       return p.notify_connect(connector_profile)
 
-    return RTC.RTC_OK, connector_profile
+    return (RTC.RTC_OK, connector_profile)
 
 
   ##
@@ -876,6 +916,7 @@ class PortBase(RTC__POA.PortService):
   # @return The return code of ReturnCode_t type.
   #
   # @endif
+  # virtual ReturnCode_t disconnectNext(ConnectorProfile& connector_profile);
   def disconnectNext(self, connector_profile):
     index = OpenRTM_aist.CORBA_SeqUtil.find(connector_profile.ports,
                                             self.find_port_ref(self._profile.port_ref))
@@ -883,12 +924,16 @@ class PortBase(RTC__POA.PortService):
       return RTC.BAD_PARAMETER
 
     index += 1
-    
-    if index < len(connector_profile.ports):
-      p = connector_profile.ports[index]
-      return p.notify_disconnect(connector_profile.connector_id)
 
-    self.unsubscribeInterfaces(connector_profile)
+    while index < len(connector_profile.ports):
+      p = connector_profile.ports[index]
+      index += 1
+      try:
+        return p.notify_disconnect(connector_profile.connector_id)
+      except:
+        self._rtcout.RTC_WARN("Unknown exception caught.")
+        continue
+
     return RTC.RTC_OK
 
 
@@ -1025,6 +1070,7 @@ class PortBase(RTC__POA.PortService):
   #         it returns true.
   #
   # @endif
+  # bool isEmptyId(const ConnectorProfile& connector_profile) const;
   def isEmptyId(self, connector_profile):
     return connector_profile.connector_id == ""
 
@@ -1049,6 +1095,7 @@ class PortBase(RTC__POA.PortService):
   # @return uuid
   #
   # @endif
+  # const std::string getUUID() const;
   def getUUID(self):
     return str(OpenRTM_aist.uuid1())
 
@@ -1072,6 +1119,7 @@ class PortBase(RTC__POA.PortService):
   # @param connector_profile ConnectorProfile to be set connector_id
   #
   # @endif
+  # void setUUID(ConnectorProfile& connector_profile) const;
   def setUUID(self, connector_profile):
     connector_profile.connector_id = self.getUUID()
     assert(connector_profile.connector_id != "")
@@ -1100,6 +1148,7 @@ class PortBase(RTC__POA.PortService):
   # @param id connector_id to be find in Port's ConnectorProfiles
   #
   # @endif
+  # bool isExistingConnId(const char* id);
   def isExistingConnId(self, id_):
     return OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
                                            self.find_conn_id(id_)) >= 0
@@ -1134,6 +1183,7 @@ class PortBase(RTC__POA.PortService):
   # @return CoonectorProfile with connector_id
   #
   # @endif
+  # ConnectorProfile findConnProfile(const char* id);
   def findConnProfile(self, id_):
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
                                             self.find_conn_id(id_))
@@ -1171,6 +1221,7 @@ class PortBase(RTC__POA.PortService):
   # @return The index of ConnectorProfile of the Port
   #
   # @endif
+  # CORBA::Long findConnProfileIndex(const char* id);
   def findConnProfileIndex(self, id_):
     return OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
                                            self.find_conn_id(id_))
@@ -1203,13 +1254,14 @@ class PortBase(RTC__POA.PortService):
   # @param connector_profile the ConnectorProfile to be appended or updated
   #
   # @endif
+  # void updateConnectorProfile(const ConnectorProfile& connector_profile);
   def updateConnectorProfile(self, connector_profile):
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
                                             self.find_conn_id(connector_profile.connector_id))
 
     if index < 0:
       OpenRTM_aist.CORBA_SeqUtil.push_back(self._profile.connector_profiles,
-                                           self.connector_profile)
+                                           connector_profile)
     else:
       self._profile.connector_profiles[index] = connector_profile
 
@@ -1239,8 +1291,9 @@ class PortBase(RTC__POA.PortService):
   # @param id The id of the ConnectorProfile to be deleted.
   #
   # @endif
+  # bool eraseConnectorProfile(const char* id);
   def eraseConnectorProfile(self, id_):
-    guard = ScopedLock(self._profile_mutex)
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
 
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
                                             self.find_conn_id(id_))
@@ -1302,6 +1355,8 @@ class PortBase(RTC__POA.PortService):
   # @return false would be returned if the same name is already registered.
   #
   # @endif
+  # bool appendInterface(const char* name, const char* type_name,
+  #			 PortInterfacePolarity pol);
   def appendInterface(self, instance_name, type_name, pol):
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.interfaces,
                                             self.find_interface(instance_name, pol))
@@ -1344,6 +1399,7 @@ class PortBase(RTC__POA.PortService):
   # @return false would be returned if the given name is not registered.
   #
   # @endif
+  # bool deleteInterface(const char* name, PortInterfacePolarity pol);
   def deleteInterface(self, name, pol):
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.interfaces,
                                             self.find_interface(name, pol))
@@ -1375,9 +1431,15 @@ class PortBase(RTC__POA.PortService):
   # @param value The value of properties
   #
   # @endif
+  #  template <class ValueType>
+  #  void addProperty(const char* key, ValueType value)
   def addProperty(self, key, value):
     OpenRTM_aist.CORBA_SeqUtil.push_back(self._profile.properties,
                                          OpenRTM_aist.NVUtil.newNV(key, value))
+
+  # void appendProperty(const char* key, const char* value)
+  def appendProperty(self, key, value):
+    OpenRTM_aist.NVUtil.appendStringValue(self._profile.properties, key, value)
 
 
   #============================================================

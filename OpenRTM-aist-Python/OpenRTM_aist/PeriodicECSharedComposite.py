@@ -20,6 +20,7 @@
 
 import string
 import sys
+import time
 
 from omniORB import CORBA
 import OpenRTM, OpenRTM__POA
@@ -45,9 +46,29 @@ periodicecsharedcomposite_spec = ["implementation_id", "PeriodicECSharedComposit
 
 
 def stringToStrVec(v, _is):
-    v = _is.split(",")
+    str = [_is]
+    OpenRTM_aist.eraseBlank(str)
+    v[0] = str[0].split(",")
     return True
 
+
+class setCallback(OpenRTM_aist.OnSetConfigurationSetCallback):
+    def __init__(self, org):
+        self._org = org
+        pass
+
+    def __call__(self, config_set):
+        self._org.updateDelegatedPorts()
+
+
+
+class addCallback(OpenRTM_aist.OnAddConfigurationAddCallback):
+    def __init__(self, org):
+        self._org = org
+        pass
+
+    def __call__(self, config_set):
+        self._org.updateDelegatedPorts()
 
 ##
 # @if jp
@@ -71,6 +92,8 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
         self._rtobj      = rtobj
         self._ec         = None
         self._rtcMembers = []
+        self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("rtobject.PeriodicECOrganization")
+        self._expPorts = []
 
 
     ##
@@ -97,6 +120,8 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     #
     # Boolean add_members(const SDOList& sdo_list)
     def add_members(self, sdo_list):
+        self._rtcout.RTC_DEBUG("add_members()")
+        self.updateExportedPortsList()
         for sdo in sdo_list:
             dfc = [None]
             if not self.sdoToDFC(sdo, dfc):
@@ -105,9 +130,8 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
             self.stopOwnedEC(member)
             self.addOrganizationToTarget(member)
             self.addParticipantToEC(member)
-            self.delegatePort(member)
+            self.addPort(member, self._expPorts)
             self._rtcMembers.append(member)
-
 
         result = OpenRTM_aist.Organization_impl.add_members(self,sdo_list)
 
@@ -139,20 +163,22 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     #
     # Boolean set_members(const SDOList& sdo_list)
     def set_members(self, sdo_list):
+        self._rtcout.RTC_DEBUG("set_members()")
         self._rtcMembers = []
+        self.removeAllMembers()
+        self.updateExportedPortsList()
 
         for sdo in sdo_list:
-          dfc = [None]
-          if not self.sdoToDFC(sdo, dfc):
-              print "SDO is not DFC"
-              continue
+            dfc = [None]
+            if not self.sdoToDFC(sdo, dfc):
+                continue
 
-          member = self.Member(dfc[0])
-          self.stopOwnedEC(member)
-          self.addOrganizationToTarget(member)
-          self.addParticipantToEC(member)
-          self.delegatePort(member)
-          self._rtcMembers.append(member)
+            member = self.Member(dfc[0])
+            self.stopOwnedEC(member)
+            self.addOrganizationToTarget(member)
+            self.addParticipantToEC(member)
+            self.addPort(member, self._expPorts)
+            self._rtcMembers.append(member)
 
         result = OpenRTM_aist.Organization_impl.set_members(self, sdo_list)
 
@@ -182,11 +208,15 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     #
     # Boolean remove_member(const char* id)
     def remove_member(self, id):
+        self._rtcout.RTC_DEBUG("remove_member(id = %d)", id)
         rm_rtc = []
         for member in self._rtcMembers:
             if str(id) != str(member._profile.instance_name):
                 continue
-            self.removePort(member)
+            self.removePort(member, self._expPorts)
+            #prop = self._rtobj.getProperties().getProperty("conf.default.exported_ports")
+            #prop.setProperty("conf.default.exported_ports", OpenRTM_aist.flatten(self._expPorts)) 
+            self._rtobj.getProperties().setProperty("conf.default.exported_ports", OpenRTM_aist.flatten(self._expPorts))
             self.removeParticipantFromEC(member)
             self.removeOrganizationFromTarget(member)
             self.startOwnedEC(member)
@@ -200,14 +230,17 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
 
 
     def removeAllMembers(self):
+        self._rtcout.RTC_DEBUG("removeAllMembers()")
+        self.updateExportedPortsList()
         for member in self._rtcMembers:
-            self.removePort(member)
+            self.removePort(member, self._expPorts)
             self.removeParticipantFromEC(member)
             self.removeOrganizationFromTarget(member)
             self.startOwnedEC(member)
             OpenRTM_aist.Organization_impl.remove_member(self, member._profile.instance_name)
 
         self._rtcMembers = []
+        self._expPorts   = []
 
         
     ##
@@ -240,7 +273,7 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     def stopOwnedEC(self, member):
         ecs = member._eclist
         for ec in ecs:
-            ec.stop()
+            ret = ec.stop()
 
         return
 
@@ -255,7 +288,7 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     def startOwnedEC(self, member):
         ecs = member._eclist
         for ec in ecs:
-            ec.start()
+            ret = ec.start()
 
         return
 
@@ -291,7 +324,7 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
             return
     
         # set organization to target RTC's conf
-        conf.remove_organization(self._pId)
+        ret = conf.remove_organization(self._pId)
 
 
     ##
@@ -310,7 +343,7 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
             else:
                 return
         # set ec to target RTC
-        self._ec.add_component(member._rtobj)
+        ret = self._ec.add_component(member._rtobj)
 
 
     ##
@@ -359,26 +392,33 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     # @brief Delegate given RTC's ports to the Composite
     # @endif
     #
-    # void delegatePort(Member& member);
-    def delegatePort(self, member):
-        exported_ports = self._rtobj.getProperties().getProperty("exported_ports")
+    # void addPort(Member& member, PortList& portlist);
+    def addPort(self, member, portlist):
+        self._rtcout.RTC_TRACE("addPort(%s)", OpenRTM_aist.flatten(portlist))
+        if len(portlist) == 0:
+            return
+        
+        comp_name = member._profile.instance_name
+        plist = member._profile.port_profiles
       
-        # get comp's/ports's profile
-        cprof = member._profile
-        plist = cprof.port_profiles
-
         # port delegation
         for prof in plist:
             # port name -> comp_name.port_name
-            port_name = cprof.instance_name
+            port_name = comp_name
             port_name += "."
             port_name += prof.name
 
-            pos = exported_ports.find(port_name)
-            if pos == -1:
+            self._rtcout.RTC_DEBUG("port_name: %s is in %s?", (port_name,OpenRTM_aist.flatten(portlist)))
+            if port_name in portlist:
+                pos = portlist.index(port_name)
+            else:
+                self._rtcout.RTC_DEBUG("Not found: %s is in %s?", (port_name,OpenRTM_aist.flatten(portlist)))
                 continue
 
-            self._rtobj.registerPort(prof.port_ref, "delegate")
+            self._rtcout.RTC_DEBUG("Found: %s is in %s", (port_name,OpenRTM_aist.flatten(portlist)))
+            self._rtobj.registerPortByReference(prof.port_ref)
+            self._rtcout.RTC_DEBUG("Port %s was delegated.", port_name)
+
 
     ##
     # @if jp
@@ -387,26 +427,62 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     # @brief Remove delegated participatns's ports from the composite
     # @endif
     #
-    # void removePort(Member& member)
-    def removePort(self, member):
-        exported_ports = self._rtobj.getProperties().getProperty("exported_ports")
-    
-        # get comp's/ports's profile
-        cprof = member._profile
-        plist = cprof.port_profiles
+    # void removePort(Member& member, PortList& portlist)
+    def removePort(self, member, portlist):
+        self._rtcout.RTC_DEBUG("removePort()")
+        if len(portlist) == 0:
+            return
+
+        comp_name = member._profile.instance_name
+        plist = member._profile.port_profiles
     
         # port delegation
         for prof in plist:
             # port name -> comp_name.port_name
-            port_name = cprof.instance_name
+            port_name = comp_name
             port_name += "."
             port_name += prof.name
         
-            pos = exported_ports.find(port_name)
-            if pos == -1:
+            self._rtcout.RTC_DEBUG("port_name: %s is in %s?", (port_name,OpenRTM_aist.flatten(portlist)))
+            if port_name in portlist:
+                pos = portlist.index(port_name)
+            else:
+                self._rtcout.RTC_DEBUG("Not found: %s is in %s?", (port_name,OpenRTM_aist.flatten(portlist)))
                 continue
-        
+
+            self._rtcout.RTC_DEBUG("Found: %s is in %s", (port_name,OpenRTM_aist.flatten(portlist)))
             self._rtobj.deletePort(prof.port_ref)
+            portlist.remove(port_name)
+            self._rtcout.RTC_DEBUG("Port %s was deleted.", port_name)
+
+
+    def updateExportedPortsList(self):
+        plist = self._rtobj.getProperties().getProperty("conf.default.exported_ports")
+        if plist:
+            p = [plist]
+            OpenRTM_aist.eraseBlank(p)
+            self._expPorts = p[0].split(",")
+
+
+    def updateDelegatedPorts(self):
+        oldPorts = self._expPorts
+        ports = self._rtobj.getProperties().getProperty("conf.default.exported_ports")
+        newPorts = ports.split(",")
+
+        set_difference = lambda a, b: [x for x in a if not x in b]
+        removedPorts = set_difference(oldPorts,newPorts)
+        createdPorts = set_difference(newPorts,oldPorts)
+
+        self._rtcout.RTC_VERBOSE("old    ports: %s", OpenRTM_aist.flatten(oldPorts))
+        self._rtcout.RTC_VERBOSE("new    ports: %s", OpenRTM_aist.flatten(newPorts))
+        self._rtcout.RTC_VERBOSE("remove ports: %s", OpenRTM_aist.flatten(removedPorts))
+        self._rtcout.RTC_VERBOSE("add    ports: %s", OpenRTM_aist.flatten(createdPorts))
+
+        for member in self._rtcMembers:
+            self.removePort(member, removedPorts)
+            self.addPort(member, createdPorts)
+
+        self._expPorts = newPorts
 
 
 
@@ -508,7 +584,10 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
 
         self._members = [[]]
         self.bindParameter("members", self._members, "", stringToStrVec)
-    
+        self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("rtobject.periodic_ec_shared")
+        self._configsets.setOnSetConfigurationSet(setCallback(self._org))
+        self._configsets.setOnAddConfigurationSet(addCallback(self._org))
+        self._configsets.update("default")
 
     ##
     # @if jp
@@ -524,6 +603,7 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
     # @endif
     #
     def __del__(self):
+        self._rtcout.RTC_TRACE("destructor of PeriodicECSharedComposite")
         pass
 
     
@@ -543,18 +623,15 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
     # @endif
     #
     def onInitialize(self):
-        print "number of member: " , len(self._members[0])
-
+        self._rtcout.RTC_TRACE("onInitialize()")
         mgr = OpenRTM_aist.Manager.instance()
 
-        comps = mgr.getComponents()
-        for comp in comps:
-            print comp.getInstanceName()
-
+        #comps = mgr.getComponents()
+        #for comp in comps:
+        #    print comp.getInstanceName()
 
         sdos = []
         for member in self._members[0]:
-            print "member: ", member
             rtc = mgr.getComponent(member)
 
             if rtc is None:
@@ -567,17 +644,17 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
                 continue
 
             OpenRTM_aist.CORBA_SeqUtil.push_back(sdos, sdo)
-            print "rtc added to list"
     
         try:
             self._org.set_members(sdos)
         except:
-            print "exception cought"
+            print "exception caught"
 
         return RTC.RTC_OK
 
 
     def onActivated(self, exec_handle):
+        self._rtcout.RTC_TRACE("onActivated(%d)", exec_handle)
         ecs = self.get_owned_contexts()
         sdos = self._org.get_members()
 
@@ -585,12 +662,19 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
             rtc = sdo._narrow(RTC.RTObject)
             ecs[0].activate_component(rtc)
 
-        print "num of mem:", len(self._members[0])
+        _s=""
+        _len = len(self._members[0])
+        if _len > 1:
+            s="s were"
+        else:
+            s=" was"
+        self._rtcout.RTC_DEBUG("%d member RTC%s activated.", (_len,_s))
 
         return RTC.RTC_OK
 
 
     def onDeactivated(self, exec_handle):
+        self._rtcout.RTC_TRACE("onDeactivated(%d)", exec_handle)
         ecs = self.get_owned_contexts()
         sdos = self._org.get_members()
 
@@ -602,6 +686,7 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
 
 
     def onReset(self, exec_handle):
+        self._rtcout.RTC_TRACE("onReset(%d)", exec_handle)
         ecs = self.get_owned_contexts()
         sdos = self._org.get_members()
 
@@ -613,7 +698,9 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
 
 
     def onFinalize(self):
+        self._rtcout.RTC_TRACE("onFinalize()")
         self._org.removeAllMembers()
+        self._rtcout.RTC_PARANOID("onFinalize() done")
         return RTC.RTC_OK
 
 

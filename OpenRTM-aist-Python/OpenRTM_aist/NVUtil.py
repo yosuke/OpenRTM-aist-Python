@@ -81,6 +81,7 @@ def newNV(name, value):
 # @param prop Properties that is copies from
 #
 # @endif
+# void copyFromProperties(SDOPackage::NVList& nv, const coil::Properties& prop);
 def copyFromProperties(nv, prop):
   keys = prop.propertyNames()
   keys_len = len(keys)
@@ -344,10 +345,8 @@ def toString(nv, name):
 # @endif
 def appendStringValue(nv, name, value):
   index = find_index(nv, name)
-
   if index >= 0:
     tmp_str = nv[index].value.value()
-
     values = OpenRTM_aist.split(tmp_str,",")
     find_flag = False
     for val in values:
@@ -357,7 +356,7 @@ def appendStringValue(nv, name, value):
     if not find_flag:
       tmp_str += ", "
       tmp_str += value
-      nv[index].value = tmp_str
+      nv[index].value = any.to_any(tmp_str)
   else:
     OpenRTM_aist.CORBA_SeqUtil.push_back(nv, newNV(name, value))
 

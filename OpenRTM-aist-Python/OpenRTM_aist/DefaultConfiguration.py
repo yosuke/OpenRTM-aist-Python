@@ -31,6 +31,7 @@ import OpenRTM_aist
 default_config =["config.version",                   OpenRTM_aist.openrtm_version,
                  "openrtm.version",                  OpenRTM_aist.openrtm_name,
                  "manager.instance_name",            "manager",
+                 "manager.name",                     "manager",
                  "manager.naming_formats",           "%h.host_cxt/%n.mgr",
                  "manager.pid",                      "",
                  "manager.refstring_path",           "/var/log/rtcmanager.ref",

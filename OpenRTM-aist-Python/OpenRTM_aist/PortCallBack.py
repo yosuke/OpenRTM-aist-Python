@@ -153,3 +153,103 @@ class OnOverflow:
 class OnUnderflow:
   def __call__(self,value):
     pass
+
+
+##
+# @if jp
+# @class OnWriteTimeout
+# @brief タイムアウト時のコールバック抽象クラス
+#
+# InPort/OutPortのバッファにデータをwrite()する際に、タイムアウトが発生した
+# 時に呼び出されるコールバックインタフェース。
+#
+# @since 0.4.0
+#
+# @else
+# @class OnWriteTimeout
+# @brief Callback abstract class on timeout
+#
+# This is the interface for callback invoked when data is done write()
+# into the InPort/OutPort's buffer and the timeout occurred.
+#
+# @since 0.4.0
+#
+# @endif
+class OnWriteTimeout:
+  ##
+  # @if jp
+  #
+  # @brief コールバックメソッド
+  #
+  # タイムアウト発生時に呼び出されるコールバックメソッド
+  #
+  # @param value バッファへ書き込むデータ
+  #
+  # @else
+  #
+  # @brief Callback method
+  #
+  # This is the callback method invoked when the timeout occurs.
+  #
+  # @param value Data that is written into the buffer
+  #
+  # @endif
+  # virtual void operator()(const DataType& value) = 0;
+  def __call__(self, value):
+    pass
+
+  
+##
+# @if jp
+# @class OnReadTimeout
+# @brief タイムアウト時のコールバック抽象クラス
+#
+# InPort/OutPortのバッファにデータをread()する際に、タイムアウトが発生した
+# 時に呼び出されるコールバックインタフェース。
+#
+# @since 0.4.0
+#
+# @else
+# @class OnReadTimeout
+# @brief OnReadTimeout abstract class
+#
+# This is the interface for callback invoked when data is done read()
+# into the InPort/OutPort's buffer and the timeout occurred.
+#
+# @since 0.4.0
+#
+# @endif
+class OnReadTimeout:
+  ##
+  # @if jp
+  #
+  # @brief コールバックメソッド
+  #
+  # タイムアウト発生時に呼び出されるコールバックメソッド
+  #
+  # @return 代替となる読み出しデータ
+  #
+  # @else
+  #
+  # @brief Callback method
+  #
+  # This is the callback method invoked when the timeout occurs.
+  #
+  # @return Substituted readout data
+  #
+  # @endif
+  # virtual DataType operator()() = 0;
+  def __call__(self):
+    pass
+
+
+class OnConnect:
+  ## virtual void operator()(const char* id, PublisherBase* publisher) = 0;
+  def __call__(self, id, publisher):
+    pass
+
+
+class OnDisconnect:
+  ##virtual void operator()(const char* id) = 0;
+  def __call__(self, id):
+    pass

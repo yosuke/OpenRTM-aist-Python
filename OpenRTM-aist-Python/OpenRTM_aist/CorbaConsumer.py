@@ -241,6 +241,10 @@ class CorbaConsumer(CorbaConsumerBase):
     self._var = consumer._var
 
 
+  def __del__(self):
+    self.releaseObject()
+
+
   ##
   # @if jp
   # @brief オブジェクトをセットする
@@ -266,13 +270,19 @@ class CorbaConsumer(CorbaConsumerBase):
   #
   # @endif
   def setObject(self, obj):
-    if CorbaConsumerBase.setObject(self, obj):
-      if self._interfaceType:
-        self._var = obj._narrow(self._interfaceType)
-      else:
-        self._var = self._objref
-      if not CORBA.is_nil(self._var):
-        return True
+    if not CorbaConsumerBase.setObject(self, obj):
+      self.releaseObject()
+      return False
+
+    if self._interfaceType:
+      self._var = obj._narrow(self._interfaceType)
+    else:
+      self._var = self._objref
+
+    if not CORBA.is_nil(self._var):
+      return True
+
+    self.releaseObject()
     return False
 
 

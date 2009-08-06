@@ -15,7 +15,7 @@
 #         Advanced Industrial Science and Technology (AIST), Japan
 #     All rights reserved.
 
-
+from omniORB import CORBA
 import OpenRTM_aist
 import RTC,RTM,RTM__POA
 import SDOPackage
@@ -80,7 +80,6 @@ class ManagerServant(RTM__POA.Manager):
 
     # RTObject_ptr create_component(const char* module_name)
     def create_component(self, module_name):
-        print "Manager::create_component: ", module_name
         rtc = self._mgr.createComponent(module_name)
         if rtc == None:
             print "RTC not found: ", module_name
@@ -96,7 +95,6 @@ class ManagerServant(RTM__POA.Manager):
 
     # RTCList* get_components()
     def get_components(self):
-        cprof = [RTM.ModuleProfile([]) for i in prof]
         rtcs = self._mgr.getComponents()
         crtcs = [rtc.getObjRef() for rtc in rtcs]
         return crtcs

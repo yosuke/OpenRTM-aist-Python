@@ -15,7 +15,7 @@
 #         Advanced Industrial Science and Technology (AIST), Japan
 #     All rights reserved.
 
-
+import OpenRTM_aist
 
 ##
 # @if jp
@@ -48,9 +48,51 @@
 # @since 0.4.0
 # 
 # @endif
-class BufferBase:
+class BufferBase(OpenRTM_aist.BufferStatus):
   """
   """
+
+
+  ##
+  # @if jp
+  # @brief バッファの設定
+  #
+  # Properties で与えられるプロパティにより、
+  # バッファの設定を初期化する。
+  # 使用できるオプションと意味は以下の通り
+  #
+  # - buffer.length:
+  #     バッファの長さ。自然数以外の数値が指定されても無視される。す
+  #     でにバッファが使用状態でも、長さが再設定されたのち、すべての
+  #     ポインタが初期化される。
+  #
+  # - buffer.write.full_policy:
+  #     上書きするかどうかのポリシー。
+  #     overwrite (上書き), do_nothing (何もしない), block (ブロックする)
+  #     block を指定した場合、次の timeout 値を指定すれば、指定時間後
+  #     書き込み不可能であればタイムアウトする。
+  #     デフォルトは  overwrite (上書き)。
+  #
+  # - buffer.write.timeout:
+  #     タイムアウト時間を [sec] で指定する。デフォルトは 1.0 [sec]。
+  #     1 sec -> 1.0, 1 ms -> 0.001, タイムアウトしない -> 0.0
+  #
+  # - buffer.read.empty_policy:
+  #     バッファが空のときの読み出しポリシー。
+  #     readback (最後の要素), do_nothing (何もしない), block (ブロックする)
+  #     block を指定した場合、次の timeout 値を指定すれば、指定時間後
+  #     読み出し不可能であればタイムアウトする。
+  #     デフォルトは readback (最後の要素)。
+  #
+  # - buffer.read.timeout:
+  #     タイムアウト時間 [sec] で指定する。デフォルトは 1.0 [sec]。
+  #     1sec -> 1.0, 1ms -> 0.001, タイムアウトしない -> 0.0
+  #
+  # @else
+  #
+  # @endif
+  def init(self, prop):
+    pass
 
 
   ##
@@ -78,87 +120,73 @@ class BufferBase:
 
   ##
   # @if jp
+  #
+  # @brief バッファの状態をリセットする
   # 
-  # @brief バッファにデータを書き込む(サブクラス実装用)
+  # バッファの読み出しポインタと書き込みポインタの位置をリセットする。
   # 
-  # バッファにデータを書き込む<BR>
-  # ※サブクラスでの実装参照用
-  # 
-  # @param self 
-  # @param value 書き込み対象データ
-  # 
-  # @return データ書き込み結果(true:書き込み成功，false:書き込み失敗)
+  # @return BUFFER_OK: 正常終了
+  #         NOT_SUPPORTED: バッファ長変更不可
+  #         BUFFER_ERROR: 異常終了
   # 
   # @else
-  # 
-  # @brief Write data into the buffer
+  #
+  # @brief Get the buffer length
+  #
+  # Pure virtual function to get the buffer length.
+  #
+  # @return buffer length
   # 
   # @endif
-  def write(self, value):
+  #
+  def reset(self):
     pass
 
 
   ##
   # @if jp
+  #
+  # @brief バッファの現在の書込み要素のポインタ
   # 
-  # @brief バッファからデータを読み出す(サブクラス実装用)
+  # バッファの現在の書込み要素のポインタまたは、n個先のポインタを返す
   # 
-  # バッファからデータを読み出す<BR>
-  # ※サブクラスでの実装参照用
-  # 
-  # @param self 
-  # @param value 読み出しデータ
-  # 
-  # @return データ読み出し結果(true:読み出し成功，false:読み出し失敗)
+  # @param  n 書込みポインタ + n の位置のポインタ 
+  # @return 書込み位置のポインタ
   # 
   # @else
-  # 
-  # @brief Read data from the buffer
+  #
+  # @brief Get the buffer length
+  #
+  # Pure virtual function to get the buffer length.
+  #
+  # @return buffer length
   # 
   # @endif
-  def read(self, value):
+  def wptr(self, n=0):
     pass
 
 
   ##
   # @if jp
+  #
+  # @brief 書込みポインタを進める
   # 
-  # @brief バッファfullチェック(サブクラス実装用)
+  # 現在の書き込み位置のポインタを n 個進める。
   # 
-  # バッファfullチェック用関数<BR>
-  # ※サブクラスでの実装参照用
-  # 
-  # @param self 
-  # 
-  # @return fullチェック結果(true:バッファfull，false:バッファ空きあり)
-  # 
-  # @else
-  # 
-  # @brief True if the buffer is full, else false.
-  # 
-  # @endif
-  def isFull(self):
-    pass
-
-
-  ##
-  # @if jp
-  # 
-  # @brief バッファemptyチェック(サブクラス実装用)
-  # 
-  # バッファemptyチェック用関数<BR>
-  # ※サブクラスでの実装参照用
-  # 
-  # @param self 
-  # 
-  # @return emptyチェック結果(true:バッファempty，false:バッファデータあり)
+  # @param  n 書込みポインタ + n の位置のポインタ 
+  # @return BUFFER_OK: 正常終了
+  #         BUFFER_ERROR: 異常終了
   # 
   # @else
-  # 
-  # @brief True if the buffer is empty, else false.
+  #
+  # @brief Get the buffer length
+  #
+  # Pure virtual function to get the buffer length.
+  #
+  # @return buffer length
   # 
   # @endif
-  def isEmpty(self):
+  def advanceWptr(self, n = 1):
     pass
 
 
@@ -179,6 +207,123 @@ class BufferBase:
   # 
   # @endif
   def put(self, data):
+    pass
+
+
+  ##
+  # @if jp
+  # 
+  # @brief バッファにデータを書き込む(サブクラス実装用)
+  # 
+  # バッファにデータを書き込む<BR>
+  # ※サブクラスでの実装参照用
+  # 
+  # @param self 
+  # @param value 書き込み対象データ
+  # 
+  # @return データ書き込み結果(true:書き込み成功，false:書き込み失敗)
+  # 
+  # @else
+  # 
+  # @brief Write data into the buffer
+  # 
+  # @endif
+  def write(self, value, sec=-1, nsec=-1):
+    pass
+
+
+  ##
+  # @if jp
+  #
+  # @brief バッファに書込み可能な要素数
+  # 
+  # バッファに書込み可能な要素数を返す。
+  # 
+  # @return 書き込み可能な要素数
+  #
+  # @return BUFFER_OK: 正常終了
+  #         BUFFER_ERROR: 異常終了
+  # 
+  # @else
+  #
+  # @brief Write data into the buffer
+  #
+  # Pure virtual function to write data into the buffer.
+  #
+  # @param value Target data to write.
+  #
+  # @return Result of having written in data (true:Successful, false:Failed)
+  #
+  # @endif
+  def writable(self):
+    pass
+
+
+  ##
+  # @if jp
+  #
+  # @brief バッファfullチェック
+  # 
+  # バッファfullチェック用純粋仮想関数
+  #
+  # @return fullチェック結果(true:バッファfull，false:バッファ空きあり)
+  # 
+  # @else
+  #
+  # @brief Check on whether the buffer is full.
+  #
+  # Pure virtual function to check on whether the buffer is full.
+  #
+  # @return True if the buffer is full, else false.
+  #
+  # @endif
+  def full(self):
+    pass
+
+
+  ##
+  # @if jp
+  #
+  # @brief バッファの現在の読み出し要素のポインタ
+  # 
+  # バッファの現在の読み出し要素のポインタまたは、n個先のポインタを返す
+  # 
+  # @param  n 読み出しポインタ + n の位置のポインタ 
+  # @return 読み出し位置のポインタ
+  # 
+  # @else
+  #
+  # @brief Get the buffer length
+  #
+  # Pure virtual function to get the buffer length.
+  #
+  # @return buffer length
+  # 
+  # @endif
+  def rptr(self, n = 0):
+    pass
+
+  ##
+  # @if jp
+  #
+  # @brief 読み出しポインタを進める
+  # 
+  # 現在の読み出し位置のポインタを n 個進める。
+  # 
+  # @param  n 読み出しポインタ + n の位置のポインタ 
+  # @return BUFFER_OK: 正常終了
+  #         BUFFER_ERROR: 異常終了
+  # 
+  # @else
+  #
+  # @brief Get the buffer length
+  #
+  # Pure virtual function to get the buffer length.
+  #
+  # @return buffer length
+  # 
+  # @endif
+  def advanceRptr(self, n = 1):
     pass
 
 
@@ -206,22 +351,73 @@ class BufferBase:
   ##
   # @if jp
   # 
-  # @brief 次に書き込むバッファへの参照を取得する(サブクラス実装用)
+  # @brief バッファからデータを読み出す(サブクラス実装用)
   # 
-  # 書き込みバッファへの参照取得用関数<BR>
+  # バッファからデータを読み出す<BR>
   # ※サブクラスでの実装参照用
   # 
   # @param self 
+  # @param value 読み出しデータ
   # 
-  # @return 次の書き込み対象バッファへの参照
+  # @return データ読み出し結果(true:読み出し成功，false:読み出し失敗)
   # 
   # @else
   # 
-  # @brief Get the buffer's reference to be written the next
+  # @brief Read data from the buffer
   # 
   # @endif
-  def getRef(self):
+  def read(self, value, sec = -1, nsec = -1):
     pass
+
+
+  ##
+  # @if jp
+  #
+  # @brief バッファから読み出し可能な要素数
+  # 
+  # バッファから読み出し可能な要素数を返す。
+  # 
+  # @return 読み出し可能な要素数
+  #
+  # @return BUFFER_OK: 正常終了
+  #         BUFFER_ERROR: 異常終了
+  # 
+  # @else
+  #
+  # @brief Write data into the buffer
+  #
+  # Pure virtual function to write data into the buffer.
+  #
+  # @param value Target data to write.
+  #
+  # @return Result of having written in data (true:Successful, false:Failed)
+  #
+  # @endif
+  def readable(self):
+    pass
+
+
+  ##
+  # @if jp
+  #
+  # @brief バッファemptyチェック
+  # 
+  # バッファemptyチェック用純粋仮想関数
+  #
+  # @return emptyチェック結果(true:バッファempty，false:バッファデータあり)
+  # 
+  # @else
+  #
+  # @brief Check on whether the buffer is empty.
+  #
+  # Pure virtual function to check on whether the buffer is empty.
+  #
+  # @return True if the buffer is empty, else false.
+  #
+  # @endif
+  def empty(self):
+    pass
+
 
 
 ##
@@ -259,44 +455,9 @@ class NullBuffer(BufferBase):
   # 
   # @endif
   def __init__(self, size=None):
-    if size is None:
-      size=1
     self._length = 1
     self._data = None
     self._is_new = False
-    self._inited = False
-
-
-  ##
-  # @if jp
-  # 
-  # @brief コンストラクタ
-  # 
-  # コンストラクタ
-  # 
-  # @param self 
-  # @param data 格納データ
-  # 
-  # @else
-  # 
-  # @endif
-  def init(self, data):
-    self.put(data)
-
-
-  ##
-  # @if jp
-  # 
-  # @brief バッファの初期化
-  # 
-  # バッファの初期化を実行する。
-  # 
-  # @param self 
-  # 
-  # @else
-  # 
-  # @endif
-  def clear(self):
     self._inited = False
 
 
@@ -339,7 +500,7 @@ class NullBuffer(BufferBase):
   # @brief Write data into the buffer
   # 
   # @endif
-  def write(self, value):
+  def write(self, value, sec=-1, nsec=-1):
     self.put(value)
     return True
 
@@ -406,7 +567,7 @@ class NullBuffer(BufferBase):
   # 
   # @endif
   def isEmpty(self):
-    return not self._inited
+    return False
 
 
   ##

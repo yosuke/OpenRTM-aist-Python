@@ -23,28 +23,6 @@ import RTC, RTC__POA
 
 ##
 # @if jp
-# @class ScopedLock
-# @brief ScopedLock クラス
-#
-# 排他処理用ロッククラス。
-#
-# @since 0.4.0
-#
-# @else
-#
-# @endif
-class ScopedLock:
-  def __init__(self, mutex):
-    self.mutex = mutex
-    self.mutex.acquire()
-
-  def __del__(self):
-    self.mutex.release()
-
-
-
-##
-# @if jp
 # @class StateHolder
 # @brief 状態保持用クラス
 # 
@@ -396,7 +374,7 @@ class StateMachine:
   # @brief Get state machine's status
   # @endif
   def getStates(self):
-    guard = ScopedLock(self._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._mutex)
     return self._states
 
 
@@ -414,7 +392,7 @@ class StateMachine:
   # @brief Get current state
   # @endif
   def getState(self):
-    guard = ScopedLock(self._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._mutex)
     return self._states.curr
 
 
@@ -433,7 +411,7 @@ class StateMachine:
   # @brief Evaluate current status
   # @endif
   def isIn(self, state):
-    guard = ScopedLock(self._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._mutex)
     if self._states.curr == state:
       return True
     else:
@@ -457,7 +435,7 @@ class StateMachine:
   # @brief Change status
   # @endif
   def goTo(self, state):
-    guard = ScopedLock(self._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._mutex)
     self._states.next = state
 
 
@@ -539,7 +517,7 @@ class StateMachine:
   # @else
   # @endif
   def sync(self, states):
-    guard = ScopedLock(self._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._mutex)
     states.prev = self._states.prev
     states.curr = self._states.curr
     states.next = self._states.next
@@ -557,7 +535,7 @@ class StateMachine:
   # @else
   # @endif
   def need_trans(self):
-    guard = ScopedLock(self._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._mutex)
     return (self._states.curr != self._states.next)
 
 
@@ -571,5 +549,5 @@ class StateMachine:
   # @else
   # @endif
   def update_curr(self, curr):
-    guard = ScopedLock(self._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._mutex)
     self._states.curr = curr

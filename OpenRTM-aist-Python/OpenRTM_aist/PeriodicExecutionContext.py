@@ -37,7 +37,8 @@ import RTC, RTC__POA
 # @class PeriodicExecutionContext
 # @brief PeriodicExecutionContext class
 # @endif
-class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
+class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
+                               OpenRTM_aist.Task):
   """
   """
 
@@ -77,7 +78,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
       self._obj = obj
       self._active = True
       self.ec_id = id_
-      self._sm = OpenRTM_aist.StateMachine(3)
+      self._sm = OpenRTM_aist.StateMachine(4)
       self._sm.setListener(self)
       self._sm.setEntryAction (RTC.ACTIVE_STATE,
                                self.on_activated)
@@ -348,8 +349,15 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   # @brief Constructor
   # @endif
   def __init__(self, owner=None, rate=None):
+    self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("rtobject.periodic_ec")
+    self._rtcout.RTC_TRACE("PeriodicExecutionContext()")
+
+    OpenRTM_aist.Task.__init__(self)
+
     self._nowait = False
     self._running = False
+
+    self._worker = self.Worker()
 
     if rate is None:
       self._rate = 1000.0
@@ -368,6 +376,17 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
     self._ref = self._this()
     self._thread = threading.Thread(target=self.run)
 
+    return
+
+
+  def __del__(self):
+    self._rtcout.RTC_TRACE("~PeriodicExecutionContext()")
+    self._worker._cond.acquire()
+    self._worker._running = True
+    self._worker._cond.notify()
+    self._worker._cond.release()
+    self.wait()
+
 
   ##
   # @if jp
@@ -383,7 +402,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   # @else
   #
   # @endif
-  def getRef(self):
+  def getObjRef(self):
     return self._ref
 
 
@@ -403,13 +422,21 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def run(self):
+    self._rtcout.RTC_TRACE("run()")
     flag = True
 
     while flag:
-      sec_ = float(self._usec)/1000000.0
-      for comp in self._comps:
-        comp._sm.worker()
+      self._worker._cond.acquire()
+      while not self._worker._running:
+        self._worker._cond.wait()
 
+      if self._worker._running:
+        for comp in self._comps:
+          comp._sm.worker()
+
+      self._worker._cond.release()
+
+      sec_ = float(self._usec)/1000000.0
       #while not self._running:
         #time.sleep(sec_)
       if not self._nowait:
@@ -443,6 +470,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def close(self, flags):
+    self._rtcout.RTC_TRACE("close()")
     return 0
 
 
@@ -470,6 +498,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def is_running(self):
+    self._rtcout.RTC_TRACE("is_running()")
     return self._running
 
 
@@ -501,6 +530,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def start(self):
+    self._rtcout.RTC_TRACE("start()")
     if self._running:
       return RTC.PRECONDITION_NOT_MET
 
@@ -508,7 +538,16 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
       comp._sm.on_startup()
 
     self._running = True
-    self._thread.start()
+
+    self._worker._cond.acquire()
+    self._worker._running = True
+    self._worker._cond.notify()
+    self._worker._cond.release()
+
+    try:
+      self._thread.start()
+    except:
+      print "thread already started."
 
     return RTC.RTC_OK
 
@@ -540,14 +579,19 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def stop(self):
+    self._rtcout.RTC_TRACE("stop()")
     if not self._running:
       return RTC.PRECONDITION_NOT_MET
+
+    self._running = False
+    self._worker._cond.acquire()
+    self._worker._running = True
+    self._worker._cond.release()
 
     for comp in self._comps:
       comp._sm.on_shutdown()
 
-    self._running = False
-
+    self._thread.join()
     return RTC.RTC_OK
 
 
@@ -570,6 +614,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def get_rate(self):
+    self._rtcout.RTC_TRACE("get_rate()")
     return self._profile.rate
 
 
@@ -599,9 +644,13 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def set_rate(self, rate):
+    self._rtcout.RTC_TRACE("set_rate(%f)", rate)
     if rate > 0.0:
       self._profile.rate = rate
       self._usec = long(1000000/rate)
+      if self._usec == 0:
+        self._nowait = True
+
       for comp in self._comps:
         comp._sm.on_rate_changed()
       return RTC.RTC_OK
@@ -638,6 +687,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def activate_component(self, comp):
+    self._rtcout.RTC_TRACE("activate_component()")
     for compIn in self._comps:
       if compIn._ref._is_equivalent(comp):
         if not compIn._sm._sm.isIn(RTC.INACTIVE_STATE):
@@ -678,6 +728,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def deactivate_component(self, comp):
+    self._rtcout.RTC_TRACE("deactivate_component()")
     for compIn in self._comps:
       if compIn._ref._is_equivalent(comp):
         if not compIn._sm._sm.isIn(RTC.ACTIVE_STATE):
@@ -717,6 +768,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def reset_component(self, comp):
+    self._rtcout.RTC_TRACE("reset_component()")
     for compIn in self._comps:
       if compIn._ref._is_equivalent(comp):
         if not compIn._sm._sm.isIn(RTC.ERROR_STATE):
@@ -749,6 +801,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def get_component_state(self, comp):
+    self._rtcout.RTC_TRACE("get_component_state()")
     for compIn in self._comps:
       if compIn._ref._is_equivalent(comp):
         return compIn._sm._sm.getState()
@@ -774,6 +827,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def get_kind(self):
+    self._rtcout.RTC_TRACE("get_kind()")
     return self._profile.kind
 
 
@@ -804,10 +858,14 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def add_component(self, comp):
+    self._rtcout.RTC_TRACE("add_component()")
     if CORBA.is_nil(comp):
       return RTC.BAD_PARAMETER
     try:
       dfp_  = comp._narrow(OpenRTM.DataFlowComponent)
+      if CORBA.is_nil(dfp_):
+        return RTC.BAD_PARAMETER
+
       id_   = dfp_.attach_context(self._ref)
       comp_ = self.Comp(ref=comp, dfp=dfp_, id=id_)
       self._comps.append(comp_)
@@ -819,12 +877,18 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
 
 
   def bindComponent(self, rtc):
+    self._rtcout.RTC_TRACE("bindComponent()")
     if rtc is None:
       return RTC.BAD_PARAMETER
 
     comp_ = rtc.getObjRef()
     dfp_  = comp_._narrow(OpenRTM.DataFlowComponent)
     id_   = rtc.bindContext(self._ref)
+    if id_ < 0 or id_ > OpenRTM_aist.ECOTHER_OFFSET:
+      self._rtcout.RTC_ERROR("bindContext returns invalid id: %d", id_)
+      return RTC.RTC_ERROR
+
+    self._rtcout.RTC_DEBUG("bindContext returns id = %d", id_)
     self._comps.append(self.Comp(ref=comp_, dfp=dfp_, id=id_))
     return RTC.RTC_OK
 
@@ -854,6 +918,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def remove_component(self, comp):
+    self._rtcout.RTC_TRACE("remove_component()")
     len_ = len(self._comps)
     for i in range(len_):
       idx = (len_ - 1) - i
@@ -884,12 +949,8 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
   #
   # @endif
   def get_profile(self):
-    p = RTC.ExecutionContextProfile(self._profile.kind,
-                                    self._profile.rate,
-                                    self._profile.owner,
-                                    self._profile.participants,
-                                    self._profile.properties)
-    return p
+    self._rtcout.RTC_TRACE("get_profile()")
+    return self._profile
 
 
   ##
@@ -907,6 +968,35 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase):
         self._ref = comp._ref
         self._sm  = PeriodicExecutionContext.DFP(comp._sm._obj,comp._sm.ec_id)
 
+  ##
+  # @if jp
+  # @class Worker
+  # @brief ExecutionContext 駆動クラス
+  #
+  # 実行処理に関する排他制御など、実際の処理を監視・制御するためのクラス。
+  #
+  # @since 0.4.0
+  #
+  # @else
+  #
+  # @endif
+  class Worker:
+    
+    ##
+    # @if jp
+    # @brief コンストラクタ
+    #
+    # コンストラクタ
+    #
+    # @param self
+    #
+    # @else
+    # @brief Constructor
+    # @endif
+    def __init__(self):
+      self._mutex = threading.RLock()
+      self._cond = threading.Condition(self._mutex)
+      self._running = False
 
 ##
 # @if jp

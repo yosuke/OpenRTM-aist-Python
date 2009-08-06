@@ -203,6 +203,45 @@ def unescape(_str):
 
 ##
 # @if jp
+# @brief 文字列の空白文字を削除する
+#
+# 与えられた文字列の空白文字を削除する。
+# 空白文字として扱うのは' '(スペース)と'\\t'(タブ)。
+#
+# @param str(list) 空白文字削除処理文字列のリスト
+#
+# @else
+# @brief Erase blank characters of string
+#
+# Erase blank characters that exist at the head of the given string.
+# Space ' 'and tab '\\t' are supported as the blank character.
+#
+# @param str The target blank characters of string for the erase
+#
+# @endif
+#
+def eraseBlank(str):
+    if len(str) == 0:
+        return
+    str[0] = str[0].strip(" ")
+    l_str = str[0].split(" ")
+    tmp_str = ""
+    for s in l_str:
+        if s:
+            tmp_str+=s.strip(" ")
+
+    tmp_str = tmp_str.strip('\t')
+    l_str = tmp_str.split('\t')
+    tmp_str = ""
+    for s in l_str:
+        if s:
+            tmp_str+=s.strip('\t')
+
+    str[0] = tmp_str
+
+
+##
+# @if jp
 # @brief 文字列の先頭の空白文字を削除する
 #
 # 与えられた文字列の先頭に存在する空白文字を削除する。
@@ -236,6 +275,18 @@ def eraseTailBlank(_str):
 
   while (_str[0][-1] == " " or _str[0][-1] == '\t') and not isEscaped(_str[0], len(_str[0]) - 1):
     _str[0] = _str[0][:-1]
+
+
+#
+# @if jp
+# @brief 文字列を正規化する
+# @else
+# @brief Erase the head/tail blank and replace upper case to lower case
+# @endif
+#
+def normalize(_str):
+  _str[0] = _str[0].strip().lower()
+  return _str[0]
 
 
 ##
@@ -320,6 +371,49 @@ def toBool(_str, yes, no, default_value=None):
     return False
   else:
     return default_value
+
+##
+# @if jp
+# @brief 文字列リスト中にある文字列が含まれるかどうか
+# 
+# 第1引数にカンマ区切りのリストを、第2引数に探索対象文字列を指定し、
+# その文字列が第1引数の中に含まれるかを判断する。
+#
+# @param list 対象リスト
+# @param value 探索文字列
+# @return true: 含まれる、false: 含まれない
+#
+# @else
+# @brief Include if a string is included in string list
+# 
+# if the second argument is included in the comma separated string
+# list of the first argument, This operation returns "true value".
+#
+# @param list The target comma separated string
+# @param value The searched string
+# @return true: included, false: not included
+#
+# @endif
+#
+#  bool includes(const vstring& list, std::string value,
+#                bool ignore_case = true);
+def includes(_list, value, ignore_case = True):
+  if not (type(_list) == list or type(_list) == str):
+    return False
+
+  if type(_list) == str:
+    _list = _list.split(",")
+
+  tmp_list = _list
+  if ignore_case:
+    value = value.lower()
+    tmp_list = map((lambda x: x.lower()),_list)
+    
+  if tmp_list.count(value) > 0:
+    return True
+
+  return False
+    
 
 
 ##
@@ -459,6 +553,9 @@ def _stringToList(_type, _str):
 # @brief Convert the given object to st::string.
 # @endif
 def stringTo(_type, _str):
+  if not _str:
+    return False
+
   if type(_type[0]) == int:
     _type[0] = int(_str)
     return True
@@ -512,7 +609,6 @@ def flatten(sv):
   if len(sv) == 0:
     return ""
 
-  _str = ""
   _str = ", ".join(sv)
 
   return _str

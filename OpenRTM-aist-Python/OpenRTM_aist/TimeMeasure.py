@@ -138,6 +138,7 @@ class TimeMeasure:
         self._end  = Time().gettimeofday()
         self._count = 0
         self._recurred = False
+        self._interval = OpenRTM_aist.TimeValue(0.0)
     
 
     ##
@@ -155,17 +156,26 @@ class TimeMeasure:
     # End of time measurement for time statistics
     #
     def tack(self):
+        if self._begin.sec() == 0:
+            return
+
+        self._interval = Time().gettimeofday() - self._begin
         self._end = Time().gettimeofday()
-        self._record[self._count % self._countMax] = self._end - self._begin
+        self._record[self._count] = self._interval
         self._count += 1
-        if self._count > self._countMax:
+        if self._count == self._countMax:
             self._count = 0
             self._recurred = True
         
 
+    def interval(self):
+        return self._interval
+
+
     def reset(self):
         self._count = 0
         self._recurred = False
+        self._begin = OpenRTM_aist.TimeValue(0.0)
 
     
     ##
@@ -186,9 +196,20 @@ class TimeMeasure:
     # Get total statistics
     # max_interval, min_interval, mean_interval [ns]
     #
-    def getStatistics(self, max_interval,min_interval,
-                      mean_interval,stddev):
+    def getStatistics(self, max_interval=None,min_interval=None,
+                      mean_interval=None,stddev=None):
         global ULLONG_MAX
+
+        if not max_interval and not min_interval and not mean_interval and not stddev:
+            max_i  = [0.0]
+            min_i  = [0.0]
+            mean_i = [0.0]
+            stdd   = [0.0]
+            
+            self.getStatistics(max_i, min_i, mean_i, stdd)
+            s = self.Statistics(max_i[0],min_i[0],mean_i[0],stdd[0])
+            return s
+
         max_interval[0] = 0
         min_interval[0] = ULLONG_MAX
 
@@ -211,8 +232,23 @@ class TimeMeasure:
                 min_interval[0] = _trecord
             
                 
-        mean_interval[0] = _sum / self._count
-        stddev[0] = math.sqrt(_sq_sum / self._count - (mean_interval[0]*mean_interval[0]))
+        mean_interval[0] = _sum / _len
+        stddev[0] = math.sqrt(_sq_sum / _len - (mean_interval[0]*mean_interval[0]))
 
         return True
         
+    
+    
+    class Statistics:
+        def __init__(self, max=None, min=None, mean=None, stdd=None):
+            if not max and not min and not mean and not stdd:
+                self._max_interval  = 0.0
+                self._min_interval  = 0.0
+                self._mean_interval = 0.0
+                self._std_deviation = 0.0
+                return
+
+            self._max_interval  = max
+            self._min_interval  = min
+            self._mean_interval = mean
+            self._std_deviation = stdd

@@ -79,8 +79,7 @@ class OutPortCorbaConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaConsum
       obj = self._ptr()._narrow(RTC.OutPortAny)
       if CORBA.is_nil(obj):
         return False
-      d = any.from_any(obj.get(), keep_structs=True)
-      data[0] = d
+      data[0] = any.from_any(obj.get(), keep_structs=True)
       return True
     except:
       return False
@@ -126,12 +125,18 @@ class OutPortCorbaConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaConsum
     if index < 0:
       return False
 
-    try:
-      obj = any.from_any(properties[index].value, keep_structs=True)
-      self.setObject(obj)
-      return True
-    except:
-      return False
+    if OpenRTM_aist.NVUtil.isString(properties,
+                                    "dataport.corba_any.outport_ref"):
+
+      try:
+        ior = any.from_any(properties[index].value, keep_structs=True)
+        print "OutPort ref: ", ior
+        orb = OpenRTM_aist.Manager.instance().getORB()
+        obj = orb.string_to_object(ior)
+        self.setObject(obj)
+        return True
+      except:
+        return False
 
     return False
 
@@ -155,8 +160,12 @@ class OutPortCorbaConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaConsum
       return
 
     try:
-      obj = any.from_any(properties[index].value, keep_structs=True)
-      if self.getObject()._is_equivalent(obj):
-        self.releaseObject()
+      ior = any.from_any(properties[index].value, keep_structs=True)
+      if ior:
+        orb = OpenRTM_aist.Manager.instance().getORB()
+        obj = orb.string_to_object(ior)
+        if self._ptr()._is_equivalent(obj):
+          self.releaseObject()
+
     except:
       return

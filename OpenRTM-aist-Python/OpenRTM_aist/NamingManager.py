@@ -22,56 +22,6 @@ import sys
 import OpenRTM_aist
 
 
-
-##
-# @if jp
-# @class ScopedLock
-# @brief ScopedLock クラス
-#
-# 排他処理用ロッククラス。
-#
-# @since 0.4.0
-#
-# @else
-#
-# @endif
-class ScopedLock:
-
-
-
-  ##
-  # @if jp
-  # @brief コンストラクタ
-  #
-  # コンストラクタ
-  #
-  # @param self
-  # @param mutex ロック用ミューテックス
-  #
-  # @else
-  #
-  # @endif
-  def __init__(self, mutex):
-    self.mutex = mutex
-    self.mutex.acquire()
-
-
-  ##
-  # @if jp
-  # @brief デストラクタ
-  #
-  # デストラクタ
-  #
-  # @param self
-  #
-  # @else
-  #
-  # @endif
-  def __del__(self):
-    self.mutex.release()
-
-
-
 ##
 # @if jp
 #
@@ -248,13 +198,15 @@ class NamingManager:
   # @endif
   def __init__(self, manager):
     self._manager = manager
-    self._rtcout = manager.getLogbuf()
+    self._rtcout = manager.getLogbuf('manager.namingmanager')
     #self._rtcout.setLogLevel(manager.getConfig().getProperty("logger.log_level"))
     #self._rtcout.setLogLock(OpenRTM_aist.toBool(manager.getConfig().getProperty("logger.stream_lock"), "enable", "disable", False))
     self._names = []
     self._namesMutex = threading.RLock()
     self._compNames = []
+    self._mgrNames  = []
     self._compNamesMutex = threading.RLock()
+    self._mgrNamesMutex = threading.RLock()
 
 
   ##
@@ -295,18 +247,20 @@ class NamingManager:
   # @endif
   def bindObject(self, name, rtobj):
     self._rtcout.RTC_TRACE("NamingManager::bindObject(%s)", name)
-    guard = ScopedLock(self._namesMutex)
+    guard = OpenRTM_aist.ScopedLock(self._namesMutex)
     for i in range(len(self._names)):
       if self._names[i].ns:
         self._names[i].ns.bindObject(name, rtobj)
     self.registerCompName(name, rtobj)
 
+
   def bindManagerObject(self, name, mgr):
     self._rtcout.RTC_TRACE("NamingManager::bindManagerObject(%s)", name)
-    guard = ScopedLock(self._namesMutex)
+    guard = OpenRTM_aist.ScopedLock(self._namesMutex)
     for i in range(len(self._names)):
       if self._names[i].ns:
         self._names[i].ns.bindObject(name, mgr)
+    self.registerMgrName(name, mgr)
 
 
   ##
@@ -324,7 +278,7 @@ class NamingManager:
   # @endif
   def update(self):
     self._rtcout.RTC_TRACE("NamingManager::update()")
-    guard = ScopedLock(self._namesMutex)
+    guard = OpenRTM_aist.ScopedLock(self._namesMutex)
     for i in range(len(self._names)):
       if self._names[i].ns is None:
         nsobj = self.createNamingObj(self._names[i].method,
@@ -335,6 +289,8 @@ class NamingManager:
                                  self._names[i].nsname))
           self._names[i].ns = nsobj
           self.bindCompsTo(nsobj)
+      else:
+        self.bindCompsTo(self._names[i].ns)
 
 
   ##
@@ -352,11 +308,12 @@ class NamingManager:
   # @endif
   def unbindObject(self, name):
     self._rtcout.RTC_TRACE("NamingManager::unbindObject(%s)", name)
-    guard = ScopedLock(self._namesMutex)
+    guard = OpenRTM_aist.ScopedLock(self._namesMutex)
     for i in range(len(self._names)):
       if self._names[i].ns:
         self._names[i].ns.unbindObject(name)
     self.unregisterCompName(name)
+    self.unregisterMgrName(name)
 
 
   ##
@@ -373,9 +330,14 @@ class NamingManager:
   # @endif
   def unbindAll(self):
     self._rtcout.RTC_TRACE("NamingManager::unbindAll(): %d names.", len(self._compNames))
-    guard = ScopedLock(self._compNamesMutex)
+
+    guard = OpenRTM_aist.ScopedLock(self._compNamesMutex)
     for i in range(len(self._compNames)):
       self.unbindObject(self._compNames[i].name)
+
+    guard = OpenRTM_aist.ScopedLock(self._mgrNamesMutex)
+    for i in range(len(self._mgrNames)):
+      self.unbindObject(self._mgrNames[i].name)
 
 
   ##
@@ -394,7 +356,7 @@ class NamingManager:
   # @endif
   def getObjects(self):
     comps = []
-    guard = ScopedLock(self._compNamesMutex)
+    guard = OpenRTM_aist.ScopedLock(self._compNamesMutex)
     for i in range(len(self._compNames)):
       comps.append(self._compNames[i].rtobj)
     return comps
@@ -476,6 +438,16 @@ class NamingManager:
     return
 
 
+  def registerMgrName(self, name, mgr):
+    for i in range(len(self._mgrNames)):
+      if self._mgrNames[i].name == name:
+        self._mgrNames[i].mgr = mgr
+        return
+
+    self._mgrNames.append(self.Mgr(name, mgr))
+    return
+
+
   ##
   # @if jp
   #
@@ -498,6 +470,15 @@ class NamingManager:
         return
     return
     
+
+  def unregisterMgrName(self, name):
+    len_ = len(self._mgrNames)
+    for i in range(len_):
+      idx = (len_ -1) - i
+      if self._mgrNames[idx].name == name:
+        del self._mgrNames[idx]
+        return
+    return
 
 
   # Name Servers' method/name and object
@@ -527,3 +508,9 @@ class NamingManager:
     def __init__(self, n, obj):
       self.name = n
       self.rtobj = obj
+
+
+  class Mgr:
+    def __init__(self, n, obj):
+      self.name = n
+      self.mgr = obj

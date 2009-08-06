@@ -23,28 +23,6 @@ import OpenRTM_aist
 import SDOPackage, SDOPackage__POA
 
 
-
-##
-# @if jp
-# @class ScopedLock
-# @brief ScopedLock クラス
-#
-# 排他処理用ロッククラス。
-#
-# @since 0.4.0
-#
-# @else
-#
-# @endif
-class ScopedLock:
-  def __init__(self, mutex):
-    self.mutex = mutex
-    self.mutex.acquire()
-
-  def __del__(self):
-    self.mutex.release()
-
-
 ##
 # @if jp
 # 
@@ -66,7 +44,7 @@ class ScopedLock:
 # @since 0.4.0
 # 
 # @endif
-class Organization_impl:
+class Organization_impl(SDOPackage__POA.Organization):
 
   ##
   # @if jp
@@ -79,7 +57,7 @@ class Organization_impl:
   # 
   # @endif
   def __init__(self, sdo):
-    self._pId         = OpenRTM_aist.uuid1()
+    self._pId         = str(OpenRTM_aist.uuid1())
     self._org_mutex   = threading.RLock()
 
     self._orgProperty = SDOPackage.OrganizationProperty([])
@@ -87,6 +65,7 @@ class Organization_impl:
     self._memberList  = []
     self._dependency  = SDOPackage.OWN
     self._objref      = self._this()
+    self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("rtobject.sdo_organization")
 
 
   #============================================================
@@ -127,6 +106,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def get_organization_id(self):
+    self._rtcout.RTC_TRACE("get_organization_id() = %s", self._pId)
     return self._pId
 
 
@@ -166,7 +146,8 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def get_organization_property(self):
-    guard = ScopedLock(self._org_mutex)
+    self._rtcout.RTC_TRACE("get_organization_property()")
+    guard = OpenRTM_aist.ScopedLock(self._org_mutex)
     prop = SDOPackage.OrganizationProperty(self._orgProperty.properties)
     return prop
 
@@ -212,6 +193,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def get_organization_property_value(self, name):
+    self._rtcout.RTC_TRACE("get_organization_property_value(%s)", name)
     if not name:
       raise SDOPackage.InvalidParameter("Empty name.")
 
@@ -272,16 +254,17 @@ class Organization_impl:
   # @exception InternalError The target SDO cannot execute the operation
   #                          completely due to some internal error.
   # @endif
-  def set_organization_property(self, org_property):
+  def add_organization_property(self, org_property):
+    self._rtcout.RTC_TRACE("add_organization_property()")
     if org_property is None:
       raise SDOPackage.InvalidParameter("org_property is Empty.")
 
     try:
-      guard = ScopedLock(self._org_mutex)
+      guard = OpenRTM_aist.ScopedLock(self._org_mutex)
       self._orgProperty = org_property
       return True
     except:
-      raise SDOPackage.InternalError("set_organization_property()")
+      raise SDOPackage.InternalError("add_organization_property()")
 
     return False
 
@@ -332,6 +315,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def set_organization_property_value(self, name, value):
+    self._rtcout.RTC_TRACE("set_organization_property_value(name=%s)", name)
     if not name:
       raise SDOPackage.InvalidParameter("set_organization_property_value(): Enpty name.")
 
@@ -388,6 +372,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def remove_organization_property(self, name):
+    self._rtcout.RTC_TRACE("remove_organization_property(%s)", name)
     if not name:
       raise SDOPackage.InvalidParameter("remove_organization_property_value(): Enpty name.")
 
@@ -439,6 +424,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def get_owner(self):
+    self._rtcout.RTC_TRACE("get_owner()")
     return self._varOwner
 
 
@@ -484,6 +470,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def set_owner(self, sdo):
+    self._rtcout.RTC_TRACE("set_owner()")
     if CORBA.is_nil(sdo):
       raise SDOPackage.InvalidParameter("set_owner()")
 
@@ -532,6 +519,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def get_members(self):
+    self._rtcout.RTC_TRACE("get_members()")
     try:
       return self._memberList
     except:
@@ -583,6 +571,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def set_members(self, sdos):
+    self._rtcout.RTC_TRACE("set_members()")
     if sdos is None:
       raise SDOPackage.InvalidParameter("set_members(): SDOList is empty.")
 
@@ -634,6 +623,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def add_members(self, sdo_list):
+    self._rtcout.RTC_TRACE("add_members()")
     if not sdo_list:
       raise SDOPackage.InvalidParameter("add_members(): SDOList is empty.")
 
@@ -684,18 +674,22 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def remove_member(self, id):
+    self._rtcout.RTC_TRACE("remove_member(%s)", id)
     if not id:
+      self._rtcout.RTC_ERROR("remove_member(): Enpty name.")
       raise SDOPackage.InvalidParameter("remove_member(): Empty name.")
 
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._memberList, self.sdo_id(id))
 
     if index < 0:
+      self._rtcout.RTC_ERROR("remove_member(): Not found.")
       raise SDOPackage.InvalidParameter("remove_member(): Not found.")
 
     try:
       OpenRTM_aist.CORBA_SeqUtil.erase(self._memberList, index)
       return True
     except:
+      self._rtcout.RTC_ERROR("unknown exception")
       raise SDOPackage.InternalError("remove_member(): Not found.")
 
     return False
@@ -740,6 +734,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def get_dependency(self):
+    self._rtcout.RTC_TRACE("get_dependency()")
     return self._dependency
 
 
@@ -787,6 +782,7 @@ class Organization_impl:
   #                          completely due to some internal error.
   # @endif
   def set_dependency(self, dependency):
+    self._rtcout.RTC_TRACE("set_dependency()")
     if dependency is None:
       raise SDOPackage.InvalidParameter("set_dependency(): Empty dependency.")
 
@@ -797,7 +793,12 @@ class Organization_impl:
       raise SDOPackage.InternalError("set_dependency(): Unknown.")
 
     return False
-    
+
+
+  def getObjRef(self):
+    return self._objref
+
+
 
   # end of CORBA interface definition
   #============================================================

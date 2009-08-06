@@ -99,6 +99,11 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       self._poa = poa
       self._portAdmin = OpenRTM_aist.PortAdmin(self._orb,self._poa)
       
+    if self._manager:
+      self._rtcout = self._manager.getLogbuf("rtobject")
+    else:
+      self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("rtobject")
+
     self._created = True
     self._properties = OpenRTM_aist.Properties(defaults_str=default_conf)
     self._configsets = OpenRTM_aist.ConfigAdmin(self._properties.getNode("conf"))
@@ -157,6 +162,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onInitialize(self):
+    self._rtcout.RTC_TRACE("onInitialize()")
     return RTC.RTC_OK
 
 
@@ -179,6 +185,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onFinalize(self):
+    self._rtcout.RTC_TRACE("onFinalize()")
     return RTC.RTC_OK
 
 
@@ -202,6 +209,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onStartup(self, ec_id):
+    self._rtcout.RTC_TRACE("onStartup(%s)",ec_id)
     return RTC.RTC_OK
 
 
@@ -225,6 +233,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onShutdown(self, ec_id):
+    self._rtcout.RTC_TRACE("onShutdown(%s)",ec_id)
     return RTC.RTC_OK
 
 
@@ -248,6 +257,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onActivated(self, ec_id):
+    self._rtcout.RTC_TRACE("onActivated(%s)",ec_id)
     return RTC.RTC_OK
 
 
@@ -271,6 +281,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onDeactivated(self, ec_id):
+    self._rtcout.RTC_TRACE("onDeactivated(%s)",ec_id)
     return RTC.RTC_OK
 
 
@@ -296,6 +307,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onExecute(self, ec_id):
+    self._rtcout.RTC_TRACE("onExecute(%s)",ec_id)
     return RTC.RTC_OK
 
 
@@ -319,6 +331,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onAborting(self, ec_id):
+    self._rtcout.RTC_TRACE("onAborting(%s)",ec_id)
     return RTC.RTC_OK
 
 
@@ -341,6 +354,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onError(self, ec_id):
+    self._rtcout.RTC_TRACE("onError(%s)",ec_id)
     return RTC.RTC_OK
 
 
@@ -363,6 +377,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onReset(self, ec_id):
+    self._rtcout.RTC_TRACE("onReset(%s)",ec_id)
     return RTC.RTC_OK
 
 
@@ -388,6 +403,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onStateUpdate(self, ec_id):
+    self._rtcout.RTC_TRACE("onStateupdate(%s)",ec_id)
     return RTC.RTC_OK
 
 
@@ -413,6 +429,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onRateChanged(self, ec_id):
+    self._rtcout.RTC_TRACE("onRatechanged(%s)",ec_id)
     return RTC.RTC_OK 
 
 
@@ -457,17 +474,12 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def initialize(self):
-    ret = self.on_initialize()
-    if ret is not RTC.RTC_OK:
-      return ret
-    
-    self._created = False
+    self._rtcout.RTC_TRACE("initialize()")
 
     ec_args = self._properties.getProperty("exec_cxt.periodic.type")
     ec_args += "?"
     ec_args += "rate="
     ec_args += self._properties.getProperty("exec_cxt.periodic.rate")
-    print "ec_args: ", ec_args
 
     ec = OpenRTM_aist.Manager.instance().createContext(ec_args)
     if ec is None:
@@ -475,6 +487,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
 
     ec.set_rate(float(self._properties.getProperty("exec_cxt.periodic.rate")))
     self._eclist.append(ec)
+    ecv = ec.getObjRef()
+    if CORBA.is_nil(ecv):
+      return RTC.RTC_ERROR
 
     ec.bindComponent(self)
 
@@ -482,9 +497,15 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     if len(self._ecMine) == 0:
       return RTC.PRECONDITION_NOT_MET
 
+    ret = self.on_initialize()
+    if ret is not RTC.RTC_OK:
+      return ret
+    self._created = False
+
     # -- entering alive state --
-    for ecm in self._ecMine:
-      ecm.start()
+    for i in range(len(self._ecMine)):
+      self._rtcout.RTC_DEBUG("EC[%d] starting.", i)
+      self._ecMine[i].start()
 
     # ret must be RTC_OK
     return ret
@@ -536,6 +557,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def finalize(self):
+    self._rtcout.RTC_TRACE("finalize()")
     if self._created:
       return RTC.PRECONDITION_NOT_MET
     
@@ -594,6 +616,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def exit(self):
+    self._rtcout.RTC_TRACE("exit()")
     if self._created:
       return RTC.PRECONDITION_NOT_MET
 
@@ -652,7 +675,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @return Result of Alive state confirmation
   #
   # @endif
+  # virtual CORBA::Boolean is_alive(ExecutionContext_ptr exec_context)
   def is_alive(self, exec_context):
+    self._rtcout.RTC_TRACE("is_alive()")
     for ec in self._ecMine:
       if exec_context._is_equivalent(ec):
         return True
@@ -715,9 +740,11 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @return ExecutionContext
   #
   # @endif
+  # virtual ExecutionContext_ptr get_context(UniqueId exec_handle)
   def get_context(self, ec_id):
     global ECOTHER_OFFSET
 
+    self._rtcout.RTC_TRACE("get_context(%s)", ec_id)
     # owned EC
     if ec_id < ECOTHER_OFFSET:
       if ec_id < len(self._ecMine):
@@ -751,10 +778,11 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @return ExecutionContext List
   #
   # @endif
+  # virtual ExecutionContextList* get_owned_contexts()
   def get_owned_contexts(self):
+    self._rtcout.RTC_TRACE("get_owned_contexts()")
     execlist = []
     OpenRTM_aist.CORBA_SeqUtil.for_each(self._ecMine, self.ec_copy(execlist))
-    
     return execlist # ExecutionContextList* 
 
 
@@ -775,7 +803,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @return ExecutionContext List
   #
   # @endif
+  # virtual ExecutionContextList* get_participating_contexts()
   def get_participating_contexts(self):
+    self._rtcout.RTC_TRACE("get_participating_contexts()")
     execlist = []
     OpenRTM_aist.CORBA_SeqUtil.for_each(self._ecOther, self.ec_copy(execlist))
     
@@ -804,7 +834,10 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   #
+  # virtual ExecutionContextHandle_t
+  #   get_context_handle(ExecutionContext_ptr cxt)
   def get_context_handle(self, cxt):
+    self._rtcout.RTC_TRACE("get_context_handle()")
     # ec_id 0 : owned context
     # ec_id 1-: participating context
     if cxt._is_equivalent(self._ecMine[0]):
@@ -838,17 +871,28 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @return ComponentProfile
   #
   # @endif
+  # virtual ComponentProfile* get_component_profile()
   def get_component_profile(self):
+    self._rtcout.RTC_TRACE("get_component_profile()")
     try:
-      return RTC.ComponentProfile(self._profile.instance_name,
-                    self._profile.type_name,
-                    self._profile.description,
-                    self._profile.version,
-                    self._profile.vendor,
-                    self._profile.category,
-                    self._portAdmin.getPortProfileList(),
-                    self._profile.parent,
-                    self._profile.properties)
+      return RTC.ComponentProfile(self._properties.getProperty("instance_name"),
+                                  self._properties.getProperty("type_name"),
+                                  self._properties.getProperty("description"),
+                                  self._properties.getProperty("version"),
+                                  self._properties.getProperty("vendor"),
+                                  self._properties.getProperty("category"),
+                                  self._portAdmin.getPortProfileList(),
+                                  self._profile.parent,
+                                  self._profile.properties)
+      # return RTC.ComponentProfile(self._profile.instance_name,
+      #               self._profile.type_name,
+      #               self._profile.description,
+      #               self._profile.version,
+      #               self._profile.vendor,
+      #               self._profile.category,
+      #               self._portAdmin.getPortProfileList(),
+      #               self._profile.parent,
+      #               self._profile.properties)
     
     except:
       traceback.print_exception(*sys.exc_info())
@@ -876,7 +920,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @return PortList
   #
   # @endif
+  # virtual PortServiceList* get_ports()
   def get_ports(self):
+    self._rtcout.RTC_TRACE("get_ports()")
     try:
       return self._portAdmin.getPortServiceList()
     except:
@@ -919,7 +965,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @return ExecutionContext Handle
   #
   # @endif
+  # UniqueId attach_context(ExecutionContext_ptr exec_context)
   def attach_context(self, exec_context):
+    self._rtcout.RTC_TRACE("attach_context()")
     # ID: 0 - (offset-1) : owned ec
     # ID: offset -       : participating ec
     # owned       ec index = ID
@@ -940,7 +988,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     return long(len(self._ecOther) - 1 + ECOTHER_OFFSET)
 
 
+  # UniqueId bindContext(ExecutionContext_ptr exec_context);
   def bindContext(self, exec_context):
+    self._rtcout.RTC_TRACE("bindContext()")
     # ID: 0 - (offset-1) : owned ec
     # ID: offset -       : participating ec
     # owned       ec index = ID
@@ -954,12 +1004,14 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     for i in range(len(self._ecMine)):
       if CORBA.is_nil(self._ecMine[i]):
         self._ecMine[i] = ecs
-        return i + ECOTHER_OFFSET
+        return i
+        #return i + ECOTHER_OFFSET
 
     # no space in the list, push back ec to the last.
     OpenRTM_aist.CORBA_SeqUtil.push_back(self._ecMine,ecs)
     
-    return long(len(self._ecMine) - 1 + ECOTHER_OFFSET)
+    return long(len(self._ecMine) - 1)
+    #return long(len(self._ecMine) - 1 + ECOTHER_OFFSET)
 
 
   ##
@@ -1003,7 +1055,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @return
   #
   # @endif
+  # ReturnCode_t detach_context(UniqueId exec_handle)
   def detach_context(self, ec_id):
+    self._rtcout.RTC_TRACE("detach_context(%s)", ec_id)
     _len = len(self._ecOther)
 
     # ID: 0 - (offset-1) : owned ec
@@ -1049,6 +1103,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_initialize(self):
+    self._rtcout.RTC_TRACE("on_initialize()")
     ret = RTC.RTC_ERROR
     try:
       active_config = self._properties.getProperty("active_config")
@@ -1091,6 +1146,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_finalize(self):
+    self._rtcout.RTC_TRACE("on_finalize()")
     ret = RTC.RTC_ERROR
     try:
       ret = self.onFinalize()
@@ -1128,6 +1184,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_startup(self, ec_id):
+    self._rtcout.RTC_TRACE("on_startup(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onStartup(ec_id)
@@ -1165,6 +1222,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_shutdown(self, ec_id):
+    self._rtcout.RTC_TRACE("on_shutdown(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onShutdown(ec_id)
@@ -1200,10 +1258,12 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_activated(self, ec_id):
+    self._rtcout.RTC_TRACE("on_activated(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       self._configsets.update()
       ret = self.onActivated(ec_id)
+      self._portAdmin.activatePorts()
     except:
       return RTC.RTC_ERROR
     
@@ -1236,8 +1296,10 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_deactivated(self, ec_id):
+    self._rtcout.RTC_TRACE("on_deactivated(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
+      self._portAdmin.deactivatePorts()
       ret = self.onDeactivated(ec_id)
     except:
       return RTC.RTC_ERROR
@@ -1277,6 +1339,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_aborting(self, ec_id):
+    self._rtcout.RTC_TRACE("on_aborting(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onAborting(ec_id)
@@ -1329,6 +1392,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_error(self, ec_id):
+    self._rtcout.RTC_TRACE("on_error(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onError(ec_id)
@@ -1372,6 +1436,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_reset(self, ec_id):
+    self._rtcout.RTC_TRACE("on_reset(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onReset(ec_id)
@@ -1422,6 +1487,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_execute(self, ec_id):
+    self._rtcout.RTC_TRACE("on_execute(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onExecute(ec_id)
@@ -1472,6 +1538,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_state_update(self, ec_id):
+    self._rtcout.RTC_TRACE("on_state_update(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onStateUpdate(ec_id)
@@ -1517,6 +1584,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_rate_changed(self, ec_id):
+    self._rtcout.RTC_TRACE("on_rate_changed(%s)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onRateChanged(ec_id)
@@ -1569,7 +1637,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #                          completely due to some internal error.
   #
   # @endif
+  # virtual SDOPackage::OrganizationList* get_owned_organizations()
   def get_owned_organizations(self):
+    self._rtcout.RTC_TRACE("get_owned_organizations()")
     try:
       return self._sdoOwnedOrganizations
     except:
@@ -1617,7 +1687,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #                          completely due to some internal error.
   #
   # @endif
+  # virtual char* get_sdo_id()
   def get_sdo_id(self):
+    self._rtcout.RTC_TRACE("get_sdo_id()")
     try:
       return self._profile.instance_name
     except:
@@ -1659,7 +1731,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #                          completely due to some internal error.
   #
   # @endif
+  # virtual char* get_sdo_type()
   def get_sdo_type(self):
+    self._rtcout.RTC_TRACE("get_sdo_type()")
     try:
       return self._profile.description
     except:
@@ -1705,7 +1779,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #                          completely due to some internal error.
   #
   # @endif
+  # virtual SDOPackage::DeviceProfile* get_device_profile()
   def get_device_profile(self):
+    self._rtcout.RTC_TRACE("get_device_profile()")
     try:
       dprofile = SDOPackage.DeviceProfile(self._SdoConfigImpl.getDeviceProfile().device_type,
                                           self._SdoConfigImpl.getDeviceProfile().manufacturer,
@@ -1757,7 +1833,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #                          completely due to some internal error.
   #
   # @endif
+  # virtual SDOPackage::ServiceProfileList* get_service_profiles()
   def get_service_profiles(self):
+    self._rtcout.RTC_TRACE("get_service_profiles()")
     self._sdoSvcProfiles = self._SdoConfigImpl.getServiceProfiles()
     try:
       return self._sdoSvcProfiles
@@ -1809,7 +1887,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #                          completely due to some internal error.
   #
   # @endif
+  # virtual SDOPackage::ServiceProfile* get_service_profile(const char* id)
   def get_service_profile(self, _id):
+    self._rtcout.RTC_TRACE("get_service_profile(%s)", _id)
     self._sdoSvcProfiles = self._SdoConfigImpl.getServiceProfiles()
     if not _id:
       raise SDOPackage.InvalidParameter("get_service_profile(): Empty name.")
@@ -1873,7 +1953,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #                          completely due to some internal error.
   #
   # @endif
+  # virtual SDOPackage::SDOService_ptr get_sdo_service(const char* id)
   def get_sdo_service(self, _id):
+    self._rtcout.RTC_TRACE("get_sdo_service(%s)", _id)
     self._sdoSvcProfiles = self._SdoConfigImpl.getServiceProfiles()
 
     if not _id:
@@ -1936,7 +2018,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @exception InternalError The target SDO cannot execute the operation
   #                          completely due to some internal error.
   # @endif
+  # virtual SDOPackage::Configuration_ptr get_configuration()
   def get_configuration(self):
+    self._rtcout.RTC_TRACE("get_configuration()")
     if self._SdoConfig is None:
       raise SODPackage.InterfaceNotImplemented("InterfaceNotImplemented: get_configuration")
     try:
@@ -1990,7 +2074,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @exception InternalError The target SDO cannot execute the operation
   #                          completely due to some internal error.
   # @endif
+  # virtual SDOPackage::Monitoring_ptr get_monitoring()
   def get_monitoring(self):
+    self._rtcout.RTC_TRACE("get_monitoring()")
     raise SDOPackage.InterfaceNotImplemented("Exception: get_monitoring")
     return SDOPackage.Monitoring._nil
 
@@ -2031,7 +2117,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @exception InternalError The target SDO cannot execute the operation
   #                          completely due to some internal error.
   # @endif
+  # virtual SDOPackage::OrganizationList* get_organizations()
   def get_organizations(self):
+    self._rtcout.RTC_TRACE("get_organizations()")
     self._sdoOrganizations = self._SdoConfigImpl.getOrganizations()
     try:
       return self._sdoOrganizations
@@ -2072,7 +2160,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #                          completely due to some internal error.
   #
   # @endif
+  # virtual SDOPackage::NVList* get_status_list()
   def get_status_list(self):
+    self._rtcout.RTC_TRACE("get_status_list()")
     try:
       return self._sdoStatus
     except:
@@ -2116,7 +2206,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   #
   # @endif
+  # virtual CORBA::Any* get_status(const char* name)
   def get_status(self, name):
+    self._rtcout.RTC_TRACE("get_status(%s)", name)
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._sdoStatus, self.nv_name(name))
     if index < 0:
       raise SDOPackage.InvalidParameter("get_status(): Not found")
@@ -2146,7 +2238,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # const char* getInstanceName()
   def getInstanceName(self):
+    self._rtcout.RTC_TRACE("getInstanceName()")
     return self._profile.instance_name
 
 
@@ -2164,7 +2258,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # void setInstanceName(const char* instance_name);
   def setInstanceName(self, instance_name):
+    self._rtcout.RTC_TRACE("setInstanceName(%s)", instance_name)
     self._properties.setProperty("instance_name",instance_name)
     self._profile.instance_name = self._properties.getProperty("instance_name")
 
@@ -2183,7 +2279,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # const char* getTypeName()
   def getTypeName(self):
+    self._rtcout.RTC_TRACE("getTypeName()")
     return self._profile.type_name
 
 
@@ -2201,7 +2299,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # const char* getDescription()
   def getDescription(self):
+    self._rtcout.RTC_TRACE("getDescription()")
     return self._profile.description
 
 
@@ -2219,7 +2319,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # const char* getVersion()
   def getVersion(self):
+    self._rtcout.RTC_TRACE("getVersion()")
     return self._profile.version
 
 
@@ -2237,7 +2339,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # const char* getVendor()
   def getVendor(self):
+    self._rtcout.RTC_TRACE("getVendor()")
     return self._profile.vendor
 
 
@@ -2255,7 +2359,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # const char* getCategory()
   def getCategory(self):
+    self._rtcout.RTC_TRACE("getCategory()")
     return self._profile.category
 
 
@@ -2273,7 +2379,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # std::vector<std::string> getNamingNames();
   def getNamingNames(self):
+    self._rtcout.RTC_TRACE("getNamingNames()")
     return string.split(self._properties.getProperty("naming.names"), ",")
 
 
@@ -2290,7 +2398,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # void setObjRef(const RTObject_ptr rtobj);
   def setObjRef(self, rtobj):
+    self._rtcout.RTC_TRACE("setObjRef()")
     self._objref = rtobj
     return
 
@@ -2309,7 +2419,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   # 
   # @endif
+  # RTObject_ptr getObjRef() const;
   def getObjRef(self):
+    self._rtcout.RTC_TRACE("getObjRef()")
     return self._objref
 
 
@@ -2338,8 +2450,10 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @param prop Property for RTC.
   #
   # @endif
+  # void setProperties(const coil::Properties& prop);
   def setProperties(self, prop):
-    self._properties = self._properties.mergeProperties(prop)
+    self._rtcout.RTC_TRACE("setProperties()")
+    self._properties.mergeProperties(prop)
     self._profile.instance_name = self._properties.getProperty("instance_name")
     self._profile.type_name     = self._properties.getProperty("type_name")
     self._profile.description   = self._properties.getProperty("description")
@@ -2370,7 +2484,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @return Property for RTC.
   #
   # @endif
+  # coil::Properties& getProperties();
   def getProperties(self):
+    self._rtcout.RTC_TRACE("getProperties()")
     return self._properties
 
 
@@ -2393,8 +2509,13 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   #
   # @endif
+  #  template <typename VarType>
+  #  bool bindParameter(const char* param_name, VarType& var,
+  #                     const char* def_val,
+  #                     bool (*trans)(VarType&, const char*) = coil::stringTo)
   def bindParameter(self, param_name, var,
                     def_val, trans=None):
+    self._rtcout.RTC_TRACE("bindParameter()")
     if trans is None:
       _trans = OpenRTM_aist.stringTo
     else:
@@ -2417,7 +2538,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   #
   # @endif
+  # void updateParameters(const char* config_set);
   def updateParameters(self, config_set):
+    self._rtcout.RTC_TRACE("updateParameters(%s)", config_set)
     self._configsets.update(config_set)
     return
 
@@ -2455,12 +2578,18 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @param port Port which is registered in the RTC
   #
   # @endif
-  def registerPort(self, port, port_type=None):
-    self._portAdmin.registerPort(port, port_type)
-    if port_type is None:
-      port.setOwner(self.getObjRef())
+  # void registerPort(PortBase& port);
+  def registerPort(self, port):
+    self._rtcout.RTC_TRACE("registerPort()")
+    self._portAdmin.registerPort(port)
+    port.setOwner(self.getObjRef())
     return
 
+  # void registerPort(PortService_ptr port);
+  def registerPortByReference(self, port_ref):
+    self._rtcout.RTC_TRACE("registerPortByReference()")
+    self._portAdmin.registerPortByReference(port_ref)
+    return
 
   ##
   # @if jp
@@ -2480,12 +2609,17 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def registerInPort(self, name, inport):
+    self._rtcout.RTC_TRACE("registerInPort(%s)", name)
+    if self._properties.hasKey("port.inport"):
+      inport.properties().mergeProperties(self._properties.getNode("port.inport"))
+
     propkey = "port.dataport."
     propkey += name
-    propkey += ".tcp_any"
-    self._properties.setProperty(propkey,self._properties.getProperty(propkey))
-    port = OpenRTM_aist.DataInPort(name, inport, self._properties.getNode(propkey))
-    self.registerPort(port)
+    if self._properties.hasKey(propkey):
+      inport.properties().mergeProperties(self._properties.getNode(propkey))
+
+    inport.init()
+    self.registerPort(inport)
     return
 
 
@@ -2506,13 +2640,15 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @else
   #
   # @endif
+  # void registerOutPort(const char* name, OutPortBase& outport);
   def registerOutPort(self, name, outport):
+    self._rtcout.RTC_TRACE("registerOutPort(%s)", name)
     propkey = "port.dataport."
     propkey += name
-    propkey += ".tcp_any"
-    self._properties.setProperty(propkey,self._properties.getProperty(propkey))
-    port = OpenRTM_aist.DataOutPort(name, outport, self._properties.getNode(propkey))
-    self.registerPort(port)
+    prop = self._properties.getNode(propkey)
+    prop.mergeProperties(self._properties.getNode("port.outport.dataport"))
+    outport.properties().mergeProperties(self._properties.getNode(propkey))
+    self.registerPort(outport)
     return
 
 
@@ -2535,7 +2671,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @param port Port which is unregistered in the RTC
   #
   # @endif
+  # void RTObject_impl::deletePort(PortBase& port)
   def deletePort(self, port):
+    self._rtcout.RTC_TRACE("deletePort()")
     self._portAdmin.deletePort(port)
     return
 
@@ -2554,6 +2692,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def deletePortByName(self, port_name):
+    self._rtcout.RTC_TRACE("deletePortByName()")
     self._portAdmin.deletePortByName(port_name)
     return
 
@@ -2576,14 +2715,17 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def finalizePorts(self):
+    self._rtcout.RTC_TRACE("finalizePorts()")
     self._portAdmin.finalizePorts()
     return
 
 
   def finalizeContexts(self):
+    self._rtcout.RTC_TRACE("finalizeContexts()")
     for i in range(len(self._eclist)):
       self._eclist[i].stop()
-      self._poa.deactivate_object(self._poa.servant_to_id(self._eclist[i]))
+      #self._poa.deactivate_object(self._poa.servant_to_id(self._eclist[i]))
+      self._default_POA().deactivate_object(self._default_POA().servant_to_id(self._eclist[i]))
       del self._eclist[i]
 
 
@@ -2602,6 +2744,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def shutdown(self):
+    self._rtcout.RTC_TRACE("shutdown()")
     try:
       self.finalizePorts()
       self.finalizeContexts()
@@ -2660,7 +2803,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   class ec_find:
-    def __init__(self, ec):
+    def __init__(self, _ec):
       self._ec = _ec
 
     def __call__(self, ecs):

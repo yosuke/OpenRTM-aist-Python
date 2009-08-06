@@ -17,6 +17,7 @@
 #     All rights reserved.
 
 
+from omniORB import *
 from omniORB import any
 
 import OpenRTM_aist
@@ -26,7 +27,7 @@ import OpenRTM_aist
 # @brief 時間単位変換用定数
 # @else
 # @endif
-usec_per_sec = 1000000
+TIMEVALUE_ONE_SECOND_IN_USECS = 1000000 # 1 [sec] = 1000000 [usec]
 
 
 import time
@@ -66,11 +67,11 @@ class Time:
   #
   # @endif
   def __init__(self):
-    global usec_per_sec
+    global TIMEVALUE_ONE_SECOND_IN_USECS
     tm = time.time()
     tm_f       = tm - int(tm)     # 小数部の取り出し
     self.sec   = int(tm - tm_f)   # 整数部の取り出し
-    self.usec  = int(tm_f * usec_per_sec) # sec -> usec (micro second)
+    self.usec  = int(tm_f * TIMEVALUE_ONE_SECOND_IN_USECS) # sec -> usec (micro second)
 
 
 
@@ -111,42 +112,19 @@ class OutPort(OpenRTM_aist.OutPortBase):
   # @brief Constructor
   #
   # @endif
-  def __init__(self, name, value, buffer_):
-    OpenRTM_aist.OutPortBase.__init__(self, name)
-    self._buffer         = buffer_
+  def __init__(self, name, value, buffer=None):
+    OpenRTM_aist.OutPortBase.__init__(self, name, OpenRTM_aist.toTypename(value))
     self._value          = value
     self._timeoutTick    = 1000 # timeout tick: 1ms
-    self._readBlock      = False
-    self._readTimeout    = 0
     self._writeBlock     = False
     self._writeTimeout   = 0
     self._OnWrite        = None
     self._OnWriteConvert = None
-    self._OnRead         = None
-    self._OnReadConvert  = None
     self._OnOverflow     = None
     self._OnUnderflow    = None
     self._OnConnect      = None
     self._OnDisconnect   = None
-
-
-  ##
-  # @if jp
-  # @brief 最新データか確認
-  #
-  # 現在のバッファ位置に格納されているデータが最新データか確認する。
-  #
-  # @param self
-  #
-  # @return 最新データ確認結果
-  #            ( true:最新データ．データはまだ読み出されていない
-  #             false:過去のデータ．データは既に読み出されている)
-  #
-  # @else
-  #
-  # @endif
-  def isNew(self):
-    return self._buffer.isNew()
+    
 
 
   ##
@@ -194,144 +172,49 @@ class OutPort(OpenRTM_aist.OutPortBase):
   # @endif
   # bool operator<<(DataType& value)
   def write(self, value=None):
+    global TIMEVALUE_ONE_SECOND_IN_USECS
     if not value:
       value=self._value
 
-    global usec_per_sec
     
     if self._OnWrite:
       self._OnWrite(value)
 
-    timeout = self._writeTimeout
+    # check number of connectors
+    conn_size = len(self._connectors)
+    if not conn_size > 0:
+      return True
+  
+    # set timestamp
+    tm = Time()
+    value.tm.sec  = tm.sec
+    value.tm.nsec = tm.usec * 1000
 
     tm_pre = Time()
 
-    # blocking and timeout wait
-    count = 0
-    while self._writeBlock and self._buffer.isFull():
-      if self._writeTimeout < 0:
-        time.sleep(self._timeoutTick/usec_per_sec)
-        continue
-      
-        
-      # timeout wait
-      tm_cur = Time()
-
-      sec  = tm_cur.sec - tm_pre.sec
-      usec = tm_cur.usec - tm_pre.usec
-
-      timeout -= (sec * usec_per_sec + usec)
-
-      if timeout < 0:
-        break
-      tm_pre = tm_cur
-      time.sleep(self._timeoutTick/usec_per_sec)
-      count += 1
-      
-    if self._buffer.isFull():
-      if self._OnOverflow:
-        self._OnOverflow(value)
+    # data -> (conversion) -> CDR stream
+    cdr_stream = None
+    
+    try:
+      if self._OnWriteConvert:
+        value = self._OnWriteConvert(value)
+        cdr_stream = cdrMarshal(any.to_any(value).typecode(), value, 1)
+      else:
+        cdr_stream = cdrMarshal(any.to_any(value).typecode(), value, 1)
+    except:
+      print "Exception: cdrMarshal."
       return False
       
-    if not self._OnWriteConvert:
-      self._buffer.put(value)
-    else:
-      self._buffer.put(self._OnWriteConvert(value))
+    result = True
 
-    self.notify()
-    return True
+    for con in self._connectors:
+      ret = con.write(cdr_stream)
+      if ret != OpenRTM_aist.DataPortStatus.PORT_OK:
+        result = False
+        if ret == OpenRTM_aist.DataPortStatus.CONNECTION_LOST:
+          self.disconnect(con.id())
 
-
-  ##
-  # @if jp
-  #
-  # @brief データ読み出し
-  #
-  # DataPort から値を読み出す
-  #
-  # - コールバックファンクタ OnRead がセットされている場合、
-  #   DataPort が保持するバッファから読み出す前に OnRead が呼ばれる。
-  # - DataPort が保持するバッファがアンダーフローを検出できるバッファで、
-  #   かつ、読み出す際にバッファがアンダーフローを検出した場合、
-  #   コールバックファンクタ OnUnderflow が呼ばれる。
-  # - コールバックファンクタ OnReadConvert がセットされている場合、
-  #   バッファ書き込み時に、 OnReadConvert の operator() の戻り値が
-  #   read()の戻り値となる。
-  # - setReadTimeout() により読み出し時のタイムアウトが設定されている場合、
-  #   バッファアンダーフロー状態が解除されるまでタイムアウト時間だけ待ち、
-  #   OnUnderflow がセットされていればこれを呼び出して戻る
-  #
-  # @param self
-  # @param value 読み出したデータ
-  #
-  # @return 読み出し処理実行結果(読み出し成功:true、読み出し失敗:false)
-  #
-  # @else
-  #
-  # @brief Read data
-  #
-  # @endif
-  def read(self, value):
-    if self._OnRead:
-      self._OnRead()
-
-    timeout = self._readTimeout
-    tm_pre = Time()
-
-    # blocking and timeout wait
-    while self._readBlock and self._buffer.isEmpty():
-      if self._readTimeout < 0:
-        time.sleep(self._timeoutTick/usec_per_sec)
-        continue
-
-      # timeout wait
-      tm_cur = Time()
-      sec  = tm_cur.sec - tm_pre.sec
-      usec = tm_cur.usec - tm_pre.usec
-      
-      timeout -= (sec * usec_per_sec + usec)
-      if timeout < 0:
-        break
-      tm_pre = tm_cur
-      time.sleep(self._timeoutTick/usec_per_sec)
-
-    if self._buffer.isEmpty():
-      if self._OnUnderflow:
-        value[0] = self._OnUnderflow()
-        return False
-      else:
-        return False
-
-    if not self._OnReadConvert:
-      value[0] = self._buffer.get()
-      return True
-    else:
-      value[0] = self._OnReadConvert(self._buffer.get())
-      return true
-
-    # never comes here
-    return False
-
-
-  ##
-  # @if jp
-  #
-  # @brief データ読み出し処理のブロックモードの設定
-  #
-  # 読み出し処理に対してブロックモードを設定する。
-  # ブロックモードを指定した場合、読み出せるデータを受信するかタイムアウト
-  # が発生するまで、 read() メソッドの呼びだしがブロックされる。
-  #
-  # @param self
-  # @param block ブロックモードフラグ
-  #
-  # @else
-  #
-  # @brief Set read() block mode
-  #
-  # @endif
-  def setReadBlock(self, block):
-    self._readBlock = block
+    return result
 
 
   ##
@@ -353,26 +236,6 @@ class OutPort(OpenRTM_aist.OutPortBase):
   # @endif
   def setWriteBlock(self, block):
     self._writeBlock = block
-
-
-  ##
-  # @if jp
-  #
-  # @brief 読み出し処理のタイムアウト時間の設定
-  # 
-  # read() のタイムアウト時間を usec で設定する。
-  # read() はブロックモードでなければならない。
-  #
-  # @param self
-  # @param timeout タイムアウト時間 [usec]
-  #
-  # @else
-  #
-  # @brief Set read() timeout
-  #
-  # @endif
-  def setReadTimeout(self, timeout):
-    self._readTimeout = timeout
 
 
   ##
@@ -459,48 +322,6 @@ class OutPort(OpenRTM_aist.OutPortBase):
   ##
   # @if jp
   #
-  # @brief OnRead コールバックの設定
-  #
-  # データ読み出し直前に呼び出される OnRead コールバックファンクタを設定
-  # する。
-  #
-  # @param self
-  # @param on_read OnRead コールバックファンクタ
-  #
-  # @else
-  #
-  # @brief Set OnRead callback
-  #
-  # @endif
-  def setOnRead(self, on_read):
-    self._OnRead = on_read
-
-
-  ##
-  # @if jp
-  #
-  # @brief OnReadConvert コールバックの設定
-  #
-  # データ読み出し時に呼ばれる OnReadConvert コールバックファンクタを設定
-  # する。
-  # このコールバック関数の処理結果が読み込まれる。
-  # このため読み込みデータのフィルタリングが可能となる。
-  #
-  # @param self
-  # @param on_rconvert OnReadConvert コールバックファンクタ
-  #
-  # @else
-  #
-  # @brief Set OnReadConvert callback
-  #
-  # @endif
-  def setOnReadConvert(self, on_rconvert):
-    self._OnReadConvert = on_rconvert
-
-
-  ##
-  # @if jp
-  #
   # @brief OnUnderflow コールバックの設定
   #
   # バッファエンプティにより読み出せるデータがない場合に呼び出される
@@ -551,3 +372,20 @@ class OutPort(OpenRTM_aist.OutPortBase):
   def getPortDataType(self):
     val = any.to_any(self._value)
     return str(val.typecode().name())
+
+
+
+  class subscribe:
+    def __init__(self, prof, subs = None):
+      if subs:
+        self._prof = subs._prof
+        self._consumer = subs._consumer
+        return
+
+      self._prof = prof
+      self._consumer = None
+      
+
+    def __call__(self, cons):
+      if cons.subscribeInterface(self._prof.properties):
+        self._consumer = cons

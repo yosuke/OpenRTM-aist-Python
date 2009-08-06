@@ -580,7 +580,11 @@ class CorbaNaming:
     else:
       name_ = name
 
-    self._rootContext.unbind(name_)
+    try:
+      self._rootContext.unbind(name_)
+    except:
+      pass
+
     return
 
 
@@ -802,7 +806,7 @@ class CorbaNaming:
     string_name = [""]
     self.nameToString(name_list, string_name, slen)
 
-    return string_name
+    return string_name[0]
 
 
   ##
@@ -830,6 +834,7 @@ class CorbaNaming:
 
     nc_length = 0
     nc_length = self.split(string_name, "/", name_comps)
+
     if not (nc_length > 0):
       raise CosNaming.NamingContext.InvalidName
 
@@ -1158,19 +1163,22 @@ class CorbaNaming:
   # @endif
   def split(self, input, delimiter, results):
     delim_size = len(delimiter)
-    found_pos = begin_pos = pre_pos = substr_size = 0
+    found_pos = 0
+    begin_pos = 0
+    pre_pos = 0
+    substr_size = 0
 
     if input[0:delim_size] == delimiter:
-      begin_pos = pre_pos = delim_size
+      begin_pos = delim_size
+      pre_pos = delim_size
 
     while 1:
       found_pos = string.find(input[begin_pos:],delimiter)
-      
       if found_pos == -1:
         results.append(input[pre_pos:])
         break
 
-      if found_pos > 0 and input[found_pos - 1] == "\\":
+      if found_pos > 0 and input[found_pos + begin_pos - 1] == "\\":
         begin_pos += found_pos + delim_size
       else:
         substr_size = found_pos + (begin_pos - pre_pos)

@@ -95,7 +95,7 @@ class ModuleManager:
 
     self._initFuncSuffix = prop.getProperty(INITFUNC_SFX)
     self._initFuncPrefix = prop.getProperty(INITFUNC_PFX)
-    self._modules = {}
+    self._modules = OpenRTM_aist.ObjectManager(self.DLLPred)
 
 
   ##
@@ -111,8 +111,7 @@ class ModuleManager:
   #
   # @endif
   def __del__(self):
-    #self.unloadAll()
-    pass
+    self.unloadAll()
 
 
   ##
@@ -240,6 +239,8 @@ class ModuleManager:
   #
   #
   # @endif
+  # std::string ModuleManager::load(const std::string& file_name,
+  #     			    const std::string& init_func)
   def load(self, file_name, init_func=None):
     if file_name == "":
       raise ModuleManager.InvalidArguments, "Invalid file name."
@@ -255,7 +256,6 @@ class ModuleManager:
         raise ModuleManager.NotAllowedOperation, "Absolute path is not allowed"
       else:
         file_path = file_name
-      
     else:
       file_path = self.findFile(file_name, self._loadPath)
 
@@ -266,7 +266,10 @@ class ModuleManager:
       raise ModuleManager.FileNotFound, file_path
 
     mo = __import__(str(file_path))
-    self._modules[file_name] = self.DLL(mo)
+    dll = self.DLLEntity(mo,OpenRTM_aist.Properties())
+    dll.properties.setProperty("file_path",file_path)
+    self._modules.registerObject(dll)
+
 
     if init_func is None:
       return file_path
@@ -275,9 +278,11 @@ class ModuleManager:
       raise ModuleManager.InvalidOperation, "Invalid file name"
 
     try:
-      self._modules[file_name].dll.__getattribute__(init_func)()
+      self.symbol(file_name,init_func)(OpenRTM_aist.Manager.instance())
     except:
       print "Could't call init_func: ", init_func
+
+    return file_path
 
 
   ##
@@ -293,11 +298,12 @@ class ModuleManager:
   # @brief Unload module
   # @endif
   def unload(self, file_name):
-    if not self._modules.has_key(file_name):
+    dll = self._modules.find(file_name)
+    if not dll:
       raise ModuleManager.NotFound, file_name
 
-    # self._modules[file_name].dll.close()
-    del self._modules[file_name]
+    self._modules.unregisterObject(file_name)
+    return
 
 
   ##
@@ -312,9 +318,12 @@ class ModuleManager:
   # @brief Unload all modules
   # @endif
   def unloadAll(self):
-    keys   = self._modules.keys()
+    dlls = self._modules.getObjects()
     
-    self._modules.clear()
+    for dll in dlls:
+      ident = dll.properties.getProperty("file_path")
+      self._modules.unregisterObject(ident)
+    return
 
 
   ##
@@ -331,14 +340,15 @@ class ModuleManager:
   # @brief Look up a named symbol in the module
   # @endif
   def symbol(self, file_name, func_name):
-    if not self._modules.has_key(file_name):
+    dll = self._modules.find(file_name)
+    if not dll:
       raise ModuleManager.ModuleNotFound, file_name
 
-    func = self._modules[file_name].dll.symbol(func_name)
+    func = dll.dll.__getattribute__(func_name)
 
     if not func:
       raise ModuleManager.SymbolNotFound, func_name
-
+    
     return func
 
 
@@ -407,11 +417,12 @@ class ModuleManager:
   # @else
   # @brief Get loaded module names
   # @endif
+  # std::vector<coil::Properties> getLoadedModules();
   def getLoadedModules(self):
+    dlls = self._modules.getObjects()
     modules = []
-    keys = self._modules.keys()
-    for mod_name in keys:
-      modules.append(mod_name)
+    for dll in dlls:
+      modules.append(dll.properties)
 
     return modules
 
@@ -576,3 +587,18 @@ class ModuleManager:
   class DLL:
     def __init__(self, dll):
       self.dll = dll
+      return
+
+
+  class DLLEntity:
+    def __init__(self,dll,prop):
+      self.dll = dll
+      self.properties = prop
+
+
+  class DLLPred:
+    def __init__(self, name=None, factory=None):
+      self._filepath = name or factory
+
+    def __call__(self, dll):
+      return self._filepath == dll.properties.getProperty("file_path")

@@ -33,7 +33,7 @@ import SDOPackage, SDOPackage__POA
 # @class InPortProvider
 # @brief InPortProvider class
 # @endif
-class InPortProvider:
+class InPortProvider(OpenRTM_aist.DataPortStatus):
   """
   """
 
@@ -52,10 +52,10 @@ class InPortProvider:
   # @endif
   def __init__(self):
     self._properties = []
-    self._dataType = ""
     self._interfaceType = ""
     self._dataflowType = ""
     self._subscriptionType = ""
+    self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("InPortProvider")
 
 
   ##
@@ -71,15 +71,10 @@ class InPortProvider:
   #
   # @endif
   def publishInterfaceProfile(self, prop):
-    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.data_type",
-                                          self._dataType)
+    self._rtcout.RTC_TRACE("publishInterfaceProfile()")
     OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.interface_type",
                                           self._interfaceType)
-    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.dataflow_type",
-                                          self._dataflowType)
-    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.subscription_type",
-                                          self._subscriptionType)
-
+    OpenRTM_aist.NVUtil.append(prop, self._properties)
 
   ##
   # @if jp
@@ -94,28 +89,14 @@ class InPortProvider:
   #
   # @endif
   def publishInterface(self, prop):
+    self._rtcout.RTC_TRACE("publishInterface()")
     if not OpenRTM_aist.NVUtil.isStringValue(prop,
                                              "dataport.interface_type",
                                              self._interfaceType):
-      return
+      return False
 
     OpenRTM_aist.NVUtil.append(prop, self._properties)
-
-
-  ##
-  # @if jp
-  # @brief データタイプを設定する
-  #
-  # データタイプを設定する。
-  #
-  # @param self
-  # @param data_type 設定対象データタイプ
-  #
-  # @else
-  #
-  # @endif
-  def setDataType(self, data_type):
-    self._dataType = data_type
+    return True
 
 
   ##
@@ -131,6 +112,7 @@ class InPortProvider:
   #
   # @endif
   def setInterfaceType(self, interface_type):
+    self._rtcout.RTC_TRACE("setInterfaceType(%s)", interface_type)
     self._interfaceType = interface_type
 
 
@@ -147,6 +129,7 @@ class InPortProvider:
   #
   # @endif
   def setDataFlowType(self, dataflow_type):
+    self._rtcout.RTC_TRACE("setDataFlowType(%s)", dataflow_type)
     self._dataflowType = dataflow_type
 
 
@@ -163,4 +146,31 @@ class InPortProvider:
   #
   # @endif
   def setSubscriptionType(self, subs_type):
+    self._rtcout.RTC_TRACE("setSubscriptionType(%s)", subs_type)
     self._subscriptionType = subs_type
+
+
+
+inportproviderfactory = None
+
+
+class InPortProviderFactory(OpenRTM_aist.Factory,InPortProvider):
+  def __init__(self):
+    OpenRTM_aist.Factory.__init__(self)
+    InPortProvider.__init__(self)
+    return
+
+
+  def instance():
+    global inportproviderfactory
+
+    if inportproviderfactory is None:
+      inportproviderfactory = InPortProviderFactory()
+
+    return inportproviderfactory
+
+  instance = staticmethod(instance)
+
+
+  def __del__(self):
+    pass

@@ -18,6 +18,8 @@
 
 import OpenRTM_aist
 
+TIMEVALUE_ONE_SECOND_IN_USECS = 1000000.0 # 1 [sec] = 1000000 [usec]
+
 ##
 # @if jp
 # @class TimeValue
@@ -62,6 +64,7 @@ class TimeValue:
       self.tv_usec = 0
     else:
       self.tv_usec = float(usec)
+    self.normalize()
 
 
   ##
@@ -80,6 +83,7 @@ class TimeValue:
   #
   # @endif
   def __sub__(self, tm):
+    global TIMEVALUE_ONE_SECOND_IN_USECS
     try:
       res = TimeValue()
     except:
@@ -91,14 +95,16 @@ class TimeValue:
         res.tv_usec = self.tv_usec - tm.tv_usec
       else:
         res.tv_sec  = self.tv_sec  - tm.tv_sec - 1
-        res.tv_usec = (self.tv_usec + 1000000) - tm.tv_usec
+        res.tv_usec = (self.tv_usec + TIMEVALUE_ONE_SECOND_IN_USECS) - tm.tv_usec
     else:
       if tm.tv_usec >= self.tv_usec:
         res.tv_sec  = -(tm.tv_sec  - self.tv_sec)
         res.tv_usec = -(tm.tv_usec - self.tv_usec)
       else:
         res.tv_sec  = -(tm.tv_sec - self.tv_sec - 1)
-        res.tv_usec = -(tm.tv_usec + 1000000) + self.tv_usec
+        res.tv_usec = -(tm.tv_usec + TIMEVALUE_ONE_SECOND_IN_USECS) + self.tv_usec
+
+    self.normalize()
     return res
 
 
@@ -121,10 +127,21 @@ class TimeValue:
     res = TimeValue()
     res.tv_sec  = self.tv_sec  + tm.tv_sec
     res.tv_usec = self.tv_usec + tm.tv_usec
-    if res.tv_usec > 1000000:
+    if res.tv_usec > TIMEVALUE_ONE_SECOND_IN_USECS:
       res.tv_sec += 1
-      res.tv_usec -= 1000000
+      res.tv_usec -= TIMEVALUE_ONE_SECOND_IN_USECS
+
+    self.normalize()
     return res
+
+
+  def sec(self):
+    return self.tv_sec
+
+
+  def usec(self):
+    return self.tv_usec
+
 
   ##
   # @if jp
@@ -142,8 +159,10 @@ class TimeValue:
   #
   # @endif
   def set_time(self, time):
+    global TIMEVALUE_ONE_SECOND_IN_USECS
+
     self.tv_sec  = long(time)
-    self.tv_usec = long((time - float(self.tv_sec))*1000000)
+    self.tv_usec = long((time - float(self.tv_sec))*TIMEVALUE_ONE_SECOND_IN_USECS)
     return self
 
   ##
@@ -160,7 +179,8 @@ class TimeValue:
   #
   # @endif
   def toDouble(self):
-    return float(self.tv_sec) + float(self.tv_usec/1000000.0)
+    global TIMEVALUE_ONE_SECOND_IN_USECS
+    return float(self.tv_sec) + float(self.tv_usec/TIMEVALUE_ONE_SECOND_IN_USECS)
 
 
   ##
@@ -177,7 +197,8 @@ class TimeValue:
   #
   # @endif
   def __str__(self):
-    return str(self.tv_sec + self.tv_usec/1000000.0)
+    global TIMEVALUE_ONE_SECOND_IN_USECS
+    return str(self.tv_sec + self.tv_usec/TIMEVALUE_ONE_SECOND_IN_USECS)
 
   ##
   # @if jp
@@ -202,3 +223,38 @@ class TimeValue:
     if self.tv_usec < 0:
       return -1
     return 0
+
+  
+  ##
+  # @if jp
+  # @brief Àµµ¬²½
+  # @else
+  # @brief Normalize
+  # @endif
+  #
+  def normalize(self):
+    global TIMEVALUE_ONE_SECOND_IN_USECS
+    if self.tv_usec >= TIMEVALUE_ONE_SECOND_IN_USECS:
+      self.tv_sec += 1
+      self.tv_usec -= TIMEVALUE_ONE_SECOND_IN_USECS
+
+      while self.tv_usec >= TIMEVALUE_ONE_SECOND_IN_USECS:
+        self.tv_sec += 1
+        self.tv_usec -= TIMEVALUE_ONE_SECOND_IN_USECS
+        
+    elif self.tv_usec <= -TIMEVALUE_ONE_SECOND_IN_USECS:
+      self.tv_sec -= 1
+      self.tv_usec += TIMEVALUE_ONE_SECOND_IN_USECS
+
+      while self.tv_usec <= -TIMEVALUE_ONE_SECOND_IN_USECS:
+        self.tv_sec -= 1
+        self.tv_usec += TIMEVALUE_ONE_SECOND_IN_USECS
+        
+    
+    if self.tv_sec >= 1 and self.tv_usec < 0:
+      self.tv_sec -= 1
+      self.tv_usec += TIMEVALUE_ONE_SECOND_IN_USECS
+
+    elif self.tv_sec < 0 and self.tv_usec > 0:
+      self.tv_sec += 1
+      self.tv_usec -= TIMEVALUE_ONE_SECOND_IN_USECS

@@ -51,5 +51,9 @@ class ExecutionContextBase(OpenRTM__POA.ExtTrigExecutionContextService):
     pass
 
 
-  def bindComponent(rtc):
+  def bindComponent(self, rtc):
+    pass
+
+
+  def getObjeRef(self):
     pass

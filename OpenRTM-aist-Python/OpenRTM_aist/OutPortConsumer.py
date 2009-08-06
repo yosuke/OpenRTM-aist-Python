@@ -5,7 +5,7 @@
 # @file  OutPortConsumer.py
 # @brief OutPortConsumer class
 # @date  $Date: 2007/09/04$
-# @author Noriaki Ando <n-ando@aist.go.jp>
+# @author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
 #
 # Copyright (C) 2006-2008
 #     Noriaki Ando
@@ -15,6 +15,7 @@
 #         Advanced Industrial Science and Technology (AIST), Japan
 #     All rights reserved.
 
+import OpenRTM_aist
 
 ##
 # @if jp
@@ -35,64 +36,65 @@
 # @class OutPortConsumer
 # @brief OutPortConsumer class
 # @endif
-class OutPortConsumer:
+class OutPortConsumer(OpenRTM_aist.DataPortStatus):
   """
   """
 
-
-
   ##
   # @if jp
-  #
-  # @brief データを受信する(サブクラス実装用)
-  #
-  # データ受信を実行するための関数。<BR>
-  # ※サブクラスでの実装参照用
-  #
-  # @param self
-  #
+  # @brief Interface接続用Functor
   # @else
-  #
+  # @brief Functor to subscribe the interface
   # @endif
-  def pull(self):
+  #
+  class subscribe:
+    # subscribe(const SDOPackage::NVList& prop)
+    def __init__(self, prop):
+      self._prop = prop
+      return
+
+    # void operator()(OutPortConsumer* consumer)
+    def __call__(self, consumer):
+      consumer.subscribeInterface(self._prop)
+      return
+    
+  ##
+  # @if jp
+  # @brief Interface接続解除用Functor
+  # @else
+  # @brief Functor to unsubscribe the interface
+  # @endif
+  #
+  class unsubscribe:
+    # unsubscribe(const SDOPackage::NVList& prop)
+    def __init__(self, prop):
+      self._prop = prop
+      return
+
+    # void operator()(OutPortConsumer* consumer)
+    def __call__(self, consumer):
+      consumer.unsubscribeInterface(self._prop)
+      return
+
+
+outportconsumerfactory = None
+
+class OutPortConsumerFactory(OpenRTM_aist.Factory,OutPortConsumer):
+  def __init__(self):
+    OpenRTM_aist.Factory.__init__(self)
     pass
 
 
-  ##
-  # @if jp
-  #
-  # @brief データ受信通知への登録(サブクラス実装用)
-  #
-  # 指定されたプロパティ情報に基づいて、データ受信通知に登録する関数。<BR>
-  # ※サブクラスでの実装参照用
-  #
-  # @param self
-  # @param properties 登録用プロパティ
-  #
-  # @return 登録処理結果(登録成功:true、登録失敗:false)
-  #
-  # @else
-  #
-  # @endif
-  def subscribeInterface(self, properties):
+  def __del__(self):
     pass
 
 
-  ##
-  # @if jp
-  #
-  # @brief データ受信通知からの登録解除(サブクラス実装用)
-  #
-  # データ受信通知からの登録を解除するための関数。<BR>
-  # ※サブクラスでの実装参照用
-  #
-  # @param self
-  # @param properties 登録解除用プロパティ
-  #
-  # @return 登録解除処理結果(登録解除成功:true、登録解除失敗:false)
-  #
-  # @else
-  #
-  # @endif
-  def unsubscribeInterface(self, properties):
-    pass
+  def instance():
+    global outportconsumerfactory
+
+    if outportconsumerfactory is None:
+      outportconsumerfactory = OutPortConsumerFactory()
+
+    return outportconsumerfactory
+
+  instance = staticmethod(instance)

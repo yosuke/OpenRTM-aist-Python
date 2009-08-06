@@ -6,7 +6,7 @@
 # @file  InPortConsumer.py
 # @brief InPortConsumer class
 # @date  $Date: 2007/09/04$
-# @author Noriaki Ando <n-ando@aist.go.jp>
+# @author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
 #
 # Copyright (C) 2006-2008
 #     Noriaki Ando
@@ -39,7 +39,7 @@ import OpenRTM_aist
 # @class InPortConsumer
 # @brief InPortConsumer class
 # @endif
-class InPortConsumer:
+class InPortConsumer(OpenRTM_aist.DataPortStatus):
   """
   """
 
@@ -47,69 +47,54 @@ class InPortConsumer:
 
   ##
   # @if jp
-  # @brief 接続先へのデータ送信(サブクラス実装用)
-  #
-  # 接続先のポートへデータを送信するための関数。<BR>
-  # ※サブクラスでの実装参照用
-  #
-  # @param self
-  #
+  # @brief インターフェースプロファイルを公開するたのファンクタ
   # @else
-  #
+  # @brief Functor to publish interface profile
   # @endif
-  def push(self):
-    pass
+  #
+  class publishInterfaceProfileFunc:
+    def __init__(self, prop):
+      self._prop = prop
 
-  ##
-  # @if jp
-  # @brief 当該ポートのコピー(サブクラス実装用)
-  #
-  # 当該ポートのコピーを生成するための関数。
-  # ※サブクラスでの実装参照用
-  #
-  # @param self
-  #
-  # @return 複製された InPortConsumer オブジェクト
-  #
-  # @else
-  #
-  # @endif
-  def clone(self):
-    pass
+    def __call__(self, consumer):
+      consumer.publishInterfaceProfile(self._prop)
 
 
   ##
   # @if jp
-  # @brief データ送出通知受け取りへの登録(サブクラス実装用)
-  #
-  # 指定されたプロパティの内容に基づいて、データ送出通知の受け取りに登録する
-  # ための関数。
-  # ※サブクラスでの実装参照用
-  #
-  # @param self
-  # @param properties 登録時に参照するプロパティ
-  #
-  # @return 登録処理結果
-  #
+  # @brief インターフェースプロファイルを公開するたのファンクタ
   # @else
-  #
+  # @brief Functor to publish interface profile
   # @endif
-  def subscribeInterface(self, properties):
+  #
+  class subscribeInterfaceFunc:
+    def __init__(self, prop):
+      self._prop = prop
+
+    def __call__(self, consumer):
+      return consumer.subscribeInterface(self._prop)
+
+
+inportconsumerfactory = None
+
+class InPortConsumerFactory(OpenRTM_aist.Factory,InPortConsumer):
+
+  def __init__(self):
+    OpenRTM_aist.Factory.__init__(self)
     pass
 
 
-  ##
-  # @if jp
-  # @brief データ送出通知受け取りからの登録解除(サブクラス実装用)
-  #
-  # データ送出通知の受け取りから登録解除するための関数。
-  # ※サブクラスでの実装参照用
-  #
-  # @param self
-  # @param properties 登録解除時に参照するプロパティ
-  #
-  # @else
-  #
-  # @endif
-  def unsubscribeInterface(self, properties):
+  def __del__(self):
     pass
+
+
+  def instance():
+    global inportconsumerfactory
+
+    if inportconsumerfactory is None:
+      inportconsumerfactory = InPortConsumerFactory()
+
+    return inportconsumerfactory
+
+  instance = staticmethod(instance)
+

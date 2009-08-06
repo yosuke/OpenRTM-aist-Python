@@ -57,7 +57,7 @@ class ExtTrigExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
   def __init__(self):
     OpenRTM_aist.PeriodicExecutionContext.__init__(self)
     self._worker = self.Worker()
-
+    self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("rtobject.exttrig_ec")
 
   ##
   # @if jp
@@ -71,6 +71,7 @@ class ExtTrigExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
   #
   # @endif
   def tick(self):
+    self._rtcout.RTC_TRACE("tick()")
     if not self._worker._cond.acquire(0):
       return
     self._worker._called = True
@@ -92,6 +93,7 @@ class ExtTrigExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
   # @endif
   # 
   def run(self):
+    self._rtcout.RTC_TRACE("run()")
     flag = True
 
     while flag:

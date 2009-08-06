@@ -25,54 +25,6 @@ import OpenRTM_aist
 
 ##
 # @if jp
-# @class ScopedLock
-# @brief ScopedLock クラス
-#
-# 排他処理用ロッククラス。
-#
-# @since 0.4.0
-#
-# @else
-#
-# @endif
-class ScopedLock:
-
-
-  ##
-  # @if jp
-  # @brief コンストラクタ
-  #
-  # コンストラクタ
-  #
-  # @param self
-  # @param mutex ロック用ミューテックス
-  #
-  # @else
-  #
-  # @endif
-  def __init__(self, mutex):
-    self.mutex = mutex
-    self.mutex.acquire()
-
-
-  ##
-  # @if jp
-  # @brief デストラクタ
-  #
-  # デストラクタ
-  #
-  # @param self
-  #
-  # @else
-  #
-  # @endif
-  def __del__(self):
-    self.mutex.release()
-
-
-
-##
-# @if jp
 #
 # @brief オブジェクト管理用クラス
 #
@@ -134,7 +86,7 @@ class ObjectManager:
   #
   # @endif
   def registerObject(self, obj):
-    guard = ScopedLock(self._objects._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._objects._mutex)
     predi = self._predicate(factory=obj)
 
     for _obj in self._objects._obj:
@@ -162,7 +114,7 @@ class ObjectManager:
   #
   # @endif
   def unregisterObject(self, id):
-    guard = ScopedLock(self._objects._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._objects._mutex)
     predi = self._predicate(name=id)
     i = 0
     for _obj in self._objects._obj:
@@ -193,8 +145,12 @@ class ObjectManager:
   #
   # @endif
   def find(self, id):
-    guard = ScopedLock(self._objects._mutex)
-    predi = self._predicate(name=id)
+    guard = OpenRTM_aist.ScopedLock(self._objects._mutex)
+    if isinstance(id,str):
+      predi = self._predicate(name=id)
+    else:
+      predi = self._predicate(prop=id)
+
     for _obj in self._objects._obj:
       if predi(_obj):
         return _obj
@@ -217,7 +173,7 @@ class ObjectManager:
   #
   # @endif
   def getObjects(self):
-    guard = ScopedLock(self._objects._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._objects._mutex)
     return self._objects._obj
 
 
@@ -234,7 +190,7 @@ class ObjectManager:
   #
   # @endif
   def for_each(self,p):
-    guard = ScopedLock(self._objects._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._objects._mutex)
     predi = p()
 
     for _obj in self._objects._obj:

@@ -16,6 +16,7 @@
 
 import traceback
 import sys
+from omniORB import CORBA
 
 import RTC, RTC__POA
 import OpenRTM_aist
@@ -76,6 +77,21 @@ class PortAdmin:
       prof = p.get_port_profile()
       name_ = prof.name 
       return self._name == name_
+
+
+  ##
+  # @if jp
+  # @brief Port削除用ファンクタ
+  # @else
+  # @brief Functor to delete the Port
+  # @endif
+  class del_port:
+    def __init__(self, pa):
+      self._pa = pa
+      return
+
+    def __call__(self, p):
+      self._pa.deletePort(p)
 
 
   ##
@@ -225,10 +241,14 @@ class PortAdmin:
   # @param port The Port's servant.
   #
   # @endif
+  # void registerPort(PortBase& port);
   def registerPort(self, port):
     self._portRefs.append(port.getPortRef())
     self._portServants.registerObject(port)
 
+  # void registerPort(PortService_ptr port);
+  def registerPortByReference(self, port_ref):
+    self._portRefs.append(port_ref)
 
   ##
   # @if jp
@@ -255,8 +275,12 @@ class PortAdmin:
   # @endif
   def deletePort(self, port):
     try:
-      port.disconnect_all()
+      if isinstance(port,RTC._objref_PortService):
+        tmp = port.get_port_profile().name
+        OpenRTM_aist.CORBA_SeqUtil.erase_if(self._portRefs, self.find_port_name(tmp))
+        return
 
+      port.disconnect_all()
       tmp = port.getProfile().name
       OpenRTM_aist.CORBA_SeqUtil.erase_if(self._portRefs, self.find_port_name(tmp))
 
@@ -297,6 +321,37 @@ class PortAdmin:
 
     p = self._portServants.find(port_name)
     self.deletePort(p)
+    return
+
+
+  ##
+  # @if jp
+  # @brief 全ての Port のインターフェースを activates する
+  # @else
+  # @brief Activate all Port interfaces
+  # @endif
+  # void PortAdmin::activatePorts()
+  def activatePorts(self):
+    ports = self._portServants.getObjects()
+    for port in ports:
+      port.activateInterfaces()
+      
+    return
+
+
+  ##
+  # @if jp
+  # @brief 全ての Port のインターフェースを deactivates する
+  # @else
+  # @brief Deactivate all Port interfaces
+  # @endif
+  # void PortAdmin::deactivatePorts()
+  def deactivatePorts(self):
+    ports = self._portServants.getObjects()
+    for port in ports:
+      port.deactivateInterfaces()
+
+    return
 
 
   ##
@@ -324,6 +379,3 @@ class PortAdmin:
     for i in range(len_):
       idx = (len_ - 1) - i
       self.deletePort(ports[idx])
-
-
-

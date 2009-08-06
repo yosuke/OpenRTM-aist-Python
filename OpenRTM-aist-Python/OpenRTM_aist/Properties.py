@@ -84,8 +84,6 @@ class Properties:
   """
   """
 
-
-
   ##
   # @if jp
   #
@@ -393,7 +391,7 @@ class Properties:
       node = None
       node = self._getNode(keys, 0, self)
       if node:
-        if node.value != "":
+        if node.value:
           return node.value
         else:
           return node.default_value
@@ -401,10 +399,10 @@ class Properties:
 
     else:
       value = self.getProperty(key)
-      if value == "":
-        return default
-      else:
+      if value:
         return value
+      else:
+        return default
 
 
   ##
@@ -965,6 +963,27 @@ class Properties:
 
   ##
   # @if jp
+  # @brief ノードを検索する
+  # @else
+  # @brief Find node of properties
+  # @endif
+  # Properties* const Properties::findNode(const std::string& key) const
+  def findNode(self, key):
+    if not key:
+      return None
+
+    keys = []
+    self.split(key, '.', keys)
+    node = self._getNode(keys, 0, self)
+    if node:
+      return node
+
+    self.setProperty(key,"")
+    return self
+
+
+  ##
+  # @if jp
   # @brief ノードを取得する
   #
   # 指定したキーを持つノードを取得する。
@@ -978,10 +997,15 @@ class Properties:
   # @brief Get node of Properties
   # @endif
   def getNode(self, key):
-    keys = []
-    value = ""
-    self.split(key, ".", keys)
-    return self._getNode(keys, 0, self)
+    if not key:
+      return self
+
+    leaf = self.findNode(key)
+    if leaf:
+      return leaf
+
+    self.createNode(key)
+    return self.findNode(key)
 
 
   ##
@@ -1001,8 +1025,10 @@ class Properties:
   #
   # @endif
   def createNode(self, key):
-    p = self.getNode(key)
-    if p:
+    if not key:
+      return False
+
+    if not self.findNode(key):
       return False
     
     self.setProperty(key,"")
@@ -1203,7 +1229,6 @@ class Properties:
   # @endif
   def _getNode(self, keys, index, curr):
     next = curr.hasKey(keys[index])
-
     if next is None:
       return None
 

@@ -23,6 +23,7 @@ import traceback
 
 import OpenRTM_aist
 import RTC,RTC__POA
+import OpenRTM,OpenRTM__POA
 
 
 ##

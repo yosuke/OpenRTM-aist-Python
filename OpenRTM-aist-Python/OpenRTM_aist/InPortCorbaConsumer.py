@@ -16,6 +16,7 @@
 #     All rights reserved.
 
 
+from omniORB import *
 from omniORB import CORBA
 from omniORB import any
 import sys
@@ -23,6 +24,7 @@ import traceback
 
 import RTC, RTC__POA
 import OpenRTM_aist
+import OpenRTM, OpenRTM__POA
 
 
 ##
@@ -62,6 +64,8 @@ class InPortCorbaConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsumer
   # @brief Constructor
   # @endif
   def __init__(self, buffer_, consumer=None):
+    self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("InPortCorbaConsumer")
+
     if consumer:
       OpenRTM_aist.CorbaConsumer.__init__(self, consumer=consumer)
       self._buffer = consumer._buffer
@@ -105,9 +109,9 @@ class InPortCorbaConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsumer
   #
   # @endif
   def put(self, data):
-    tmp = any.to_any(data)
-    obj = self._ptr()._narrow(RTC.InPortAny)
-    obj.put(tmp)
+    self._rtcout.RTC_PARANOID("put()")
+    obj = self._ptr()._narrow(OpenRTM.InPortCdr)
+    obj.put(data)
 
 
   ##
@@ -122,21 +126,22 @@ class InPortCorbaConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsumer
   #
   # @endif
   def push(self):
+    self._rtcout.RTC_PARANOID("push()")
     data = [None]
     self._buffer.read(data)
-    tmp = any.to_any(data[0])
 
     if not self._ptr():
       return
 
-    obj = self._ptr()._narrow(RTC.InPortAny)
+    obj = self._ptr()._narrow(OpenRTM.InPortCdr)
 
     # 本当はエラー処理をすべき
     if CORBA.is_nil(obj):
       return
     try:
-      obj.put(tmp)
+      obj.put(data[0])
     except:
+      self._rtcout.RTC_INFO("exception while invoking _ptr().put()")
       # オブジェクトが無効になったらdisconnectすべき
       traceback.print_exception(*sys.exec_info())
       return
@@ -156,6 +161,7 @@ class InPortCorbaConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsumer
   #
   # @endif
   def clone(self):
+    self._rtcout.RTC_TRACE("clone()")
     return OpenRTM_aist.InPortCorbaConsumer(self, consumer=self)
 
 
@@ -174,25 +180,12 @@ class InPortCorbaConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsumer
   #
   # @endif
   def subscribeInterface(self, properties):
-    if not OpenRTM_aist.NVUtil.isStringValue(properties,
-                                             "dataport.dataflow_type",
-                                             "Push"):
-      return False
+    self._rtcout.RTC_TRACE("subscribeInterface()")
 
-    index = OpenRTM_aist.NVUtil.find_index(properties,
-                                           "dataport.corba_any.inport_ref")
+    if self.subscribeFromIor(properties):
+      return True
 
-    if index < 0:
-      return False
-
-    obj = None
-    try:
-      obj = any.from_any(properties[index].value,keep_structs=True)
-    except:
-      return False
-
-    if not CORBA.is_nil(obj):
-      self.setObject(obj)
+    if self.subscribeFromRef(properties):
       return True
 
     return False
@@ -212,4 +205,163 @@ class InPortCorbaConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsumer
   #
   # @endif
   def unsubscribeInterface(self, properties):
-    pass
+    self._rtcout.RTC_TRACE("unsubscribeInterface()")
+
+    if self.unsubscribeFromIor(properties):
+      return
+
+    self.unsubscribeFromRef(properties)
+
+
+
+  ##
+  # @if jp
+  # @brief IOR文字列からオブジェクト参照を取得する
+  #
+  # @return true: 正常取得, false: 取得失敗
+  #
+  # @else
+  # @brief Getting object reference fromn IOR string
+  #
+  # @return true: succeeded, false: failed
+  #
+  # @endif
+  #
+  # bool subscribeFromIor(const SDOPackage::NVList& properties)
+  def subscribeFromIor(self, properties):
+    self.RTC_TRACE("subscribeFromIor()")
+    
+    index = OpenRTM_aist.NVUtil.find_index(properties,
+                                           "dataport.corba_any.inport_ior")
+    if index < 0:
+      self._rtcout.RTC_ERROR("inport_ior not found")
+      return False
+
+    ior = any.from_any(properties[index].value, keep_structs=True)
+    if not ior:
+      self._rtcout.RTC_ERROR("inport_ior has no string")
+      return False
+
+
+    orb = OpenRTM_aist.Manager.instance().getORB()
+    obj = orb.string_to_object(ior)
+      
+    if CORBA.is_nil(obj):
+      self._rtcout.RTC_ERROR("invalid IOR string has been passed")
+      return False
+
+    if not self.setObject(obj):
+      self._rtcout.RTC_WARN("Setting object to consumer failed.")
+      return False
+
+    return True
+
+
+  ##
+  # @if jp
+  # @brief Anyから直接オブジェクト参照を取得する
+  #
+  # @return true: 正常取得, false: 取得失敗
+  #
+  # @else
+  # @brief Getting object reference fromn Any directry
+  #
+  # @return true: succeeded, false: failed
+  #
+  # @endif
+  #
+  #bool subscribeFromRef(const SDOPackage::NVList& properties)
+  def subscribeFromRef(self, properties):
+    self._rtcout.RTC_TRACE("subscribeFromRef()")
+    index = OpenRTM_aist.NVUtil.find_index(properties,
+                                           "dataport.corba_any.inport_ref")
+    if index < 0:
+      self._rtcout.RTC_ERROR("inport_ref not found")
+      return False
+
+
+    obj = any.from_any(properties[index].value, keep_structs=True)
+    if not obj:
+      self._rtcout.RTC_ERROR("prop[inport_ref] is not objref")
+      return True
+
+    if CORBA.is_nil(obj):
+      self._rtcout.RTC_ERROR("prop[inport_ref] is not objref")
+      return False
+      
+    if not self.setObject(obj):
+      self._rtcout.RTC_ERROR("Setting object to consumer failed.")
+      return False
+
+    return True
+
+
+  ##
+  # @if jp
+  # @brief 接続解除(IOR版)
+  #
+  # @return true: 正常取得, false: 取得失敗
+  #
+  # @else
+  # @brief ubsubscribing (IOR version)
+  #
+  # @return true: succeeded, false: failed
+  #
+  # @endif
+  #
+  # bool unsubscribeFromIor(const SDOPackage::NVList& properties)
+  def unsubscribeFromIor(self, properties):
+    self._rtcout.RTC_TRACE("unsubscribeFromIor()")
+    index = OpenRTM_aist.NVUtil.find_index(properties,
+                                           "dataport.corba_any.inport_ior")
+    if index < 0:
+      self._rtcout.RTC_ERROR("inport_ior not found")
+      return False
+
+    ior = any.from_any(properties[index].value, keep_structs=True)
+    if not ior:
+      self._rtcout.RTC_ERROR("prop[inport_ior] is not string")
+      return False
+
+
+    orb = OpenRTM_aist.Manager.instance().getORB()
+    var = orb.string_to_object(ior)
+    
+    if not self._ptr()._is_equivalent(var):
+      self._rtcout.RTC_ERROR("connector property inconsistency")
+      return False
+
+    self.releaseObject()
+    return True
+
+
+  ##
+  # @if jp
+  # @brief 接続解除(Object reference版)
+  #
+  # @return true: 正常取得, false: 取得失敗
+  #
+  # @else
+  # @brief ubsubscribing (Object reference version)
+  #
+  # @return true: succeeded, false: failed
+  #
+  # @endif
+  #
+  # bool unsubscribeFromRef(const SDOPackage::NVList& properties)
+  def unsubscribeFromRef(self, properties):
+    self._rtcout.RTC_TRACE("unsubscribeFromRef()")
+    index = OpenRTM_aist.NVUtil.find_index(properties,
+                                           "dataport.corba_any.inport_ref")
+    if index < 0:
+      return False
+
+    obj = any.from_any(properties[index].value, keep_structs=True)
+    if not obj:
+      return False
+
+    if not self._ptr()._is_equivalent(obj):
+      return False
+
+    self.releaseObject()
+    return True

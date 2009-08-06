@@ -5,7 +5,7 @@
 # @file  OutPortProvider.py
 # @brief OutPortProvider class
 # @date  $Date: 2007/09/05$
-# @author Noriaki Ando <n-ando@aist.go.jp>
+# @author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara
 #
 # Copyright (C) 2006-2008
 #     Noriaki Ando
@@ -41,10 +41,25 @@ import OpenRTM_aist
 #
 #
 # @endif
-class OutPortProvider:
+class OutPortProvider(OpenRTM_aist.DataPortStatus):
   """
   """
 
+
+
+  ##
+  # @if jp
+  # @brief インターフェースプロファイルを公開するたのファンクタ
+  # @else
+  # @brief Functor to publish interface profile
+  # @endif
+  #
+  class publishInterfaceProfileFunc:
+    def __init__(self, prop):
+      self._prop = prop
+
+    def __call__(self, provider):
+      provider.publishInterfaceProfile(self._prop)
 
 
   ##
@@ -60,6 +75,11 @@ class OutPortProvider:
   # @endif
   def __init__(self):
     self._properties = []
+    self._portType         = ""
+    self._dataType         = ""
+    self._interfaceType    = ""
+    self._dataflowType     = ""
+    self._subscriptionType = ""
 
 
   ##
@@ -77,12 +97,10 @@ class OutPortProvider:
   # @else
   #
   # @endif
+  # virtual void publishInterfaceProfile(SDOPackage::NVList& properties);
   def publishInterfaceProfile(self, prop):
-    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.data_type", self._dataType)
     OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.interface_type", self._interfaceType)
-    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.dataflow_type", self._dataflowType)
-    OpenRTM_aist.NVUtil.appendStringValue(prop, "dataport.subscription_type", self._subscriptionType)
-
+    OpenRTM_aist.NVUtil.append(prop, self._properties)
 
   ##
   # @if jp
@@ -100,11 +118,13 @@ class OutPortProvider:
   # @else
   #
   # @endif
+  # virtual bool publishInterface(SDOPackage::NVList& properties);
   def publishInterface(self, prop):
     if not OpenRTM_aist.NVUtil.isStringValue(prop,"dataport.interface_type",self._interfaceType):
-      return
+      return False
 
     OpenRTM_aist.NVUtil.append(prop,self._properties)
+    return True
 
 
   ##
@@ -187,3 +207,25 @@ class OutPortProvider:
     self._subscriptionType = subs_type
 
 
+
+outportproviderfactory = None
+
+class OutPortProviderFactory(OpenRTM_aist.Factory,OutPortProvider):
+  def __init__(self):
+    OpenRTM_aist.Factory.__init__(self)
+    pass
+
+
+  def __del__(self):
+    pass
+
+
+  def instance():
+    global outportproviderfactory
+    
+    if outportproviderfactory is None:
+      outportproviderfactory = OutPortProviderFactory()
+      
+    return outportproviderfactory
+
+  instance = staticmethod(instance)

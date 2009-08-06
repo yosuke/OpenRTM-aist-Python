@@ -23,28 +23,6 @@ import OpenRTM_aist
 
 ##
 # @if jp
-# @class ScopedLock
-# @brief ScopedLock クラス
-#
-# 排他処理用ロッククラス。
-#
-# @since 0.4.0
-#
-# @else
-#
-# @endif
-class ScopedLock:
-  def __init__(self, mutex):
-    self.mutex = mutex
-    self.mutex.acquire()
-
-  def __del__(self):
-    self.mutex.release()
-
-
-
-##
-# @if jp
 # @class Timer
 # @brief Timerクラス
 # 
@@ -82,6 +60,11 @@ class Timer:
     self._thread = threading.Thread(target=self.run)
 
 
+  def __del__(self):
+    guard = OpenRTM_aist.ScopedLock(self._runningMutex)
+    self._running = False
+    self._thread.join()
+
   ##
   # @if jp
   # @brief Timer タスク実行
@@ -114,7 +97,7 @@ class Timer:
   #
   # @endif
   def start(self):
-    guard = ScopedLock(self._runningMutex)
+    guard = OpenRTM_aist.ScopedLock(self._runningMutex)
     if not self._running:
       self._running = True
       self._thread.start()
@@ -132,7 +115,7 @@ class Timer:
   #
   # @endif
   def stop(self):
-    guard = ScopedLock(self._runningMutex)
+    guard = OpenRTM_aist.ScopedLock(self._runningMutex)
     self._running = False
 
 
@@ -152,7 +135,7 @@ class Timer:
   def invoke(self):
     for i in range(len(self._tasks)):
       self._tasks[i].remains = self._tasks[i].remains - self._interval
-      if self._tasks[i].remains.sign <= 0:
+      if self._tasks[i].remains.sign() <= 0.0:
         self._tasks[i].listener.invoke()
         self._tasks[i].remains = self._tasks[i].period
 
@@ -175,8 +158,9 @@ class Timer:
   # @else
   #
   # @endif
+  # ListenerId registerListener(ListenerBase* listener, TimeValue tm);
   def registerListener(self, listener, tm):
-    guard = ScopedLock(self._taskMutex)
+    guard = OpenRTM_aist.ScopedLock(self._taskMutex)
     for i in range(len(self._tasks)):
       if self._tasks[i].listener == listener:
         self._tasks[i].period = tm
@@ -203,6 +187,10 @@ class Timer:
   # @else
   #
   # @endif
+  #  template <class ListenerClass>
+  #  ListenerId registerListenerObj(ListenerClass* obj,
+  #                                 void (ListenerClass::*cbf)(),
+  #                                 TimeValue tm)
   def registerListenerObj(self, obj, cbf, tm):
     return self.registerListener(OpenRTM_aist.ListenerObject(obj, cbf), tm)
 
@@ -222,6 +210,7 @@ class Timer:
   # @else
   #
   # @endif
+  # ListenerId registerListenerFunc(void (*cbf)(), TimeValue tm)
   def registerListenerFunc(self, cbf, tm):
     return self.registerListener(OpenRTM_aist.ListenerFunc(cbf), tm)
 
@@ -241,8 +230,9 @@ class Timer:
   # @else
   #
   # @endif
+  # bool unregisterListener(ListenerId id);
   def unregisterListener(self, id):
-    guard = ScopedLock(self._taskMutex)
+    guard = OpenRTM_aist.ScopedLock(self._taskMutex)
     len_ = len(self._tasks)
     for i in range(len_):
       idx = (len_ - 1) - i

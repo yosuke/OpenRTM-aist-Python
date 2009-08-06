@@ -20,64 +20,62 @@ import copy
 import OpenRTM_aist
 
 
-##
-# @if jp
-# @class ConfigBase
-# @brief ConfigBase 抽象クラス
-# 
-# 各種コンフィギュレーション情報を保持するための抽象クラス。
-# 具象コンフィギュレーションクラスは、以下の関数の実装を提供しなけれ
-# ばならない。
-# 
-# publicインターフェースとして以下のものを提供する。
-#  - update(): コンフィギュレーションパラメータ値の更新
-# 
-# @since 0.4.0
-# 
-# @else
-# 
-# @endif
-class ConfigBase:
+class OnUpdateCallback:
+  def __init__(self):
+    pass
+
+
+  def __call__(self, config_set):
+    pass
 
 
 
-  ##
-  # @if jp
-  # 
-  # @brief コンストラクタ
-  # 
-  # コンストラクタ
-  # 
-  # @param self 
-  # @param name コンフィギュレーション名
-  # @param def_val 文字列形式のデフォルト値
-  # 
-  # @else
-  # 
-  # @endif
-  def __init__(self, name, def_val):
-    self.name = name
-    self.default_value = def_val
+class OnUpdateParamCallback:
+  def __init__(self):
+    pass
 
 
-  ##
-  # @if jp
-  # 
-  # @brief コンフィギュレーションパラメータ値更新用関数(サブクラス実装用)
-  # 
-  # コンフィギュレーション設定値でコンフィギュレーションパラメータを更新する
-  # ための関数。<BR>
-  # ※サブクラスでの実装参照用
-  # 
-  # @param self 
-  # @param val パラメータ値の文字列表現
-  # 
-  # @return 設定結果
-  # 
-  # @else
-  # 
-  # @endif
-  def update(self, val):
+  def __call__(self, config_set, config_param):
+    pass
+
+
+
+class OnSetConfigurationSetCallback:
+  def __init__(self):
+    pass
+
+
+  def __call__(self, config_set):
+    pass
+
+
+
+class OnAddConfigurationAddCallback:
+  def __init__(self):
+    pass
+
+
+  def __call__(self, config_set):
+    pass
+
+
+
+class OnRemoveConfigurationSetCallback:
+  def __init__(self):
+    pass
+
+
+  def __call__(self, config_set):
+    pass
+
+
+
+class OnActivateSetCallback:
+  def __init__(self):
+    pass
+
+
+  def __call__(self, config_id):
     pass
 
 
@@ -96,9 +94,7 @@ class ConfigBase:
 # @else
 # 
 # @endif
-class Config(ConfigBase):
-
-
+class Config:
 
   ##
   # @if jp
@@ -117,7 +113,8 @@ class Config(ConfigBase):
   # 
   # @endif
   def __init__(self, name, var, def_val, trans=None):
-    ConfigBase.__init__(self, name, def_val)
+    self.name = name
+    self.default_value = def_val
     self._var = var
     if trans:
       self._trans = trans
@@ -140,6 +137,7 @@ class Config(ConfigBase):
   # @else
   # 
   # @endif
+  # virtual bool update(const char* val)
   def update(self, val):
     if self._trans(self._var, val):
       return True
@@ -179,6 +177,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # ConfigAdmin(coil::Properties& prop);
   def __init__(self, configsets):
     self._configsets = configsets
     self._activeId   = "default"
@@ -187,6 +186,13 @@ class ConfigAdmin:
     self._params     = []
     self._emptyconf  = OpenRTM_aist.Properties()
     self._newConfig  = []
+
+    self._updateCb          = None
+    self._updateParamCb     = None
+    self._setConfigSetCb    = None
+    self._addConfigSetCb    = None
+    self._removeConfigSetCb = None
+    self._activateSetCb     = None
 
 
   ##
@@ -227,6 +233,10 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  #template <typename VarType>
+  # bool bindParameter(const char* param_name, VarType& var,
+  #                    const char* def_val,
+  #                    bool (*trans)(VarType&, const char*) = coil::stringTo)
   def bindParameter(self, param_name, var, def_val, trans=None):
     if trans is None:
       trans = OpenRTM_aist.stringTo
@@ -271,6 +281,9 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # void update(void);
+  # void update(const char* config_set);
+  # void update(const char* config_set, const char* config_param);
   def update(self, config_set=None, config_param=None):
     # update(const char* config_set)
     if config_set and config_param is None:
@@ -280,6 +293,7 @@ class ConfigAdmin:
       for i in range(len(self._params)):
         if prop.hasKey(self._params[i].name):
           self._params[i].update(prop.getProperty(self._params[i].name))
+          self.onUpdate(config_set)
 
     # update(const char* config_set, const char* config_param)
     if config_set and config_param:
@@ -288,6 +302,7 @@ class ConfigAdmin:
       for conf in self._params:
         if conf.name == config_param:
           conf.update(self._configsets.getProperty(key))
+          self.onUpdateParam(config_set, config_param)
           return
 
     # update()
@@ -313,6 +328,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # bool isExist(const char* name);
   def isExist(self, param_name):
     if not self._params:
       return False
@@ -338,6 +354,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # bool isChanged(void) {return m_changed;}
   def isChanged(self):
     return self._changed
 
@@ -356,6 +373,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # const char* getActiveId(void);
   def getActiveId(self):
     return self._activeId
 
@@ -375,6 +393,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # bool haveConfig(const char* config_id);
   def haveConfig(self, config_id):
     if self._configsets.hasKey(config_id) is None:
       return False
@@ -396,6 +415,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # bool isActive(void);
   def isActive(self):
     return self._active
 
@@ -414,6 +434,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # const std::vector<coil::Properties*>& getConfigurationSets(void);
   def getConfigurationSets(self):
     return self._configsets.getLeaf()
 
@@ -435,6 +456,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # const coil::Properties& getConfigurationSet(const char* config_id);
   def getConfigurationSet(self, config_id):
     prop = self._configsets.getNode(config_id)
     if prop is None:
@@ -447,12 +469,9 @@ class ConfigAdmin:
   # 
   # @brief 指定したプロパティのコンフィギュレーションセットへの追加
   # 
-  # 指定したプロパティをIDで指定したコンフィギュレーションセットへ追加する。
-  # 指定したIDと一致するコンフィギュレーションセットが存在しない場合は、
-  # false を返す。
+  # 指定したプロパティをコンフィギュレーションセットへ追加する。
   # 
   # @param self 
-  # @param config_id 追加対象コンフィギュレーションセットのID
   # @param config_set 追加するプロパティ
   # 
   # @return 追加処理実行結果(追加成功:true、追加失敗:false)
@@ -460,19 +479,22 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
-  def setConfigurationSetValues(self, config_id, config_set):
-    if config_set.getName() != config_id:
-      return False
-    if not self._configsets.hasKey(config_id):
+  # bool setConfigurationSetValues(const coil::Properties& config_set)
+  def setConfigurationSetValues(self, config_set):
+    if config_set.getName() == "" or config_set.getName() is None:
       return False
 
-    p = self._configsets.getNode(config_id)
+    if not self._configsets.hasKey(config_set.getName()):
+      return False
+
+    p = self._configsets.getNode(config_set.getName())
     if p is None:
       return False
-    p.mergeProperties(config_set)
 
+    p.mergeProperties(config_set)
     self._changed = True
     self._active  = False
+    self.onSetConfigurationSet(config_set)
     return True
 
 
@@ -492,6 +514,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # const coil::Properties& getActiveConfigurationSet(void);
   def getActiveConfigurationSet(self):
     p = self._configsets.getNode(self._activeId)
     if p is None:
@@ -515,6 +538,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # bool addConfigurationSet(const coil::Properties& configuration_set);
   def addConfigurationSet(self, configset):
     if self._configsets.hasKey(configset.getName()):
       return False
@@ -524,12 +548,15 @@ class ConfigAdmin:
     self._configsets.createNode(node)
 
     p = self._configsets.getNode(node)
+    if p is None:
+      return False
+
     p.mergeProperties(configset)
     self._newConfig.append(node)
 
     self._changed = True
     self._active  = False
-
+    self.onAddConfigurationSet(configset)
     return True
 
 
@@ -550,6 +577,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # bool removeConfigurationSet(const char* config_id);
   def removeConfigurationSet(self, config_id):
     idx = 0
     for conf in self._newConfig:
@@ -569,7 +597,7 @@ class ConfigAdmin:
 
     self._changed = True
     self._active  = False
-
+    self.onRemoveConfigurationSet(config_id)
     return True
 
 
@@ -590,6 +618,7 @@ class ConfigAdmin:
   # @else
   # 
   # @endif
+  # bool activateConfigurationSet(const char* config_id);
   def activateConfigurationSet(self, config_id):
     if config_id is None:
       return False
@@ -598,4 +627,83 @@ class ConfigAdmin:
     self._activeId = config_id
     self._active   = True
     self._changed  = True
+    self.onActivateSet(config_id)
     return True
+
+
+  # void setOnUpdate(OnUpdateCallback* cb);
+  def setOnUpdate(self, cb):
+    self._updateCb = cb
+
+
+  # void setOnUpdateParam(OnUpdateParamCallback* cb);
+  def setOnUpdateParam(self, cb):
+    self._updateParamCb = cb
+
+
+  # void setOnSetConfigurationSet(OnSetConfigurationSetCallback* cb);
+  def setOnSetConfigurationSet(self, cb):
+    self._setConfigSetCb = cb
+
+
+  # void setOnAddConfigurationSet(OnAddConfigurationAddCallback* cb);
+  def setOnAddConfigurationSet(self, cb):
+    self._addConfigSetCb = cb
+
+
+  # void setOnRemoveConfigurationSet(OnRemoveConfigurationSetCallback* cb);
+  def setOnRemoveConfigurationSet(self, cb):
+    self._removeConfigSetCb = cb
+
+
+  # void setOnActivateSet(OnActivateSetCallback* cb);
+  def setOnActivateSet(self, cb):
+    self._activateSetCb = cb
+
+
+  # void onUpdate(const char* config_set);
+  def onUpdate(self, config_set):
+    if self._updateCb is not None:
+      self._updateCb(config_set)
+
+
+  # void onUpdateParam(const char* config_set, const char* config_param);
+  def onUpdateParam(self, config_set, config_param):
+    if self._updateParamCb is not None:
+      self._updateParamCb(config_set, config_param)
+
+
+  # void onSetConfigurationSet(const coil::Properties& config_set);
+  def onSetConfigurationSet(self, config_set):
+    if self._setConfigSetCb is not None:
+      self._setConfigSetCb(config_set)
+
+
+  # void onAddConfigurationSet(const coil::Properties& config_set);
+  def onAddConfigurationSet(self, config_set):
+    if self._addConfigSetCb is not None:
+      self._addConfigSetCb(config_set)
+
+
+  # void onRemoveConfigurationSet(const char* config_id);
+  def onRemoveConfigurationSet(self, config_id):
+    if self._removeConfigSetCb is not None:
+      self._removeConfigSetCb(config_id)
+
+
+  # void onActivateSet(const char* config_id);
+  def onActivateSet(self, config_id):
+    if self._activateSetCb is not None:
+      self._activateSetCb(config_id)
+
+
+
+  class find_conf:
+    def __init__(self, name):
+      self._name = name
+
+    def __call__(self, conf):
+      if conf is None or conf is 0:
+        return False
+
+      return self._name == conf.name

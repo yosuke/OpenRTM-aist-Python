@@ -19,80 +19,58 @@
 #
 
 import threading
+import OpenRTM_aist
 
 
-##
-# @if jp
-# @class ScopedLock
-# @brief ScopedLock クラス
-#
-# 排他処理用ロッククラス。
-#
-# @since 0.4.0
-#
-# @else
-#
-# @endif
-class ScopedLock:
-  def __init__(self, mutex):
-    self.mutex = mutex
-    self.mutex.acquire()
-    
-  def __del__(self):
-    self.mutex.release()
-
-
-
-class Async_t:
+class Async_t(OpenRTM_aist.Task):
 
   def __init__(self, obj, func, *args):
+    OpenRTM_aist.Task.__init__(self)
     self._obj        = obj
     self._func       = func
     self._finished   = False
     self._args       = args
     self._mutex      = threading.RLock()
-    self._thread = threading.Thread(target=self.run)
-
 
   def invoke(self):
-    self._thread.start()
+    self.activate()
 
 
   def finished(self):
-    guard = ScopedLock(self._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._mutex)
     return self._finished
 
 
-  def run(self):
+  def svc(self):
     if len(self._args) > 0:
       self._func(self._obj, self._args)
     else:
       self._func(self._obj)
 
-    guard = ScopedLock(self._mutex)
+    guard = OpenRTM_aist.ScopedLock(self._mutex)
     self._finished = True
     return 0
 
 
-class Async_ref_t:
+class Async_ref_t(OpenRTM_aist.Task):
 
   def __init__(self, obj, func, *args):
+    OpenRTM_aist.Task.__init__(self)
     self._obj        = obj
     self._func       = func
     self._args       = args
     self._finished   = False
-    self._thread = threading.Thread(target=self.run)
     
 
   def invoke(self):
-    self._thread.start()
+    self.activate()
 
 
   def finished(self):
     return self._finished
   
 
-  def run(self):
+  def svc(self):
     if len(self._args) > 0:
       self._func(self._obj, self._args)
     else:

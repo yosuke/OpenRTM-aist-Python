@@ -15,6 +15,7 @@
 #          Advanced Industrial Science and Technology (AIST), Japan
 #      All rights reserved.
 
+from omniORB import CORBA
 from omniORB import any
 import traceback
 import sys
@@ -127,7 +128,17 @@ class CorbaPort(OpenRTM_aist.PortBase):
   """
   """
 
-
+  ##
+  # @if jp
+  # @brief Providerの情報を格納する構造体
+  # @else
+  # @brief The structure to be stored Provider's information.
+  # @endif
+  #
+  class ProviderInfo:
+    def __init__(self, _servant, _objectid):
+      self.servant = _servant
+      self.oid     = _objectid
 
   ##
   # @if jp
@@ -147,6 +158,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
     OpenRTM_aist.PortBase.__init__(self, name)
     self.addProperty("port.port_type", "CorbaPort")
     self._providers = []
+    self._servants  = {}
     self._consumers = []
 
 
@@ -185,17 +197,28 @@ class CorbaPort(OpenRTM_aist.PortBase):
   #
   # @endif
   def registerProvider(self, instance_name, type_name, provider):
+    self._rtcout.RTC_TRACE("registerProvider(instance=%s, type_name=%s)",
+                           (instance_name, type_name))
+
     if not self.appendInterface(instance_name, type_name, RTC.PROVIDED):
       return False
 
-    oid = self._default_POA().activate_object(provider)
-    obj = self._default_POA().id_to_reference(oid)
+    oid = OpenRTM_aist.Manager.instance().getPOA().servant_to_id(provider)
+
+    try:
+      OpenRTM_aist.Manager.instance().getPOA().activate_object_with_id(oid,provider)
+    except:
+      pass
+    obj = OpenRTM_aist.Manager.instance().getPOA().id_to_reference(oid)
 
     key = "port"
     key = key + "." + str(type_name) + "." + str(instance_name)
 
+    orb = OpenRTM_aist.Manager.instance().getORB()
+    ior = orb.object_to_string(obj)
     OpenRTM_aist.CORBA_SeqUtil.push_back(self._providers,
-                                         OpenRTM_aist.NVUtil.newNV(key, obj))
+                                         OpenRTM_aist.NVUtil.newNV(key, ior))
+    self._servants[instance_name] = self.ProviderInfo(provider,oid)
 
     return True
 
@@ -250,6 +273,35 @@ class CorbaPort(OpenRTM_aist.PortBase):
 
   ##
   # @if jp
+  # @brief Port の全てのインターフェースを activates する
+  # @else
+  # @brief Activate all Port interfaces
+  # @endif
+  #
+  # void CorbaPort::activateInterfaces()
+  def activateInterfaces(self):
+    for key in self._servants.keys():
+      try:
+        OpenRTM_aist.Manager.instance().getPOA().activate_object_with_id(self._servants[key].oid, self._servants[key].servant)
+      except:
+        pass
+
+  
+  ##
+  # @if jp
+  # @brief 全ての Port のインターフェースを deactivates する
+  # @else
+  # @brief Deactivate all Port interfaces
+  # @endif
+  #
+  # void CorbaPort::deactivateInterfaces()
+  def deactivateInterfaces(self):
+    for key in self._servants.keys():
+      OpenRTM_aist.Manager.instance().getPOA().deactivate_object(self._servants[key].oid)
+
+
+  ##
+  # @if jp
   #
   # @brief Interface 情報を公開する
   #
@@ -297,6 +349,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
   #
   # @endif
   def publishInterfaces(self, connector_profile):
+    self._rtcout.RTC_TRACE("publishInterfaces()")
     OpenRTM_aist.CORBA_SeqUtil.push_back_list(connector_profile.properties,
                                               self._providers)
     return RTC.RTC_OK
@@ -349,8 +402,33 @@ class CorbaPort(OpenRTM_aist.PortBase):
   #
   # @endif
   def subscribeInterfaces(self, connector_profile):
+    self._rtcout.RTC_TRACE("subscribeInterfaces()")
     nv = connector_profile.properties
-    OpenRTM_aist.CORBA_SeqUtil.for_each(nv, self.subscribe(self._consumers))
+
+    orb = OpenRTM_aist.Manager.instance().getORB()
+    
+    for cons in self._consumers:
+      index = OpenRTM_aist.NVUtil.find_index(nv, cons.name)
+      if index < 0:
+        continue
+
+      ior = any.from_any(nv[index].value, keep_structs=True)
+      if not ior:
+        self._rtcout.RTC_WARN("Cannot extract IOR string")
+        continue
+
+      obj = orb.string_to_object(ior)
+
+      if CORBA.is_nil(obj):
+        self._rtcout.RTC_ERROR("Extracted object is null reference")
+        continue
+
+      result = cons.consumer.setObject(obj)
+
+      if not result:
+        self._rtcout.RTC_ERROR("Cannot narrow reference")
+        continue
+
     return RTC.RTC_OK
 
 
@@ -371,6 +449,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
   #
   # @endif
   def unsubscribeInterfaces(self, connector_profile):
+    self._rtcout.RTC_TRACE("unsubscribeInterfaces()")
     nv = connector_profile.properties
 
     OpenRTM_aist.CORBA_SeqUtil.for_each(nv, self.unsubscribe(self._consumers))
@@ -415,7 +494,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
             obj = any.from_any(nv.value, keep_structs=True)
             self._cons[i].consumer.setObject(obj)
           except:
-            traceback.print_exception(*sis.exc_info())
+            traceback.print_exception(*sys.exc_info())
 
 
 
@@ -435,3 +514,5 @@ class CorbaPort(OpenRTM_aist.PortBase):
         name_ = nv.name
         if self._cons[i].name == name_:
           self._cons[i].consumer.releaseObject()
+
+

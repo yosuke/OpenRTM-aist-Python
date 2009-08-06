@@ -26,7 +26,7 @@ from types import IntType, ListType
 import OpenRTM_aist
 import RTC
 import SDOPackage
-
+import copy
 
 
 #------------------------------------------------------------
@@ -65,55 +65,6 @@ mutex = threading.RLock()
 def handler(signum, frame):
   mgr = OpenRTM_aist.Manager.instance()
   mgr.terminate()
-
-
-
-##
-# @if jp
-# @class ScopedLock
-# @brief ScopedLock クラス
-#
-# 排他処理用ロッククラス。
-#
-# @since 0.4.0
-#
-# @else
-#
-# @endif
-class ScopedLock:
-
-
-
-  ##
-  # @if jp
-  # @brief コンストラクタ
-  #
-  # コンストラクタ
-  #
-  # @param self
-  # @param mutex ロック用ミューテックス
-  #
-  # @else
-  #
-  # @endif
-  def __init__(self, mutex):
-    self.mutex = mutex
-    self.mutex.acquire()
-
-
-  ##
-  # @if jp
-  # @brief デストラクタ
-  #
-  # デストラクタ
-  #
-  # @param self
-  #
-  # @else
-  #
-  # @endif
-  def __del__(self):
-    self.mutex.release()
 
 
 
@@ -218,13 +169,14 @@ class Manager:
       print "init(argc,argv) or init(argv)"
         
     if manager is None:
-      guard = ScopedLock(mutex)
+      guard = OpenRTM_aist.ScopedLock(mutex)
       if manager is None:
         manager = Manager()
         manager.initManager(argv)
         manager.initLogger()
         manager.initORB()
         manager.initNaming()
+        manager.initFactories()
         manager.initExecContext()
         manager.initComposite()
         manager.initTimer()
@@ -260,13 +212,14 @@ class Manager:
     global mutex
     
     if manager is None:
-      guard = ScopedLock(mutex)
+      guard = OpenRTM_aist.ScopedLock(mutex)
       if manager is None:
         manager = Manager()
         manager.initManager(None)
         manager.initLogger()
         manager.initORB()
         manager.initNaming()
+        manager.initFactories()
         manager.initExecContext()
         manager.initComposite()
         manager.initTimer()
@@ -306,7 +259,7 @@ class Manager:
   #
   # @endif
   def shutdown(self):
-    self._rtcout.RTC_DEBUG("Manager::shutdown()")
+    self._rtcout.RTC_TRACE("Manager::shutdown()")
     self.shutdownComponents()
     self.shutdownNaming()
     self.shutdownORB()
@@ -332,12 +285,12 @@ class Manager:
   #
   # @endif
   def join(self):
-    self._rtcout.RTC_DEBUG("Manager::wait()")
-    guard = ScopedLock(self._terminate.mutex)
+    self._rtcout.RTC_TRACE("Manager::wait()")
+    guard = OpenRTM_aist.ScopedLock(self._terminate.mutex)
     self._terminate.waiting += 1
     del guard
     while 1:
-      guard = ScopedLock(self._terminate.mutex)
+      guard = OpenRTM_aist.ScopedLock(self._terminate.mutex)
       #if self._terminate.waiting > 1:
       if self._terminate.waiting > 0:
         break
@@ -405,15 +358,47 @@ class Manager:
   #
   # @endif
   def activateManager(self):
-    self._rtcout.RTC_DEBUG("Manager::activateManager()")
+    self._rtcout.RTC_TRACE("Manager::activateManager()")
 
     try:
       self.getPOAManager().activate()
-      if self._initProc:
-        self._initProc(self)
+      self._rtcout.RTC_TRACE("POA Manager activated.")
     except:
-      print "Exception: Manager.activateManager()"
+      self._rtcout.RTC_ERROR("Exception: POA Manager activation failed.")
       return False
+
+    mods = self._config.getProperty("manager.modules.preload").split(",")
+
+    for i in range(len(mods)):
+      if mods[i] is None or mods[i] == "":
+        continue
+      tmp = [mods[i]]
+      OpenRTM_aist.eraseHeadBlank(tmp)
+      OpenRTM_aist.eraseTailBlank(tmp)
+      mods[i] = tmp[0]
+
+      basename = mods[i].split(".")[0]
+      basename += "Init"
+
+      try:
+        self._module.load(mods[i], basename)
+      except:
+        self._rtcout.RTC_ERROR("Module load error in Manager::activateManager().")
+      
+    comps = self._config.getProperty("manager.components.precreate").split(",")
+
+    for i in range(len(comps)):
+      if comps[i] is None or comps[i] == "":
+        continue
+      tmp = [comps[i]]
+      OpenRTM_aist.eraseHeadBlank(tmp)
+      OpenRTM_aist.eraseTailBlank(tmp)
+      comps[i] = tmp[0]
+
+      self.createComponent(comps[i])
+
+    if self._initProc:
+      self._initProc(self)
 
     return True
 
@@ -451,15 +436,14 @@ class Manager:
   def runManager(self, no_block=None):
     if no_block is None:
       no_block = False
-
+      
     if no_block:
-      self._rtcout.RTC_DEBUG("Manager::runManager(): non-blocking mode")
+      self._rtcout.RTC_TRACE("Manager::runManager(): non-blocking mode")
       self._runner = self.OrbRunner(self._orb)
-      # self._runnner.open()
     else:
-      self._rtcout.RTC_DEBUG("Manager::runManager(): blocking mode")
+      self._rtcout.RTC_TRACE("Manager::runManager(): blocking mode")
       self._orb.run()
-      self._rtcout.RTC_DEBUG("Manager::runManager(): ORB was terminated")
+      self._rtcout.RTC_TRACE("Manager::runManager(): ORB was terminated")
       self.join()
     return
 
@@ -487,7 +471,7 @@ class Manager:
   #
   # @endif
   def load(self, fname, initfunc):
-    self._rtcout.RTC_DEBUG("Manager::load()")
+    self._rtcout.RTC_TRACE("Manager::load()")
     self._module.load(fname, initfunc)
     return
 
@@ -512,7 +496,7 @@ class Manager:
   #
   # @endif
   def unload(self, fname):
-    self._rtcout.RTC_DEBUG("Manager::unload()")
+    self._rtcout.RTC_TRACE("Manager::unload()")
     self._module.unload(fname)
     return
 
@@ -534,7 +518,7 @@ class Manager:
   #
   # @endif
   def unloadAll(self):
-    self._rtcout.RTC_DEBUG("Manager::unloadAll()")
+    self._rtcout.RTC_TRACE("Manager::unloadAll()")
     self._module.unloadAll()
     return
 
@@ -552,8 +536,9 @@ class Manager:
   # @else
   # @brief Get loaded module names
   # @endif
+  #  std::vector<coil::Properties> getLoadedModules();
   def getLoadedModules(self):
-    self._rtcout.RTC_DEBUG("Manager::getLoadedModules()")
+    self._rtcout.RTC_TRACE("Manager::getLoadedModules()")
     return self._module.getLoadedModules()
 
 
@@ -572,7 +557,7 @@ class Manager:
   # @brief Get loadable module names
   # @endif
   def getLoadableModules(self):
-    self._rtcout.RTC_DEBUG("Manager::getLoadableModules()")
+    self._rtcout.RTC_TRACE("Manager::getLoadableModules()")
     return self._module.getLoadableModules()
 
 
@@ -598,7 +583,7 @@ class Manager:
   # @brief Register RT-Component Factory
   # @endif
   def registerFactory(self, profile, new_func, delete_func):
-    self._rtcout.RTC_DEBUG("Manager::registerFactory(%s)", profile.getProperty("type_name"))
+    self._rtcout.RTC_TRACE("Manager::registerFactory(%s)", profile.getProperty("type_name"))
     try:
       factory = OpenRTM_aist.FactoryPython(profile, new_func, delete_func)
       self._factory.registerObject(factory)
@@ -610,7 +595,7 @@ class Manager:
   def getFactoryProfiles(self):
     factories = self._factory.getObjects()
 
-    if factories is None or factories is []:
+    if not factories:
       return []
       
     props = []
@@ -637,7 +622,7 @@ class Manager:
   # @brief Register ExecutionContext Factory
   # @endif
   def registerECFactory(self, name, new_func, delete_func):
-    self._rtcout.RTC_DEBUG("Manager::registerECFactory(%s)", name)
+    self._rtcout.RTC_TRACE("Manager::registerECFactory(%s)", name)
     try:
       self._ecfactory.registerObject(OpenRTM_aist.ECFactoryPython(name, new_func, delete_func))
       return True
@@ -661,7 +646,7 @@ class Manager:
   # @brief Get the list of all RT-Component Factory
   # @endif
   def getModulesFactories(self):
-    self._rtcout.RTC_DEBUG("Manager::getModulesFactories()")
+    self._rtcout.RTC_TRACE("Manager::getModulesFactories()")
 
     self._modlist = []
     for _obj in self._factory._objects._obj:
@@ -677,62 +662,115 @@ class Manager:
   # @if jp
   # @brief RTコンポーネントを生成する
   #
-  # 指定したRTコンポーネントのインスタンスを登録されたFactory経由で生成する。
+  # 指定したRTコンポーネントのインスタンスを登録されたFactory経由
+  # で生成する。
+  #
+  # 生成されるコンポーネントの各種プロファイルは以下の優先順位で
+  # 設定される。
+  #
+  # -# createComponent() の引数で与えられたプロファイル
+  # -# rtc.confで指定された外部ファイルで与えられたプロファイル
+  # --# category.instance_name.config_file
+  # --# category.component_type.config_file
+  # -# コードに埋め込まれたプロファイル 
+  #
   # インスタンス生成が成功した場合、併せて以下の処理を実行する。
   #  - 外部ファイルで設定したコンフィギュレーション情報の読み込み，設定
   #  - ExecutionContextのバインド，動作開始
   #  - ネーミングサービスへの登録
   #
-  # @param self
-  # @param module_name 生成対象RTコンポーネント名称
+  # @param comp_args 生成対象RTコンポーネントIDおよびコンフィギュレー
+  # ション引数。フォーマットは大きく分けて "id" と "configuration" 
+  # 部分が存在する。
+  #
+  # comp_args:     [id]?[configuration]
+  #                id は必須、configurationはオプション
+  # id:            RTC:[vendor]:[category]:[implementation_id]:[version]
+  #                RTC は固定かつ必須
+  #                vendor, category, version はオプション
+  #                implementation_id は必須
+  #                オプションを省略する場合でも ":" は省略不可
+  # configuration: [key0]=[value0]&[key1]=[value1]&[key2]=[value2].....
+  #                RTCが持つPropertiesの値をすべて上書きすることができる。
+  #                key=value の形式で記述し、"&" で区切る
+  #
+  # 例えば、
+  # RTC:jp.go.aist:example:ConfigSample:1.0?conf.default.str_param0=munya
+  # RTC::example:ConfigSample:?conf.default.int_param0=100
   #
   # @return 生成したRTコンポーネントのインスタンス
   #
   # @else
-  # @brief Create RT-Component
+  # @brief Create RT-Components
+  #
+  # Create specified RT-Component's instances via registered Factory.
+  # When its instances have been created successfully, the following
+  # processings are also executed.
+  #  - Read and set configuration information that was set by external file.
+  #  - Bind ExecutionContext and start operation.
+  #  - Register to naming service.
+  #
+  # @param module_name Target RT-Component names for the creation
+  #
+  # @return Created RT-Component's instances
+  #
   # @endif
-  def createComponent(self, module_name):
-    prop = OpenRTM_aist.Properties()
-    arg = str(module_name)
-    comp_and_conf = arg.split("?")
-    if len(comp_and_conf) == 0:
+  #
+  def createComponent(self, comp_args):
+    self._rtcout.RTC_TRACE("Manager::createComponent(%s)", comp_args)
+    comp_prop = OpenRTM_aist.Properties()
+    comp_id   = OpenRTM_aist.Properties()
+    arg = str(comp_args)
+
+    if not self.procComponentArgs(comp_args, comp_id, comp_prop):
       return None
 
-    module_name = comp_and_conf[0]
+    if comp_prop.getProperty("exported_ports"):
+      comp_prop.setProperty("conf.default.exported_ports",comp_prop.getProperty("exported_ports"))
 
-    if len(comp_and_conf) > 1:
-      conf = comp_and_conf[1].split("&")
-      for i in range(len(conf)):
-        keyval = conf[i].split("=")
-        prop.setProperty(keyval[0],keyval[1])
 
-    self._rtcout.RTC_DEBUG("Manager::createComponent(%s)", module_name)
-
-    obj = self._factory.find(module_name)
-    if obj is None:
-      print "Manager.createComponent: Not found module_name: ", module_name
+    factory = self._factory.find(comp_id)
+    if factory is None:
+      self._rtcout.RTC_ERROR("createComponent: Factory not found: %s", comp_id.getProperty("implementation_id"))
       return None
 
-    comp = obj.create(self)
+    prop = copy.deepcopy(factory.profile())
+    prop.mergeProperties(comp_prop)
+
+    inherit_prop = ["exec_cxt.periodic.type",
+                    "exec_cxt.periodic.rate",
+                    "exec_cxt.evdriven.type",
+                    "naming.formats",
+                    "logger.enable",
+                    "logger.log_level",
+                    "naming.enable",
+                    "naming.type",
+                    "naming.formats"]
+
+    for i in range(len(inherit_prop)):
+      prop.setProperty(inherit_prop[i],self._config.getProperty(inherit_prop[i]))
+
+
+    comp = factory.create(self)
     if comp is None:
+      self._rtcout.RTC_ERROR("createComponent: RTC creation failed: %s", comp_id.getProperty("implementation_id"))
       return None
-    self._rtcout.RTC_DEBUG("RTC Created: %s", module_name)
+    self._rtcout.RTC_TRACE("RTC Created: %s", comp_id.getProperty("implementation_id"))
 
     self.configureComponent(comp,prop)
+    ### comp.setProperties(prop)
 
-    if self.bindExecutionContext(comp) is not True:
+    # Component initialization
+    if comp.initialize() != RTC.RTC_OK:
+      self._rtcout.RTC_TRACE("RTC initialization failed: %s", comp_id.getProperty("implementation_id"))
       comp.exit()
+      self._rtcout.RTC_TRACE("%s was finalized", comp_id.getProperty("implementation_id"))
       return None
-
-    if comp.initialize() is not RTC.RTC_OK:
-      self._rtcout.RTC_DEBUG("RTC initialization failed: %s", module_name)
-      comp.exit()
-      self._rtcout.RTC_DEBUG("%s was finalized", module_name)
-      return None
-
-    self._rtcout.RTC_DEBUG("RTC initialization succeeded: %s", module_name)
+      
+    self._rtcout.RTC_TRACE("RTC initialization succeeded: %s", comp_id.getProperty("implementation_id"))
     self.registerComponent(comp)
     return comp
+
 
 
   ##
@@ -751,13 +789,13 @@ class Manager:
   # @brief Register RT-Component directly without Factory
   # @endif
   def registerComponent(self, comp):
-    self._rtcout.RTC_DEBUG("Manager::registerComponent(%s)", comp.getInstanceName())
+    self._rtcout.RTC_TRACE("Manager::registerComponent(%s)", comp.getInstanceName())
 
     self._compManager.registerObject(comp)
     names = comp.getNamingNames()
 
     for name in names:
-      self._rtcout.RTC_DEBUG("Bind name: %s", name)
+      self._rtcout.RTC_TRACE("Bind name: %s", name)
       self._namingManager.bindObject(name, comp)
 
     return True
@@ -778,55 +816,37 @@ class Manager:
   # @brief Register RT-Component directly without Factory
   # @endif
   def unregisterComponent(self, comp):
-    self._rtcout.RTC_DEBUG("Manager::unregisterComponent(%s)", comp.getInstanceName())
+    self._rtcout.RTC_TRACE("Manager::unregisterComponent(%s)", comp.getInstanceName())
     self._compManager.unregisterObject(comp.getInstanceName())
     names = comp.getNamingNames()
     
     for name in names:
-      self._rtcout.RTC_DEBUG("Unbind name: %s", name)
+      self._rtcout.RTC_TRACE("Unbind name: %s", name)
       self._namingManager.unbindObject(name)
 
     return True
 
 
-  ##
-  # @if jp
-  # @brief RTコンポーネントにExecutionContextをバインドする
-  #
-  # 指定したRTコンポーネントにExecutionContextをバインドする。
-  # バインドするExecutionContextの型はプロパティ・ファイルの
-  # "exec_cxt.periodic.type"属性によって指定する。
-  #
-  # @param self
-  # @param comp バインド対象RTコンポーネントのインスタンス
-  #
-  # @return バインド処理結果(バインド成功:true、失敗:false)
-  #
-  # @else
-  # @brief Register RT-Component directly without Factory
-  # @endif
-  def bindExecutionContext(self, comp):
-    self._rtcout.RTC_DEBUG("Manager::bindExecutionContext()")
-    self._rtcout.RTC_DEBUG("ExecutionContext type: %s",
-                 self._config.getProperty("exec_cxt.periodic.type"))
+  # ExecutionContextBase* createContext(const char* ec_args);
+  def createContext(self, ec_args):
+    self._rtcout.RTC_TRACE("Manager::createContext()")
+    self._rtcout.RTC_TRACE("ExecutionContext type: %s",
+                           self._config.getProperty("exec_cxt.periodic.type"))
+    ec_id = [""]
+    ec_prop = OpenRTM_aist.Properties()
 
-    rtobj = comp.getObjRef()
+    if not self.procContextArgs(ec_args, ec_id, ec_prop):
+      return None
 
-    exec_cxt = None
+    factory = self._ecfactory.find(ec_id[0])
 
-    if OpenRTM_aist.isDataFlowComponent(rtobj):
-      ectype = self._config.getProperty("exec_cxt.periodic.type")
-      exec_cxt = self._ecfactory.find(ectype).create()
-      rate = self._config.getProperty("exec_cxt.periodic.rate")
-      exec_cxt.set_rate(float(rate))
-    else:
-      ectype = self._config.getProperty("exec_cxt.evdriven.type")
-      exec_cxt = self._ecfactory.find(ectype).create()
-    exec_cxt.bindComponent(comp)
-    exec_cxt.start()
-    self._ecs.append(exec_cxt)
-    return True
+    if factory == None:
+      self._rtcout.RTC_ERROR("Factory not found: %s", ec_id[0])
+      return None
 
+    ec = factory.create()
+    return ec
+    
 
   ##
   # @if jp
@@ -841,13 +861,26 @@ class Manager:
   # @brief Unregister RT-Component that is registered in the Manager
   # @endif
   def deleteComponent(self, instance_name):
-    self._rtcout.RTC_DEBUG("Manager::deleteComponent(%s)", instance_name)
+    self._rtcout.RTC_TRACE("Manager::deleteComponent(%s)", instance_name)
     comp = self._compManager.find(instance_name)
     if comp is None:
       return
 
+    prop = OpenRTM_aist.Properties()
+    prop.setProperty("vendor",comp.getProperties().getProperty("vendor"))
+    prop.setProperty("category",comp.getProperties().getProperty("category"))
+    prop.setProperty("implementation_id",comp.getProperties().getProperty("implementation_id"))
+    prop.setProperty("version",comp.getProperties().getProperty("version"))
+    
+    factory = self._factory.find(prop)
+
     comp.exit()
-    self._compManager.unregisterObject(instance_name)
+
+    if not factory:
+      print "deleteComponet() factory is None"
+      return
+    else:
+      factory.destroy(comp)
 
 
   ##
@@ -866,7 +899,7 @@ class Manager:
   # @brief Get RT-Component's pointer
   # @endif
   def getComponent(self, instance_name):
-    self._rtcout.RTC_DEBUG("Manager::getComponent(%s)", instance_name)
+    self._rtcout.RTC_TRACE("Manager::getComponent(%s)", instance_name)
     return self._compManager.find(instance_name)
 
 
@@ -884,7 +917,7 @@ class Manager:
   # @brief Get all RT-Component's pointer
   # @endif
   def getComponents(self):
-    self._rtcout.RTC_DEBUG("Manager::getComponents()")
+    self._rtcout.RTC_TRACE("Manager::getComponents()")
     return self._compManager.getObjects()
 
 
@@ -906,7 +939,7 @@ class Manager:
   # @brief Get the pointer to the ORB
   # @endif
   def getORB(self):
-    self._rtcout.RTC_DEBUG("Manager::getORB()")
+    self._rtcout.RTC_TRACE("Manager::getORB()")
     return self._orb
 
 
@@ -924,7 +957,7 @@ class Manager:
   # @brief Get the pointer to the RootPOA 
   # @endif
   def getPOA(self):
-    self._rtcout.RTC_DEBUG("Manager::getPOA()")
+    self._rtcout.RTC_TRACE("Manager::getPOA()")
     return self._poa
 
 
@@ -942,7 +975,7 @@ class Manager:
   #
   # @endif
   def getPOAManager(self):
-    self._rtcout.RTC_DEBUG("Manager::getPOAManager()")
+    self._rtcout.RTC_TRACE("Manager::getPOAManager()")
     return self._poaManager
 
 
@@ -974,7 +1007,7 @@ class Manager:
 
     self._module = OpenRTM_aist.ModuleManager(self._config)
     self._terminator = self.Terminator(self)
-    guard = ScopedLock(self._terminate.mutex)
+    guard = OpenRTM_aist.ScopedLock(self._terminate.mutex)
     self._terminate.waiting = 0
     del guard
 
@@ -1000,7 +1033,7 @@ class Manager:
   #
   # @endif
   def shutdownManager(self):
-    self._rtcout.RTC_DEBUG("Manager::shutdownManager()")
+    self._rtcout.RTC_TRACE("Manager::shutdownManager()")
     if self._timer:
       self._timer.stop()
 
@@ -1025,26 +1058,50 @@ class Manager:
   # @brief System logger initialization
   # @endif
   def initLogger(self):
-    logfile = self._config.getProperty("logger.file_name")
-    if logfile == "":
-      logfile = "./rtc.log"
 
-    if OpenRTM_aist.toBool(self._config.getProperty("logger.enable"), "YES", "NO", True):
-      self._Logbuf = OpenRTM_aist.Logbuf(fileName = logfile)
-      self._rtcout = OpenRTM_aist.LogStream(self._Logbuf)
-      self._rtcout.setLogLevel(self._config.getProperty("logger.log_level"))
-      self._rtcout.setLogLock(OpenRTM_aist.toBool(self._config.getProperty("logger.stream_lock"),
-                          "enable", "disable", False))
-
-      self._rtcout.RTC_INFO("%s", self._config.getProperty("openrtm.version"))
-      self._rtcout.RTC_INFO("Copyright (C) 2003-2007")
-      self._rtcout.RTC_INFO("  Noriaki Ando")
-      self._rtcout.RTC_INFO("  Task-intelligence Research Group,")
-      self._rtcout.RTC_INFO("  Intelligent Systems Research Institute, AIST")
-      self._rtcout.RTC_INFO("Manager starting.")
-      self._rtcout.RTC_INFO("Starting local logging.")
-    else:
+    if not OpenRTM_aist.toBool(self._config.getProperty("logger.enable"), "YES", "NO", True):
       self._rtcout = OpenRTM_aist.LogStream()
+      return True
+
+    logfile = "./rtc.log"
+
+    logouts = self._config.getProperty("logger.file_name")
+    logouts = logouts.split(",")
+    
+    self._rtcout = None
+
+    for i in range(len(logouts)):
+      tmp = [logouts[i]]
+      OpenRTM_aist.eraseHeadBlank(tmp)
+      OpenRTM_aist.eraseTailBlank(tmp)
+      logouts[i] = tmp[0]
+      if logouts[i].lower() == "stdout":
+        if self._rtcout is None:
+          self._rtcout = OpenRTM_aist.LogStream("manager","STDOUT")
+        else:
+          self._rtcout.addHandler(logouts[i])
+      else:
+        if logouts[i] == "":
+          logfile = "./rtc.log"
+        else:
+          logfile = logouts[i]
+          
+        if self._rtcout is None:
+          self._rtcout = OpenRTM_aist.LogStream("manager","FILE", logfile)
+        else:
+          self._rtcout.addHandler("FILE",logfile)
+
+    self._rtcout.setLogLevel(self._config.getProperty("logger.log_level"))
+    self._rtcout.setLogLock(OpenRTM_aist.toBool(self._config.getProperty("logger.stream_lock"),
+                                                "enable", "disable", False))
+
+    self._rtcout.RTC_INFO("%s", self._config.getProperty("openrtm.version"))
+    self._rtcout.RTC_INFO("Copyright (C) 2003-2007")
+    self._rtcout.RTC_INFO("  Noriaki Ando")
+    self._rtcout.RTC_INFO("  Task-intelligence Research Group,")
+    self._rtcout.RTC_INFO("  Intelligent Systems Research Institute, AIST")
+    self._rtcout.RTC_INFO("Manager starting.")
+    self._rtcout.RTC_INFO("Starting local logging.")
 
     return True
 
@@ -1062,7 +1119,7 @@ class Manager:
   # @brief System Logger finalization
   # @endif
   def shutdownLogger(self):
-    self._rtcout.RTC_DEBUG("Manager::shutdownLogger()")
+    self._rtcout.RTC_TRACE("Manager::shutdownLogger()")
 
 
   #============================================================
@@ -1083,20 +1140,22 @@ class Manager:
   # @brief CORBA ORB initialization
   # @endif
   def initORB(self):
-    self._rtcout.RTC_DEBUG("Manager::initORB()")
+    self._rtcout.RTC_TRACE("Manager::initORB()")
 
     try:
       args = OpenRTM_aist.split(self.createORBOptions(), " ")
+      args.insert(0,"manager")
       argv = OpenRTM_aist.toArgv(args)
       self._orb = CORBA.ORB_init(argv)
 
       self._poa = self._orb.resolve_initial_references("RootPOA")
-
+      
       if CORBA.is_nil(self._poa):
         self._rtcout.RTC_ERROR("Could not resolve RootPOA")
         return False
 
       self._poaManager = self._poa._get_the_POAManager()
+
     except:
       self._rtcout.RTC_ERROR("Exception: Caught unknown exception in initORB().")
       return False
@@ -1150,12 +1209,17 @@ class Manager:
   # @brief ORB finalization
   # @endif
   def shutdownORB(self):
-    self._rtcout.RTC_DEBUG("Manager::shutdownORB()")
+    self._rtcout.RTC_TRACE("Manager::shutdownORB()")
+    
+    if not self._orb:
+      return
+
     try:
       while self._orb.work_pending():
         self._rtcout.RTC_PARANOID("Pending work still exists.")
         if self._orb.work_pending():
-          self._orb.perform_work()
+            self._orb.perform_work()
+            pass
     except:
       traceback.print_exception(*sys.exc_info())
       pass
@@ -1211,7 +1275,7 @@ class Manager:
   #
   # @endif
   def initNaming(self):
-    self._rtcout.RTC_DEBUG("Manager::initNaming()")
+    self._rtcout.RTC_TRACE("Manager::initNaming()")
     self._namingManager = OpenRTM_aist.NamingManager(self)
 
     if not OpenRTM_aist.toBool(self._config.getProperty("naming.enable"), "YES", "NO", True):
@@ -1222,7 +1286,7 @@ class Manager:
     for meth in meths:
       names = OpenRTM_aist.split(self._config.getProperty(meth+".nameservers"), ",")
       for name in names:
-        self._rtcout.RTC_DEBUG("Register Naming Server: %s/%s", (meth, name))
+        self._rtcout.RTC_TRACE("Register Naming Server: %s/%s", (meth, name))
         self._namingManager.registerNameServer(meth,name)
 
     if OpenRTM_aist.toBool(self._config.getProperty("naming.update.enable"), "YES", "NO", True):
@@ -1250,7 +1314,7 @@ class Manager:
   #
   # @endif
   def shutdownNaming(self):
-    self._rtcout.RTC_DEBUG("Manager::shutdownNaming()")
+    self._rtcout.RTC_TRACE("Manager::shutdownNaming()")
     self._namingManager.unbindAll()
 
 
@@ -1270,7 +1334,7 @@ class Manager:
   #
   # @endif
   def initExecContext(self):
-    self._rtcout.RTC_DEBUG("Manager::initExecContext()")
+    self._rtcout.RTC_TRACE("Manager::initExecContext()")
     OpenRTM_aist.PeriodicExecutionContextInit(self)
     OpenRTM_aist.ExtTrigExecutionContextInit(self)
     OpenRTM_aist.OpenHRPExecutionContextInit(self)
@@ -1278,8 +1342,14 @@ class Manager:
 
 
   def initComposite(self):
-    self._rtcout.RTC_DEBUG("Manager::initComposite()")
+    self._rtcout.RTC_TRACE("Manager::initComposite()")
     OpenRTM_aist.PeriodicECSharedCompositeInit(self)
+    return True
+
+  
+  def initFactories(self):
+    self._rtcout.RTC_TRACE("Manager::initFactories()")
+    OpenRTM_aist.FactoryInit()
     return True
 
   
@@ -1314,8 +1384,10 @@ class Manager:
 
     try:
       otherref = file(self._config.getProperty("manager.refstring_path"),'r')
+      refstring = otherref.readline()
+      otherref.close()
     except:
-      print "Not found. : %s" % self._config.getProperty("manager.refstring_path")
+      pass
     else:
       otherref.close()
       try:
@@ -1341,7 +1413,7 @@ class Manager:
   #
   # @endif
   def shutdownComponents(self):
-    self._rtcout.RTC_DEBUG("Manager::shutdownComponents()")
+    self._rtcout.RTC_TRACE("Manager::shutdownComponents()")
     comps = self._namingManager.getObjects()
     for comp in comps:
       try:
@@ -1374,8 +1446,84 @@ class Manager:
   #
   # @endif
   def cleanupComponent(self, comp):
-    self._rtcout.RTC_DEBUG("Manager::cleanupComponents")
+    self._rtcout.RTC_TRACE("Manager::cleanupComponents")
     self.unregisterComponent(comp)
+
+
+  ##
+  # @if jp
+  # @brief createComponentの引数を処理する
+  # @ param self
+  # @ param comp_arg(str)
+  # @ param comp_id(Properties object)
+  # @ param comp_conf(Properties object)
+  # @ return True or False
+  # @else
+  #
+  # @endif
+  #
+  # bool procComponentArgs(const char* comp_arg,
+  #                        coil::Properties& comp_id,
+  #                        coil::Properties& comp_conf)
+  def procComponentArgs(self, comp_arg, comp_id, comp_conf):
+    id_and_conf = comp_arg.split("?")
+    if len(id_and_conf) != 1 and len(id_and_conf) != 2:
+      self._rtcout.RTC_ERROR("Invalid arguments. Two or more '?'")
+      return False
+
+    if id_and_conf[0].find(":") == -1:
+      id_and_conf[0] = "RTC:::" + id_and_conf[0] + ":"
+
+    id = id_and_conf[0].split(":")
+
+    if len(id) != 5:
+      self._rtcout.RTC_ERROR("Invalid RTC id format.")
+      return False
+
+    prof = ["RTC", "vendor", "category", "implementation_id", "version"]
+
+    if id[0] != prof[0]:
+      self._rtcout.RTC_ERROR("Invalid id type.")
+      return False
+
+    for i in [1,2,3,4]:
+      comp_id.setProperty(prof[i], id[i])
+      self._rtcout.RTC_TRACE("RTC basic profile %s: %s", (prof[i], id[i]))
+
+    if len(id_and_conf) == 2:
+      conf = id_and_conf[1].split("&")
+      for i in range(len(conf)):
+        keyval = conf[i].split("=")
+        comp_conf.setProperty(keyval[0],keyval[1])
+        self._rtcout.RTC_TRACE("RTC property %s: %s", (keyval[0], keyval[1]))
+
+    return True
+
+
+  # bool procContextArgs(const char* ec_args,
+  #                      std::string& ec_id,
+  #                      coil::Properties& ec_conf);
+  def procContextArgs(self, ec_args, ec_id, ec_conf):
+    id_and_conf = ec_args.split("?")
+
+    if len(id_and_conf) != 1 and len(id_and_conf) != 2:
+      self._rtcout.RTC_ERROR("Invalid arguments. Two or more '?'")
+      return False
+
+    if (id_and_conf[0] == "") or id_and_conf[0] is None:
+      self._rtcout.RTC_ERROR("Empty ExecutionContext's name")
+      return False
+
+    ec_id[0] = id_and_conf[0]
+
+    if len(id_and_conf) == 2:
+      conf = id_and_conf[1].split("&")
+      for i in range(len(conf)):
+        k = conf[i].split("=")
+        ec_conf.setProperty(k[0],k[1])
+        self._rtcout.RTC_TRACE("EC property %s: %s",(k[0],k[1]))
+        
+    return True
 
 
   ##
@@ -1392,6 +1540,7 @@ class Manager:
   # @else
   #
   # @endif
+  # void configureComponent(RTObject_impl* comp, const coil::Properties& prop);
   def configureComponent(self, comp, prop):
     category  = comp.getCategory()
     type_name = comp.getTypeName()
@@ -1420,16 +1569,19 @@ class Manager:
       else:
         type_prop.load(conff)
 
-    type_prop = type_prop.mergeProperties(name_prop)
-    comp.getProperties().mergeProperties(type_prop)
+    # type_prop = type_prop.mergeProperties(name_prop)
+    # comp.getProperties().mergeProperties(type_prop)
+    # comp.getProperties().mergeProperties(prop)
+
     comp.getProperties().mergeProperties(prop)
+    type_prop.mergeProperties(name_prop)
+    comp.getProperties().mergeProperties(type_prop)
 
     naming_formats = ""
     comp_prop = OpenRTM_aist.Properties(prop=comp.getProperties())
 
     naming_formats += self._config.getProperty("naming.formats")
     naming_formats += ", " + comp_prop.getProperty("naming.formats")
-
     naming_formats = OpenRTM_aist.flatten(OpenRTM_aist.unique_sv(OpenRTM_aist.split(naming_formats, ",")))
 
     naming_names = self.formatString(naming_formats, comp.getProperties())
@@ -1453,23 +1605,23 @@ class Manager:
   # @else
   #
   # @endif
-  def mergeProperty(self, prop, file_name):
-    if file_name == "":
-      self._rtcout.RTC_ERROR("Invalid configuration file name.")
-      return False
-
-    if file_name[0] != '\0':
-      
-      try:
-        conff = open(file_name)
-      except:
-        print "Not found. : %s" % file_name
-      else:
-        prop.load(conff)
-        conff.close()
-        return True
-
-    return False
+  #def mergeProperty(self, prop, file_name):
+  #  if file_name == "":
+  #    self._rtcout.RTC_ERROR("Invalid configuration file name.")
+  #    return False
+  #
+  #  if file_name[0] != '\0':
+  #    
+  #    try:
+  #      conff = open(file_name)
+  #    except:
+  #      print "Not found. : %s" % file_name
+  #    else:
+  #      prop.load(conff)
+  #      conff.close()
+  #      return True
+  #
+  #  return False
 
   ##
   # @if jp
@@ -1541,8 +1693,13 @@ class Manager:
   # @else
   #
   # @endif
-  def getLogbuf(self):
-    return self._rtcout
+  def getLogbuf(self,name="manager"):
+    if not OpenRTM_aist.toBool(self._config.getProperty("logger.enable"), "YES", "NO", True):
+      return OpenRTM_aist.LogStream()
+
+    logbuf = OpenRTM_aist.LogStream(name)
+    logbuf.setLogLevel(self._config.getProperty("logger.log_level"))
+    return logbuf
 
 
   ##
@@ -1614,16 +1771,43 @@ class Manager:
   # @endif
   class FactoryPredicate:
 
-
-
-    def __init__(self, name=None, factory=None):
+    def __init__(self, name=None, prop=None, factory=None):
       if name:
-        self._name = name
+        self._vendor   = ""
+        self._category = ""
+        self._impleid  = name
+        self._version  = ""
+      elif prop:
+        self._vendor   = prop.getProperty("vendor")
+        self._category = prop.getProperty("category")
+        self._impleid  = prop.getProperty("implementation_id")
+        self._version  = prop.getProperty("version")
       elif factory:
-        self._name = factory.profile().getProperty("implementation_id")
+        self._vendor   = factory.profile().getProperty("vendor")
+        self._category = factory.profile().getProperty("category")
+        self._impleid  = factory.profile().getProperty("implementation_id")
+        self._version  = factory.profile().getProperty("version")
+
 
     def __call__(self, factory):
-      return self._name == factory.profile().getProperty("implementation_id")
+      if self._impleid == "":
+        return False
+
+      _prop = OpenRTM_aist.Properties(prop=factory.profile())
+
+      if self._impleid != _prop.getProperty("implementation_id"):
+        return False
+
+      if self._vendor != "" and self._vendor != _prop.getProperty("vendor"):
+        return False
+
+      if self._category != "" and self._category != _prop.getProperty("category"):
+        return False
+
+      if self._version != "" and self._version != _prop.getProperty("version"):
+        return False
+
+      return True
 
 
 
