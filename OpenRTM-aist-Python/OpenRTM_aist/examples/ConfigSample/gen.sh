@@ -1,6 +1,6 @@
 #!/bin/sh
 
-rtc-template -bpython \
+python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
     --module-name=ConfigSample --module-type='DataFlowComponent' \
     --module-desc='Configuration example component' \
     --module-version=1.0 --module-vendor='Noriaki Ando, AIST' \

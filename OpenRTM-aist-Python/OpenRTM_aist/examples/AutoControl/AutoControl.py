@@ -42,9 +42,9 @@ class AutoControl(OpenRTM_aist.DataFlowComponentBase):
 		OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 
 		self._d_sens = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._sensIn = OpenRTM_aist.InPort("sens", self._d_sens, OpenRTM_aist.RingBuffer(8))
+		self._sensIn = OpenRTM_aist.InPort("sens", self._d_sens)
 		self._d_vel = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._velOut = OpenRTM_aist.OutPort("vel", self._d_vel, OpenRTM_aist.RingBuffer(8))
+		self._velOut = OpenRTM_aist.OutPort("vel", self._d_vel)
 		
 		# Set InPort buffers
 		self.registerInPort("sens",self._sensIn)

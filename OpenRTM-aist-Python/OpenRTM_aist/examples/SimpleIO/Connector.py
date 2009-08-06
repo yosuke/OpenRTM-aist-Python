@@ -8,11 +8,16 @@ from omniORB import CORBA
 import OpenRTM_aist
 import RTC
 
+def usage():
+    print "usage: ConnectorComp [options]"
+    print "  --flush         "
+    print ": Set subscription type Flush"
+    print "  --new           "
+    print ": Set subscription type New"
+    print "  --periodic [Hz] "
+    print ": Set subscription type Periodic \n"
 
 def main():
-
-    # subscription type
-    subs_type = "Flush"
 
     # initialization of ORB
     orb = CORBA.ORB_init(sys.argv)
@@ -41,19 +46,44 @@ def main():
     pout[0].disconnect_all()
 
 
+    # subscription type
+    subs_type = "flush"
+    period = ""
+
+    for arg in sys.argv[1:]:
+        if arg == "--flush":
+            subs_type = "flush"
+            break
+        elif arg == "--new":
+            subs_type = "new"
+            break
+        elif arg == "--periodic":
+            subs_type = "periodic"
+        elif sbus_type == "periodic" and type(arg) == float:
+            period = srt(arg)
+            break
+        else:
+            usage()
+            
     # connect ports
     conprof = RTC.ConnectorProfile("connector0", "", [pin[0],pout[0]], [])
     OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
                                          OpenRTM_aist.NVUtil.newNV("dataport.interface_type",
-                                                                   "CORBA_Any"))
+                                                                   "corba_cdr"))
 
     OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
                                          OpenRTM_aist.NVUtil.newNV("dataport.dataflow_type",
-                                                                   "Push"))
+                                                                   "push"))
 
     OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
                                          OpenRTM_aist.NVUtil.newNV("dataport.subscription_type",
                                                                    subs_type))
+
+    if period:
+        OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
+                                             OpenRTM_aist.NVUtil.newNV("dataport.push_interval",
+                                                                       period))
+
 
     ret = pin[0].connect(conprof)
     

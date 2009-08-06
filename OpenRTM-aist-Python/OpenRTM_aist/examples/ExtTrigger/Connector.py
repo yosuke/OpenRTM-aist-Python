@@ -61,11 +61,11 @@ def main():
     conprof = RTC.ConnectorProfile("connector0", "", [pin[0],pout[0]], [])
     OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
                                          OpenRTM_aist.NVUtil.newNV("dataport.interface_type",
-                                                                   "CORBA_Any"))
+                                                                   "corba_cdr"))
 
     OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
                                          OpenRTM_aist.NVUtil.newNV("dataport.dataflow_type",
-                                                                   "Push"))
+                                                                   "push"))
 
     OpenRTM_aist.CORBA_SeqUtil.push_back(conprof.properties,
                                          OpenRTM_aist.NVUtil.newNV("dataport.subscription_type",

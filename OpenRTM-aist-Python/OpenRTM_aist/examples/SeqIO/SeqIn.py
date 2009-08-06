@@ -32,14 +32,14 @@ class SeqIn(OpenRTM_aist.DataFlowComponentBase):
         self._floatSeq  = RTC.TimedFloatSeq(RTC.Time(0,0),[])
         self._doubleSeq = RTC.TimedDoubleSeq(RTC.Time(0,0),[])
 
-        self._shortIn     = OpenRTM_aist.InPort("Short", self._short, OpenRTM_aist.RingBuffer(8))
-        self._longIn      = OpenRTM_aist.InPort("Long", self._long, OpenRTM_aist.RingBuffer(8))
-        self._floatIn     = OpenRTM_aist.InPort("Float", self._float, OpenRTM_aist.RingBuffer(8))
-        self._doubleIn    = OpenRTM_aist.InPort("Double", self._double, OpenRTM_aist.RingBuffer(8))
-        self._shortSeqIn  = OpenRTM_aist.InPort("ShortSeq", self._shortSeq, OpenRTM_aist.RingBuffer(8))
-        self._longSeqIn   = OpenRTM_aist.InPort("LongSeq", self._longSeq, OpenRTM_aist.RingBuffer(8))
-        self._floatSeqIn  = OpenRTM_aist.InPort("FloatSeq", self._floatSeq, OpenRTM_aist.RingBuffer(8))
-        self._doubleSeqIn = OpenRTM_aist.InPort("DoubleSeq", self._doubleSeq, OpenRTM_aist.RingBuffer(8))
+        self._shortIn     = OpenRTM_aist.InPort("Short", self._short)
+        self._longIn      = OpenRTM_aist.InPort("Long", self._long)
+        self._floatIn     = OpenRTM_aist.InPort("Float", self._float)
+        self._doubleIn    = OpenRTM_aist.InPort("Double", self._double)
+        self._shortSeqIn  = OpenRTM_aist.InPort("ShortSeq", self._shortSeq)
+        self._longSeqIn   = OpenRTM_aist.InPort("LongSeq", self._longSeq)
+        self._floatSeqIn  = OpenRTM_aist.InPort("FloatSeq", self._floatSeq)
+        self._doubleSeqIn = OpenRTM_aist.InPort("DoubleSeq", self._doubleSeq)
 
 
         # Set InPort buffer

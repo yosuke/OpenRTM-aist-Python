@@ -1,6 +1,6 @@
 #!/bin/sh
 
-rtc-template -bpython \
+python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
     --module-name=SeqIn --module-type='SequenceInComponent' \
     --module-desc='Sequence InPort component' \
     --module-version=1.0 --module-vendor='Noriaki Ando, AIST' \
@@ -16,7 +16,7 @@ rtc-template -bpython \
     --inport=FloatSeq:TimedFloatSeq \
     --inport=DoubleSeq:TimedDoubleSeq
 
-rtc-template -bpython \
+python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
     --module-name=SeqOut --module-type='SequenceOutComponent' \
     --module-desc='Sequence OutPort component' \
     --module-version=1.0 --module-vendor='Noriaki Ando, AIST' \

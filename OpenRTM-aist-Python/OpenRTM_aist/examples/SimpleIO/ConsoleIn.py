@@ -23,7 +23,7 @@ class ConsoleIn(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
         OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         self._data = RTC.TimedLong(RTC.Time(0,0),0)
-        self._outport = OpenRTM_aist.OutPort("out", self._data, OpenRTM_aist.RingBuffer(8))
+        self._outport = OpenRTM_aist.OutPort("out", self._data)
 
 
     def onInitialize(self):

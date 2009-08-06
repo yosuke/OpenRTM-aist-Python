@@ -24,7 +24,7 @@ class ConsoleOut(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
         OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         self._data = RTC.TimedLong(RTC.Time(0,0),0)
-        self._inport = OpenRTM_aist.InPort("in", self._data, OpenRTM_aist.RingBuffer(8))
+        self._inport = OpenRTM_aist.InPort("in", self._data)
 
         # Set InPort buffer
         self.registerInPort("in", self._inport)
@@ -33,6 +33,7 @@ class ConsoleOut(OpenRTM_aist.DataFlowComponentBase):
     def onExecute(self, ec_id):
         if self._inport.isNew():
             data = self._inport.read()
+            print "Received: ", data
             print "Received: ", data.data
             print "TimeStamp: ", data.tm.sec, "[s] ", data.tm.nsec, "[ns]"
         time.sleep(0.001)

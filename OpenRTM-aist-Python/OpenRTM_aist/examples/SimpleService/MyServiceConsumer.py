@@ -7,6 +7,7 @@ import string
 import OpenRTM_aist
 import RTC
 import _GlobalIDL
+from omniORB import CORBA
 
 myserviceconsumer_spec = ["implementation_id", "MyServiceConsumer",
                           "type_name",         "MyServiceConsumer",
@@ -19,6 +20,20 @@ myserviceconsumer_spec = ["implementation_id", "MyServiceConsumer",
                           "language",          "Python",
                           "lang_type",         "script",
                           ""]
+
+class echo_functor:
+    def __init__(self, msg, result):
+        self._msg = msg
+        self._result = result
+
+    def __call__(self, obj):
+        try:
+            if CORBA.is_nil(obj):
+                print "No service connected."
+            else:
+                self._result[0] = obj.echo(self._msg)
+        except:
+            pass
 
 
 class MyServiceConsumer(OpenRTM_aist.DataFlowComponentBase):
@@ -37,7 +52,9 @@ class MyServiceConsumer(OpenRTM_aist.DataFlowComponentBase):
 
         # Set CORBA Service Ports
         self.registerPort(self._myServicePort)
-        
+
+        self._async_echo = None
+        self._result = [None]
 
     # The execution action that is invoked periodically
     def onExecute(self, ec_id):
@@ -54,10 +71,20 @@ class MyServiceConsumer(OpenRTM_aist.DataFlowComponentBase):
         argv = string.split(args)
         argv[-1] = argv[-1].rstrip("\n")
 
+        if self._async_echo and self._async_echo.finished():
+            print "echo() finished: ", self._result[0]
+            self._async_echo = None
+
         if argv[0] == "echo" and len(argv) > 1:
-            retmsg = ""
-            retmsg = self._myservice0._ptr().echo(argv[1])
-            print "echo return: ", retmsg
+            if not self._async_echo:
+                retmsg = ""
+                func = echo_functor(argv[1],self._result)
+                self._async_echo = OpenRTM_aist.Async_tInvoker(self._myservice0._ptr(),
+                                                               func)
+                self._async_echo.invoke()
+            else:
+                print "echo() still invoking"
+
             return RTC.RTC_OK
 
         if argv[0] == "set_value" and len(argv) > 1:

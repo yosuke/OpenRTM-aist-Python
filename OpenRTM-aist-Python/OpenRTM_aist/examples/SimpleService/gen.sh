@@ -1,5 +1,6 @@
 #!/bin/sh
-rtc-template -bpython \
+
+python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
     --module-name=MyServiceProvider --module-type="MyServiceProvider" \
     --module-desc="MyService Provider Sample component" \
     --module-version=0.1 --module-vendor=AIST --module-category=Generic \
@@ -8,7 +9,7 @@ rtc-template -bpython \
     --service=MyService:myservice0:MyService \
     --service-idl=MyService.idl
 
-rtc-template -bpython \
+python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
     --module-name=MyServiceConsumer --module-type="MyServiceConsumer" \
     --module-desc="MyService Consumer Sample component" \
     --module-version=0.1 --module-vendor=AIST --module-category=Generic \

@@ -23,12 +23,15 @@ class ConsoleIn(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
         OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         self._data = RTC.TimedLong(RTC.Time(0,0),0)
-        self._outport = OpenRTM_aist.OutPort("out", self._data, OpenRTM_aist.RingBuffer(8))
+        self._outport = OpenRTM_aist.OutPort("out", self._data)
 
         # Set OutPort buffer
         self.registerOutPort("out", self._outport)
 
         
+    def onInitialize(self):
+        return RTC.RTC_OK
+
     def onExecute(self, ec_id):
         print "Please input number: ",
         self._data.data = long(sys.stdin.readline())

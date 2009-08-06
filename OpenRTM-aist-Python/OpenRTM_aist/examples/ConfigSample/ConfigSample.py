@@ -121,10 +121,10 @@ def MyModuleInit(manager):
     # Create a component
     comp = manager.createComponent("ConfigSample")
 
-
     # Activate component
     poa = manager.getPOA()
-    obj = poa.servant_to_reference(comp)
+    #obj = poa.servant_to_reference(comp)
+    obj = comp._default_POA().servant_to_reference(comp)
     rtobj = obj._narrow(RTC.RTObject)
 
     ecs = rtobj.get_owned_contexts()

@@ -1,4 +1,4 @@
-python C:\Python24\Lib\site-packages\OpenRTM_aist\rtc-template\rtc-template.py -bpython^
+python %PYTHONPATH%\OpenRTM_aist\rtc-template\rtc-template.py -bpython^
     --module-name=SeqIn --module-type="SequenceInComponent"^
     --module-desc="Sequence InPort component"^
     --module-version=1.0 --module-vendor="Noriaki Ando, AIST"^

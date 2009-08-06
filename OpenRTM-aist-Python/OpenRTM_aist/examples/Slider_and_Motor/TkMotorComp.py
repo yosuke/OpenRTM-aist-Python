@@ -30,7 +30,7 @@ class TkMotorComp(OpenRTM_aist.DataFlowComponentBase):
 	def __init__(self, manager):
 		OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 		self._tk_data = RTC.TimedFloatSeq(RTC.Time(0,0), [])
-		self._tkIn = OpenRTM_aist.InPort("vel", self._tk_data, OpenRTM_aist.RingBuffer(8))
+		self._tkIn = OpenRTM_aist.InPort("vel", self._tk_data)
 
 		self.registerInPort("vel", self._tkIn)
 		self._cnt = 0

@@ -45,9 +45,9 @@ class TkJoyStick(OpenRTM_aist.DataFlowComponentBase):
 		OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 
 		self._d_pos = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._posOut = OpenRTM_aist.OutPort("pos", self._d_pos, OpenRTM_aist.RingBuffer(8))
+		self._posOut = OpenRTM_aist.OutPort("pos", self._d_pos)
 		self._d_vel = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._velOut = OpenRTM_aist.OutPort("vel", self._d_vel, OpenRTM_aist.RingBuffer(8))
+		self._velOut = OpenRTM_aist.OutPort("vel", self._d_vel)
 		
 
 		# Set OutPort buffers

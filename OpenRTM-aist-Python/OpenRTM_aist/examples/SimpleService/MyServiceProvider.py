@@ -3,6 +3,7 @@
 
 import sys
 import string
+import time
 
 import OpenRTM_aist
 import RTC
@@ -44,7 +45,10 @@ class MyServiceSVC_impl(_GlobalIDL__POA.MyService):
     def echo(self, msg):
         OpenRTM_aist.CORBA_SeqUtil.push_back(self._echoList, msg)
         print "MyService::echo() was called."
-        print "Message: ", msg
+        for i in range(10):
+            print "Message: ", msg
+            time.sleep(1)
+        print "MyService::echo() was finished."
         return msg
 
     def get_echo_history(self):

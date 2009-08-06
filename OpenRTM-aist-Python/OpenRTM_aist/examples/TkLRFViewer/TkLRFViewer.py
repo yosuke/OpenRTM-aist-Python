@@ -50,16 +50,13 @@ class LRFViewer(OpenRTM_aist.DataFlowComponentBase):
         OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         
         self._d_range = RTC.TimedShortSeq(RTC.Time(0,0),[])
-        self._rangeIn = OpenRTM_aist.InPort("range_data", self._d_range,
-                                            OpenRTM_aist.RingBuffer(8))
+        self._rangeIn = OpenRTM_aist.InPort("range_data", self._d_range)
         
         self._d_start = RTC.TimedShort(RTC.Time(0,0), 0)
-        self._startIn = OpenRTM_aist.InPort("start_point", self._d_start,
-                                            OpenRTM_aist.RingBuffer(8))
+        self._startIn = OpenRTM_aist.InPort("start_point", self._d_start)
 
         self._d_end   = RTC.TimedShort(RTC.Time(0,0), 0)
-        self._endIn   = OpenRTM_aist.InPort("end_point", self._d_end,
-                                            OpenRTM_aist.RingBuffer(8))
+        self._endIn   = OpenRTM_aist.InPort("end_point", self._d_end)
         
         # Set InPort buffers
         self.registerInPort("range_data",  self._rangeIn)

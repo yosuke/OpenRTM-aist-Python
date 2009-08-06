@@ -39,16 +39,13 @@ class NXTRTC(OpenRTM_aist.DataFlowComponentBase):
 		# DataPorts initialization
 		# <rtc-template block="data_ports">
 		self._d_vel = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._velIn = OpenRTM_aist.InPort("vel", self._d_vel,
-						  OpenRTM_aist.RingBuffer(8))
+		self._velIn = OpenRTM_aist.InPort("vel", self._d_vel)
 		self.registerInPort("vel",self._velIn)
 		self._d_pos = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._posOut = OpenRTM_aist.OutPort("pos", self._d_pos,
-						    OpenRTM_aist.RingBuffer(8))
+		self._posOut = OpenRTM_aist.OutPort("pos", self._d_pos)
 		self.registerOutPort("pos",self._posOut)
 		self._d_sens = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-		self._sensOut = OpenRTM_aist.OutPort("sens", self._d_sens,
-						     OpenRTM_aist.RingBuffer(8))
+		self._sensOut = OpenRTM_aist.OutPort("sens", self._d_sens)
 		self.registerOutPort("sens",self._sensOut)
 
 		# initialize of configuration-data.

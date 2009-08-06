@@ -47,10 +47,10 @@ class MobileRobotCanvas(OpenRTM_aist.DataFlowComponentBase):
         OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         
         self._d_vel = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-        self._velIn = OpenRTM_aist.InPort("vel", self._d_vel, OpenRTM_aist.RingBuffer(8))
+        self._velIn = OpenRTM_aist.InPort("vel", self._d_vel)
         
         self._d_pos = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-        self._posOut = OpenRTM_aist.OutPort("pos", self._d_pos, OpenRTM_aist.RingBuffer(8))
+        self._posOut = OpenRTM_aist.OutPort("pos", self._d_pos)
         
         # Set InPort buffers
         self.registerInPort("vel",self._velIn)
