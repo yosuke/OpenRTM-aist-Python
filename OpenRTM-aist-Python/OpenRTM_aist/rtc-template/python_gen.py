@@ -94,7 +94,7 @@ import time
 sys.path.append(".")
 
 # Import RTM module
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 # Import Service implementation class
@@ -110,14 +110,14 @@ import RTC
 # <rtc-template block="module_spec">
 # </rtc-template>
 
-class [module.name](OpenRTM.DataFlowComponentBase):
+class [module.name](OpenRTM_aist.DataFlowComponentBase):
 	def __init__(self, manager):
-		OpenRTM.DataFlowComponentBase.__init__(self, manager)
+		OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
 
 		[for inport]self._d_[inport.name] = RTC.[inport.type]([inport.data_type_args])
-		self._[inport.name]In = OpenRTM.InPort("[inport.name]", self._d_[inport.name], OpenRTM.RingBuffer(8))
+		self._[inport.name]In = OpenRTM_aist.InPort("[inport.name]", self._d_[inport.name])
 		[end][for outport]self._d_[outport.name] = RTC.[outport.type]([outport.data_type_args])
-		self._[outport.name]Out = OpenRTM.OutPort("[outport.name]", self._d_[outport.name], OpenRTM.RingBuffer(8))
+		self._[outport.name]Out = OpenRTM_aist.OutPort("[outport.name]", self._d_[outport.name])
 		[end]
 
 		# Set InPort buffers
@@ -127,13 +127,13 @@ class [module.name](OpenRTM.DataFlowComponentBase):
 		[for outport]self.registerOutPort("[outport.name]",self._[outport.name]Out)
 		[end]
 
-		[for corbaport]self._[corbaport.name]Port = OpenRTM.CorbaPort("[corbaport.name]")
+		[for corbaport]self._[corbaport.name]Port = OpenRTM_aist.CorbaPort("[corbaport.name]")
 		[end]
 
 		[for service]self._[service.name] = [service.type]_i()
 		[end]
 
-		[for consumer]self._[consumer.name] = OpenRTM.CorbaConsumer(interfaceType=_GlobalIDL.[consumer.type])
+		[for consumer]self._[consumer.name] = OpenRTM_aist.CorbaConsumer(interfaceType=_GlobalIDL.[consumer.type])
 		[end]
 		# Set service provider to Ports
 		[for service]self._[service.port]Port.registerProvider("[service.name]", "[service.type]", self._[service.name])
@@ -167,10 +167,10 @@ class [module.name](OpenRTM.DataFlowComponentBase):
 
 
 def MyModuleInit(manager):
-    profile = OpenRTM.Properties(defaults_str=[l_name]_spec)
+    profile = OpenRTM_aist.Properties(defaults_str=[l_name]_spec)
     manager.registerFactory(profile,
                             [module.name],
-                            OpenRTM.Delete)
+                            OpenRTM_aist.Delete)
 
     # Create a component
     comp = manager.createComponent("[module.name]")
@@ -178,7 +178,7 @@ def MyModuleInit(manager):
 
 
 def main():
-	mgr = OpenRTM.Manager.init(sys.argv)
+	mgr = OpenRTM_aist.Manager.init(sys.argv)
 	mgr.setModuleInitProc(MyModuleInit)
 	mgr.activateManager()
 	mgr.runManager()
