@@ -5,7 +5,6 @@ if _openrtm_idl_path not in sys.path:
     sys.path.append(_openrtm_idl_path)
 del _openrtm_idl_path
 
-
 from version import *
 from DefaultConfiguration import *
 import CORBA_SeqUtil
@@ -77,9 +76,6 @@ from InPortPullConnector import *
 from InPortPushConnector import *
 from OutPort import *
 from PortCallBack import *
-from InPortCorbaConsumer import *
-from InPortCorbaProvider import *
-from OutPortCorbaConsumer import *
 from CorbaPort import *
 from OutPortConnector import *
 from OutPortCorbaCdrConsumer import *
