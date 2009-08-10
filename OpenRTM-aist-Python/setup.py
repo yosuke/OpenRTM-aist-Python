@@ -126,6 +126,7 @@ class Build (build.build):
 			('build_scripts', has_scripts)
 			]
 
+
 try:
 	if g_os == "unix":
 		core.setup(name = "OpenRTM-aist-Python",
