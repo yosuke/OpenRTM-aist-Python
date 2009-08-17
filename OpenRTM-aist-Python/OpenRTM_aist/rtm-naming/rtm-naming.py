@@ -27,6 +27,7 @@ pla=sys.platform
 
 if pla == "win32":
     rmcmd = "del /F "
+    os.environ['PATH'] += os.environ['OMNI_ROOT']+"\\bin\\x86_win32"
 else:
     rmcmd = "rm -f "
 
