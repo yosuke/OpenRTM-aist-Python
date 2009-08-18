@@ -23,7 +23,7 @@
 
 import sys
 sys.path.insert(1,"../")
-
+print sys.path
 import unittest
 
 from SystemLogger import *
@@ -84,6 +84,12 @@ class TestLogger(unittest.TestCase):
 
 	def test_RTC_ERROR(self):
 		self.logstr.RTC_ERROR("error!!!!!")
+		def test():
+			raise MemorryError
+		try:
+			test()
+		except:
+			self.logstr.RTC_ERROR(sys.exc_info())
 
 
 	def test_RTC_WARN(self):
