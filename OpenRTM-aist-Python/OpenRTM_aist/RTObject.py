@@ -20,7 +20,6 @@ from omniORB import any
 from omniORB import CORBA
 import string
 import sys
-import traceback
 
 import OpenRTM, OpenRTM__POA
 import RTC,RTC__POA
@@ -895,7 +894,9 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       #               self._profile.properties)
     
     except:
-      traceback.print_exception(*sys.exc_info())
+      #traceback.print_exception(*sys.exc_info())
+      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+
     assert(False)
     return None
 
@@ -926,7 +927,8 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._portAdmin.getPortServiceList()
     except:
-      traceback.print_exception(*sys.exc_info())
+      #traceback.print_exception(*sys.exc_info())
+      self._rtcout.RTC_ERROR(sys.exc_info()[0])
 
     assert(False)
     return []
@@ -2751,7 +2753,8 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       self._poa.deactivate_object(self._poa.servant_to_id(self._SdoConfigImpl))
       self._poa.deactivate_object(self._poa.servant_to_id(self))
     except:
-      traceback.print_exception(*sys.exc_info())
+      #traceback.print_exception(*sys.exc_info())
+      self._rtcout.RTC_ERROR(sys.exc_info()[0])
 
     if self._manager:
       self._manager.cleanupComponent(self)

@@ -17,7 +17,6 @@
 from omniORB import *
 from omniORB import any
 import sys
-import traceback
 
 import OpenRTM_aist
 

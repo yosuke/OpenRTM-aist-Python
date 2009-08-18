@@ -80,6 +80,7 @@ class OutPortProvider(OpenRTM_aist.DataPortStatus):
     self._interfaceType    = ""
     self._dataflowType     = ""
     self._subscriptionType = ""
+    self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("OutPortProvider")
 
 
   ##
