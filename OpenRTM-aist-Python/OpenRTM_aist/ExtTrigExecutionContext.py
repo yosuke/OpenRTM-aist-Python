@@ -72,7 +72,7 @@ class ExtTrigExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
   # @endif
   def tick(self):
     self._rtcout.RTC_TRACE("tick()")
-    if not self._worker._cond.acquire(0):
+    if not self._worker._cond.acquire():
       return
     self._worker._called = True
     self._worker._cond.notify()

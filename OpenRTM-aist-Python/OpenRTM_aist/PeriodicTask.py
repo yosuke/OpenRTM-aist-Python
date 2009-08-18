@@ -145,7 +145,7 @@ class PeriodicTask(OpenRTM_aist.Task):
     guard = OpenRTM_aist.ScopedLock(self._alive.mutex)
     self._alive.value = False
 
-    self._suspend.cond.acquire(0)
+    self._suspend.cond.acquire()
     self._suspend.suspend = False
     self._suspend.cond.notify()
     self._suspend.cond.release()
@@ -167,7 +167,7 @@ class PeriodicTask(OpenRTM_aist.Task):
   #
   # virtual int suspend(void);
   def suspend(self):
-    self._suspend.cond.acquire(0)
+    self._suspend.cond.acquire()
     self._suspend.suspend = True
     self._suspend.cond.release()
     return 0
@@ -190,7 +190,7 @@ class PeriodicTask(OpenRTM_aist.Task):
   def resume(self):
     self._periodTime.reset()
     self._execTime.reset()
-    self._suspend.cond.acquire(0)
+    self._suspend.cond.acquire()
     self._suspend.suspend = False
     self._suspend.cond.notify()
     self._suspend.cond.release()
