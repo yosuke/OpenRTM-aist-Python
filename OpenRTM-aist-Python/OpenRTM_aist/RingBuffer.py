@@ -336,49 +336,54 @@ class RingBuffer(OpenRTM_aist.BufferBase):
   # ReturnCode write(const DataType& value,
   #                  long int sec = -1, long int nsec = 0)
   def write(self, value, sec = -1, nsec = 0):
-    self._full_cond.acquire(0)
-    if self.full():
-      timedwrite = self._timedwrite
-      overwrite  = self._overwrite
+    try:
+      self._full_cond.acquire()
+      if self.full():
+        timedwrite = self._timedwrite
+        overwrite  = self._overwrite
 
-      if not (sec < 0): # if second arg is set -> block mode
-        timedwrite = True
-        overwrite  = False
+        if not (sec < 0): # if second arg is set -> block mode
+          timedwrite = True
+          overwrite  = False
 
-      if overwrite and not timedwrite:       # "overwrite" mode
-        self.advanceRptr()
+        if overwrite and not timedwrite:       # "overwrite" mode
+          self.advanceRptr()
 
-      elif not overwrite and not timedwrite: # "do_notiong" mode
-        self._full_cond.release()
-        return OpenRTM_aist.BufferStatus.BUFFER_FULL
-
-      elif not overwrite and timedwrite:     # "block" mode
-
-        if sec < 0:
-          sec = self._wtimeout.sec()
-          nsec = self._wtimeout.usec() * 1000
-
-        # true: signaled, false: timeout
-        if not self._full_cond.wait(sec + (nsec/1000000000.0)):
+        elif not overwrite and not timedwrite: # "do_notiong" mode
           self._full_cond.release()
-          return OpenRTM_aist.BufferStatus.TIMEOUT
+          return OpenRTM_aist.BufferStatus.BUFFER_FULL
 
-      else: # unknown condition
-        self._full_cond.release()
-        return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
-      
-    empty = self.empty()
-      
-    self.put(value)
-      
-    if empty:
-      self._empty_cond.acquire(0)
-      self._empty_cond.notify()
-      self._empty_cond.release()
+        elif not overwrite and timedwrite:     # "block" mode
 
-    self.advanceWptr(1)
-    self._full_cond.release()
-    return OpenRTM_aist.BufferStatus.BUFFER_OK
+          if sec < 0:
+            sec = self._wtimeout.sec()
+            nsec = self._wtimeout.usec() * 1000
+
+          # true: signaled, false: timeout
+          if not self._full_cond.wait(sec + (nsec/1000000000.0)):
+            self._full_cond.release()
+            return OpenRTM_aist.BufferStatus.TIMEOUT
+
+        else: # unknown condition
+          self._full_cond.release()
+          return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
+      
+      empty = self.empty()
+      
+      self.put(value)
+      
+      if empty:
+        self._empty_cond.acquire()
+        self._empty_cond.notify()
+        self._empty_cond.release()
+
+      self.advanceWptr(1)
+      self._full_cond.release()
+      
+      return OpenRTM_aist.BufferStatus.BUFFER_OK
+    except:
+      return OpenRTM_aist.BufferStatus.BUFFER_OK
+      
 
     
   ##
@@ -575,7 +580,7 @@ class RingBuffer(OpenRTM_aist.BufferBase):
   # ReturnCode read(DataType& value,
   #                 long int sec = -1, long int nsec = 0)
   def read(self, value, sec = -1, nsec = 0):
-    self._empty_cond.acquire(0)
+    self._empty_cond.acquire()
       
     if self.empty():
       timedread = self._timedread
@@ -616,7 +621,7 @@ class RingBuffer(OpenRTM_aist.BufferBase):
     self.advanceRptr()
 
     if full_:
-      self._full_cond.acquire(0)
+      self._full_cond.acquire()
       self._full_cond.notify()
       self._full_cond.release()
 

@@ -212,7 +212,7 @@ class PeriodicTask(OpenRTM_aist.Task):
   #
   # virtual void signal();
   def signal(self):
-    self._suspend.cond.acquire(0)
+    self._suspend.cond.acquire()
     self._suspend.cond.notify()
     self._suspend.cond.release()
     return
@@ -355,7 +355,7 @@ class PeriodicTask(OpenRTM_aist.Task):
         self._periodTime.tack()
         
       # wait if suspended
-      self._suspend.cond.acquire(0)
+      self._suspend.cond.acquire()
       if self._suspend.suspend:
         self._suspend.cond.wait()
         # break if finalized
