@@ -15,6 +15,7 @@
 #         Advanced Industrial Science and Technology (AIST), Japan
 #     All rights reserved.
 
+import sys
 from omniORB import *
 from omniORB import any
 
@@ -139,34 +140,37 @@ class InPortCorbaCdrProvider(OpenRTM_aist.InPortProvider,
     #virtual ::OpenRTM::PortStatus put(const ::OpenRTM::CdrData& data)
     #  throw (CORBA::SystemException);
     def put(self, data):
-        self._rtcout.RTC_PARANOID("put()")
+        try:
+            self._rtcout.RTC_PARANOID("put()")
 
-        if not self._buffer:
-            return OpenRTM.PORT_ERROR
+            if not self._buffer:
+                return OpenRTM.PORT_ERROR
 
-        if self._buffer.full():
-            self._rtcout.RTC_WARN("buffer full")
-            return OpenRTM.BUFFER_FULL
+            if self._buffer.full():
+                self._rtcout.RTC_WARN("buffer full")
+                return OpenRTM.BUFFER_FULL
 
-        self._rtcout.RTC_PARANOID("received data size: %d", len(data))
+            self._rtcout.RTC_PARANOID("received data size: %d", len(data))
 
-        ret = self._buffer.write(data)
+            ret = self._buffer.write(data)
 
-        if ret == OpenRTM_aist.BufferStatus.BUFFER_OK:
-            return OpenRTM.PORT_OK
+            if ret == OpenRTM_aist.BufferStatus.BUFFER_OK:
+                return OpenRTM.PORT_OK
+            
+            elif ret == OpenRTM_aist.BufferStatus.BUFFER_ERROR:
+                return OpenRTM.PORT_ERROR
 
-        elif ret == OpenRTM_aist.BufferStatus.BUFFER_ERROR:
-            return OpenRTM.PORT_ERROR
+            elif ret == OpenRTM_aist.BufferStatus.BUFFER_FULL:
+                return OpenRTM.BUFFER_FULL
 
-        elif ret == OpenRTM_aist.BufferStatus.BUFFER_FULL:
-            return OpenRTM.BUFFER_FULL
+            elif ret == OpenRTM_aist.BufferStatus.BUFFER_EMPTY:
+                return OpenRTM.BUFFER_EMPTY
 
-        elif ret == OpenRTM_aist.BufferStatus.BUFFER_EMPTY:
-            return OpenRTM.BUFFER_EMPTY
-
-        elif ret == OpenRTM_aist.BufferStatus.TIMEOUT:
-            return OpenRTM.BUFFER_TIMEOUT
-
+            elif ret == OpenRTM_aist.BufferStatus.TIMEOUT:
+                return OpenRTM.BUFFER_TIMEOUT
+        except:
+            self._rtcout.RTC_TRACE(sys.exc_info()[0])
+            return OpenRTM.UNKNOWN_ERROR
         return OpenRTM.UNKNOWN_ERROR
 
 

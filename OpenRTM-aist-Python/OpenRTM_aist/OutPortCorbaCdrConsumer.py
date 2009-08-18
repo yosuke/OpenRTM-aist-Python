@@ -17,7 +17,6 @@
 #     All rights reserved.
 #
 
-import traceback
 import sys
 from omniORB import any
 import OpenRTM_aist
@@ -70,6 +69,7 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
     #
     def __init__(self):
         OpenRTM_aist.CorbaConsumer.__init__(self)
+        self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("OutPortCorbaCdrConsumer")
         self._buffer = None
         pass
 
@@ -174,6 +174,8 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
     #
     # virtual ReturnCode get(cdrMemoryStream& data);
     def get(self, data):
+        self._rtcout.RTC_PARANOID("get()")
+
         try:
             ret,cdr_data = self._ptr().get()
             
@@ -216,6 +218,7 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
     #
     # virtual bool subscribeInterface(const SDOPackage::NVList& properties);
     def subscribeInterface(self, properties):
+        self._rtcout.RTC_TRACE("subscribeInterface()")
         index = OpenRTM_aist.NVUtil.find_index(properties,"dataport.corba_cdr.outport_ior")
         
         if index < 0:
@@ -226,7 +229,8 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
             try:
                 ior = any.from_any(properties[index].value, keep_structs=True)
             except:
-                traceback.print_exception(*sys.exc_info())
+                #traceback.print_exception(*sys.exc_info())
+                self._rtcout.RTC_ERROR(sys.exc_info()[0])
             
             orb = OpenRTM_aist.Manager.instance().getORB()
             obj = orb.string_to_object(ior)
@@ -255,6 +259,7 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
     #
     # virtual void unsubscribeInterface(const SDOPackage::NVList& properties);
     def unsubscribeInterface(self, properties):
+        self._rtcout.RTC_TRACE("unsubscribeInterface()")
         index = OpenRTM_aist.NVUtil.find_index(properties,
                                                "dataport.corba_cdr.outport_ref")
         if index < 0:
@@ -271,7 +276,8 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
                         self.releaseObject()
 
             except:
-                traceback.print_exception(*sys.exc_info())
+                #traceback.print_exception(*sys.exc_info())
+                self._rtcout.RTC_ERROR(sys.exc_info()[0])
 
     
 def OutPortCorbaCdrConsumerInit():

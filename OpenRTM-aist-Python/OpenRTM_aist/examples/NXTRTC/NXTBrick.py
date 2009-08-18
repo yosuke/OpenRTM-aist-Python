@@ -4,6 +4,7 @@
 import nxt.locator
 from nxt.sensor import *
 from nxt.motor import *
+import time
 
 class NXTBrick:
     def __init__(self, bsock=None):
@@ -61,7 +62,22 @@ class NXTBrick:
         """
         state = []
         for m in self.motors:
-            state.append(m.get_output_state())
+            stat = None
+            for i in range(3):
+                try:
+                    stat = m.get_output_state()
+                    break
+                except:
+                    time.sleep(0.01)
+                    self.getMotors()
+                    continue
+
+            if stat == None:
+                import sys
+                print "Unknown motor encoder error"
+                print sys.exc_info()[1]
+            state.append(stat)
+
         return state
 
     def getSensors(self):
@@ -70,7 +86,21 @@ class NXTBrick:
         """
         state = []
         for s in self.sensors:
-            state.append(s.get_sample())
+            stat = None
+            for i in range(3):
+                try:
+                    stat = s.get_sample()
+                    break
+                except:
+                    time.sleep(0.01)
+                    self.getSensors()
+                    continue
+            if stat == None:
+                import sys
+                print "Unknown sensor error"
+                print sys.exc_info()[1]
+            state.append(stat)
+
         return state
 
 

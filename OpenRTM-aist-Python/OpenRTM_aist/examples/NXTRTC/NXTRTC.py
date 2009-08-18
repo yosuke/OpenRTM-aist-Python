@@ -87,31 +87,38 @@ class NXTRTC(OpenRTM_aist.DataFlowComponentBase):
 		return RTC.RTC_OK
 
 	def onExecute(self, ec_id):
-		# check new data.
-		if self._velIn.isNew():
-			# read velocity data from inport.
-			self._d_vel = self._velIn.read()
-			vel_ = [0,0,0]
-			vel_[self._mapping[self._map[0][0]]] = self._d_vel.data[0]
-			vel_[self._mapping[self._map[0][1]]] = self._d_vel.data[1]
-			# set velocity
-			self._nxtbrick.setMotors(vel_)
+		try:
+			# check new data.
+			if self._velIn.isNew():
+				# read velocity data from inport.
+				self._d_vel = self._velIn.read()
+				
+				vel_ = [0,0,0]
+				vel_[self._mapping[self._map[0][0]]] = self._d_vel.data[0]
+				vel_[self._mapping[self._map[0][1]]] = self._d_vel.data[1]
+				# set velocity
+#				print vel_
+				self._nxtbrick.setMotors(vel_)
+			else:
+				print "buffer empty"
 
-		# get sensor data.
-		sensor_   = self._nxtbrick.getSensors()
-		if sensor_:
-			self._d_sens.data = sensor_
-			# write sensor data to outport.
-			self._sensOut.write()
+			# get sensor data.
+			sensor_   = self._nxtbrick.getSensors()
+			if sensor_:
+				self._d_sens.data = sensor_
+				# write sensor data to outport.
+				self._sensOut.write()
 
-		# get position data.
-		position_ = self._nxtbrick.getMotors()
-		if position_:
-			self._d_pos.data = \
-			    [position_[self._mapping[self._map[0][0]]][9], \
-				     position_[self._mapping[self._map[0][1]]][9]]
-			# write position data to outport.
-			self._posOut.write()
+			# get position data.
+			position_ = self._nxtbrick.getMotors()
+			if position_:
+				self._d_pos.data = \
+				    [position_[self._mapping[self._map[0][0]]][9], \
+					     position_[self._mapping[self._map[0][1]]][9]]
+				# write position data to outport.
+				self._posOut.write()
+		except:
+			print sys.exc_info()[1]
 
 		return RTC.RTC_OK
 

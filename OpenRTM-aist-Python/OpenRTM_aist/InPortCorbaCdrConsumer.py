@@ -16,7 +16,6 @@
 #     All rights reserved.
 #
 
-import traceback
 import sys
 from omniORB import any
 from omniORB import CORBA
@@ -254,7 +253,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
         try:
             ior = any.from_any(properties[index].value, keep_structs=True)
         except:
-            traceback.print_exception(*sys.exc_info())
+            self._rtcout.RTC_ERROR(sys.exc_info()[0])
 
         
         if not ior:
@@ -301,7 +300,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
         try:
             obj = any.from_any(properties[index].value, keep_structs=True)
         except:
-            traceback.print_exception(*sys.exc_info())
+            self._rtcout.RTC_ERROR(sys.exc_info()[0])
     
         if not obj:
             self._rtcout.RTC_ERROR("prop[inport_ref] is not objref")
@@ -344,7 +343,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
         try:
             ior = any.from_any(properties[index].value, keep_structs=True)
         except:
-            traceback.print_exception(*sys.exc_info())
+            self._rtcout.RTC_ERROR(sys.exc_info()[0])
 
         if not ior:
             self._rtcout.RTC_ERROR("prop[inport_ior] is not string")
@@ -386,7 +385,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
         try:
             obj = any.from_any(properties[index].value, keep_structs=True)
         except:
-            traceback.print_exception(*sys.exc_info())
+            self._rtcout.RTC_ERROR(sys.exc_info()[0])
     
         if not obj:
             return False

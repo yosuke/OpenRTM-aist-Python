@@ -16,6 +16,7 @@
 #     All rights reserved.
 #
 
+import sys
 from omniORB import *
 from omniORB import any
 
@@ -187,16 +188,20 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
         if not self._buffer:
             return (OpenRTM.UNKNOWN_ERROR, None)
 
-        if self._buffer.empty():
-            return (OpenRTM.BUFFER_EMPTY, None)
+        try:
+            if self._buffer.empty():
+                return (OpenRTM.BUFFER_EMPTY, None)
 
-        cdr = [None]
-        ret = self._buffer.read(cdr)
+            cdr = [None]
+            ret = self._buffer.read(cdr)
 
-        if ret == 0:
-            return (OpenRTM.PORT_OK, cdr[0])
+            if ret == 0:
+                return (OpenRTM.PORT_OK, cdr[0])
+        except:
+            self._rtcout.RTC_TRACE(sys.exc_info()[0])
+            return (OpenRTM.UNKNOWN_ERROR,[None])
 
-        return (ret, None)
+        return (ret, [None])
     
 
 
