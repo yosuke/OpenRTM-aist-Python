@@ -17,8 +17,8 @@
 import threading
 import string
 import signal, os
-import sys
 import traceback
+import sys
 import time
 from omniORB import CORBA, PortableServer
 from types import IntType, ListType
@@ -1221,7 +1221,8 @@ class Manager:
             self._orb.perform_work()
             pass
     except:
-      traceback.print_exception(*sys.exc_info())
+      #traceback.print_exception(*sys.exc_info())
+      self._rtcout.RTC_TRACE(sys.exc_info()[0])
       pass
 
     self._rtcout.RTC_DEBUG("No pending works of ORB. Shutting down POA and ORB.")
@@ -1395,7 +1396,7 @@ class Manager:
       except:
         return False
       else:
-        reffile.write(self._pORB.object_to_string(self._mgrservant.getObjRef()))
+        reffile.write(self._orb.object_to_string(self._mgrservant.getObjRef()))
         reffile.close()
     return True
 
@@ -1421,14 +1422,16 @@ class Manager:
         p = OpenRTM_aist.Properties(key=comp.getInstanceName())
         p.mergeProperties(comp.getProperties())
       except:
-        traceback.print_exception(*sys.exc_info())
+        #traceback.print_exception(*sys.exc_info())
+        self._rtcout.RTC_TRACE(sys.exc_info()[0])
         pass
 
     for ec in self._ecs:
       try:
         self._poa.deactivate_object(self._poa.servant_to_id(ec))
       except:
-        traceback.print_exception(*sys.exc_info())
+        #traceback.print_exception(*sys.exc_info())
+        self._rtcout.RTC_TRACE(sys.exc_info()[0])
         pass
 
 
