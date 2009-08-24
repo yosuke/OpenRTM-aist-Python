@@ -69,7 +69,6 @@ class NXTBrick:
                     break
                 except:
                     time.sleep(0.01)
-                    self.getMotors()
                     continue
 
             if stat == None:
@@ -93,7 +92,6 @@ class NXTBrick:
                     break
                 except:
                     time.sleep(0.01)
-                    self.getSensors()
                     continue
             if stat == None:
                 import sys
