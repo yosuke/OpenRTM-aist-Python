@@ -132,8 +132,8 @@ try:
 		core.setup(name = "OpenRTM-aist-Python",
 			   version = "1.0.0",
 			   description = "Python modules for OpenRTM-aist-1.0",
-			   author = "Shinji Kurihara",
-			   author_email = "shinji.kurihara@aist.go.jp",
+			   author = "Noriaki Ando",
+			   author_email = "n-ando@aist.go.jp",
 			   url = "http://www.is.aist.go.jp/rt/OpenRTM-aist/html/",
 			   long_description = "OpenRTM-aist is a reference implementation of RT-Middleware,\
 		           which is now under standardization process in OMG (Object Management Group).\
