@@ -20,7 +20,8 @@ g_os = None
 if os.sep == '/':
 	g_os = "unix"
 	if sys.version_info[0:3] >= (2, 6, 0):
-		sitedir = os.path.join("lib", "python" + sys.version[:3], "dist-packages")
+		#sitedir = os.path.join("lib", "python" + sys.version[:3], "dist-packages")
+		sitedir = os.path.join("lib", "python" + sys.version[:3], "site-packages")
 	elif sys.version_info[0:3] >= (2, 2, 0):
 		sitedir = os.path.join("lib", "python" + sys.version[:3], "site-packages")
 elif os.sep == ':':
