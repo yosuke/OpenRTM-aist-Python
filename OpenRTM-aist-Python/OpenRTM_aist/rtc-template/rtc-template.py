@@ -79,14 +79,14 @@ conf_path = ['']
 
 if platform == "win32":
 	python_path = os.environ['PYTHONPATH'].split(";")
-	pyhelper_path = python_path[0] + "\\OpenRTM\\rtc-template"
+	pyhelper_path = python_path[0] + "\\OpenRTM_aist\\rtc-template"
 else:
 	conf_path = os.popen("which rtm-config", "r").read().split("\n")
 	if conf_path[0] != '':
 		pyhelper_path = libdir_path[0] + "/py_helper"
 	else:
 		python_path = os.environ['PYTHONPATH'].split(":")
-		pyhelper_path = python_path[0] + "/OpenRTM/rtc-template"
+		pyhelper_path = python_path[0] + "/OpenRTM_aist/rtc-template"
 sys.path.append(pyhelper_path)
 
 # Option format
