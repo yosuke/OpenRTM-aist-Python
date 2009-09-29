@@ -115,15 +115,15 @@ class OutPort(OpenRTM_aist.OutPortBase):
   def __init__(self, name, value, buffer=None):
     OpenRTM_aist.OutPortBase.__init__(self, name, OpenRTM_aist.toTypename(value))
     self._value          = value
-    self._timeoutTick    = 1000 # timeout tick: 1ms
-    self._writeBlock     = False
-    self._writeTimeout   = 0
+    #self._timeoutTick    = 1000 # timeout tick: 1ms
+    #self._writeBlock     = False
+    #self._writeTimeout   = 0
     self._OnWrite        = None
     self._OnWriteConvert = None
-    self._OnOverflow     = None
-    self._OnUnderflow    = None
-    self._OnConnect      = None
-    self._OnDisconnect   = None
+    #self._OnOverflow     = None
+    #self._OnUnderflow    = None
+    #self._OnConnect      = None
+    #self._OnDisconnect   = None
     
 
 
@@ -234,8 +234,8 @@ class OutPort(OpenRTM_aist.OutPortBase):
   # @brief Set read() block mode
   #
   # @endif
-  def setWriteBlock(self, block):
-    self._writeBlock = block
+  #def setWriteBlock(self, block):
+  #  self._writeBlock = block
 
 
   ##
@@ -254,8 +254,8 @@ class OutPort(OpenRTM_aist.OutPortBase):
   # @brief Set write() timeout
   #
   # @endif
-  def setWriteTimeout(self, timeout):
-    self._writeTimeout = timeout
+  #def setWriteTimeout(self, timeout):
+  #  self._writeTimeout = timeout
 
 
   ##
@@ -315,8 +315,8 @@ class OutPort(OpenRTM_aist.OutPortBase):
   # @brief Set OnOverflow callback
   #
   # @endif
-  def setOnOverflow(self, on_overflow):
-    self._OnOverflow = on_overflow
+  #def setOnOverflow(self, on_overflow):
+  #  self._OnOverflow = on_overflow
 
 
   ##
@@ -335,24 +335,24 @@ class OutPort(OpenRTM_aist.OutPortBase):
   # @brief Set OnUnderflow callback
   #
   # @endif
-  def setOnUnderflow(self, on_underflow):
-    self._OnUnderflow = on_underflow
+  #def setOnUnderflow(self, on_underflow):
+  #  self._OnUnderflow = on_underflow
 
 
-  def setOnConnect(self, on_connect):
-    self._OnConnect = on_connect
+  #def setOnConnect(self, on_connect):
+  #  self._OnConnect = on_connect
 
 
-  def setOnDisconnect(self, on_disconnect):
-    self._OnDisconnect = on_disconnect
+  #def setOnDisconnect(self, on_disconnect):
+  #  self._OnDisconnect = on_disconnect
 
 
-  def onConnect(self, id, publisher):
-    print "onConnect id:", id
+  #def onConnect(self, id, publisher):
+  #  print "onConnect id:", id
 
 
-  def onDisconnect(self, id):
-    print "onDisconnect id:", id
+  #def onDisconnect(self, id):
+  #  print "onDisconnect id:", id
 
 
   ##

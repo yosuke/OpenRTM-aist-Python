@@ -243,13 +243,66 @@ class OnReadTimeout:
     pass
 
 
-class OnConnect:
-  ## virtual void operator()(const char* id, PublisherBase* publisher) = 0;
-  def __call__(self, id, publisher):
-    pass
+  #============================================================
+  # callback functor base classes
+  ##
+  # @if jp
+  # @class ConnectCallback
+  # @brief connect/notify_connect() 時のコールバック抽象クラス
+  #
+  # Portに対してconnect/notify_connect() 等が呼び出される時に呼び出される
+  # コールバックファンクタ。引数に RTC::ConnectorProfile を取る。
+  #
+  # @param profile ConnectorProfile
+  #
+  # @since 1.0.0
+  #
+  # @else
+  # @class ConnectCallback
+  # @brief Callback functor abstract for connect/notify_connect() funcs
+  #
+  # This is the interface for callback functor for connect/notify_connect()
+  # invocation in Port. Argument is RTC::ConnectorProfile that is given
+  # these functions.
+  #
+  # @param profile ConnectorProfile
+  #
+  # @since 1.0.0
+  #
+  # @endif
+  #
+  class ConnectionCallback:
+    # virtual void operator()(RTC::ConnectorProfile& profile) = 0;
+    def __call__(self, profile):
+      pass
 
-
-class OnDisconnect:
-  ##virtual void operator()(const char* id) = 0;
-  def __call__(self, id):
-    pass
+  ##
+  # @if jp
+  # @class DisconnectCallback
+  # @brief disconnect/notify_disconnect() 時のコールバック抽象クラス
+  #
+  # Portに対してdisconnect/notify_disconnect() 等が呼び出される時に呼び出される
+  # コールバックファンクタ。引数に接続IDを取る。
+  #
+  # @param connector_id Connector ID
+  #
+  # @since 1.0.0
+  #
+  # @else
+  # @class DisconnectCallback
+  # @brief Callback functor abstract for disconnect/notify_disconnect() funcs
+  #
+  # This is the interface for callback functor for 
+  # disconnect/notify_disconnect() invocation in Port.
+  # Argument is connector ID is given these functions.
+  #
+  # @param connector_id Connector ID
+  #
+  # @since 1.0.0
+  #
+  # @endif
+  #
+  class DisconnectCallback:
+    #virtual void operator()(const char* connector_id) = 0;
+    def __call__(self, connector_id):
+      pass
