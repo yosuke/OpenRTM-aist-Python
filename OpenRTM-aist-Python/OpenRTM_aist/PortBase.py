@@ -1006,7 +1006,7 @@ class PortBase(RTC__POA.PortService):
   #
   # void setOnUnsubscribeInterfaces(ConnectionCallback* on_subscribe);
   def setOnUnsubscribeInterfaces(self, on_subscribe):
-    self._onUnsubscribeInterfaces = on_unsubscribe
+    self._onUnsubscribeInterfaces = on_subscribe
     return
 
 
