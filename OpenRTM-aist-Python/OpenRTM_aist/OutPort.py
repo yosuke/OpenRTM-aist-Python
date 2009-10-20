@@ -186,11 +186,11 @@ class OutPort(OpenRTM_aist.OutPortBase):
       return True
   
     # set timestamp
-    tm = Time()
-    value.tm.sec  = tm.sec
-    value.tm.nsec = tm.usec * 1000
+    #tm = Time()
+    #value.tm.sec  = tm.sec
+    #value.tm.nsec = tm.usec * 1000
 
-    tm_pre = Time()
+    #tm_pre = Time()
 
     # data -> (conversion) -> CDR stream
     cdr_stream = None
