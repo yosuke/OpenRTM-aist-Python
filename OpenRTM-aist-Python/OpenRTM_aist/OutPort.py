@@ -32,6 +32,14 @@ TIMEVALUE_ONE_SECOND_IN_USECS = 1000000 # 1 [sec] = 1000000 [usec]
 
 import time
 
+# for C++
+# template <class DataType>
+# void setTimestamp(DataType& data)
+def setTimestamp(data):
+  # set timestamp
+  tm = Time()
+  data.tm.sec  = tm.sec
+  data.tm.nsec = tm.usec * 1000
 
 
 ##
