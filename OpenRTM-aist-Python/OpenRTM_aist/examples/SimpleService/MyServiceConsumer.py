@@ -6,7 +6,7 @@ import string
 
 import OpenRTM_aist
 import RTC
-import _GlobalIDL
+import SimpleService
 from omniORB import CORBA
 
 myserviceconsumer_spec = ["implementation_id", "MyServiceConsumer",
@@ -45,7 +45,7 @@ class MyServiceConsumer(OpenRTM_aist.DataFlowComponentBase):
         self._myServicePort = OpenRTM_aist.CorbaPort("MyService")
 
         # initialization of Consumer
-        self._myservice0 = OpenRTM_aist.CorbaConsumer(interfaceType=_GlobalIDL.MyService)
+        self._myservice0 = OpenRTM_aist.CorbaConsumer(interfaceType=SimpleService.MyService)
         
         # Set service consumers to Ports
         self._myServicePort.registerConsumer("myservice0", "MyService", self._myservice0)

@@ -7,7 +7,7 @@ import time
 
 import OpenRTM_aist
 import RTC
-import _GlobalIDL, _GlobalIDL__POA
+import SimpleService, SimpleService__POA
 
 # Module specification
 myserviceprovider_spec = ["implementation_id", "MyServiceProvider",
@@ -33,7 +33,7 @@ class seq_print:
 
 
 # Class implementing IDL interface MyService(MyService.idl)
-class MyServiceSVC_impl(_GlobalIDL__POA.MyService):
+class MyServiceSVC_impl(SimpleService__POA.MyService):
     def __init__(self):
         self._echoList = []
         self._valueList = []
