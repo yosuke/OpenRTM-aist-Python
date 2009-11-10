@@ -135,7 +135,10 @@ class PublisherNew(OpenRTM_aist.PublisherBase):
       self._pushPolicy = self.NEW
   
     skipn = [self._skipn]
-    if not OpenRTM_aist.stringTo(skipn, skip_count):
+    ret = OpenRTM_aist.stringTo(skipn, skip_count)
+    if ret:
+      self._skipn = skipn[0]
+    else:
       self._rtcout.RTC_ERROR("invalid skip_count value: %s", skip_count)
       self._skipn = 0
 
@@ -303,9 +306,8 @@ class PublisherNew(OpenRTM_aist.PublisherBase):
         cdr = self._buffer.get()
         ret = self._consumer.put(cdr)
             
-        if ret == OpenRTM_aist.DataPortStatus.SEND_FULL:
-          return ret
-        elif ret != OpenRTM_aist.DataPortStatus.PORT_OK:
+        if ret != OpenRTM_aist.DataPortStatus.PORT_OK:
+          self._rtcout.RTC_DEBUG("%s = consumer.put()", ret)
           return ret
 
         self._buffer.advanceRptr()

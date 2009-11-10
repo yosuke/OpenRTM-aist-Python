@@ -14,6 +14,7 @@
 #         Advanced Industrial Science and Technology (AIST), Japan
 #     All rights reserved.
 
+import threading
 import OpenRTM_aist
 import RTC
 
@@ -278,6 +279,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     self._providerTypes = ""
     self._consumerTypes = ""
     self._providers     = []
+    self._connector_mutex = threading.RLock()
 
     self.initConsumers()
     self.initProviders()
@@ -304,6 +306,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     # provider のクリーンナップ
     OpenRTM_aist.CORBA_SeqUtil.for_each(self._providers,
                                         self.provider_cleanup())
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     # connector のクリーンナップ
     OpenRTM_aist.CORBA_SeqUtil.for_each(self._connectors,
                                         self.connector_cleanup())
@@ -379,6 +382,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # const std::vector<OutPortConnector*>& OutPortBase::connectors()
   def connectors(self):
     self._rtcout.RTC_TRACE("connectors(): size = %d", len(self._connectors))
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     return self._connectors
 
 
@@ -393,6 +397,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   def getConnectorProfiles(self):
     self._rtcout.RTC_TRACE("getConnectorProfiles(): size = %d", len(self._connectors))
     profs = []
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       profs.append(con.profile())
 
@@ -410,6 +415,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   def getConnectorIds(self):
     ids = []
 
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       ids.append(con.id())
 
@@ -427,6 +433,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # coil::vstring OutPortBase::getConnectorNames()
   def getConnectorNames(self):
     names = []
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       names.append(con.name())
 
@@ -447,6 +454,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     self._rtcout.RTC_TRACE("getConnectorProfileById(id = %s)", id)
 
     sid = id
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       if sid  == con.id():
         prof[0] = con.profile()
@@ -468,6 +476,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     self._rtcout.RTC_TRACE("getConnectorProfileById(id = %s)", name)
 
     sname = name
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       if sname == con.name():
         prof[0] = con.profile()
@@ -501,6 +510,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   #
   # void OutPortBase::activateInterfaces()
   def activateInterfaces(self):
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       con.activate()
 
@@ -514,6 +524,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   #
   # void OutPortBase::deactivateInterfaces()
   def deactivateInterfaces(self):
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       con.deactivate()
   
@@ -647,7 +658,9 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
     for (i,con) in enumerate(self._connectors):
       if id == con.id():
+        guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
         # Connector's dtor must call disconnect()
+        self._connectors[i].deactivate()
         del self._connectors[i]
         self._rtcout.RTC_TRACE("delete connector: %s", id)
         return
@@ -845,6 +858,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
       self._rtcout.RTC_TRACE("OutPortPushConnector created")
 
+      guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
       self._connectors.append(connector)
       self._rtcout.RTC_PARANOID("connector push backed: %d", len(self._connectors))
       return connector

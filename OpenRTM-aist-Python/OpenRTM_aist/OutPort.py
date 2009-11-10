@@ -215,6 +215,7 @@ class OutPort(OpenRTM_aist.OutPortBase):
       
     result = True
 
+    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       ret = con.write(cdr_stream)
       if ret != OpenRTM_aist.DataPortStatus.PORT_OK:

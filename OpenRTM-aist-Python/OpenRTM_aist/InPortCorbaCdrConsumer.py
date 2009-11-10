@@ -127,7 +127,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
         self._rtcout.RTC_PARANOID("put()")
 
         try:
-            return self._ptr().put(data)
+            return self.convertReturnCode(self._ptr().put(data))
         except:
             return OpenRTM_aist.DataPortStatus.CONNECTION_LOST
         
@@ -397,6 +397,25 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
         return True
 
     
+    def convertReturnCode(self, ret):
+        if ret == OpenRTM.PORT_OK:
+            return OpenRTM_aist.DataPortStatus.PORT_OK
+
+        elif ret == OpenRTM.PORT_ERROR:
+            return OpenRTM_aist.DataPortStatus.PORT_ERROR
+
+        elif ret == OpenRTM.BUFFER_FULL:
+            return OpenRTM_aist.DataPortStatus.SEND_FULL
+
+        elif ret == OpenRTM.BUFFER_TIMEOUT:
+            return OpenRTM_aist.DataPortStatus.SEND_TIMEOUT
+
+        elif ret == OpenRTM.UNKNOWN_ERROR:
+            return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR
+
+        else:
+            return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR
+
 
 def InPortCorbaCdrConsumerInit():
     factory = OpenRTM_aist.InPortConsumerFactory.instance()

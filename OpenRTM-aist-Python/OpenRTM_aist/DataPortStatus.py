@@ -35,7 +35,7 @@ class DataPortStatus:
     CONNECTION_LOST      = 11    
     UNKNOWN_ERROR        = 12
 
-    def toString(self, status):
+    def toString(status):
         str = ["PORT_OK",
                "PORT_ERROR",
                "BUFFER_FULL",
@@ -50,3 +50,5 @@ class DataPortStatus:
                "CONNECTION_LOST",
                "UNKNOWN_ERROR"]
         return str[status]
+
+    toString = staticmethod(toString)
