@@ -632,6 +632,9 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
 
         sdos = []
         for member in self._members[0]:
+            if member == "":
+                continue
+
             rtc = mgr.getComponent(member)
 
             if rtc is None:
