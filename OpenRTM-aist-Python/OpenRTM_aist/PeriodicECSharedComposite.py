@@ -164,7 +164,7 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     # Boolean set_members(const SDOList& sdo_list)
     def set_members(self, sdo_list):
         self._rtcout.RTC_DEBUG("set_members()")
-        self._rtcMembers = []
+        # self._rtcMembers = []
         self.removeAllMembers()
         self.updateExportedPortsList()
 
