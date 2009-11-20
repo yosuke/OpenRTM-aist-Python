@@ -174,6 +174,10 @@ class PortBase(RTC__POA.PortService):
   #
   # @endif
   def get_port_profile(self):
+    self._rtcout.RTC_TRACE("get_port_profile()")
+
+    self.updateConnectors()
+
     guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
 
     prof = RTC.PortProfile(self._profile.name,
@@ -234,6 +238,9 @@ class PortBase(RTC__POA.PortService):
   # virtual ConnectorProfileList* get_connector_profiles()
   def get_connector_profiles(self):
     self._rtcout.RTC_TRACE("get_connector_profiles()")
+
+    self.updateConnectors()
+
     guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     return self._profile.connector_profiles
 
@@ -265,6 +272,9 @@ class PortBase(RTC__POA.PortService):
   # @endif
   def get_connector_profile(self, connector_id):
     self._rtcout.RTC_TRACE("get_connector_profile(%s)", connector_id)
+
+    self.updateConnectors()
+
     guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.connector_profiles,
                                             self.find_conn_id(connector_id))
@@ -376,6 +386,7 @@ class PortBase(RTC__POA.PortService):
       del guard
 
     try:
+      connector_profile.properties.append(OpenRTM_aist.NVUtil.newNV("port.dataport.serializer.cdr.endian","little,big"))
       retval,connector_profile = connector_profile.ports[0].notify_connect(connector_profile)
       if retval != RTC.RTC_OK:
         self._rtcout.RTC_ERROR("Connection failed. cleanup.")
@@ -1725,6 +1736,37 @@ class PortBase(RTC__POA.PortService):
   # void appendProperty(const char* key, const char* value)
   def appendProperty(self, key, value):
     OpenRTM_aist.NVUtil.appendStringValue(self._profile.properties, key, value)
+
+
+
+  def updateConnectors(self):
+    guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
+    
+    connector_ids = []
+    clist = self._profile.connector_profiles
+
+    for cprof in clist:
+      if not self.checkPorts(cprof.ports):
+        connector_ids.append(cprof.connector_id)
+        self._rtcout.RTC_WARN("Dead connection: %s", cprof.connector_id)
+
+    for cid in connector_ids:
+      self.disconnect(cid)
+
+    return
+
+
+  def checkPorts(self, ports):
+    for port in ports:
+      try:
+        if port._non_existent():
+          self._rtcout.RTC_WARN("Dead Port reference detected.")
+          return False
+      except:
+        return False
+
+    return True
+
 
 
   #============================================================
