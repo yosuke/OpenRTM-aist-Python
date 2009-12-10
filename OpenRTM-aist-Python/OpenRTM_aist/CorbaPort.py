@@ -208,6 +208,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
     try:
       OpenRTM_aist.Manager.instance().getPOA().activate_object_with_id(oid,provider)
     except:
+      self._rtcout.RTC_DEBUG(sys.exc_info()[0])
       pass
     obj = OpenRTM_aist.Manager.instance().getPOA().id_to_reference(oid)
 
@@ -284,6 +285,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
       try:
         OpenRTM_aist.Manager.instance().getPOA().activate_object_with_id(self._servants[key].oid, self._servants[key].servant)
       except:
+        self._rtcout.RTC_DEBUG(sys.exc_info()[0])
         pass
 
   

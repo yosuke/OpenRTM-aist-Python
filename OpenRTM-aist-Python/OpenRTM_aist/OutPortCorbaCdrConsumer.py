@@ -189,6 +189,7 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
             return ret
 
         except:
+            self._rtcout.RTC_ERROR(sys.exc_info()[0])
             return OpenRTM_aist.DataPortStatus.CONNECTION_LOST
 
         return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR

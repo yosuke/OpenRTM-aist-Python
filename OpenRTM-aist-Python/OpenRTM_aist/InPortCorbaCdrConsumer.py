@@ -129,6 +129,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
         try:
             return self.convertReturnCode(self._ptr().put(data))
         except:
+            self._rtcout.RTC_ERROR(sys.exc_info()[0])
             return OpenRTM_aist.DataPortStatus.CONNECTION_LOST
         
         return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR
