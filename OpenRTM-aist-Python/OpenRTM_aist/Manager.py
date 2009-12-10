@@ -589,6 +589,7 @@ class Manager:
       self._factory.registerObject(factory)
       return True
     except:
+      self._rtcout.RTC_ERROR(sys.exc_info()[0])
       return False
 
 
@@ -627,6 +628,7 @@ class Manager:
       self._ecfactory.registerObject(OpenRTM_aist.ECFactoryPython(name, new_func, delete_func))
       return True
     except:
+      self._rtcout.RTC_ERROR(sys.exc_info()[0])
       return False
 
     return False
@@ -720,8 +722,8 @@ class Manager:
     self._rtcout.RTC_TRACE("Manager::createComponent(%s)", comp_args)
     comp_prop = OpenRTM_aist.Properties()
     comp_id   = OpenRTM_aist.Properties()
-    arg = str(comp_args)
 
+    print "comp_args:", comp_args
     if not self.procComponentArgs(comp_args, comp_id, comp_prop):
       return None
 
@@ -1388,12 +1390,14 @@ class Manager:
       refstring = otherref.readline()
       otherref.close()
     except:
+      self._rtcout.RTC_ERROR(sys.exc_info()[0])
       pass
     else:
       otherref.close()
       try:
         reffile = file(self._config.getProperty("manager.refstring_path"),'w')
       except:
+        self._rtcout.RTC_ERROR(sys.exc_info()[0])
         return False
       else:
         reffile.write(self._orb.object_to_string(self._mgrservant.getObjRef()))
