@@ -94,6 +94,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
         self.addProperty("port.port_type", "DataInPort")
         self.addProperty("dataport.data_type", data_type)
         self.addProperty("dataport.subscription_type", "Any")
+        self._value = None
 
     
     
@@ -260,6 +261,9 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
             if connector == 0:
                 return RTC.RTC_ERROR
 
+            connector.setDataType(self._value)
+            provider.setConnector(connector) # So that a provider gets endian information from a connector.
+
             self._rtcout.RTC_DEBUG("publishInterface() successfully finished.")
             return RTC.RTC_OK
 
@@ -321,7 +325,18 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
 
         if dflow_type == "push":
             self._rtcout.RTC_DEBUG("dataflow_type = push .... do nothing")
-            return RTC.RTC_OK
+
+            id = cprof.connector_id
+            for connector in self._connectors:
+                if connector.id() == id:
+                    profile = OpenRTM_aist.ConnectorBase.Profile(cprof.name,
+                                                                 cprof.connector_id,
+                                                                 OpenRTM_aist.CORBA_SeqUtil.refToVstring(cprof.ports),
+                                                                 prop)
+                    return connector.setProfile(profile)
+
+            self._rtcout.RTC_ERROR("subscribeInterfaces(): Not found connector.")
+            return RTC.RTC_ERROR
         
         elif dflow_type == "pull":
             self._rtcout.RTC_DEBUG("dataflow_type = pull .... create PullConnector")

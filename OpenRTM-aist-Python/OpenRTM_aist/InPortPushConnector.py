@@ -18,6 +18,10 @@
 #
 
 
+from omniORB import *
+from omniORB import any
+import sys
+
 import OpenRTM_aist
 
 class InPortPushConnector(OpenRTM_aist.InPortConnector):
@@ -186,3 +190,27 @@ class InPortPushConnector(OpenRTM_aist.InPortConnector):
         buf_type = profile.properties.getProperty("buffer_type","ring_buffer")
         return OpenRTM_aist.CdrBufferFactory.instance().createObject(buf_type)
 
+    # ReturnCode write(const OpenRTM::CdrData& data);
+    def write(self, data):
+
+        if not self._dataType:
+            return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
+
+        _data = None
+        # CDR -> (conversion) -> data
+        if not self._endian:
+            return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
+
+        elif self._endian == "little":
+            _data = cdrUnmarshal(any.to_any(self._dataType).typecode(),data,1)
+
+        elif self._endian == "big":
+            _data = cdrUnmarshal(any.to_any(self._dataType).typecode(),data,0)
+        else:
+            self._rtcout.RTC_ERROR("unknown endian from connector")
+            return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
+
+        self._buffer.write(_data)
+        return OpenRTM_aist.BufferStatus.BUFFER_OK
+
+        

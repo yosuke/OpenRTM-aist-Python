@@ -853,7 +853,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
         return 0
 
       if connector is None:
-        self._rtcout.RTC_ERROR("old compiler? new returned 0;")
+        self._rtcout.RTC_ERROR("OutPortPushConnector creation failed")
         return 0
 
       self._rtcout.RTC_TRACE("OutPortPushConnector created")
@@ -864,7 +864,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
       return connector
 
     except:
-      self._rtcout.RTC_ERROR("OutPortPushConnector creation failed")
+      self._rtcout.RTC_ERROR("Exeption: OutPortPushConnector creation failed")
       return 0
 
 

@@ -386,7 +386,11 @@ class PortBase(RTC__POA.PortService):
       del guard
 
     try:
-      connector_profile.properties.append(OpenRTM_aist.NVUtil.newNV("port.dataport.serializer.cdr.endian","little,big"))
+      prop = OpenRTM_aist.Properties()
+      OpenRTM_aist.NVUtil.copyToProperties(prop, connector_profile.properties)
+      if prop.findNode("dataport"):
+        connector_profile.properties.append(OpenRTM_aist.NVUtil.newNV("dataport.serializer.cdr.endian","little,big"))
+
       retval,connector_profile = connector_profile.ports[0].notify_connect(connector_profile)
       if retval != RTC.RTC_OK:
         self._rtcout.RTC_ERROR("Connection failed. cleanup.")

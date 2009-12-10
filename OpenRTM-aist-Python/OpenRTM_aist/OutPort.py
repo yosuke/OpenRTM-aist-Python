@@ -200,24 +200,14 @@ class OutPort(OpenRTM_aist.OutPortBase):
 
     #tm_pre = Time()
 
-    # data -> (conversion) -> CDR stream
-    cdr_stream = None
-    
-    try:
-      if self._OnWriteConvert:
-        value = self._OnWriteConvert(value)
-        cdr_stream = cdrMarshal(any.to_any(value).typecode(), value, 1)
-      else:
-        cdr_stream = cdrMarshal(any.to_any(value).typecode(), value, 1)
-    except:
-      print "Exception: cdrMarshal."
-      return False
+    if self._OnWriteConvert:
+      value = self._OnWriteConvert(value)
       
     result = True
 
     guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
-      ret = con.write(cdr_stream)
+      ret = con.write(value)
       if ret != OpenRTM_aist.DataPortStatus.PORT_OK:
         result = False
         if ret == OpenRTM_aist.DataPortStatus.CONNECTION_LOST:

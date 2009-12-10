@@ -17,6 +17,7 @@
 #
 
 import OpenRTM_aist
+import RTC, RTC__POA
 
 
 ##
@@ -51,6 +52,8 @@ class InPortConnector(OpenRTM_aist.ConnectorBase):
         self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("InPortConnector")
         self._profile = profile
         self._buffer = buffer
+        self._dataType = None
+        self._endian = ""
 
 
     ##
@@ -170,3 +173,28 @@ class InPortConnector(OpenRTM_aist.ConnectorBase):
     # virtual ReturnCode read(cdrMemoryStream& data) = 0;
     def read(self, data):
         pass
+
+    # void setProfile(ConnectorBase::Profile profile);
+    def setProfile(self, profile):
+        self._profile = profile
+
+        if self._profile.properties.hasKey("serializer"):
+            endian = self._profile.properties.getProperty("serializer.cdr.endian")
+            if not endian:
+                self._rtcout.RTC_ERROR("InPortConnector.setProfile(): endian is not supported.")
+                return RTC.RTC_ERROR
+        
+            endian = OpenRTM_aist.split(endian, ",") # Maybe endian is ["little","big"]
+            self._endian = OpenRTM_aist.normalize(endian) # Maybe self._endian is "little" or "big"
+        else:
+            self._endian = "little"
+
+        print "endian: ", self._endian # for debug. 2009/12/10 S.K
+        return RTC.RTC_OK
+
+
+
+    # template<class DataType>
+    # void setDataTyep(DataType data);
+    def setDataType(self, data):
+        self._dataType = data

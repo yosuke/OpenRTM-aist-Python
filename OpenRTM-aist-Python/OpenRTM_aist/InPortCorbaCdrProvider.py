@@ -152,7 +152,10 @@ class InPortCorbaCdrProvider(OpenRTM_aist.InPortProvider,
 
             self._rtcout.RTC_PARANOID("received data size: %d", len(data))
 
-            ret = self._buffer.write(data)
+            # ret = self._buffer.write(data)
+            if not self._connector:
+                return OpenRTM.PORT_ERROR
+            ret = self._connector.write(data)
 
             if ret == OpenRTM_aist.BufferStatus.BUFFER_OK:
                 return OpenRTM.PORT_OK

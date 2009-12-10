@@ -17,6 +17,9 @@
 #     All rights reserved.
 #
 
+from omniORB import *
+from omniORB import any
+
 import OpenRTM_aist
 
 class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
@@ -65,9 +68,21 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
         if self._publisher.init(profile.properties) != OpenRTM_aist.DataPortStatus.PORT_OK:
             raise
         
+        if self._profile.properties.hasKey("serializer"):
+            endian = self._profile.properties.getProperty("serializer.cdr.endian")
+            if not endian:
+                self._rtcout.RTC_ERROR("write(): endian is not set.")
+                raise
+        
+            endian = OpenRTM_aist.split(endian, ",") # Maybe endian is ["little","big"]
+            self._endian = OpenRTM_aist.normalize(endian) # Maybe self._endian is "little" or "big"
+        else:
+            self._endian = "little"
+
         self._consumer.init(profile.properties)
         self._publisher.setConsumer(self._consumer)
         self._publisher.setBuffer(self._buffer)
+
         return
 
 
@@ -90,7 +105,6 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
         self.disconnect()
         return
 
-
     ##
     # @if jp
     # @brief データの書き込み
@@ -106,11 +120,22 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
     # will be transferred to correspondent InPort.
     #
     # @endif
-    #
-    # virtual ReturnCode write(const cdrMemoryStream& data);
+    # template<class DataType>
+    # virtual ReturnCode write(const DataType& data);
     def write(self, data):
         self._rtcout.RTC_TRACE("write()")
-        return self._publisher.write(data, 0, 0)
+
+        # data -> (conversion) -> CDR stream
+        cdr_data = None    
+        if self._endian == "little":
+            cdr_data = cdrMarshal(any.to_any(data).typecode(), data, 1)
+        elif self._endian == "big":
+            cdr_data = cdrMarshal(any.to_any(data).typecode(), data, 0)
+        else:
+            self._rtcout.RTC_ERROR("write(): endian %s is not support.",self._endian)
+            return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR
+
+        return self._publisher.write(cdr_data, 0, 0)
 
 
     ##

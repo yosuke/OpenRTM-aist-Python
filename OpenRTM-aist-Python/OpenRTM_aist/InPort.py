@@ -344,9 +344,11 @@ class InPort(OpenRTM_aist.InPortBase):
     cdr = []
     ret = self._connectors[0].read(cdr)
 
+
     if ret == OpenRTM_aist.DataPortStatus.PORT_OK:
       self._rtcout.RTC_DEBUG("data read succeeded")
-      self._value = cdrUnmarshal(any.to_any(self._value).typecode(),cdr[0],1)
+      self._value = cdr[0]
+
       if self._OnReadConvert is not None:
         self._value = self._OnReadConvert(self._value)
         self._rtcout.RTC_DEBUG("OnReadConvert called")

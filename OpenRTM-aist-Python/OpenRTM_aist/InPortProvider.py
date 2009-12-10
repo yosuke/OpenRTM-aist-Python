@@ -56,6 +56,7 @@ class InPortProvider(OpenRTM_aist.DataPortStatus):
     self._dataflowType = ""
     self._subscriptionType = ""
     self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("InPortProvider")
+    self._connector = None
 
 
   ##
@@ -151,12 +152,16 @@ class InPortProvider(OpenRTM_aist.DataPortStatus):
 
 
 
+  def setConnector(self, connector):
+    self._connector = connector
+
+
 inportproviderfactory = None
 
 
 class InPortProviderFactory(OpenRTM_aist.Factory,InPortProvider):
   def __init__(self):
-    OpenRTM_aist.Factory.__init__(self)
+    OpenRTM_aist.Factory.__init__(self) # Call GlobalFactory.Factory()
     InPortProvider.__init__(self)
     return
 
