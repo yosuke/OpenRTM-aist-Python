@@ -1,5 +1,5 @@
-#/usr/bin/env python
-# -*- Python -*-
+#!/usr/bin/env python
+# -*- coding: euc-jp -*-
 
 import sys
 
@@ -81,7 +81,7 @@ class SeqOut(OpenRTM_aist.DataFlowComponentBase):
             doubleSeq.append(float(random.uniform(0.0, 10.0)))
             print str(i), " : ", shortSeq[i], "      ", longSeq[i], "    ", floatSeq[i], "    ", doubleSeq[i]
 
-        # $B%+!<%=%k$N0\F0(B   (^[[nA : n$B9T>e$X0\F0(B)
+        # ¥«¡¼¥½¥ë¤Î°ÜÆ°   (^[[nA : n¹Ô¾å¤Ø°ÜÆ°)
         print "[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r"
         
         self._shortSeq.data = shortSeq
