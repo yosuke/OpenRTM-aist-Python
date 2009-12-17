@@ -75,9 +75,16 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
                 raise
         
             endian = OpenRTM_aist.split(endian, ",") # Maybe endian is ["little","big"]
-            self._endian = OpenRTM_aist.normalize(endian) # Maybe self._endian is "little" or "big"
+            endian = OpenRTM_aist.normalize(endian) # Maybe self._endian is "little" or "big"
+            if endian == "little":
+                self._endian = True
+            elif endian == "big":
+                self._endian = False
+            else:
+                self._endian = None
+
         else:
-            self._endian = "little"
+            self._endian = True # little endian
 
         self._consumer.init(profile.properties)
         self._publisher.setConsumer(self._consumer)
@@ -127,10 +134,8 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
 
         # data -> (conversion) -> CDR stream
         cdr_data = None    
-        if self._endian == "little":
-            cdr_data = cdrMarshal(any.to_any(data).typecode(), data, 1)
-        elif self._endian == "big":
-            cdr_data = cdrMarshal(any.to_any(data).typecode(), data, 0)
+        if self._endian is not None:
+            cdr_data = cdrMarshal(any.to_any(data).typecode(), data, self._endian)
         else:
             self._rtcout.RTC_ERROR("write(): endian %s is not support.",self._endian)
             return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR

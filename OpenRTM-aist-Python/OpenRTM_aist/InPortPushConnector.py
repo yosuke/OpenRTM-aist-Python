@@ -198,14 +198,9 @@ class InPortPushConnector(OpenRTM_aist.InPortConnector):
 
         _data = None
         # CDR -> (conversion) -> data
-        if not self._endian:
-            return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
+        if self._endian is not None:
+            _data = cdrUnmarshal(any.to_any(self._dataType).typecode(),data,self._endian)
 
-        elif self._endian == "little":
-            _data = cdrUnmarshal(any.to_any(self._dataType).typecode(),data,1)
-
-        elif self._endian == "big":
-            _data = cdrUnmarshal(any.to_any(self._dataType).typecode(),data,0)
         else:
             self._rtcout.RTC_ERROR("unknown endian from connector")
             return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET

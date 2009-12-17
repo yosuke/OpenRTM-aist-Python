@@ -53,7 +53,7 @@ class InPortConnector(OpenRTM_aist.ConnectorBase):
         self._profile = profile
         self._buffer = buffer
         self._dataType = None
-        self._endian = ""
+        self._endian = None
 
 
     ##
@@ -185,11 +185,18 @@ class InPortConnector(OpenRTM_aist.ConnectorBase):
                 return RTC.RTC_ERROR
         
             endian = OpenRTM_aist.split(endian, ",") # Maybe endian is ["little","big"]
-            self._endian = OpenRTM_aist.normalize(endian) # Maybe self._endian is "little" or "big"
-        else:
-            self._endian = "little"
+            endian = OpenRTM_aist.normalize(endian) # Maybe self._endian is "little" or "big"
 
-        print "endian: ", self._endian # for debug. 2009/12/10 S.K
+            if endian == "little":
+                self._endian = True
+            elif endian == "big":
+                self._endian = False
+            else:
+                self._endian = None
+            
+        else:
+            self._endian = True # little endian
+
         return RTC.RTC_OK
 
 

@@ -54,7 +54,7 @@ class OutPortConnector(OpenRTM_aist.ConnectorBase):
     def __init__(self, profile):
         self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("OutPortConnector")
         self._profile = profile
-        self._endian = ""
+        self._endian = None
         return
 
     ##
