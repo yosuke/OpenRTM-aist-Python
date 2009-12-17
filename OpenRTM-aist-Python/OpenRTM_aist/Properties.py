@@ -974,12 +974,7 @@ class Properties:
 
     keys = []
     self.split(key, '.', keys)
-    node = self._getNode(keys, 0, self)
-    if node:
-      return node
-
-    self.setProperty(key,"")
-    return self
+    return self._getNode(keys, 0, self)
 
 
   ##
@@ -1028,7 +1023,7 @@ class Properties:
     if not key:
       return False
 
-    if not self.findNode(key):
+    if self.findNode(key):
       return False
     
     self.setProperty(key,"")
