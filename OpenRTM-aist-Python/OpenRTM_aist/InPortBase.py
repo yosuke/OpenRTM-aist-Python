@@ -264,7 +264,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
             connector.setDataType(self._value)
             provider.setConnector(connector) # So that a provider gets endian information from a connector.
 
-            self._rtcout.RTC_DEBUG("publishInterface() successfully finished.")
+            self._rtcout.RTC_DEBUG("publishInterfaces() successfully finished.")
             return RTC.RTC_OK
 
         elif dflow_type == "pull":
