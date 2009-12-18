@@ -2612,8 +2612,8 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # void registerPort(PortBase& port);
   def registerPort(self, port):
     self._rtcout.RTC_TRACE("registerPort()")
-    self._portAdmin.registerPort(port)
     port.setOwner(self.getObjRef())
+    self._portAdmin.registerPort(port)
     return
 
   # void registerPort(PortService_ptr port);

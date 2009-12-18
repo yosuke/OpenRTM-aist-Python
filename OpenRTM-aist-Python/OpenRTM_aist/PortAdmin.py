@@ -94,6 +94,16 @@ class PortAdmin:
       self._pa.deletePort(p)
 
 
+  class find_port:
+    # find_port(const PortService_ptr& p) : m_port(p) {};
+    def __init__(self, p):
+      self._port = p
+
+    # bool operator()(const PortService_ptr& p)
+    def __call__(self, p):
+      return self._port._is_equivalent(p)
+
+
   ##
   # @if jp
   # @brief コンストラクタ
@@ -276,8 +286,7 @@ class PortAdmin:
   def deletePort(self, port):
     try:
       if isinstance(port,RTC._objref_PortService):
-        tmp = port.get_port_profile().name
-        OpenRTM_aist.CORBA_SeqUtil.erase_if(self._portRefs, self.find_port_name(tmp))
+        OpenRTM_aist.CORBA_SeqUtil.erase_if(self._portRefs, self.find_port(port))
         return
 
       port.disconnect_all()
