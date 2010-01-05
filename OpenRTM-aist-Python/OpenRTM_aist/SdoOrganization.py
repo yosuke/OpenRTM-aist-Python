@@ -14,7 +14,7 @@
 #         Advanced Industrial Science and Technology (AIST), Japan
 #     All rights reserved.
 
-
+import sys
 import omniORB.any
 from omniORB import CORBA
 import threading
