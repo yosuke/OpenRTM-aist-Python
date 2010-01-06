@@ -151,16 +151,8 @@ class InPort(OpenRTM_aist.InPortBase):
     OpenRTM_aist.InPortBase.__init__(self, name, OpenRTM_aist.toTypename(value))
     self._name           = name
     self._value          = value
-    self._readBlock      = read_block
-    self._readTimeout    = read_timeout
-    self._writeBlock     = write_block
-    self._writeTimeout   = write_timeout
-    self._OnWrite        = None
-    self._OnWriteConvert = None
     self._OnRead         = None
     self._OnReadConvert  = None
-    self._OnOverflow     = None
-    self._OnUnderflow    = None
 
 
   ##
@@ -391,55 +383,6 @@ class InPort(OpenRTM_aist.InPortBase):
   ##
   # @if jp
   #
-  # @brief InPort バッファへデータ入力時のコールバックの設定
-  #
-  # InPort が持つバッファにデータがputされたときに呼ばれるコールバック
-  # オブジェクトを設定する。設定されるコールバックオブジェクトは
-  # 引数に value を持ち、戻り値 void の __call__ 関数を実装している必要がある。
-  #
-  # <pre>
-  # class MyOnWrite:
-  #     def __call__(self, value):
-  #       処理<br>
-  # </pre>
-  # のようにコールバックオブジェクトを実装し、<br> 
-  # m_inport.setOnWrite(new MyOnWrite());<br>
-  # のようにコールバックオブジェクトをセットする。
-  #
-  # @param self
-  # @param on_write 設定対象コールバックオブジェクト
-  #
-  # @else
-  #
-  # @brief Get new data to be read.
-  #
-  # @endif
-  def setOnWrite(self, on_write):
-    self._OnWrite = on_write
-
-
-  ##
-  # @if jp
-  #
-  # @brief InPort バッファへデータ書き込み時のコールバックの設定
-  #
-  # InPort が持つバッファにデータ書き込まれる時に呼ばれるコールバック
-  # オブジェクトを設定する。バッファにはコールバックオブジェクトの
-  # 戻り値が設定される。
-  # 
-  # @param self
-  # @param on_wconvert 設定対象コールバックオブジェクト
-  #
-  # @else
-  #
-  # @endif
-  def setOnWriteConvert(self, on_wconvert):
-    self._OnWriteConvert = on_wconvert
-
-
-  ##
-  # @if jp
-  #
   # @brief InPort バッファへデータ読み込み時のコールバックの設定
   #
   # InPort が持つバッファからデータが読み込まれる直前に呼ばれるコールバック
@@ -472,39 +415,3 @@ class InPort(OpenRTM_aist.InPortBase):
   # @endif
   def setOnReadConvert(self, on_rconvert):
     self._OnReadConvert = on_rconvert
-
-
-  ##
-  # @if jp
-  #
-  # @brief InPort バッファへバッファオーバーフロー時のコールバックの設定
-  #
-  # InPort が持つバッファでバッファオーバーフローが検出された際に呼び出される
-  # コールバックオブジェクトを設定する。
-  # 
-  # @param self
-  # @param on_overflow 設定対象コールバックオブジェクト
-  #
-  # @else
-  #
-  # @endif
-  def setOnOverflow(self, on_overflow):
-    self._OnOverflow = on_overflow
-
-
-  ##
-  # @if jp
-  #
-  # @brief InPort バッファへバッファアンダーフロー時のコールバックの設定
-  #
-  # InPort が持つバッファでバッファアンダーフローが検出された際に呼び出される
-  # コールバックオブジェクトを設定する。
-  # 
-  # @param self
-  # @param on_underflow 設定対象コールバックオブジェクト
-  #
-  # @else
-  #
-  # @endif
-  def setOnUnderflow(self, on_underflow):
-    self._OnUnderflow = on_underflow

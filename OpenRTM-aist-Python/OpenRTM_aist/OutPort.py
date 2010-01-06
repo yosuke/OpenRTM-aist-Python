@@ -208,9 +208,9 @@ class OutPort(OpenRTM_aist.OutPortBase):
     guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       ret = con.write(value)
-      if ret != OpenRTM_aist.DataPortStatus.PORT_OK:
+      if ret != self.PORT_OK:
         result = False
-        if ret == OpenRTM_aist.DataPortStatus.CONNECTION_LOST:
+        if ret == self.CONNECTION_LOST:
           self.disconnect(con.id())
 
     return result

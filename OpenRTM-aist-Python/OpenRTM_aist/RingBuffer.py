@@ -339,8 +339,8 @@ class RingBuffer(OpenRTM_aist.BufferBase):
     try:
       self._full_cond.acquire()
       if self.full():
-        timedwrite = self._timedwrite
-        overwrite  = self._overwrite
+        timedwrite = self._timedwrite # default is False
+        overwrite  = self._overwrite  # default is True
 
         if not (sec < 0): # if second arg is set -> block mode
           timedwrite = True
