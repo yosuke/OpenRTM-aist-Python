@@ -40,15 +40,14 @@ class Logger:
 
 
   SILENT    = 0  # ()
-  ERROR     = 40 # (ERROR)
-  WARN      = 30 # (ERROR, WARN)
-  INFO      = 20 # (ERROR, WARN, INFO)
-  NORMAL    = 11 # (ERROR, WARN, INFO, NORMAL)
-  DEBUG     = 10 # (ERROR, WARN, INFO, NORMAL, DEBUG)
-  TRACE     = 9  # (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE)
-  VERBOSE   = 8  # (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE)
-  PARANOID  = 7  # (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE, PARA)
-  MANDATORY = 6  #  This level is used for only LogLockLevel
+  FATAL     = 41 # (FATAL)
+  ERROR     = 40 # (FATAL, ERROR)
+  WARN      = 30 # (FATAL, ERROR, WARN)
+  INFO      = 20 # (FATAL, ERROR, WARN, INFO)
+  DEBUG     = 10 # (FATAL, ERROR, WARN, INFO, DEBUG)
+  TRACE     = 9  # (FATAL, ERROR, WARN, INFO, DEBUG, TRACE)
+  VERBOSE   = 8  # (FATAL, ERROR, WARN, INFO, DEBUG, TRACE, VERBOSE)
+  PARANOID  = 7  # (FATAL, ERROR, WARN, INFO, DEBUG, TRACE, VERBOSE, PARA)
 
 
   ##
@@ -69,14 +68,14 @@ class Logger:
   def strToLogLevel(self, lv):
     if lv == "SILENT":
       return Logger.SILENT
+    elif lv == "FATAL":
+      return Logger.FATAL
     elif lv == "ERROR":
       return Logger.ERROR
     elif lv == "WARN":
       return Logger.WARN
     elif lv == "INFO":
       return Logger.INFO
-    elif lv == "NORMAL":
-      return Logger.NORMAL
     elif lv == "DEBUG":
       return Logger.DEBUG
     elif lv == "TRACE":
@@ -85,8 +84,6 @@ class Logger:
       return Logger.VERBOSE
     elif lv == "PARANOID":
       return Logger.PARANOID
-    elif lv == "MANDATORY":
-      return Logger.MANDATORY
     else:
       return Logger.INFO
 
@@ -134,28 +131,25 @@ class Logger:
       fileName = args[2]
 
 
-    logging.MANDATORY = logging.DEBUG - 4
     logging.PARANOID  = logging.DEBUG - 3
     logging.VERBOSE   = logging.DEBUG - 2
     logging.TRACE     = logging.DEBUG - 1
-    logging.NORMAL    = logging.DEBUG + 1
+    logging.FATAL     = logging.ERROR + 1
 
-    logging.addLevelName(logging.MANDATORY, "MANDATORY")
     logging.addLevelName(logging.PARANOID,  "PARANOID")
     logging.addLevelName(logging.VERBOSE,   "VERBOSE")
     logging.addLevelName(logging.TRACE,     "TRACE")
-    logging.addLevelName(logging.NORMAL,    "NORMAL")
+    logging.addLevelName(logging.FATAL,     "FATAL")
 
     logging.root.setLevel([logging.NOTSET,
-                           logging.MANDATORY,
                            logging.PARANOID,
                            logging.VERBOSE,
                            logging.TRACE,
                            logging.DEBUG,
-                           logging.NORMAL,
                            logging.INFO,
                            logging.WARNING,
                            logging.ERROR,
+                           logging.FATAL,
                            logging.CRITICAL])
 
     
@@ -324,6 +318,8 @@ class LogStream:
   def setLogLevel(self, level):
     if level == "INFO":
       self.logger.setLevel(logging.INFO)
+    elif level == "FATAL":
+      self.logger.setLevel(logging.FATAL)
     elif level == "ERROR":
       self.logger.setLevel(logging.ERROR)
     elif level == "WARN":
@@ -332,16 +328,12 @@ class LogStream:
       self.logger.setLevel(logging.DEBUG)
     elif level == "SILENT":
       self.logger.setLevel(logging.NOTSET)
-    elif level == "NORMAL":
-      self.logger.setLevel(logging.NORMAL)
     elif level == "TRACE":
       self.logger.setLevel(logging.TRACE)
     elif level == "VERBOSE":
       self.logger.setLevel(logging.VERBOSE)
     elif level == "PARANOID":
       self.logger.setLevel(logging.PARANOID)
-    elif level == "MANDATORY":
-      self.logger.setLevel(logging.MANDATORY)
     else:
       self.logger.setLevel(logging.INFO)
 
@@ -469,10 +461,46 @@ class LogStream:
   ##
   # @if jp
   #
+  # @brief FATALエラーログ出力
+  #
+  # FATALエラーレベルのログを出力する。<BR>ログレベルが
+  # FATAL, ERROR, WARN, INFO, DEBUG, TRACE, VERBOSE, PARANOID
+  # の場合にログ出力される。
+  #
+  # @param self
+  # @param msg ログメッセージ
+  # @param opt オプション(デフォルト値:None)
+  #
+  # @else
+  #
+  # @brief Error log output macro.
+  #
+  # @endif
+  def RTC_FATAL(self, msg, opt=None):
+    if self._log_enable:
+      self.acquire()
+
+      if opt is None:
+        messages = msg
+      else:
+        try:
+          messages = msg%(opt)
+        except:
+          print "RTC_FATAL : argument error"
+          return
+
+      self.logger.log(logging.FATAL,messages)
+
+      self.release()
+
+
+  ##
+  # @if jp
+  #
   # @brief エラーログ出力
   #
   # エラーレベルのログを出力する。<BR>ログレベルが
-  # ERROR, WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE, PARANOID
+  # ERROR, WARN, INFO, DEBUG, TRACE, VERBOSE, PARANOID
   # の場合にログ出力される。
   #
   # @param self
@@ -508,7 +536,7 @@ class LogStream:
   # @brief ワーニングログ出力
   #
   # ワーニングレベルのログを出力する。<BR>ログレベルが
-  # ( WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE, PARANOID )
+  # ( WARN, INFO, DEBUG, TRACE, VERBOSE, PARANOID )
   # の場合にログ出力される。
   #
   # @param self
@@ -520,7 +548,7 @@ class LogStream:
   # @brief Warning log output macro.
   #
   # If logging levels are
-  # ( WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE, PARANOID ),
+  # ( WARN, INFO, DEBUG, TRACE, VERBOSE, PARANOID ),
   # message will be output to log.
   #
   # @endif
@@ -548,7 +576,7 @@ class LogStream:
   # @brief インフォログ出力
   #
   # インフォレベルのログを出力する。<BR>ログレベルが
-  # ( INFO, NORMAL, DEBUG, TRACE, VERBOSE, PARANOID )
+  # ( INFO, DEBUG, TRACE, VERBOSE, PARANOID )
   # の場合にログ出力される。
   #
   # @param self
@@ -560,7 +588,7 @@ class LogStream:
   # @brief Infomation level log output macro.
   #
   #  If logging levels are
-  # ( INFO, NORMAL, DEBUG, TRACE, VERBOSE, PARANOID ),
+  # ( INFO, DEBUG, TRACE, VERBOSE, PARANOID ),
   # message will be output to log.
   #
   # @endif
@@ -580,47 +608,6 @@ class LogStream:
       self.logger.info(messages)
     
       self.release()
-
-
-  ##
-  # @if jp
-  #
-  # @brief ノーマルログ出力
-  #
-  # ノーマルレベルのログを出力する。<BR>ログレベルが
-  # ( NORMAL, DEBUG, TRACE, VERBOSE, PARANOID )
-  # の場合にログ出力される。
-  #
-  # @param self
-  # @param msg ログメッセージ
-  # @param opt オプション(デフォルト値:None)
-  #
-  # @else
-  #
-  # @brief Normal level log output macro.
-  #
-  # If logging levels are
-  # ( NORMAL, DEBUG, TRACE, VERBOSE, PARANOID ),
-  # message will be output to log.
-  #
-  # @endif
-  def RTC_NORMAL(self, msg, opt=None):
-    if self._log_enable:
-      self.acquire()
-
-      if opt is None:
-        messages = msg
-      else:
-        try:
-          messages = msg%(opt)
-        except:
-          print "RTC_NORMAL : argument error"
-          return
-
-      self.logger.log(logging.NORMAL,messages)
-    
-      self.release()
-
 
 
   ##
@@ -786,44 +773,4 @@ class LogStream:
     
       self.release()
 
-
-  ##
-  # @if jp
-  #
-  # @brief マンダトリー出力
-  #
-  # マンダトリーレベルのログを出力する。<BR>ログレベルが
-  # ( MANDATORY )
-  # の場合にログ出力される。<br>
-  # ※現状では未実装
-  #
-  # @param self
-  # @param msg ログメッセージ
-  # @param opt オプション(デフォルト値:None)
-  #
-  # @else
-  #
-  # @brief Mandatory level log output macro.
-  #
-  # If logging levels are
-  # ( MANDATORY ),
-  # message will be output to log.
-  #
-  # @endif
-  def RTC_MANDATORY(self, msg, opt=None):
-    if self._log_enable:
-      self.acquire()
-
-      if opt is None:
-        messages = msg
-      else:
-        try:
-          messages = msg%(opt)
-        except:
-          print "RTC_MANDATORY : argument error"
-          return
-
-      self.logger.log(logging.MANDATORY,messages)
-    
-      self.release()
 
