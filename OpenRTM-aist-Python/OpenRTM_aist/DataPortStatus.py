@@ -23,21 +23,23 @@ class DataPortStatus:
 
     PORT_OK              = 0
     PORT_ERROR           = 1
-    BUFFER_FULL          = 2
-    BUFFER_EMPTY         = 3
-    BUFFER_TIMEOUT       = 4
-    SEND_FULL            = 5
-    SEND_TIMEOUT         = 6
-    RECV_EMPTY           = 7
-    RECV_TIMEOUT         = 8
-    INVALID_ARGS         = 9
-    PRECONDITION_NOT_MET = 10
-    CONNECTION_LOST      = 11    
-    UNKNOWN_ERROR        = 12
+    BUFFER_ERROR         = 2
+    BUFFER_FULL          = 3
+    BUFFER_EMPTY         = 4
+    BUFFER_TIMEOUT       = 5
+    SEND_FULL            = 6
+    SEND_TIMEOUT         = 7
+    RECV_EMPTY           = 8
+    RECV_TIMEOUT         = 9
+    INVALID_ARGS         = 10
+    PRECONDITION_NOT_MET = 11    
+    CONNECTION_LOST      = 12
+    UNKNOWN_ERROR        = 13
 
     def toString(status):
         str = ["PORT_OK",
                "PORT_ERROR",
+               "BUFFER_ERROR",
                "BUFFER_FULL",
                "BUFFER_EMPTY",
                "BUFFER_TIMEOUT",

@@ -47,11 +47,11 @@ class OutPortPullConnector(OpenRTM_aist.OutPortConnector):
     #
     # @endif
     #
-    # OutPortPullConnector(Profile profile,
+    # OutPortPullConnector(ConnectorInfo info,
     #                      OutPortProvider* provider,
     #                      CdrBufferBase* buffer = 0);
-    def __init__(self, profile, provider, buffer = 0):
-        OpenRTM_aist.OutPortConnector.__init__(self, profile)
+    def __init__(self, info, provider, buffer = 0):
+        OpenRTM_aist.OutPortConnector.__init__(self, info)
         self._provider = provider
         self._buffer = buffer
         return
@@ -95,7 +95,7 @@ class OutPortPullConnector(OpenRTM_aist.OutPortConnector):
     # virtual ReturnCode write(const cdrMemoryStream& data);
     def write(self, data):
         self._buffer.write(data)
-        return OpenRTM_aist.DataPortStatus.PORT_OK
+        return self.PORT_OK
 
 
     ##
@@ -115,7 +115,7 @@ class OutPortPullConnector(OpenRTM_aist.OutPortConnector):
     #
     # virtual ReturnCode disconnect();
     def disconnect(self):
-        return OpenRTM_aist.DataPortStatus.PORT_OK
+        return self.PORT_OK
 
 
     ##

@@ -50,7 +50,7 @@ class OutPortConnector(OpenRTM_aist.ConnectorBase):
     # @brief Constructor
     # @endif
     #
-    # OutPortConnector(ConnectorBase::Profile& profile);
+    # OutPortConnector(ConnectorInfo& profile);
     def __init__(self, profile):
         self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("OutPortConnector")
         self._profile = profile
@@ -70,18 +70,18 @@ class OutPortConnector(OpenRTM_aist.ConnectorBase):
 
     ##
     # @if jp
-    # @brief Profile 取得
+    # @brief ConnectorInfo 取得
     #
-    # Connector Profile を取得する
+    # ConnectorInfo を取得する
     #
     # @else
-    # @brief Getting Profile
+    # @brief Getting ConnectorInfo
     #
-    # This operation returns Connector Profile
+    # This operation returns ConnectorInfo
     #
     # @endif
     #
-    # const Profile& profile();
+    # const ConnectorInfo& profile();
     def profile(self):
         self._rtcout.RTC_TRACE("profile()")
         return self._profile

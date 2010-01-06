@@ -48,9 +48,11 @@ class InPortConnector(OpenRTM_aist.ConnectorBase):
     # @brief Constructor
     # @endif
     #
-    def __init__(self, profile, buffer):
+    # InPortConnector(ConnectorInfo& info,
+    #                 CdrBufferBase* buffer);
+    def __init__(self, info, buffer):
         self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("InPortConnector")
-        self._profile = profile
+        self._profile = info
         self._buffer = buffer
         self._dataType = None
         self._endian = None
@@ -68,18 +70,18 @@ class InPortConnector(OpenRTM_aist.ConnectorBase):
 
     ##
     # @if jp
-    # @brief Profile 取得
+    # @brief ConnectorInfo 取得
     #
-    # Connector Profile を取得する
+    # Connector ConnectorInfo を取得する
     #
     # @else
-    # @brief Getting Profile
+    # @brief Getting ConnectorInfo
     #
-    # This operation returns Connector Profile
+    # This operation returns ConnectorInfo
     #
     # @endif
     #
-    # const Profile& profile();
+    # const ConnectorInfo& profile();
     def profile(self):
         self._rtcout.RTC_TRACE("profile()")
         return self._profile
@@ -174,14 +176,14 @@ class InPortConnector(OpenRTM_aist.ConnectorBase):
     def read(self, data):
         pass
 
-    # void setProfile(ConnectorBase::Profile profile);
-    def setProfile(self, profile):
+    # void setConnectorInfo(ConnectorInfo profile);
+    def setConnectorInfo(self, profile):
         self._profile = profile
 
         if self._profile.properties.hasKey("serializer"):
             endian = self._profile.properties.getProperty("serializer.cdr.endian")
             if not endian:
-                self._rtcout.RTC_ERROR("InPortConnector.setProfile(): endian is not supported.")
+                self._rtcout.RTC_ERROR("InPortConnector.setConnectorInfo(): endian is not supported.")
                 return RTC.RTC_ERROR
         
             endian = OpenRTM_aist.split(endian, ",") # Maybe endian is ["little","big"]

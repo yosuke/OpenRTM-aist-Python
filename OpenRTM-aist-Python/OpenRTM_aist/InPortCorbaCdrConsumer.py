@@ -114,11 +114,30 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
     # @brief 接続先へのデータ送信
     #
     # 接続先のポートへデータを送信するための純粋仮想関数。
+    # 
+    # この関数は、以下のリターンコードを返す。
+    #
+    # - PORT_OK:       正常終了。
+    # - PORT_ERROR:    データ送信の過程で何らかのエラーが発生した。
+    # - SEND_FULL:     データを送信したが、相手側バッファがフルだった。
+    # - SEND_TIMEOUT:  データを送信したが、相手側バッファがタイムアウトした。
+    # - UNKNOWN_ERROR: 原因不明のエラー
+    #
+    # @param data 送信するデータ
+    # @return リターンコード
     #
     # @else
     # @brief Send data to the destination port
     #
     # Pure virtual function to send data to the destination port.
+    #
+    # This function might the following return codes
+    #
+    # - PORT_OK:       Normal return
+    # - PORT_ERROR:    Error occurred in data transfer process
+    # - SEND_FULL:     Buffer full although OutPort tried to send data
+    # - SEND_TIMEOUT:  Timeout although OutPort tried to send data
+    # - UNKNOWN_ERROR: Unknown error
     #
     # @endif
     #
@@ -130,9 +149,9 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
             return self.convertReturnCode(self._ptr().put(data))
         except:
             self._rtcout.RTC_ERROR(sys.exc_info()[0])
-            return OpenRTM_aist.DataPortStatus.CONNECTION_LOST
+            return self.CONNECTION_LOST
         
-        return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR
+        return self.UNKNOWN_ERROR
 
 
     ##
@@ -396,26 +415,34 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
     
         self.releaseObject()
         return True
-
     
+
+    ##
+    # @if jp
+    # @brief リターンコード変換
+    # @else
+    # @brief Return codes conversion
+    # @endif
+    #
+    # ReturnCode convertReturnCode(OpenRTM::PortStatus ret)
     def convertReturnCode(self, ret):
         if ret == OpenRTM.PORT_OK:
-            return OpenRTM_aist.DataPortStatus.PORT_OK
+            return self.PORT_OK
 
         elif ret == OpenRTM.PORT_ERROR:
-            return OpenRTM_aist.DataPortStatus.PORT_ERROR
+            return self.PORT_ERROR
 
         elif ret == OpenRTM.BUFFER_FULL:
-            return OpenRTM_aist.DataPortStatus.SEND_FULL
+            return self.SEND_FULL
 
         elif ret == OpenRTM.BUFFER_TIMEOUT:
-            return OpenRTM_aist.DataPortStatus.SEND_TIMEOUT
+            return self.SEND_TIMEOUT
 
         elif ret == OpenRTM.UNKNOWN_ERROR:
-            return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR
+            return self.UNKNOWN_ERROR
 
         else:
-            return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR
+            return self.UNKNOWN_ERROR
 
 
 def InPortCorbaCdrConsumerInit():

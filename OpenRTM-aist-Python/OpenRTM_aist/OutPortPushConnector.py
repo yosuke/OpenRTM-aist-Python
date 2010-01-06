@@ -32,7 +32,7 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
     # したがって、OutPortPushConnector 削除時には、InPortConsumerも同時に
     # 解体・削除される。
     #
-    # @param profile ConnectorProfile
+    # @param info ConnectorInfo
     # @param consumer InPortConsumer
     #
     # @elsek
@@ -42,30 +42,32 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
     # Therefore, InPortConsumer will be deleted when OutPortPushConnector
     # is destructed.
     #
-    # @param profile ConnectorProfile
+    # @param info ConnectorInfo
     # @param consumer InPortConsumer
     #
     # @endif
     #
-    # OutPortPushConnector(Profile profile,
+    # OutPortPushConnector(ConnectorInfo info,
     #                      InPortConsumer* consumer,
+    #                      ConnectorListeners& listeners,
     #                      CdrBufferBase* buffer = 0);
-    def __init__(self, profile, consumer, buffer = 0):
-        OpenRTM_aist.OutPortConnector.__init__(self, profile)
+    def __init__(self, info, consumer, listeners, buffer = 0):
+        OpenRTM_aist.OutPortConnector.__init__(self, info)
 
         self._buffer = buffer
         self._consumer = consumer
+        self._listeners = listeners
 
         # publisher/buffer creation. This may throw std::bad_alloc;
-        self._publisher = self.createPublisher(profile)
+        self._publisher = self.createPublisher(info)
         if not self._buffer:
-            self._buffer = self.createBuffer(profile)
+            self._buffer = self.createBuffer(info)
 
 
         if not self._publisher or not self._buffer:
             raise
 
-        if self._publisher.init(profile.properties) != OpenRTM_aist.DataPortStatus.PORT_OK:
+        if self._publisher.init(info.properties) != self.PORT_OK:
             raise
         
         if self._profile.properties.hasKey("serializer"):
@@ -86,9 +88,10 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
         else:
             self._endian = True # little endian
 
-        self._consumer.init(profile.properties)
+        self._consumer.init(info.properties)
         self._publisher.setConsumer(self._consumer)
         self._publisher.setBuffer(self._buffer)
+        self._publisher.setListener(self._profile, self._listeners)
 
         return
 
@@ -133,12 +136,12 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
         self._rtcout.RTC_TRACE("write()")
 
         # data -> (conversion) -> CDR stream
-        cdr_data = None    
+        cdr_data = None
         if self._endian is not None:
             cdr_data = cdrMarshal(any.to_any(data).typecode(), data, self._endian)
         else:
             self._rtcout.RTC_ERROR("write(): endian %s is not support.",self._endian)
-            return OpenRTM_aist.DataPortStatus.UNKNOWN_ERROR
+            return self.UNKNOWN_ERROR
 
         return self._publisher.write(cdr_data, 0, 0)
 
@@ -186,7 +189,7 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
         self._buffer = 0
         self._rtcout.RTC_TRACE("disconnect() done")
 
-        return OpenRTM_aist.DataPortStatus.PORT_OK
+        return self.PORT_OK
 
 
     ##
@@ -254,9 +257,9 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
     # @brief create publisher
     # @endif
     #
-    # virtual PublisherBase* createPublisher(Profile& profile);
-    def createPublisher(self, profile):
-        pub_type = profile.properties.getProperty("subscription_type","flush")
+    # virtual PublisherBase* createPublisher(ConnectorInfo& info);
+    def createPublisher(self, info):
+        pub_type = info.properties.getProperty("subscription_type","flush")
         pub_type = OpenRTM_aist.normalize([pub_type])
         return OpenRTM_aist.PublisherFactory.instance().createObject(pub_type)
 
@@ -268,9 +271,9 @@ class OutPortPushConnector(OpenRTM_aist.OutPortConnector):
     # @brief create buffer
     # @endif
     #
-    # virtual CdrBufferBase* createBuffer(Profile& profile);
-    def createBuffer(self, profile):
-        buf_type = profile.properties.getProperty("buffer_type",
+    # virtual CdrBufferBase* createBuffer(ConnectorInfo& info);
+    def createBuffer(self, info):
+        buf_type = info.properties.getProperty("buffer_type",
                                                   "ring_buffer")
 
         return OpenRTM_aist.CdrBufferFactory.instance().createObject(buf_type)

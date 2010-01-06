@@ -283,6 +283,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
     self.initConsumers()
     self.initProviders()
+    self._listeners = OpenRTM_aist.ConnectorListeners()
 
 
   ##
@@ -338,6 +339,15 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     self.configure()
 
 
+  def connect(self, connector_profile):
+    self._rtcout.RTC_TRACE("OutPortBase.connect()")
+        
+    if OpenRTM_aist.NVUtil.find_index(connector_profile.properties,
+                                      "dataport.serializer.cdr.endian") is -1:
+      connector_profile.properties.append(OpenRTM_aist.NVUtil.newNV("dataport.serializer.cdr.endian","little,big"))
+
+    return OpenRTM_aist.PortBase.connect(self, connector_profile)
+        
   ##
   # @if jp
   # @brief OutPort名称の取得
@@ -393,7 +403,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # @brief ConnectorProfile list
   # @endif
   #
-  # ConnectorBase::ProfileList OutPortBase::getConnectorProfiles()
+  # ConnectorBase::ConnectorInfoList OutPortBase::getConnectorProfiles()
   def getConnectorProfiles(self):
     self._rtcout.RTC_TRACE("getConnectorProfiles(): size = %d", len(self._connectors))
     profs = []
@@ -449,7 +459,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # @endif
   #
   # bool OutPortBase::getConnectorProfileById(const char* id,
-  #                              ConnectorBase::Profile& prof)
+  #                                           ConnectorInfo& prof)
   def getConnectorProfileById(self, id, prof):
     self._rtcout.RTC_TRACE("getConnectorProfileById(id = %s)", id)
 
@@ -471,7 +481,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # @endif
   #
   # bool OutPortBase::getConnectorProfileByName(const char* name,
-  #                                ConnectorBase::Profile& prof)
+  #                                             ConnectorInfo& prof)
   def getConnectorProfileByName(self, name, prof):
     self._rtcout.RTC_TRACE("getConnectorProfileById(id = %s)", name)
 
@@ -528,6 +538,218 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     for con in self._connectors:
       con.deactivate()
   
+
+  ##
+  # @if jp
+  # @brief ConnectorDataListener リスナを追加する
+  #
+  # バッファ書き込みまたは読み出しイベントに関連する各種リスナを設定する。
+  #
+  # 設定できるリスナのタイプとコールバックイベントは以下の通り
+  #
+  # - ON_BUFFER_WRITE:          バッファ書き込み時
+  # - ON_BUFFER_FULL:           バッファフル時
+  # - ON_BUFFER_WRITE_TIMEOUT:  バッファ書き込みタイムアウト時
+  # - ON_BUFFER_OVERWRITE:      バッファ上書き時
+  # - ON_BUFFER_READ:           バッファ読み出し時
+  # - ON_SEND:                  InProtへの送信時
+  # - ON_RECEIVED:              InProtへの送信完了時
+  # - ON_SEND_ERTIMEOUT:        OutPort側タイムアウト時
+  # - ON_SEND_ERERROR:          OutPort側エラー時
+  # - ON_RECEIVER_FULL:         InProt側バッファフル時
+  # - ON_RECEIVER_TIMEOUT:      InProt側バッファタイムアウト時
+  # - ON_RECEIVER_ERROR:        InProt側エラー時
+  #
+  # リスナは ConnectorDataListener を継承し、以下のシグニチャを持つ
+  # operator() を実装している必要がある。
+  #
+  # ConnectorDataListener::
+  #         operator()(const ConnectorProfile&, const cdrStream&)
+  #
+  # デフォルトでは、この関数に与えたリスナオブジェクトの所有権は
+  # OutPortに移り、OutPort解体時もしくは、
+  # removeConnectorDataListener() により削除時に自動的に解体される。
+  # リスナオブジェクトの所有権を呼び出し側で維持したい場合は、第3引
+  # 数に false を指定し、自動的な解体を抑制することができる。
+  #
+  # @param listener_type リスナタイプ
+  # @param listener リスナオブジェクトへのポインタ
+  # @param autoclean リスナオブジェクトの自動的解体を行うかどうかのフラグ
+  #
+  # @else
+  # @brief Adding BufferDataListener type listener
+  #
+  # This operation adds certain listeners related to buffer writing and
+  # reading events.
+  # The following listener types are available.
+  #
+  # - ON_BUFFER_WRITE:          At the time of buffer write
+  # - ON_BUFFER_FULL:           At the time of buffer full
+  # - ON_BUFFER_WRITE_TIMEOUT:  At the time of buffer write timeout
+  # - ON_BUFFER_OVERWRITE:      At the time of buffer overwrite
+  # - ON_BUFFER_READ:           At the time of buffer read
+  # - ON_SEND:                  At the time of sending to InPort
+  # - ON_RECEIVED:              At the time of finishing sending to InPort
+  # - ON_SENDER_TIMEOUT:        At the time of timeout of OutPort
+  # - ON_SENDER_ERROR:          At the time of error of OutPort
+  # - ON_RECEIVER_FULL:         At the time of bufferfull of InPort
+  # - ON_RECEIVER_TIMEOUT:      At the time of timeout of InPort
+  # - ON_RECEIVER_ERROR:        At the time of error of InPort
+  #
+  # Listeners should have the following function operator().
+  #
+  # ConnectorDataListener::
+  #         operator()(const ConnectorProfile&, const cdrStream&)
+  #
+  # The ownership of the given listener object is transferred to
+  # this OutPort object in default.  The given listener object will
+  # be destroied automatically in the OutPort's dtor or if the
+  # listener is deleted by removeConnectorDataListener() function.
+  # If you want to keep ownership of the listener object, give
+  # "false" value to 3rd argument to inhibit automatic destruction.
+  #
+  # @param listener_type A listener type
+  # @param listener A pointer to a listener object
+  # @param autoclean A flag for automatic listener destruction
+  #
+  # @endif
+  #
+  # void addConnectorDataListener(ConnectorDataListenerType listener_type,
+  #                               ConnectorDataListener* listener,
+  #                               bool autoclean = true);
+  def addConnectorDataListener(self, listener_type, listener, autoclean = True):
+    self._rtcout.RTC_TRACE("addConnectorDataListener()")
+
+    if listener_type < OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM:
+      self._listeners.connectorData_[listener_type].addListener(listener, autoclean)
+
+    return
+
+
+  ##
+  # @if jp
+  # @brief ConnectorDataListener リスナを削除する
+  #
+  # 設定した各種リスナを削除する。
+  # 
+  # @param listener_type リスナタイプ
+  # @param listener リスナオブジェクトへのポインタ
+  #
+  # @else
+  # @brief Removing BufferDataListener type listener
+  #
+  # This operation removes a specified listener.
+  #     
+  # @param listener_type A listener type
+  # @param listener A pointer to a listener object
+  #
+  # @endif
+  #
+  # void removeConnectorDataListener(ConnectorDataListenerType listener_type,
+  #                                  ConnectorDataListener* listener);
+  def removeConnectorDataListener(self, listener_type, listener):
+    self._rtcout.RTC_TRACE("removeConnectorDataListener()")
+
+    if listener_type < OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM:
+      self._listeners.connectorData_[listener_type].removeListener(listener)
+
+    return
+    
+
+  ##
+  # @if jp
+  # @brief ConnectorListener リスナを追加する
+  #
+  # バッファ書き込みまたは読み出しイベントに関連する各種リスナを設定する。
+  #
+  # 設定できるリスナのタイプは
+  #
+  # - ON_BUFFER_EMPTY:       バッファが空の場合
+  # - ON_BUFFER_READTIMEOUT: バッファが空でタイムアウトした場合
+  #
+  # リスナは以下のシグニチャを持つ operator() を実装している必要がある。
+  #
+  # ConnectorListener::operator()(const ConnectorProfile&)
+  #
+  # デフォルトでは、この関数に与えたリスナオブジェクトの所有権は
+  # OutPortに移り、OutPort解体時もしくは、
+  # removeConnectorListener() により削除時に自動的に解体される。
+  # リスナオブジェクトの所有権を呼び出し側で維持したい場合は、第3引
+  # 数に false を指定し、自動的な解体を抑制することができる。
+  #
+  # @param listener_type リスナタイプ
+  # @param listener リスナオブジェクトへのポインタ
+  # @param autoclean リスナオブジェクトの自動的解体を行うかどうかのフラグ
+  #
+  # @else
+  # @brief Adding ConnectorListener type listener
+  #
+  # This operation adds certain listeners related to buffer writing and
+  # reading events.
+  # The following listener types are available.
+  #
+  # - ON_BUFFER_EMPTY:       At the time of buffer empty
+  # - ON_BUFFER_READTIMEOUT: At the time of buffer read timeout
+  #
+  # Listeners should have the following function operator().
+  #
+  # ConnectorListener::operator()(const ConnectorProfile&)
+  #  
+  # The ownership of the given listener object is transferred to
+  # this OutPort object in default.  The given listener object will
+  # be destroied automatically in the OutPort's dtor or if the
+  # listener is deleted by removeConnectorListener() function.
+  # If you want to keep ownership of the listener object, give
+  # "false" value to 3rd argument to inhibit automatic destruction.
+  #
+  # @param listener_type A listener type
+  # @param listener A pointer to a listener object
+  # @param autoclean A flag for automatic listener destruction
+  #
+  # @endif
+  #
+  # void addConnectorListener(ConnectorListenerType callback_type,
+  #                           ConnectorListener* listener,
+  #                           bool autoclean = true);
+  def addConnectorListener(self, callback_type, listener, autoclean = True):
+    self._rtcout.RTC_TRACE("addConnectorListener()")
+
+    if callback_type < OpenRTM_aist.ConnectorListenerType.CONNECTOR_LISTENER_NUM:
+      self._listeners.connector_[callback_type].addListener(listener, autoclean)
+  
+    return
+
+
+  ##
+  # @if jp
+  # @brief ConnectorDataListener リスナを削除する
+  #
+  # 設定した各種リスナを削除する。
+  # 
+  # @param listener_type リスナタイプ
+  # @param listener リスナオブジェクトへのポインタ
+  #
+  # @else
+  # @brief Removing BufferDataListener type listener
+  #
+  # This operation removes a specified listener.
+  #     
+  # @param listener_type A listener type
+  # @param listener A pointer to a listener object
+  #
+  # @endif
+  #
+  # void removeConnectorListener(ConnectorListenerType callback_type,
+  #                              ConnectorListener* listener);
+  def removeConnectorListener(self, callback_type, listener):
+    self._rtcout.RTC_TRACE("removeConnectorListener()")
+        
+    if callback_type < OpenRTM_aist.ConnectorListenerType.CONNECTOR_LISTENER_NUM:
+      self._listeners.connector_[callback_type].removeListener(listener)
+
+    return
+
+
   ##
   # @if jp
   # @brief OutPortの設定を行う
@@ -835,18 +1057,18 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   #                              coil::Properties& prop,
   #                              InPortConsumer* consumer)
   def createConnector(self, cprof, prop, provider_ = None, consumer_ = None):
-    profile = OpenRTM_aist.ConnectorBase.Profile(cprof.name,
-                                                 cprof.connector_id,
-                                                 OpenRTM_aist.CORBA_SeqUtil.refToVstring(cprof.ports),
-                                                 prop)
+    profile = OpenRTM_aist.ConnectorInfo(cprof.name,
+                                         cprof.connector_id,
+                                         OpenRTM_aist.CORBA_SeqUtil.refToVstring(cprof.ports),
+                                         prop)
 
     connector = None
     try:
 
       if consumer_ is not None:
-        connector = OpenRTM_aist.OutPortPushConnector(profile, consumer_)
+        connector = OpenRTM_aist.OutPortPushConnector(profile, consumer_, self._listeners)
       elif provider_ is not None:
-        connector = OpenRTM_aist.OutPortPullConnector(profile, provider_)
+        connector = OpenRTM_aist.OutPortPullConnector(profile, provider_, self._listeners)
 
       else:
         self._rtcout.RTC_ERROR("provider or consumer is not passed. returned 0;")

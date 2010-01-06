@@ -65,13 +65,15 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
     self._consumer   = None
     self._buffer     = None
     self._task       = None
-    self._retcode    = OpenRTM_aist.DataPortStatus.PORT_OK
+    self._retcode    = self.PORT_OK
     self._retmutex   = threading.RLock()
     self._pushPolicy = self.NEW
     self._skipn      = 10
     self._active     = False
     self._readback   = False
-    self._leftskip  = 0
+    self._leftskip   = 0
+    self._profile    = None
+    self._listeners  = None
 
     return
 
@@ -159,7 +161,7 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
     if not self._task:
       self._rtcout.RTC_ERROR("Task creation failed: %s",
                              prop.getProperty("thread_type", "default"))
-      return OpenRTM_aist.DataPortStatus.INVALID_ARGS
+      return self.INVALID_ARGS
 
     self._rtcout.RTC_PARANOID("Task creation succeeded.")
 
@@ -200,7 +202,7 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
     self._task.suspend()
     self._task.activate()
     self._task.suspend()
-    return OpenRTM_aist.DataPortStatus.PORT_OK
+    return self.PORT_OK
 
   
   ##
@@ -216,10 +218,10 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
 
     if not consumer:
       self._rtcout.RTC_ERROR("setConsumer(consumer = 0): invalid argument.")
-      return OpenRTM_aist.DataPortStatus.INVALID_ARGS
+      return self.INVALID_ARGS
 
     self._consumer = consumer
-    return OpenRTM_aist.DataPortStatus.PORT_OK
+    return self.PORT_OK
 
   
   ##
@@ -234,10 +236,32 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
     
     if not buffer:
       self._rtcout.RTC_ERROR("setBuffer(buffer == 0): invalid argument")
-      return OpenRTM_aist.DataPortStatus.INVALID_ARGS
+      return self.INVALID_ARGS
 
     self._buffer = buffer
-    return OpenRTM_aist.DataPortStatus.PORT_OK
+    return self.PORT_OK
+
+
+  ##
+  # @if jp
+  # @brief リスナのセット
+  # @else
+  # @brief Setting buffer pointer
+  # @endif
+  #
+  #PublisherBase::ReturnCode
+  #PublisherPeriodic::setListener(ConnectorInfo& info,
+  #                               ConnectorListeners* listeners)
+  def setListener(self, info, listeners):
+    self._rtcout.RTC_TRACE("setListeners()")
+
+    if not listeners:
+      self._rtcout.RTC_ERROR("setListeners(listeners == 0): invalid argument")
+      return self.INVALID_ARGS
+
+    self._profile = info
+    self._listeners = listeners
+    return self.PORT_OK
 
 
   ## PublisherBase::ReturnCode
@@ -248,21 +272,22 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
     self._rtcout.RTC_PARANOID("write()")
 
     if not self._consumer or not self._buffer:
-      return OpenRTM_aist.DataPortStatus.PRECONDITION_NOT_MET
+      return self.PRECONDITION_NOT_MET
 
-    if self._retcode == OpenRTM_aist.DataPortStatus.CONNECTION_LOST:
+    if self._retcode == self.CONNECTION_LOST:
       self._rtcout.RTC_DEBUG("write(): connection lost.")
       return self._retcode
 
-    if self._retcode == OpenRTM_aist.DataPortStatus.BUFFER_FULL:
+    if self._retcode == self.BUFFER_FULL:
       self._rtcout.RTC_DEBUG("write(): InPort buffer is full.")
       self._buffer.write(data,sec,usec)
-      return OpenRTM_aist.DataPortStatus.BUFFER_FULL
+      return self.BUFFER_FULL
 
+    self.onBufferWrite(data)
     ret = self._buffer.write(data, sec, usec)
-    self._rtcout.RTC_DEBUG("%s = write()", OpenRTM_aist.DataPortStatus().toString(ret))
+    self._rtcout.RTC_DEBUG("%s = write()", OpenRTM_aist.DataPortStatus.toString(ret))
     self._task.resume()
-    return self.convertReturn(ret)
+    return self.convertReturn(ret, data)
 
 
   ## bool PublisherPeriodic::isActive()
@@ -273,19 +298,19 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   ## PublisherBase::ReturnCode PublisherPeriodic::activate()
   def activate(self):
     if not self._task or not self._buffer:
-      return OpenRTM_aist.DataPortStatus.PRECONDITION_NOT_MET
+      return self.PRECONDITION_NOT_MET
     self._active = True
     self._task.resume()
-    return OpenRTM_aist.DataPortStatus.PORT_OK
+    return self.PORT_OK
 
 
   ## PublisherBase::ReturnCode PublisherPeriodic::deactivate()
   def deactivate(self):
     if not self._task:
-      return OpenRTM_aist.DataPortStatus.PRECONDITION_NOT_MET
+      return self.PRECONDITION_NOT_MET
     self._active = False
     self._task.suspend()
-    return OpenRTM_aist.DataPortStatus.PORT_OK
+    return self.PORT_OK
 
 
   ##
@@ -327,16 +352,24 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   def pushAll(self):
     self._rtcout.RTC_TRACE("pushAll()")
 
+    if self.bufferIsEmpty():
+      return self.BUFFER_EMPTY
+
     while self._buffer.readable() > 0:
       cdr = self._buffer.get()
+      self.onBufferRead(cdr)
+
+      self.onSend(cdr)
       ret = self._consumer.put(cdr)
 
-      if ret != OpenRTM_aist.DataPortStatus.PORT_OK:
-        return ret
+      if ret != self.PORT_OK:
+        self._rtcout.RTC_DEBUG("%s = consumer.put()", OpenRTM_aist.DataPortStatus.toString(ret))
+        return self.invokeListener(ret, cdr)
 
+      self.onReceived(cdr)
       self._buffer.advanceRptr()
 
-    return OpenRTM_aist.DataPortStatus.PORT_OK
+    return self.PORT_OK
 
 
   ##
@@ -345,19 +378,23 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   # PublisherBase::ReturnCode PublisherPeriodic::pushFifo()
   def pushFifo(self):
     self._rtcout.RTC_TRACE("pushFifo()")
-    if self._buffer.empty() and not self._readback:
-      self._rtcout.RTC_DEBUG("buffer empty")
-      return OpenRTM_aist.DataPortStatus.BUFFER_EMPTY
+    if self.bufferIsEmpty():
+      return self.BUFFER_EMPTY
 
     cdr = self._buffer.get()
-    ret = self._consumer.put(cdr)
-    if ret != OpenRTM_aist.DataPortStatus.PORT_OK:
-      self._rtcout.RTC_DEBUG("%s = consumer.put()",ret)
-      return ret
+    self.onBufferRead(cdr)
 
+    self.onSend(cdr)
+    ret = self._consumer.put(cdr)
+
+    if ret != self.PORT_OK:
+      self._rtcout.RTC_DEBUG("%s = consumer.put()",OpenRTM_aist.DataPortStatus.toString(ret))
+      return self.invokeListener(ret, cdr)
+
+    self.onReceived(cdr)
     self._buffer.advanceRptr()
     
-    return ret
+    return self.PORT_OK
 
 
   ##
@@ -366,23 +403,25 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   # PublisherBase::ReturnCode PublisherPeriodic::pushSkip()
   def pushSkip(self):
     self._rtcout.RTC_TRACE("pushSkip()")
+    if self.bufferIsEmpty():
+      return self.BUFFER_EMPTY
 
-    if self._buffer.empty() and not self._readback:
-      self._rtcout.RTC_DEBUG("buffer empty")
-      return OpenRTM_aist.DataPortStatus.BUFFER_EMPTY
-
-    ret = OpenRTM_aist.DataPortStatus.PORT_OK
+    ret = self.PORT_OK
     preskip  = self._buffer.readable() + self._leftskip
     loopcnt  = preskip/(self._skipn +1)
     postskip = self._skipn - self._leftskip
     for i in range(loopcnt):
       self._buffer.advanceRptr(postskip)
       cdr = self._buffer.get()
+      self.onBufferRead(cdr)
+
+      self.onSend(cdr)
       ret = self._consumer.put(cdr)
-      if ret != OpenRTM_aist.DataPortStatus.PORT_OK:
+      if ret != self.PORT_OK:
         self._buffer.advanceRptr(-postskip)
-        self._rtcout.RTC_DEBUG("%s = consumer.put()",ret)
-        return ret
+        self._rtcout.RTC_DEBUG("%s = consumer.put()",OpenRTM_aist.DataPortStatus.toString(ret))
+        return self.invokeListener(ret, cdr)
+      self.onReceived(cdr)
       postskip = self._skipn +1
 
     self._buffer.advanceRptr(self._buffer.readable())
@@ -397,38 +436,162 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   # PublisherBase::ReturnCode PublisherPeriodic::pushNew()
   def pushNew(self):
     self._rtcout.RTC_TRACE("pushNew()")
+    if self.bufferIsEmpty():
+      return self.BUFFER_EMPTY
 
-    if self._buffer.empty() and not self._readback:
-      self._rtcout.RTC_DEBUG("buffer empty")
-      return OpenRTM_aist.DataPortStatus.BUFFER_EMPTY
-    
     self._buffer.advanceRptr(self._buffer.readable() - 1)
     
     cdr = self._buffer.get()
+    self.onBufferRead(cdr)
+
+    self.onSend(cdr)
     ret = self._consumer.put(cdr)
-    self._rtcout.RTC_DEBUG("%s = consumer.put()", ret)
+    
+    if ret != self.PORT_OK:
+      self._rtcout.RTC_DEBUG("%s = consumer.put()", OpenRTM_aist.DataPortStatus.toString(ret))
+      return self.invokeListener(ret, cdr)
+
+    self.onReceived(cdr)
 
     self._buffer.advanceRptr()
-    return ret
+    return self.PORT_OK
 
 
   ## PublisherBase::ReturnCode
-  ## PublisherPeriodic::convertReturn(BufferStatus::Enum status)
-  def convertReturn(self, status):
+  ## PublisherPeriodic::convertReturn(BufferStatus::Enum status,
+  ##                                  const cdrMemoryStream& data)
+  def convertReturn(self, status, data):
     if status == OpenRTM_aist.BufferStatus.BUFFER_OK:
-      return OpenRTM_aist.DataPortStatus.PORT_OK
+      return self.PORT_OK
 
-    elif status == OpenRTM_aist.BufferStatus.BUFFER_EMPTY:
-      return OpenRTM_aist.DataPortStatus.BUFFER_EMPTY
+    elif status == OpenRTM_aist.BufferStatus.BUFFER_ERROR:
+      return self.BUFFER_ERROR
+
+    elif status == OpenRTM_aist.BufferStatus.BUFFER_FULL:
+      self.onBufferFull(data)
+      return self.BUFFER_FULL
+
+    elif status == OpenRTM_aist.BufferStatus.NOT_SUPPORTED:
+      return self.PORT_ERROR
 
     elif status == OpenRTM_aist.BufferStatus.TIMEOUT:
-      return OpenRTM_aist.DataPortStatus.BUFFER_TIMEOUT
+      self.onBufferWriteTimeout(data)
+      return self.BUFFER_TIMEOUT
 
     elif status == OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET:
-      return OpenRTM_aist.DataPortStatus.PRECONDITION_NOT_MET
+      return self.PRECONDITION_NOT_MET
 
     else:
-      return OpenRTM_aist.DataPortStatus.PORT_ERROR
+      return self.PORT_ERROR
+
+
+  # PublisherPeriodic::ReturnCode
+  # PublisherPeriodic::invokeListener(DataPortStatus::Enum status,
+  #                                   const cdrMemoryStream& data)
+  def invokeListener(self, status, data):
+    # ret:
+    # PORT_OK, PORT_ERROR, SEND_FULL, SEND_TIMEOUT, CONNECTION_LOST,
+    # UNKNOWN_ERROR
+    if status == self.PORT_ERROR:
+      self.onReceiverError(data)
+      return self.PORT_ERROR
+        
+    elif status == self.SEND_FULL:
+      self.onReceiverFull(data)
+      return self.SEND_FULL
+        
+    elif status == self.SEND_TIMEOUT:
+      self.onReceiverTimeout(data)
+      return self.SEND_TIMEOUT
+        
+    elif status == self.CONNECTION_LOST:
+      self.onReceiverError(data)
+      return self.CONNECTION_LOST
+        
+    elif status == self.UNKNOWN_ERROR:
+      self.onReceiverError(data)
+      return self.UNKNOWN_ERROR
+        
+    else:
+      self.onReceiverError(data)
+      return self.PORT_ERROR
+
+
+  ##
+  # @brief Connector data listener functions
+  #
+  # inline void onBufferWrite(const cdrMemoryStream& data)
+  def onBufferWrite(self, data):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_WRITE].notify(self._profile, data)
+
+
+  def onBufferFull(self, data):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_FULL].notify(self._profile, data)
+
+
+  def onBufferWriteTimeout(self, data):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_WRITE_TIMEOUT].notify(self._profile, data)
+
+
+  def onBufferRead(self, data):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_READ].notify(self._profile, data)
+
+
+  def onSend(self, data):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_SEND].notify(self._profile, data)
+
+
+  def onReceived(self, data):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_RECEIVED].notify(self._profile, data)
+
+
+  def onReceiverFull(self, data):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_RECEIVER_FULL].notify(self._profile, data)
+
+
+  def onReceiverTimeout(self, data):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_RECEIVER_TIMEOUT].notify(self._profile, data)
+
+
+  def onReceiverError(self, data):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_RECEIVER_ERROR].notify(self._profile, data)
+
+
+  ##
+  # @brief Connector listener functions
+  ##
+  def onBufferEmpty(self):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_BUFFER_EMPTY].notify(self._profile)
+
+
+  def onSenderEmpty(self):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_EMPTY].notify(self._profile)
+
+
+  def onSenderError(self):
+    if self._listeners is not None and self._profile is not None:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_ERROR].notify(self._profile)
+
+
+  def bufferIsEmpty(self):
+    if self._buffer.empty() and  not self._readback:
+      self._rtcout.RTC_DEBUG("buffer empty")
+      self.onBufferEmpty()
+      self.onSenderEmpty()
+      return True
+
+    return False
 
 
 

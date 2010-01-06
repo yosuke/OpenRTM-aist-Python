@@ -18,6 +18,16 @@
 import OpenRTM_aist
 
 
+class ConnectorInfo:
+
+    # ConnectorInfo(const char* name_, const char* id_,
+    #               coil::vstring ports_, coil::Properties properties_)
+    def __init__(self, name_, id_, ports_, properties_):
+        self.name       = name_        # str
+        self.id         = id_          # str
+        self.ports      = ports_       # [str,...]
+        self.properties = properties_  # OpenRTM_aist.Properties
+
 #!
 # @if jp
 # @class ConnectorBase
@@ -58,14 +68,7 @@ class ConnectorBase(OpenRTM_aist.DataPortStatus):
     # @since 1.0.0
     #
     # @endif
-    class Profile:
-        #  Profile(const char* name_, const char* id_,
-        #          coil::vstring ports_, coil::Properties properties_)
-        def __init__(self, name_, id_, ports_, properties_):
-            self.name       = name_        # str
-            self.id         = id_          # str
-            self.ports      = ports_       # [str,...]
-            self.properties = properties_  # OpenRTM_aist.Properties
+
     #!
     # @if jp
     # @brief デストラクタ

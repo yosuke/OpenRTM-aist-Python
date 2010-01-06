@@ -19,6 +19,25 @@ consolein_spec = ["implementation_id", "ConsoleIn",
                   ""]
 
 
+class DataListener(OpenRTM_aist.ConnectorDataListenerT):
+    def __init__(self, name):
+        self._name = name
+
+    def __del__(self):
+        print "dtor of ", self._name
+
+    def __call__(self, info, cdrdata):
+        data = OpenRTM_aist.ConnectorDataListenerT.__call__(self, info, cdrdata, RTC.TimedLong(RTC.Time(0,0),0))
+        print "------------------------------"
+        print "Listener:       ", self._name
+        print "Profile::name:  ", info.name
+        print "Profile::id:    ", info.id
+        print "Data:           ", data.data
+        print "------------------------------"
+
+
+
+
 class ConsoleIn(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
         OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
@@ -29,6 +48,28 @@ class ConsoleIn(OpenRTM_aist.DataFlowComponentBase):
     def onInitialize(self):
         # Set OutPort buffer
         self.registerOutPort("out", self._outport)
+
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_WRITE,
+                                               DataListener("ON_BUFFER_WRITE"))
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_FULL, 
+                                               DataListener("ON_BUFFER_FULL"))
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_WRITE_TIMEOUT, 
+                                               DataListener("ON_BUFFER_WRITE_TIMEOUT"))
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_OVERWRITE, 
+                                               DataListener("ON_BUFFER_OVERWRITE"))
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_READ, 
+                                               DataListener("ON_BUFFER_READ"))
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_SEND, 
+                                               DataListener("ON_SEND"))
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_RECEIVED,
+                                               DataListener("ON_RECEIVED"))
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_RECEIVER_FULL, 
+                                               DataListener("ON_RECEIVER_FULL"))
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_RECEIVER_TIMEOUT, 
+                                               DataListener("ON_RECEIVER_TIMEOUT"))
+        self._outport.addConnectorDataListener(OpenRTM_aist.ConnectorDataListenerType.ON_RECEIVER_ERROR,
+                                               DataListener("ON_RECEIVER_ERROR"))
+
         return RTC.RTC_OK
 
         

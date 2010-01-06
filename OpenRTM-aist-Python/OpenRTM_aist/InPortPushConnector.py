@@ -49,24 +49,27 @@ class InPortPushConnector(OpenRTM_aist.InPortConnector):
     #
     # @endif
     #
-    #InPortPushConnector(Profile profile, InPortProvider* provider,
-    #                    CdrBufferBase* buffer = 0);
-    def __init__(self, profile, provider, buffer = 0):
-        OpenRTM_aist.InPortConnector.__init__(self, profile, buffer)
+    #InPortPushConnector(ConnectorInfo info, InPortProvider* provider,
+    #                    ConnectorListeners listeners, CdrBufferBase* buffer = 0);
+    def __init__(self, info, provider, listeners, buffer = 0):
+        OpenRTM_aist.InPortConnector.__init__(self, info, buffer)
         self._provider = provider
+        self._listeners = listeners
+
         if buffer:
             self._deleteBuffer = True
         else:
             self._deleteBuffer = False
 
         if self._buffer == 0:
-            self._buffer = self.createBuffer(profile)
+            self._buffer = self.createBuffer(info)
 
         if self._buffer == 0:
             raise
 
-        self._provider.init(profile.properties)
+        self._provider.init(info.properties)
         self._provider.setBuffer(self._buffer)
+        self._provider.setListener(info, self._listeners)
 
     
     #
@@ -123,18 +126,18 @@ class InPortPushConnector(OpenRTM_aist.InPortConnector):
             
             
         if ret == OpenRTM_aist.BufferStatus.BUFFER_OK:
-            return OpenRTM_aist.DataPortStatus.PORT_OK
+            return self.PORT_OK
 
         elif ret == OpenRTM_aist.BufferStatus.BUFFER_EMPTY:
-            return OpenRTM_aist.DataPortStatus.BUFFER_EMPTY
+            return self.BUFFER_EMPTY
 
         elif ret == OpenRTM_aist.BufferStatus.TIMEOUT:
-            return OpenRTM_aist.DataPortStatus.BUFFER_TIMEOUT
+            return self.BUFFER_TIMEOUT
 
         elif ret == OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET:
-            return OpenRTM_aist.DataPortStatus.PRECONDITION_NOT_MET
+            return self.PRECONDITION_NOT_MET
 
-        return OpenRTM_aist.DataPortStatus.PORT_ERROR
+        return self.PORT_ERROR
         
 
     ##
@@ -168,7 +171,7 @@ class InPortPushConnector(OpenRTM_aist.InPortConnector):
     
         self._buffer = 0
 
-        return OpenRTM_aist.DataPortStatus.PORT_OK
+        return self.PORT_OK
 
     ## virtual void activate(){}; // do nothing
     def activate(self): # do nothing
@@ -205,7 +208,5 @@ class InPortPushConnector(OpenRTM_aist.InPortConnector):
             self._rtcout.RTC_ERROR("unknown endian from connector")
             return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
 
-        self._buffer.write(_data)
-        return OpenRTM_aist.BufferStatus.BUFFER_OK
-
+        return self._buffer.write(_data)
         

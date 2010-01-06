@@ -23,6 +23,77 @@
 
 ##
 # @if jp
+# @class ConnectCallback
+# @brief connect/notify_connect() 時のコールバック抽象クラス
+#
+# Portに対してconnect/notify_connect() 等が呼び出される時に呼び出される
+# コールバックファンクタ。引数に RTC::ConnectorProfile を取る。
+#
+# @param profile ConnectorProfile
+#
+# @since 1.0.0
+#
+# @else
+# @class ConnectCallback
+# @brief Callback functor abstract for connect/notify_connect() funcs
+#
+# This is the interface for callback functor for connect/notify_connect()
+# invocation in Port. Argument is RTC::ConnectorProfile that is given
+# these functions.
+#
+# @param profile ConnectorProfile
+#
+# @since 1.0.0
+#
+# @endif
+#
+class ConnectionCallback:
+  def __del__(self):
+    pass
+
+  # virtual void operator()(RTC::ConnectorProfile& profile) = 0;
+  def __call__(self, profile):
+    pass
+
+
+##
+# @if jp
+# @class DisconnectCallback
+# @brief disconnect/notify_disconnect() 時のコールバック抽象クラス
+#
+# Portに対してdisconnect/notify_disconnect() 等が呼び出される時に呼び出される
+# コールバックファンクタ。引数に接続IDを取る。
+#
+# @param connector_id Connector ID
+#
+# @since 1.0.0
+#
+# @else
+# @class DisconnectCallback
+# @brief Callback functor abstract for disconnect/notify_disconnect() funcs
+#
+# This is the interface for callback functor for 
+# disconnect/notify_disconnect() invocation in Port.
+# Argument is connector ID is given these functions.
+#
+# @param connector_id Connector ID
+#
+# @since 1.0.0
+#
+# @endif
+#
+class DisconnectCallback:
+  def __del__(self):
+    pass
+
+
+  # virtual void operator()(const char* connector_id) = 0;
+  def __call__(self, connector_id):
+    pass
+
+
+##
+# @if jp
 # @class OnWrite
 # @brief write() 時のコールバッククラス(サブクラス実装用)
 #
@@ -109,200 +180,3 @@ class OnRead:
 class OnReadConvert:
   def __call__(self,value):
     pass
-
-
-
-##
-# @if jp
-# @class OnOverflow
-# @brief バッファオーバーフロー時のコールバッククラス(サブクラス実装用)
-#
-# InPort/OutPortのバッファにデータがput()される時、バッファオーバーフローが
-# 生じた場合に呼ばれるコールバックメソッド。<BR>
-# ※サブクラスでの実装参照用
-#
-# @since 0.4.0
-#
-# @else
-# @class OnOverflow
-# @brief OnOverflow abstract class
-#
-# @endif
-class OnOverflow:
-  def __call__(self,value):
-    pass
-
-
-##
-# @if jp
-# @class OnUnderflow
-# @brief Underflow 時のコールバッククラス(サブクラス実装用)
-#
-# @since 0.4.0
-#
-# InPort/OutPortのバッファにデータがread()される時に、読み出すべきデータが
-# ない場合に呼び出されるコールバックインタフェース。
-# このコールバックの戻り値がread()の戻り値となる。<BR>
-# ※サブクラスでの実装参照用
-#
-# @else
-# @class OnUnderflow
-# @brief OnUnderflow abstract class
-#
-# @endif
-class OnUnderflow:
-  def __call__(self,value):
-    pass
-
-
-##
-# @if jp
-# @class OnWriteTimeout
-# @brief タイムアウト時のコールバック抽象クラス
-#
-# InPort/OutPortのバッファにデータをwrite()する際に、タイムアウトが発生した
-# 時に呼び出されるコールバックインタフェース。
-#
-# @since 0.4.0
-#
-# @else
-# @class OnWriteTimeout
-# @brief Callback abstract class on timeout
-#
-# This is the interface for callback invoked when data is done write()
-# into the InPort/OutPort's buffer and the timeout occurred.
-#
-# @since 0.4.0
-#
-# @endif
-class OnWriteTimeout:
-  ##
-  # @if jp
-  #
-  # @brief コールバックメソッド
-  #
-  # タイムアウト発生時に呼び出されるコールバックメソッド
-  #
-  # @param value バッファへ書き込むデータ
-  #
-  # @else
-  #
-  # @brief Callback method
-  #
-  # This is the callback method invoked when the timeout occurs.
-  #
-  # @param value Data that is written into the buffer
-  #
-  # @endif
-  # virtual void operator()(const DataType& value) = 0;
-  def __call__(self, value):
-    pass
-
-  
-##
-# @if jp
-# @class OnReadTimeout
-# @brief タイムアウト時のコールバック抽象クラス
-#
-# InPort/OutPortのバッファにデータをread()する際に、タイムアウトが発生した
-# 時に呼び出されるコールバックインタフェース。
-#
-# @since 0.4.0
-#
-# @else
-# @class OnReadTimeout
-# @brief OnReadTimeout abstract class
-#
-# This is the interface for callback invoked when data is done read()
-# into the InPort/OutPort's buffer and the timeout occurred.
-#
-# @since 0.4.0
-#
-# @endif
-class OnReadTimeout:
-  ##
-  # @if jp
-  #
-  # @brief コールバックメソッド
-  #
-  # タイムアウト発生時に呼び出されるコールバックメソッド
-  #
-  # @return 代替となる読み出しデータ
-  #
-  # @else
-  #
-  # @brief Callback method
-  #
-  # This is the callback method invoked when the timeout occurs.
-  #
-  # @return Substituted readout data
-  #
-  # @endif
-  # virtual DataType operator()() = 0;
-  def __call__(self):
-    pass
-
-
-  #============================================================
-  # callback functor base classes
-  ##
-  # @if jp
-  # @class ConnectCallback
-  # @brief connect/notify_connect() 時のコールバック抽象クラス
-  #
-  # Portに対してconnect/notify_connect() 等が呼び出される時に呼び出される
-  # コールバックファンクタ。引数に RTC::ConnectorProfile を取る。
-  #
-  # @param profile ConnectorProfile
-  #
-  # @since 1.0.0
-  #
-  # @else
-  # @class ConnectCallback
-  # @brief Callback functor abstract for connect/notify_connect() funcs
-  #
-  # This is the interface for callback functor for connect/notify_connect()
-  # invocation in Port. Argument is RTC::ConnectorProfile that is given
-  # these functions.
-  #
-  # @param profile ConnectorProfile
-  #
-  # @since 1.0.0
-  #
-  # @endif
-  #
-  class ConnectionCallback:
-    # virtual void operator()(RTC::ConnectorProfile& profile) = 0;
-    def __call__(self, profile):
-      pass
-
-  ##
-  # @if jp
-  # @class DisconnectCallback
-  # @brief disconnect/notify_disconnect() 時のコールバック抽象クラス
-  #
-  # Portに対してdisconnect/notify_disconnect() 等が呼び出される時に呼び出される
-  # コールバックファンクタ。引数に接続IDを取る。
-  #
-  # @param connector_id Connector ID
-  #
-  # @since 1.0.0
-  #
-  # @else
-  # @class DisconnectCallback
-  # @brief Callback functor abstract for disconnect/notify_disconnect() funcs
-  #
-  # This is the interface for callback functor for 
-  # disconnect/notify_disconnect() invocation in Port.
-  # Argument is connector ID is given these functions.
-  #
-  # @param connector_id Connector ID
-  #
-  # @since 1.0.0
-  #
-  # @endif
-  #
-  class DisconnectCallback:
-    #virtual void operator()(const char* connector_id) = 0;
-    def __call__(self, connector_id):
-      pass
