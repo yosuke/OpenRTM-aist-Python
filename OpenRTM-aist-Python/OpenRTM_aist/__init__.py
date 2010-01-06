@@ -71,6 +71,7 @@ from InPortProvider import *
 from InPortCorbaCdrConsumer import *
 from InPortCorbaCdrProvider import *
 from ConnectorBase import *
+from ConnectorListener import *
 from InPortConnector import *
 from InPortPullConnector import *
 from InPortPushConnector import *

@@ -84,6 +84,11 @@ class PublisherBase(OpenRTM_aist.DataPortStatus):
   def setBuffer(self, buffer):
     pass
 
+  # virtual ReturnCode setListener(ConnectorInfo& info,
+  #                                ConnectorListeners* listeners) = 0;
+  def setListener(self, info, listeners):
+    pass
+
   # virtual ReturnCode write(const cdrMemoryStream& data,
   #                          unsigned long sec,
   #                          unsigned long usec) = 0;

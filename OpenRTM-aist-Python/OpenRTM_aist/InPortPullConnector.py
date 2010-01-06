@@ -46,9 +46,14 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
     # @brief Constructor
     # @endif
     #
-    def __init__(self, profile, consumer, buffer = 0):
-        OpenRTM_aist.InPortConnector.__init__(self, profile, buffer)
+    # InPortPullConnector(ConnectorInfo info,
+    #                     OutPortConsumer* consumer,
+    #                     ConnectorListeners& listeners,
+    #                     CdrBufferBase* buffer = 0);
+    def __init__(self, info, consumer, listeners, buffer = 0):
+        OpenRTM_aist.InPortConnector.__init__(self, info, buffer)
         self._consumer = consumer
+        self._listeners = listeners
         if buffer == 0:
             self._buffer = self.createBuffer(self._profile)
 
@@ -56,6 +61,7 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
             raise
         
         self._consumer.setBuffer(self._buffer)
+        self._consumer.setListener(self._listeners)
 
 
     ##
@@ -85,10 +91,10 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
     # virtual ReturnCode read(cdrMemoryStream& data);
     def read(self, data):
         if self._buffer == 0:
-            return OpenRTM_aist.DataPortStatus.PORT_ERROR
+            return self.PORT_ERROR
             
         #self._buffer.read(data) not implementation.
-        return OpenRTM_aist.DataPortStatus.PORT_OK
+        return self.PORT_OK
 
 
     ##
@@ -106,7 +112,7 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
     #
     # virtual ReturnCode disconnect();
     def disconnect(self):
-        return OpenRTM_aist.DataPortStatus.PORT_OK
+        return self.PORT_OK
         
 
     ## virtual void activate(){}; // do nothing
