@@ -16,7 +16,7 @@
 #     All rights reserved.
 #
 
-
+import copy
 import OpenRTM_aist
 import RTC, RTC__POA
 
@@ -444,7 +444,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
         self._rtcout.RTC_TRACE("publishInterfaces()")
 
         # prop: [port.outport].
-        prop = self._properties
+        prop = copy.deepcopy(self._properties)
 
         conn_prop = OpenRTM_aist.Properties()
         OpenRTM_aist.NVUtil.copyToProperties(conn_prop, cprof.properties)
@@ -519,7 +519,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
         self._rtcout.RTC_TRACE("subscribeInterfaces()")
 
         # prop: [port.outport].
-        prop = self._properties
+        prop = copy.deepcopy(self._properties)
         conn_prop = OpenRTM_aist.Properties()
         OpenRTM_aist.NVUtil.copyToProperties(conn_prop, cprof.properties)
         prop.mergeProperties(conn_prop.getNode("dataport")) # marge ConnectorProfile
