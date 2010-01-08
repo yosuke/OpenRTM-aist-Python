@@ -1116,15 +1116,14 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     self._rtcout.RTC_TRACE("on_initialize()")
     ret = RTC.RTC_ERROR
     try:
-      active_config = self._properties.getProperty("active_config")
-      if ((active_config is None) or (active_config is "") or (active_config == [])):
-        self._configsets.update("default")
-      else:
-        if self._configsets.haveConfig(active_config):
-          self._configsets.update(active_config)
-        else:
-          self._configsets.update("default")
       ret = self.onInitialize()
+      active_set = self._properties.getProperty("configuration.active_config","default")
+
+      if self._configsets.haveConfig(active_set):
+          self._configsets.update(active_set)
+      else:
+          self._configsets.update("default")
+
     except:
       self._rtcout.RTC_ERROR(sys.exc_info()[0])
       return RTC.RTC_ERROR
