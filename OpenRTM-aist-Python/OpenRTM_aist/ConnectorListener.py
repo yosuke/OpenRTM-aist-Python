@@ -128,12 +128,6 @@ class ConnectorDataListenerT(ConnectorDataListener):
 
     # virtual void operator()(const ConnectorInfo& info,
     #                         const cdrMemoryStream& cdrdata)
-    def __call__(self, info, cdrdata):
-        pass
-
-
-    # virtual void operator()(const ConnectorInfo& info,
-    #                         const cdrMemoryStream& cdrdata)
     def __call__(self, info, cdrdata, data):
         endian = info.properties.getProperty("serializer.cdr.endian","little")
         if endian is not "little" and endian is not None:
