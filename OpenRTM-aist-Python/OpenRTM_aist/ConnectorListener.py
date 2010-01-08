@@ -158,9 +158,11 @@ class ConnectorDataListenerT(ConnectorDataListener):
 #  
 # - ON_BUFFER_EMPTY:       バッファが空の場合
 # - ON_BUFFER_READTIMEOUT: バッファが空でタイムアウトした場合
-# - ON_SENDER_EMPTY:       OUtPort側バッファが空
+# - ON_SENDER_EMPTY:       OutPort側バッファが空
 # - ON_SENDER_TIMEOUT:     OutPort側タイムアウト時
 # - ON_SENDER_ERROR:       OutPort側エラー時
+# - ON_CONNECT:            接続確立時
+# - ON_DISCONNECT:         接続切断時
 #
 # @else
 # @brief The types of ConnectorListener
@@ -170,6 +172,8 @@ class ConnectorDataListenerT(ConnectorDataListener):
 # - ON_BUFFER_EMPTY:       At the time of empty of OutPort
 # - ON_SENDER_TIMEOUT:     At the time of timeout of OutPort
 # - ON_SENDER_ERROR:       At the time of error of OutPort
+# - ON_CONNECT:            At the time of connection
+# - ON_DISCONNECT:         At the time of disconnection
 #
 # @endif
 #
@@ -184,7 +188,9 @@ class ConnectorListenerType:
     ON_SENDER_EMPTY        = 2
     ON_SENDER_TIMEOUT      = 3
     ON_SENDER_ERROR        = 4
-    CONNECTOR_LISTENER_NUM = 5
+    ON_CONNECT             = 5
+    ON_DISCONNECT          = 6
+    CONNECTOR_LISTENER_NUM = 7
 
 
 
