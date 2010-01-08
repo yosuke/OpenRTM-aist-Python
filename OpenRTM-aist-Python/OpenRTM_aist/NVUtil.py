@@ -114,6 +114,7 @@ def copyFromProperties(nv, prop):
 # @param nv NVList that is copies from
 #
 # @endif
+# void copyToProperties(coil::Properties& prop, const SDOPackage::NVList& nv);
 def copyToProperties(prop, nvlist):
   for nv in nvlist:
     try:
@@ -153,6 +154,7 @@ class to_prop:
 # @else
 #
 # @endif
+# coil::Properties toProperties(const SDOPackage::NVList& nv);
 def toProperties(nv):
   p = OpenRTM_aist.CORBA_SeqUtil.for_each(nv, to_prop())
   return p._prop
