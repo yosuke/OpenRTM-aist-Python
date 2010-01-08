@@ -143,17 +143,33 @@ class TestConnectorListener(unittest.TestCase):
 
 
 	def test_ConnectorDataListenerT(self):
-
+		# add DataListener.
 		for i in range(OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM):
 			self._connectorListeners.connectorData_[i].addListener(self._datalisteners[i],True)
 
-		# test for ConnectorDataListenerT.__call__()
+		# test for ConnectorDataListenerT.__call__() with little endian data.
 		for i in range(OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM):
 			data = RTC.TimedLong(RTC.Time(0,0),i)
-			cdr_data = cdrMarshal(any.to_any(data).typecode(), data, True)
+			cdr_data = cdrMarshal(any.to_any(data).typecode(), data, True) # little endian
 			self._connectorListeners.connectorData_[i].notify(self._info, cdr_data)
 			self.assertEqual(self._datalisteners[i].get_data().data, i)
 			
+
+		# test for ConnectorDataListenerT.__call__() with big endian data.
+		info = OpenRTM_aist.ConnectorInfo("name",
+						  "id",
+						  [],
+						  OpenRTM_aist.Properties())
+		info.properties.setProperty("serializer.cdr.endian","big")
+
+		for i in range(OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM):
+			data = RTC.TimedLong(RTC.Time(0,0),i)
+			cdr_data = cdrMarshal(any.to_any(data).typecode(), data, False) # big endian
+			self._connectorListeners.connectorData_[i].notify(info, cdr_data)
+			self.assertEqual(self._datalisteners[i].get_data().data, i)
+			
+
+		# remove DataListener.
 		for i in range(OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM):
 			self._connectorListeners.connectorData_[i].removeListener(self._datalisteners[i])
 
@@ -168,6 +184,7 @@ class TestConnectorListener(unittest.TestCase):
 
 
 	def test_ConnectorListener(self):
+		# add Listener.
 		for i in range(OpenRTM_aist.ConnectorListenerType.CONNECTOR_LISTENER_NUM):
 			self._connectorListeners.connector_[i].addListener(self._listeners[i],True)
 
@@ -175,6 +192,7 @@ class TestConnectorListener(unittest.TestCase):
 		for i in range(OpenRTM_aist.ConnectorListenerType.CONNECTOR_LISTENER_NUM):
 			self._connectorListeners.connector_[i].notify(self._info)
 			
+		# remove Listener.
 		for i in range(OpenRTM_aist.ConnectorListenerType.CONNECTOR_LISTENER_NUM):
 			self._connectorListeners.connector_[i].removeListener(self._listeners[i])
 
