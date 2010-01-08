@@ -385,8 +385,10 @@ class Manager:
       except:
         self._rtcout.RTC_ERROR("Module load error in Manager::activateManager().")
       
-    comps = self._config.getProperty("manager.components.precreate").split(",")
+    if self._initProc:
+      self._initProc(self)
 
+    comps = self._config.getProperty("manager.components.precreate").split(",")
     for i in range(len(comps)):
       if comps[i] is None or comps[i] == "":
         continue
@@ -396,9 +398,6 @@ class Manager:
       comps[i] = tmp[0]
 
       self.createComponent(comps[i])
-
-    if self._initProc:
-      self._initProc(self)
 
     return True
 
