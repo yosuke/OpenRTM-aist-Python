@@ -301,62 +301,6 @@ class OutPort(OpenRTM_aist.OutPortBase):
   ##
   # @if jp
   #
-  # @brief OnOverflow コールバックの設定
-  #
-  # バッファフルによりデータ書き込みができない場合に呼び出される OnOverflow
-  # コールバックファンクタを設定する。
-  #
-  # @param self
-  # @param on_overflow OnOverflow コールバックファンクタ
-  #
-  # @else
-  #
-  # @brief Set OnOverflow callback
-  #
-  # @endif
-  #def setOnOverflow(self, on_overflow):
-  #  self._OnOverflow = on_overflow
-
-
-  ##
-  # @if jp
-  #
-  # @brief OnUnderflow コールバックの設定
-  #
-  # バッファエンプティにより読み出せるデータがない場合に呼び出される
-  # コールバックファンクタ OnUnderflow を設定する。
-  #
-  # @param self
-  # @param on_underflow OnUnderflow コールバックファンクタ
-  #
-  # @else
-  #
-  # @brief Set OnUnderflow callback
-  #
-  # @endif
-  #def setOnUnderflow(self, on_underflow):
-  #  self._OnUnderflow = on_underflow
-
-
-  #def setOnConnect(self, on_connect):
-  #  self._OnConnect = on_connect
-
-
-  #def setOnDisconnect(self, on_disconnect):
-  #  self._OnDisconnect = on_disconnect
-
-
-  #def onConnect(self, id, publisher):
-  #  print "onConnect id:", id
-
-
-  #def onDisconnect(self, id):
-  #  print "onDisconnect id:", id
-
-
-  ##
-  # @if jp
-  #
   # @brief データ型名取得用メソッド
   #
   # データの型名を取得するため、InPortCorbaProviderから呼ばれる。

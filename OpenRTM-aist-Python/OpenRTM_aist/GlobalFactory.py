@@ -2,7 +2,7 @@
 # -*- coding: euc-jp -*-
 
 ##
-# @file GFactory.py
+# @file GlobalFactory.py
 # @brief generic Factory template class
 # @date $Date$
 # @author Noriaki Ando <n-ando@aist.go.jp> and Shinji Kurihara

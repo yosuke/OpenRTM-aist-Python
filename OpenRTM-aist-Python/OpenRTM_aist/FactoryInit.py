@@ -2,7 +2,7 @@
 # -*- coding: euc-jp -*-
 
 ##
-# @file FactoryInit.h
+# @file FactoryInit.py
 # @brief factory initialization function
 # @date $Date: 2008-03-06 06:58:40 $
 # @author Noriaki Ando <n-ando@aist.go.jp>
