@@ -208,6 +208,8 @@ try:
 				       "OpenRTM_aist.rtc-template",
 				       "OpenRTM_aist.rtm-naming"],
 			   data_files = [(sitedir,['OpenRTM-aist.pth']),
+					 (os.path.join(sitedir,'OpenRTM_aist/examples'),['OpenRTM_aist/examples/rtc.conf.sample']),
+					 (os.path.join(sitedir,'OpenRTM_aist/examples'),['OpenRTM_aist/examples/component.conf']),
 					 (os.path.join(sitedir,'OpenRTM_aist/examples/AutoControl'),['OpenRTM_aist/examples/AutoControl/rtc.conf']),
 					 (os.path.join(sitedir,'OpenRTM_aist/examples/Composite'),['OpenRTM_aist/examples/Composite/rtc.conf']),
 					 (os.path.join(sitedir,'OpenRTM_aist/examples/Composite'),['OpenRTM_aist/examples/Composite/composite.conf']),
