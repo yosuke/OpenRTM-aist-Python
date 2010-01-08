@@ -252,38 +252,106 @@ class ConfigAdmin:
 
 
   ##
+  # void update(void);
+  #
   # @if jp
-  # 
+  #
   # @brief コンフィギュレーションパラメータの更新
+  #        (アクティブコンフィギュレーションセット)
   # 
-  # 引数の設定状況によって以下の処理を行う。
-  # - config_setのみが設定されている場合
-  #     指定したIDのコンフィギュレーションセットに設定した値で、
-  #     コンフィギュレーションパラメータの値を更新する。
-  #     指定したIDのコンフィギュレーションセットが存在しない場合は、
-  #     何もせずに終了する。
-  # - config_setとconfig_paramが設定されている場合
-  #     指定したパスのコンフィギュレーションに設定した値で、
-  #     コンフィギュレーションパラメータの値を更新する。
-  # - config_setとconfig_paramが両方とも設定されていない場合
-  #     コンフィギュレーションセットが更新されている場合に、
-  #     現在アクティブになっているコンフィギュレーションに設定した値で、
-  #     コンフィギュレーションパラメータの値を更新する。
-  #     この処理での更新は、アクティブとなっているコンフィギュレーションセット
-  #     が存在している場合、前回の更新からコンフィギュレーションセットの内容が
-  #     更新されている場合のみ実行される。
+  # コンフィギュレーションセットが更新されている場合に、現在アクティ
+  # ブになっているコンフィギュレーションに設定した値で、コンフィギュ
+  # レーションパラメータの値を更新する。この処理での更新は、アクティ
+  # ブとなっているコンフィギュレーションセットが存在している場合、前
+  # 回の更新からコンフィギュレーションセットの内容が更新されている場
+  # 合のみ実行される。
+  #
+  # @else
+  #
+  # @brief Update the values of configuration parameters
+  #        (Active configuration set)
   # 
-  # @param self 
-  # @param config_set コンフィギュレーション名称。「.」区切りで最後の要素を
-  #                   除いた名前
-  # @param config_param コンフィギュレーションセットの最後の要素名
+  # When configuration set is updated, update the configuration
+  # parameter value to the value that is set to the current active
+  # configuration.  This update will be executed, only when an
+  # active configuration set exists and the content of the
+  # configuration set has been updated from the last update.
+  #
+  # @endif
+  #
+  # void update(const char* config_set);
+  #
+  # @if jp
+  #
+  # @brief コンフィギュレーションパラメータの更新(ID指定)
+  # 
+  # コンフィギュレーション変数の値を、指定したIDを持つコンフィギュレー
+  # ションセットの値で更新する。これにより、アクティブなコンフィギュ
+  # レーションセットは変更されない。したがって、アクティブコンフィギュ
+  # レーションセットとパラメータ変数の間に矛盾が発生する可能性がある
+  # ので注意が必要である。
+  #
+  # 指定したIDのコンフィギュレーションセットが存在しない場合は、何も
+  # せずに終了する。
+  #
+  # @param config_set 設定対象のコンフィギュレーションセットID
   # 
   # @else
+  #
+  # @brief Update configuration parameter (By ID)
   # 
+  # This operation updates configuration variables by the
+  # configuration-set with specified ID. This operation does not
+  # change current active configuration-set. Since this operation
+  # causes inconsistency between current active configuration set
+  # and actual values of configuration variables, user should
+  # carefully use it.
+  #
+  # This operation ends without doing anything, if the
+  # configuration-set does not exist.
+  #
+  # @param config_set The target configuration set's ID to setup
+  #
   # @endif
-  # void update(void);
-  # void update(const char* config_set);
+  #
   # void update(const char* config_set, const char* config_param);
+  #
+  # @if jp
+  #
+  # @brief コンフィギュレーションパラメータの更新(名称指定)
+  # 
+  # 特定のコンフィギュレーション変数の値を、指定したIDを持つコンフィ
+  # ギュレーションセットの値で更新する。これにより、アクティブなコン
+  # フィギュレーションセットは変更されない。したがって、アクティブコ
+  # ンフィギュレーションセットとパラメータ変数の間に矛盾が発生する可
+  # 能性があるので注意が必要である。
+  #
+  # 指定したIDのコンフィギュレーションセットや、指定した名称のパラメー
+  # タが存在しない場合は、何もせずに終了する。
+  #
+  # @param config_set コンフィギュレーションID
+  # @param config_param コンフィギュレーションパラメータ名
+  # 
+  # @else
+  #
+  # @brief Update the values of configuration parameters (By name)
+  # 
+  # This operation updates a configuration variable by the
+  # specified configuration parameter in the
+  # configuration-set. This operation does not change current
+  # active configuration-set. Since this operation causes
+  # inconsistency between current active configuration set and
+  # actual values of configuration variables, user should carefully
+  # use it.
+  #
+  # This operation ends without doing anything, if the
+  # configuration-set or the configuration parameter do not exist.
+  #
+  # @param config_set configuration-set ID.
+  # @param config_param configuration parameter name.
+  #
+  # @endif
+  #
   def update(self, config_set=None, config_param=None):
     # update(const char* config_set)
     if config_set and config_param is None:
@@ -579,13 +647,20 @@ class ConfigAdmin:
   # @endif
   # bool removeConfigurationSet(const char* config_id);
   def removeConfigurationSet(self, config_id):
-    idx = 0
-    for conf in self._newConfig:
-      if conf == config_id:
-        break
-      idx += 1
+    if config_id == "default":
+      return False
+    if self._activeId == config_id:
+      return False
 
-    if idx == len(self._newConfig):
+    find_flg = False
+    # removeable config-set is only config-sets newly added
+    for (idx,conf) in enumerate(self._newConfig):
+      if conf == config_id:
+        find_flg = True
+        break
+
+
+    if not find_flg:
       return False
 
     p = self._configsets.getNode(config_id)
@@ -622,6 +697,11 @@ class ConfigAdmin:
   def activateConfigurationSet(self, config_id):
     if config_id is None:
       return False
+
+    # '_<conf_name>' is special configuration set name
+    if config_id[0] == '_':
+      return False
+
     if not self._configsets.hasKey(config_id):
       return False
     self._activeId = config_id
