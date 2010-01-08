@@ -173,7 +173,7 @@ class TestCorbaNaming(unittest.TestCase):
 		name.append(CosNaming.NameComponent("desRec2","desRec2_cxt"))
 
 		string_name = self.naming.toString(name)
-		self.assertEqual(str("desRec0.desRec0_cxt/desRec1.desRec1_cxt/desRec2.desRec2_cxt"),str(string_name))
+		self.assertEqual(str("desRec0.desRec0_cxt/desRec1.desRec1_cxt/desRec2.desRec2_cxt/"),str(string_name))
 		print ".",string_name,"."
 
 ############### test #################

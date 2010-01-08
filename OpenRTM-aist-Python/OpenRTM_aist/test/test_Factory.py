@@ -45,6 +45,7 @@ class TestFactoryPython(unittest.TestCase):
 
 	def test_create(self):
 		self.factory.create(3)
+		self.assertEqual(self.factory.number(), 0)
 	
 	def destroy(self):
 		pass

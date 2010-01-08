@@ -23,7 +23,7 @@ import OpenRTM_aist
 import RTC, RTC__POA
 
 from RTCUtil import *
-import CORBA
+from omniORB import CORBA
 
 #class test(RTC__POA.DataFlowParticipant):
 class test(OpenRTM_aist.RTObject_impl):

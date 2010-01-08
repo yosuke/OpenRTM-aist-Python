@@ -16,7 +16,7 @@
 #      All rights reserved.
 
 
-import CORBA
+from omniORB import CORBA
 from omniORB import any
 from omniORB import *
 

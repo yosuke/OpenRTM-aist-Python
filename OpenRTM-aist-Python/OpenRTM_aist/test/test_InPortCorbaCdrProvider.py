@@ -30,6 +30,37 @@ import OpenRTM
 import OpenRTM_aist
 
 
+class BufferMock:
+	def __init__(self):
+		self._data = None
+		return
+
+	def write(self, data):
+		self._data = data
+		return OpenRTM_aist.BufferStatus.BUFFER_OK
+
+	def read(self, value):
+		if len(value) > 0:
+			value[0] = self._data
+		else:
+			value.append(self._data)
+		return OpenRTM_aist.BufferStatus.BUFFER_OK
+
+	def full(self):
+		return False
+
+
+class ConnectorMock:
+	def __init__(self, buffer):
+		self._buffer = buffer
+		return
+
+	def write(self, data):
+	        self._buffer.write(data)
+		return OpenRTM_aist.BufferStatus.BUFFER_OK
+
+
+
 class TestInPortCorbaCdrProvider(unittest.TestCase):
 	def setUp(self):
 		InPortCorbaCdrProviderInit()
@@ -37,7 +68,7 @@ class TestInPortCorbaCdrProvider(unittest.TestCase):
 		self._prov = OpenRTM_aist.InPortProviderFactory.instance().createObject("corba_cdr")
 		self._inp  = OpenRTM_aist.InPort("in",RTC.TimedLong(RTC.Time(0,0),0))
 		self._orb  = OpenRTM_aist.Manager.instance().getORB()
-		self._buffer = OpenRTM_aist.CdrBufferFactory.instance().createObject("ring_buffer")
+		self._buffer = BufferMock()
 		return
 	
 	def test_init(self):
@@ -49,9 +80,11 @@ class TestInPortCorbaCdrProvider(unittest.TestCase):
 		return
 
 	def test_put(self):
+		self._con = ConnectorMock(self._buffer)
+		self._prov._connector = self._con
 		self._prov.setBuffer(self._buffer)
-		data=RTC.TimedLong(RTC.Time(0,0),123)
-		cdr=cdrMarshal(any.to_any(data).typecode(),data,1)
+		data = RTC.TimedLong(RTC.Time(0,0),123)
+		cdr = cdrMarshal(any.to_any(data).typecode(), data, 1)
 		self.assertEqual(self._prov.put(cdr),OpenRTM.PORT_OK)
 		self.assertEqual(self._prov.put(cdr),OpenRTM.PORT_OK)
 		self.assertEqual(self._prov.put(cdr),OpenRTM.PORT_OK)
@@ -60,11 +93,13 @@ class TestInPortCorbaCdrProvider(unittest.TestCase):
 		self.assertEqual(self._prov.put(cdr),OpenRTM.PORT_OK)
 		self.assertEqual(self._prov.put(cdr),OpenRTM.PORT_OK)
 		self.assertEqual(self._prov.put(cdr),OpenRTM.PORT_OK)
-		self.assertEqual(self._prov.put(cdr),OpenRTM.BUFFER_FULL)
-		val=[]
-		self.assertEqual(self._buffer.read(val),OpenRTM_aist.BufferStatus.BUFFER_OK)
-		get_data=cdrUnmarshal(any.to_any(data).typecode(),val[0],1)
-		self.assertEqual(get_data.data,123)
+		self.assertEqual(self._prov.put(cdr),OpenRTM.PORT_OK)
+		self.assertEqual(self._prov.put(cdr),OpenRTM.PORT_OK)
+		self.assertEqual(self._prov.put(cdr),OpenRTM.PORT_OK)
+		val = []
+		self.assertEqual(self._buffer.read(val), OpenRTM_aist.BufferStatus.BUFFER_OK)
+		get_data = cdrUnmarshal(any.to_any(data).typecode(), val[0], 1)
+		self.assertEqual(get_data.data, 123)
 		return
 
 

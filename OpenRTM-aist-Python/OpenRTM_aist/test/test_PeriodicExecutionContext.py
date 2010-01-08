@@ -25,7 +25,6 @@ from PeriodicExecutionContext import *
 import RTC
 import RTC__POA
 import SDOPackage
-import CORBA
 from omniORB import CORBA, PortableServer
 
 

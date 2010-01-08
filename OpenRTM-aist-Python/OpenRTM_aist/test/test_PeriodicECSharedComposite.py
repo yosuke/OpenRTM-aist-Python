@@ -2,8 +2,8 @@
 # -*- Python -*-
 
 
-## \file test_RTObject.py
-## \brief test for RT component base class
+## \file test_PeriodicECSharedComposite.py
+## \brief test for PeriodicECSharedComposite class
 ## \date $Date: $
 ## \author Shinji Kurihara
 #
@@ -147,7 +147,7 @@ class TestPeriodicECSharedComposite(unittest.TestCase):
 		return
 
 
-	def Ttest_delegatePort(self):
+	def test_delegatePort(self):
 		return
 
 

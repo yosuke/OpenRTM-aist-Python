@@ -25,7 +25,6 @@ import SDOPackage, SDOPackage__POA
 
 from SdoConfiguration import *
 
-import CORBA
 from omniORB import CORBA, PortableServer
 
 class ServiceProf(SDOPackage__POA.SDOService):

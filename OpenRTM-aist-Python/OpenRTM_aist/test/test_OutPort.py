@@ -42,6 +42,7 @@ class OnRWConvertTest:
 
 	def echo(self, value=None):
 		print "OnRWConvert Called"
+		return value
 
 class ConnectorMock:
 	def write(self, data):
@@ -49,8 +50,7 @@ class ConnectorMock:
 		return OpenRTM_aist.DataPortStatus.PORT_OK
 
 	def read(self, data):
-		d = cdrUnmarshal(any.to_any(RTC.TimedLong(RTC.Time(0,0),0)).typecode(),self._data,1)
-		data[0] = d
+		data[0] = self._data
 		return True
 
 
@@ -70,7 +70,6 @@ class TestOutPort(unittest.TestCase):
 		self.assertEqual(read_data[0].data,123)
 		return
 
-
 	def test_OnWrite(self):
 		self._connector = ConnectorMock()
 		self._op._connectors = [self._connector]
@@ -80,26 +79,6 @@ class TestOutPort(unittest.TestCase):
 		return
 
 
-	def test_setWriteBlock(self):
-		self._op.setWriteBlock(None)
-		return
-		
-	def test_setWriteTimeout(self):
-		self._op.setWriteTimeout(10)
-		return
-		
-	def test_setOnOverflow(self):
-		self._op.setOnOverflow(None)
-		return
-		
-	def test_setOnUnderflow(self):
-		self._op.setOnUnderflow(None)
-		return
-		
-	def test_setOnConnect(self):
-		self._op.setOnConnect(None)
-		return
-		
 	def test_getPortDataType(self):
 		self.assertEqual(self._op.getPortDataType(),any.to_any(RTC.TimedLong(RTC.Time(0,0),0)).typecode().name())
 		return

@@ -24,7 +24,6 @@ import RTC, RTC__POA
 
 from ExtTrigExecutionContext import *
 
-import CORBA
 from omniORB import CORBA, PortableServer
 
 class DFP(OpenRTM_aist.RTObject_impl):

@@ -25,7 +25,7 @@ from PortAdmin import *
 import RTC, RTC__POA
 import OpenRTM
 
-import CORBA
+from omniORB import CORBA
 
 class PortBase(OpenRTM_aist.PortBase):
 	def __init__(self):

@@ -26,7 +26,7 @@ import unittest
 from InPortCorbaConsumer import *
 from NVUtil import *
  
-import CORBA
+from omniORB import CORBA
 import RTC, RTC__POA
 import SDOPackage,SDOPackage__POA
 from omniORB import any

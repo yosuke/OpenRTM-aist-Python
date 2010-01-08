@@ -16,7 +16,7 @@
 # 
 
 import omniORB.any
-import CORBA
+from omniORB import CORBA
 import threading
 
 import sys

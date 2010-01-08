@@ -26,7 +26,7 @@ import unittest
 from OutPortPushConnector import *
 
 import OpenRTM
-
+import RTC
 import OpenRTM_aist
 
 class MyBuffer:
@@ -72,8 +72,12 @@ class TestOutPortPushConnector(unittest.TestCase):
 		return
 
 	def test_write(self):
-		self._oc.write(123)
-		self.assertEqual(self._buffer.read(), 123)
+		wdata = RTC.TimedLong(RTC.Time(0,0), 123)
+		self._oc.write(wdata)
+		val = self._buffer.read()
+		rdata = RTC.TimedLong(RTC.Time(0,0), 0)
+		get_data = cdrUnmarshal(any.to_any(rdata).typecode(),val,1)
+		self.assertEqual(get_data.data, 123)
 		return
 
 

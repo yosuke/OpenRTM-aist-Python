@@ -21,7 +21,7 @@ sys.path.insert(1,"../")
 import unittest
 from PortBase import *
 
-import CORBA
+from omniORB import CORBA
 import OpenRTM_aist
 import RTC, RTC__POA
 

@@ -206,9 +206,10 @@ class TestPublisherPeriodic(unittest.TestCase):
 		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
 		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
 		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
-		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
+		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.BUFFER_TIMEOUT)
 		time.sleep(1)
-		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.BUFFER_FULL)
+		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
+		_pn.deactivate()
 		return
 
 	def test_pushFifo(self):
@@ -245,7 +246,8 @@ class TestPublisherPeriodic(unittest.TestCase):
 		time.sleep(0.01)
 		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
 		time.sleep(1)
-		self.assertNotEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.BUFFER_FULL)
+		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.BUFFER_FULL)
+		_pn.deactivate()
 		return
 
 
@@ -273,9 +275,10 @@ class TestPublisherPeriodic(unittest.TestCase):
 		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
 		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
 		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
-		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
+		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.BUFFER_TIMEOUT)
 		time.sleep(1)
 		self.assertNotEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.BUFFER_FULL)
+		_pn.deactivate()
 		return
 
 	def test_pushNew(self):
@@ -307,6 +310,7 @@ class TestPublisherPeriodic(unittest.TestCase):
 		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
 		time.sleep(1)
 		self.assertEqual(_pn.write(123,0,0),OpenRTM_aist.DataPortStatus.PORT_OK)
+		_pn.deactivate()
 		return
 
 	def test_convertReturn(self):

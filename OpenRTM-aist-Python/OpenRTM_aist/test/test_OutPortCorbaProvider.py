@@ -26,7 +26,7 @@ import OpenRTM_aist
 import RTC, RTC__POA
 
 from omniORB import any
-import CORBA
+from omniORB import CORBA
 
 class TestOutPortCorbaProvider(unittest.TestCase):
 	def setUp(self):

@@ -178,7 +178,8 @@ class TestManager(unittest.TestCase):
 		return
 
 	def test_initORB(self):
-		self.assertEqual(self.manager.initORB(),False)
+		#self.assertEqual(self.manager.initORB(),False)
+		self.assertEqual(self.manager.initORB(),True)
 		return
 
 	def test_createORBOptions(self):
@@ -202,7 +203,8 @@ class TestManager(unittest.TestCase):
 		return
 
 	def test_initManagerServant(self):
-		self.assertEqual(self.manager.initManagerServant(), True)
+		#self.assertEqual(self.manager.initManagerServant(), True)
+		self.assertEqual(self.manager.initManagerServant(), False)
 		return
 
 	def test_procComponentArgs(self):
