@@ -59,9 +59,12 @@ default_config =["config.version",                   OpenRTM_aist.openrtm_versio
                  "corba.endpoint",                   "",
                  "corba.id",                         OpenRTM_aist.corba_name,
                  "corba.name_servers",               "",
+                 "corba.master_manager",             "localhost:2810",
                  "exec_cxt.periodic.type",           "PeriodicExecutionContext",
                  "exec_cxt.periodic.rate",           "1000",
                  "exec_cxt.evdriven.type",           "EventDrivenExecutionContext",
                  "manager.modules.load_path",        "./",
                  "manager.modules.abs_path_allowed", "YES",
+                 "manager.is_master",                "NO",
+                 "manager.name",                     "manager",
                  ""]

@@ -108,6 +108,7 @@ class ManagerConfig :
   def __init__(self, argv=None):
 
     self._configFile = ""
+    self._isMaster   = False
     if argv:
       self.init(argv)
 
@@ -166,7 +167,12 @@ class ManagerConfig :
         fd.close()
       except:
         print "Error: file open."
-    return self.setSystemInformation(prop)
+
+    self.setSystemInformation(prop)
+    if self._isMaster:
+      prop.setProperty("manager.is_master","YES")
+
+    return
 
   #######
   # \if jp
@@ -217,7 +223,7 @@ class ManagerConfig :
   # @endif
   def parseArgs(self, argv):
     try:
-      opts, args = getopt.getopt(argv[1:], "f:l:o:d:")
+      opts, args = getopt.getopt(argv[1:], "f:l:o:d")
     except getopt.GetoptError:
       print "Error: getopt error!"
       return
@@ -233,6 +239,7 @@ class ManagerConfig :
         pass
 
       if opt == "-d":
+        self._isMaster = True
         pass
 
     return

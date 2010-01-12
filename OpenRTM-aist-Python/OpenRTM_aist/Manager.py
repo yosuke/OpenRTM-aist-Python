@@ -1003,7 +1003,8 @@ class Manager:
   # @endif
   def initManager(self, argv):
     config = OpenRTM_aist.ManagerConfig(argv)
-    self._config = config.configure(OpenRTM_aist.Properties())
+    self._config = OpenRTM_aist.Properties()
+    config.configure(self._config)
     self._config.setProperty("logger.file_name",self.formatString(self._config.getProperty("logger.file_name"), self._config))
 
     self._module = OpenRTM_aist.ModuleManager(self._config)
@@ -1180,8 +1181,26 @@ class Manager:
   # @endif
   def createORBOptions(self):
     opt      = self._config.getProperty("corba.args")
+    self._rtcout.RTC_DEBUG("corba.args: %s",opt)
+
     corba    = self._config.getProperty("corba.id")
+    self._rtcout.RTC_DEBUG("corba.id: %s",corba)
+
     endpoint = self._config.getProperty("corba.endpoint")
+    self._rtcout.RTC_DEBUG("corba.endpint: %s",endpoint)
+
+    self._rtcout.RTC_DEBUG("manager.is_master: %s",self._config.getProperty("manager.is_master"))
+
+    # If this process has master manager,
+    # corba.endpoint is overwridden by master manager port number.
+    if OpenRTM_aist.toBool(self._config.getProperty("manager.is_master"), "YES", "NO", False):
+      mm = self._config.getProperty("corba.master_manager", ":2810")
+      mmm = OpenRTM_aist.split(mm, ":")
+
+      if len(mmm) == 2:
+        endpoint = ":" + mmm[1]
+      else:
+        endpoint = ":2810"
 
     if endpoint != "":
       if opt != "":
@@ -1192,6 +1211,9 @@ class Manager:
         opt = "-ORBEndPoint iiop://" + endpoint
       elif corba == "MICO":
         opt = "-ORBIIOPAddr inet:" + endpoint
+
+    self._rtcout.RTC_PARANOID("ORB options: %s", opt)
+
     return opt
 
 

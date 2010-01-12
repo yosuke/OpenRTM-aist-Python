@@ -15,6 +15,8 @@
 #         Advanced Industrial Science and Technology (AIST), Japan
 #     All rights reserved.
 
+import copy
+import sys
 from omniORB import CORBA
 import OpenRTM_aist
 import RTC,RTM,RTM__POA
@@ -25,9 +27,41 @@ class ManagerServant(RTM__POA.Manager):
 
     # standard constructor
     def __init__(self):
-        self._mgr = OpenRTM_aist.Manager.instance()
-        self._objref = self._this()
+        self._mgr    = OpenRTM_aist.Manager.instance()
+        self._owner  = None
+        self._rtcout = self._mgr.getLogbuf("ManagerServant")
 
+        config = copy.deepcopy(self._mgr.getConfig())
+
+        if OpenRTM_aist.toBool(config.getProperty("manager.is_master"), "YES", "NO", True):
+            # this is master manager
+            poa = self._mgr.getORB().resolve_initial_references("omniINSPOA")
+            poa._get_the_POAManager().activate()
+            print "config.getProperty(manager.name): ", config.getProperty("manager.name")
+            #id = self._mgr.getORB().string_to_object(config.getProperty("manager.name"))
+            id = config.getProperty("manager.name")
+            poa.activate_object_with_id(id, self)
+            mgrobj = poa.id_to_reference(id)
+            self._objref = mgrobj._narrow(RTM.Manager)
+        else:
+            # this is slave manager
+            try:
+                mgrloc = "corbaloc:iiop:"
+                mgrloc += config.getProperty("corba.master_manager")
+                mgrloc += "/" + config.getProperty("manager.name")
+
+                mobj = self._mgr.getORB().string_to_object(mgrloc)
+                self._owner = mobj._narrow(RTM.Manager)
+                self._objref = self._this()
+                self._owner.set_child(self._objref)
+
+            except CORBA.SystemException:
+                self._rtcout.RTC_ERROR(sys.exc_info()[0])
+              
+            except:
+                self._rtcout.RTC_ERROR(sys.exc_info()[0])
+
+        return
 
     def __del__(self):
         pass
