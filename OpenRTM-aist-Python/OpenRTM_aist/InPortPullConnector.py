@@ -62,6 +62,8 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
         
         self._consumer.setBuffer(self._buffer)
         self._consumer.setListener(self._listeners)
+        self.onConnect()
+        return
 
 
     ##
@@ -72,7 +74,9 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
     # @endif
     #
     def __del__(self):
+        self.onDisconnect()
         self.disconnect()
+        return
 
 
     ##
@@ -128,3 +132,24 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
         buf_type = profile.properties.getProperty("buffer_type","ring_buffer")
         return OpenRTM_aist.CdrBufferFactory.instance().createObject(buf_type)
     
+    ##
+    # @if jp
+    # @brief 接続確立時にコールバックを呼ぶ
+    # @else
+    # @brief Invoke callback when connection is established
+    # @endif
+    # void onConnect()
+    def onConnect(self):
+        self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_CONNECT].notify(self._profile)
+        return
+
+    ##
+    # @if jp
+    # @brief 接続切断時にコールバックを呼ぶ
+    # @else
+    # @brief Invoke callback when connection is destroied
+    # @endif
+    # void onDisconnect()
+    def onDisconnect(self):
+        self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_DISCONNECT].notify(self._profile)
+        return

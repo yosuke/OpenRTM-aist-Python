@@ -54,6 +54,7 @@ class OutPortPullConnector(OpenRTM_aist.OutPortConnector):
         OpenRTM_aist.OutPortConnector.__init__(self, info)
         self._provider = provider
         self._buffer = buffer
+        self.onConnect()
         return
 
 
@@ -73,6 +74,7 @@ class OutPortPullConnector(OpenRTM_aist.OutPortConnector):
     # @endif
     #
     def __del__(self):
+        self.onDisConnect()
         self.disconnect()
         return
 
@@ -171,3 +173,26 @@ class OutPortPullConnector(OpenRTM_aist.OutPortConnector):
     # virtual void deactivate(){}; // do nothing
     def deactivate(self): # do nothing
         pass
+
+    
+    ##
+    # @if jp
+    # @brief 接続確立時にコールバックを呼ぶ
+    # @else
+    # @brief Invoke callback when connection is established
+    # @endif
+    # void onConnect()
+    def onConnect(self):
+        self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_CONNECT].notify(self._profile)
+        return
+
+    ##
+    # @if jp
+    # @brief 接続切断時にコールバックを呼ぶ
+    # @else
+    # @brief Invoke callback when connection is destroied
+    # @endif
+    # void onDisconnect()
+    def onDisconnect(self):
+        self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_DISCONNECT].notify(self._profile)
+        return
