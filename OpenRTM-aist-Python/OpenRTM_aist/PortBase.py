@@ -68,7 +68,48 @@ import RTC, RTC__POA
 # @since 0.4.0
 #
 # @else
+# @class PortBase
+# @brief Port base class
 #
+# This class is a base class of RTC::Port.
+# RTC::Port inherits a concept of RT-Component, and can be regarded as almost
+# the same as it. In the concept of RT-Component, Port is attached to the
+# component, can mediate interaction between other components and usually is
+# associated with some interfaces.
+# Component can provide or require interface for outside via Port, and the
+# Port plays a role to manage the connection.
+# <p>
+# Concrete class of Port assumes to be usually created at the same time that
+# RT-Component's instance is created, be registerd to RT-Component after
+# provided and required interfaces are registerd, and function as accessible
+# Port from outside.
+# <p>
+# RTC::Port provides the following operations as CORBA interface:
+#
+# - get_port_profile()
+# - get_connector_profiles()
+# - get_connector_profile()
+# - connect()
+# - notify_connect()
+# - disconnect()
+# - notify_disconnect()
+# - disconnect_all()
+#
+# This class provides implementations of these operations.
+# <p>
+# In these operations, as for get_port_profile(), get_connector_profiles(),
+# get_connector_profile(), connect(), disconnect() and disconnect_all(),
+# since their behaviors especially need not to be change in subclass, 
+# overriding is not recommended.
+# <p>
+# As for notify_connect() and notify_disconnect(), you may have to modify
+# behavior according to the kind of interfaces that subclass provides and
+# requires, however it is not recommended these are overriden directly.
+# In the section of notify_connect() and notify_disconnect() as described
+# below, it is recommended that you modify behavior by overriding the
+# protected function related to these functions.
+#
+# @since 0.4.0
 #
 # @endif
 class PortBase(RTC__POA.PortService):
@@ -101,17 +142,20 @@ class PortBase(RTC__POA.PortService):
   #
   # @endif
   def __init__(self, name=None):
-    self._profile = RTC.PortProfile("", [], RTC.PortService._nil, [], RTC.RTObject._nil,[])
-    
-    if name is None:
-      self._profile.name = ""
-    else:
-      self._profile.name = name
-      
+    self._ownerInstanceName = "unknown"
     self._objref = self._this()
+
+    self._profile = RTC.PortProfile("", [], RTC.PortService._nil, [], RTC.RTObject._nil,[])
+    # Now Port name is <instance_name>.<port_name>. r1648
+    if name is None:
+      self._profile.name = "unknown.unknown"
+    else:
+      self._profile.name = self._ownerInstanceName+"."+name
+      
     self._profile.port_ref = self._objref
     self._profile.owner = RTC.RTObject._nil
     self._profile_mutex = threading.RLock()
+    self._connection_mutex = threading.RLock()
     self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf(name)
     self._onPublishInterfaces = None
     self._onSubscribeInterfaces = None
@@ -119,6 +163,7 @@ class PortBase(RTC__POA.PortService):
     self._onUnsubscribeInterfaces = None
     self._onDisconnected = None
     self._onConnectionLost = None
+    self._connectionLimit   = -1
 
 
   def __del__(self):
@@ -128,7 +173,7 @@ class PortBase(RTC__POA.PortService):
       oid = mgr.servant_to_id(self)
       mgr.deactivate_object(oid)
     except:
-      self._rtcout.RTC_WARN("Unknown exception caught.")
+      self._rtcout.RTC_ERROR("Unknown exception caught.")
     
 
   ##
@@ -173,6 +218,7 @@ class PortBase(RTC__POA.PortService):
   # @return the PortProfile of the Port
   #
   # @endif
+  # PortProfile* get_port_profile()
   def get_port_profile(self):
     self._rtcout.RTC_TRACE("get_port_profile()")
 
@@ -190,6 +236,31 @@ class PortBase(RTC__POA.PortService):
     return prof
 
 
+  ##
+  # @if jp
+  #
+  # @brief PortProfile を取得する。
+  #
+  # この関数は、オブジェクト内部に保持されている PortProfile の
+  # const 参照を返す const 関数である。
+  # 
+  # @post この関数を呼び出すことにより内部状態が変更されることはない。
+  #
+  # @return PortProfile
+  #
+  # @else
+  #
+  # @brief Get the PortProfile of the Port
+  #
+  # This function is a const function that returns a const
+  # reference of the PortProfile stored in this Port.
+  #
+  # @post This function never changes the state of the object.
+  #
+  # @return PortProfile
+  #
+  # @endif
+  # PortProfile& getPortProfile() const;
   def getPortProfile(self):
     self._rtcout.RTC_TRACE("getPortProfile()")
     return self._profile
@@ -270,6 +341,7 @@ class PortBase(RTC__POA.PortService):
   # @return the ConnectorProfile identified by the connector_id
   #
   # @endif
+  # ConnectorProfile* get_connector_profile(const char* connector_id)
   def get_connector_profile(self, connector_id):
     self._rtcout.RTC_TRACE("get_connector_profile(%s)", connector_id)
 
@@ -294,82 +366,158 @@ class PortBase(RTC__POA.PortService):
   #
   # @brief [CORBA interface] Port の接続を行う
   #
-  # 与えられた ConnectoionProfile の情報を基に、Port間の接続を確立する。
-  # アプリケーションプログラム側は、幾つかのコンポーネントが持つ複数の
-  # Port を接続したい場合、適切な値をセットした ConnectorProfile を
-  # connect() の引数として与えてコールすることにより、関連する Port の
-  # 接続を確立する。
+  # 与えられた ConnectoionProfile の情報に基づき、Port間の接続を確立
+  # する。この関数は主にアプリケーションプログラムやツールから呼び出
+  # すことを前提としている。
+  # 
+  # @pre アプリケーションプログラムは、コンポーネント間の複数の
+  # Port を接続するために、適切な値をセットした ConnectorProfile を
+  # connect() の引数として与えて呼び出さなければならない。
   #
-  # connect() に与える ConnectorProfile のメンバーのうち、name, ports, 
-  # properties メンバーに対してデータをセットしなければならない。
+  # @pre connect() に与える ConnectorProfile のメンバーのうち、
+  # name, ports, properties メンバーに対してデータをセットしなければ
+  # ならない。connector_id には通常空文字を設定するか、適当なUUIDを
+  # 文字列で設定する必要がある。
   #
-  # OutPort 側の connect() では以下のシーケンスで処理が行われる。
+  # @pre ConnectorProfile::name は接続につける名前で CORBA::string
+  # 型に格納できる任意の文字列である必要がある。
+  # 
+  # @pre ConnectorProfile::connector_id はすべての接続に対して一意な
+  # ID (通常はUUID) が格納される。UUIDの設定は connect() 関数内で行
+  # われるので、呼び出し側は空文字を設定する。既存の接続と同じUUIDを
+  # 設定し connect() を呼び出した場合には PRECONDITION_NOT_MET エラー
+  # を返す。ただし、将来の拡張で既存の接続プロファイルを更新するため
+  # に既存の UUID を設定して呼び出す使用法が用いられる可能性がある。
   #
-  # 1. OutPort に関連する connector 情報の生成およびセット
+  # @pre ConnectorProfile::ports は RTC::PortService のシーケンスで、
+  # 接続を構成する通常2つ以上のポートのオブジェクト参照を代入する必
+  # 要がある。例外として、ポートのオブジェクト参照を1つだけ格納して
+  # connect()を呼び出すことで、ポートのインターフェース情報を取得し
+  # たり、特殊なポート(CORBAのRTC::PortService以外の相手)に対して接
+  # 続を行う場合もある。
   #
-  # 2. InPortに関連する connector 情報の取得
-  #  - ConnectorProfile::properties["dataport.corba_any.inport_ref"]に
-  #    OutPortAny のオブジェクトリファレンスが設定されている場合、
-  #    リファレンスを取得してConsumerオブジェクトにセットする。
-  #    リファレンスがセットされていなければ無視して継続。
-  #    (OutPortがconnect() 呼び出しのエントリポイントの場合は、
-  #    InPortのオブジェクトリファレンスはセットされていないはずである。)
+  # @pre ConnectorProfile::properties はポートに関連付けられたインター
+  # フェースに対するプロパティを与えるために使用する。プロパティは、
+  # string 型をキー、Any 型を値としてもつペアのシーケンスであり、値
+  # には任意のCORBAデータ型を格納できるが、可能な限り string 型とし
+  # て格納されることが推奨される。
   #
-  # 3. PortBase::connect() をコール
-  #    Portの接続の基本処理が行われる。
+  # @pre 以上 connect() 呼び出し時に設定する ConnectorProfile のメン
+  # バをまとめると以下のようになる。
   #
-  # 4. 上記2.でInPortのリファレンスが取得できなければ、再度InPortに
-  #    関連する connector 情報を取得する。
+  # - ConnectorProfile::name: 任意の接続名
+  # - ConnectorProfile::connector_id: 空文字
+  # - ConnectorProfile::ports: 1つ以上のポート
+  # - ConnectorProfile::properties: インターフェースに対するプロパティ
   #
-  # 5. ConnectorProfile::properties で与えられた情報から、
-  #    OutPort側の初期化処理を行う。
+  # @post connect() 関数は、ConnectorProfile::portsに格納されたポー
+  # トシーケンスの先頭のポートに対して notify_connect() を呼ぶ。
   #
-  # - [dataport.interface_type]<BR>
-  # -- CORBA_Any の場合: 
-  #    InPortAny を通してデータ交換される。
-  #    ConnectorProfile::properties["dataport.corba_any.inport_ref"]に
-  #    InPortAny のオブジェクトリファレンスをセットする。<BR>
+  # @post notify_connect() は ConnectorProfile::ports に格納されたポー
+  # ト順に notify_connect() をカスケード呼び出しする。このカスケード
+  # 呼び出しは、途中のnotify_connect() でエラーが出てもポートのオブ
+  # ジェクト参照が有効である限り、必ずすべてのポートに対して行われる
+  # ことが保証される。有効でないオブジェクト参照がシーケンス中に存在
+  # する場合、そのポートをスキップして、次のポートに対して
+  # notify_connect() を呼び出す。
   #
-  # - [dataport.dataflow_type]<BR>
-  # -- Pushの場合: Subscriberを生成する。Subscriberのタイプは、
-  #    dataport.subscription_type に設定されている。<BR>
-  # -- Pullの場合: InPort側がデータをPull型で取得するため、
-  #    特に何もする必要が無い。
-  #
-  # - [dataport.subscription_type]<BR>
-  # -- Onceの場合: SubscriberOnceを生成する。<BR>
-  # -- Newの場合: SubscriberNewを生成する。<BR>
-  # -- Periodicの場合: SubscriberPeriodicを生成する。
-  #
-  # - [dataport.push_rate]<BR>
-  # -- dataport.subscription_type=Periodicの場合周期を設定する。
-  #
-  # 6. 上記の処理のうち一つでもエラーであれば、エラーリターンする。
-  #    正常に処理が行われた場合は RTC::RTC_OK でリターンする。
+  # @post connect() 関数は、notify_connect()の戻り値がRTC_OKであれば、
+  # RTC_OK を返す。この時点で接続は完了する。RTC_OK以外
+  # の場合は、この接続IDに対してdisconnect()を呼び出し接続を解除し、
+  # notify_connect() が返したエラーリターンコードをそのまま返す。
+  # 
+  # @post connect() の引数として渡した ConnectorProfile には、
+  # ConnectorProfile::connector_id および、途中のポートが
+  # publishInterfaces() で公開したポートインターフェースの各種情報が
+  # 格納されている。connect() および途中の notify_connect() が
+  # ConnectorProfile::{name, ports} を変更することはない。
   #  
-  # @param self
   # @param connector_profile ConnectorProfile
-  #
   # @return ReturnCode_t 型のリターンコード
   #
   # @else
   #
   # @brief [CORBA interface] Connect the Port
   #
-  # This operation establishes connection according to the given 
-  # ConnectionProfile inforamtion. 
-  # Application programs, which is going to establish the connection 
-  # among Ports owned by RT-Components, have to set valid values to the 
-  # ConnectorProfile and give it to the argument of connect() operation.
+  # This operation establishes connection according to the given
+  # ConnectionProfile inforamtion. This function is premised on
+  # calling from mainly application program or tools.
+  #
+  # @pre To establish the connection among Ports of RT-Components,
+  # application programs must call this operation giving
+  # ConnectorProfile with valid values as an argument.
+  #
+  # @pre Out of ConnectorProfile member variables, "name", "ports"
+  # and "properties" members shall be set valid
+  # data. "connector_id" shall be set as empty string value or
+  # valid string UUID value.
+  #
+  # @pre ConnectorProfile::name that is connection identifier shall
+  # be any valid CORBA::string.
   # 
-  # name, ports, properties members of ConnectorProfile should be set
-  # valid values before giving to the argument of connect() operation.
+  #
+  # @pre ConnectorProfile::connector_id shall be set unique
+  # identifier (usually UUID is used) for all connections. Since
+  # UUID string value is usually set in the connect() function,
+  # caller should just set empty string. If the connect() is called
+  # with the same UUID as existing connection, this function
+  # returns PRECONDITION_NOT_MET error. However, in order to update
+  # the existing connection profile, the "connect()" operation with
+  # existing connector ID might be used as valid method by future
+  # extension
+  #
+  # @pre ConnectorProfile::ports, which is sequence of
+  # RTC::PortService references, shall store usually two or more
+  # ports' references. As exceptions, the "connect()" operation
+  # might be called with only one reference in ConnectorProfile, in
+  # case of just getting interfaces information from the port, or
+  # connecting a special port (i.e. the peer port except
+  # RTC::PortService on CORBA).
+  #
+  # @pre ConnectorProfile::properties might be used to give certain
+  # properties to the service interfaces associated with the port.
+  # The properties is a sequence variable with a pair of key string
+  # and Any type value. Although the A variable can store any type
+  # of values, it is not recommended except string.
+  #
+  # @pre The following is the summary of the ConnectorProfile
+  # member to be set when this operation is called.
+  #
+  # - ConnectorProfile::name: The any name of connection
+  # - ConnectorProfile::connector_id: Empty string
+  # - ConnectorProfile::ports: One or more port references
+  # - ConnectorProfile::properties: Properties for the interfaces
+  #
+  # @post connect() operation will call the first port in the
+  # sequence of the ConnectorProfile.
+  #
+  # @post "noify_connect()"s perform cascaded call to the ports
+  # stored in the ConnectorProfile::ports by order. Even if errors
+  # are raised by intermediate notify_connect() operation, as long
+  # as ports' object references are valid, it is guaranteed that
+  # this cascaded call is completed in all the ports.  If invalid
+  # or dead ports exist in the port's sequence, the ports are
+  # skipped and notify_connect() is called for the next valid port.
+  #
+  # @post connect() function returns RTC_OK if all the
+  # notify_connect() return RTC_OK. At this time the connection is
+  # completed.  If notify_connect()s return except RTC_OK,
+  # connect() calls disconnect() operation with the connector_id to
+  # destruct the connection, and then it returns error code from
+  # notify_connect().
+  #
+  # @post The ConnectorProfile argument of the connect() operation
+  # returns ConnectorProfile::connector_id and various information
+  # about service interfaces that is published by
+  # publishInterfaces() in the halfway ports. The connect() and
+  # halfway notify_connect() functions never change
+  # ConnectorProfile::{name, ports}.
   #
   # @param connector_profile The ConnectorProfile.
-  #
-  # @return ReturnCode_t The return code of this operation.
+  # @return ReturnCode_t The return code of ReturnCode_t type.
   #
   # @endif
+  #
   # virtual ReturnCode_t connect(ConnectorProfile& connector_profile)
   def connect(self, connector_profile):
     self._rtcout.RTC_TRACE("connect()")
@@ -404,42 +552,121 @@ class PortBase(RTC__POA.PortService):
   #
   # @brief [CORBA interface] Port の接続通知を行う
   #
-  # このオペレーションは、Port間の接続が行われる際に、Port間で内部的に
-  # 呼ばれるオペレーションである。
-  # ConnectorProfile には接続対象 Port のリスト情報が保持されている。Port は
-  # ConnectorProfile を保持するとともに、リスト中の次 Port の notify_connect 
-  # を呼び出す。そして、ポートをコネクタに追加した後、ConnectorProfile に
-  # 呼びだし先の Port を設定し、呼びだし元に返す。このように ConnectorProfile
-  # を使用して接続通知が伝達されていく。
+  # このオペレーションは、Port間の接続が行われる際に、Port間で内部的
+  # に呼ばれるオペレーションであって、通常アプリケーションプログラム
+  # や、Port以外のRTC関連オブジェクト等から呼び出されることは想定さ
+  # れていない。
   #
-  # @param self
+  # notify_connect() 自体はテンプレートメソッドパターンとして、サブ
+  # クラスで実装されることが前提の publishInterfaces(),
+  # subscribeInterfaces() の2つの関数を内部で呼び出す。処理の手順は
+  # 以下の通りである。
+  #
+  # - publishInterfaces(): インターフェース情報の公開
+  # - connectNext(): 次の Port の notify_connect() の呼び出し
+  # - subscribeInterfaces(): インターフェース情報の取得
+  # - 接続情報の保存
+  #
+  # notify_connect() は ConnectorProfile::ports に格納されている
+  # Port の順序に従って、カスケード状に呼び出しを行うことにより、イ
+  # ンターフェース情報の公開と取得を関連すすべてのポートに対して行う。
+  # このカスケード呼び出しは途中で中断されることはなく、必ず
+  # ConnectorProfile::ports に格納されている全ポートに対して行われる。
+  #
+  # @pre notify_connect() は ConnectorProfile::ports 内に格納されて
+  # いる Port 参照リストのうち、当該 Port 自身の参照の次に格納されて
+  # いる Port に対して notify_connect() を呼び出す。したがって
+  # ConnectorProfile::ports には当該 Port の参照が格納されている必要
+  # がある。もし、自身の参照が格納されていない場合、その他の処理によ
+  # りエラーが上書きされなければ、BAD_PARAMETER エラーが返される。
+  #
+  # @pre 呼び出し時に ConnectorProfile::connector_id には一意なIDと
+  # して UUID が保持されている必要がある。通常 connector_id は
+  # connect() 関数により与えられ、空文字の場合は動作は未定義である。
+  #
+  # @post ConnectorProfile::name, ConnectorProfile::connector_id,
+  # ConnectorProfile::ports は notify_connect() の呼び出しにより
+  # 書き換えられることはなく不変である。
+  #
+  # @post ConnectorProfile::properties は notify_connect() の内部で、
+  # 当該 Port が持つサービスインターフェースに関する情報を他の Port
+  # に伝えるために、プロパティ情報が書き込まれる。
+  #
+  # @post なお、ConnectorProfile::ports のリストの最初 Port の
+  # notify_connet() が終了した時点では、すべての関連する Port の
+  # notify_connect() の呼び出しが完了する。publishInterfaces(),
+  # connectNext(), subscribeInterfaces() および接続情報の保存のいず
+  # れかの段階でエラーが発生した場合でも、エラーコードは内部的に保持
+  # されており、最初に生じたエラーのエラーコードが返される。
+  #
   # @param connector_profile ConnectorProfile
-  #
   # @return ReturnCode_t 型のリターンコード
   #
   # @else
   #
   # @brief [CORBA interface] Notify the Ports connection
   #
-  # This operation is invoked between Ports internally when the connection
-  # is established.
-  # This operation notifies this PortService of the connection between its 
-  # corresponding port and the other ports and propagates the given 
-  # ConnectionProfile.
-  # A ConnectorProfile has a sequence of port references. This PortService 
-  # stores the ConnectorProfile and invokes the notify_connect operation of 
-  # the next PortService in the sequence. As ports are added to the 
-  # connector, PortService references are added to the ConnectorProfile and
-  # provided to the caller. In this way, notification of connection is 
-  # propagated with the ConnectorProfile.
+  # This operation is usually called from other ports' connect() or
+  # notify_connect() operations when connection between ports is
+  # established.  This function is not premised on calling from
+  # other functions or application programs.
+  #
+  # According to the template method pattern, the notify_connect()
+  # calls "publishInterfaces()" and "subsctiveInterfaces()"
+  # functions, which are premised on implementing in the
+  # subclasses. The processing sequence is as follows.
+  #
+  # - publishInterfaces(): Publishing interface information
+  # - connectNext(): Calling notify_connect() of the next port
+  # - subscribeInterfaces(): Subscribing interface information
+  # - Storing connection profile
+  #
+  # According to the order of port's references stored in the
+  # ConnectorProfile::ports, publishing interface information to
+  # all the ports and subscription interface information from all
+  # the ports is performed by "notify_connect()"s.  This cascaded
+  # call never aborts in the halfway operations, and calling
+  # sequence shall be completed for all the ports.
+  #
+  # @pre notify_connect() calls notify_connect() for the port's
+  # reference that is stored in next of this port's reference in
+  # the sequence of the ConnectorProfile::ports. Therefore the
+  # reference of this port shall be stored in the
+  # ConnectorProfile::ports. If this port's reference is not stored
+  # in the sequence, BAD_PARAMETER error will be returned, except
+  # the return code is overwritten by other operations.
+  #
+  # @pre UUID shall be set to ConnectorProfile::connector_id as a
+  # unique identifier when this operation is called.  Usually,
+  # connector_id is given by a connect() function and, the behavior
+  # is undefined in the case of a null character.
+  #
+  # @post ConnectorProfile::name, ConnectorProfile::connector_id,
+  # ConnectorProfile::ports are invariant, and they are never
+  # rewritten by notify_connect() operations.
+  #
+  # @post In order to transfer interface information to other
+  # ports, interface property information is stored into the
+  # ConnectorProfile::properties.
+  #
+  # @post At the end of notify_connect() operation for the first
+  # port stored in the ConnectorProfile::ports sequence, the
+  # related ports' notify_connect() invocations complete. Even if
+  # errors are raised at the halfway of publishInterfaces(),
+  # connectNext(), subscribeInterfaces() and storing process of
+  # ConnectorProfile, error codes are saved and the first error is
+  # returned.
   #
   # @param connector_profile The ConnectorProfile.
-  #
-  # @return ReturnCode_t The return code of this operation.
+  # @return ReturnCode_t The return code of ReturnCode_t type.
   #
   # @endif
+  #
+  # virtual ReturnCode_t notify_connect(ConnectorProfile& connector_profile)
   def notify_connect(self, connector_profile):
     self._rtcout.RTC_TRACE("notify_connect()")
+
+    guard_connection = OpenRTM_aist.ScopedLock(self._connection_mutex)
 
     # publish owned interface information to the ConnectorProfile
     retval = [RTC.RTC_OK for i in range(3)]
@@ -495,33 +722,66 @@ class PortBase(RTC__POA.PortService):
   #
   # @brief [CORBA interface] Port の接続を解除する
   #
-  # このオペレーションは接続確立時に接続に対して与えられる connector_id に
-  # 対応するピア Port との接続を解除する。
-  # Port は ConnectorProfile 中のポートリストに含まれる１つのポートの
-  # notify_disconnect を呼びだす。接続解除の通知は notify_disconnect によって
-  # 実行される。
+  # このオペレーションは与えられた connector_id に対応する接続を解除
+  # する。connector_id は通常、システム全体において一意な UUID の文
+  # 字列であり、事前に connect()/notify_connect() の呼び出しにより確
+  # 立された接続プロファイル ConnectorProfile::connector_id に対応す
+  # る。
   #
-  # @param self
+  # @pre connector_id は Port が保持する ConnectorProfile の少なくと
+  # も一つの ID に一致する文字列でなければならない。当該 Port が持つ
+  # ConnectorProfile のリスト内に connector_id と同一の ID を持つ
+  # ConnectorProfile が存在しなければこの関数は BAD_PARAMETER エラー
+  # を返す。
+  #
+  # @pre connector_id と同じ ID を持つ ConnectorProfile::ports には
+  # 有効な Port の参照が含まれていなければならない。
+  #
+  # @post disconnect() 関数は、ConnectorProfile::ports の Port の参
+  # 照リストの先頭に対して、notify_disconnect() を呼び出す。参照が無
+  # 効であるなど、notify_disconnect() の呼び出しに失敗した場合には、
+  # 参照リストの先頭から順番に成功するまで notify_disconnect() の呼
+  # び出しを試す。notify_disconnect() の呼び出しに一つでも成功すれば、
+  # notify_disconnect() の返却値をそのまま返し、一つも成功しなかった
+  # 場合には RTC_ERROR エラーを返す。
+  # 
   # @param connector_id ConnectorProfile の ID
-  #
   # @return ReturnCode_t 型のリターンコード
   #
   # @else
   #
-  # @brief [CORBA interface] Connect the Port
+  # @brief [CORBA interface] Disconnect the Port
   #
-  # This operation destroys connection between this port and the peer port
-  # according to given id that is given when the connection established.
-  # This port invokes the notify_disconnect operation of one of the ports 
-  # included in the sequence of the ConnectorProfile stored when the 
-  # connection was established. The notification of disconnection is 
-  # propagated by the notify_disconnect operation.
+  # This operation destroys connection between this port and the
+  # peer port according to given connector_id. Usually connector_id
+  # should be a UUID string that is unique in the system.  And the
+  # connection, which is established by connect()/notify_connect()
+  # functions, is identified by the ConnectorProfile::connector_id.
+  #
+  # @pre connector_id shall be a character string which is same
+  # with ID of at least one of the ConnectorProfiles stored in this
+  # port. If ConnectorProfile that has same ID with the given
+  # connector_id does not exist in the list of ConnectorProfile,
+  # this operation returns BAD_PARAMTER error.
+  #
+  # @pre ConnectorProfile::ports that is same ID with given
+  # connector_id shall store the valid ports' references.
+  #
+  # @post disconnect() function invokes the notify_disconnect() for
+  # the port that is stored in the first of the
+  # ConnectorProfile::ports. If notify_disconnect() call fails for
+  # the first port, It tries on calling "notify_disconnect()" in
+  # order for ports stored in ConnectorProfile::ports until the
+  # operation call is succeeded. If notify_disconnect() succeeded
+  # for at least one port, it returns return code from
+  # notify_disconnect(). If none of notify_connect() call
+  # succeeded, it returns RTC_ERROR error.
   #
   # @param connector_id The ID of the ConnectorProfile.
-  #
-  # @return ReturnCode_t The return code of this operation.
+  # @return ReturnCode_t The return code of ReturnCode_t type.
   #
   # @endif
+  #
   # virtual ReturnCode_t disconnect(const char* connector_id)
   def disconnect(self, connector_id):
     self._rtcout.RTC_TRACE("disconnect(%s)", connector_id)
@@ -533,7 +793,8 @@ class PortBase(RTC__POA.PortService):
       return RTC.BAD_PARAMETER
 
     guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
-    prof = self._profile.connector_profiles[index]
+    if index < len(self._profile.connector_profiles):
+      prof = self._profile.connector_profiles[index]
     del guard
     
     if len(prof.ports) < 1:
@@ -557,46 +818,94 @@ class PortBase(RTC__POA.PortService):
   #
   # @brief [CORBA interface] Port の接続解除通知を行う
   #
-  # このオペレーションは、Port間の接続解除が行われる際に、Port間で内部的に
-  # 呼ばれるオペレーションである。
-  # このオペレーションは、該当する Port と接続されている他の Port に接続解除
-  # を通知する。接続解除対象の Port はIDによって指定される。Port は
-  # ConnectorProfile 中のポートリスト内の次 Port の notify_disconnect を呼び
-  # 出す。ポートの接続が解除されると ConnectorProfile から該当する Port の
-  # 情報が削除される。このように notify_disconnect を使用して接続解除通知が
-  # 伝達されていく。
+  # このオペレーションは、Port間の接続解除が行われる際に、Port間で内
+  # 部的に呼ばれるオペレーションであり、通常アプリケーションプログラ
+  # ムや、 Port 以外の RTC 関連オブジェクト等から呼び出されることは
+  # 想定されていない。
   #
-  # @param self
+  # notify_disconnect() 自体はテンプレートメソッドパターンとして、サ
+  # ブクラスで実装されることが前提の unsubscribeInterfaces() 関数を
+  # 内部で呼び出す。処理の手順は以下の通りである。
+  #
+  # - ConnectorProfile の検索
+  # - 次の Port の notify_disconnect() 呼び出し
+  # - unsubscribeInterfaces()
+  # - ConnectorProfile の削除
+  #
+  # notify_disconnect() は ConnectorProfile::ports に格納されている
+  # Port の順序に従って、カスケード状に呼び出しを行うことにより、接
+  # 続の解除をすべての Port に通知する。
+  #
+  # @pre Port は与えられた connector_id に対応する ConnectorProfile
+  # を保持していなければならない。
+  #
+  # @post connector_id に対応する ConnectorProfile が見つからない場
+  # 合はBAD_PARAMETER エラーを返す。
+  #
+  # @post カスケード呼び出しを行う際には ConnectorProfile::ports に
+  # 保持されている Port の参照リストのうち、自身の参照の次の参照に対
+  # して notify_disconnect() を呼び出すが、その呼び出しで例外が発生
+  # した場合には、呼び出しをスキップしリストの次の参照に対して
+  # notify_disconnect() を呼び出す。一つも呼び出しに成功しない場合、
+  # RTC_ERROR エラーコードを返す。
+  #
+  # @post なお、ConnectorProfile::ports のリストの最初 Port の
+  # notify_disconnet() が終了した時点では、すべての関連する Port の
+  # notify_disconnect() の呼び出しが完了する。
+  # 
   # @param connector_id ConnectorProfile の ID
-  #
   # @return ReturnCode_t 型のリターンコード
   #
   # @else
   #
   # @brief [CORBA interface] Notify the Ports disconnection
   #
-  # This operation is invoked between Ports internally when the connection
-  # is destroied.
-  # This operation notifies a PortService of a disconnection between its 
-  # corresponding port and the other ports. The disconnected connector is 
-  # identified by the given ID, which was given when the connection was 
-  # established.
-  # This port invokes the notify_disconnect operation of the next PortService
-  # in the sequence of the ConnectorProfile that was stored when the 
-  # connection was established. As ports are disconnected, PortService 
-  # references are removed from the ConnectorProfile. In this way, 
-  # the notification of disconnection is propagated by the notify_disconnect
-  # operation.
+  # This operation is invoked between Ports internally when the
+  # connection is destroied. Generally it is not premised on
+  # calling from application programs or RTC objects except Port
+  # object.
+  #
+  # According to the template method pattern, the
+  # notify_disconnect() calls unsubsctiveInterfaces() function,
+  # which are premised on implementing in the subclasses. The
+  # processing sequence is as follows.
+  #
+  # - Searching ConnectorProfile
+  # - Calling notify_disconnect() for the next port
+  # - Unsubscribing interfaces
+  # - Deleting ConnectorProfile
+  #
+  # notify_disconnect() notifies disconnection to all the ports by
+  # cascaded call to the stored ports in the
+  # ConnectorProfile::ports in order.
+  #
+  # @pre The port shall store the ConnectorProfile having same id
+  # with connector_id.
+  #
+  # @post If ConnectorProfile of same ID with connector_id does not
+  # exist, it returns BAD_PARAMETER error.
+  #
+  # @post For the cascaded call, this operation calls
+  # noify_disconnect() for the port that is stored in the next of
+  # this port in the ConnectorProfile::ports.  If the operation
+  # call raises exception for some failure, it tries to call
+  # notify_disconnect() and skips until the operation succeeded.
+  # If none of operation call succeeded, it returns RTC_ERROR.
+  #
+  # @post At the end of notify_disconnect() operation for the first
+  # port stored in the ConnectorProfile::ports sequence, the
+  # related ports' notify_disconnect() invocations complete.
   #
   # @param connector_id The ID of the ConnectorProfile.
-  #
-  # @return ReturnCode_t The return code of this operation.
+  # @return ReturnCode_t The return code of ReturnCode_t type.
   #
   # @endif
+  #
   # virtual ReturnCode_t notify_disconnect(const char* connector_id)
   def notify_disconnect(self, connector_id):
     self._rtcout.RTC_TRACE("notify_disconnect(%s)", connector_id)
 
+    guard_connection = OpenRTM_aist.ScopedLock(self._connection_mutex)
     # The Port of which the reference is stored in the beginning of
     # connectorProfile's PortServiceList is master Port.
     # The master Port has the responsibility of disconnecting all Ports.
@@ -703,6 +1012,20 @@ class PortBase(RTC__POA.PortService):
 
   ##
   # @if jp
+  # @brief Port の名前を取得する
+  # @else
+  # @brief Get the name of this Port
+  # @return The name of this Port.
+  # @endif
+  #
+  # const char* PortBase::getName() const
+  def getName(self):
+    self._rtcout.RTC_TRACE("getName() = %s", self._profile.name)
+    return self._profile.name
+
+
+  ##
+  # @if jp
   # @brief PortProfileを取得する
   #
   # Portが保持する PortProfile の const 参照を返す。
@@ -805,8 +1128,16 @@ class PortBase(RTC__POA.PortService):
   # void setOwner(RTObject_ptr owner);
   def setOwner(self, owner):
     self._rtcout.RTC_TRACE("setOwner()")
+    prof = owner.get_component_profile()
+    self._ownerInstanceName = prof.instance_name
+    self._rtcout.RTC_TRACE("setOwner(%s)", self._ownerInstanceName)
+
     guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
+    plist = self._profile.name.split(".")
+    portname = self._ownerInstanceName+"."+plist[-1]
+
     self._profile.owner = owner
+    self._profile.name = portname
 
 
   #============================================================
@@ -1175,7 +1506,7 @@ class PortBase(RTC__POA.PortService):
     index = OpenRTM_aist.CORBA_SeqUtil.find(connector_profile.ports,
                                             self.find_port_ref(self._profile.port_ref))
     if index < 0:
-      return RTC.BAD_PARAMETER, connector_profile
+      return (RTC.BAD_PARAMETER, connector_profile)
 
     index += 1
     if index < len(connector_profile.ports):
@@ -1218,6 +1549,9 @@ class PortBase(RTC__POA.PortService):
     if index < 0:
       return RTC.BAD_PARAMETER
 
+    if index == (len(connector_profile.ports) - 1):
+      return RTC.RTC_OK
+
     index += 1
 
     while index < len(connector_profile.ports):
@@ -1229,7 +1563,7 @@ class PortBase(RTC__POA.PortService):
         self._rtcout.RTC_WARN("Unknown exception caught.")
         continue
 
-    return RTC.RTC_OK
+    return RTC.RTC_ERROR
 
 
   ##
@@ -1341,6 +1675,62 @@ class PortBase(RTC__POA.PortService):
   # @endif
   def unsubscribeInterfaces(self, connector_profile):
     pass
+
+
+  ##
+  # @if jp
+  #
+  # @brief 接続の最大数を設定する。
+  #
+  # @param limit_value 最大数
+  #
+  # @else
+  #
+  # @brief Set the maximum number of connections
+  #
+  #
+  # @param limit_value The maximum number of connections
+  #
+  # @endif
+  #
+  # virtual void setConnectionLimit(int limit_value);
+  def setConnectionLimit(self, limit_value):
+    self._connectionLimit = limit_value
+    return
+    
+
+  ##
+  # @if jp
+  # @brief Interface情報を公開する
+  #
+  # Interface情報を公開する。
+  #
+  #  dataport.dataflow_type
+  #
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  # @brief Publish interface information
+  #
+  # Publish interface information.
+  #
+  #
+  # @return The return code of ReturnCode_t type
+  #
+  # @endif
+  #
+  # virtual ReturnCode_t _publishInterfaces(void);
+  def _publishInterfaces(self):
+    if not (self._connectionLimit < 0) :
+      if self._connectionLimit <= len(self._profile.connector_profiles):
+        self._rtcout.RTC_PARANOID("Connected number has reached the limitation.")
+        self._rtcout.RTC_PARANOID("Can connect the port up to %d ports.",
+                                  self._connectionLimit)
+        self._rtcout.RTC_PARANOID("%d connectors are existing",
+                                  len(self._profile.connector_profiles))
+        return RTC.RTC_ERROR
+
+    return RTC.RTC_OK
 
 
   ##
@@ -1732,12 +2122,43 @@ class PortBase(RTC__POA.PortService):
     OpenRTM_aist.CORBA_SeqUtil.push_back(self._profile.properties,
                                          OpenRTM_aist.NVUtil.newNV(key, value))
 
+  ##
+  # @if jp
+  #
+  # @brief PortProfile の properties に NameValue 値を要素に追加する
+  #
+  # PortProfile の properties に NameValue 値を要素に追加する。
+  #
+  # @param key properties の name
+  # @param value properties の value
+  #
+  # @else
+  #
+  # @brief Append NameValue data to PortProfile's properties
+  #
+  # Append NameValue data to PortProfile's properties.
+  #
+  # @param key The name of properties
+  # @param value The value of properties
+  #
+  # @endif
   # void appendProperty(const char* key, const char* value)
   def appendProperty(self, key, value):
     OpenRTM_aist.NVUtil.appendStringValue(self._profile.properties, key, value)
 
 
 
+  ##
+  # @if jp
+  #
+  # @brief 存在しないポートをdisconnectする。
+  #
+  # @else
+  #
+  # @brief Disconnect ports that doesn't exist. 
+  #
+  # @endif
+  # void updateConnectors()
   def updateConnectors(self):
     guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     
@@ -1755,6 +2176,23 @@ class PortBase(RTC__POA.PortService):
     return
 
 
+  ##
+  # @if jp
+  #
+  # @brief ポートの存在を確認する。
+  #
+  # @param ports 確認するポート
+  # @return true:存在する,false:存在しない
+  #
+  # @else
+  #
+  # @brief Existence of ports
+  #
+  # @param ports Checked ports
+  # @return true:existent,false:non existent
+  #
+  # @endif
+  # bool checkPorts(::RTC::PortServiceList& ports)
   def checkPorts(self, ports):
     for port in ports:
       try:
