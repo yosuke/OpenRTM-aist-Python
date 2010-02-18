@@ -255,12 +255,12 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # OutPortBase::OutPortBase(const char* name, const char* data_type)
   def __init__(self, name, data_type):
     OpenRTM_aist.PortBase.__init__(self,name)
-    self._rtcout.RTC_PARANOID("Port name: %s", name)
+    self._rtcout.RTC_DEBUG("Port name: %s", name)
 
-    self._rtcout.RTC_PARANOID("setting port.port_type: DataOutPort")
+    self._rtcout.RTC_DEBUG("setting port.port_type: DataOutPort")
     self.addProperty("port.port_type", "DataOutPort")
 
-    self._rtcout.RTC_PARANOID("setting dataport.data_type: %s", data_type)
+    self._rtcout.RTC_DEBUG("setting dataport.data_type: %s", data_type)
     self.addProperty("dataport.data_type", data_type)
 
     # publisher list
@@ -270,7 +270,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     # blank characters are deleted for RTSE's bug
     pubs = pubs.lstrip()
 
-    self._rtcout.RTC_PARANOID("available subscription_type: %s",  pubs)
+    self._rtcout.RTC_DEBUG("available subscription_type: %s",  pubs)
     self.addProperty("dataport.subscription_type", pubs)
 
     self._properties    = OpenRTM_aist.Properties()
@@ -279,11 +279,8 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     self._consumers     = []
     self._providerTypes = ""
     self._consumerTypes = ""
-    self._providers     = []
     self._connector_mutex = threading.RLock()
 
-    self.initConsumers()
-    self.initProviders()
     self._listeners = OpenRTM_aist.ConnectorListeners()
 
 
@@ -304,11 +301,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   #
   # @endif
   def __del__(self):
-    self._rtcout.RTC_TRACE("~OutPortBase()")
-    # provider のクリーンナップ
-    OpenRTM_aist.CORBA_SeqUtil.for_each(self._providers,
-                                        self.provider_cleanup())
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+    self._rtcout.RTC_TRACE("OutPortBase destructor")
     # connector のクリーンナップ
     OpenRTM_aist.CORBA_SeqUtil.for_each(self._connectors,
                                         self.connector_cleanup())
@@ -339,42 +332,69 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
     self.configure()
 
+    self.initConsumers()
+    self.initProviders()
 
+    num = [-1]
+    if not OpenRTM_aist.stringTo(num, self._properties.getProperty("connection_limit","-1")):
+      self._rtcout.RTC_ERROR("invalid connection_limit value: %s",
+                             self._properties.getProperty("connection_limit"))
+
+    self.setConnectionLimit(num[0])
+
+
+  ##
+  # @if jp
+  #
+  # @brief [CORBA interface] Port の接続を行う
+  #
+  # 与えられた ConnectoionProfile の情報に基づき、Port間の接続を確立
+  # する。この関数は主にアプリケーションプログラムやツールから呼び出
+  # すことを前提としている。
+  # 
+  # @param connector_profile ConnectorProfile
+  # @return ReturnCode_t 型のリターンコード
+  #
+  # @else
+  #
+  # @brief [CORBA interface] Connect the Port
+  #
+  # This operation establishes connection according to the given
+  # ConnectionProfile inforamtion. This function is premised on
+  # calling from mainly application program or tools.
+  #
+  # @param connector_profile The ConnectorProfile.
+  # @return ReturnCode_t The return code of ReturnCode_t type.
+  #
+  # @endif
+  #
   def connect(self, connector_profile):
     self._rtcout.RTC_TRACE("OutPortBase.connect()")
         
     if OpenRTM_aist.NVUtil.find_index(connector_profile.properties,
                                       "dataport.serializer.cdr.endian") is -1:
+      self._rtcout.RTC_TRACE("ConnectorProfile dataport.serializer.cdr.endian set.")
       connector_profile.properties.append(OpenRTM_aist.NVUtil.newNV("dataport.serializer.cdr.endian","little,big"))
 
     return OpenRTM_aist.PortBase.connect(self, connector_profile)
         
-  ##
-  # @if jp
-  # @brief OutPort名称の取得
-  #
-  # OutPortの名称を取得する。
-  #
-  # @param self
-  #
-  # @return ポート名称
-  #
-  # @else
-  #
-  # @brief OutPort's name
-  #
-  # This operation returns OutPort's name
-  #
-  # @endif
-  def name(self):
-    return self._name
-
 
   ##
   # @if jp
   # @brief プロパティを取得する
+  #
+  # OutPortのプロパティを取得する。
+  #
+  # @return プロパティ
+  #
   # @else
+  #
   # @brief Get properties
+  #
+  # Getting properties of this OutPort
+  #
+  # @return OutPort's properties
+  #
   # @endif
   #
   # coil::Properties& OutPortBase::properties()
@@ -393,7 +413,6 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # const std::vector<OutPortConnector*>& OutPortBase::connectors()
   def connectors(self):
     self._rtcout.RTC_TRACE("connectors(): size = %d", len(self._connectors))
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     return self._connectors
 
 
@@ -408,7 +427,6 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   def getConnectorProfiles(self):
     self._rtcout.RTC_TRACE("getConnectorProfiles(): size = %d", len(self._connectors))
     profs = []
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       profs.append(con.profile())
 
@@ -426,7 +444,6 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   def getConnectorIds(self):
     ids = []
 
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       ids.append(con.id())
 
@@ -444,12 +461,74 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # coil::vstring OutPortBase::getConnectorNames()
   def getConnectorNames(self):
     names = []
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       names.append(con.name())
 
     self._rtcout.RTC_TRACE("getConnectorNames(): %s", OpenRTM_aist.flatten(names))
     return names
+
+
+  ##
+  # @if jp
+  # @brief ConnectorProfileをIDで取得
+  #
+  # 現在所有しているコネクタをIDで取得する。
+  #
+  # @param id Connector ID
+  # @return コネクタへのポインタ
+  #
+  # @else
+  #
+  # @brief Getting ConnectorProfile by ID
+  #
+  # This operation returns Connector specified by ID.
+  #
+  # @param id Connector ID
+  # @return A pointer to connector
+  #
+  # @endif
+  #
+  # OutPortConnector* getConnectorById(const char* id);
+  def getConnectorById(self, id):
+    self._rtcout.RTC_TRACE("getConnectorById(id = %s)", id)
+
+    for (i,con) in enumerate(self._connectors):
+      if id == con.id():
+        return self._connectors[i]
+
+    self._rtcout.RTC_WARN("ConnectorProfile with the id(%s) not found.", id)
+    return 0
+
+  ##
+  # @if jp
+  # @brief ConnectorProfileを名前で取得
+  #
+  # 現在所有しているコネクタを名前で取得する。
+  #
+  # @param name Connector name
+  # @return コネクタへのポインタ
+  #
+  # @else
+  #
+  # @brief Getting Connector by name
+  #
+  # This operation returns Connector specified by name.
+  #
+  # @param id Connector ID
+  # @return A pointer to connector
+  #
+  # @endif
+  #
+  # OutPortConnector* getConnectorByName(const char* name);
+  def getConnectorByName(self, name):
+    self._rtcout.RTC_TRACE("getConnectorByName(name = %s)", name)
+    
+    for (i,con) in enumerate(self._connectors):
+      if name == con.name():
+        return self._connectors[i]
+
+    self._rtcout.RTC_WARN("ConnectorProfile with the name(%s) not found.", name)
+    return 0
 
 
   ##
@@ -464,14 +543,13 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   def getConnectorProfileById(self, id, prof):
     self._rtcout.RTC_TRACE("getConnectorProfileById(id = %s)", id)
 
-    sid = id
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
-    for con in self._connectors:
-      if sid  == con.id():
-        prof[0] = con.profile()
-        return True
+    conn = self.getConnectorById(id)
 
-    return False
+    if conn == 0:
+      return False
+
+    prof[0] = conn.profile()
+    return True
 
 
   ##
@@ -484,31 +562,14 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # bool OutPortBase::getConnectorProfileByName(const char* name,
   #                                             ConnectorInfo& prof)
   def getConnectorProfileByName(self, name, prof):
-    self._rtcout.RTC_TRACE("getConnectorProfileById(id = %s)", name)
+    self._rtcout.RTC_TRACE("getConnectorProfileByName(name = %s)", name)
 
-    sname = name
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
-    for con in self._connectors:
-      if sname == con.name():
-        prof[0] = con.profile()
-        return True
+    conn = self.getConnectorByName(name)
 
-    return False
+    if conn == 0:
+      return False
 
-
-  ##
-  # @if jp
-  # @brief インターフェースプロファイルを公開する
-  # @else
-  # @brief Publish interface profile
-  # @endif
-  #
-  # bool OutPortBase::publishInterfaceProfiles(SDOPackage::NVList& properties)
-  def publishInterfaceProfiles(self, properties):
-    self._rtcout.RTC_TRACE("publishInterfaceProfiles()")
-
-    OpenRTM_aist.CORBA_SeqUtil.for_each(self._providers,
-                                        OpenRTM_aist.OutPortProvider.publishInterfaceProfileFunc(properties))
+    prof[0] = con.profile()
     return True
 
 
@@ -521,7 +582,6 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   #
   # void OutPortBase::activateInterfaces()
   def activateInterfaces(self):
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       con.activate()
 
@@ -535,7 +595,6 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   #
   # void OutPortBase::deactivateInterfaces()
   def deactivateInterfaces(self):
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       con.deactivate()
   
@@ -620,10 +679,13 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   #                               bool autoclean = true);
   def addConnectorDataListener(self, listener_type, listener, autoclean = True):
     self._rtcout.RTC_TRACE("addConnectorDataListener()")
-
     if listener_type < OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM:
+      self._rtcout.RTC_TRACE("addConnectorDataListener(%s)",
+                             OpenRTM_aist.ConnectorDataListener.toString(listener_type))
       self._listeners.connectorData_[listener_type].addListener(listener, autoclean)
+      return
 
+    self._rtcout.RTC_ERROR("addConnectorDataListener(): Unknown Listener Type")
     return
 
 
@@ -652,8 +714,12 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     self._rtcout.RTC_TRACE("removeConnectorDataListener()")
 
     if listener_type < OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM:
+      self._rtcout.RTC_TRACE("removeConnectorDataListener(%s)",
+                             OpenRTM_aist.ConnectorDataListener.toString(listener_type))
       self._listeners.connectorData_[listener_type].removeListener(listener)
+      return
 
+    self._rtcout.RTC_ERROR("removeConnectorDataListener(): Unknown Listener Type")
     return
     
 
@@ -716,8 +782,11 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     self._rtcout.RTC_TRACE("addConnectorListener()")
 
     if callback_type < OpenRTM_aist.ConnectorListenerType.CONNECTOR_LISTENER_NUM:
+      self._rtcout.RTC_TRACE("addConnectorListener(%s)",
+                             OpenRTM_aist.ConnectorListener.toString(callback_type))
       self._listeners.connector_[callback_type].addListener(listener, autoclean)
-  
+      return
+    self._rtcout.RTC_ERROR("addConnectorListener(): Unknown Listener Type")
     return
 
 
@@ -746,8 +815,11 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     self._rtcout.RTC_TRACE("removeConnectorListener()")
         
     if callback_type < OpenRTM_aist.ConnectorListenerType.CONNECTOR_LISTENER_NUM:
+      self._rtcout.RTC_TRACE("removeConnectorListener(%s)",
+                             OpenRTM_aist.ConnectorListener.toString(callback_type))
       self._listeners.connector_[callback_type].removeListener(listener)
-
+      return
+    self._rtcout.RTC_ERROR("removeConnectorListener(): Unknown Listener Type")
     return
 
 
@@ -773,6 +845,10 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   # ReturnCode_t OutPortBase::publishInterfaces(ConnectorProfile& cprof)
   def publishInterfaces(self, cprof):
     self._rtcout.RTC_TRACE("publishInterfaces()")
+    
+    retval = self._publishInterfaces()
+    if retval != RTC.RTC_OK:
+      return retval
 
     # prop: [port.outport].
     prop = copy.deepcopy(self._properties)
@@ -781,6 +857,15 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
     OpenRTM_aist.NVUtil.copyToProperties(conn_prop, cprof.properties)
     prop.mergeProperties(conn_prop.getNode("dataport")) # marge ConnectorProfile
+
+    """
+    #  marge ConnectorProfile for buffer property.
+    #  e.g.
+    #      prof[buffer.write.full_policy]
+    #           << cprof[dataport.outport.buffer.write.full_policy]
+    #    
+    """
+    prop.mergeProperties(conn_prop.getNode("dataport.outport"))
 
 
     #
@@ -805,6 +890,9 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
       connector = self.createConnector(cprof, prop, provider_ = provider)
       if connector == 0:
         return RTC.RTC_ERROR
+
+      # connector set
+      provider.setConnector(connector)
 
       self._rtcout.RTC_DEBUG("publishInterface() successfully finished.")
       return RTC.RTC_OK
@@ -831,6 +919,13 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     conn_prop = OpenRTM_aist.Properties()
     OpenRTM_aist.NVUtil.copyToProperties(conn_prop, cprof.properties)
     prop.mergeProperties(conn_prop.getNode("dataport")) # marge ConnectorProfile
+    """
+    #  marge ConnectorProfile for buffer property.
+    #   e.g.
+    #     prof[buffer.write.full_policy]
+    #          << cprof[dataport.outport.buffer.write.full_policy]
+    """
+    prop.mergeProperties(conn_prop.getNode("dataport.outport"))
 
     #
     # ここで, ConnectorProfile からの properties がマージされたため、
@@ -840,6 +935,10 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     #
     dflow_type = OpenRTM_aist.normalize([prop.getProperty("dataflow_type")])
     
+    profile = OpenRTM_aist.ConnectorInfo(cprof.name,
+                                         cprof.connector_id,
+                                         OpenRTM_aist.CORBA_SeqUtil.refToVstring(cprof.ports),
+                                         prop)
     if dflow_type == "push":
       self._rtcout.RTC_PARANOID("dataflow_type = push .... create PushConnector")
 
@@ -853,12 +952,28 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
       if connector == 0:
         return RTC.RTC_ERROR
 
-      self._rtcout.RTC_DEBUG("publishInterface() successfully finished.")
-      return RTC.RTC_OK
+      ret = connector.setConnectorInfo(profile)
+
+      if ret == RTC.RTC_OK:
+        self._rtcout.RTC_DEBUG("subscribeInterfaces() successfully finished.")
+
+      return ret
 
     elif dflow_type == "pull":
-      self._rtcout.RTC_PARANOID("dataflow_type = pull .... do nothing")
-      return RTC.RTC_OK
+      self._rtcout.RTC_PARANOID("dataflow_type = pull.")
+
+      conn = self.getConnectorById(cprof.connector_id)
+      if conn == 0:
+        self._rtcout.RTC_ERROR("specified connector not found: %s",
+                               cprof.connector_id)
+        return RTC.RTC_ERROR
+
+      ret = conn.setConnectorInfo(profile)
+
+      if ret == RTC.RTC_OK:
+        self._rtcout.RTC_DEBUG("subscribeInterfaces() successfully finished.")
+
+      return ret
 
     self._rtcout.RTC_ERROR("unsupported dataflow_type")
     return RTC.BAD_PARAMETER
@@ -881,7 +996,6 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
     for (i,con) in enumerate(self._connectors):
       if id == con.id():
-        guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
         # Connector's dtor must call disconnect()
         self._connectors[i].deactivate()
         del self._connectors[i]
@@ -926,7 +1040,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     # OutPortProvider supports "pull" dataflow type
     if len(provider_types) > 0:
       self._rtcout.RTC_DEBUG("dataflow_type pull is supported")
-      self.appendProperty("dataport.dataflow_type", "push")
+      self.appendProperty("dataport.dataflow_type", "pull")
       self.appendProperty("dataport.interface_type",
                           OpenRTM_aist.flatten(provider_types))
 
@@ -1081,7 +1195,6 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
       self._rtcout.RTC_TRACE("OutPortPushConnector created")
 
-      guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
       self._connectors.append(connector)
       self._rtcout.RTC_PARANOID("connector push backed: %d", len(self._connectors))
       return connector

@@ -20,220 +20,226 @@
 
 from omniORB import *
 from omniORB import any
-import sys
 
 import OpenRTM_aist
 
 class InPortPushConnector(OpenRTM_aist.InPortConnector):
 
-    ##
-    # @if jp
-    # @brief コンストラクタ
-    #
-    # InPortPushConnector は InPortConsumer の所有権を持つ。
-    # したがって、InPortPushConnector 削除時には、InPortConsumerも同時に
-    # 解体・削除される。
-    #
-    # @param profile ConnectorProfile
-    # @param consumer InPortConsumer
-    #
-    # @else
-    # @brief Constructor
-    #
-    # InPortPushConnector assume ownership of InPortConsumer.
-    # Therefore, InPortConsumer will be deleted when InPortPushConnector
-    # is destructed.
-    #
-    # @param profile ConnectorProfile
-    # @param consumer InPortConsumer
-    #
-    # @endif
-    #
-    #InPortPushConnector(ConnectorInfo info, InPortProvider* provider,
-    #                    ConnectorListeners listeners, CdrBufferBase* buffer = 0);
-    def __init__(self, info, provider, listeners, buffer = 0):
-        OpenRTM_aist.InPortConnector.__init__(self, info, buffer)
-        self._provider = provider
-        self._listeners = listeners
+  ##
+  # @if jp
+  # @brief コンストラクタ
+  #
+  # InPortPushConnector は InPortConsumer の所有権を持つ。
+  # したがって、InPortPushConnector 削除時には、InPortConsumerも同時に
+  # 解体・削除される。
+  #
+  # @param profile ConnectorProfile
+  # @param consumer InPortConsumer
+  #
+  # @else
+  # @brief Constructor
+  #
+  # InPortPushConnector assume ownership of InPortConsumer.
+  # Therefore, InPortConsumer will be deleted when InPortPushConnector
+  # is destructed.
+  #
+  # @param profile ConnectorProfile
+  # @param consumer InPortConsumer
+  #
+  # @endif
+  #
+  # InPortPushConnector(ConnectorInfo info, InPortProvider* provider,
+  #                    ConnectorListeners listeners, CdrBufferBase* buffer = 0);
+  def __init__(self, info, provider, listeners, buffer = 0):
+    OpenRTM_aist.InPortConnector.__init__(self, info, buffer)
+    self._provider = provider
+    self._listeners = listeners
 
-        if buffer:
-            self._deleteBuffer = True
-        else:
-            self._deleteBuffer = False
+    if buffer:
+      self._deleteBuffer = True
+    else:
+      self._deleteBuffer = False
 
-        if self._buffer == 0:
-            self._buffer = self.createBuffer(info)
+    if self._buffer == 0:
+      self._buffer = self.createBuffer(info)
 
-        if self._buffer == 0:
-            raise
+    if self._buffer == 0 or not self._provider:
+      raise
 
-        self._provider.init(info.properties)
-        self._provider.setBuffer(self._buffer)
-        self._provider.setListener(info, self._listeners)
-
-        self.onConnect()
-        return
+    self._buffer.init(info.properties.getNode("buffer"))
+    self._provider.init(info.properties)
+    self._provider.setBuffer(self._buffer)
+    self._provider.setListener(info, self._listeners)
+    
+    self.onConnect()
+    return
 
     
-    #
-    # @if jp
-    # @brief デストラクタ
-    #
-    # disconnect() が呼ばれ、consumer, publisher, buffer が解体・削除される。
-    #
-    # @else
-    #
-    # @brief Destructor
-    #
-    # This operation calls disconnect(), which destructs and deletes
-    # the consumer, the publisher and the buffer.
-    #
-    # @endif
-    #
-    def __del__(self):
-        self.onDisconnect()
-        self.disconnect()
-        return
+  ##
+  # @if jp
+  # @brief デストラクタ
+  #
+  # disconnect() が呼ばれ、consumer, publisher, buffer が解体・削除される。
+  #
+  # @else
+  #
+  # @brief Destructor
+  #
+  # This operation calls disconnect(), which destructs and deletes
+  # the consumer, the publisher and the buffer.
+  #
+  # @endif
+  #
+  def __del__(self):
+    self.onDisconnect()
+    self.disconnect()
+    return
 
+
+  ##
+  # @if jp
+  # @brief データの書き込み
+  #
+  # Publisherに対してデータを書き込み、これにより対応するInPortへ
+  # データが転送される。
+  #
+  # @else
+  #
+  # @brief Writing data
+  #
+  # This operation writes data into publisher and then the data
+  # will be transferred to correspondent InPort.
+  #
+  # @endif
+  #
+  # virtual ReturnCode read(cdrMemoryStream& data);
+  def read(self, data):
+    self._rtcout.RTC_TRACE("read()")
 
     ##
-    # @if jp
-    # @brief データの書き込み
+    # buffer returns
+    #   BUFFER_OK
+    #   BUFFER_EMPTY
+    #   TIMEOUT
+    #   PRECONDITION_NOT_MET
     #
-    # Publisherに対してデータを書き込み、これにより対応するInPortへ
-    # データが転送される。
-    #
-    # @else
-    #
-    # @brief Writing data
-    #
-    # This operation writes data into publisher and then the data
-    # will be transferred to correspondent InPort.
-    #
-    # @endif
-    #
-    # virtual ReturnCode read(cdrMemoryStream& data);
-    def read(self, data):
-        self._rtcout.RTC_TRACE("read()")
+    if self._buffer == 0:
+      return self.PRECONDITION_NOT_MET
 
-        ##
-        # buffer returns
-        #   BUFFER_OK
-        #   BUFFER_EMPTY
-        #   TIMEOUT
-        #   PRECONDITION_NOT_MET
-        #
-        if type(data) == list:
-            ret = self._buffer.read(data, 0, 0)
-        else:
-            tmp = [data]
-            ret = self._buffer.read(tmp, 0, 0)
+    if type(data) == list:
+      ret = self._buffer.read(data, 0, 0)
+    else:
+      tmp = [data]
+      ret = self._buffer.read(tmp, 0, 0)
             
             
-        if ret == OpenRTM_aist.BufferStatus.BUFFER_OK:
-            return self.PORT_OK
+    if ret == OpenRTM_aist.BufferStatus.BUFFER_OK:
+      return self.PORT_OK
 
-        elif ret == OpenRTM_aist.BufferStatus.BUFFER_EMPTY:
-            return self.BUFFER_EMPTY
+    elif ret == OpenRTM_aist.BufferStatus.BUFFER_EMPTY:
+      return self.BUFFER_EMPTY
 
-        elif ret == OpenRTM_aist.BufferStatus.TIMEOUT:
-            return self.BUFFER_TIMEOUT
+    elif ret == OpenRTM_aist.BufferStatus.TIMEOUT:
+      return self.BUFFER_TIMEOUT
 
-        elif ret == OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET:
-            return self.PRECONDITION_NOT_MET
-
-        return self.PORT_ERROR
+    elif ret == OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET:
+      return self.PRECONDITION_NOT_MET
+    
+    return self.PORT_ERROR
         
 
-    ##
-    # @if jp
-    # @brief 接続解除
-    #
-    # consumer, publisher, buffer が解体・削除される。
-    #
-    # @else
-    #
-    # @brief disconnect
-    #
-    # This operation destruct and delete the consumer, the publisher
-    # and the buffer.
-    #
-    # @endif
-    #
-    # virtual ReturnCode disconnect();
-    def disconnect(self):
-        # delete consumer
-        if self._provider:
-            cfactory = OpenRTM_aist.InPortProviderFactory.instance()
-            cfactory.deleteObject(self._provider)
+  ##
+  # @if jp
+  # @brief 接続解除
+  #
+  # consumer, publisher, buffer が解体・削除される。
+  #
+  # @else
+  #
+  # @brief disconnect
+  #
+  # This operation destruct and delete the consumer, the publisher
+  # and the buffer.
+  #
+  # @endif
+  #
+  # virtual ReturnCode disconnect();
+  def disconnect(self):
+    # delete consumer
+    if self._provider:
+      cfactory = OpenRTM_aist.InPortProviderFactory.instance()
+      cfactory.deleteObject(self._provider)
 
-        self._provider = 0
+    self._provider = 0
 
-        # delete buffer
-        if self._buffer and self._deleteBuffer == True:
-            bfactory = OpenRTM_aist.CdrBufferFactory.instance()
-            bfactory.deleteObject(self._buffer)
+    # delete buffer
+    if self._buffer and self._deleteBuffer == True:
+      bfactory = OpenRTM_aist.CdrBufferFactory.instance()
+      bfactory.deleteObject(self._buffer)
     
-        self._buffer = 0
+    self._buffer = 0
+    
+    return self.PORT_OK
 
-        return self.PORT_OK
 
-    ## virtual void activate(){}; // do nothing
-    def activate(self): # do nothing
-        pass
+  ## virtual void activate(){}; // do nothing
+  def activate(self): # do nothing
+    pass
 
-    ## virtual void deactivate(){}; // do nothing
-    def deactivate(self):  # do nothing
-        pass
 
-    ##
-    # @if jp
-    # @brief Bufferの生成
-    # @else
-    # @brief create buffer
-    # @endif
-    #
-    # virtual CdrBufferBase* createBuffer(Profile& profile);
-    def createBuffer(self, profile):
-        buf_type = profile.properties.getProperty("buffer_type","ring_buffer")
-        return OpenRTM_aist.CdrBufferFactory.instance().createObject(buf_type)
+  ## virtual void deactivate(){}; // do nothing
+  def deactivate(self):  # do nothing
+    pass
 
-    # ReturnCode write(const OpenRTM::CdrData& data);
-    def write(self, data):
 
-        if not self._dataType:
-            return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
+  ##
+  # @if jp
+  # @brief Bufferの生成
+  # @else
+  # @brief create buffer
+  # @endif
+  #
+  # virtual CdrBufferBase* createBuffer(Profile& profile);
+  def createBuffer(self, profile):
+    buf_type = profile.properties.getProperty("buffer_type","ring_buffer")
+    return OpenRTM_aist.CdrBufferFactory.instance().createObject(buf_type)
 
-        _data = None
-        # CDR -> (conversion) -> data
-        if self._endian is not None:
-            _data = cdrUnmarshal(any.to_any(self._dataType).typecode(),data,self._endian)
 
-        else:
-            self._rtcout.RTC_ERROR("unknown endian from connector")
-            return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
+  # ReturnCode write(const OpenRTM::CdrData& data);
+  def write(self, data):
+    if not self._dataType:
+      return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
 
-        return self._buffer.write(_data)
+    _data = None
+    # CDR -> (conversion) -> data
+    if self._endian is not None:
+      _data = cdrUnmarshal(any.to_any(self._dataType).typecode(),data,self._endian)
+
+    else:
+      self._rtcout.RTC_ERROR("unknown endian from connector")
+      return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
+
+    return self._buffer.write(_data)
         
     
-    ##
-    # @if jp
-    # @brief 接続確立時にコールバックを呼ぶ
-    # @else
-    # @brief Invoke callback when connection is established
-    # @endif
-    # void onConnect()
-    def onConnect(self):
-        self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_CONNECT].notify(self._profile)
-        return
+  ##
+  # @if jp
+  # @brief 接続確立時にコールバックを呼ぶ
+  # @else
+  # @brief Invoke callback when connection is established
+  # @endif
+  # void onConnect()
+  def onConnect(self):
+    self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_CONNECT].notify(self._profile)
+    return
 
-    ##
-    # @if jp
-    # @brief 接続切断時にコールバックを呼ぶ
-    # @else
-    # @brief Invoke callback when connection is destroied
-    # @endif
-    # void onDisconnect()
-    def onDisconnect(self):
-        self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_DISCONNECT].notify(self._profile)
-        return
+  ##
+  # @if jp
+  # @brief 接続切断時にコールバックを呼ぶ
+  # @else
+  # @brief Invoke callback when connection is destroied
+  # @endif
+  # void onDisconnect()
+  def onDisconnect(self):
+    self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_DISCONNECT].notify(self._profile)
+    return

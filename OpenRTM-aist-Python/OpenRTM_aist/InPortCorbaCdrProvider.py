@@ -151,7 +151,7 @@ class InPortCorbaCdrProvider(OpenRTM_aist.InPortProvider,
     #  throw (CORBA::SystemException);
     def put(self, data):
         try:
-            self._rtcout.RTC_PARANOID("put()")
+            self._rtcout.RTC_PARANOID("InPortCorbaCdrProvider.put()")
 
             if not self._buffer:
                 self.onReceiverError(data)
@@ -201,6 +201,7 @@ class InPortCorbaCdrProvider(OpenRTM_aist.InPortProvider,
             return OpenRTM.BUFFER_TIMEOUT
 
         else:
+            self.onReceiverError(data)
             return OpenRTM.UNKNOWN_ERROR
         
 

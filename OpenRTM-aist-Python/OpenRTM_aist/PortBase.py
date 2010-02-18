@@ -2041,7 +2041,7 @@ class PortBase(RTC__POA.PortService):
   #
   # @endif
   # bool appendInterface(const char* name, const char* type_name,
-  #			 PortInterfacePolarity pol);
+  #                      PortInterfacePolarity pol);
   def appendInterface(self, instance_name, type_name, pol):
     index = OpenRTM_aist.CORBA_SeqUtil.find(self._profile.interfaces,
                                             self.find_interface(instance_name, pol))

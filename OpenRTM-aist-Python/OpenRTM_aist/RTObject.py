@@ -2648,7 +2648,8 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     if self._properties.hasKey(propkey):
       inport.properties().mergeProperties(self._properties.getNode(propkey))
 
-    inport.init()
+    inport.init(self._properties.getNode(propkey))
+    # self._inports.append(inport)
     self.registerPort(inport)
     return
 
@@ -2679,6 +2680,8 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     prop.mergeProperties(self._properties.getNode("port.outport.dataport"))
     outport.properties().mergeProperties(self._properties.getNode(propkey))
     self.registerPort(outport)
+    outport.init(self._properties.getNode(propkey))
+    # self._outports.append(outport)
     return
 
 
