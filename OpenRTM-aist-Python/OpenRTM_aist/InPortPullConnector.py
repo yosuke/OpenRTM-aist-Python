@@ -105,14 +105,14 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
     cdr_data = [None]
     ret = self._consumer.get(cdr_data)
 
-    _data = None
-    # CDR -> (conversion) -> data
-    if self._endian is not None:
-      _data = cdrUnmarshal(any.to_any(data[0]).typecode(),cdr_data[0],self._endian)
+    if ret == self.PORT_OK:
+      # CDR -> (conversion) -> data
+      if self._endian is not None:
+        data[0] = cdrUnmarshal(any.to_any(data[0]).typecode(),cdr_data[0],self._endian)
 
-    else:
-      self._rtcout.RTC_ERROR("unknown endian from connector")
-      return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
+      else:
+        self._rtcout.RTC_ERROR("unknown endian from connector")
+        return OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET
     
     return ret
 

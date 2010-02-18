@@ -17,6 +17,7 @@
 from omniORB import *
 from omniORB import any
 import sys
+import copy
 
 import OpenRTM_aist
 
@@ -333,7 +334,8 @@ class InPort(OpenRTM_aist.InPortBase):
       self._rtcout.RTC_DEBUG("no connectors")
       return self._value
 
-    cdr = []
+    _val = copy.deepcopy(self._value)
+    cdr = [_val]
     ret = self._connectors[0].read(cdr)
 
 

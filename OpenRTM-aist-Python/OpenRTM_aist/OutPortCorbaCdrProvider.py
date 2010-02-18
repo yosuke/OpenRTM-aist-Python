@@ -86,6 +86,7 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
 
     self._listeners = None
     self._connector = None
+    self._profile   = None
     return
 
 
@@ -181,7 +182,7 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
   # virtual void setListener(ConnectorInfo& info,
   #                          ConnectorListeners* listeners);
   def setListener(self, info, listeners):
-    self._profie = info
+    self._profile = info
     self._listeners = listeners
     return
 
@@ -235,7 +236,7 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
       self._rtcout.RTC_TRACE(sys.exc_info()[0])
       return (OpenRTM.UNKNOWN_ERROR, None)
 
-    return self.convertReturn(ret, cdr)
+    return self.convertReturn(ret, cdr[0])
     
 
   # inline void onBufferRead(const cdrMemoryStream& data)
@@ -292,35 +293,35 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
     if status == OpenRTM_aist.BufferStatus.BUFFER_OK:
       self.onBufferRead(data)
       self.onSend(data)
-      return (OpenRTM.PORT_OK, data[0])
+      return (OpenRTM.PORT_OK, data)
     
     elif status == OpenRTM_aist.BufferStatus.BUFFER_ERROR:
       self.onSenderError()
-      return (OpenRTM.PORT_ERROR, data[0])
+      return (OpenRTM.PORT_ERROR, data)
     
     elif status == OpenRTM_aist.BufferStatus.BUFFER_FULL:
       # never come here
-      return (OpenRTM.BUFFER_FULL, data[0])
+      return (OpenRTM.BUFFER_FULL, data)
 
     elif status == OpenRTM_aist.BufferStatus.BUFFER_EMPTY:
       self.onBufferEmpty()
       self.onSenderEmpty()
-      return (OpenRTM.BUFFER_EMPTY, data[0])
+      return (OpenRTM.BUFFER_EMPTY, data)
 
     elif status == OpenRTM_aist.BufferStatus.PRECONDITION_NOT_MET:
       self.onSenderError()
-      return (OpenRTM.PORT_ERROR, data[0])
+      return (OpenRTM.PORT_ERROR, data)
     
     elif status == OpenRTM_aist.BufferStatus.TIMEOUT:
       self.onBufferReadTimeout()
       self.onSenderTimeout()
-      return (OpenRTM.BUFFER_TIMEOUT, data[0])
+      return (OpenRTM.BUFFER_TIMEOUT, data)
     
     else:
-      return (OpenRTM.UNKNOWN_ERROR, data[0])
+      return (OpenRTM.UNKNOWN_ERROR, data)
     
     self.onSenderError()
-    return (OpenRTM.UNKNOWN_ERROR, data[0])
+    return (OpenRTM.UNKNOWN_ERROR, data)
 
 
 def OutPortCorbaCdrProviderInit():

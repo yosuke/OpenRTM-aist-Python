@@ -915,7 +915,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
         return RTC.BAD_PARAMETER
 
       # create InPortPullConnector
-      connector = createConnector(cprof, prop, consumer_=consumer)
+      connector = self.createConnector(cprof, prop, consumer_=consumer)
       if connector == 0:
         return RTC.RTC_ERROR
 
@@ -1169,7 +1169,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
           connector = OpenRTM_aist.InPortPushConnector(profile, provider_,
                                                        self._listeners)
 
-      elif cosumer_ is not None:
+      elif consumer_ is not None:
         if self._singlebuffer:
           connector = OpenRTM_aist.InPortPullConnector(profile, consumer_,
                                                        self._listeners,
