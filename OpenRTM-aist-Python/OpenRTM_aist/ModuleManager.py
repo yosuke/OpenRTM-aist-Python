@@ -240,7 +240,7 @@ class ModuleManager:
   #
   # @endif
   # std::string ModuleManager::load(const std::string& file_name,
-  #     			    const std::string& init_func)
+  #                                 const std::string& init_func)
   def load(self, file_name, init_func=None):
     if file_name == "":
       raise ModuleManager.InvalidArguments, "Invalid file name."
@@ -280,7 +280,7 @@ class ModuleManager:
     try:
       self.symbol(file_name,init_func)(OpenRTM_aist.Manager.instance())
     except:
-      print "Could't call init_func: ", init_func
+      print "Could not call init_func: ", init_func
 
     return file_path
 
