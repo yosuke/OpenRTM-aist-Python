@@ -53,20 +53,20 @@ import OpenRTM_aist
 # @endif
 #
 class ConnectorDataListenerType:
-    def __init__(self):
-        pass
+  def __init__(self):
+    pass
 
-    ON_BUFFER_WRITE              = 0
-    ON_BUFFER_FULL               = 1
-    ON_BUFFER_WRITE_TIMEOUT      = 2
-    ON_BUFFER_OVERWRITE          = 3
-    ON_BUFFER_READ               = 4
-    ON_SEND                      = 5
-    ON_RECEIVED                  = 6
-    ON_RECEIVER_FULL             = 7
-    ON_RECEIVER_TIMEOUT          = 8
-    ON_RECEIVER_ERROR            = 9
-    CONNECTOR_DATA_LISTENER_NUM  = 10
+  ON_BUFFER_WRITE              = 0
+  ON_BUFFER_FULL               = 1
+  ON_BUFFER_WRITE_TIMEOUT      = 2
+  ON_BUFFER_OVERWRITE          = 3
+  ON_BUFFER_READ               = 4
+  ON_SEND                      = 5
+  ON_RECEIVED                  = 6
+  ON_RECEIVER_FULL             = 7
+  ON_RECEIVER_TIMEOUT          = 8
+  ON_RECEIVER_ERROR            = 9
+  CONNECTOR_DATA_LISTENER_NUM  = 10
 
 
 
@@ -87,14 +87,56 @@ class ConnectorDataListenerType:
 # @endif
 #
 class ConnectorDataListener:
-    def __del__(self):
-        pass
+  def __del__(self):
+    pass
 
-    # virtual void operator()(const ConnectorInfo& info,
-    #                         const cdrMemoryStream& data) = 0;
-    def __call__(self, info, data):
-        pass
+  # virtual void operator()(const ConnectorInfo& info,
+  #                         const cdrMemoryStream& data) = 0;
+  def __call__(self, info, data):
+    pass
 
+  ##
+  # @if jp
+  #
+  # @brief ConnectorDataListenerType を文字列に変換
+  #
+  # ConnectorDataListenerType を文字列に変換する
+  #
+  # @param type 変換対象 ConnectorDataListenerType
+  #
+  # @return 文字列変換結果
+  #
+  # @else
+  #
+  # @brief Convert ConnectorDataListenerType into the string.
+  #
+  # Convert ConnectorDataListenerType into the string.
+  #
+  # @param type The target ConnectorDataListenerType for transformation
+  #
+  # @return Trnasformation result of string representation
+  #
+  # @endif
+  #
+  def toString(type):
+    typeString = ["ON_BUFFER_WRITE",
+                  "ON_BUFFER_FULL",
+                  "ON_BUFFER_WRITE_TIMEOUT",
+                  "ON_BUFFER_OVERWRITE",
+                  "ON_BUFFER_READ", 
+                  "ON_SEND", 
+                  "ON_RECEIVED",
+                  "ON_RECEIVER_FULL", 
+                  "ON_RECEIVER_TIMEOUT", 
+                  "ON_RECEIVER_ERROR",
+                  "CONNECTOR_DATA_LISTENER_NUM"]
+
+    if type < ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM:
+      return typeString[type]
+
+    return ""
+
+  toString = staticmethod(toString)
 
 
 ##
@@ -122,27 +164,27 @@ class ConnectorDataListener:
 # @endif
 #
 class ConnectorDataListenerT(ConnectorDataListener):
-    def __del__(self):
-        pass
+  def __del__(self):
+    pass
 
 
-    # virtual void operator()(const ConnectorInfo& info,
-    #                         const cdrMemoryStream& cdrdata)
-    def __call__(self, info, cdrdata, data):
-        endian = info.properties.getProperty("serializer.cdr.endian","little")
-        if endian is not "little" and endian is not None:
-            endian = OpenRTM_aist.split(endian, ",") # Maybe endian is ["little","big"]
-            endian = OpenRTM_aist.normalize(endian) # Maybe self._endian is "little" or "big"
+  # virtual void operator()(const ConnectorInfo& info,
+  #                         const cdrMemoryStream& cdrdata)
+  def __call__(self, info, cdrdata, data):
+    endian = info.properties.getProperty("serializer.cdr.endian","little")
+    if endian is not "little" and endian is not None:
+      endian = OpenRTM_aist.split(endian, ",") # Maybe endian is ["little","big"]
+      endian = OpenRTM_aist.normalize(endian) # Maybe self._endian is "little" or "big"
 
-        if endian == "little":
-            endian = True
-        elif endian == "big":
-            endian = False
-        else:
-            endian = True
+    if endian == "little":
+      endian = True
+    elif endian == "big":
+      endian = False
+    else:
+      endian = True
 
-        _data = cdrUnmarshal(any.to_any(data).typecode(), cdrdata, endian)
-        return _data
+    _data = cdrUnmarshal(any.to_any(data).typecode(), cdrdata, endian)
+    return _data
 
 
 
@@ -174,17 +216,17 @@ class ConnectorDataListenerT(ConnectorDataListener):
 # enum ConnectorListenerType
 class ConnectorListenerType:
 
-    def __init__(self):
-        pass
-
-    ON_BUFFER_EMPTY        = 0
-    ON_BUFFER_READ_TIMEOUT = 1
-    ON_SENDER_EMPTY        = 2
-    ON_SENDER_TIMEOUT      = 3
-    ON_SENDER_ERROR        = 4
-    ON_CONNECT             = 5
-    ON_DISCONNECT          = 6
-    CONNECTOR_LISTENER_NUM = 7
+  def __init__(self):
+    pass
+  
+  ON_BUFFER_EMPTY        = 0
+  ON_BUFFER_READ_TIMEOUT = 1
+  ON_SENDER_EMPTY        = 2
+  ON_SENDER_TIMEOUT      = 3
+  ON_SENDER_ERROR        = 4
+  ON_CONNECT             = 5
+  ON_DISCONNECT          = 6
+  CONNECTOR_LISTENER_NUM = 7
 
 
 
@@ -205,13 +247,52 @@ class ConnectorListenerType:
 # @endif
 #
 class ConnectorListener:
-    def __del__(self):
-        pass
+  def __del__(self):
+    pass
 
-    # virtual void operator()(const ConnectorInfo& info) = 0;
-    def __call__(self,  info):
-        pass
+  # virtual void operator()(const ConnectorInfo& info) = 0;
+  def __call__(self,  info):
+    pass
 
+  ##
+  # @if jp
+  #
+  # @brief ConnectorListenerType を文字列に変換
+  #
+  # ConnectorListenerType を文字列に変換する
+  #
+  # @param type 変換対象 ConnectorListenerType
+  #
+  # @return 文字列変換結果
+  #
+  # @else
+  #
+  # @brief Convert ConnectorListenerType into the string.
+  #
+  # Convert ConnectorListenerType into the string.
+  #
+  # @param type The target ConnectorListenerType for transformation
+  #
+  # @return Trnasformation result of string representation
+  #
+  # @endif
+  #
+  def toString(type):
+    typeString = ["ON_BUFFER_EMPTY",
+                  "ON_BUFFER_READ_TIMEOUT",
+                  "ON_SENDER_EMPTY", 
+                  "ON_SENDER_TIMEOUT", 
+                  "ON_SENDER_ERROR", 
+                  "ON_CONNECT",
+                  "ON_DISCONNECT",
+                  "CONNECTOR_LISTENER_NUM"]
+
+    if type < ConnectorListenerType.CONNECTOR_LISTENER_NUM:
+      return typeString[type]
+
+    return ""
+
+  toString = staticmethod(toString)
 
 
 ##
@@ -228,40 +309,40 @@ class ConnectorListener:
 # @endif
 #
 class ConnectorDataListenerHolder:
-    def __init__(self):
-        self._listeners = []
-        return
+  def __init__(self):
+    self._listeners = []
+    return
 
 
-    def __del__(self):
-        for listener in self._listeners:
-            for (k,v) in listener.iteritems():
-                if v:
-                    del k
+  def __del__(self):
+    for listener in self._listeners:
+      for (k,v) in listener.iteritems():
+        if v:
+          del k
+    return
+
+    
+  # void addListener(ConnectorDataListener* listener, bool autoclean);
+  def addListener(self, listener, autoclean):
+    self._listeners.append({listener:autoclean})
+    return
+
+    
+  # void removeListener(ConnectorDataListener* listener);
+  def removeListener(self, listener):
+    for (i, _listener) in enumerate(self._listeners):
+      if listener in _listener:
+        del self._listeners[i][listener]
         return
 
     
-    # void addListener(ConnectorDataListener* listener, bool autoclean);
-    def addListener(self, listener, autoclean):
-        self._listeners.append({listener:autoclean})
-        return
-
-    
-    # void removeListener(ConnectorDataListener* listener);
-    def removeListener(self, listener):
-        for (i, _listener) in enumerate(self._listeners):
-            if listener in _listener:
-                del self._listeners[i][listener]
-                return
-
-    
-    # void notify(const ConnectorInfo& info,
-    #             const cdrMemoryStream& cdrdata);
-    def notify(self, info, cdrdata):
-        for listener in self._listeners:
-            for (k,v) in listener.iteritems():
-                k(info, cdrdata)
-        return
+  # void notify(const ConnectorInfo& info,
+  #             const cdrMemoryStream& cdrdata);
+  def notify(self, info, cdrdata):
+    for listener in self._listeners:
+      for (k,v) in listener.iteritems():
+        k(info, cdrdata)
+    return
 
 
 ##
@@ -279,44 +360,44 @@ class ConnectorDataListenerHolder:
 #
 class ConnectorListenerHolder:
 
-    def __init__(self):
-        self._listeners = []
-        return
+  def __init__(self):
+    self._listeners = []
+    return
 
     
-    def __del__(self):
-        for listener in self._listeners:
-            for (k,v) in listener.iteritems():
-                if v:
-                    del k
-        return
+  def __del__(self):
+    for listener in self._listeners:
+      for (k,v) in listener.iteritems():
+        if v:
+          del k
+    return
         
     
-    # void addListener(ConnectorListener* listener, bool autoclean);
-    def addListener(self, listener, autoclean):
-        self._listeners.append({listener:autoclean})
+  # void addListener(ConnectorListener* listener, bool autoclean);
+  def addListener(self, listener, autoclean):
+    self._listeners.append({listener:autoclean})
+    return
+
+
+  # void removeListener(ConnectorListener* listener);
+  def removeListener(self, listener):
+    for (i, _listener) in enumerate(self._listeners):
+      if listener in _listener:
+        del self._listeners[i][listener]
         return
 
 
-    # void removeListener(ConnectorListener* listener);
-    def removeListener(self, listener):
-        for (i, _listener) in enumerate(self._listeners):
-            if listener in _listener:
-                del self._listeners[i][listener]
-                return
-
-
-    # void notify(const ConnectorInfo& info);
-    def notify(self, info):
-        for listener in self._listeners:
-            for (k,v) in listener.iteritems():
-                k(info)
-        return
+  # void notify(const ConnectorInfo& info);
+  def notify(self, info):
+    for listener in self._listeners:
+      for (k,v) in listener.iteritems():
+        k(info)
+    return
 
 
   
 class ConnectorListeners:
-    def __init__(self):
-        self.connectorData_ = [ OpenRTM_aist.ConnectorDataListenerHolder() for i in range(OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM) ]
-        self.connector_     = [ OpenRTM_aist.ConnectorListenerHolder() for i in range(OpenRTM_aist.ConnectorListenerType.CONNECTOR_LISTENER_NUM) ]
-        return
+  def __init__(self):
+    self.connectorData_ = [ OpenRTM_aist.ConnectorDataListenerHolder() for i in range(OpenRTM_aist.ConnectorDataListenerType.CONNECTOR_DATA_LISTENER_NUM) ]
+    self.connector_     = [ OpenRTM_aist.ConnectorListenerHolder() for i in range(OpenRTM_aist.ConnectorListenerType.CONNECTOR_LISTENER_NUM) ]
+    return
