@@ -217,10 +217,10 @@ def _ifconfig_getnode():
     pipe = os.popen(os.path.join(dir, 'ifconfig'))
 
     for line in pipe:
-	words = line.lower().split()
-	for i in range(len(words)):
-	    if words[i] in ['hwaddr', 'ether']:
-	       return int(words[i + 1].replace(':', ''), 16)
+      words = line.lower().split()
+      for i in range(len(words)):
+        if words[i] in ['hwaddr', 'ether']:
+          return int(words[i + 1].replace(':', ''), 16)
 
 def _ipconfig_getnode():
     """Get the hardware address on Windows by running ipconfig.exe."""
