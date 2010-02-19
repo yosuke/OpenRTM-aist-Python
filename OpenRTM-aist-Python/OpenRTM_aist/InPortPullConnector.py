@@ -156,7 +156,8 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
   # @endif
   # void onConnect()
   def onConnect(self):
-    self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_CONNECT].notify(self._profile)
+    if self._listeners:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_CONNECT].notify(self._profile)
     return
 
   ##
@@ -167,5 +168,6 @@ class InPortPullConnector(OpenRTM_aist.InPortConnector):
   # @endif
   # void onDisconnect()
   def onDisconnect(self):
-    self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_DISCONNECT].notify(self._profile)
+    if self._listeners:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_DISCONNECT].notify(self._profile)
     return

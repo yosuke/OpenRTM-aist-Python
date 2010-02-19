@@ -150,6 +150,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   # @param prop Property for setting ports
   # @endif
   #
+  # void init(coil::Properties& prop);
   def init(self,prop):
     self._rtcout.RTC_TRACE("init()")
     self._properties.mergeProperties(prop)
@@ -813,13 +814,13 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
       # create InPortProvider
       provider = self.createProvider(cprof, prop)
 
-      if provider == 0:
+      if not provider:
         self._rtcout.RTC_ERROR("InPort provider creation failed.")
         return RTC.BAD_PARAMETER
 
       # create InPortPushConnector
       connector = self.createConnector(cprof, prop, provider_=provider)
-      if connector == 0:
+      if not connector:
         self._rtcout.RTC_ERROR("PushConnector creation failed.")
         return RTC.RTC_ERROR
 
@@ -895,7 +896,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
 
       conn = self.getConnectorById(cprof.connector_id)
 
-      if conn == 0:
+      if not conn:
         self._rtcout.RTC_ERROR("specified connector not found: %s",
                                cprof.connector_id)
         return RTC.RTC_ERROR
@@ -911,12 +912,12 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
 
       # create OutPortConsumer
       consumer = self.createConsumer(cprof, prop)
-      if consumer == 0:
+      if not consumer:
         return RTC.BAD_PARAMETER
 
       # create InPortPullConnector
       connector = self.createConnector(cprof, prop, consumer_=consumer)
-      if connector == 0:
+      if not connector:
         return RTC.RTC_ERROR
 
       ret = connector.setConnectorInfo(profile)

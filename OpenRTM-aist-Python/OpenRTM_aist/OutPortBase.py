@@ -545,7 +545,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
     conn = self.getConnectorById(id)
 
-    if conn == 0:
+    if not conn:
       return False
 
     prof[0] = conn.profile()
@@ -566,10 +566,10 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
     conn = self.getConnectorByName(name)
 
-    if conn == 0:
+    if not conn:
       return False
 
-    prof[0] = con.profile()
+    prof[0] = conn.profile()
     return True
 
 
@@ -883,12 +883,12 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
       self._rtcout.RTC_PARANOID("dataflow_type = pull .... create PullConnector")
 
       provider = self.createProvider(cprof, prop)
-      if provider == 0:
+      if not provider:
         return RTC.BAD_PARAMETER
         
       # create InPortPushConnector
       connector = self.createConnector(cprof, prop, provider_ = provider)
-      if connector == 0:
+      if not connector:
         return RTC.RTC_ERROR
 
       # connector set
@@ -944,12 +944,12 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
       # interface
       consumer = self.createConsumer(cprof, prop)
-      if consumer == 0:
+      if not consumer:
         return RTC.BAD_PARAMETER
 
       # create OutPortPushConnector
       connector = self.createConnector(cprof, prop, consumer_ = consumer)
-      if connector == 0:
+      if not connector:
         return RTC.RTC_ERROR
 
       ret = connector.setConnectorInfo(profile)
@@ -963,7 +963,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
       self._rtcout.RTC_PARANOID("dataflow_type = pull.")
 
       conn = self.getConnectorById(cprof.connector_id)
-      if conn == 0:
+      if not conn:
         self._rtcout.RTC_ERROR("specified connector not found: %s",
                                cprof.connector_id)
         return RTC.RTC_ERROR

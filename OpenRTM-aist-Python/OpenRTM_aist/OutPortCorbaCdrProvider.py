@@ -241,13 +241,15 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
 
   # inline void onBufferRead(const cdrMemoryStream& data)
   def onBufferRead(self, data):
-    self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_READ].notify(self._profile, data)
+    if self._listeners:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_READ].notify(self._profile, data)
     return
 
 
   # inline void onSend(const cdrMemoryStream& data)
   def onSend(self, data):
-    self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_SEND].notify(self._profile, data)
+    if self._listeners:
+      self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_SEND].notify(self._profile, data)
     return
 
   ##
@@ -255,28 +257,33 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
   #
   # inline void onBufferEmpty()
   def onBufferEmpty(self):
-    self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_BUFFER_EMPTY].notify(self._profile)
+    if self._listeners:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_BUFFER_EMPTY].notify(self._profile)
     return
 
 
   # inline void onBufferReadTimeout()
   def onBufferReadTimeout(self):
-    self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_BUFFER_READ_TIMEOUT].notify(self._profile)
+    if self._listeners:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_BUFFER_READ_TIMEOUT].notify(self._profile)
     return
 
   # inline void onSenderEmpty()
   def onSenderEmpty(self):
-    self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_EMPTY].notify(self._profile)
+    if self._listeners:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_EMPTY].notify(self._profile)
     return
 
   # inline void onSenderTimeout()
   def onSenderTimeout(self):
-    self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_TIMEOUT].notify(self._profile)
+    if self._listeners:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_TIMEOUT].notify(self._profile)
     return
 
   # inline void onSenderError()
   def onSenderError(self):
-    self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_ERROR].notify(self._profile)
+    if self._listeners:
+      self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_ERROR].notify(self._profile)
     return
 
 
