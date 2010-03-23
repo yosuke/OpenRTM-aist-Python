@@ -48,7 +48,7 @@ data = [
     ("OpenRTM_aist26",                                      "*.py"),
     ("OpenRTM_aist26/rtc-template",                         "*.py"),
     ("OpenRTM_aist26/RTM_IDL",                              "*.py *.idl *.pth"),
-    ("OpenRTM_aist26/root",                                 "*.pth"),
+    ("OpenRTM_aist26/root",                                 "*.pth")
 ]
 
 ## Resource path
