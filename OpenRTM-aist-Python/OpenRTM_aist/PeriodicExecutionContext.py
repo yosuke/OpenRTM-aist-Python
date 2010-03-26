@@ -21,8 +21,8 @@ import time
 from omniORB import CORBA, PortableServer
 
 import OpenRTM_aist
-import OpenRTM, OpenRTM__POA
-import RTC, RTC__POA
+import OpenRTM
+import RTC
 
 ##
 # @if jp

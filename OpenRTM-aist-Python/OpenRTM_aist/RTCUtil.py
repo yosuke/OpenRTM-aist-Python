@@ -17,8 +17,8 @@
 
 from omniORB import CORBA
 
-import RTC, RTC__POA
-import OpenRTM, OpenRTM__POA
+import RTC
+import OpenRTM
 
 ##
 # @if jp

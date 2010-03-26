@@ -20,7 +20,7 @@
 import sys
 from omniORB import any
 import OpenRTM_aist
-import OpenRTM, OpenRTM__POA
+import OpenRTM
 
 ##
 # @if jp

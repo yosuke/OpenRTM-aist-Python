@@ -18,7 +18,7 @@
 import threading
 
 import OpenRTM_aist
-import RTC, RTC__POA
+import RTC
 
 
 ##

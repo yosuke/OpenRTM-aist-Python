@@ -20,7 +20,6 @@ import threading
 import time
 
 import OpenRTM_aist
-import RTC, RTC__POA
 
 
 
