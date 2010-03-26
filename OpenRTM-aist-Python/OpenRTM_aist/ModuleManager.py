@@ -16,7 +16,8 @@
 
 
 import string
-import os
+import sys,os
+import glob
 
 import OpenRTM_aist
 
@@ -80,7 +81,6 @@ class ModuleManager:
       tmp = [self._configPath[i]]
       OpenRTM_aist.eraseHeadBlank(tmp)
       self._configPath[i] = tmp[0]
-
     self._loadPath = prop.getProperty(MOD_LOADPTH).split(",")
     for i in range(len(self._loadPath)):
       tmp = [self._loadPath[i]]
@@ -96,6 +96,7 @@ class ModuleManager:
     self._initFuncSuffix = prop.getProperty(INITFUNC_SFX)
     self._initFuncPrefix = prop.getProperty(INITFUNC_PFX)
     self._modules = OpenRTM_aist.ObjectManager(self.DLLPred)
+    self._rtcout = None
 
 
   ##
@@ -228,7 +229,7 @@ class ModuleManager:
   # 指定した初期化用オペレーションを実行する。
   # 
   # @param self
-  # @param file_name ロード対象モジュール名
+  # @param file_name ロード対象モジュール名 (.pyを除いたファイル名)
   # @param init_func 初期化処理用オペレーション(デフォルト値:None)
   #
   # @return 指定したロード対象モジュール名
@@ -242,6 +243,10 @@ class ModuleManager:
   # std::string ModuleManager::load(const std::string& file_name,
   #                                 const std::string& init_func)
   def load(self, file_name, init_func=None):
+    if not self._rtcout:
+      self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("ModuleManager")
+
+    self._rtcout.RTC_TRACE("load(fname = %s)", file_name)
     if file_name == "":
       raise ModuleManager.InvalidArguments, "Invalid file name."
 
@@ -251,38 +256,44 @@ class ModuleManager:
       else:
         raise ModuleManager.NotFound, "Not implemented."
 
+    import_name = os.path.split(file_name)[-1]
+    pathChanged=False
     if OpenRTM_aist.isAbsolutePath(file_name):
       if not self._absoluteAllowed:
         raise ModuleManager.NotAllowedOperation, "Absolute path is not allowed"
       else:
-        file_path = file_name
+        splitted_name = os.path.split(file_name)
+        save_path = sys.path[:]
+        sys.path.append(splitted_name[0])
+        pathChanged = True
+        import_name = splitted_name[-1]
+
     else:
-      file_path = self.findFile(file_name, self._loadPath)
+      if not self.findFile(file_name, self._loadPath):
+        raise ModuleManager.InvalidArguments, "Invalid file name."
 
-    if file_path == "":
-      raise ModuleManager.InvalidArguments, "Invalid file name."
-
-    if not self.fileExist(file_path+".py"):
+    if not self.fileExist(file_name):
       raise ModuleManager.FileNotFound, file_path
 
-    mo = __import__(str(file_path))
+    ext_pos = import_name.find(".py")
+    if ext_pos > 0:
+      import_name = import_name[:ext_pos]
+    mo = __import__(str(import_name))
+
+    if pathChanged:
+      sys.path = save_path
+
     dll = self.DLLEntity(mo,OpenRTM_aist.Properties())
-    dll.properties.setProperty("file_path",file_path)
+    dll.properties.setProperty("file_path",file_name)
     self._modules.registerObject(dll)
 
 
     if init_func is None:
-      return file_path
+      return file_name
 
-    if file_path == "":
-      raise ModuleManager.InvalidOperation, "Invalid file name"
+    self.symbol(file_name,init_func)(OpenRTM_aist.Manager.instance())
 
-    try:
-      self.symbol(file_name,init_func)(OpenRTM_aist.Manager.instance())
-    except:
-      print "Could not call init_func: ", init_func
-
-    return file_path
+    return file_name
 
 
   ##
@@ -344,7 +355,7 @@ class ModuleManager:
     if not dll:
       raise ModuleManager.ModuleNotFound, file_name
 
-    func = dll.dll.__getattribute__(func_name)
+    func = getattr(dll.dll,func_name,None)
 
     if not func:
       raise ModuleManager.SymbolNotFound, func_name
@@ -427,6 +438,54 @@ class ModuleManager:
     return modules
 
 
+  def __getRtcProfile(self, fname):
+    # file name with full path
+    fullname  = fname
+    # directory name
+    dirname   = os.path.dirname(fname)
+    # basename
+    basename  = os.path.basename(fname)
+    # classname
+    classname  = basename.split(".")[0].lower()
+
+    # loaded profile = old profiles - new profiles
+    mgr = OpenRTM_aist.Manager.instance()
+    # for old
+    oldp = mgr.getFactoryProfiles()
+
+    # for new
+    comp_spec_name = classname+"_spec"
+    imp_file = __import__(basename.split(".")[0])
+    comp_spec = getattr(imp_file,comp_spec_name,None)
+    if not comp_spec:
+      return OpenRTM_aist.Properties()
+    newp = OpenRTM_aist.Properties(defaults_str=comp_spec)
+
+    profs = []
+    
+    exists = False
+    for i in range(len(oldp)):
+      if    oldp[i].getProperty("implementation_id") == newp.getProperty("implementation_id") and \
+            oldp[i].getProperty("type_name") == newp.getProperty("type_name") and \
+            oldp[i].getProperty("description") == newp.getProperty("description") and \
+            oldp[i].getProperty("version") == newp.getProperty("version"):
+        exists = True
+    if not exists:
+      profs.append(newp)
+
+        
+    # loaded component profile have to be one
+    if len(profs) == 0:
+      print "Load failed. file name: ", fname
+      return OpenRTM_aist.Properties()
+
+    if len(profs) > 1:
+      print "One or more modules loaded."
+      return OpenRTM_aist.Properties()
+
+    return profs[0]
+
+
   ##
   # @if jp
   # @brief ロード可能モジュールリストを取得する(未実装)
@@ -441,7 +500,28 @@ class ModuleManager:
   # @brief Get loadable module names
   # @endif
   def getLoadableModules(self):
-    return []
+    # getting loadable module file path list.
+    dlls = []
+    for path in self._loadPath:
+      if path == "":
+        continue
+
+      flist = glob.glob(path+"/"+'*.py')
+      for file in flist:
+        if file.find("__init__.py") == -1:
+          dlls.append(file)
+    
+    props = []
+    # getting module properties from loadable modules
+    for dll in dlls:
+      prop = self.__getRtcProfile(dll)
+
+      prop.setProperty("module_file_name",os.path.basename(dll))
+      prop.setProperty("module_file_path", dll)
+      props.append(prop)
+    
+    return props
+
 
 
   ##
@@ -526,8 +606,12 @@ class ModuleManager:
 
     if len(load_path) == 1:
       load_path.append(".")
+
     for path in load_path:
-      f = str(path)+"/"+str(file_name)+".py"
+      if fname.find(".py") == -1:
+        f = str(path)+"/"+str(file_name)+".py"
+      else:
+        f = str(path)+"/"+str(file_name)
       if self.fileExist(f):
         return fname
     return ""
@@ -548,8 +632,11 @@ class ModuleManager:
   # @brief Check file existance
   # @endif
   def fileExist(self, filename):
+    fname = filename
+    if fname.find(".py") == -1:
+      fname = str(filename)+".py"
     try:
-      infile = open(filename)
+      infile = open(fname)
     except:
       return False
 
