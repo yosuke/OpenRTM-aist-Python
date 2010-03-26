@@ -54,26 +54,47 @@ import OpenRTM_aist
 #
 # @else
 #
-# @brief
+# @class ManagerConfig
+# @brief Manager configuration class
+#
+# Modify Manager's configuration. 
+# This class receives the command line arguments and will be instantiated.
+# Set property information of Manager with the configuration file specified
+# by the command line argument or the environment variable etc.
+#
+# The priorities of each configuration are as follows:
+# <OL>
+# <LI>Command option "-f"
+# <LI>Environment variable "RTC_MANAGER_CONFIG"
+# <LI>Default configuration file "./rtc.conf"
+# <LI>Default configuration file "/etc/rtc.conf"
+# <LI>Default configuration file "/etc/rtc/rtc.conf"
+# <LI>Default configuration file "/usr/local/etc/rtc.conf"
+# <LI>Default configuration file "/usr/local/etc/rtc/rtc.conf"
+# <LI>Embedded configuration value
+# </OL>
+# If the command option "-d" is specified (even if specify configuration file
+# by "-f" option), the embedded configuration values will be used.
+#
+# @since 0.4.0
 #
 # @endif
 class ManagerConfig :
   """
   """
 
-
-
   ##
   # @if jp
   # @brief Manager コンフィギュレーションのデフォルト・ファイル・パス
   # @else
+  # @brief The default configuration file path for manager
   # @endif
   config_file_path = ["./rtc.conf",
-            "/etc/rtc.conf",
-            "/etc/rtc/rtc.conf",
-            "/usr/local/etc/rtc.conf",
-            "/usr/local/etc/rtc/rtc.conf",
-            None]
+                      "/etc/rtc.conf",
+                      "/etc/rtc/rtc.conf",
+                      "/usr/local/etc/rtc.conf",
+                      "/usr/local/etc/rtc/rtc.conf",
+                      None]
 
 
   ##
@@ -81,6 +102,8 @@ class ManagerConfig :
   # @brief デフォルト・コンフィギュレーションのファイル・パスを識別する
   #        環境変数
   # @else
+  # @brief The environment variable to distinguish the default configuration
+  #        file path
   # @endif
   config_file_env = "RTC_MANAGER_CONFIG"
 
@@ -108,6 +131,7 @@ class ManagerConfig :
   def __init__(self, argv=None):
 
     self._configFile = ""
+    self._argprop = OpenRTM_aist.Properties()
     self._isMaster   = False
     if argv:
       self.init(argv)
@@ -144,7 +168,7 @@ class ManagerConfig :
   # @endif
   def init(self, argv):
     self.parseArgs(argv)
-
+    return
 
   ##
   # @if jp
@@ -156,7 +180,10 @@ class ManagerConfig :
   # @param prop Configuration 設定対象 Property
   # 
   # @else
-  # @brief Apply configuration results to Property
+  # @brief Specify the configuration information to the Property
+  #
+  # Configure to the properties specified by Manager's configuration
+  #
   # @endif
   def configure(self, prop):
     prop.setDefaults(OpenRTM_aist.default_config)
@@ -172,28 +199,31 @@ class ManagerConfig :
     if self._isMaster:
       prop.setProperty("manager.is_master","YES")
 
-    return
+    # Properties from arguments are marged finally
+    prop.mergeProperties(self._argprop)
+    return prop
+
 
   #######
-  # \if jp
+  # @if jp
   #
-  # \brief コンフィギュレーションを取得する(未実装)
+  # @brief コンフィギュレーションを取得する(未実装)
   #
   # コンフィギュレーションを取得する。init()呼び出し前に呼ぶと、
   # 静的に定義されたデフォルトのコンフィギュレーションを返す。
   # init() 呼び出し後に呼ぶと、コマンドライン引数、環境変数等に
   # 基づいた初期化されたコンフィギュレーションを返す。
   #
-  # \else
+  # @else
   #
-  # \brief Get configuration value.
+  # @brief Get configuration value.
   #
   # This operation returns default configuration statically defined,
   # when before calling init() function. When after calling init() function,
   # this operation returns initialized configuration value according to
   # command option, environment value and so on.
   #
-  # \endif
+  # @endif
   #def getConfig(self):
   #pass
 
@@ -223,12 +253,15 @@ class ManagerConfig :
   # @endif
   def parseArgs(self, argv):
     try:
-      opts, args = getopt.getopt(argv[1:], "f:l:o:d")
+      opts, args = getopt.getopt(argv[1:], "a:f:l:o:d:p")
     except getopt.GetoptError:
       print "Error: getopt error!"
       return
 
     for opt, arg in opts:
+      if opt == "-a":
+        self._argprop.setProperty("manager.corba_servant","NO")
+
       if opt == "-f":
         self._configFile = arg
 
@@ -236,7 +269,16 @@ class ManagerConfig :
         pass
 
       if opt == "-o":
-        pass
+        pos = arg.find(":")
+        if pos > 0:
+          self._argprop.setProperty(arg[:pos],arg[pos+1:])
+
+      if opt == "-p":
+        num = [-1]
+        ret = OpenRTM_aist.stringTo(num, arg)
+        if ret:
+          arg_ = ":" + arg
+          self._argprop.setProperty("corba.endpoints",arg_)
 
       if opt == "-d":
         self._isMaster = True
@@ -265,7 +307,20 @@ class ManagerConfig :
   #
   # @else
   #
-  # @brief Find configuration file
+  # @brief Find the configuration file
+  #
+  # Find the configuration file and configure it.
+  # Confirm the file existence when the configuration file has 
+  # already configured.
+  #
+  # The priority of the configuration file<br>
+  # The command option＞the environment variable＞the default file＞
+  # the default configuration
+  #
+  # Default force option(-d): Ignore any default files and use the default 
+  # configuration.
+  #
+  # @return Configuration file search result
   #
   # @endif
   def findConfigFile(self):
@@ -297,7 +352,7 @@ class ManagerConfig :
   # システム情報を取得しプロパティにセットする。設定されるキーは以下の通り。
   #  - manager.os.name    : OS名
   #  - manager.os.release : OSリリース名
-  #  - maanger.os.version : OSバージョン名
+  #  - manager.os.version : OSバージョン名
   #  - manager.os.arch    : OSアーキテクチャ
   #  - manager.os.hostname: ホスト名
   #  - manager.pid        : プロセスID
@@ -343,7 +398,14 @@ class ManagerConfig :
   # @return 対象ファイル確認結果(存在する場合にtrue)
   #
   # @else
-  # @brief Check file existance
+  # @brief Check the file existence
+  #
+  # Confirm whether the specified file exists
+  #
+  # @param filename The target confirmation file
+  #
+  # @return file existance confirmation (True if the file exists.)
+  #
   # @endif
   def fileExist(self, filename):
     try:
