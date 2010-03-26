@@ -210,10 +210,10 @@ class InPortPushConnector(OpenRTM_aist.InPortConnector):
       return self.PRECONDITION_NOT_MET
 
     if type(data) == list:
-      ret = self._buffer.read(data, 0, 0)
+      ret = self._buffer.read(data)
     else:
       tmp = [data]
-      ret = self._buffer.read(tmp, 0, 0)
+      ret = self._buffer.read(tmp)
             
             
     if ret == OpenRTM_aist.BufferStatus.BUFFER_OK:
