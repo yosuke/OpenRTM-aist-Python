@@ -78,6 +78,24 @@ class NamingBase:
   def unbindObject(self, name):
     pass
 
+  ##
+  # @if jp
+  #
+  # @brief ネームサーバの生存を確認する。
+  # 
+  # @return true:生存している, false:生存していない
+  #
+  # @else
+  #
+  # @brief Check if the name service is alive
+  # 
+  # @return true: alive, false:non not alive
+  #
+  # @endif
+  #
+  # virtual bool isAlive() = 0;
+  def isAlive(self):
+    pass
 
 
 ##
@@ -115,8 +133,10 @@ class NamingOnCorba(NamingBase):
   #
   # @endif
   def __init__(self, orb, names):
+    self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf('manager.namingoncorba')
     self._cosnaming = OpenRTM_aist.CorbaNaming(orb,names)
-
+    self._endpoint = ""
+    self._replaceEndpoint = False
 
   ##
   # @if jp
@@ -128,12 +148,13 @@ class NamingOnCorba(NamingBase):
   # 
   # @param self
   # @param name バインド時の名称
-  # @param rtobj バインド対象オブジェクト
+  # @param rtobj or mgr バインド対象オブジェクト
   #
   # @else
   #
   # @endif
   def bindObject(self, name, rtobj):
+    self._rtcout.RTC_TRACE("bindObject(name = %s, rtobj or mgr)", name)
     try:
       self._cosnaming.rebindByString(name, rtobj.getObjRef(), True)
     except:
@@ -154,11 +175,32 @@ class NamingOnCorba(NamingBase):
   #
   # @endif
   def unbindObject(self, name):
+    self._rtcout.RTC_TRACE("unbindObject(name  = %s)", name)
     try:
       self._cosnaming.unbind(name)
     except:
       traceback.print_exception(*sys.exc_info())
 
+
+  ##
+  # @if jp
+  #
+  # @brief ネームサーバの生存を確認する。
+  # 
+  # @return true:生存している, false:生存していない
+  #
+  # @else
+  #
+  # @brief Check if the name service is alive
+  # 
+  # @return true: alive, false:non not alive
+  #
+  # @endif
+  #
+  # virtual bool isAlive();
+  def isAlive(self):
+    self._rtcout.RTC_TRACE("isAlive()")
+    return self._cosnaming.isAlive()
 
 
 ##
@@ -250,7 +292,12 @@ class NamingManager:
     guard = OpenRTM_aist.ScopedLock(self._namesMutex)
     for i in range(len(self._names)):
       if self._names[i].ns:
-        self._names[i].ns.bindObject(name, rtobj)
+        try:
+          self._names[i].ns.bindObject(name, rtobj)
+        except:
+          del self._names[i].ns
+          self._names[i].ns = 0
+
     self.registerCompName(name, rtobj)
 
 
@@ -259,7 +306,12 @@ class NamingManager:
     guard = OpenRTM_aist.ScopedLock(self._namesMutex)
     for i in range(len(self._names)):
       if self._names[i].ns:
-        self._names[i].ns.bindObject(name, mgr)
+        try:
+          self._names[i].ns.bindObject(name, mgr)
+        except:
+          del self._names[i].ns
+          self._names[i].ns = 0
+
     self.registerMgrName(name, mgr)
 
 
@@ -279,18 +331,34 @@ class NamingManager:
   def update(self):
     self._rtcout.RTC_TRACE("NamingManager::update()")
     guard = OpenRTM_aist.ScopedLock(self._namesMutex)
+    rebind = OpenRTM_aist.toBool(self._manager.getConfig().getProperty("naming.update.rebind"),
+                                 "YES","NO",False)
     for i in range(len(self._names)):
       if self._names[i].ns is None:
-        nsobj = self.createNamingObj(self._names[i].method,
-                                     self._names[i].nsname)
-        if nsobj:
-          self._rtcout.RTC_INFO("New name server found: %s/%s",
-                                (self._names[i].method,
-                                 self._names[i].nsname))
-          self._names[i].ns = nsobj
-          self.bindCompsTo(nsobj)
+        self._rtcout.RTC_DEBUG("Retrying connection to %s/%s",
+                               (self._names[i].method,
+                                self._names[i].nsname))
+        self.retryConnection(self._names[i])
+
       else:
-        self.bindCompsTo(self._names[i].ns)
+        try:
+          if rebind:
+            self.bindCompsTo(self._names[i].ns)
+          if not self._names[i].ns.isAlive():
+            self._rtcout.RTC_INFO("Name server: %s (%s) disappeared.",
+                                  (self._names[i].nsname,
+                                   self._names[i].method))
+            del self._names[i].ns
+            self._names[i].ns = None
+        except:
+          self._rtcout.RTC_INFO("Name server: %s (%s) disappeared.",
+                                (self._names[i].nsname,
+                                 self._names[i].method))
+          del self._names[i].ns
+          self._names[i].ns = None
+
+
+    return
 
 
   ##
@@ -379,6 +447,8 @@ class NamingManager:
   #
   # @endif
   def createNamingObj(self, method, name_server):
+    self._rtcout.RTC_TRACE("createNamingObj(method = %s, nameserver = %s)",
+                           (method, name_server))
     mth = method
     if mth == "corba":
       try:
@@ -478,6 +548,51 @@ class NamingManager:
       if self._mgrNames[idx].name == name:
         del self._mgrNames[idx]
         return
+    return
+
+
+  ##
+  # @if jp
+  #
+  # @brief コンポネントをリバインドする
+  # 
+  # ネームサーバと接続してコンポネントをリバインドする。
+  #
+  # @param ns NameServer
+  # 
+  # @else
+  #
+  # @brief Rebind the component to NameServer
+  # 
+  # Connect with the NameServer and rebind the component. 
+  #
+  # @param ns NameServer
+  # 
+  # @endif
+  #
+  # void retryConnection(Names* ns);
+  def retryConnection(self, ns):
+    # recreate NamingObj
+    nsobj = 0
+    try:
+      nsobj = self.createNamingObj(ns.method, ns.nsname)
+      if nsobj != 0: # if succeed
+        self._rtcout.RTC_INFO("Connected to a name server: %s/%s",
+                              (ns.method, ns.nsname))
+        ns.ns = nsobj
+        self.bindCompsTo(nsobj) # rebind all comps to new NS
+        return
+      else:
+        self._rtcout.RTC_DEBUG("Name service: %s/%s still not available.",
+                               (ns.method, ns.nsname))
+
+    except:
+      self._rtcout.RTC_DEBUG("Name server: %s/%s disappeared again.",
+                             (ns.method, ns.nsname))
+      if nsobj != 0:
+        del ns.ns
+        ns.ns = 0
+
     return
 
 
