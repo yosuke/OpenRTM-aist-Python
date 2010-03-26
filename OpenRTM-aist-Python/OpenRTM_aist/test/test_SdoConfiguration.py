@@ -25,6 +25,7 @@ import SDOPackage, SDOPackage__POA
 
 from SdoConfiguration import *
 
+import CORBA
 from omniORB import CORBA, PortableServer
 
 class ServiceProf(SDOPackage__POA.SDOService):
@@ -148,7 +149,7 @@ class TestConfiguration_impl(unittest.TestCase):
 	def test_set_configuration_set_values(self):
 		self._sdoconf.set_configuration_set_values(SDOPackage.ConfigurationSet("default2","",[]))
 
-		self.assertRaises(SDOPackage.InternalError, self._sdoconf.set_configuration_set_values, None )
+		self.assertRaises(SDOPackage.InvalidParameter, self._sdoconf.set_configuration_set_values, None )
 
 	def test_get_active_configuration_set(self):
 		self.assertEqual(self._sdoconf.get_active_configuration_set().id, "default")
