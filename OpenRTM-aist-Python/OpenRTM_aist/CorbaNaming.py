@@ -138,6 +138,31 @@ class CorbaNaming:
   ##
   # @if jp
   #
+  # @brief ルートコンテキストが生存しているかを返す。
+  # 
+  # ルートコンテキストが生存しているかのチェックを行う。
+  # 
+  # @param self
+  # @else
+  # @brief Check on whether the root context is alive.
+  # Check on whether the root context is alive.
+  # @param self
+  # @endif
+  # bool CorbaNaming::isAlive()
+  def isAlive(self):
+    try:
+      if self._rootContext._non_existent():
+        return False
+      return True
+    except:
+      return False
+
+    return False
+
+
+  ##
+  # @if jp
+  #
   # @brief Object を bind する
   #
   # CosNaming::bind() とほぼ同等の働きをするが、常に与えられたネームサーバの
