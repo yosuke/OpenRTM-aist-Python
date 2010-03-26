@@ -940,7 +940,7 @@ class Properties:
   def propertyNames(self):
     names = []
     for leaf in self.leaf:
-      self._propertiyNames(names, leaf.name, leaf)
+      self._propertyNames(names, leaf.name, leaf)
     return names
 
 
@@ -1250,11 +1250,11 @@ class Properties:
   # @else
   #
   # @endif
-  def _propertiyNames(self, names, curr_name, curr):
+  def _propertyNames(self, names, curr_name, curr):
     if len(curr.leaf) > 0:
       for i in range(len(curr.leaf)):
         next_name = curr_name+"."+curr.leaf[i].name
-        self._propertiyNames(names, next_name, curr.leaf[i])
+        self._propertyNames(names, next_name, curr.leaf[i])
     else:
       names.append(curr_name)
 
