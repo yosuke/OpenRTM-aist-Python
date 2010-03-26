@@ -61,8 +61,11 @@ class Timer:
 
 
   def __del__(self):
-    guard = OpenRTM_aist.ScopedLock(self._runningMutex)
+    #guard = OpenRTM_aist.ScopedLock(self._runningMutex)
     self._running = False
+    self._thread.join()
+
+  def join(self):
     self._thread.join()
 
   ##
@@ -78,10 +81,10 @@ class Timer:
   # @endif
   def run(self):
     while self._running:
+      self.invoke()
       if self._interval.tv_sec != 0:
         time.sleep(self._interval.tv_sec)
       time.sleep(self._interval.tv_usec/1000000.0)
-      self.invoke()
     return 0
 
 
