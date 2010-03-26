@@ -21,51 +21,53 @@ consoleout_spec = ["implementation_id", "ConsoleOut",
 
 
 class ConsoleOut(OpenRTM_aist.DataFlowComponentBase):
-    def __init__(self, manager):
-        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
-        self._data = RTC.TimedLong(RTC.Time(0,0),0)
-        self._inport = OpenRTM_aist.InPort("in", self._data)
+  def __init__(self, manager):
+    OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
+    return
 
-        # Set InPort buffer
-        self.registerInPort("in", self._inport)
+  def onInitialize(self):
+    self._data = RTC.TimedLong(RTC.Time(0,0),0)
+    self._inport = OpenRTM_aist.InPort("in", self._data)
+    # Set InPort buffer
+    self.addInPort("in", self._inport)
+    return RTC.RTC_OK
 
-
-    def onExecute(self, ec_id):
-        if self._inport.isNew():
-            data = self._inport.read()
-            print "Received: ", data.data
-            print "TimeStamp: ", data.tm.sec, "[s] ", data.tm.nsec, "[ns]"
-        time.sleep(0.001)
-        return RTC.RTC_OK
+  def onExecute(self, ec_id):
+    if self._inport.isNew():
+      data = self._inport.read()
+      print "Received: ", data.data
+      print "TimeStamp: ", data.tm.sec, "[s] ", data.tm.nsec, "[ns]"
+    time.sleep(0.001)
+    return RTC.RTC_OK
 
 
 def MyModuleInit(manager):
-    profile = OpenRTM_aist.Properties(defaults_str=consoleout_spec)
-    manager.registerFactory(profile,
-                            ConsoleOut,
-                            OpenRTM_aist.Delete)
+  profile = OpenRTM_aist.Properties(defaults_str=consoleout_spec)
+  manager.registerFactory(profile,
+                          ConsoleOut,
+                          OpenRTM_aist.Delete)
 
-    # Create a component
-    comp = manager.createComponent("ConsoleOut")
+  # Create a component
+  comp = manager.createComponent("ConsoleOut")
 
 
 def main():
-    # Initialize manager
-    mgr = OpenRTM_aist.Manager.init(sys.argv)
+  # Initialize manager
+  mgr = OpenRTM_aist.Manager.init(sys.argv)
 
-    # Set module initialization proceduer
-    # This procedure will be invoked in activateManager() function.
-    mgr.setModuleInitProc(MyModuleInit)
+  # Set module initialization proceduer
+  # This procedure will be invoked in activateManager() function.
+  mgr.setModuleInitProc(MyModuleInit)
 
-    # Activate manager and register to naming service
-    mgr.activateManager()
+  # Activate manager and register to naming service
+  mgr.activateManager()
 
-    # run the manager in blocking mode
-    # runManager(False) is the default
-    mgr.runManager()
+  # run the manager in blocking mode
+  # runManager(False) is the default
+  mgr.runManager()
 
-    # If you want to run the manager in non-blocking mode, do like this
-    # mgr.runManager(True)
+  # If you want to run the manager in non-blocking mode, do like this
+  # mgr.runManager(True)
 
 if __name__ == "__main__":
 	main()

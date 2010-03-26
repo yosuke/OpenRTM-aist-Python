@@ -35,69 +35,69 @@ from omniORB import CORBA
 # This module's spesification
 # <rtc-template block="module_spec">
 AutoTestOut_spec = ["implementation_id", "AutoTestOut", 
-		 "type_name",         "AutoTestOut", 
-		 "description",       "ModuleDescription", 
-		 "version",           "1.0.0", 
-		 "vendor",            "HarumiMiyamoto", 
-		 "category",          "example", 
-		 "activity_type",     "STATIC", 
-		 "max_instance",      "1", 
-		 "language",          "Python", 
-		 "lang_type",         "SCRIPT",
-		 "exec_cxt.periodic.rate", "1.0",
-		 ""]
+     "type_name",         "AutoTestOut", 
+     "description",       "ModuleDescription", 
+     "version",           "1.0.0", 
+     "vendor",            "HarumiMiyamoto", 
+     "category",          "example", 
+     "activity_type",     "STATIC", 
+     "max_instance",      "1", 
+     "language",          "Python", 
+     "lang_type",         "SCRIPT",
+     "exec_cxt.periodic.rate", "1.0",
+     ""]
 
 
 class AutoTestOut(OpenRTM_aist.DataFlowComponentBase):
-	
+  
     """
     \class AutoTestOut
     \brief ModuleDescription
     """
     def __init__(self, manager):
         OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
-
+        return
+        
+    def onInitialize(self):
         self._d_dp_vOut = RTC.TimedFloat(RTC.Time(0,0),0)
         self._d_dp_vSeqOut = RTC.TimedFloatSeq(RTC.Time(0,0),[])
         
         self._OutOut = OpenRTM_aist.OutPort("out", self._d_dp_vOut, OpenRTM_aist.RingBuffer(8))
         self._SeqOutOut = OpenRTM_aist.OutPort("seqout", self._d_dp_vSeqOut, OpenRTM_aist.RingBuffer(8))
-	
+  
         # Set OutPort buffers
-        self.registerOutPort("out", self._OutOut)
-        self.registerOutPort("seqout", self._SeqOutOut)
+        self.addOutPort("out", self._OutOut)
+        self.addOutPort("seqout", self._SeqOutOut)
         
 
         self._MyServicePort = OpenRTM_aist.CorbaPort("MyService")
         
         self._myservice0_var = OpenRTM_aist.CorbaConsumer(interfaceType=AutoTest.MyService)
-		
+    
         # Set service consumers to Ports
         self._MyServicePort.registerConsumer("myservice0", "MyService", self._myservice0_var)
-		
+    
         # Set CORBA Service Ports
-        self.registerPort(self._MyServicePort)
-	
-		 
-    def onInitialize(self):
+        self.addPort(self._MyServicePort)
+  
         return RTC.RTC_OK
-	
+  
     def onActivated(self, ec_id):
         self._file=open('original-data')
         return RTC.RTC_OK
-	
-    def onDeactivated(self, ec_id):	
+  
+    def onDeactivated(self, ec_id): 
         self._file.close()
         return RTC.RTC_OK
-	
+  
 
     def onExecute(self, ec_id):
         floatSeq=[]
         str1 = self._file.readline()
         str2 = self._file.readline()
         str3 = self._file.readline()
-		
-        if str1:	
+    
+        if str1:  
             self._d_dp_vOut.data = float(str1)
 
             if str2:
@@ -117,28 +117,31 @@ class AutoTestOut(OpenRTM_aist.DataFlowComponentBase):
 
                         # echoを呼び出す
                         retmsg = self._myservice0_var._ptr().echo(str3.rstrip('\r\n'))
-					
+          
         return RTC.RTC_OK
         
 
-def MyModuleInit(manager):
-    profile = OpenRTM_aist.Properties(defaults_str=AutoTestOut_spec)
-    manager.registerFactory(profile,
-                            AutoTestOut,
-                            OpenRTM_aist.Delete)
+def AutoTestOutInit(manager):
+  profile = OpenRTM_aist.Properties(defaults_str=AutoTestOut_spec)
+  manager.registerFactory(profile,
+                          AutoTestOut,
+                          OpenRTM_aist.Delete)
 
-    # Create a component
-    comp = manager.createComponent("AutoTestOut")
+def MyModuleInit(manager):
+  AutoTestOutInit(manager)
+
+  # Create a component
+  comp = manager.createComponent("AutoTestOut")
 
 
 
 def main():
-	mgr = OpenRTM_aist.Manager.init(len(sys.argv), sys.argv)
-	mgr.setModuleInitProc(MyModuleInit)
-	mgr.activateManager()
-	mgr.runManager()
+  mgr = OpenRTM_aist.Manager.init(len(sys.argv), sys.argv)
+  mgr.setModuleInitProc(MyModuleInit)
+  mgr.activateManager()
+  mgr.runManager()
 
 if __name__ == "__main__":
-	
-	main()
+  
+  main()
 
