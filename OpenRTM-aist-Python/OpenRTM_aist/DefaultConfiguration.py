@@ -66,5 +66,9 @@ default_config =["config.version",                   OpenRTM_aist.openrtm_versio
                  "manager.modules.load_path",        "./",
                  "manager.modules.abs_path_allowed", "YES",
                  "manager.is_master",                "NO",
+                 "manager.corba_servant",            "YES",
+                 "manager.shutdown_on_nortcs",       "YES",
+                 "manager.shutdown_auto",            "YES",
                  "manager.name",                     "manager",
+                 "manager.command",                  "rtcd",
                  ""]
