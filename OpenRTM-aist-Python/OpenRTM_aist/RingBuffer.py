@@ -16,7 +16,6 @@
 #     All rights reserved.
 
 import threading
-import RTC
 import OpenRTM_aist
 
 
@@ -52,12 +51,21 @@ class RingBuffer(OpenRTM_aist.BufferBase):
   # 
   # コンストラクタ
   # 指定されたバッファ長でバッファを初期化する。
-  # ただし、指定された長さが２未満の場合、長さ２でバッファを初期化する。
   #
-  # @param self
   # @param length バッファ長
   # 
   # @else
+  #
+  # @brief Constructor
+  # 
+  # Constructor.
+  # Initialize the buffer by specified buffer length.
+  # However, if the specified length is less than two, the buffer should
+  # be initialized by two in length.
+  #
+  # @param length Buffer length
+  # 
+  # @endif
   #
   # @endif
   def __init__(self, length=RINGBUFFER_DEFAULT_LENGTH):
@@ -71,6 +79,7 @@ class RingBuffer(OpenRTM_aist.BufferBase):
     self._wpos = 0
     self._rpos = 0
     self._fillcount = 0
+    self._wcount = 0
     self._buffer = [None for i in range(self._length)]
     self._pos_mutex = threading.RLock()
     self._full_mutex = threading.RLock()
@@ -186,6 +195,7 @@ class RingBuffer(OpenRTM_aist.BufferBase):
   def reset(self):
     guard = OpenRTM_aist.ScopedLock(self._pos_mutex)
     self._fillcount = 0
+    self._wcount = 0
     self._wpos = 0
     self._rpos = 0
     return OpenRTM_aist.BufferStatus.BUFFER_OK
@@ -277,7 +287,7 @@ class RingBuffer(OpenRTM_aist.BufferBase):
   # @brief Write data into the buffer
   #
   # Pure virtual function to write data into the buffer.
-  # Always BUFFER_OK will be returned in this implementation.
+
   #
   # @param value Target data to write.
   #
@@ -593,6 +603,9 @@ class RingBuffer(OpenRTM_aist.BufferBase):
         nsec = self._rtimeout.usec() * 1000
 
       if readback and  not timedread:      # "readback" mode
+        if not self._wcount > 0:
+          self._empty_cond.release()
+          return OpenRTM_aist.BufferStatus.BUFFER_EMPTY
         self.advanceRptr(-1)
 
       elif not readback and not timedread: # "do_notiong" mode
@@ -600,6 +613,9 @@ class RingBuffer(OpenRTM_aist.BufferBase):
         return OpenRTM_aist.BufferStatus.BUFFER_EMPTY
 
       elif not readback and timedread:     # "block" mode
+        if sec < 0:
+          sec = self._rtimeout.sec()
+          nsec = self._rtimeout.usec() * 1000
         #  true: signaled, false: timeout
         if not self._empty_cond.wait(sec + (nsec/1000000000.0)):
           self._empty_cond.release()
