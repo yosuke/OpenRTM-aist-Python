@@ -9,16 +9,11 @@ from test_ConfigAdmin import *
 from test_CORBA_SeqUtil import *
 from test_CorbaConsumer import *
 from test_CorbaNaming import *
-#from test_CorbaObjectManager import *
 from test_CorbaPort import *
-from test_DataInPort import *
-from test_DataOutPort import *
 from test_ECFactory import *
 from test_ExtTrigExecutionContext import *
 from test_Factory import *
 from test_InPort import *
-from test_InPortCorbaConsumer import *
-from test_InPortCorbaProvider import *
 from test_InPortProvider import *
 from test_Listener import *
 from test_Manager import *
@@ -30,8 +25,6 @@ from test_NVUtil import *
 from test_ObjectManager import *
 from test_OutPort import *
 from test_OutPortBase import *
-from test_OutPortCorbaConsumer import *
-from test_OutPortCorbaProvider import *
 from test_OutPortProvider import *
 #from test_PeriodicExecutionContext import *
 from test_PortAdmin import *
@@ -70,16 +63,11 @@ def test_main():
     TestCORBA_SeqUtil,
     TestCorbaConsumer,
     TestCorbaNaming,
-#    TestCorbaObjectManager,
     TestCorbaPort,
-    TestDataInPort,
-    TestDataOutPort,
     TestECFactoryPython,
     TestExtTrigExecutionContext,
     TestFactoryPython,
     TestInPort,
-    TestInPortCorbaConsumer,
-    TestInPortCorbaProvider,
     TestInPortProvider,
     TestListener,
     TestManager,
@@ -91,8 +79,6 @@ def test_main():
     TestObjectManager,
     TestOutPort,
     TestOutPortBase,
-    TestOutPortCorbaConsumer,
-    TestOutPortCorbaProvider,
     TestOutPortProvider,
 #    TestPeriodicExecutionContext,
     TestPortAdmin,

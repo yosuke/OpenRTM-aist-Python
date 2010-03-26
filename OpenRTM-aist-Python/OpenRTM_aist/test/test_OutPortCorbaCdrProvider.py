@@ -63,6 +63,12 @@ class TestOutPortCorbaCdrProvider(unittest.TestCase):
     ret,data=self._opp.get()
     self.assertEqual(ret,OpenRTM.UNKNOWN_ERROR)
 
+    prop = OpenRTM_aist.Properties()
+    cinfo = OpenRTM_aist.ConnectorInfo("",
+                                       "",
+                                       [],
+                                       prop)
+    self._opp.setListener(cinfo,OpenRTM_aist.ConnectorListeners())
     buff = DummyBuffer()
     self._opp.setBuffer(buff)
     ret,data=self._opp.get()

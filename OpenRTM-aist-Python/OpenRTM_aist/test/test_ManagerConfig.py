@@ -57,7 +57,7 @@ class TestManagerConfig(unittest.TestCase) :
 	
 	def test_configure(self):
 		prop = OpenRTM_aist.Properties(defaults_str=configsample_spec)
-		prop = self.mgrConf.configure(prop)
+		self.mgrConf.configure(prop)
 		self.assertEqual(prop.getProperty("type_name"),"ConfigSample","Result failed.")
 
 		

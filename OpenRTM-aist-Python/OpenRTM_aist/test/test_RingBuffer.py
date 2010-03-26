@@ -74,8 +74,8 @@ class TestRingBuffer(unittest.TestCase):
 		self.assertEqual(self._rb.read(value),OpenRTM_aist.BufferStatus.BUFFER_OK)
 		self.assertEqual(value[0],123)
 		self._rb.reset()
-		self.assertEqual(self._rb.read(value),OpenRTM_aist.BufferStatus.BUFFER_OK)
-		self.assertNotEqual(value[0],123)
+		self.assertEqual(self._rb.read(value),OpenRTM_aist.BufferStatus.BUFFER_EMPTY)
+		self.assertEqual(value[0],123)
 
 		return
 
