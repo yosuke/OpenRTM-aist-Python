@@ -21,9 +21,9 @@ from omniORB import CORBA
 import string
 import sys
 
-import OpenRTM, OpenRTM__POA
-import RTC,RTC__POA
-import SDOPackage,SDOPackage__POA
+import OpenRTM__POA
+import RTC
+import SDOPackage
 import OpenRTM_aist
 
 ECOTHER_OFFSET = 1000
@@ -119,6 +119,13 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     self._ecMine  = []
     self._ecOther = []
     self._eclist  = []
+    self._exiting = False
+    self._readAll = False
+    self._writeAll = False
+    self._readAllCompletion = False
+    self._writeAllCompletion = False
+    self._inports = []
+    self._outports = []
     return
 
 
@@ -208,7 +215,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onStartup(self, ec_id):
-    self._rtcout.RTC_TRACE("onStartup(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onStartup(%d)",ec_id)
     return RTC.RTC_OK
 
 
@@ -232,7 +239,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onShutdown(self, ec_id):
-    self._rtcout.RTC_TRACE("onShutdown(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onShutdown(%d)",ec_id)
     return RTC.RTC_OK
 
 
@@ -256,7 +263,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onActivated(self, ec_id):
-    self._rtcout.RTC_TRACE("onActivated(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onActivated(%d)",ec_id)
     return RTC.RTC_OK
 
 
@@ -280,7 +287,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onDeactivated(self, ec_id):
-    self._rtcout.RTC_TRACE("onDeactivated(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onDeactivated(%d)",ec_id)
     return RTC.RTC_OK
 
 
@@ -306,7 +313,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onExecute(self, ec_id):
-    self._rtcout.RTC_TRACE("onExecute(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onExecute(%d)",ec_id)
     return RTC.RTC_OK
 
 
@@ -330,7 +337,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onAborting(self, ec_id):
-    self._rtcout.RTC_TRACE("onAborting(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onAborting(%d)",ec_id)
     return RTC.RTC_OK
 
 
@@ -353,7 +360,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onError(self, ec_id):
-    self._rtcout.RTC_TRACE("onError(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onError(%d)",ec_id)
     return RTC.RTC_OK
 
 
@@ -376,7 +383,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onReset(self, ec_id):
-    self._rtcout.RTC_TRACE("onReset(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onReset(%d)",ec_id)
     return RTC.RTC_OK
 
 
@@ -402,7 +409,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onStateUpdate(self, ec_id):
-    self._rtcout.RTC_TRACE("onStateupdate(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onStateupdate(%d)",ec_id)
     return RTC.RTC_OK
 
 
@@ -428,7 +435,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # 
   # @endif
   def onRateChanged(self, ec_id):
-    self._rtcout.RTC_TRACE("onRatechanged(%s)",ec_id)
+    self._rtcout.RTC_TRACE("onRatechanged(%d)",ec_id)
     return RTC.RTC_OK 
 
 
@@ -559,7 +566,10 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     self._rtcout.RTC_TRACE("finalize()")
     if self._created:
       return RTC.PRECONDITION_NOT_MET
-    
+
+    if not self._exiting:
+      return RTC.PRECONDITION_NOT_MET
+
     # Return RTC::PRECONDITION_NOT_MET,
     # When the component is registered in ExecutionContext.
     if len(self._ecOther) != 0:
@@ -632,9 +642,10 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
 
     # stop and detach myself from owned EC
     for ec in self._ecMine:
-      if not CORBA.is_nil(ec):
-        ec.stop()
-    #  ec.remove_component(self._this())
+      if not CORBA.is_nil(ec) or not ec._non_existent():
+        # ret = ec.stop()
+        # ec.remove_component(self._this())
+        pass
 
     # detach myself from other EC
     for ec in self._ecOther:
@@ -642,6 +653,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
         # ec.stop()
         ec.remove_component(self._this())
 
+    self._exiting = True
     return self.finalize()
 
 
@@ -750,7 +762,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   def get_context(self, ec_id):
     global ECOTHER_OFFSET
 
-    self._rtcout.RTC_TRACE("get_context(%s)", ec_id)
+    self._rtcout.RTC_TRACE("get_context(%d)", ec_id)
     # owned EC
     if ec_id < ECOTHER_OFFSET:
       if ec_id < len(self._ecMine):
@@ -1066,15 +1078,15 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @endif
   # ReturnCode_t detach_context(UniqueId exec_handle)
   def detach_context(self, ec_id):
-    self._rtcout.RTC_TRACE("detach_context(%s)", ec_id)
-    _len = len(self._ecOther)
+    self._rtcout.RTC_TRACE("detach_context(%d)", ec_id)
+    len_ = len(self._ecOther)
 
     # ID: 0 - (offset-1) : owned ec
     # ID: offset -       : participating ec
     # owned       ec index = ID
     # participate ec index = ID - offset
     if (long(ec_id) < long(ECOTHER_OFFSET)) or \
-          (long(ec_id - ECOTHER_OFFSET) > _len):
+          (long(ec_id - ECOTHER_OFFSET) > len_):
       return RTC.BAD_PARAMETER
     
     index = long(ec_id - ECOTHER_OFFSET)
@@ -1117,7 +1129,8 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     ret = RTC.RTC_ERROR
     try:
       ret = self.onInitialize()
-      active_set = self._properties.getProperty("configuration.active_config","default")
+      active_set = self._properties.getProperty("configuration.active_config",
+                                                "default")
 
       if self._configsets.haveConfig(active_set):
           self._configsets.update(active_set)
@@ -1195,7 +1208,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_startup(self, ec_id):
-    self._rtcout.RTC_TRACE("on_startup(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_startup(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onStartup(ec_id)
@@ -1234,7 +1247,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_shutdown(self, ec_id):
-    self._rtcout.RTC_TRACE("on_shutdown(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_shutdown(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onShutdown(ec_id)
@@ -1271,7 +1284,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_activated(self, ec_id):
-    self._rtcout.RTC_TRACE("on_activated(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_activated(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       self._configsets.update()
@@ -1310,7 +1323,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_deactivated(self, ec_id):
-    self._rtcout.RTC_TRACE("on_deactivated(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_deactivated(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       self._portAdmin.deactivatePorts()
@@ -1354,7 +1367,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_aborting(self, ec_id):
-    self._rtcout.RTC_TRACE("on_aborting(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_aborting(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onAborting(ec_id)
@@ -1408,7 +1421,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_error(self, ec_id):
-    self._rtcout.RTC_TRACE("on_error(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_error(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onError(ec_id)
@@ -1453,7 +1466,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_reset(self, ec_id):
-    self._rtcout.RTC_TRACE("on_reset(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_reset(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onReset(ec_id)
@@ -1505,10 +1518,17 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_execute(self, ec_id):
-    self._rtcout.RTC_TRACE("on_execute(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_execute(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
+      if self._readAll:
+        self.readAll()
+      
       ret = self.onExecute(ec_id)
+
+      if self._writeAll:
+        self.writeAll()
+      
     except:
       self._rtcout.RTC_ERROR(sys.exc_info()[0])
       return RTC.RTC_ERROR
@@ -1557,7 +1577,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_state_update(self, ec_id):
-    self._rtcout.RTC_TRACE("on_state_update(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_state_update(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onStateUpdate(ec_id)
@@ -1604,7 +1624,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def on_rate_changed(self, ec_id):
-    self._rtcout.RTC_TRACE("on_rate_changed(%s)", ec_id)
+    self._rtcout.RTC_TRACE("on_rate_changed(%d)", ec_id)
     ret = RTC.RTC_ERROR
     try:
       ret = self.onRateChanged(ec_id)
@@ -1807,12 +1827,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   def get_device_profile(self):
     self._rtcout.RTC_TRACE("get_device_profile()")
     try:
-      dprofile = SDOPackage.DeviceProfile(self._SdoConfigImpl.getDeviceProfile().device_type,
-                                          self._SdoConfigImpl.getDeviceProfile().manufacturer,
-                                          self._SdoConfigImpl.getDeviceProfile().model,
-                                          self._SdoConfigImpl.getDeviceProfile().version,
-                                          self._SdoConfigImpl.getDeviceProfile().properties)
-      return dprofile
+      return self._SdoConfigImpl.getDeviceProfile()
     except:
       self._rtcout.RTC_ERROR(sys.exc_info()[0])
       raise SDOPackage.InternalError("get_device_profile()")
@@ -2547,10 +2562,10 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
                     def_val, trans=None):
     self._rtcout.RTC_TRACE("bindParameter()")
     if trans is None:
-      _trans = OpenRTM_aist.stringTo
+      trans_ = OpenRTM_aist.stringTo
     else:
-      _trans = trans
-    self._configsets.bindParameter(param_name, var, def_val, _trans)
+      trans_ = trans
+    self._configsets.bindParameter(param_name, var, def_val, trans_)
     return True
 
 
@@ -2611,15 +2626,46 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # void registerPort(PortBase& port);
   def registerPort(self, port):
     self._rtcout.RTC_TRACE("registerPort()")
-    port.setOwner(self.getObjRef())
-    self._portAdmin.registerPort(port)
+    if not self.addPort(port):
+      self._rtcout.RTC_ERROR("addPort(PortBase&) failed.")
     return
 
   # void registerPort(PortService_ptr port);
-  def registerPortByReference(self, port_ref):
-    self._rtcout.RTC_TRACE("registerPortByReference()")
-    self._portAdmin.registerPortByReference(port_ref)
-    return
+  # def registerPortByReference(self, port_ref):
+  #   self._rtcout.RTC_TRACE("registerPortByReference()")
+  #   self.addPortByReference(port_ref)
+  #   return
+
+  # new interface. since 1.0.0-RELEASE
+  # void addPort(PortBase& port);
+  def addPort(self, port):
+    self._rtcout.RTC_TRACE("addPort()")
+    if isinstance(port, OpenRTM_aist.CorbaPort):
+      self._rtcout.RTC_TRACE("addPort(CorbaPort)")
+      propkey = "port.corbaport."
+      prop = self._properties.getNode(propkey)
+      if prop:
+        self._properties.getNode(propkey).mergeProperties(self._properties.getNode("port.corba"))
+      port.init(self._properties.getNode(propkey))
+      port.setOwner(self.getObjRef())
+
+    elif isinstance(port, OpenRTM_aist.PortBase):
+      self._rtcout.RTC_TRACE("addPort(PortBase)")
+      port.setOwner(self.getObjRef())
+
+    elif isinstance(port, RTC._objref_PortService):
+      self._rtcout.RTC_TRACE("addPort(PortService)")
+
+    return self._portAdmin.addPort(port)
+
+
+  # new interface. since 1.0.0-RELEASE
+  # void addPort(PortService_ptr port);
+  # def addPortByReference(self, port_ref):
+  #   self._rtcout.RTC_TRACE("addPortByReference()")
+  #   self._portAdmin.registerPortByReference(port_ref)
+  #   return
+    
 
   ##
   # @if jp
@@ -2640,18 +2686,29 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @endif
   def registerInPort(self, name, inport):
     self._rtcout.RTC_TRACE("registerInPort(%s)", name)
+    if not self.addInPort(name, inport):
+      self._rtcout.RTC_ERROR("addInPort(%s) failed.", name)
+    return
+
+  # new interface. since 1.0.0-RELEASE
+  def addInPort(self, name, inport):
+    self._rtcout.RTC_TRACE("addInPort(%s)", name)
     if self._properties.hasKey("port.inport"):
       inport.properties().mergeProperties(self._properties.getNode("port.inport"))
 
-    propkey = "port.dataport."
-    propkey += name
-    if self._properties.hasKey(propkey):
-      inport.properties().mergeProperties(self._properties.getNode(propkey))
+    propkey = "port.dataport." + name
+    prop = self._properties.getNode(propkey)
+    if prop:
+      self._properties.getNode(propkey).mergeProperties(self._properties.getNode("port.inport.dataport"))
 
+    ret = self.addPort(inport)
+    if not ret:
+      self._rtcout.RTC_ERROR("addInPort() failed.")
+      return ret
+      
     inport.init(self._properties.getNode(propkey))
-    # self._inports.append(inport)
-    self.registerPort(inport)
-    return
+    self._inports.append(inport)
+    return ret
 
 
   ##
@@ -2674,15 +2731,108 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # void registerOutPort(const char* name, OutPortBase& outport);
   def registerOutPort(self, name, outport):
     self._rtcout.RTC_TRACE("registerOutPort(%s)", name)
-    propkey = "port.dataport."
-    propkey += name
-    prop = self._properties.getNode(propkey)
-    prop.mergeProperties(self._properties.getNode("port.outport.dataport"))
-    outport.properties().mergeProperties(self._properties.getNode(propkey))
-    self.registerPort(outport)
-    outport.init(self._properties.getNode(propkey))
-    # self._outports.append(outport)
+    if not self.addOutPort(name, outport):
+      self._rtcout.RTC_ERROR("addOutPort(%s) failed.", name)
     return
+
+  # new interface. since 1.0.0-RELEASE
+  # void addOutPort(const char* name, OutPortBase& outport);
+  def addOutPort(self, name, outport):
+    self._rtcout.RTC_TRACE("addOutPort(%s)", name)
+    propkey = "port.dataport." + name
+
+    prop = self._properties.getNode(propkey)
+    if prop:
+      self._properties.getNode(propkey).mergeProperties(self._properties.getNode("port.outport.dataport"))
+    outport.properties().mergeProperties(self._properties.getNode(propkey))
+
+    ret = self.addPort(outport)
+
+    if not ret:
+      self._rtcout.RTC_ERROR("addOutPort() failed.")
+      return ret
+
+    outport.init(self._properties.getNode(propkey))
+    self._outports.append(outport)
+    return ret
+
+
+  ##
+  # @if jp
+  # 
+  # @brief [local interface] InPort の登録を削除する
+  #
+  # RTC が保持するInPortの登録を削除する。
+  # 
+  # @param port 削除対象 Port
+  # @return 削除結果(削除成功:true，削除失敗:false)
+  #
+  # @else
+  #
+  # @brief [local interface] Unregister InPort
+  #
+  # This operation unregisters a InPort held by this RTC.
+  #
+  # @param port Port which is unregistered
+  # @return Unregister result (Successful:true, Failed:false)
+  #
+  # @endif
+  #
+  # bool removeInPort(InPortBase& port);
+  def removeInPort(self, port):
+    self._rtcout.RTC_TRACE("removeInPort()")
+    ret = self.removePort(inport)
+
+    if ret:
+      for inport in self._inports:
+        if port == inport:
+          try:
+            self._inports.remove(port)
+          except:
+            self._rtcout.RTC_ERROR("Can not remove inport.")
+            
+          return True
+
+    return False
+
+
+  ##
+  # @if jp
+  # 
+  # @brief [local interface] OutPort の登録を削除する
+  #
+  # RTC が保持するOutPortの登録を削除する。
+  # 
+  # @param port 削除対象 Port
+  # @return 削除結果(削除成功:true，削除失敗:false)
+  #
+  # @else
+  #
+  # @brief [local interface] Unregister OutPort
+  #
+  # This operation unregisters a OutPort held by this RTC.
+  #
+  # @param port Port which is unregistered
+  # @return Unregister result (Successful:true, Failed:false)
+  #
+  # @endif
+  #
+  # bool removeOutPort(OutPortBase& port);
+  def removeOutPort(self, port):
+    self._rtcout.RTC_TRACE("removeOutPort()")
+    ret = self.removePort(outport)
+
+    if ret:
+      for outport in self._outports:
+        if port == outport:
+          try:
+            self._outports.remove(port)
+          except:
+            self._rtcout.RTC_ERROR("Can not remove outport.")
+            
+          return True
+
+    return False
 
 
   ##
@@ -2707,8 +2857,14 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # void RTObject_impl::deletePort(PortBase& port)
   def deletePort(self, port):
     self._rtcout.RTC_TRACE("deletePort()")
-    self._portAdmin.deletePort(port)
+    if not self.removePort(port):
+      self._rtcout.RTC_ERROR("removePort() failed.")
     return
+
+  # new interface. since 1.0.0-RELEASE
+  def removePort(self, port):
+    self._rtcout.RTC_TRACE("removePort()")
+    return self._portAdmin.removePort(port)
 
 
   ##
@@ -2725,9 +2881,153 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #
   # @endif
   def deletePortByName(self, port_name):
-    self._rtcout.RTC_TRACE("deletePortByName()")
+    self._rtcout.RTC_TRACE("deletePortByName(%s)", port_name)
     self._portAdmin.deletePortByName(port_name)
     return
+
+
+  ##
+  # @if jp
+  #
+  # @brief 全 InPort のデータを読み込む。
+  #
+  # RTC が保持する全ての InPort のデータを読み込む。
+  #
+  # @return 読み込み結果(全ポートの読み込み成功:true，失敗:false)
+  #
+  # @else
+  #
+  # @brief Readout the value from All InPorts.
+  #
+  # This operation read the value from all InPort
+  # registered in the RTC.
+  #
+  # @return result (Successful:true, Failed:false)
+  #
+  # @endif
+  #
+  # bool readAll();
+  def readAll(self):
+    self._rtcout.RTC_TRACE("readAll()")
+    ret = True
+    for inport in self._inports:
+      if not inport.read():
+        self._rtcout.RTC_DEBUG("The error occurred in readAll().")
+        ret = False
+        if not self._readAllCompletion:
+          return False
+
+    return ret
+
+
+  ##
+  # @if jp
+  #
+  # @brief 全 OutPort のwrite()メソッドをコールする。
+  #
+  # RTC が保持する全ての OutPort のwrite()メソッドをコールする。
+  #
+  # @return 読み込み結果(全ポートへの書き込み成功:true，失敗:false)
+  #
+  # @else
+  #
+  # @brief The write() method of all OutPort is called. 
+  #
+  # This operation call the write() method of all OutPort
+  # registered in the RTC.
+  #
+  # @return result (Successful:true, Failed:false)
+  #
+  # @endif
+  #
+  # bool writeAll();
+  def writeAll(self):
+    self._rtcout.RTC_TRACE("writeAll()")
+    ret = True
+    for outport in self._outports:
+      if not outport.write():
+        self._rtcout.RTC_DEBUG("The error occurred in writeAll().")
+        ret = False
+        if not self._writeAllCompletion:
+          return False
+
+    return ret
+
+
+  ##
+  # @if jp
+  #
+  # @brief onExecute()実行前でのreadAll()メソッドの呼出を有効または無効にする。
+  #
+  # このメソッドをパラメータをtrueとして呼ぶ事により、onExecute()実行前に
+  # readAll()が呼出されるようになる。
+  # パラメータがfalseの場合は、readAll()呼出を無効にする。
+  #
+  # @param read(default:true) 
+  #        (readAll()メソッド呼出あり:true, readAll()メソッド呼出なし:false)
+  #
+  # @param completion(default:false) 
+  #    readAll()にて、どれかの一つのInPortのread()が失敗しても全てのInPortのread()を呼び出す:true,
+  #    readAll()にて、どれかの一つのInPortのread()が失敗した場合、すぐにfalseで抜ける:false
+  #
+  # @else
+  #
+  # @brief Set whether to execute the readAll() method. 
+  #
+  # Set whether to execute the readAll() method. 
+  #
+  # @param read(default:true)
+  #        (readAll() is called:true, readAll() isn't called:false)
+  #
+  # @param completion(default:false)
+  #     All InPort::read() calls are completed.:true,
+  #     If one InPort::read() is False, return false.:false
+  #
+  # @param completion(default:false)
+  #
+  # @endif
+  #
+  # void setReadAll(bool read=true, bool completion=false);
+  def setReadAll(self, read=True, completion=False):
+    self._readAll = read
+    self._readAllCompletion = completion
+
+
+  ##
+  # @if jp
+  #
+  # @brief onExecute()実行後にwriteAll()メソッドの呼出を有効または無効にする。
+  #
+  # このメソッドをパラメータをtrueとして呼ぶ事により、onExecute()実行後に
+  # writeAll()が呼出されるようになる。
+  # パラメータがfalseの場合は、writeAll()呼出を無効にする。
+  #
+  # @param write(default:true) 
+  #        (writeAll()メソッド呼出あり:true, writeAll()メソッド呼出なし:false)
+  #
+  # @param completion(default:false) 
+  #    writeAll()にて、どれかの一つのOutPortのwrite()が失敗しても全てのOutPortのwrite()を呼び出しを行う:true,
+  #    writeAll()にて、どれかの一つのOutPortのwrite()が失敗した場合、すぐにfalseで抜ける:false
+  #
+  # @else
+  #
+  # @brief Set whether to execute the writeAll() method. 
+  #
+  # Set whether to execute the writeAll() method. 
+  #
+  # @param write(default:true)
+  #        (writeAll() is called:true, writeAll() isn't called:false)
+  #
+  # @param completion(default:false)
+  #     All OutPort::write() calls are completed.:true,
+  #     If one OutPort::write() is False, return false.:false
+  #
+  # @endif
+  #
+  # void setWriteAll(bool write=true, bool completion=false);
+  def setWriteAll(self, write=True, completion=False):
+    self._writeAll = write
+    self._writeAllCompletion = completion
 
 
   ##
@@ -2750,16 +3050,20 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   def finalizePorts(self):
     self._rtcout.RTC_TRACE("finalizePorts()")
     self._portAdmin.finalizePorts()
+    self._inports = []
+    self._outports = []
     return
 
 
   def finalizeContexts(self):
     self._rtcout.RTC_TRACE("finalizeContexts()")
-    for i in range(len(self._eclist)):
-      self._eclist[i].stop()
-      #self._poa.deactivate_object(self._poa.servant_to_id(self._eclist[i]))
-      self._default_POA().deactivate_object(self._default_POA().servant_to_id(self._eclist[i]))
-      del self._eclist[i]
+    len_ = len(self._eclist)
+    for i in range(len_):
+      idx = (len_ - 1) - i
+      self._eclist[idx].stop()
+      self._poa.deactivate_object(self._poa.servant_to_id(self._eclist[idx]))
+      #self._default_POA().deactivate_object(self._default_POA().servant_to_id(self._eclist[idx]))
+      del self._eclist[idx]
 
     if self._eclist:
       self._eclist = []
@@ -2791,7 +3095,8 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       self._rtcout.RTC_ERROR(sys.exc_info()[0])
 
     if self._manager:
-      self._manager.cleanupComponent(self)
+      self._rtcout.RTC_DEBUG("Cleanup on Manager")
+      self._manager.notifyFinalized(self)
       
     return
 

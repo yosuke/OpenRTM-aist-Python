@@ -848,9 +848,31 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # @endif
   def set_configuration_set_values(self, configuration_set):
     self._rtcout.RTC_TRACE("set_configuration_set_values()")
+    if not configuration_set or not configuration_set.id:
+      raise SDOPackage.InvalidParameter("ID is empty.")
+
     try:
       conf = OpenRTM_aist.Properties(key=configuration_set.id)
       toProperties(conf, configuration_set)
+      # ----------------------------------------------------------------------------
+      # Because the format of port-name had been changed from <port_name> 
+      # to <instance_name>.<port_name>, the following processing was added. 
+      # (since r1648)
+
+      exported_ports = conf.getProperty("exported_ports").split(",")
+      exported_ports_str = ""
+      for i in range(len(exported_ports)):
+        keyval = exported_ports[i].split(".")
+        if len(keyval) > 2:
+          exported_ports_str += keyval[0] + "." + keyval[-1]
+        else:
+          exported_ports_str += exported_ports[i]
+
+        if i != (len(exported_ports)-1):
+          exported_ports_str += ","
+
+      conf.setProperty("exported_ports",exported_ports_str)
+      #---------------------------------------------------------------------------
       return self._configsets.setConfigurationSetValues(conf)
     except:
       self._rtcout.RTC_ERROR(sys.exc_info()[0])
@@ -1090,11 +1112,10 @@ class Configuration_impl(SDOPackage__POA.Configuration):
     self._rtcout.RTC_TRACE("activate_configuration_set(%s)", config_id)
     if not config_id:
       raise SDOPackage.InvalidParameter("ID is empty.")
-      
-    try:
-      return self._configsets.activateConfigurationSet(config_id)
-    except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+
+    if self._configsets.activateConfigurationSet(config_id):
+      return True
+    else:
       raise SDOPackage.InternalError("Configuration.activate_configuration_set()")
 
     return False

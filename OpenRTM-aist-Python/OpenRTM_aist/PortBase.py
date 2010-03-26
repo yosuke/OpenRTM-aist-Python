@@ -1008,7 +1008,7 @@ class PortBase(RTC__POA.PortService):
     self._rtcout.RTC_TRACE("setName(%s)", name)
     guard = OpenRTM_aist.ScopedLock(self._profile_mutex)
     self._profile.name = name
-
+    return
 
   ##
   # @if jp
@@ -1127,7 +1127,6 @@ class PortBase(RTC__POA.PortService):
   # @endif
   # void setOwner(RTObject_ptr owner);
   def setOwner(self, owner):
-    self._rtcout.RTC_TRACE("setOwner()")
     prof = owner.get_component_profile()
     self._ownerInstanceName = prof.instance_name
     self._rtcout.RTC_TRACE("setOwner(%s)", self._ownerInstanceName)

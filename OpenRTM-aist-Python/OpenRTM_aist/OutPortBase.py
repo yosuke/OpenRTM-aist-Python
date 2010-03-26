@@ -325,10 +325,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   def init(self, prop):
     self._rtcout.RTC_TRACE("init()")
 
-    self._rtcout.RTC_PARANOID("given properties:")
     self._properties.mergeProperties(prop)
-
-    self._rtcout.RTC_PARANOID("updated properties:")
 
     self.configure()
 
@@ -341,6 +338,32 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
                              self._properties.getProperty("connection_limit"))
 
     self.setConnectionLimit(num[0])
+    return
+
+  ##
+  # @if jp
+  #
+  # @brief データ書き込み
+  #
+  # ポートへデータを書き込む。
+  # バインドされた変数に設定された値をポートに書き込む。
+  #
+  # @return 書き込み処理結果(書き込み成功:true、書き込み失敗:false)
+  #
+  # @else
+  #
+  # @brief Write data
+  #
+  # Write data to the port.
+  # Write the value, which was set to the bound variable, to the port.
+  #
+  # @return Writing result (Successful:true, Failed:false)
+  #
+  # @endif
+  #
+  # virtual bool write() = 0;
+  def write(self):
+    pass
 
 
   ##
@@ -582,6 +605,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   #
   # void OutPortBase::activateInterfaces()
   def activateInterfaces(self):
+    self._rtcout.RTC_TRACE("activateInterfaces()")
     for con in self._connectors:
       con.activate()
 
@@ -595,6 +619,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
   #
   # void OutPortBase::deactivateInterfaces()
   def deactivateInterfaces(self):
+    self._rtcout.RTC_TRACE("deactivateInterfaces()")
     for con in self._connectors:
       con.deactivate()
   
@@ -994,11 +1019,13 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
     id = connector_profile.connector_id
     self._rtcout.RTC_PARANOID("connector_id: %s", id)
 
-    for (i,con) in enumerate(self._connectors):
-      if id == con.id():
+    len_ = len(self._connectors)
+    for i in range(len_):
+      idx = (len_ - 1) - i
+      if id == self._connectors[idx].id():
         # Connector's dtor must call disconnect()
-        self._connectors[i].deactivate()
-        del self._connectors[i]
+        self._connectors[idx].deactivate()
+        del self._connectors[idx]
         self._rtcout.RTC_TRACE("delete connector: %s", id)
         return
 
@@ -1190,10 +1217,13 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
         return 0
 
       if connector is None:
-        self._rtcout.RTC_ERROR("OutPortPushConnector creation failed")
+        self._rtcout.RTC_ERROR("OutPortConnector creation failed")
         return 0
 
-      self._rtcout.RTC_TRACE("OutPortPushConnector created")
+      if consumer_ is not None:
+        self._rtcout.RTC_TRACE("OutPortPushConnector created")
+      elif provider_ is not None:
+        self._rtcout.RTC_TRACE("OutPortPullConnector created")
 
       self._connectors.append(connector)
       self._rtcout.RTC_PARANOID("connector push backed: %d", len(self._connectors))

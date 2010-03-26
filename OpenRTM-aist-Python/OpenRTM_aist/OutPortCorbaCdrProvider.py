@@ -28,9 +28,10 @@ import OpenRTM__POA,OpenRTM
 # @class OutPortCorbaCdrProvider
 # @brief OutPortCorbaCdrProvider クラス
 #
-# 通信手段に CORBA を利用した出力ポートプロバイダーの実装クラス。
+# OutPortProvider 
 #
-# @param DataType 当該プロバイダに割り当てたバッファが保持するデータ型
+# データ転送に CORBA の OpenRTM::OutPortCdr インターフェースを利用し
+# た、pull 型データフロー型を実現する OutPort プロバイダクラス。
 #
 # @since 0.4.0
 #
@@ -38,11 +39,9 @@ import OpenRTM__POA,OpenRTM
 # @class OutPortCorbaCdrProvider
 # @brief OutPortCorbaCdrProvider class
 #
-# This is an implementation class of OutPort Provider that uses 
-# CORBA for mean of communication.
-#
-# @param DataType Data type held by the buffer that is assigned to this 
-#        provider
+# The OutPort provider class which uses the OpenRTM::OutPortCdr
+# interface in CORBA for data transfer and realizes a pull-type
+# dataflow.
 #
 # @since 0.4.0
 #
@@ -175,8 +174,45 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
   ##
   # @if jp
   # @brief リスナを設定する。
+  #
+  # OutPort はデータ送信処理における各種イベントに対して特定のリスナ
+  # オブジェクトをコールするコールバック機構を提供する。詳細は
+  # ConnectorListener.h の ConnectorDataListener, ConnectorListener
+  # 等を参照のこと。OutPortCorbaCdrProvider では、以下のコールバック
+  # が提供される。
+  # 
+  # - ON_BUFFER_READ
+  # - ON_SEND
+  # - ON_BUFFER_EMPTY
+  # - ON_BUFFER_READ_TIMEOUT
+  # - ON_SENDER_EMPTY
+  # - ON_SENDER_TIMEOUT
+  # - ON_SENDER_ERROR
+  #
+  # @param info 接続情報
+  # @param listeners リスナオブジェクト
+  #
   # @else
   # @brief Set the listener. 
+  #
+  # OutPort provides callback functionality that calls specific
+  # listener objects according to the events in the data publishing
+  # process. For details, see documentation of
+  # ConnectorDataListener class and ConnectorListener class in
+  # ConnectorListener.h. In this OutPortCorbaCdrProvider provides
+  # the following callbacks.
+  # 
+  # - ON_BUFFER_READ
+  # - ON_SEND
+  # - ON_BUFFER_EMPTY
+  # - ON_BUFFER_READ_TIMEOUT
+  # - ON_SENDER_EMPTY
+  # - ON_SENDER_TIMEOUT
+  # - ON_SENDER_ERROR
+  #
+  # @param info Connector information
+  # @param listeners Listener objects
+  #
   # @endif
   #
   # virtual void setListener(ConnectorInfo& info,
@@ -190,8 +226,25 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
   ##
   # @if jp
   # @brief Connectorを設定する。
+  #
+  # OutPort は接続確立時に OutPortConnector オブジェクトを生成し、生
+  # 成したオブジェクトのポインタと共にこの関数を呼び出す。所有権は
+  # OutPort が保持するので OutPortProvider は OutPortConnector を削
+  # 除してはいけない。
+  #
+  # @param connector OutPortConnector
+  #
   # @else
   # @brief set Connector
+  #
+  # OutPort creates OutPortConnector object when it establishes
+  # connection between OutPort and InPort, and it calls this
+  # function with a pointer to the connector object. Since the
+  # OutPort has the ownership of this connector, OutPortProvider
+  # should not delete it.
+  #
+  # @param connector OutPortConnector
+  #
   # @endif
   #
   # virtual void setConnector(OutPortConnector* connector);
@@ -231,6 +284,11 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
 
       cdr = [None]
       ret = self._buffer.read(cdr)
+
+      if ret == OpenRTM_aist.BufferStatus.BUFFER_OK:
+        if not cdr:
+          self._rtcout.RTC_ERROR("buffer is empty.")
+          return (OpenRTM.BUFFER_EMPTY, None)
       
     except:
       self._rtcout.RTC_TRACE(sys.exc_info()[0])
@@ -238,51 +296,98 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
 
     return self.convertReturn(ret, cdr[0])
     
-
+  ##
+  # @if jp
+  # @brief ON_BUFFER_READ のリスナへ通知する。 
+  # @param data cdrMemoryStream
+  # @else
+  # @brief Notify an ON_BUFFER_READ event to listeners
+  # @param data cdrMemoryStream
+  # @endif
+  #
   # inline void onBufferRead(const cdrMemoryStream& data)
   def onBufferRead(self, data):
-    if self._listeners:
+    if self._listeners and self._profile:
       self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_BUFFER_READ].notify(self._profile, data)
     return
 
-
+  ##
+  # @if jp
+  # @brief ON_SEND のリスナへ通知する。 
+  # @param data cdrMemoryStream
+  # @else
+  # @brief Notify an ON_SEND event to listeners
+  # @param data cdrMemoryStream
+  # @endif
+  #
   # inline void onSend(const cdrMemoryStream& data)
   def onSend(self, data):
-    if self._listeners:
+    if self._listeners and self._profile:
       self._listeners.connectorData_[OpenRTM_aist.ConnectorDataListenerType.ON_SEND].notify(self._profile, data)
     return
 
   ##
-  # @brief Connector listener functions
+  # @if jp
+  # @brief ON_BUFFER_EMPTYのリスナへ通知する。 
+  # @else
+  # @brief Notify an ON_BUFFER_EMPTY event to listeners
+  # @endif
   #
   # inline void onBufferEmpty()
   def onBufferEmpty(self):
-    if self._listeners:
+    if self._listeners and self._profile:
       self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_BUFFER_EMPTY].notify(self._profile)
     return
 
-
+  ##
+  # @if jp
+  # @brief ON_BUFFER_READ_TIMEOUT のリスナへ通知する。 
+  # @else
+  # @brief Notify an ON_BUFFER_READ_TIMEOUT event to listeners
+  # @endif
+  #
   # inline void onBufferReadTimeout()
   def onBufferReadTimeout(self):
-    if self._listeners:
+    if self._listeners and self._profile:
       self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_BUFFER_READ_TIMEOUT].notify(self._profile)
     return
 
+  ##
+  # @if jp
+  # @brief ON_SENDER_EMPTYのリスナへ通知する。 
+  # @else
+  # @brief Notify an ON_SENDER_EMPTY event to listeners
+  # @endif
+  #
   # inline void onSenderEmpty()
   def onSenderEmpty(self):
-    if self._listeners:
+    if self._listeners and self._profile:
       self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_EMPTY].notify(self._profile)
     return
 
+  ##
+  # @if jp
+  # @brief ON_SENDER_TIMEOUT のリスナへ通知する。 
+  # @else
+  # @brief Notify an ON_SENDER_TIMEOUT event to listeners
+  # @endif
+  #
   # inline void onSenderTimeout()
   def onSenderTimeout(self):
-    if self._listeners:
+    if self._listeners and self._profile:
       self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_TIMEOUT].notify(self._profile)
     return
 
+  ##
+  # @if jp
+  # @brief ON_SENDER_ERRORのリスナへ通知する。 
+  # @else
+  # @brief Notify an ON_SENDER_ERROR event to listeners
+  # @endif
+  #
   # inline void onSenderError()
   def onSenderError(self):
-    if self._listeners:
+    if self._listeners and self._profile:
       self._listeners.connector_[OpenRTM_aist.ConnectorListenerType.ON_SENDER_ERROR].notify(self._profile)
     return
 

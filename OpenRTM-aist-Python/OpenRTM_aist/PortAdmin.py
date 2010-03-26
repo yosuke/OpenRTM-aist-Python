@@ -18,7 +18,7 @@ import traceback
 import sys
 from omniORB import CORBA
 
-import RTC, RTC__POA
+import RTC
 import OpenRTM_aist
 
 
@@ -130,6 +130,7 @@ class PortAdmin:
     # サーバントを直接格納するオブジェクトマネージャ
     self._portServants = OpenRTM_aist.ObjectManager(self.comp_op)
 
+    self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("PortAdmin")
 
   ##
   # @if jp
@@ -156,6 +157,26 @@ class PortAdmin:
     return self._portRefs
 
 
+  ##
+  # @if jp
+  #
+  # @brief PorProfile リストの取得
+  #
+  # addPort() により登録された Port の Profile リストを取得する。
+  #
+  # @return PortProfile リスト
+  #
+  # @else
+  #
+  # @brief Get PorProfileList
+  #
+  # This operation gets the Profile list of Ports registered by 
+  # addPort().
+  #
+  # @return The pointer points PortProfile list
+  #
+  # @endif
+  #
   def getPortProfileList(self):
     ret = []
     for p in self._portRefs:
@@ -253,12 +274,39 @@ class PortAdmin:
   # @endif
   # void registerPort(PortBase& port);
   def registerPort(self, port):
-    self._portRefs.append(port.getPortRef())
-    self._portServants.registerObject(port)
+    if not self.addPort(port):
+      self._rtcout.RTC_ERROR("registerPort() failed.")
+    return
 
   # void registerPort(PortService_ptr port);
-  def registerPortByReference(self, port_ref):
-    self._portRefs.append(port_ref)
+  # def registerPortByReference(self, port_ref):
+  #   self.addPortByReference(port_ref)
+  #   return
+
+  # new interface. since 1.0.0-RELEASE
+  # void addPort(PortBase& port);
+  def addPort(self, port):
+    if isinstance(port, RTC._objref_PortService):
+      index = OpenRTM_aist.CORBA_SeqUtil.find(self._portRefs,
+                                              self.find_port_name(port.get_port_profile().name))
+      if index >= 0:
+        return False
+      self._portRefs.append(port)
+      return True
+    else:
+      index = OpenRTM_aist.CORBA_SeqUtil.find(self._portRefs,
+                                              self.find_port_name(port.getName()))
+      if index >= 0:
+        return False
+      self._portRefs.append(port.getPortRef())
+      return self._portServants.registerObject(port)
+    return False
+
+  # new interface. since 1.0.0-RELEASE
+  # void addPort(PortService_ptr port);
+  # def addPortByReference(self, port_ref):
+  #   self._portRefs.append(port_ref)
+  #   return
 
   ##
   # @if jp
@@ -284,10 +332,16 @@ class PortAdmin:
   #
   # @endif
   def deletePort(self, port):
+    if not self.removePort(port):
+      self._rtcout.RTC_ERROR("deletePort(PortBase&) failed.")
+    return
+
+  # new interface. since 1.0.0-RELEASE
+  def removePort(self, port):
     try:
       if isinstance(port,RTC._objref_PortService):
         OpenRTM_aist.CORBA_SeqUtil.erase_if(self._portRefs, self.find_port(port))
-        return
+        return True
 
       port.disconnect_all()
       tmp = port.getProfile().name
@@ -296,9 +350,12 @@ class PortAdmin:
       self._poa.deactivate_object(self._poa.servant_to_id(port))
       port.setPortRef(RTC.PortService._nil)
 
-      self._portServants.unregisterObject(tmp)
+      if not self._portServants.unregisterObject(tmp):
+        return False
+      return True
     except:
       traceback.print_exception(*sys.exc_info())
+      return False
 
 
   ##
@@ -329,7 +386,7 @@ class PortAdmin:
       return
 
     p = self._portServants.find(port_name)
-    self.deletePort(p)
+    self.removePort(p)
     return
 
 
@@ -387,4 +444,4 @@ class PortAdmin:
     len_ = len(ports)
     for i in range(len_):
       idx = (len_ - 1) - i
-      self.deletePort(ports[idx])
+      self.removePort(ports[idx])

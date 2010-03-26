@@ -19,7 +19,7 @@
 import copy
 import threading
 import OpenRTM_aist
-import RTC, RTC__POA
+import RTC
 
 ##
 # @if jp
@@ -123,7 +123,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
 
     if len(self._connectors) != 0:
       self._rtcout.RTC_ERROR("connector.size should be 0 in InPortBase's dtor.")
-      guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+      # guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
       for connector in self._connectors:
         connector.disconnect()
 
@@ -177,6 +177,24 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
 
   ##
   # @if jp
+  # @brief RTObject_impl::readAll()から呼ばれる仮想関数
+  #
+  # DataPort からデータを読み出す
+  #
+  # @return true:成功,false:失敗
+  # @else
+  # @brief It is a virtual method that is called from RTObject_impl::readAll().
+  # This method reads out data from DataPort. 
+  #
+  # @return true:Success,false:Failure
+  # @endif
+  #
+  # virtual bool read() = 0;
+  def read(self):
+    pass
+
+  ##
+  # @if jp
   # @brief プロパティを取得する
   #
   # InPortのプロパティを取得する。
@@ -219,7 +237,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   # const std::vector<InPortConnector*>& connectors();
   def connectors(self):
     self._rtcout.RTC_TRACE("connectors(): size = %d", len(self._connectors))
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+    #  guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     return self._connectors
 
 
@@ -245,7 +263,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   def getConnectorProfiles(self):
     self._rtcout.RTC_TRACE("getConnectorProfiles(): size = %d", len(self._connectors))
     profs = []
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+    #  guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       profs.append(con.profile())
 
@@ -273,7 +291,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   def getConnectorIds(self):
     ids = []
 
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+    # guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       ids.append(con.id())
 
@@ -301,7 +319,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   # coil::vstring getConnectorNames();
   def getConnectorNames(self):
     names = []
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+    # guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for con in self._connectors:
       names.append(con.name())
 
@@ -397,13 +415,13 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   def getConnectorProfileById(self, id, prof):
     self._rtcout.RTC_TRACE("getConnectorProfileById(id = %s)", id)
 
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
-    for con in self._connectors:
-      if id  == con.id():
-        prof[0] = con.profile()
-        return True
+    # guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+    conn = self.getConnectorById(id)
+    if not conn:
+      return False
+    prof[0] = conn.profile()
+    return True
 
-    return False
 
   ##
   # @if jp
@@ -432,13 +450,12 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   def getConnectorProfileByName(self, name, prof):
     self._rtcout.RTC_TRACE("getConnectorProfileByName(name = %s)", name)
 
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
-    for con in self._connectors:
-      if name == con.name():
-        prof[0] = con.profile()
-        return True
-
-    return False
+    # guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+    conn = self.getConnectorByName(name)
+    if not conn:
+      return False
+    prof[0] = conn.profile()
+    return True
 
 
   ##
@@ -496,7 +513,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   def activateInterfaces(self):
     self._rtcout.RTC_TRACE("activateInterfaces()")
 
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+    # guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for connector in self._connectors:
       connector.activate()
       self._rtcout.RTC_DEBUG("activate connector: %s %s",
@@ -525,7 +542,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   def deactivateInterfaces(self):
     self._rtcout.RTC_TRACE("deactivateInterfaces()")
 
-    guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+    # guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
     for connector in self._connectors:
       connector.deactivate()
       self._rtcout.RTC_DEBUG("deactivate connector: %s %s",
@@ -962,7 +979,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
     len_ = len(self._connectors)
     for i in range(len_):
       idx = (len_ - 1) - i
-      guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+      # guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
       if id == self._connectors[idx].id():
         # Connector's dtor must call disconnect()
         self._connectors[idx].deactivate()
@@ -1185,12 +1202,15 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
                 
 
       if connector is None:
-        self._rtcout.RTC_ERROR("old compiler? new returned 0;")
+        self._rtcout.RTC_ERROR("InPortConnector creation failed")
         return 0
 
-      self._rtcout.RTC_TRACE("InPortPushConnector created")
+      if provider_ is not None:
+        self._rtcout.RTC_TRACE("InPortPushConnector created")
+      elif consumer_ is not None:
+        self._rtcout.RTC_TRACE("InPortPullConnector created")
 
-      guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
+      # guard = OpenRTM_aist.ScopedLock(self._connector_mutex)
       self._connectors.append(connector)
       self._rtcout.RTC_PARANOID("connector push backed: %d", len(self._connectors))
       return connector
