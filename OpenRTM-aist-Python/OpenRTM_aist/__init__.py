@@ -9,6 +9,7 @@ from version import *
 from DefaultConfiguration import *
 import CORBA_SeqUtil
 import NVUtil
+from Process import *
 from Task import *
 from Async import *
 from CorbaNaming import *
