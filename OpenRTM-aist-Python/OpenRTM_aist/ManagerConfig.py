@@ -253,7 +253,7 @@ class ManagerConfig :
   # @endif
   def parseArgs(self, argv):
     try:
-      opts, args = getopt.getopt(argv[1:], "a:f:l:o:d:p")
+      opts, args = getopt.getopt(argv[1:], "adlf:o:p:")
     except getopt.GetoptError:
       print "Error: getopt error!"
       return
