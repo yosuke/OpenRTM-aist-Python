@@ -63,10 +63,16 @@ class Timer:
   def __del__(self):
     #guard = OpenRTM_aist.ScopedLock(self._runningMutex)
     self._running = False
-    self._thread.join()
+    try:
+      self._thread.join()
+    except:
+      pass
 
   def join(self):
-    self._thread.join()
+    try:
+      self._thread.join()
+    except:
+      pass
 
   ##
   # @if jp
