@@ -37,9 +37,14 @@ def main():
   # classname
   classname  = basename.split(".")[0].lower()
 
-  opts = "dummy -o "
-  load_path = "manager.modules.load_path: " + dirname
-  opts += " -o logger.enable:NO -o manager.corba_servant:NO"
+  opts =[]
+  opts.append("dummy")
+  opts.append("-o")
+  opts.append("manager.modules.load_path: " + dirname)
+  opts.append("-o")
+  opts.append("logger.enable:NO")
+  opts.append("-o")
+  opts.append("manager.corba_servant:NO")
 
   # Manager initialization
   OpenRTM_aist.Manager.init(opts)
