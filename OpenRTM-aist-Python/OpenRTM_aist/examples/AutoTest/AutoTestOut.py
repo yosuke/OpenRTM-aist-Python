@@ -35,90 +35,88 @@ from omniORB import CORBA
 # This module's spesification
 # <rtc-template block="module_spec">
 AutoTestOut_spec = ["implementation_id", "AutoTestOut", 
-     "type_name",         "AutoTestOut", 
-     "description",       "ModuleDescription", 
-     "version",           "1.0.0", 
-     "vendor",            "HarumiMiyamoto", 
-     "category",          "example", 
-     "activity_type",     "STATIC", 
-     "max_instance",      "1", 
-     "language",          "Python", 
-     "lang_type",         "SCRIPT",
-     "exec_cxt.periodic.rate", "1.0",
-     ""]
+                    "type_name",         "AutoTestOut", 
+                    "description",       "ModuleDescription", 
+                    "version",           "1.0.0", 
+                    "vendor",            "HarumiMiyamoto", 
+                    "category",          "example", 
+                    "activity_type",     "STATIC", 
+                    "max_instance",      "1", 
+                    "language",          "Python", 
+                    "lang_type",         "SCRIPT",
+                    "exec_cxt.periodic.rate", "1.0",
+                    ""]
 
 
 class AutoTestOut(OpenRTM_aist.DataFlowComponentBase):
   
-    """
-    \class AutoTestOut
-    \brief ModuleDescription
-    """
-    def __init__(self, manager):
-        OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
-        return
+  """
+  \class AutoTestOut
+  \brief ModuleDescription
+  """
+  def __init__(self, manager):
+    OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
+    return
         
-    def onInitialize(self):
-        self._d_dp_vOut = RTC.TimedFloat(RTC.Time(0,0),0)
-        self._d_dp_vSeqOut = RTC.TimedFloatSeq(RTC.Time(0,0),[])
-        
-        self._OutOut = OpenRTM_aist.OutPort("out", self._d_dp_vOut, OpenRTM_aist.RingBuffer(8))
-        self._SeqOutOut = OpenRTM_aist.OutPort("seqout", self._d_dp_vSeqOut, OpenRTM_aist.RingBuffer(8))
-  
-        # Set OutPort buffers
-        self.addOutPort("out", self._OutOut)
-        self.addOutPort("seqout", self._SeqOutOut)
-        
-
-        self._MyServicePort = OpenRTM_aist.CorbaPort("MyService")
-        
-        self._myservice0_var = OpenRTM_aist.CorbaConsumer(interfaceType=AutoTest.MyService)
+  def onInitialize(self):
+    self._d_dp_vOut = RTC.TimedFloat(RTC.Time(0,0),0)
+    self._d_dp_vSeqOut = RTC.TimedFloatSeq(RTC.Time(0,0),[])
     
-        # Set service consumers to Ports
-        self._MyServicePort.registerConsumer("myservice0", "MyService", self._myservice0_var)
+    self._OutOut = OpenRTM_aist.OutPort("out", self._d_dp_vOut, OpenRTM_aist.RingBuffer(8))
+    self._SeqOutOut = OpenRTM_aist.OutPort("seqout", self._d_dp_vSeqOut, OpenRTM_aist.RingBuffer(8))
+  
+    # Set OutPort buffers
+    self.addOutPort("out", self._OutOut)
+    self.addOutPort("seqout", self._SeqOutOut)
+        
+    self._MyServicePort = OpenRTM_aist.CorbaPort("MyService")
+    self._myservice0_var = OpenRTM_aist.CorbaConsumer(interfaceType=AutoTest.MyService)
     
-        # Set CORBA Service Ports
-        self.addPort(self._MyServicePort)
-  
-        return RTC.RTC_OK
-  
-    def onActivated(self, ec_id):
-        self._file=open('original-data')
-        return RTC.RTC_OK
-  
-    def onDeactivated(self, ec_id): 
-        self._file.close()
-        return RTC.RTC_OK
-  
-
-    def onExecute(self, ec_id):
-        floatSeq=[]
-        str1 = self._file.readline()
-        str2 = self._file.readline()
-        str3 = self._file.readline()
+    # Set service consumers to Ports
+    self._MyServicePort.registerConsumer("myservice0", "MyService", self._myservice0_var)
     
-        if str1:  
-            self._d_dp_vOut.data = float(str1)
+    # Set CORBA Service Ports
+    self.addPort(self._MyServicePort)
+  
+    return RTC.RTC_OK
+  
+  def onActivated(self, ec_id):
+    self._file=open('original-data')
+    return RTC.RTC_OK
+  
+  def onDeactivated(self, ec_id): 
+    self._file.close()
+    return RTC.RTC_OK
+  
 
-            if str2:
-                str2 = str2.split(' ')
-                floatSeq.append(float(str2[0]))
-                floatSeq.append(float(str2[1]))
-                floatSeq.append(float(str2[2]))
-                floatSeq.append(float(str2[3]))
-                floatSeq.append(float(str2[4]))
-                self._d_dp_vSeqOut.data = floatSeq
+  def onExecute(self, ec_id):
+    floatSeq=[]
+    str1 = self._file.readline()
+    str2 = self._file.readline()
+    str3 = self._file.readline()
+    
+    if str1:  
+      self._d_dp_vOut.data = float(str1)
 
-                if str3:
-                    if self._myservice0_var._ptr():
-                        # 書き出し
-                        self._OutOut.write()
-                        self._SeqOutOut.write()
+      if str2:
+        str2 = str2.split(' ')
+        floatSeq.append(float(str2[0]))
+        floatSeq.append(float(str2[1]))
+        floatSeq.append(float(str2[2]))
+        floatSeq.append(float(str2[3]))
+        floatSeq.append(float(str2[4]))
+        self._d_dp_vSeqOut.data = floatSeq
 
-                        # echoを呼び出す
-                        retmsg = self._myservice0_var._ptr().echo(str3.rstrip('\r\n'))
+        if str3:
+          if self._myservice0_var._ptr():
+            # 書き出し
+            self._OutOut.write()
+            self._SeqOutOut.write()
+
+            # echoを呼び出す
+            retmsg = self._myservice0_var._ptr().echo(str3.rstrip('\r\n'))
           
-        return RTC.RTC_OK
+    return RTC.RTC_OK
         
 
 def AutoTestOutInit(manager):

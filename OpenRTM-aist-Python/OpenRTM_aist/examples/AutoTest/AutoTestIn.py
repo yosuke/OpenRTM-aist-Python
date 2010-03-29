@@ -52,6 +52,7 @@ class MyServiceSVC_impl(AutoTest__POA.MyService):
     self._valueList = []
     self._value = 0
     self.__echo_msg= ""
+    self._isNew = False
 
   def __del__(self):
     pass
@@ -59,12 +60,22 @@ class MyServiceSVC_impl(AutoTest__POA.MyService):
   def echo(self, msg):
     OpenRTM_aist.CORBA_SeqUtil.push_back(self._echoList, msg)
     self.__echo_msg = msg
+    if self._isNew:
+      print "echo's message was overwritten !!!"
+    self._isNew = True
     return msg
 
   def get_echo(self):
-        
-    echomsg = self.__echo_msg
-    return echomsg
+    if self._isNew:
+      self._isNew = False
+      echomsg = self.__echo_msg
+      return echomsg
+
+    return ""
+
+  def reset_message(self):
+    self._isNew = False
+    self.__echo_msg = ""
 
 class AutoTestIn(OpenRTM_aist.DataFlowComponentBase):
   
@@ -113,15 +124,21 @@ class AutoTestIn(OpenRTM_aist.DataFlowComponentBase):
   
   def onActivated(self, ec_id):
     self._file=open('received-data','w')
+    self._msg = ""
     return RTC.RTC_OK
   
   def onDeactivated(self, ec_id): 
             self._file.close()
+            self._myservice0_var.reset_message()
             return RTC.RTC_OK
   
   def onExecute(self, ec_id):
+    if not self._msg:
+      self._msg = self._myservice0_var.get_echo()
+      if self._msg:
+        self._msg += "\n"
 
-    if (self._InIn.isNew() and self._SeqInIn.isNew()):
+    if self._InIn.isNew() and self._SeqInIn.isNew() and self._msg:
       floatdata = self._InIn.read()
       seqfloatdata = self._SeqInIn.read()
                         
@@ -132,9 +149,9 @@ class AutoTestIn(OpenRTM_aist.DataFlowComponentBase):
       sdata = str(round(seqfloatdata.data[0],2)) + " "+ str(round(seqfloatdata.data[1],2)) + " " + str(round(seqfloatdata.data[2],2)) + " " + str(round(seqfloatdata.data[3],2)) + " " + str(round(seqfloatdata.data[4],2)) + "\n"
       self._file.write(sdata)
       
+      self._file.write(self._msg)
+      self._msg = ""
 
-      edata=self._myservice0_var.get_echo() + "\n"
-      self._file.write(edata)
       return RTC.RTC_OK
     else:
       return RTC.RTC_OK
