@@ -411,7 +411,6 @@ class ManagerConfig :
     try:
       fp = open(filename)
     except:
-      print "Can't open file:", filename
       return False
     else:
       fp.close()
