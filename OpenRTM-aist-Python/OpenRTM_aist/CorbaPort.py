@@ -1405,10 +1405,10 @@ class CorbaPort(OpenRTM_aist.PortBase):
     def __call__(self, nv):
       for i in range(self._len):
         name_ = nv.name
-        if self._cons[i].name == name_:
+        if self._cons[i].descriptor() == name_:
           try:
             obj = any.from_any(nv.value, keep_structs=True)
-            self._cons[i].consumer.setObject(obj)
+            self._cons[i].setObject(obj)
           except:
             traceback.print_exception(*sys.exc_info())
 
@@ -1428,7 +1428,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
     def __call__(self, nv):
       for i in range(self._len):
         name_ = nv.name
-        if self._cons[i].name == name_:
-          self._cons[i].consumer.releaseObject()
+        if self._cons[i].descriptor() == name_:
+          self._cons[i].releaseObject()
 
 
