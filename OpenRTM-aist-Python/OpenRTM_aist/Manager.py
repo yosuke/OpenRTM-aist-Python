@@ -164,6 +164,7 @@ class Manager:
     elif len(arg) == 2 and \
              isinstance(arg[0], IntType) and \
              isinstance(arg[1], ListType):
+      # for 0.4.x
       argv = arg[1]
     else:
       print "Invalid arguments for init()"
