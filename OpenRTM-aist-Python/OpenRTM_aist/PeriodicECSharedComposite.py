@@ -45,6 +45,14 @@ periodicecsharedcomposite_spec = ["implementation_id", "PeriodicECSharedComposit
                                   
 
 
+def set_difference(a, b):
+  ret = []
+  for x in a:
+    if x in b:
+      ret.append(x)
+  return ret
+
+
 def stringToStrVec(v, _is):
   str = [_is]
   OpenRTM_aist.eraseBlank(str)
@@ -517,7 +525,6 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
 
     return
 
-
   ##
   # @if jp
   # @brief Organizationメンバーを更新/削除する
@@ -530,7 +537,8 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     ports = self._rtobj.getProperties().getProperty("conf.default.exported_ports")
     newPorts = ports.split(",")
 
-    set_difference = lambda a, b: [x for x in a if not x in b]
+    # since Python 2.5
+    # set_difference = lambda a, b: [x for x in a if not x in b]
     removedPorts = set_difference(oldPorts,newPorts)
     createdPorts = set_difference(newPorts,oldPorts)
     
@@ -762,8 +770,16 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
       rtc = sdo._narrow(RTC.RTObject)
       ecs[0].activate_component(rtc)
 
-    _len = len(self._members[0])
-    self._rtcout.RTC_DEBUG("%d member RTC%s activated.", (_len,(lambda x: "s were" if x > 1 else "was")(_len)))
+    len_ = len(self._members[0])
+
+    # since Python 2.5
+    # self._rtcout.RTC_DEBUG("%d member RTC%s activated.", (len_,(lambda x:  if x > 1 else "was")(len_)))
+    if len_ > 1:
+      str_ = "s were"
+    else:
+      str_ = "was"
+
+    self._rtcout.RTC_DEBUG("%d member RTC%s activated.", (len_, str_))
 
     return RTC.RTC_OK
 

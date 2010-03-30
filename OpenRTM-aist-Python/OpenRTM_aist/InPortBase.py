@@ -1020,8 +1020,13 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
 
       temp_types.sort()
       active_types.sort()
-      set_intersection = lambda a, b: [x for x in a if x in b]
-      provider_types = provider_types + set_intersection(temp_types, active_types)
+
+      # since Python 2.5
+      # set_intersection = lambda a, b: [x for x in a if x in b]
+      # provider_types = provider_types + set_intersection(temp_types, active_types)
+      for x in temp_types:
+        if x in active_types:
+          provider_types.append(x)
 
     # InPortProvider supports "push" dataflow type
     if len(provider_types) > 0:
@@ -1062,8 +1067,13 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
 
       temp_types.sort()
       active_types.sort()
-      set_intersection = lambda a, b: [x for x in a if x in b]
-      consumer_types = consumer_types + set_intersection(temp_types, active_types)
+
+      # since Python 2.5
+      # set_intersection = lambda a, b: [x for x in a if x in b]
+      # consumer_types = consumer_types + set_intersection(temp_types, active_types)
+      for x in temp_types:
+        if x in active_types:
+          consumer_types.append(x)
 
     # OutPortConsumer supports "pull" dataflow type
     if len(consumer_types) > 0:

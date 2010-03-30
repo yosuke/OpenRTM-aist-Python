@@ -306,7 +306,12 @@ class ManagerServant(RTM__POA.Manager):
     # create other manager
 
     # extract manager's location
-    pos = (lambda x: pos0 if x == -1 else pos1)(pos0)
+    # since Python2.5 
+    # pos = (lambda x: pos0 if x == -1 else pos1)(pos0)
+    if pos0 == -1:
+      pos = pos0
+    else:
+      pos = pos1
     
     endpos = arg.find('&', pos + 1)
     mgrstr = arg[(pos + 1): (endpos - 1 - pos)]
@@ -584,7 +589,14 @@ class ManagerServant(RTM__POA.Manager):
   #
   # bool is_master();
   def is_master(self):
-    self._rtcout.RTC_TRACE("is_master(): %s", (lambda x: "YES" if x else "NO")(self._isMaster))
+    # since Python2.5
+    # self._rtcout.RTC_TRACE("is_master(): %s", (lambda x: "YES" if x else "NO")(self._isMaster))
+    ret = ""
+    if self._isMaster:
+      ret = "YES"
+    else:
+      ret = "NO"
+    self._rtcout.RTC_TRACE("is_master(): %s", ret)
     return self._isMaster
 
 

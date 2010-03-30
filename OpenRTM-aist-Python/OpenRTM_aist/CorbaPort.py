@@ -1091,8 +1091,8 @@ class CorbaPort(OpenRTM_aist.PortBase):
         strict = False
       elif "strict" == strictness:
         strict = True
-      self._rtcout.RTC_DEBUG("Connetion strictness is: %s",
-                             (lambda x: "strict" if x else "best_effort")(strict))
+
+      self._rtcout.RTC_DEBUG("Connetion strictness is: %s",strictness)
 
     for consumer in self._consumers:
       res0 = self.findProvider(nv, consumer)
