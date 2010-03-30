@@ -12,8 +12,6 @@ from distutils.command import build
 
 
 core.DEBUG = False
-modules = ["BasicDataType", "DataPort", "Manager", "OpenRTM", "RTC", "SDOPackage"]
-sample_modules = ["MyService"]
 
 g_os = None
 
@@ -72,7 +70,6 @@ class Build_idl (cmd.Command):
     self.idldir  = None
     self.omniidl = None
     self.omniidl_params = ["-bpython"]
-    self.idlfiles = ["BasicDataType", "DataPort", "Manager", "OpenRTM", "RTC", "SDOPackage"]
 
   def finalize_options(self):
     if not self.omniidl:
@@ -81,20 +78,33 @@ class Build_idl (cmd.Command):
       self.idldir = os.path.join(os.getcwd(),"OpenRTM_aist","RTM_IDL")
 
   def run(self):
-    global modules
-
     #self.omniidl_params.append("-Wbpackage=OpenRTM_aist.RTM_IDL")
     self.omniidl_params.append("-COpenRTM_aist/RTM_IDL")
+    self.omniidl_params.append("-IOpenRTM_aist/RTM_IDL")
+    modules = ["BasicDataType", "DataPort", "ExtendedDataTypes", "InterfaceDataTypes", "Manager", "OpenRTM", "RTC", "SDOPackage"]
     util.execute(compile_idl,
                  (self.omniidl, self.omniidl_params,
                   [ gen_idl_name(self.idldir, module) for module in modules ]),
                  "Generating python stubs from IDL files")
+
+    # for SimpleService
     self.idldir = os.path.join(os.getcwd(),"OpenRTM_aist","examples","SimpleService")
-    self.idlfiles = ["MyService"]
-    self.omniidl_params[-1]=("-COpenRTM_aist/examples/SimpleService")
+    self.omniidl_params[-2]=("-COpenRTM_aist/examples/SimpleService")
+    self.omniidl_params[-1]=("-IOpenRTM_aist/examples/SimpleService")
+    modules = ["MyService"]
     util.execute(compile_idl,
                  (self.omniidl, self.omniidl_params,
-                  [ gen_idl_name(self.idldir, module) for module in sample_modules ]),
+                  [ gen_idl_name(self.idldir, module) for module in modules ]),
+                 "Generating python sample stubs from IDL files")
+
+    # for AutoTest
+    self.idldir = os.path.join(os.getcwd(),"OpenRTM_aist","examples","AutoTest")
+    self.omniidl_params[-2]=("-COpenRTM_aist/examples/AutoTest")
+    self.omniidl_params[-1]=("-IOpenRTM_aist/examples/AutoTest")
+    modules = ["AutoTestService"]
+    util.execute(compile_idl,
+                 (self.omniidl, self.omniidl_params,
+                  [ gen_idl_name(self.idldir, module) for module in modules ]),
                  "Generating python sample stubs from IDL files")
 
 
@@ -180,6 +190,7 @@ try:
                National Institute of Advanced Industrial Science and Technology (AIST), Japan.\
                Please see http://www.is.aist.go.jp/rt/OpenRTM-aist/html/ for more detail.",
                license = "LGPL",
+               cmdclass = { "build":Build, "build_idl":Build_idl },
                packages = ["OpenRTM_aist",
                            "OpenRTM_aist.RTM_IDL",
                            "OpenRTM_aist.RTM_IDL.OpenRTM",
