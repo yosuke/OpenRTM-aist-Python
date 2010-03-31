@@ -72,4 +72,5 @@ default_config =["config.version",                   OpenRTM_aist.openrtm_versio
                  "manager.shutdown_auto",            "YES",
                  "manager.name",                     "manager",
                  "manager.command",                  "rtcd",
+                 "manager.language",                 "Python",
                  ""]
