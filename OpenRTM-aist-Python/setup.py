@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
-import os,os.path,sys, string, commands
+import os,os.path
+import sys
+import string
+import commands
+import glob
 from distutils import core
 from distutils import cmd
 from distutils import log
@@ -81,7 +85,9 @@ class Build_idl (cmd.Command):
     #self.omniidl_params.append("-Wbpackage=OpenRTM_aist.RTM_IDL")
     self.omniidl_params.append("-COpenRTM_aist/RTM_IDL")
     self.omniidl_params.append("-IOpenRTM_aist/RTM_IDL")
-    modules = ["BasicDataType", "DataPort", "ExtendedDataTypes", "InterfaceDataTypes", "Manager", "OpenRTM", "RTC", "SDOPackage"]
+    modules = ["BasicDataType", "DataPort", "ExtendedDataTypes",
+               "InterfaceDataTypes", "Manager", "OpenRTM", "RTC",
+               "SDOPackage"]
     util.execute(compile_idl,
                  (self.omniidl, self.omniidl_params,
                   [ gen_idl_name(self.idldir, module) for module in modules ]),
@@ -135,6 +141,120 @@ class Build (build.build):
                   ('build_scripts', has_scripts)]
 
 
+############################### data for setup() ###########################################
+unix_packages = ["OpenRTM_aist",
+                 "OpenRTM_aist.RTM_IDL",
+                 "OpenRTM_aist.RTM_IDL.OpenRTM",
+                 "OpenRTM_aist.RTM_IDL.OpenRTM__POA",
+                 "OpenRTM_aist.RTM_IDL.RTC",
+                 "OpenRTM_aist.RTM_IDL.RTC__POA",
+                 "OpenRTM_aist.RTM_IDL.RTM",
+                 "OpenRTM_aist.RTM_IDL.RTM__POA",
+                 "OpenRTM_aist.RTM_IDL.SDOPackage",
+                 "OpenRTM_aist.RTM_IDL.SDOPackage__POA",
+                 "OpenRTM_aist.RTM_IDL.device_interfaces",
+                 "OpenRTM_aist.utils.rtcd",
+                 "OpenRTM_aist.utils.rtcprof",
+                 "OpenRTM_aist.utils.rtc-template",
+                 "OpenRTM_aist.utils.rtm-naming"]
+
+win32_packages = ["OpenRTM_aist",
+                  "OpenRTM_aist.RTM_IDL",
+                  "OpenRTM_aist.RTM_IDL.OpenRTM",
+                  "OpenRTM_aist.RTM_IDL.OpenRTM__POA",
+                  "OpenRTM_aist.RTM_IDL.RTC",
+                  "OpenRTM_aist.RTM_IDL.RTC__POA",
+                  "OpenRTM_aist.RTM_IDL.RTM",
+                  "OpenRTM_aist.RTM_IDL.RTM__POA",
+                  "OpenRTM_aist.RTM_IDL.SDOPackage",
+                  "OpenRTM_aist.RTM_IDL.SDOPackage__POA",
+                  "OpenRTM_aist.examples.AutoControl",
+                  "OpenRTM_aist.examples.Composite",
+                  "OpenRTM_aist.examples.ConfigSample",
+                  "OpenRTM_aist.examples.ExtTrigger",
+                  "OpenRTM_aist.examples.MobileRobotCanvas",
+                  "OpenRTM_aist.examples.NXTRTC",
+                  "OpenRTM_aist.examples.SeqIO",
+                  "OpenRTM_aist.examples.SimpleIO",
+                  "OpenRTM_aist.examples.SimpleService.SimpleService",
+                  "OpenRTM_aist.examples.SimpleService.SimpleService__POA",
+                  "OpenRTM_aist.examples.SimpleService",
+                  "OpenRTM_aist.examples.Slider_and_Motor",
+                  "OpenRTM_aist.examples.Templates",
+                  "OpenRTM_aist.examples.TkJoyStick",
+                  "OpenRTM_aist.examples.TkLRFViewer",
+                  "OpenRTM_aist.utils.rtcd",
+                  "OpenRTM_aist.utils.rtcprof",
+                  "OpenRTM_aist.utils.rtc-template",
+                  "OpenRTM_aist.utils.rtm-naming"]
+
+unix_data_files = [(sitedir,['OpenRTM-aist.pth'])]
+
+idl_files= glob.glob(os.path.join('OpenRTM_aist',
+                                  'RTM_IDL',
+                                  '*.idl'))
+
+device_if_idl_files= glob.glob(os.path.join('OpenRTM_aist',
+                                            'RTM_IDL',
+                                            'device_interfaces',
+                                            '*.idl'))
+for idl in idl_files:
+  unix_data_files.append((os.path.join(sitedir, 'OpenRTM_aist', 'RTM_IDL'), [idl]))
+
+for device_idl in device_if_idl_files:
+  unix_data_files.append((os.path.join(sitedir, 'OpenRTM_aist', 'RTM_IDL',
+                                       'device_interfaces'), [device_idl]))
+
+
+win32_data_files = unix_data_files
+
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples'),
+                         ['OpenRTM_aist/examples/rtc.conf.sample']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples'),
+                         ['OpenRTM_aist/examples/component.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples'),
+                         ['OpenRTM_aist/examples/rtcd.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','AutoControl'),
+                         ['OpenRTM_aist/examples/AutoControl/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','Composite'),
+                         ['OpenRTM_aist/examples/Composite/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','Composite'),
+                         ['OpenRTM_aist/examples/Composite/composite.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','ConfigSample'),
+                         ['OpenRTM_aist/examples/ConfigSample/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','ConfigSample'),
+                         ['OpenRTM_aist/examples/ConfigSample/configsample.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','ExtTrigger'),
+                         ['OpenRTM_aist/examples/ExtTrigger/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','MobileRobotCanvas'),
+                         ['OpenRTM_aist/examples/MobileRobotCanvas/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','NXTRTC'),
+                         ['OpenRTM_aist/examples/NXTRTC/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','SimpleIO'),
+                         ['OpenRTM_aist/examples/SimpleIO/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','SeqIO'),
+                         ['OpenRTM_aist/examples/SeqIO/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','SimpleService'),
+                         ['OpenRTM_aist/examples/SimpleService/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','Slider_and_Motor'),
+                         ['OpenRTM_aist/examples/Slider_and_Motor/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','TkJoyStick'),
+                         ['OpenRTM_aist/examples/TkJoyStick/rtc.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','TkLRFViewer'),
+                         ['OpenRTM_aist/examples/TkLRFViewer/rtc.conf']))
+
+templates_xml = glob.glob(os.path.join('OpenRTM_aist',
+                                       'examples',
+                                       'Templates',
+                                       '*.xml'))
+
+for tmp_xml in templates_xml:
+  win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples', 'Templates'),
+                           [tmp_xml]))
+
+
+##############################################################################################
+
 try:
   if g_os == "unix":
     core.setup(name = "OpenRTM-aist-Python",
@@ -152,28 +272,8 @@ try:
                Please see http://www.is.aist.go.jp/rt/OpenRTM-aist/html/ for more detail.",
                license = "LGPL",
                cmdclass = { "build":Build, "build_idl":Build_idl },
-               packages = ["OpenRTM_aist",
-                           "OpenRTM_aist.RTM_IDL",
-                           "OpenRTM_aist.RTM_IDL.OpenRTM",
-                           "OpenRTM_aist.RTM_IDL.OpenRTM__POA",
-                           "OpenRTM_aist.RTM_IDL.RTC",
-                           "OpenRTM_aist.RTM_IDL.RTC__POA",
-                           "OpenRTM_aist.RTM_IDL.RTM",
-                           "OpenRTM_aist.RTM_IDL.RTM__POA",
-                           "OpenRTM_aist.RTM_IDL.SDOPackage",
-                           "OpenRTM_aist.RTM_IDL.SDOPackage__POA",
-                           "OpenRTM_aist.utils.rtcd",
-                           "OpenRTM_aist.utils.rtcprof",
-                           "OpenRTM_aist.utils.rtc-template",
-                           "OpenRTM_aist.utils.rtm-naming"],
-               data_files = [(sitedir,['OpenRTM-aist.pth']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/OpenRTM-aist.pth']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/BasicDataType.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/DataPort.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/Manager.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/OpenRTM.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/RTC.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/SDOPackage.idl'])])
+               packages = unix_packages,
+               data_files = unix_data_files)
     
   elif g_os == "win32":
     core.setup(name = "OpenRTM-aist-Python",
@@ -191,59 +291,8 @@ try:
                Please see http://www.is.aist.go.jp/rt/OpenRTM-aist/html/ for more detail.",
                license = "LGPL",
                cmdclass = { "build":Build, "build_idl":Build_idl },
-               packages = ["OpenRTM_aist",
-                           "OpenRTM_aist.RTM_IDL",
-                           "OpenRTM_aist.RTM_IDL.OpenRTM",
-                           "OpenRTM_aist.RTM_IDL.OpenRTM__POA",
-                           "OpenRTM_aist.RTM_IDL.RTC",
-                           "OpenRTM_aist.RTM_IDL.RTC__POA",
-                           "OpenRTM_aist.RTM_IDL.RTM",
-                           "OpenRTM_aist.RTM_IDL.RTM__POA",
-                           "OpenRTM_aist.RTM_IDL.SDOPackage",
-                           "OpenRTM_aist.RTM_IDL.SDOPackage__POA",
-                           "OpenRTM_aist.examples.AutoControl",
-                           "OpenRTM_aist.examples.Composite",
-                           "OpenRTM_aist.examples.ConfigSample",
-                           "OpenRTM_aist.examples.ExtTrigger",
-                           "OpenRTM_aist.examples.MobileRobotCanvas",
-                           "OpenRTM_aist.examples.NXTRTC",
-                           "OpenRTM_aist.examples.SeqIO",
-                           "OpenRTM_aist.examples.SimpleIO",
-                           "OpenRTM_aist.examples.SimpleService.SimpleService",
-                           "OpenRTM_aist.examples.SimpleService.SimpleService__POA",
-                           "OpenRTM_aist.examples.SimpleService",
-                           "OpenRTM_aist.examples.Slider_and_Motor",
-                           "OpenRTM_aist.examples.TkJoyStick",
-                           "OpenRTM_aist.examples.TkLRFViewer",
-                           "OpenRTM_aist.utils.rtcd",
-                           "OpenRTM_aist.utils.rtcprof",
-                           "OpenRTM_aist.utils.rtc-template",
-                           "OpenRTM_aist.rtm-naming"],
-               data_files = [(sitedir,['OpenRTM-aist.pth']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples'),['OpenRTM_aist/examples/rtc.conf.sample']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples'),['OpenRTM_aist/examples/component.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples'),['OpenRTM_aist/examples/rtcd.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/AutoControl'),['OpenRTM_aist/examples/AutoControl/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/Composite'),['OpenRTM_aist/examples/Composite/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/Composite'),['OpenRTM_aist/examples/Composite/composite.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/ConfigSample'),['OpenRTM_aist/examples/ConfigSample/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/ConfigSample'),['OpenRTM_aist/examples/ConfigSample/configsample.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/ExtTrigger'),['OpenRTM_aist/examples/ExtTrigger/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/MobileRobotCanvas'),['OpenRTM_aist/examples/MobileRobotCanvas/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/NXTRTC'),['OpenRTM_aist/examples/NXTRTC/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/SimpleIO'),['OpenRTM_aist/examples/SimpleIO/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/SeqIO'),['OpenRTM_aist/examples/SeqIO/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/SimpleService'),['OpenRTM_aist/examples/SimpleService/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/Slider_and_Motor'),['OpenRTM_aist/examples/Slider_and_Motor/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/TkJoyStick'),['OpenRTM_aist/examples/TkJoyStick/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/examples/TkLRFViewer'),['OpenRTM_aist/examples/TkLRFViewer/rtc.conf']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/OpenRTM-aist.pth']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/BasicDataType.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/DataPort.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/Manager.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/OpenRTM.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/RTC.idl']),
-                             (os.path.join(sitedir,'OpenRTM_aist/RTM_IDL'),['OpenRTM_aist/RTM_IDL/SDOPackage.idl'])])
+               packages = win32_packages,
+               data_files = win32_data_files)
 
 except Exception, e:
   log.error("Error: %s", e)
