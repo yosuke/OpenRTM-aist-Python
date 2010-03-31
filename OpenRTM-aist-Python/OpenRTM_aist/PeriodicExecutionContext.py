@@ -24,6 +24,8 @@ import OpenRTM_aist
 import OpenRTM
 import RTC
 
+DEFAULT_PERIOD = 0.000001
+
 ##
 # @if jp
 # @class PeriodicExecutionContext
@@ -863,12 +865,14 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
       return RTC.BAD_PARAMETER
     try:
       dfp_  = comp._narrow(OpenRTM.DataFlowComponent)
-      if CORBA.is_nil(dfp_):
+      rtc_  = comp._narrow(RTC.RTObject)
+      if CORBA.is_nil(dfp_) or CORBA.is_nil(rtc_):
         return RTC.BAD_PARAMETER
 
       id_   = dfp_.attach_context(self._ref)
       comp_ = self.Comp(ref=comp, dfp=dfp_, id=id_)
       self._comps.append(comp_)
+      self._profile.participants.append(rtc_)
       return RTC.RTC_OK
     except CORBA.Exception:
       self._rtcout.RTC_ERROR(sys.exc_info()[0])
@@ -890,7 +894,9 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
       return RTC.RTC_ERROR
 
     self._rtcout.RTC_DEBUG("bindContext returns id = %d", id_)
+    # rtc is owner of this EC
     self._comps.append(self.Comp(ref=comp_, dfp=dfp_, id=id_))
+    self._profile.owner = dfp_
     return RTC.RTC_OK
 
 
@@ -922,10 +928,15 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     self._rtcout.RTC_TRACE("remove_component()")
     len_ = len(self._comps)
     for i in range(len_):
-      idx = (len_ - 1) - i
-      if self._comps[idx]._ref._is_equivalent(comp):
-        self._comps[idx]._ref.detach_context(self._comps[idx]._sm.ec_id)
-        del self._comps[idx]
+      if self._comps[i]._ref._is_equivalent(comp):
+        self._comps[i]._ref.detach_context(self._comps[i]._sm.ec_id)
+        del self._comps[i]
+        rtcomp = comp._narrow(RTC.RTObject)
+        if CORBA.is_nil(rtcomp):
+          self._rtcout.RTC_ERROR("Invalid object reference.")
+          return RTC.RTC_ERROR
+        OpenRTM_aist.CORBA_SeqUtil.erase_if(self._profile.participants,
+                                            self.find_participant(rtcomp))
         return RTC.RTC_OK
 
     return RTC.BAD_PARAMETER
@@ -954,6 +965,15 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     return self._profile
 
 
+  class find_participant:
+    def __init__(self, comp):
+      self._comp = comp
+      return
+
+    def __call__(self, comp):
+      return self._comp._is_equivalent(comp)
+
+      
   ##
   # @if jp
   # @class Comp
