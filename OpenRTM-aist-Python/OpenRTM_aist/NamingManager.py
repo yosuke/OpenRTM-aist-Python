@@ -400,12 +400,16 @@ class NamingManager:
     self._rtcout.RTC_TRACE("NamingManager::unbindAll(): %d names.", len(self._compNames))
 
     guard = OpenRTM_aist.ScopedLock(self._compNamesMutex)
-    for i in range(len(self._compNames)):
-      self.unbindObject(self._compNames[i].name)
+    len_ = len(self._compNames)
+    for i in range(len_):
+      idx = (len_ - 1) - i
+      self.unbindObject(self._compNames[idx].name)
 
+    len_ = len(self._mgrNames)
     guard = OpenRTM_aist.ScopedLock(self._mgrNamesMutex)
-    for i in range(len(self._mgrNames)):
-      self.unbindObject(self._mgrNames[i].name)
+    for i in range(len_):
+      idx = (len_ - 1) - i
+      self.unbindObject(self._mgrNames[idx].name)
 
 
   ##
