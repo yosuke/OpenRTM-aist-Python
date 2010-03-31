@@ -11,6 +11,14 @@
 @set TARGET_FULL=%TARGET%-%VERSION%
 
 @rem ------------------------------------------------------------
+@rem WixUI Customization Settings
+@rem   usually only %WIXUI_RTM% might be changed
+@rem ------------------------------------------------------------
+@set WIXUI_RTM=WixUI_Mondo_rtm
+@set WIXUI_RTM_WXS=%WIXUI_RTM%.wxs
+@set WIXUI_RTM_WIXOBJ=%WIXUI_RTM%.wixobj
+
+@rem ------------------------------------------------------------
 @rem default distribution package folder
 @rem ------------------------------------------------------------
 @set DISTRIBUTION=C:\distribution
@@ -49,7 +57,6 @@ for /F "tokens=1,2,3,4 delims=, " %%i in (langs.txt) do (
 @rem ============================================================
 @rem Make OpenRTM-aist-Python file list
 @rem ============================================================
-@rem call cleanup.cmd
 python omniORBpy24wxs.py
 python omniORBpy25wxs.py
 python omniORBpy26wxs.py
@@ -58,9 +65,9 @@ python OpenRTMpywxs.py
 @rem ============================================================
 @rem compile wxs file and link msi
 @rem ============================================================
-candle.exe %TARGET_WXS% -dlanguage=1033 -dcodepage=1252
-light.exe -ext WixUIExtension -ext WixUtilExtension -cultures:en-us ^
-     	       -out %TARGET_FULL%.msi %TARGET_WIXOBJ%
+candle.exe %TARGET_WXS% %WIXUI_RTM_WXS% -dlanguage=1033 -dcodepage=1252
+light.exe -ext WixUIExtension -loc WixUI_en-us.wxl ^
+      	       -out %TARGET_FULL%.msi %TARGET_WIXOBJ% %WIXUI_RTM_WIXOBJ%
 
 set IDS=1033
 setlocal ENABLEDELAYEDEXPANSION
@@ -75,15 +82,15 @@ for %%i in %LANGUAGES% do (
     @rem ------------------------------------------------------------
     @rem compile wxs file and link msi
     @rem
-    candle.exe %TARGET_WXS% -dlanguage=!LANG[%%i]! -dcodepage=!CODE[%%i]!
+    candle.exe %TARGET_WXS% %WIXUI_RTM_WXS% -dlanguage=!LANG[%%i]! -dcodepage=!CODE[%%i]!
 
     if exist WixUI_!LC[%%i]!.wxl (
        light.exe -ext WixUIExtension -ext WixUtilExtension -loc WixUI_!LC[%%i]!.wxl ^
-            -out %TARGET_FULL%_!LC[%%i]!.msi %TARGET_WIXOBJ%
+            -out %TARGET_FULL%_!LC[%%i]!.msi %TARGET_WIXOBJ% %WIXUI_RTM_WIXOBJ%
     )
     if not exist WixUI_!LC[%%i]!.wxl (
         light.exe -ext WixUIExtension -ext WixUtilExtension -cultures:!LC[%%i]! ^
-            -out %TARGET_FULL%_!LC[%%i]!.msi %TARGET_WIXOBJ%
+            -out %TARGET_FULL%_!LC[%%i]!.msi %TARGET_WIXOBJ% %WIXUI_RTM_WIXOBJ%
     )
     @rem ------------------------------------------------------------
     @rem creating transformation files

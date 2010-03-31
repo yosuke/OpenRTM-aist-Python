@@ -79,7 +79,10 @@
     </InstallExecuteSequence>
 
     <!-- メディア -->
-    <Media Id="1" Cabinet="OpenRTM.cab" EmbedCab="yes"/>
+    <Media Id="1" Cabinet="OpenRTMpython.cab" EmbedCab="yes"/>
+
+    <!-- 常にAll Users へ登録する場合は下記を有効にする -->
+    <!-- <Property Id="ALLUSERS" Value="1" /> -->
 
     <!-- インストール条件判定 -->
     <Condition Message="[ProductName] requires python 2.4, 2.5 or 2.6">
@@ -94,6 +97,32 @@
         <!-- omniORBpy components -->
         <?include omniORBpy24_inc.wxs ?>
         <!-- end of omniORBpy -->
+
+        <!-- rtcprof -->
+        <Component Id="Py24_RtmOpenrtm_aistUtilsRtcprof" 
+                   Guid="{% RtmOpenrtm_aist24UtilsRtcprof.GUID %}">
+          <RemoveFile Id='Py24_RtmOpenrtm_aistUtilsRtcprof' On='uninstall' Name='*.pyc' />
+          <RemoveFile Id='Py24_RtmOpenrtm_aistUtilsRtcprof_2' On='uninstall' Name='rtc*.log' />
+          {% for file in RtmOpenrtm_aist24UtilsRtcprof.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+          </File>
+          {% endfor %}
+        </Component>
+
+        <!-- rtcd -->
+        <Component Id="Py24_RtmOpenrtm_aistUtilsRtcd" 
+                   Guid="{% RtmOpenrtm_aist24UtilsRtcd.GUID %}">
+          {% for file in RtmOpenrtm_aist24UtilsRtcd.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+            <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+                      Name="Start RTC daemon"
+                      Arguments=' -d -f "[Version]Python\examples\rtcd.conf"'
+                      Show="normal" WorkingDirectory="bin"/>
+          </File>
+          {% endfor %}
+        </Component>
 
         <!-- Lib -->
         <Directory Id="py24Lib" Name="Lib">
@@ -126,10 +155,10 @@
               <!-- rtc-template -->
               <Directory Id="Py24_rtc_template" Name="rtc-template">
                 <Component Id="Py24_RtmOpenrtm_aistRtctemplate" 
-                           Guid="{% RtmOpenrtm_aist24Rtctemplate.GUID %}">
+                           Guid="{% RtmOpenrtm_aist24UtilsRtctemplate.GUID %}">
                   <RemoveFile Id='Py24_RtmOpenrtm_aistRtctemplate' On='uninstall' Name='*.pyc' />
                   <RemoveFolder Id='Py24_RtmOpenrtm_aistRtctemplate_f' On='uninstall' />
-                  {% for file in RtmOpenrtm_aist24Rtctemplate.Files %}
+                  {% for file in RtmOpenrtm_aist24UtilsRtctemplate.Files %}
                   <File Id="{% file.Id %}" Name="{% file.Name %}"
                         DiskId="1" Source="{% file.Source %}">
                   </File>
@@ -149,6 +178,20 @@
                   </File>
                   {% endfor %}
                 </Component>
+
+                <!-- device_interfaces -->
+                <Directory Id="Py24_device_interfaces" Name="device_interfaces">
+                  <Component Id="Py24_RtmOpenrtm_aistRtm_idlDevice_interfaces" 
+                             Guid="{% RtmOpenrtm_aist24Rtm_idlDevice_interfaces.GUID %}">
+                    <RemoveFile Id='Py24_RtmOpenrtm_aistRtm_idlDevice_interfaces' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='Py24_RtmOpenrtm_aistRtm_idlDevice_interfaces_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aist24Rtm_idlDevice_interfaces.Files %}
+                    <File Id="{% file.Id %}" Name="{% file.Name %}"
+                          DiskId="1" Source="{% file.Source %}">
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
               </Directory>
 
             <!-- end of OpenRTM_aist -->
@@ -167,6 +210,32 @@
         <!-- omniORBpy components -->
         <?include omniORBpy25_inc.wxs ?>
         <!-- end of omniORBpy -->
+
+        <!-- rtcprof -->
+        <Component Id="Py25_RtmOpenrtm_aistUtilsRtcprof" 
+                   Guid="{% RtmOpenrtm_aist25UtilsRtcprof.GUID %}">
+          <RemoveFile Id='Py25_RtmOpenrtm_aistUtilsRtcprof' On='uninstall' Name='*.pyc' />
+          <RemoveFile Id='Py25_RtmOpenrtm_aistUtilsRtcprof_2' On='uninstall' Name='rtc*.log' />
+          {% for file in RtmOpenrtm_aist25UtilsRtcprof.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+          </File>
+          {% endfor %}
+        </Component>
+
+        <!-- rtcd -->
+        <Component Id="Py25_RtmOpenrtm_aistUtilsRtcd" 
+                   Guid="{% RtmOpenrtm_aist25UtilsRtcd.GUID %}">
+          {% for file in RtmOpenrtm_aist25UtilsRtcd.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+            <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+                      Name="Start RTC daemon"
+                      Arguments=' -d -f "[Version]Python\examples\rtcd.conf"'
+                      Show="normal" WorkingDirectory="bin"/>
+          </File>
+          {% endfor %}
+        </Component>
 
         <!-- Lib -->
         <Directory Id="py25Lib" Name="Lib">
@@ -199,10 +268,10 @@
               <!-- rtc-template -->
               <Directory Id="Py25_rtc_template" Name="rtc-template">
                 <Component Id="Py25_RtmOpenrtm_aistRtctemplate" 
-                           Guid="{% RtmOpenrtm_aist25Rtctemplate.GUID %}">
+                           Guid="{% RtmOpenrtm_aist25UtilsRtctemplate.GUID %}">
                   <RemoveFile Id='Py25_RtmOpenrtm_aistRtctemplate' On='uninstall' Name='*.pyc' />
                   <RemoveFolder Id='Py25_RtmOpenrtm_aistRtctemplate_f' On='uninstall' />
-                  {% for file in RtmOpenrtm_aist25Rtctemplate.Files %}
+                  {% for file in RtmOpenrtm_aist25UtilsRtctemplate.Files %}
                   <File Id="{% file.Id %}" Name="{% file.Name %}"
                         DiskId="1" Source="{% file.Source %}">
                   </File>
@@ -222,6 +291,20 @@
                   </File>
                   {% endfor %}
                 </Component>
+
+                <!-- device_interfaces -->
+                <Directory Id="Py25_device_interfaces" Name="device_interfaces">
+                  <Component Id="Py25_RtmOpenrtm_aistRtm_idlDevice_interfaces" 
+                             Guid="{% RtmOpenrtm_aist25Rtm_idlDevice_interfaces.GUID %}">
+                    <RemoveFile Id='Py25_RtmOpenrtm_aistRtm_idlDevice_interfaces' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='Py25_RtmOpenrtm_aistRtm_idlDevice_interfaces_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aist25Rtm_idlDevice_interfaces.Files %}
+                    <File Id="{% file.Id %}" Name="{% file.Name %}"
+                          DiskId="1" Source="{% file.Source %}">
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
               </Directory>
 
             <!-- end of OpenRTM_aist -->
@@ -240,6 +323,32 @@
         <!-- omniORBpy components -->
         <?include omniORBpy26_inc.wxs ?>
         <!-- end of omniORBpy -->
+
+        <!-- rtcprof -->
+        <Component Id="Py26_RtmOpenrtm_aistUtilsRtcprof" 
+                   Guid="{% RtmOpenrtm_aist26UtilsRtcprof.GUID %}">
+          <RemoveFile Id='Py26_RtmOpenrtm_aistUtilsRtcprof' On='uninstall' Name='*.pyc' />
+          <RemoveFile Id='Py26_RtmOpenrtm_aistUtilsRtcprof_2' On='uninstall' Name='rtc*.log' />
+          {% for file in RtmOpenrtm_aist26UtilsRtcprof.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+          </File>
+          {% endfor %}
+        </Component>
+
+        <!-- rtcd -->
+        <Component Id="Py26_RtmOpenrtm_aistUtilsRtcd" 
+                   Guid="{% RtmOpenrtm_aist26UtilsRtcd.GUID %}">
+          {% for file in RtmOpenrtm_aist26UtilsRtcd.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+            <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+                      Name="Start RTC daemon"
+                      Arguments=' -d -f "[Version]Python\examples\rtcd.conf"'
+                      Show="normal" WorkingDirectory="bin"/>
+          </File>
+          {% endfor %}
+        </Component>
 
         <!-- Lib -->
         <Directory Id="py26Lib" Name="Lib">
@@ -272,10 +381,10 @@
               <!-- rtc-template -->
               <Directory Id="Py26_rtc_template" Name="rtc-template">
                 <Component Id="Py26_RtmOpenrtm_aistRtctemplate" 
-                           Guid="{% RtmOpenrtm_aist26Rtctemplate.GUID %}">
+                           Guid="{% RtmOpenrtm_aist26UtilsRtctemplate.GUID %}">
                   <RemoveFile Id='Py26_RtmOpenrtm_aistRtctemplate' On='uninstall' Name='*.pyc' />
                   <RemoveFolder Id='Py26_RtmOpenrtm_aistRtctemplate_f' On='uninstall' />
-                  {% for file in RtmOpenrtm_aist26Rtctemplate.Files %}
+                  {% for file in RtmOpenrtm_aist26UtilsRtctemplate.Files %}
                   <File Id="{% file.Id %}" Name="{% file.Name %}"
                         DiskId="1" Source="{% file.Source %}">
                   </File>
@@ -295,6 +404,20 @@
                   </File>
                   {% endfor %}
                 </Component>
+
+                <!-- device_interfaces -->
+                <Directory Id="Py26_device_interfaces" Name="device_interfaces">
+                  <Component Id="Py26_RtmOpenrtm_aistRtm_idlDevice_interfaces" 
+                             Guid="{% RtmOpenrtm_aist26Rtm_idlDevice_interfaces.GUID %}">
+                    <RemoveFile Id='Py26_RtmOpenrtm_aistRtm_idlDevice_interfaces' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='Py26_RtmOpenrtm_aistRtm_idlDevice_interfaces_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aist26Rtm_idlDevice_interfaces.Files %}
+                    <File Id="{% file.Id %}" Name="{% file.Name %}"
+                          DiskId="1" Source="{% file.Source %}">
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
               </Directory>
 
             <!-- end of OpenRTM_aist -->
@@ -315,20 +438,15 @@
 
             <!-- bin -->
             <Directory Id="bin" Name="bin">
-              <Component Id="Rtm_Bin" Guid="{% RtmBin.GUID %}">
-                <Environment Id='RTM_ROOT' Name='RTM_ROOT' Action='set'
-                             System='yes' Part='all' Value='[Version]' />
-                <Environment Id='UpdatePath' Name='PATH' Action='set'
-                             System='yes' Part='last'
-                             Value='[bin]' />
+              <Component Id="Rtm_Bin" Guid="{% RtmOpenrtm_aistUtilsRtmnaming.GUID %}">
                 <RemoveFile Id='Rtm_Bin' On='uninstall' Name='*.pyc' />
                 <RemoveFolder Id='Rtm_Bin_f' On='uninstall' />
-                {% for file in RtmBin.Files %}
+                {% for file in RtmOpenrtm_aistUtilsRtmnaming.Files %}
                 <File Id="{% file.Id %}"
                       Name="{% file.Name %}" DiskId="1"
                       Source="{% file.Source %}">
                   {% if file.Name is rtm-naming.py %}
-                  <Shortcut Id="rtmnaming.py" Directory="ExpMenuFolder"
+                  <Shortcut Id="rtmnaming.py" Directory="ToolsMenuFolder"
                             Name="Start Naming Service"
                             Show="normal" WorkingDirectory="bin"/>
                   {% endif %}
@@ -388,6 +506,16 @@
 
               <!-- Python -->
               <Directory Id="Pythonexamples" Name="Python">
+
+                <Component Id="RtmOpenrtm_aistExamples" 
+                           Guid="{% RtmOpenrtm_aistExamples.GUID %}">
+                  {% for file in RtmOpenrtm_aistExamples.Files %}
+                  <File Id="{% file.Id %}"
+                        Name="{% file.Name %}" DiskId="1"
+                        Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
 
                 <!-- AutoControl -->
                 <Directory Id="AutoControl" Name="AutoControl">
@@ -592,36 +720,6 @@
                     </File>
                     {% endfor %}
                   </Component>
-
-                  <!-- _GlobalIDL -->
-                  <Directory Id="_GlobalIDL" Name="_GlobalIDL">
-                    <Component Id="RtmOpenrtm_aistExamplesSimpleservice_globalidl" 
-                             Guid="{% RtmOpenrtm_aistExamplesSimpleservice_globalidl.GUID %}">
-                      <RemoveFile Id='RtmOpenrtm_aistExamplesSimpleservice_globalidl' On='uninstall' Name='*.pyc' />
-                      <RemoveFolder Id='RtmOpenrtm_aistExamplesSimpleservice_globalidl_f' On='uninstall' />
-                      {% for file in RtmOpenrtm_aistExamplesSimpleservice_globalidl.Files %}
-                      <File Id="{% file.Id %}"
-                            Name="{% file.Name %}" DiskId="1"
-                            Source="{% file.Source %}">
-                      </File>
-                      {% endfor %}
-                    </Component>
-                  </Directory>
-
-                  <!-- _GlobalIDL__POA -->
-                  <Directory Id="_GlobalIDL__POA" Name="_GlobalIDL__POA">
-                    <Component Id="RtmOpenrtm_aistExamplesSimpleservice_globalidl__poa" 
-                             Guid="{% RtmOpenrtm_aistExamplesSimpleservice_globalidl__poa.GUID %}">
-                      <RemoveFile Id='RtmOpenrtm_aistExamplesSimpleservice_globalidl__poa' On='uninstall' Name='*.pyc' />
-                      <RemoveFolder Id='RtmOpenrtm_aistExamplesSimpleservice_globalidl__poa_f' On='uninstall' />
-                      {% for file in RtmOpenrtm_aistExamplesSimpleservice_globalidl__poa.Files %}
-                      <File Id="{% file.Id %}"
-                            Name="{% file.Name %}" DiskId="1"
-                            Source="{% file.Source %}">
-                      </File>
-                      {% endfor %}
-                    </Component>
-                  </Directory>
                 </Directory>
 
                 <!-- Slider_and_Motor -->
@@ -694,6 +792,21 @@
                   </Component>
                 </Directory>
 
+                <!-- Templates -->
+                <Directory Id="Templates" Name="Templates">
+                  <Component Id="RtmOpenrtm_aistExamplesTemplates" 
+                             Guid="{% RtmOpenrtm_aistExamplesTemplates.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesTemplates' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesTemplates_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesTemplates.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
               <!-- end of Python -->
               </Directory>
 
@@ -710,7 +823,11 @@
       <Directory Id="ProgramMenuFolder">
         <Directory Id="AppMenuFolder" Name="OpenRTM-aist">
           <Directory Id="PythonMenuFolder" Name="Python">
-            <Directory Id="ExpMenuFolder" Name="examples">
+            <Directory Id="ToolsMenuFolder" Name="tools">
+            </Directory>
+            <Directory Id="Components" Name="components">
+              <Directory Id="ExpMenuFolder" Name="examples">
+              </Directory>
             </Directory>
             <Directory Id="DocMenuFolder" Name="documents">
             </Directory>
@@ -833,10 +950,13 @@
 
       <!-- OpenRTM_aist -->
       <Feature Id="Py24_OpenRTM_aist" Level="1" Title="OpenRTM-aist Python">
+        <ComponentRef Id="Py24_RtmOpenrtm_aistUtilsRtcprof"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistUtilsRtcd"/>
         <ComponentRef Id="Py24_RtmOpenrtm_aistRoot"/>
         <ComponentRef Id="Py24_RtmOpenrtm_aist"/>
         <ComponentRef Id="Py24_RtmOpenrtm_aistRtctemplate"/>
         <ComponentRef Id="Py24_RtmOpenrtm_aistRtm_idl"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistRtm_idlDevice_interfaces"/>
       </Feature>
     </Feature>
 
@@ -952,10 +1072,13 @@
 
       <!-- OpenRTM_aist -->
       <Feature Id="Py25_OpenRTM_aist" Level="1" Title="OpenRTM-aist Python">
+        <ComponentRef Id="Py25_RtmOpenrtm_aistUtilsRtcprof"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistUtilsRtcd"/>
         <ComponentRef Id="Py25_RtmOpenrtm_aistRoot"/>
         <ComponentRef Id="Py25_RtmOpenrtm_aist"/>
         <ComponentRef Id="Py25_RtmOpenrtm_aistRtctemplate"/>
         <ComponentRef Id="Py25_RtmOpenrtm_aistRtm_idl"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistRtm_idlDevice_interfaces"/>
       </Feature>
     </Feature>
 
@@ -1071,10 +1194,13 @@
 
       <!-- OpenRTM_aist -->
       <Feature Id="Py26_OpenRTM_aist" Level="1" Title="OpenRTM-aist Python">
+        <ComponentRef Id="Py26_RtmOpenrtm_aistUtilsRtcprof"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistUtilsRtcd"/>
         <ComponentRef Id="Py26_RtmOpenrtm_aistRoot"/>
         <ComponentRef Id="Py26_RtmOpenrtm_aist"/>
         <ComponentRef Id="Py26_RtmOpenrtm_aistRtctemplate"/>
         <ComponentRef Id="Py26_RtmOpenrtm_aistRtm_idl"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistRtm_idlDevice_interfaces"/>
       </Feature>
     </Feature>
 
@@ -1095,6 +1221,7 @@
 
       <!-- examples -->
       <Feature Id="Rtm_Examples" Level="1" Title="Examples">
+        <ComponentRef Id="RtmOpenrtm_aistExamples"/>
         <ComponentRef Id="RtmOpenrtm_aistExamplesAutocontrol"/>
         <ComponentRef Id="RtmOpenrtm_aistExamplesComposite"/>
         <ComponentRef Id="RtmOpenrtm_aistExamplesConfigsample"/>
@@ -1104,11 +1231,10 @@
         <ComponentRef Id="RtmOpenrtm_aistExamplesSeqio"/>
         <ComponentRef Id="RtmOpenrtm_aistExamplesSimpleio"/>
         <ComponentRef Id="RtmOpenrtm_aistExamplesSimpleservice"/>
-        <ComponentRef Id="RtmOpenrtm_aistExamplesSimpleservice_globalidl"/>
-        <ComponentRef Id="RtmOpenrtm_aistExamplesSimpleservice_globalidl__poa"/>
         <ComponentRef Id="RtmOpenrtm_aistExamplesSlider_and_motor"/>
         <ComponentRef Id="RtmOpenrtm_aistExamplesTkjoystick"/>
         <ComponentRef Id="RtmOpenrtm_aistExamplesTklrfviewer"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesTemplates"/>
       </Feature>
 
     </Feature>
@@ -1117,19 +1243,21 @@
     <WixVariable Id="WixUIBannerBmp" Value="Bitmaps/bannrbmp.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="Bitmaps/dlgbmp.bmp" />
 
-    <UIRef Id="WixUI_Mondo" />
+    <!-- <UIRef Id="WixUI_Mondo" /> -->
+    <!-- WixUI_Mondo にインストールの種類を選択するダイアログを追加したもの -->
+    <UIRef Id="WixUI_Mondo_RTM" />
+
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
-    <!--UIRef Id="WixUI_InstallDir" /-->
 
     <!-- インストール完了時のIDLコンパイル実行 -->
     <CustomAction Id='IDLCOMPILE_PY24' Directory="PYTHON24DIR"
-                  ExeCommand='[SourceDir]idlcompile.bat [SourceDir]idlcompile.py 2.4' 
+                  ExeCommand='[SourceDir]idlcompile.bat [SourceDir]idlcompile.py 2.4 "[Version]examples\Python"' 
                   Return='asyncNoWait' />
     <CustomAction Id='IDLCOMPILE_PY25' Directory="PYTHON25DIR"
-                  ExeCommand='[SourceDir]idlcompile.bat [SourceDir]idlcompile.py 2.5' 
+                  ExeCommand='[SourceDir]idlcompile.bat [SourceDir]idlcompile.py 2.5 "[Version]examples\Python"' 
                   Return='asyncNoWait' />
     <CustomAction Id='IDLCOMPILE_PY26' Directory="PYTHON26DIR"
-                  ExeCommand='[SourceDir]idlcompile.bat [SourceDir]idlcompile.py 2.6' 
+                  ExeCommand='[SourceDir]idlcompile.bat [SourceDir]idlcompile.py 2.6 "[Version]examples\Python"' 
                   Return='asyncNoWait' />
 
     <!-- アンインストール時のフォルダー削除(IDLコンパイル分) -->

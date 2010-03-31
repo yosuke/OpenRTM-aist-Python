@@ -35,18 +35,48 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 　　C:\distribution
 　　　　│
 　　　　├─ OpenRTM-aist-Python-1.0.0
+　　　　│　　├─ doc　　※doxygen
+　　　　│　　│　　├─ ClassReference-jp
+　　　　│　　│　　└─ ClassReference-en
+　　　　│　　│
+　　　　│　　└─ OpenRTM_aist　　※sdist
+　　　　│　　　　　├─ *.py(ソースファイル)
+　　　　│　　　　　├─ examples
+　　　　│　　　　　├─ RTM_IDL
+　　　　│　　　　　└─ utils
+　　　　│　　　　　　　　├─ rtcd
+　　　　│　　　　　　　　├─ rtcprof
+　　　　│　　　　　　　　├─ rtc-template
+　　　　│　　　　　　　　└─ rtm-naming
+　　　　│
 　　　　│
 　　　　├─ omniORBpy-3.4-Python2.4
+　　　　│　　├─ bin
+　　　　│　　│　　└─ x86_win32
+　　　　│　　└─ lib
+　　　　│　　　　　├─ Python
+　　　　│　　　　　└─ x86_win32
+　　　　│
 　　　　│
 　　　　├─ omniORBpy-3.4-Python2.5
+　　　　│　　├─ bin
+　　　　│　　│　　└─ x86_win32
+　　　　│　　└─ lib
+　　　　│　　　　　├─ Python
+　　　　│　　　　　└─ x86_win32
+　　　　│
 　　　　│
 　　　　└─ omniORBpy-3.4-Python2.6
-
+　　　　　　　├─ bin
+　　　　　　　│　　└─ x86_win32
+　　　　　　　└─ lib
+　　　　　　　　　　├─ Python
+　　　　　　　　　　└─ x86_win32
 
 　　(1) OpenRTM-aist-Python-1.0.0 は、
 　　　　Python版OpenRTM-aistのインストール対象ファイルであり、
-　　　　make dist により作成されたファイルと、
-　　　　doxygenにより作成されたリファレンスファイルを含む。
+　　　　doxygenにより作成されたリファレンスファイル(※doxygen)と、
+　　　　python setup.py sdist により作成されたファイル(※sdist)を含む。
 
 　　(2) omniORBpy-3.4-Python2.4 は、
 　　　　Python2.4用omniORBpy-3.4である。
@@ -72,8 +102,6 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 　　　　├─ License.rtf　　　　　ライセンス　※1
 　　　　├─ WiLangId.vbs 　　　　ユーティリティ　※1
 　　　　├─ WiSubStg.vbs 　　　　ユーティリティ　※1
-　　　　├─ WixUI_ja-jp.wxl　　　日本語メッセージローカライズ　※1
-　　　　├─ WixUI_ko-kr.wxl　　　韓国語メッセージローカライズ　※1
 　　　　├─ langs.txt　　　　　　ランゲージ一覧　※1
 　　　　├─ makewxs.py 　　　　　wxsdファイルジェネレータ　※1
 　　　　├─ uuid.py　　　　　　　UUIDジェネレータ　※1
@@ -94,15 +122,22 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 　　　　├─ omniORBpy26wxs.py　　Python2.6用wxsファイルジェネレータ
 　　　　│
 　　　　├─ idlcompile.bat　　　IDLコンパイル起動バッチ
-　　　　└─ idlcompile.py 　　　IDLコンパイルスクリプト
+　　　　├─ idlcompile.py 　　　IDLコンパイルスクリプト
+　　　　│
+　　　　└─ WixUI_**-**.wxl　　　各国語メッセージローカライズ　※2
 
 　　　※1は、C++版よりコピーしたもの。
 
+　　　※2は、WixUI_Mondo_RTM.wxs 用に、インストールの種類を選択する画面で
+　　　　表示するメッセージを、オリジナルのローカライズファイルを元に、
+　　　　InstallScopeDlgDescription のメッセージを
+　　　　SetupTypeDlgDescription よりコピーしています。
+
 　　[ビルド後に使用するファイル]
 　　　　│
-　　　　├─ OpenRTM-aist-Python-1.0.0.msi　日本語のインストーラー
+　　　　├─ OpenRTM-aist-Python-1.0.0.msi　英語のインストーラー
 　　　　│
-　　　　└─ OpenRTM-aist-Python-1.0.0_**-**.msi　言語毎のインストーラー
+　　　　└─ OpenRTM-aist-Python-1.0.0_**-**.msi　各国語毎のインストーラー
 
 　　　※build.cmd を実行すると、複数のテンポラリファイルとmsiファイルが
 　　　　作成されます。
@@ -127,6 +162,7 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 
 　(3) インストール完了時、IDLコンパイル起動バッチを実行し、
 　　　Pythonインストールパス\Lib\site-packages\OpenRTM_aist\RTM_IDL の
+　　　IDLファイル、Program Files フォルダ examples/SimpleService の
 　　　IDLファイルをコンパイルします。
 
 　(4) スタートボタンのプログラムメニューで
