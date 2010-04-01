@@ -18,7 +18,7 @@
 
 import OpenRTM_aist
 
-TIMEVALUE_ONE_SECOND_IN_USECS = 1000000.0 # 1 [sec] = 1000000 [usec]
+TIMEVALUE_ONE_SECOND_IN_USECS = 1000000 # 1 [sec] = 1000000 [usec]
 
 ##
 # @if jp
@@ -55,16 +55,32 @@ class TimeValue:
   #
   # @endif
   def __init__(self, sec=None, usec=None):
+    global TIMEVALUE_ONE_SECOND_IN_USECS
+
+    # TimeValue(double timeval)
+    if sec and usec is None:
+      if sec >= 0.0:
+        dbHalfAdj_ = 0.5
+      else:
+        dbHalfAdj_ = -0.5
+        
+      self.tv_sec = long(sec)
+      self.tv_usec = long((sec - float(self.tv_sec)) *
+                          float(TIMEVALUE_ONE_SECOND_IN_USECS) + dbHalfAdj_)
+      self.normalize()
+      return
+
     if sec is None:
-      self.tv_sec = 0
+      self.tv_sec = long(0)
     else:
-      self.tv_sec = float(sec)
+      self.tv_sec = long(sec)
 
     if usec is None:
-      self.tv_usec = 0
+      self.tv_usec = long(0)
     else:
-      self.tv_usec = float(usec)
+      self.tv_usec = long(usec)
     self.normalize()
+    return
 
 
   ##
@@ -88,19 +104,25 @@ class TimeValue:
       res = TimeValue()
     except:
       res = OpenRTM_aist.TimeValue()
-    
+
     if self.tv_sec >= tm.tv_sec:
+      # +
       if self.tv_usec >= tm.tv_usec:
+        # 繰り下がり無し
         res.tv_sec  = self.tv_sec  - tm.tv_sec
         res.tv_usec = self.tv_usec - tm.tv_usec
       else:
+        # self.tv_usec < tm.tv_usec 繰り下がり有り
         res.tv_sec  = self.tv_sec  - tm.tv_sec - 1
         res.tv_usec = (self.tv_usec + TIMEVALUE_ONE_SECOND_IN_USECS) - tm.tv_usec
     else:
+      # self.tv_sec < tm.tv_sec # -
       if tm.tv_usec >= self.tv_usec:
+        # 繰り下がり無し
         res.tv_sec  = -(tm.tv_sec  - self.tv_sec)
         res.tv_usec = -(tm.tv_usec - self.tv_usec)
       else:
+        # tm.tv_usec < self.tv_usec 繰り下がり有り
         res.tv_sec  = -(tm.tv_sec - self.tv_sec - 1)
         res.tv_usec = -(tm.tv_usec + TIMEVALUE_ONE_SECOND_IN_USECS) + self.tv_usec
 
@@ -124,6 +146,7 @@ class TimeValue:
   #
   # @endif
   def __add__(self, tm):
+    global TIMEVALUE_ONE_SECOND_IN_USECS
     res = TimeValue()
     res.tv_sec  = self.tv_sec  + tm.tv_sec
     res.tv_usec = self.tv_usec + tm.tv_usec
@@ -162,7 +185,7 @@ class TimeValue:
     global TIMEVALUE_ONE_SECOND_IN_USECS
 
     self.tv_sec  = long(time)
-    self.tv_usec = long((time - float(self.tv_sec))*TIMEVALUE_ONE_SECOND_IN_USECS)
+    self.tv_usec = long((time - float(self.tv_sec)) * float(TIMEVALUE_ONE_SECOND_IN_USECS))
     return self
 
   ##
@@ -180,7 +203,7 @@ class TimeValue:
   # @endif
   def toDouble(self):
     global TIMEVALUE_ONE_SECOND_IN_USECS
-    return float(self.tv_sec) + float(self.tv_usec/TIMEVALUE_ONE_SECOND_IN_USECS)
+    return float(self.tv_sec) + float(self.tv_usec / float(TIMEVALUE_ONE_SECOND_IN_USECS))
 
 
   ##
@@ -198,7 +221,7 @@ class TimeValue:
   # @endif
   def __str__(self):
     global TIMEVALUE_ONE_SECOND_IN_USECS
-    return str(self.tv_sec + self.tv_usec/TIMEVALUE_ONE_SECOND_IN_USECS)
+    return str(self.tv_sec + self.tv_usec / float(TIMEVALUE_ONE_SECOND_IN_USECS))
 
   ##
   # @if jp

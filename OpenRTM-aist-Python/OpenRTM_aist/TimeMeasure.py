@@ -66,9 +66,9 @@ class Time:
     def __init__(self):
         global usec_per_sec
         tm = time.time()
-        tm_f       = tm - int(tm)     # 小数部の取り出し
-        self.sec   = int(tm - tm_f)   # 整数部の取り出し
-        self.usec  = int(tm_f * usec_per_sec) # sec -> usec (micro second)
+        tm_f       = float(tm - long(tm))     # 小数部の取り出し
+        self.sec   = long(tm - tm_f)   # 整数部の取り出し
+        self.usec  = long(float(tm_f) * float(usec_per_sec)) # sec -> usec (micro second)
         self._timevalue = OpenRTM_aist.TimeValue(self.sec,self.usec)
 
 
@@ -112,9 +112,9 @@ class Time:
     def gettimeofday(self):
         global usec_per_sec
         tm = time.time()
-        tm_f       = tm - int(tm)     # 小数部の取り出し
-        self.sec   = int(tm - tm_f)   # 整数部の取り出し
-        self.usec  = int(tm_f * usec_per_sec) # sec -> usec (micro second)
+        tm_f       = float(tm - long(tm))     # 小数部の取り出し
+        self.sec   = long(float(tm) - float(tm_f))   # 整数部の取り出し
+        self.usec  = long(float(tm_f) * float(usec_per_sec)) # sec -> usec (micro second)
         return OpenRTM_aist.TimeValue(self.sec, self.usec)
 
 ##
@@ -132,8 +132,8 @@ class TimeMeasure:
     # Constructor
     #
     def __init__(self, buflen=100):
-        self._countMax = buflen+1
-        self._record = [ OpenRTM_aist.TimeValue(0,0) for i in range(self._countMax) ]
+        self._countMax = buflen + 1
+        self._record = [OpenRTM_aist.TimeValue(0, 0) for i in range(self._countMax)]
         self._begin  = Time().gettimeofday()
         self._end  = Time().gettimeofday()
         self._count = 0
@@ -196,8 +196,8 @@ class TimeMeasure:
     # Get total statistics
     # max_interval, min_interval, mean_interval [ns]
     #
-    def getStatistics(self, max_interval=None,min_interval=None,
-                      mean_interval=None,stddev=None):
+    def getStatistics(self, max_interval=None, min_interval=None,
+                      mean_interval=None, stddev=None):
         global ULLONG_MAX
 
         if not max_interval and not min_interval and not mean_interval and not stddev:
@@ -206,34 +206,32 @@ class TimeMeasure:
             mean_i = [0.0]
             stdd   = [0.0]
             
-            self.getStatistics(max_i, min_i, mean_i, stdd)
-            s = self.Statistics(max_i[0],min_i[0],mean_i[0],stdd[0])
-            return s
+            return self.getStatistics(max_i, min_i, mean_i, stdd)
 
-        max_interval[0] = 0
+        max_interval[0] = 0.0
         min_interval[0] = ULLONG_MAX
 
-        _sum = 0
-        _sq_sum = 0
-        _len = self.count()
+        sum_ = 0.0
+        sq_sum_ = 0.0
+        len_ = self.count()
         
-        if _len == 0:
+        if len_ == 0:
             return False
 
-        for i in range(_len):
-            _trecord = self._record[i].toDouble()
-            _sum += _trecord
-            _sq_sum += (_trecord * _trecord)
+        for i in range(len_):
+            trecord_ = self._record[i].toDouble()
+            sum_ += trecord_
+            sq_sum_ += (trecord_ * trecord_)
 
-            if _trecord > max_interval[0]:
-                max_interval[0] = _trecord
+            if trecord_ > max_interval[0]:
+                max_interval[0] = trecord_
             
-            if _trecord < min_interval[0]:
-                min_interval[0] = _trecord
+            if trecord_ < min_interval[0]:
+                min_interval[0] = trecord_
             
                 
-        mean_interval[0] = _sum / _len
-        stddev[0] = math.sqrt(_sq_sum / _len - (mean_interval[0]*mean_interval[0]))
+        mean_interval[0] = sum_ / len_
+        stddev[0] = math.sqrt(sq_sum_ / len_ - (mean_interval[0] * mean_interval[0]))
 
         return True
         
