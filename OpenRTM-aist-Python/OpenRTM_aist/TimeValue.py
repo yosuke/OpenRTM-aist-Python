@@ -57,6 +57,11 @@ class TimeValue:
   def __init__(self, sec=None, usec=None):
     global TIMEVALUE_ONE_SECOND_IN_USECS
 
+    if type(sec) == str:
+      sec = float(sec)
+    if type(usec) == str:
+      usec = float(usec)
+
     # TimeValue(double timeval)
     if sec and usec is None:
       if sec >= 0.0:
