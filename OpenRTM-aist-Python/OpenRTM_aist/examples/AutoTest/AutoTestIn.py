@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: euc-jp -*-
 
-"""
- \file AutoTestIn.py
- \brief ModuleDescription
- \date $Date$
+##
+# @file AutoTestIn.py
+# @brief ModuleDescription
+# @date $Date$
+#
 
-
-"""
 import sys
 import string
 import time
@@ -61,7 +60,8 @@ class MyServiceSVC_impl(AutoTest__POA.MyService):
     OpenRTM_aist.CORBA_SeqUtil.push_back(self._echoList, msg)
     self.__echo_msg = msg
     if self._isNew:
-      print "echo's message was overwritten !!!"
+      #print "echo's message was overwritten !!!"
+      pass
     self._isNew = True
     return msg
 
