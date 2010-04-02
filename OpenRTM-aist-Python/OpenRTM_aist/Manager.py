@@ -1847,8 +1847,9 @@ class Manager:
       conf = id_and_conf[1].split("&")
       for i in range(len(conf)):
         keyval = conf[i].split("=")
-        comp_conf.setProperty(keyval[0],keyval[1])
-        self._rtcout.RTC_TRACE("RTC property %s: %s", (keyval[0], keyval[1]))
+        if len(keyval) > 1:
+          comp_conf.setProperty(keyval[0],keyval[1])
+          self._rtcout.RTC_TRACE("RTC property %s: %s", (keyval[0], keyval[1]))
 
     return True
 

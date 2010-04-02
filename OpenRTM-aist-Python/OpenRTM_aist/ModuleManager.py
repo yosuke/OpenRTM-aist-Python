@@ -443,6 +443,7 @@ class ModuleManager:
     fullname  = fname
     # directory name
     dirname   = os.path.dirname(fname)
+    sys.path.append(dirname)
     # basename
     basename  = os.path.basename(fname)
     # classname
@@ -455,7 +456,11 @@ class ModuleManager:
 
     # for new
     comp_spec_name = classname+"_spec"
-    imp_file = __import__(basename.split(".")[0])
+
+    try:
+      imp_file = __import__(basename.split(".")[0])
+    except:
+      return OpenRTM_aist.Properties()
     comp_spec = getattr(imp_file,comp_spec_name,None)
     if not comp_spec:
       return OpenRTM_aist.Properties()
