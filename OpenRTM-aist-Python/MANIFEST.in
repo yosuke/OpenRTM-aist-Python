@@ -2,4 +2,9 @@ include OpenRTM-aist.pth
 include MANIFEST.in
 include README
 recursive-include OpenRTM_aist *.py *.pth *.conf *.sample README *.idl
-recursive-include OpenRTM_aist/RTM_IDL *.pth *.py *.idl
+recursive-include OpenRTM_aist/RTM_IDL *.py *.idl
+recursive-include OpenRTM_aist/utils *.py *.idl *.conf
+include OpenRTM_aist/utils/rtcd/rtcd_python
+include OpenRTM_aist/utils/rtcd/rtcd_python.bat
+include OpenRTM_aist/utils/rtcprof/rtcprof_python
+include OpenRTM_aist/utils/rtcprof/rtcprof_python.bat

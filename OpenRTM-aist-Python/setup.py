@@ -153,6 +153,7 @@ unix_packages = ["OpenRTM_aist",
                  "OpenRTM_aist.RTM_IDL.SDOPackage",
                  "OpenRTM_aist.RTM_IDL.SDOPackage__POA",
                  "OpenRTM_aist.RTM_IDL.device_interfaces",
+                 "OpenRTM_aist.utils",
                  "OpenRTM_aist.utils.rtcd",
                  "OpenRTM_aist.utils.rtcprof",
                  "OpenRTM_aist.utils.rtc-template",
@@ -183,6 +184,7 @@ win32_packages = ["OpenRTM_aist",
                   "OpenRTM_aist.examples.Templates",
                   "OpenRTM_aist.examples.TkJoyStick",
                   "OpenRTM_aist.examples.TkLRFViewer",
+                  "OpenRTM_aist.utils",
                   "OpenRTM_aist.utils.rtcd",
                   "OpenRTM_aist.utils.rtcprof",
                   "OpenRTM_aist.utils.rtc-template",
@@ -198,8 +200,15 @@ device_if_idl_files= glob.glob(os.path.join('OpenRTM_aist',
                                             'RTM_IDL',
                                             'device_interfaces',
                                             '*.idl'))
+
+unix_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'utils', 'rtcd'),
+                        ['OpenRTM_aist/utils/rtcd/rtcd.conf']))
+unix_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'utils', 'rtcd'),
+                        ['OpenRTM_aist/utils/rtcd/rtc.conf']))
+
 for idl in idl_files:
-  unix_data_files.append((os.path.join(sitedir, 'OpenRTM_aist', 'RTM_IDL'), [idl]))
+  unix_data_files.append((os.path.join(sitedir, 'OpenRTM_aist', 'RTM_IDL'),
+                          [idl]))
 
 for device_idl in device_if_idl_files:
   unix_data_files.append((os.path.join(sitedir, 'OpenRTM_aist', 'RTM_IDL',
@@ -212,8 +221,9 @@ win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples'),
                          ['OpenRTM_aist/examples/rtc.conf.sample']))
 win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples'),
                          ['OpenRTM_aist/examples/component.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples'),
-                         ['OpenRTM_aist/examples/rtcd.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'utils', 'rtcd'),
+                         ['OpenRTM_aist/utils/rtcd/rtcd.conf']))
+"""
 win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','AutoControl'),
                          ['OpenRTM_aist/examples/AutoControl/rtc.conf']))
 win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','Composite'),
@@ -242,6 +252,7 @@ win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','TkJoyS
                          ['OpenRTM_aist/examples/TkJoyStick/rtc.conf']))
 win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','TkLRFViewer'),
                          ['OpenRTM_aist/examples/TkLRFViewer/rtc.conf']))
+"""
 
 templates_xml = glob.glob(os.path.join('OpenRTM_aist',
                                        'examples',
@@ -273,6 +284,8 @@ try:
                license = "LGPL",
                cmdclass = { "build":Build, "build_idl":Build_idl },
                packages = unix_packages,
+               scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python',
+                         'OpenRTM_aist/utils/rtcd/rtcd_python'],
                data_files = unix_data_files)
     
   elif g_os == "win32":
@@ -292,6 +305,8 @@ try:
                license = "LGPL",
                cmdclass = { "build":Build, "build_idl":Build_idl },
                packages = win32_packages,
+               scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python.bat',
+                         'OpenRTM_aist/utils/rtcd/rtcd_python.bat'],
                data_files = win32_data_files)
 
 except Exception, e:
