@@ -44,15 +44,6 @@ periodicecsharedcomposite_spec = ["implementation_id", "PeriodicECSharedComposit
                                   ""]
                                   
 
-
-def set_difference(a, b):
-  ret = []
-  for x in a:
-    if x in b:
-      ret.append(x)
-  return ret
-
-
 def stringToStrVec(v, _is):
   str = [_is]
   OpenRTM_aist.eraseBlank(str)
@@ -537,10 +528,9 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
     ports = self._rtobj.getProperties().getProperty("conf.default.exported_ports")
     newPorts = ports.split(",")
 
-    # since Python 2.5
-    # set_difference = lambda a, b: [x for x in a if not x in b]
-    removedPorts = set_difference(oldPorts,newPorts)
-    createdPorts = set_difference(newPorts,oldPorts)
+    
+    removedPorts = list(set(oldPorts).difference(set(newPorts)))
+    createdPorts = list(set(newPorts).difference(set(oldPorts)))
     
     self._rtcout.RTC_VERBOSE("old    ports: %s", OpenRTM_aist.flatten(oldPorts))
     self._rtcout.RTC_VERBOSE("new    ports: %s", OpenRTM_aist.flatten(newPorts))
