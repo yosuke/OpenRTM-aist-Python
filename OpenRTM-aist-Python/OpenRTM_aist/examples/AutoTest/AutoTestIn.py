@@ -17,7 +17,6 @@ import OpenRTM_aist
 import RTC
 import math
 import AutoTest, AutoTest__POA
-from decimal import *
 import os.path
 
 # </rtc-template>
@@ -90,7 +89,6 @@ class AutoTestIn(OpenRTM_aist.DataFlowComponentBase):
     \param manager Maneger Object
     """
     OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
-
     self._cnt=0
     self._flag=0
 
@@ -140,13 +138,16 @@ class AutoTestIn(OpenRTM_aist.DataFlowComponentBase):
 
     if self._InIn.isNew() and self._SeqInIn.isNew() and self._msg:
       floatdata = self._InIn.read()
-      seqfloatdata = self._SeqInIn.read()
-                        
-      fdata = str(float(floatdata.data)) + "\n"
-      
+      fdata = "%.6f\n" % floatdata.data
+      print "fdata:", fdata
       self._file.write(fdata)
-                    
-      sdata = str(round(seqfloatdata.data[0],2)) + " "+ str(round(seqfloatdata.data[1],2)) + " " + str(round(seqfloatdata.data[2],2)) + " " + str(round(seqfloatdata.data[3],2)) + " " + str(round(seqfloatdata.data[4],2)) + "\n"
+      
+      seqfloatdata = self._SeqInIn.read()
+      
+      t_sdata = tuple(d for d in seqfloatdata.data)
+      sdata = "%.6f %.6f %.6f %.6f %.6f\n" % t_sdata
+
+      print "sdata: ", sdata
       self._file.write(sdata)
       
       self._file.write(self._msg)
