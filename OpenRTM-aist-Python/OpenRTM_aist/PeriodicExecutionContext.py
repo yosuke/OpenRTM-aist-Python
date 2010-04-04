@@ -376,7 +376,6 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     self._comps = []
     self._profile = RTC.ExecutionContextProfile(RTC.PERIODIC, rate_, None, [], [])
     self._ref = self._this()
-    self._thread = threading.Thread(target=self.run)
 
     return
 
@@ -387,8 +386,12 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     self._worker._running = True
     self._worker._cond.notify()
     self._worker._cond.release()
+    self._running = False
     self.wait()
 
+    self._profile.owner = None
+    self._profile.paarticipants = []
+    self._profile.properties = []
 
   ##
   # @if jp
@@ -423,8 +426,8 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
   # ACE_Task class method override.
   #
   # @endif
-  def run(self):
-    self._rtcout.RTC_TRACE("run()")
+  def svc(self):
+    self._rtcout.RTC_TRACE("svc()")
     flag = True
 
     while flag:
@@ -439,8 +442,6 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
       self._worker._cond.release()
 
       sec_ = float(self._usec)/1000000.0
-      #while not self._running:
-        #time.sleep(sec_)
       if not self._nowait:
         time.sleep(sec_)
 
@@ -547,9 +548,15 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     self._worker._cond.release()
 
     try:
-      self._thread.start()
+      self.activate()
     except:
-      print "thread already started."
+      self._running = False
+
+      self._worker._cond.acquire()
+      self._worker._running = False
+      self._worker._cond.notify()
+      self._worker._cond.release()
+      self._rtcout.RTC_ERROR(sys.exc_info()[0])
 
     return RTC.RTC_OK
 
@@ -587,13 +594,13 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
 
     self._running = False
     self._worker._cond.acquire()
-    self._worker._running = True
+    self._worker._running = False
     self._worker._cond.release()
 
     for comp in self._comps:
       comp._sm.on_shutdown()
 
-    self._thread.join()
+    self.wait()
     return RTC.RTC_OK
 
 
@@ -928,9 +935,10 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     self._rtcout.RTC_TRACE("remove_component()")
     len_ = len(self._comps)
     for i in range(len_):
-      if self._comps[i]._ref._is_equivalent(comp):
-        self._comps[i]._ref.detach_context(self._comps[i]._sm.ec_id)
-        del self._comps[i]
+      idx = (len_ - 1) - i
+      if self._comps[idx]._ref._is_equivalent(comp):
+        self._comps[idx]._ref.detach_context(self._comps[idx]._sm.ec_id)
+        del self._comps[idx]
         rtcomp = comp._narrow(RTC.RTObject)
         if CORBA.is_nil(rtcomp):
           self._rtcout.RTC_ERROR("Invalid object reference.")

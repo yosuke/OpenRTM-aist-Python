@@ -564,10 +564,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @endif
   def finalize(self):
     self._rtcout.RTC_TRACE("finalize()")
-    if self._created:
-      return RTC.PRECONDITION_NOT_MET
-
-    if not self._exiting:
+    if self._created or not self._exiting:
       return RTC.PRECONDITION_NOT_MET
 
     # Return RTC::PRECONDITION_NOT_MET,
@@ -802,8 +799,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     self._rtcout.RTC_TRACE("get_owned_contexts()")
     execlist = []
     OpenRTM_aist.CORBA_SeqUtil.for_each(self._ecMine, self.ec_copy(execlist))
-    return execlist # ExecutionContextList* 
-
+    return execlist
 
   ##
   # @if jp
@@ -827,7 +823,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     self._rtcout.RTC_TRACE("get_participating_contexts()")
     execlist = []
     OpenRTM_aist.CORBA_SeqUtil.for_each(self._ecOther, self.ec_copy(execlist))
-    return execlist # ExecutionContextList*
+    return execlist
 
 
   #
@@ -862,7 +858,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       return 0
 
     num = OpenRTM_aist.CORBA_SeqUtil.find(self._ecOther, self.ec_find(cxt))
-    return num + 1 #ExecutionContextHandle_t
+    return long(num + 1)
 
 
   #============================================================
@@ -988,6 +984,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @endif
   # UniqueId attach_context(ExecutionContext_ptr exec_context)
   def attach_context(self, exec_context):
+    global ECOTHER_OFFSET
     self._rtcout.RTC_TRACE("attach_context()")
     # ID: 0 - (offset-1) : owned ec
     # ID: offset -       : participating ec
@@ -1011,6 +1008,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
 
   # UniqueId bindContext(ExecutionContext_ptr exec_context);
   def bindContext(self, exec_context):
+    global ECOTHER_OFFSET
     self._rtcout.RTC_TRACE("bindContext()")
     # ID: 0 - (offset-1) : owned ec
     # ID: offset -       : participating ec
@@ -1078,6 +1076,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # @endif
   # ReturnCode_t detach_context(UniqueId exec_handle)
   def detach_context(self, ec_id):
+    global ECOTHER_OFFSET
     self._rtcout.RTC_TRACE("detach_context(%d)", ec_id)
     len_ = len(self._ecOther)
 
@@ -1091,7 +1090,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     
     index = long(ec_id - ECOTHER_OFFSET)
 
-    if CORBA.is_nil(self._ecOther[index]):
+    if index < 0 or CORBA.is_nil(self._ecOther[index]):
       return RTC.BAD_PARAMETER
     
     #OpenRTM_aist.CORBA_SeqUtil.erase(self._ecOther, index)
@@ -3188,7 +3187,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
 
     def __call__(self, ec):
       try:
-        if not CORBA.is_nil(ec):
+        if not CORBA.is_nil(ec) and not ec._non_existent():
           ec.deactivate_component(self._comp)
       except:
         pass

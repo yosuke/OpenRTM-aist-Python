@@ -345,12 +345,11 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
   # void removeOrganizationFromTarget(Member& member)
   def removeOrganizationFromTarget(self, member):
     # get given RTC's configuration object
-    conf = member._config
-    if CORBA.is_nil(conf):
+    if CORBA.is_nil(member._config):
       return
     
     # set organization to target RTC's conf
-    ret = conf.remove_organization(self._pId)
+    ret = member._config.remove_organization(self._pId)
     return
 
 
@@ -397,6 +396,7 @@ class PeriodicECOrganization(OpenRTM_aist.Organization_impl):
       if len(ecs) > 0:
         self._ec = ecs[0]
       else:
+        self._rtcout.RTC_FATAL("no owned EC")
         return
     self._ec.remove_component(member._rtobj)
 
@@ -705,7 +705,6 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
         print "no RTC found: ", member
         continue
 
-      print "RTC found: ", rtc.getInstanceName()
       sdo = rtc.getObjRef()
       if CORBA.is_nil(sdo):
         continue

@@ -28,7 +28,7 @@ class OpenHRPExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
         for comp in self._comps:
             comp._sm.worker()
 
-    def run(self):
+    def svc(self):
         return 0
 
 
