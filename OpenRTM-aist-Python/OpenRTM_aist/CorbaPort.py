@@ -214,7 +214,7 @@ import RTC
 # </pre>
 #
 # MyComp0 の echo0 (プロバイダ) と YourComp0 の echo9 (コンシューマ)、
-# MyComp0 の add0 (コンシューマ) と YourComp0 の echo9 (プロバイダ)
+# MyComp0 の add0 (コンシューマ) と YourComp0 の add9 (プロバイダ)
 # をそれぞれ対にして接続させるものと仮定する。この場合、
 # ConnectorProfile は以下のように設定する。
 # 
@@ -239,7 +239,7 @@ import RTC
 #
 # である。接続プロセスにおいて、各ポートのプロバイダおよびコンシュー
 # マは、それぞれ以下の作業を、CorbaPort::publishInterfaces(),
-# CorbaPort::PortsubscribeInterfaces() 仮想関数において行う。
+# CorbaPort::subscribeInterfaces() 仮想関数において行う。
 #
 # プロバイダは、publishInterfaces() 関数において、自分のインターフェー
 # ス記述子をキーとし、値にIORの文字列表記したものを
@@ -780,7 +780,8 @@ class CorbaPort(OpenRTM_aist.PortBase):
     
     self._consumers.append(self.CorbaConsumerHolder(type_name,
                                                     instance_name,
-                                                    consumer))
+                                                    consumer,
+                                                    self))
     return True
 
 
@@ -1356,11 +1357,13 @@ class CorbaPort(OpenRTM_aist.PortBase):
   class CorbaConsumerHolder:
     # CorbaConsumerHolder(const char* type_name,
     #                     const char* instance_name,
-    #                     CorbaConsumerBase* consumer)
-    def __init__(self, type_name, instance_name, consumer):
+    #                     CorbaConsumerBase* consumer,
+    #                     string& owner)
+    def __init__(self, type_name, instance_name, consumer, owner):
       self._typeName = type_name
       self._instanceName = instance_name
       self._consumer = consumer
+      self._owner = owner
       return
 
     # std::string instanceName() { return m_instanceName; }
@@ -1429,6 +1432,11 @@ class CorbaPort(OpenRTM_aist.PortBase):
       for i in range(self._len):
         name_ = nv.name
         if self._cons[i].descriptor() == name_:
+          self._cons[i].releaseObject()
+          return
+
+        # for 0.4.x
+        if "port."+self._cons[i].descriptor() == name_:
           self._cons[i].releaseObject()
 
 
