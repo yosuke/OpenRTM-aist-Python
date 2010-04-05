@@ -5,7 +5,7 @@ import sys
 from omniORB import CORBA, URI
 from omniORB import any
 
-import OpenRTM
+import OpenRTM_aist
 import RTC
 
 
@@ -361,4 +361,4 @@ class PipeOut(Pipe):
     def __init__(self, name, data_buf, size=8) :
         self.name =  name
         self.data =  data_buf
-        self.OpenRTM.InPort(name,data_buf,OpenRTM.RingBuffer(size))
+        self.OpenRTM_aist.InPort(name,data_buf,OpenRTM_aist.RingBuffer(size))
