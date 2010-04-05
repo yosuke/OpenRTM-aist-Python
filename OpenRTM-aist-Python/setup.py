@@ -43,7 +43,12 @@ def compile_idl(cmd, pars, files):
   """
   Put together command line for python stubs generation.
   """
-  cmdline = cmd +' '+ string.join(pars) +' '+ string.join(files)
+  global g_os
+  cmdline = cmd +' '+ string.join(pars) +' '+string.join(files)
+  if g_os == "win32":
+    os.system(cmdline)
+    return
+
   log.info(cmdline)
   status, output = commands.getstatusoutput(cmdline)
   log.info(output)
@@ -56,7 +61,8 @@ def gen_idl_name(dir, name):
   """
   Generate name of idl file from directory prefix and IDL module name.
   """
-  return os.path.join(dir, name + ".idl")
+  full_name = '"'+os.path.join(dir, name + ".idl")+'"'
+  return full_name
 
 
 class Build_idl (cmd.Command):
