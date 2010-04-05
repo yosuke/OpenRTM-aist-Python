@@ -58,7 +58,7 @@ default_config =["config.version",                   OpenRTM_aist.openrtm_versio
                  "corba.args",                       "",
                  "corba.endpoint",                   "",
                  "corba.id",                         OpenRTM_aist.corba_name,
-                 "corba.name_servers",               "localhost",
+                 "corba.nameservers",               "localhost",
                  "corba.master_manager",             "localhost:2810",
                  "corba.nameservice.replace_endpoint", "NO",
                  "exec_cxt.periodic.type",           "PeriodicExecutionContext",
