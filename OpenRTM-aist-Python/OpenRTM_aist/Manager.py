@@ -1374,10 +1374,15 @@ class Manager:
     # corba.endpoint is obsolete
     # corba.endpoints with comma separated values are acceptable
     if self._config.findNode("corba.endpoints"):
-      endpoints = self._config.getProperty("corba.endpoints").split(",")
+      endpoints_ = self._config.getProperty("corba.endpoints").split(",")
+      for ep in endpoints_:
+        endpoints.append(ep)
+
       self._rtcout.RTC_DEBUG("corba.endpoints: %s", self._config.getProperty("corba.endpoints"))
     elif self._config.findNode("corba.endpoint"):
-      endpoints = self._config.getProperty("corba.endpoint").split(",")
+      endpoints_ = self._config.getProperty("corba.endpoint").split(",")
+      for ep in endpoints_:
+        endpoints.append(ep)
       self._rtcout.RTC_DEBUG("corba.endpoint: %s", self._config.getProperty("corba.endpoint"))
 
     # If this process has master manager,
@@ -1414,7 +1419,7 @@ class Manager:
 
     for i in range(len(endpoints)):
       endpoint = endpoints[i]
-      self._RTC_DEBUG("Endpoint is : %s", endpoint)
+      self._rtcout.RTC_DEBUG("Endpoint is : %s", endpoint)
       if endpoint.find(":") == -1:
         endpoint += ":"
 
