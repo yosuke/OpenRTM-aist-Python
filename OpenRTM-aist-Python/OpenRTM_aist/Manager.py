@@ -823,15 +823,15 @@ class Manager:
     for i in range(len(inherit_prop)):
       prop.setProperty(inherit_prop[i],self._config.getProperty(inherit_prop[i]))
 
-    # The property specified by the parameter of createComponent() is merged.
-    prop.mergeProperties(comp_prop)
-
     comp = factory.create(self)
 
     if comp is None:
       self._rtcout.RTC_ERROR("createComponent: RTC creation failed: %s", comp_id.getProperty("implementation_id"))
       return None
     self._rtcout.RTC_TRACE("RTC Created: %s", comp_id.getProperty("implementation_id"))
+
+    # The property specified by the parameter of createComponent() is merged.
+    prop.mergeProperties(comp_prop)
 
     #------------------------------------------------------------
     # Load configuration file specified in "rtc.conf"
@@ -842,7 +842,7 @@ class Manager:
     self.configureComponent(comp,prop)
 
     # The property specified by the parameter of createComponent() is set.
-    comp.setProperties(comp_prop)
+    # comp.setProperties(comp_prop)
 
     # Component initialization
     if comp.initialize() != RTC.RTC_OK:
