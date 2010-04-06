@@ -930,8 +930,9 @@ class CorbaPort(OpenRTM_aist.PortBase):
       #------------------------------------------------------------
       # new version descriptor
       # <comp_iname>.port.<port_name>.provided.<type_name>.<instance_name>
-      newdesc = self._ownerInstanceName + ".port." + self._profile.name \
-          + ".provided." + provider.descriptor()
+      newdesc = self._profile.name[:len(self._ownerInstanceName)] + \
+          ".port" +  self._profile.name[len(self._ownerInstanceName):]
+      newdesc += ".provided." + provider.descriptor()
 
       properties.append(OpenRTM_aist.NVUtil.newNV(newdesc, provider.ior()))
 
@@ -1195,8 +1196,9 @@ class CorbaPort(OpenRTM_aist.PortBase):
   #                           std::string& iorstr);
   def findProvider(self, nv, cons, iorstr):
     # new consumer interface descriptor
-    newdesc = self._ownerInstanceName + ".port." + self._profile.name \
-        + ".required." + cons.descriptor()
+    newdesc = self._profile.name[:len(self._ownerInstanceName)] + \
+        ".port" +  self._profile.name[len(self._ownerInstanceName):]
+    newdesc += ".required." + cons.descriptor()
 
     # find a NameValue of the consumer
     cons_index = OpenRTM_aist.NVUtil.find_index(nv, newdesc)
@@ -1469,6 +1471,13 @@ class CorbaPort(OpenRTM_aist.PortBase):
     def descriptor(self):
       return self._typeName + "." + self._instanceName
 
+    ##
+    # @if jp
+    # @brief Consumer に IOR をセットする
+    # @else
+    # @brief Setting IOR to Consumer
+    #@endif
+    #
     # bool setObject(const char* ior)
     def setObject(self, ior):
       self._ior = ior
@@ -1479,6 +1488,13 @@ class CorbaPort(OpenRTM_aist.PortBase):
 
       return self._consumer.setObject(obj)
 
+    ##
+    # @if jp
+    # @brief Consumer のオブジェクトをリリースする
+    # @else
+    # @brief Releasing Consumer Object
+    # @endif
+    #
     # void releaseObject()
     def releaseObject(self):
       self._consumer.releaseObject()
