@@ -759,7 +759,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
   # associated with Consumer.  The service Provider interface'
   # references will be set automatically to the Consumer Interface
   # object when connections are established, according to the rules
-  # that are described at the subscribeInterface() function's
+  # that are described at the subscribeInterfaces() function's
   # documentation.
   #
   # @param instance_name Instance name of the service Consumer requires
@@ -929,9 +929,9 @@ class CorbaPort(OpenRTM_aist.PortBase):
     for provider in self._providers:
       #------------------------------------------------------------
       # new version descriptor
-      # <comp_iname>.port.<port_name>.provider.<type_name>.<instance_name>
+      # <comp_iname>.port.<port_name>.provided.<type_name>.<instance_name>
       newdesc = self._ownerInstanceName + ".port." + self._profile.name \
-          + ".provider." + provider.descriptor()
+          + ".provided." + provider.descriptor()
 
       properties.append(OpenRTM_aist.NVUtil.newNV(newdesc, provider.ior()))
 
@@ -1096,12 +1096,14 @@ class CorbaPort(OpenRTM_aist.PortBase):
       self._rtcout.RTC_DEBUG("Connetion strictness is: %s",strictness)
 
     for consumer in self._consumers:
-      res0 = self.findProvider(nv, consumer)
-      if res0:
+      ior = []
+      if self.findProvider(nv, consumer, ior) and len(ior) > 0:
+        self.setObject(ior[0], consumer)
         continue
 
-      res1 = self.findProviderOld(nv, consumer)
-      if res1:
+      ior = []
+      if self.findProviderOld(nv, consumer, ior) and len(ior) > 0:
+        self.setObject(ior[0], consumer)
         continue
 
       # never come here without error
@@ -1142,7 +1144,19 @@ class CorbaPort(OpenRTM_aist.PortBase):
     self._rtcout.RTC_TRACE("unsubscribeInterfaces()")
     nv = connector_profile.properties
 
-    OpenRTM_aist.CORBA_SeqUtil.for_each(nv, self.unsubscribe(self._consumers))
+    for consumer in self._consumers:
+      ior = []
+      if self.findProvider(nv, consumer, ior) and len(ior) > 0:
+        self._rtcout.RTC_DEBUG("Correspoinding consumer found.")
+        self.releaseObject(ior[0], consumer)
+        continue
+
+      ior = []
+      if self.findProviderOld(nv, consumer, ior) and len(ior) > 0:
+        self._rtcout.RTC_DEBUG("Correspoinding consumer found.")
+        self.releaseObject(ior[0], consumer)
+        continue
+
     return
 
 
@@ -1176,11 +1190,13 @@ class CorbaPort(OpenRTM_aist.PortBase):
   #
   # @endif
   #
-  # virtual bool findProvider(const NVList& nv, CorbaConsumerHolder& cons);
-  def findProvider(self, nv, cons):
+  # virtual bool findProvider(const NVList& nv, 
+  #                           CorbaConsumerHolder& cons,
+  #                           std::string& iorstr);
+  def findProvider(self, nv, cons, iorstr):
     # new consumer interface descriptor
     newdesc = self._ownerInstanceName + ".port." + self._profile.name \
-        + ".consumer." + cons.descriptor()
+        + ".required." + cons.descriptor()
 
     # find a NameValue of the consumer
     cons_index = OpenRTM_aist.NVUtil.find_index(nv, newdesc)
@@ -1197,23 +1213,13 @@ class CorbaPort(OpenRTM_aist.PortBase):
     if prov_index < 0:
       return False
 
-    ior = str(any.from_any(nv[prov_index].value, keep_structs=True))
-    if not ior:
+    ior_ = str(any.from_any(nv[prov_index].value, keep_structs=True))
+    if not ior_:
       self._rtcout.RTC_WARN("Cannot extract Provider IOR string")
       return False
  
-    # if ior string is "null" or "nil", ignore it.
-    if "null" == ior or "nil" == ior:
-      return True
-
-    # IOR should be started by "IOR:"
-    if "IOR:" != ior[:4]:
-      return False
-
-    # set IOR to the consumer
-    if not cons.setObject(ior):
-      self._rtcout.RTC_ERROR("Cannot narrow reference")
-      return False
+    if isinstance(iorstr, list):
+      iorstr.append(ior_)
 
     self._rtcout.RTC_ERROR("interface matched with new descriptor: %s", newdesc)
 
@@ -1227,12 +1233,12 @@ class CorbaPort(OpenRTM_aist.PortBase):
   # この関数は、古いバージョンの互換性のための関数である。
   #
   # NVList 中から CorbaConsumerHolder に保持されている Consumer に合
-  # 致するキーを持つ Provider を見つけ、IOR を抽出しナローイングして
-  # Consumer にセットする。対応するキーが存在しない、IOR が見つから
-  # ない、ナローイングに失敗した場合、false を返す。
+  # 致するキーを持つ Provider を見つける。対応するキーが存在しない、
+  # IOR が見つからない場合、false を返す
   #  
   # @param nv Provider が含まれている ConnectorProfile::properties の NVList
   # @param cons Provider と対応する Consumer のホルダ
+  # @param iorstr 見つかったIOR文字列を格納する変数
   # 
   # @retrun bool Consumer に対応する Provider が見つからない場合 false
   #
@@ -1242,20 +1248,22 @@ class CorbaPort(OpenRTM_aist.PortBase):
   # This function is for the old version's compatibility.
   #
   # This function finds out a Provider with the key that is matched
-  # with Cosumer's name in the CorbaConsumerHolder, extracts IOR
-  # and performs narrowing into the Consumer and set it to the
-  # Consumer. False is returned when there is no corresponding key
-  # and IOR and the narrowing failed.
+  # with Cosumer's name in the CorbaConsumerHolder and extracts
+  # IOR.  False is returned when there is no corresponding key and
+  # IOR.
   #  
   # @param nv NVlist of ConnectorProfile::properties that includes Provider
   # @param cons a Consumer holder to be matched with a Provider
+  # @param iorstr variable which is set IOR string
   # 
   # @return bool false is returned if there is no provider for the consumer
   #
   # @endif
   #
-  # virtual bool findProviderOld(const NVList&nv, CorbaConsumerHolder& cons);
-  def findProviderOld(self, nv, cons):
+  # virtual bool findProviderOld(const NVList&nv,
+  #                              CorbaConsumerHolder& cons,
+  #                              std::string& iorstr);
+  def findProviderOld(self, nv, cons, iorstr):
     # old consumer interface descriptor
     olddesc = "port." + cons.descriptor()
 
@@ -1264,9 +1272,57 @@ class CorbaPort(OpenRTM_aist.PortBase):
     if index < 0:
       return False
 
-    ior = str(any.from_any(nv[index].value, keep_structs=True))
-    if not ior:
+    ior_ = str(any.from_any(nv[index].value, keep_structs=True))
+    if not ior_:
       self._rtcout.RTC_WARN("Cannot extract Provider IOR string")
+      return False
+
+    if isinstance(iorstr, list):
+      iorstr.append(ior_)
+
+    self._rtcout.RTC_ERROR("interface matched with old descriptor: %s", olddesc)
+
+    return True
+
+
+  ##
+  # @if jp
+  # @brief Consumer に IOR をセットする
+  #
+  # IOR をナローイングしてConsumer にセットする。ナローイングに失敗
+  # した場合、false を返す。ただし、IOR文字列が、nullまたはnilの場合、
+  # オブジェクトに何もセットせずに true を返す。
+  #
+  # @param ior セットする IOR 文字列
+  # @param cons Consumer のホルダ
+  # 
+  # @retrun bool Consumer へのナローイングに失敗した場合 false
+  #
+  # @else
+  # @brief Setting IOR to Consumer
+  #
+  # This function performs narrowing into the Consumer and set it to the
+  # Consumer. False is returned when the narrowing failed. But, if IOR
+  # string is "null" or "nil", this function returns true.
+  #  
+  # @param ior IOR string
+  # @param cons Consumer holder
+  # 
+  # @retrun bool false if narrowing failed.
+  #
+  # @endif
+  #
+  # bool setObject(const std::string& ior, CorbaConsumerHolder& cons);
+  def setObject(self, ior, cons):
+    # if ior string is "null" or "nil", ignore it.
+    if "null" == ior:
+      return True
+
+    if "nil"  == ior:
+      return True
+
+    # IOR should be started by "IOR:"
+    if "IOR:" != ior[:4]:
       return False
 
     # set IOR to the consumer
@@ -1274,10 +1330,44 @@ class CorbaPort(OpenRTM_aist.PortBase):
       self._rtcout.RTC_ERROR("Cannot narrow reference")
       return False
 
-    self._rtcout.RTC_ERROR("interface matched with old descriptor: %s", olddesc)
-
+    self._rtcout.RTC_TRACE("setObject() done")
     return True
 
+  ##
+  # @if jp
+  # @brief Consumer のオブジェクトをリリースする
+  #
+  # Consumer にセットされた参照をリリースする。ConsumerのIORが与えら
+  # れたIOR文字列と異なる場合、falseを返す。
+  #
+  # @param ior セットする IOR 文字列
+  # @param cons Consumer のホルダ
+  # 
+  # @retrun ConsumerのIORが与えられたIOR文字列と異なる場合、falseを返す。
+  #
+  # @else
+  # @brief Releasing Consumer Object
+  #
+  # This function releases object reference of Consumer. If the
+  # given IOR string is different from Consumer's IOR string, it
+  # returns false.
+  #  
+  # @param ior IOR string
+  # @param cons Consumer holder
+  # 
+  # @retrun bool False if IOR and Consumer's IOR are different
+  #
+  # @endif
+  #
+  # bool releaseObject(const std::string& ior, CorbaConsumerHolder& cons);
+  def releaseObject(self, ior, cons):
+    if ior == cons.getIor():
+      cons.releaseObject()
+      self._rtcout.RTC_DEBUG("Consumer %s released.", cons.descriptor())
+      return True
+
+    self._rtcout.RTC_WARN("IORs between Consumer and Connector are different.")
+    return False
 
   ##
   # @if jp
@@ -1364,6 +1454,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
       self._instanceName = instance_name
       self._consumer = consumer
       self._owner = owner
+      self._ior = ""
       return
 
     # std::string instanceName() { return m_instanceName; }
@@ -1380,6 +1471,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
 
     # bool setObject(const char* ior)
     def setObject(self, ior):
+      self._ior = ior
       orb = OpenRTM_aist.Manager.instance().getORB()
       obj = orb.string_to_object(ior)
       if CORBA.is_nil(obj):
@@ -1391,6 +1483,10 @@ class CorbaPort(OpenRTM_aist.PortBase):
     def releaseObject(self):
       self._consumer.releaseObject()
       return
+
+    # const std::string& getIor()
+    def getIor(self):
+      return self._ior
 
 
   ##
