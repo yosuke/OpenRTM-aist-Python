@@ -730,7 +730,7 @@ class RingBuffer(OpenRTM_aist.BufferBase):
       if OpenRTM_aist.stringTo(tm, prop.getProperty("write.timeout")):
         tm = tm[0]
         if not (tm < 0):
-          self._wtimeout = tm
+          self._wtimeout.set_time(tm)
 
     
   ## void initReadPolicy(const coil::Properties& prop)
@@ -750,4 +750,4 @@ class RingBuffer(OpenRTM_aist.BufferBase):
       self._timedread = True
       tm = [0.0]
       if OpenRTM_aist.stringTo(tm, prop.getProperty("read.timeout")):
-        self._rtimeout = tm[0]
+        self._rtimeout.set_time(tm[0])
