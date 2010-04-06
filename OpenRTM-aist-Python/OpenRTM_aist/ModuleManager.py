@@ -481,7 +481,7 @@ class ModuleManager:
         
     # loaded component profile have to be one
     if len(profs) == 0:
-      print "Load failed. file name: ", fname
+      print "Load failed. not exist or already loaded. file name: ", fname
       return OpenRTM_aist.Properties()
 
     if len(profs) > 1:
