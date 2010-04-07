@@ -1,6 +1,6 @@
 #!/bin/sh
 
-python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
+python ${PYTHONPATH}/OpenRTM_aist/utils/rtc-template/rtc-template.py -bpython \
     --module-name=Controller --module-type='DataFlowComponent' \
     --module-desc='Controller component' \
     --module-version=1.0 --module-vendor='Noriaki Ando, AIST' \
@@ -11,7 +11,7 @@ python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
     --inport=in:TimedFloat
 
 
-python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
+python ${PYTHONPATH}/OpenRTM_aist/utils/rtc-template/rtc-template.py -bpython \
     --module-name=Motor --module-type='DataFlowComponent' \
     --module-desc='Motor component' \
     --module-version=1.0 --module-vendor='Noriaki Ando, AIST' \
@@ -23,7 +23,7 @@ python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
     --config=motor_id:int:0
 
 
-python ${PYTHONPATH}/OpenRTM_aist/rtc-template/rtc-template.py -bpython \
+python ${PYTHONPATH}/OpenRTM_aist/utils/rtc-template/rtc-template.py -bpython \
     --module-name=Sensor --module-type='DataFlowComponent' \
     --module-desc='Sensor component' \
     --module-version=1.0 --module-vendor='Noriaki Ando, AIST' \
