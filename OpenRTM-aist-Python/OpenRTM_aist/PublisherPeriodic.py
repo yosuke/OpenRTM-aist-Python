@@ -733,6 +733,7 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
     if self.bufferIsEmpty():
       return self.BUFFER_EMPTY
 
+    self._readback = True
     self._buffer.advanceRptr(self._buffer.readable() - 1)
     
     cdr = self._buffer.get()
