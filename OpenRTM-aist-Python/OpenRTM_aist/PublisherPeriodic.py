@@ -733,7 +733,11 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
     if self.bufferIsEmpty():
       return self.BUFFER_EMPTY
 
+    # In case of the periodic/push_new policy, the buffer should
+    # allow readback. But, readback flag should be set as "true"
+    # after written at least one datum into the buffer.
     self._readback = True
+
     self._buffer.advanceRptr(self._buffer.readable() - 1)
     
     cdr = self._buffer.get()
