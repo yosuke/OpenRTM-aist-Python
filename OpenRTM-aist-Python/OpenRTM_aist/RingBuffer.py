@@ -359,7 +359,7 @@ class RingBuffer(OpenRTM_aist.BufferBase):
         if overwrite and not timedwrite:       # "overwrite" mode
           self.advanceRptr()
 
-        elif not overwrite and not timedwrite: # "do_notiong" mode
+        elif not overwrite and not timedwrite: # "do_nothiong" mode
           self._full_cond.release()
           return OpenRTM_aist.BufferStatus.BUFFER_FULL
 
@@ -608,7 +608,7 @@ class RingBuffer(OpenRTM_aist.BufferBase):
           return OpenRTM_aist.BufferStatus.BUFFER_EMPTY
         self.advanceRptr(-1)
 
-      elif not readback and not timedread: # "do_notiong" mode
+      elif not readback and not timedread: # "do_nothiong" mode
         self._empty_cond.release()
         return OpenRTM_aist.BufferStatus.BUFFER_EMPTY
 
