@@ -286,7 +286,7 @@ try:
                Task Intelligence Research Group,\
                Intelligent Systems Research Institute,\
                National Institute of Advanced Industrial Science and Technology (AIST), Japan.\
-               Please see http://www.is.aist.go.jp/rt/OpenRTM-aist/html/ for more detail.",
+               Please see http://www.openrtm.org/ for more detail.",
                license = "LGPL",
                cmdclass = { "build":Build, "build_idl":Build_idl },
                packages = unix_packages,
@@ -300,14 +300,14 @@ try:
                description = "Python modules for OpenRTM-aist-1.0",
                author = "Shinji Kurihara",
                author_email = "shinji.kurihara@aist.go.jp",
-               url = "http://www.is.aist.go.jp/rt/OpenRTM-aist/html/",
+               url = "http://www.openrtm.org/OpenRTM-aist/",
                long_description = "OpenRTM-aist is a reference implementation of RT-Middleware,\
                which is now under standardization process in OMG (Object Management Group).\
                OpenRTM-aist is being developed and distributed by\
                Task Intelligence Research Group,\
                Intelligent Systems Research Institute,\
                National Institute of Advanced Industrial Science and Technology (AIST), Japan.\
-               Please see http://www.is.aist.go.jp/rt/OpenRTM-aist/html/ for more detail.",
+               Please see http://www.openrtm.org/ for more detail.",
                license = "LGPL",
                cmdclass = { "build":Build, "build_idl":Build_idl },
                packages = win32_packages,
