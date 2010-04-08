@@ -8,3 +8,6 @@ include OpenRTM_aist/utils/rtcd/rtcd_python
 include OpenRTM_aist/utils/rtcd/rtcd_python.bat
 include OpenRTM_aist/utils/rtcprof/rtcprof_python
 include OpenRTM_aist/utils/rtcprof/rtcprof_python.bat
+include OpenRTM_aist/docs/Makefile
+include OpenRTM_aist/docs/Doxyfile_jp
+include OpenRTM_aist/docs/Doxyfile_en

@@ -120,6 +120,31 @@ class Build_idl (cmd.Command):
                  "Generating python sample stubs from IDL files")
 
 
+class Build_doc(cmd.Command):
+  """
+  This class realizes a subcommand of build command and is used for building
+  document by doxygen.
+  """
+
+  description = "Generate document by doxygen"
+
+  def initialize_options(self):
+    pass
+
+  def finalize_options(self):
+    pass
+
+  def run(self):
+    global g_os
+
+    if g_os == "unix":
+      curr_dir = os.getcwd()
+      make_dir = os.path.join(os.getcwd(), 'OpenRTM_aist', 'docs')
+      os.chdir(make_dir)
+      os.system("make")
+      os.chdir(curr_dir)
+
+
 class Build (build.build):
   """
   This is here just to override default sub_commands list of build class.
@@ -140,7 +165,11 @@ class Build (build.build):
   def has_idl_files (self):
     return True
 
-  sub_commands = [('build_idl',     has_idl_files),
+  def has_doc_files (self):
+    return True
+
+  sub_commands = [('build_doc',     has_doc_files),
+                  ('build_idl',     has_idl_files),
                   ('build_py',      has_pure_modules),
                   ('build_clib',    has_c_libraries),
                   ('build_ext',     has_ext_modules),
@@ -288,7 +317,7 @@ try:
                National Institute of Advanced Industrial Science and Technology (AIST), Japan.\
                Please see http://www.openrtm.org/ for more detail.",
                license = "LGPL",
-               cmdclass = { "build":Build, "build_idl":Build_idl },
+               cmdclass = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc },
                packages = unix_packages,
                scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python',
                          'OpenRTM_aist/utils/rtcd/rtcd_python'],
@@ -309,7 +338,7 @@ try:
                National Institute of Advanced Industrial Science and Technology (AIST), Japan.\
                Please see http://www.openrtm.org/ for more detail.",
                license = "LGPL",
-               cmdclass = { "build":Build, "build_idl":Build_idl },
+               cmdclass = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc  },
                packages = win32_packages,
                scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python.bat',
                          'OpenRTM_aist/utils/rtcd/rtcd_python.bat'],
