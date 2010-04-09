@@ -481,7 +481,7 @@ class ManagerServant(RTM__POA.Manager):
         self._rtcout.RTC_INFO("slave (%d) has disappeared.", i)
         self._slaves[i] = RTM.Manager._nil
 
-      OpenRTM_aist.CORBA_SeqUtil.erase(m_slaves, i)
+      OpenRTM_aist.CORBA_SeqUtil.erase(self._slaves, i)
       i -= 1
 
     del guard
