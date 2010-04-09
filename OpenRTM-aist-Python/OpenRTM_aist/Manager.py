@@ -369,7 +369,7 @@ class Manager:
       self._rtcout.RTC_ERROR("Exception: POA Manager activation failed.")
       return False
 
-    mods = self._config.getProperty("manager.modules.preload").split(",")
+    mods = [s.strip() for s in self._config.getProperty("manager.modules.preload").split(",")]
 
     for i in range(len(mods)):
       if mods[i] is None or mods[i] == "":
@@ -390,7 +390,7 @@ class Manager:
     if self._initProc:
       self._initProc(self)
 
-    comps = self._config.getProperty("manager.components.precreate").split(",")
+    comps = [s.strip() for s in self._config.getProperty("manager.components.precreate").split(",")]
     for i in range(len(comps)):
       if comps[i] is None or comps[i] == "":
         continue
@@ -476,7 +476,7 @@ class Manager:
                            (fname, initfunc))
     try:
       if not initfunc:
-        mod = fname.split(".")
+        mod = [s.strip() for s in fname.split(".")]
         initfunc = mod[0]+"Init"
       path = self._module.load(fname, initfunc)
       self._rtcout.RTC_DEBUG("module path: %s", path)
@@ -772,7 +772,6 @@ class Manager:
 
       comp_prop.setProperty("exported_ports", exported_ports_str)
       comp_prop.setProperty("conf.default.exported_ports", exported_ports_str)
-
 
     factory = self._factory.find(comp_id)
     if factory is None:
@@ -1228,7 +1227,7 @@ class Manager:
     logfile = "./rtc.log"
 
     logouts = self._config.getProperty("logger.file_name")
-    logouts = logouts.split(",")
+    logouts = [s.strip() for s in logouts.split(",")]
     
     self._rtcout = None
 
@@ -1374,13 +1373,13 @@ class Manager:
     # corba.endpoint is obsolete
     # corba.endpoints with comma separated values are acceptable
     if self._config.findNode("corba.endpoints"):
-      endpoints_ = self._config.getProperty("corba.endpoints").split(",")
+      endpoints_ = [s.strip() for s in self._config.getProperty("corba.endpoints").split(",")]
       for ep in endpoints_:
         endpoints.append(ep)
 
       self._rtcout.RTC_DEBUG("corba.endpoints: %s", self._config.getProperty("corba.endpoints"))
     elif self._config.findNode("corba.endpoint"):
-      endpoints_ = self._config.getProperty("corba.endpoint").split(",")
+      endpoints_ = [s.strip() for s in self._config.getProperty("corba.endpoint").split(",")]
       for ep in endpoints_:
         endpoints.append(ep)
       self._rtcout.RTC_DEBUG("corba.endpoint: %s", self._config.getProperty("corba.endpoint"))
@@ -1391,7 +1390,7 @@ class Manager:
                            self._config.getProperty("manager.is_master"))
     if OpenRTM_aist.toBool(self._config.getProperty("manager.is_master"), "YES", "NO", False):
       mm = self._config.getProperty("corba.master_manager", ":2810")
-      mmm = mm.split(":")
+      mmm = [s.strip() for s in mm.split(":")]
       if len(mmm) == 2:
         endpoints.insert(0, ":" + mmm[1])
       else:
@@ -1824,7 +1823,7 @@ class Manager:
   #                        coil::Properties& comp_id,
   #                        coil::Properties& comp_conf)
   def procComponentArgs(self, comp_arg, comp_id, comp_conf):
-    id_and_conf = comp_arg.split("?")
+    id_and_conf = [s.strip() for s in comp_arg.split("?")]
     if len(id_and_conf) != 1 and len(id_and_conf) != 2:
       self._rtcout.RTC_ERROR("Invalid arguments. Two or more '?'")
       return False
@@ -1832,7 +1831,7 @@ class Manager:
     if id_and_conf[0].find(":") == -1:
       id_and_conf[0] = "RTC:::" + id_and_conf[0] + ":"
 
-    id = id_and_conf[0].split(":")
+    id = [s.strip() for s in id_and_conf[0].split(":")]
 
     if len(id) != 5:
       self._rtcout.RTC_ERROR("Invalid RTC id format.")
@@ -1849,9 +1848,9 @@ class Manager:
       self._rtcout.RTC_TRACE("RTC basic profile %s: %s", (prof[i], id[i]))
 
     if len(id_and_conf) == 2:
-      conf = id_and_conf[1].split("&")
+      conf = [s.strip() for s in id_and_conf[1].split("&")]
       for i in range(len(conf)):
-        keyval = conf[i].split("=")
+        keyval = [s.strip() for s in conf[i].split("=")]
         if len(keyval) > 1:
           comp_conf.setProperty(keyval[0],keyval[1])
           self._rtcout.RTC_TRACE("RTC property %s: %s", (keyval[0], keyval[1]))
@@ -1863,7 +1862,7 @@ class Manager:
   #                      std::string& ec_id,
   #                      coil::Properties& ec_conf);
   def procContextArgs(self, ec_args, ec_id, ec_conf):
-    id_and_conf = ec_args.split("?")
+    id_and_conf = [s.strip() for s in ec_args.split("?")]
 
     if len(id_and_conf) != 1 and len(id_and_conf) != 2:
       self._rtcout.RTC_ERROR("Invalid arguments. Two or more '?'")
@@ -1876,9 +1875,9 @@ class Manager:
     ec_id[0] = id_and_conf[0]
 
     if len(id_and_conf) == 2:
-      conf = id_and_conf[1].split("&")
+      conf = [s.strip() for s in id_and_conf[1].split("&")]
       for i in range(len(conf)):
-        k = conf[i].split("=")
+        k = [s.strip() for s in conf[i].split("=")]
         ec_conf.setProperty(k[0],k[1])
         self._rtcout.RTC_TRACE("EC property %s: %s",(k[0],k[1]))
         

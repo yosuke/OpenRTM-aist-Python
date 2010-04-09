@@ -2426,7 +2426,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # std::vector<std::string> getNamingNames();
   def getNamingNames(self):
     self._rtcout.RTC_TRACE("getNamingNames()")
-    return string.split(self._properties.getProperty("naming.names"), ",")
+    return [s.strip() for s in self._properties.getProperty("naming.names").split(",")]
 
 
   ##
