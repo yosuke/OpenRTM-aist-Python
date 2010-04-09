@@ -1931,11 +1931,11 @@ class Manager:
     type_prop.mergeProperties(name_prop)
     comp.setProperties(type_prop)
 
-    naming_formats = ""
     comp_prop = OpenRTM_aist.Properties(prop=comp.getProperties())
 
-    naming_formats += self._config.getProperty("naming.formats")
-    naming_formats += ", " + comp_prop.getProperty("naming.formats")
+    naming_formats = self._config.getProperty("naming.formats")
+    if comp_prop.findNode("naming.formats"):
+      naming_formats = comp_prop.getProperty("naming.formats")
     naming_formats = OpenRTM_aist.flatten(OpenRTM_aist.unique_sv(OpenRTM_aist.split(naming_formats, ",")))
 
     naming_names = self.formatString(naming_formats, comp.getProperties())
