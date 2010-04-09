@@ -9,15 +9,17 @@ from distutils import core
 from distutils import cmd
 from distutils import log
 from distutils import util
+from distutils import dir_util
 from distutils import errors
 from distutils import version
-from distutils.command import config
-from distutils.command import build
+from distutils.command.build import build
+from distutils.command.sdist import sdist
 
 
 core.DEBUG = False
 
 g_os = None
+g_qkc_option = "-u"
 
 if os.sep == '/':
   g_os = "unix"
@@ -139,13 +141,13 @@ class Build_doc(cmd.Command):
 
     if g_os == "unix":
       curr_dir = os.getcwd()
-      make_dir = os.path.join(os.getcwd(), 'OpenRTM_aist', 'docs')
-      os.chdir(make_dir)
+      docs_dir = os.path.join(os.getcwd(), 'OpenRTM_aist', 'docs')
+      os.chdir(docs_dir)
       os.system("make")
       os.chdir(curr_dir)
 
 
-class Build (build.build):
+class Build (build):
   """
   This is here just to override default sub_commands list of build class.
   We added 'build_idl' item.
@@ -175,18 +177,49 @@ class Build (build.build):
                   ('build_ext',     has_ext_modules),
                   ('build_scripts', has_scripts)]
 
+class OtherSetupForSdist(sdist):
+
+  def make_distribution (self):
+    """Create the source distribution(s).  First, we create the release
+    tree with 'make_release_tree()'; then, we create all required
+    archive files (according to 'self.formats') from the release tree.
+    Finally, we clean up by blowing away the release tree (unless
+    'self.keep_temp' is true).  The list of archive files created is
+    stored so it can be retrieved later by 'get_archive_files()'.
+    """
+    global g_os
+    global g_qkc_option
+    print "make_distribution"
+    # Don't warn about missing meta-data here -- should be (and is!)
+    # done elsewhere.
+    base_dir = self.distribution.get_fullname()
+    base_name = os.path.join(self.dist_dir, base_dir)
+
+    self.make_release_tree(base_dir, self.filelist.files)
+    archive_files = []              # remember names of files we create
+
+    if g_os == "unix":
+      curr_dir = os.getcwd()
+      cmd_dir = os.path.join(os.getcwd(), pkg_name+'-'+pkg_version)
+      os.chdir(cmd_dir)
+      cmd_ = "find . -name \"*\" | xargs qkc %s" % g_qkc_option
+      os.system(cmd_)
+      os.chdir(curr_dir)
+          
+    for fmt in self.formats:
+      file = self.make_archive(base_name, fmt, base_dir=base_dir)
+      archive_files.append(file)
+      self.distribution.dist_files.append(('sdist', '', file))
+
+    self.archive_files = archive_files
+
+    if not self.keep_temp:
+      dir_util.remove_tree(base_dir, dry_run=self.dry_run)
+
 
 ############################### data for setup() ###########################################
 unix_packages = ["OpenRTM_aist",
                  "OpenRTM_aist.RTM_IDL",
-                 "OpenRTM_aist.RTM_IDL.OpenRTM",
-                 "OpenRTM_aist.RTM_IDL.OpenRTM__POA",
-                 "OpenRTM_aist.RTM_IDL.RTC",
-                 "OpenRTM_aist.RTM_IDL.RTC__POA",
-                 "OpenRTM_aist.RTM_IDL.RTM",
-                 "OpenRTM_aist.RTM_IDL.RTM__POA",
-                 "OpenRTM_aist.RTM_IDL.SDOPackage",
-                 "OpenRTM_aist.RTM_IDL.SDOPackage__POA",
                  "OpenRTM_aist.RTM_IDL.device_interfaces",
                  "OpenRTM_aist.utils",
                  "OpenRTM_aist.utils.rtcd",
@@ -196,14 +229,6 @@ unix_packages = ["OpenRTM_aist",
 
 win32_packages = ["OpenRTM_aist",
                   "OpenRTM_aist.RTM_IDL",
-                  "OpenRTM_aist.RTM_IDL.OpenRTM",
-                  "OpenRTM_aist.RTM_IDL.OpenRTM__POA",
-                  "OpenRTM_aist.RTM_IDL.RTC",
-                  "OpenRTM_aist.RTM_IDL.RTC__POA",
-                  "OpenRTM_aist.RTM_IDL.RTM",
-                  "OpenRTM_aist.RTM_IDL.RTM__POA",
-                  "OpenRTM_aist.RTM_IDL.SDOPackage",
-                  "OpenRTM_aist.RTM_IDL.SDOPackage__POA",
                   "OpenRTM_aist.examples.AutoControl",
                   "OpenRTM_aist.examples.Composite",
                   "OpenRTM_aist.examples.ConfigSample",
@@ -212,8 +237,6 @@ win32_packages = ["OpenRTM_aist",
                   "OpenRTM_aist.examples.NXTRTC",
                   "OpenRTM_aist.examples.SeqIO",
                   "OpenRTM_aist.examples.SimpleIO",
-                  "OpenRTM_aist.examples.SimpleService.SimpleService",
-                  "OpenRTM_aist.examples.SimpleService.SimpleService__POA",
                   "OpenRTM_aist.examples.SimpleService",
                   "OpenRTM_aist.examples.Slider_and_Motor",
                   "OpenRTM_aist.examples.Templates",
@@ -301,48 +324,71 @@ for tmp_xml in templates_xml:
 
 ##############################################################################################
 
+pkg_name      = "OpenRTM-aist-Python"
+pkg_version   = "1.0.0"
+pkg_desc      = "Python modules for OpenRTM-aist-1.0"
+pkg_author    = "Shinji Kurihara and Noriaki Ando"
+pkg_email     = "n-ando@aist.go.jp"
+pkg_url       = "http://www.openrtm.org/"
+pkg_long_desc = """\
+OpenRTM-aist is a reference implementation of RT-Middleware,
+which is now under standardization process in OMG (Object Management Group).
+OpenRTM-aist is being developed and distributed by
+Intelligent Systems Research Institute,
+National Institute of Advanced Industrial Science and Technology (AIST), Japan.
+Please see http://www.openrtm.org/ for more detail.
+"""
+pkg_license   = "EPL"
+
+
 try:
   if g_os == "unix":
-    core.setup(name = "OpenRTM-aist-Python",
-               version = "1.0.0",
-               description = "Python modules for OpenRTM-aist-1.0",
-               author = "Noriaki Ando",
-               author_email = "n-ando@aist.go.jp",
-               url = "http://www.is.aist.go.jp/rt/OpenRTM-aist/html/",
-               long_description = "OpenRTM-aist is a reference implementation of RT-Middleware,\
-               which is now under standardization process in OMG (Object Management Group).\
-               OpenRTM-aist is being developed and distributed by\
-               Task Intelligence Research Group,\
-               Intelligent Systems Research Institute,\
-               National Institute of Advanced Industrial Science and Technology (AIST), Japan.\
-               Please see http://www.openrtm.org/ for more detail.",
-               license = "LGPL",
-               cmdclass = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc },
-               packages = unix_packages,
+    g_qkc_option = "-u"
+    core.setup(name             = pkg_name,
+               version          = pkg_version,
+               description      = pkg_desc,
+               author           = pkg_author,
+               author_email     = pkg_email,
+               url              = pkg_url,
+               long_description = pkg_long_desc,
+               license          = pkg_license,
+               cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc, 'sdist':OtherSetupForSdist },
+               packages         = unix_packages,
                scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python',
                          'OpenRTM_aist/utils/rtcd/rtcd_python'],
-               data_files = unix_data_files)
-    
+               data_files       = unix_data_files)
+    if sys.argv[1] == "sdist":
+      g_qkc_option = "-m"
+      core.setup(name             = pkg_name,
+                 version          = pkg_version,
+                 description      = pkg_desc,
+                 author           = pkg_author,
+                 author_email     = pkg_email,
+                 url              = pkg_url,
+                 long_description = pkg_long_desc,
+                 license          = pkg_license,
+                 cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc, 'sdist':OtherSetupForSdist  },
+                 packages         = win32_packages,
+                 scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python.bat',
+                           'OpenRTM_aist/utils/rtcd/rtcd_python.bat'],
+                 data_files       = win32_data_files,
+                 script_args      = ["sdist", "--format=zip"])
   elif g_os == "win32":
-    core.setup(name = "OpenRTM-aist-Python",
-               version = "1.0.0",
-               description = "Python modules for OpenRTM-aist-1.0",
-               author = "Shinji Kurihara",
-               author_email = "shinji.kurihara@aist.go.jp",
-               url = "http://www.openrtm.org/OpenRTM-aist/",
-               long_description = "OpenRTM-aist is a reference implementation of RT-Middleware,\
-               which is now under standardization process in OMG (Object Management Group).\
-               OpenRTM-aist is being developed and distributed by\
-               Task Intelligence Research Group,\
-               Intelligent Systems Research Institute,\
-               National Institute of Advanced Industrial Science and Technology (AIST), Japan.\
-               Please see http://www.openrtm.org/ for more detail.",
-               license = "LGPL",
-               cmdclass = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc  },
-               packages = win32_packages,
+    g_qkc_option = "-m"
+    core.setup(name             = pkg_name,
+               version          = pkg_version,
+               description      = pkg_desc,
+               author           = pkg_author,
+               author_email     = pkg_email,
+               url              = pkg_url,
+               long_description = pkg_long_desc,
+               license          = pkg_license,
+               cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc  },
+               packages         = win32_packages,
                scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python.bat',
                          'OpenRTM_aist/utils/rtcd/rtcd_python.bat'],
-               data_files = win32_data_files)
+               data_files       = win32_data_files,
+               script_args      = ["sdist", "--format=zip"])
 
 except Exception, e:
   log.error("Error: %s", e)
