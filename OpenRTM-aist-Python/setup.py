@@ -20,25 +20,32 @@ core.DEBUG = False
 
 g_os = None
 g_qkc_option = "-u"
+is_examples = False
 
 if os.sep == '/':
   g_os = "unix"
   if sys.version_info[0:3] >= (2, 6, 0):
     #sitedir = os.path.join("lib", "python" + sys.version[:3], "dist-packages")
     sitedir = os.path.join("lib", "python" + sys.version[:3], "site-packages")
+    example_sitedir = os.path.join("share", "OpenRTM-aist", "examples", "python")
   elif sys.version_info[0:3] >= (2, 2, 0):
     sitedir = os.path.join("lib", "python" + sys.version[:3], "site-packages")
+    example_sitedir = os.path.join("share", "OpenRTM-aist", "examples", "python")
 elif os.sep == ':':
   sitedir = os.path.join("lib", "site-packages")
+  example_sitedir = os.path.join("lib", "site-packages")
 elif os.sep == '\\':
   print "os: win32"
   g_os = "win32"
   sitedir = os.path.join("lib", "site-packages")
+  example_sitedir = os.path.join("lib", "site-packages")
 else:
   if sys.version_info[0:3] >= (2, 2, 0):
     sitedir = os.path.join("lib", "site-packages")
+    example_sitedir = os.path.join("lib", "site-packages")
   else:
     sitedir = "."
+    example_sitedir = os.path.join("lib", "site-packages")
 
 
 def compile_idl(cmd, pars, files):
@@ -122,6 +129,40 @@ class Build_idl (cmd.Command):
                  "Generating python sample stubs from IDL files")
 
 
+class Build_examples_idl (cmd.Command):
+  """
+  This class realizes a subcommand of build command and is used for building
+  IDL stubs.
+  """
+
+  description = "Generate python stubs from IDL files in examples"
+
+  user_options = [("omniidl=", "i", "omniidl program used to build stubs"),
+                  ("idldir=",  "d", "directory where IDL files reside")]
+
+  def initialize_options(self):
+    self.idldir  = None
+    self.omniidl = None
+    self.omniidl_params = ["-bpython"]
+
+  def finalize_options(self):
+    if not self.omniidl:
+      self.omniidl = "omniidl"
+    if not self.idldir:
+      self.idldir = os.path.join(os.getcwd(),"OpenRTM_aist","examples","SimpleService")
+
+  def run(self):
+    #self.omniidl_params.append("-Wbpackage=OpenRTM_aist.RTM_IDL")
+    self.omniidl_params.append("-COpenRTM_aist/examples/SimpleService")
+    self.omniidl_params.append("-IOpenRTM_aist/examples/SimpleService")
+    modules = ["MyService"]
+
+    util.execute(compile_idl,
+                 (self.omniidl, self.omniidl_params,
+                  [ gen_idl_name(self.idldir, module) for module in modules ]),
+                 "Generating python sample stubs from IDL files")
+
+
 class Build_doc(cmd.Command):
   """
   This class realizes a subcommand of build command and is used for building
@@ -145,6 +186,33 @@ class Build_doc(cmd.Command):
       os.chdir(docs_dir)
       os.system("make")
       os.chdir(curr_dir)
+
+
+class Build_examples (build):
+  """
+  This is here just to override default sub_commands list of build class.
+  We added 'build_examples_idl' item.
+  """
+  def has_pure_modules (self):
+    return self.distribution.has_pure_modules()
+
+  def has_c_libraries (self):
+    return self.distribution.has_c_libraries()
+
+  def has_ext_modules (self):
+    return self.distribution.has_ext_modules()
+
+  def has_scripts (self):
+    return self.distribution.has_scripts()
+
+  def has_idl_files (self):
+    return True
+
+  sub_commands = [('build_examples_idl', has_idl_files),
+                  ('build_py',           has_pure_modules),
+                  ('build_clib',         has_c_libraries),
+                  ('build_ext',          has_ext_modules),
+                  ('build_scripts',      has_scripts)]
 
 
 class Build (build):
@@ -179,6 +247,16 @@ class Build (build):
 
 class OtherSetupForSdist(sdist):
 
+  def initialize_options(self):
+    global is_examples
+
+    sdist.initialize_options(self)
+    if is_examples:
+      self.template = "MANIFEST_examples.in"
+      #self.manifest = "MANIFEST"
+      self.use_defaults = 0
+      self.force_manifest = 1
+
   def make_distribution (self):
     """Create the source distribution(s).  First, we create the release
     tree with 'make_release_tree()'; then, we create all required
@@ -189,7 +267,6 @@ class OtherSetupForSdist(sdist):
     """
     global g_os
     global g_qkc_option
-    print "make_distribution"
     # Don't warn about missing meta-data here -- should be (and is!)
     # done elsewhere.
     base_dir = self.distribution.get_fullname()
@@ -226,6 +303,60 @@ unix_packages = ["OpenRTM_aist",
                  "OpenRTM_aist.utils.rtcprof",
                  "OpenRTM_aist.utils.rtc-template",
                  "OpenRTM_aist.utils.rtm-naming"]
+
+example_dir = ["AutoControl",
+               "Composite",
+               "ConfigSample",
+               "ExtTrigger",
+               "MobileRobotCanvas",
+               "NXTRTC",
+               "SeqIO",
+               "SimpleIO",
+               {"SimpleService":["_GlobalIDL","_GlobalIDL__POA"]},
+               "Slider_and_Motor",
+               "TkLRFViewer",
+               "TkJoyStick"]
+
+example_data_files = []
+
+for ex in example_dir:
+  if isinstance(ex, str):
+    py_path_   = glob.glob(os.path.join("OpenRTM_aist", "examples", ex, "*.py"))
+    conf_path_ = glob.glob(os.path.join("OpenRTM_aist", "examples",ex,"*.conf")) 
+    idl_path_  = glob.glob(os.path.join("OpenRTM_aist", "examples",ex,"*.idl")) 
+    if py_path_:
+      example_data_files.append((os.path.join(example_sitedir, ex),[py_path_]))
+    if conf_path_:
+      example_data_files.append((os.path.join(example_sitedir, ex),[conf_path_]))
+    if idl_path_:
+      example_data_files.append((os.path.join(example_sitedir, ex),[idl_path_]))
+  elif isinstance(ex, dict):
+    vals_ = ex.values()
+    key_  = ex.keys()[0]
+    if isinstance(vals_, list):
+      if isinstance(vals_[0], list):
+        for val_ in vals_[0]:
+          stub_path_   = glob.glob(os.path.join("OpenRTM_aist","examples",
+                                                key_, val_,"*.py"))
+          if stub_path_:
+            example_data_files.append((os.path.join(example_sitedir, key_, val_),[stub_path_]))
+      elif isinstance(vals_[0], str):
+        stub_path_   = glob.glob(os.path.join("OpenRTM_aist","examples",
+                                              key_, vals_[0],"*.py"))
+        if stub_path_:
+          example_data_files.append((os.path.join(example_sitedir, key_, vals_[0]),[stub_path_]))
+
+    py_path_   = glob.glob(os.path.join("OpenRTM_aist", "examples",key_, "*.py"))
+    conf_path_ = glob.glob(os.path.join("OpenRTM_aist", "examples",key_,"*.conf")) 
+    idl_path_  = glob.glob(os.path.join("OpenRTM_aist", "examples",key_,"*.idl")) 
+
+    if py_path_:
+      example_data_files.append((os.path.join(example_sitedir, key_),[py_path_]))
+    if conf_path_:
+      example_data_files.append((os.path.join(example_sitedir, key_),[conf_path_]))
+    if idl_path_:
+      example_data_files.append((os.path.join(example_sitedir, key_),[idl_path_]))
+
 
 win32_packages = ["OpenRTM_aist",
                   "OpenRTM_aist.RTM_IDL",
@@ -281,36 +412,6 @@ win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples'),
                          ['OpenRTM_aist/examples/component.conf']))
 win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'utils', 'rtcd'),
                          ['OpenRTM_aist/utils/rtcd/rtcd.conf']))
-"""
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','AutoControl'),
-                         ['OpenRTM_aist/examples/AutoControl/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','Composite'),
-                         ['OpenRTM_aist/examples/Composite/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','Composite'),
-                         ['OpenRTM_aist/examples/Composite/composite.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','ConfigSample'),
-                         ['OpenRTM_aist/examples/ConfigSample/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','ConfigSample'),
-                         ['OpenRTM_aist/examples/ConfigSample/configsample.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','ExtTrigger'),
-                         ['OpenRTM_aist/examples/ExtTrigger/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','MobileRobotCanvas'),
-                         ['OpenRTM_aist/examples/MobileRobotCanvas/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','NXTRTC'),
-                         ['OpenRTM_aist/examples/NXTRTC/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','SimpleIO'),
-                         ['OpenRTM_aist/examples/SimpleIO/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','SeqIO'),
-                         ['OpenRTM_aist/examples/SeqIO/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','SimpleService'),
-                         ['OpenRTM_aist/examples/SimpleService/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','Slider_and_Motor'),
-                         ['OpenRTM_aist/examples/Slider_and_Motor/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','TkJoyStick'),
-                         ['OpenRTM_aist/examples/TkJoyStick/rtc.conf']))
-win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples','TkLRFViewer'),
-                         ['OpenRTM_aist/examples/TkLRFViewer/rtc.conf']))
-"""
 
 templates_xml = glob.glob(os.path.join('OpenRTM_aist',
                                        'examples',
@@ -340,10 +441,10 @@ Please see http://www.openrtm.org/ for more detail.
 """
 pkg_license   = "EPL"
 
-
 try:
   if g_os == "unix":
     g_qkc_option = "-u"
+    # for RTM
     core.setup(name             = pkg_name,
                version          = pkg_version,
                description      = pkg_desc,
@@ -352,11 +453,13 @@ try:
                url              = pkg_url,
                long_description = pkg_long_desc,
                license          = pkg_license,
-               cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc, 'sdist':OtherSetupForSdist },
+               cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc, "sdist":OtherSetupForSdist },
                packages         = unix_packages,
                scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python',
                          'OpenRTM_aist/utils/rtcd/rtcd_python'],
                data_files       = unix_data_files)
+
+    # for RTM
     if sys.argv[1] == "sdist":
       g_qkc_option = "-m"
       core.setup(name             = pkg_name,
@@ -367,14 +470,55 @@ try:
                  url              = pkg_url,
                  long_description = pkg_long_desc,
                  license          = pkg_license,
-                 cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc, 'sdist':OtherSetupForSdist  },
+                 cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc, "sdist":OtherSetupForSdist  },
                  packages         = win32_packages,
                  scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python.bat',
                            'OpenRTM_aist/utils/rtcd/rtcd_python.bat'],
                  data_files       = win32_data_files,
                  script_args      = ["sdist", "--format=zip"])
+
+      g_qkc_option = "-u"
+      # for examples
+      pkg_name      = "OpenRTM-aist-Python-example"
+      pkg_desc      = "Python example components for OpenRTM-aist-1.0"
+
+      is_examples   = True
+
+      core.setup(name             = pkg_name,
+                 version          = pkg_version,
+                 description      = pkg_desc,
+                 author           = pkg_author,
+                 author_email     = pkg_email,
+                 url              = pkg_url,
+                 long_description = pkg_long_desc,
+                 license          = pkg_license,
+                 cmdclass         = { "build":Build_examples, "build_examples_idl":Build_examples_idl, "sdist":OtherSetupForSdist },
+                 data_files       = example_data_files,
+                 script_args      = ["sdist", "--no-defaults"])
+
+      is_examples   = False
+
+    else:
+      g_qkc_option = "-u"
+      # for examples
+      pkg_name      = "OpenRTM-aist-Python-example"
+      pkg_desc      = "Python example components for OpenRTM-aist-1.0"
+
+      core.setup(name             = pkg_name,
+                 version          = pkg_version,
+                 description      = pkg_desc,
+                 author           = pkg_author,
+                 author_email     = pkg_email,
+                 url              = pkg_url,
+                 long_description = pkg_long_desc,
+                 license          = pkg_license,
+                 cmdclass         = { "build":Build_examples, "build_examples_idl":Build_examples_idl, "sdist":OtherSetupForSdist },
+                 data_files       = example_data_files)
+
   elif g_os == "win32":
     g_qkc_option = "-m"
+
+    # for RTM
     core.setup(name             = pkg_name,
                version          = pkg_version,
                description      = pkg_desc,
