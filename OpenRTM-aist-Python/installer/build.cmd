@@ -23,7 +23,7 @@
 @rem ------------------------------------------------------------
 @set DISTRIBUTION=C:\distribution
 @set OPENRTM_PY=%DISTRIBUTION%\OpenRTM-aist-Python-1.0.0
-@set OMNIORB_PY24=%DISTRIBUTION%\omniORBpy-3.4-Python2.4
+@set OMNIORB_PY24=%DISTRIBUTION%\omniORBpy-3.0-Python2.4
 @set OMNIORB_PY25=%DISTRIBUTION%\omniORBpy-3.4-Python2.5
 @set OMNIORB_PY26=%DISTRIBUTION%\omniORBpy-3.4-Python2.6
 

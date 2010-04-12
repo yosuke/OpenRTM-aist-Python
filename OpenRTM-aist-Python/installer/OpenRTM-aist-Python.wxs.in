@@ -7,7 +7,7 @@
            Codepage='$(var.codepage)'
            Version="1.0.0" 
            Manufacturer="AIST"
-           UpgradeCode="572C59A1-4637-4624-AD55-FC4533CE4C8A">
+           UpgradeCode="F3C4C38B-AF6A-45CE-9393-5582CDA2F5EC">
     <Package Id="*" 
              Keywords="Installer"
              Description="OpenRTM-aist-Pyton Installer"
@@ -118,7 +118,7 @@
                 DiskId="1" Source="{% file.Source %}">
             <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
                       Name="Start RTC daemon"
-                      Arguments=' -d -f "[Version]Python\examples\rtcd.conf"'
+                      Arguments=' -d -f "[Version]examples\Python\rtcd.conf"'
                       Show="normal" WorkingDirectory="bin"/>
           </File>
           {% endfor %}
@@ -231,7 +231,7 @@
                 DiskId="1" Source="{% file.Source %}">
             <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
                       Name="Start RTC daemon"
-                      Arguments=' -d -f "[Version]Python\examples\rtcd.conf"'
+                      Arguments=' -d -f "[Version]examples\Python\rtcd.conf"'
                       Show="normal" WorkingDirectory="bin"/>
           </File>
           {% endfor %}
@@ -344,7 +344,7 @@
                 DiskId="1" Source="{% file.Source %}">
             <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
                       Name="Start RTC daemon"
-                      Arguments=' -d -f "[Version]Python\examples\rtcd.conf"'
+                      Arguments=' -d -f "[Version]examples\Python\rtcd.conf"'
                       Show="normal" WorkingDirectory="bin"/>
           </File>
           {% endfor %}
@@ -452,6 +452,25 @@
                   {% endif %}
                 </File>
                 {% endfor %}
+
+              </Component>
+
+              <Component Id="Rtm_Bin2" Guid="{% RtmIdlcompiler.GUID %}">
+		<Environment Id='RTM_ROOT' Name='RTM_ROOT' Action='set'
+			     System='yes' Part='all' Value='[Version]' />
+		<Environment Id='UpdatePath' Name='PATH' Action='set'
+			     System='yes' Part='last'
+			     Value='[bin]' />
+                <RemoveFile Id='Rtm_Bin2' On='uninstall' Name='*.pyc' />
+                <RemoveFolder Id='Rtm_Bin2_f' On='uninstall' />
+
+                {% for file in RtmIdlcompiler.Files %}
+                <File Id="{% file.Id %}"
+                      Name="{% file.Name %}" DiskId="1"
+                      Source="{% file.Source %}">
+                </File>
+                {% endfor %}
+
               </Component>
             </Directory>
 
@@ -839,18 +858,14 @@
     </Directory>
 
     <!-- 機能定義 omniORBpy24 -->
-    <Feature Id="omniORBpy24" Level="1" Title="omniORBpy for Python 2.4"
+    <Feature Id="omniORBpy24" Level="1" Title="OpenRTM-aist for Python 2.4"
              ConfigurableDirectory="PYTHON24DIR">
       <Condition Level="1"><![CDATA[ NOT PYTHON24 =  ""]]></Condition>
       <Condition Level="0"><![CDATA[ NOT PYTHON24 <> ""]]></Condition>
 
       <!-- runtime -->
-      <Feature Id="Py24_Runtime" Level="1" Title="Runtime Environment">
+      <Feature Id="Py24_Runtime" Level="1" Title="omniORBpy for Python 2.4">
         <ComponentRef Id="Py24BinX86_win32"/>
-      </Feature>
-
-      <!-- omniORBpy -->
-      <Feature Id="Py24_Devel" Level="1" Title="Development Environmen">
         <ComponentRef Id="Py24LibX86_win32"/>
         <ComponentRef Id="Py24LibPython"/>
         <ComponentRef Id="Py24BinDll"/>
@@ -949,7 +964,7 @@
       </Feature>
 
       <!-- OpenRTM_aist -->
-      <Feature Id="Py24_OpenRTM_aist" Level="1" Title="OpenRTM-aist Python">
+      <Feature Id="Py24_OpenRTM_aist" Level="1" Title="OpenRTM-aist (Python)">
         <ComponentRef Id="Py24_RtmOpenrtm_aistUtilsRtcprof"/>
         <ComponentRef Id="Py24_RtmOpenrtm_aistUtilsRtcd"/>
         <ComponentRef Id="Py24_RtmOpenrtm_aistRoot"/>
@@ -961,18 +976,14 @@
     </Feature>
 
     <!-- 機能定義 omniORBpy25 -->
-    <Feature Id="omniORBpy25" Level="1" Title="omniORBpy for Python 2.5"
+    <Feature Id="omniORBpy25" Level="1" Title="OpenRTM-aist for Python 2.5"
              ConfigurableDirectory="PYTHON25DIR">
       <Condition Level="1"><![CDATA[ NOT PYTHON25 =  ""]]></Condition>
       <Condition Level="0"><![CDATA[ NOT PYTHON25 <> ""]]></Condition>
 
       <!-- runtime -->
-      <Feature Id="Py25_Runtime" Level="1" Title="Runtime Environment">
+      <Feature Id="Py25_Runtime" Level="1" Title="omniORBpy for Python 2.5">
         <ComponentRef Id="Py25BinX86_win32"/>
-      </Feature>
-
-      <!-- omniORBpy -->
-      <Feature Id="Py25_Devel" Level="1" Title="Development Environmen">
         <ComponentRef Id="Py25LibX86_win32"/>
         <ComponentRef Id="Py25LibPython"/>
         <ComponentRef Id="Py25BinDll"/>
@@ -1071,7 +1082,7 @@
       </Feature>
 
       <!-- OpenRTM_aist -->
-      <Feature Id="Py25_OpenRTM_aist" Level="1" Title="OpenRTM-aist Python">
+      <Feature Id="Py25_OpenRTM_aist" Level="1" Title="OpenRTM-aist (Python)">
         <ComponentRef Id="Py25_RtmOpenrtm_aistUtilsRtcprof"/>
         <ComponentRef Id="Py25_RtmOpenrtm_aistUtilsRtcd"/>
         <ComponentRef Id="Py25_RtmOpenrtm_aistRoot"/>
@@ -1083,18 +1094,14 @@
     </Feature>
 
     <!-- 機能定義 omniORBpy26 -->
-    <Feature Id="omniORBpy26" Level="1" Title="omniORBpy for Python 2.6"
+    <Feature Id="omniORBpy26" Level="1" Title="OpenRTM-aist for Python 2.6"
              ConfigurableDirectory="PYTHON26DIR">
       <Condition Level="1"><![CDATA[ NOT PYTHON26 =  ""]]></Condition>
       <Condition Level="0"><![CDATA[ NOT PYTHON26 <> ""]]></Condition>
 
       <!-- runtime -->
-      <Feature Id="Py26_Runtime" Level="1" Title="Runtime Environment">
+      <Feature Id="Py26_Runtime" Level="1" Title="omniORBpy for Python 2.6">
         <ComponentRef Id="Py26BinX86_win32"/>
-      </Feature>
-
-      <!-- omniORBpy -->
-      <Feature Id="Py26_Devel" Level="1" Title="Development Environmen">
         <ComponentRef Id="Py26LibX86_win32"/>
         <ComponentRef Id="Py26LibPython"/>
         <ComponentRef Id="Py26BinDll"/>
@@ -1193,7 +1200,7 @@
       </Feature>
 
       <!-- OpenRTM_aist -->
-      <Feature Id="Py26_OpenRTM_aist" Level="1" Title="OpenRTM-aist Python">
+      <Feature Id="Py26_OpenRTM_aist" Level="1" Title="OpenRTM-aist (Python)">
         <ComponentRef Id="Py26_RtmOpenrtm_aistUtilsRtcprof"/>
         <ComponentRef Id="Py26_RtmOpenrtm_aistUtilsRtcd"/>
         <ComponentRef Id="Py26_RtmOpenrtm_aistRoot"/>
@@ -1205,12 +1212,13 @@
     </Feature>
 
     <!-- 機能定義 OpenRTM-aist -->
-    <Feature Id="ProductFeature" Level="1" Title="OpenRTM-aist (Python)"
+    <Feature Id="ProductFeature" Level="1" Title="OpenRTM-aist (Python) common files"
              ConfigurableDirectory="INSTALLLOCATION">
 
       <!-- runtime -->
-      <Feature Id="Rtm_Runtime" Level="1" Title="Runtime Environment">
+      <Feature Id="Rtm_Runtime" Level="1" Title="Utility">
         <ComponentRef Id="Rtm_Bin"/>
+        <ComponentRef Id="Rtm_Bin2"/>
       </Feature>
 
       <!-- documents -->
@@ -1251,14 +1259,14 @@
 
     <!-- インストール完了時のIDLコンパイル実行 -->
     <CustomAction Id='IDLCOMPILE_PY24' Directory="PYTHON24DIR"
-                  ExeCommand='[SourceDir]idlcompile.bat [SourceDir]idlcompile.py 2.4 "[Version]examples\Python"' 
+                  ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.4 "[Version]examples\Python"' 
                   Return='asyncNoWait' />
     <CustomAction Id='IDLCOMPILE_PY25' Directory="PYTHON25DIR"
-                  ExeCommand='[SourceDir]idlcompile.bat [SourceDir]idlcompile.py 2.5 "[Version]examples\Python"' 
+                  ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.5 "[Version]examples\Python"' 
                   Return='asyncNoWait' />
     <CustomAction Id='IDLCOMPILE_PY26' Directory="PYTHON26DIR"
-                  ExeCommand='[SourceDir]idlcompile.bat [SourceDir]idlcompile.py 2.6 "[Version]examples\Python"' 
-                  Return='asyncNoWait' />
+                  ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.6 "[Version]examples\Python"' 
+                  Return='check' />
 
     <!-- アンインストール時のフォルダー削除(IDLコンパイル分) -->
     <CustomAction Id='REMOVEFOLDER_PY24' Directory="PYTHON24DIR"

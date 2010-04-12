@@ -39,6 +39,10 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 　　　　│　　│　　├─ ClassReference-jp
 　　　　│　　│　　└─ ClassReference-en
 　　　　│　　│
+　　　　│　　├─ idlcompiler ※ idlcompiler
+　　　　│　　│　　├─ idlcompile.bat 
+　　　　│　　│　　└─ idlcompile.py
+　　　　│　　│
 　　　　│　　└─ OpenRTM_aist　　※sdist
 　　　　│　　　　　├─ *.py(ソースファイル)
 　　　　│　　　　　├─ examples
@@ -50,7 +54,7 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 　　　　│　　　　　　　　└─ rtm-naming
 　　　　│
 　　　　│
-　　　　├─ omniORBpy-3.4-Python2.4
+　　　　├─ omniORBpy-3.0-Python2.4
 　　　　│　　├─ bin
 　　　　│　　│　　└─ x86_win32
 　　　　│　　└─ lib
@@ -76,10 +80,11 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 　　(1) OpenRTM-aist-Python-1.0.0 は、
 　　　　Python版OpenRTM-aistのインストール対象ファイルであり、
 　　　　doxygenにより作成されたリファレンスファイル(※doxygen)と、
+        IDLコンパイルを行うためのファイル(※idlcompiler)と、
 　　　　python setup.py sdist により作成されたファイル(※sdist)を含む。
 
-　　(2) omniORBpy-3.4-Python2.4 は、
-　　　　Python2.4用omniORBpy-3.4である。
+　　(2) omniORBpy-3.0-Python2.4 は、
+　　　　Python2.4用omniORBpy-3.0である。
 
 　　(3) omniORBpy-3.4-Python2.5 は、
 　　　　Python2.5用omniORBpy-3.4である。

@@ -4,12 +4,13 @@
 @rem   argument %2: Python version
 @rem   argument %3: examples Path
 @rem ------------------------------------------------------------
-@echo off
+@rem @echo off
 echo --- IDL Compile Python %2 Start ---
 set PATH_TMP=%PATH%
 set PATH=%CD%\;%PATH_TMP%
 set PYTHONPATH=%CD%\Lib\site-packages
 
-%CD%\python %1 %2 %3
-echo --- IDL Compile Python %2 Complete ---
+echo --- IDL Compile Python %1 %2 %3 ---
+python %1 %2 %3
 
+echo --- IDL Compile Python %2 Complete ---
