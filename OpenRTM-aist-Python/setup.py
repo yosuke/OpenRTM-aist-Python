@@ -459,9 +459,11 @@ try:
                          'OpenRTM_aist/utils/rtcd/rtcd_python'],
                data_files       = unix_data_files)
 
-    # for RTM
+    # for RTM zip
     if sys.argv[1] == "sdist":
       g_qkc_option = "-m"
+      is_examples   = False
+
       core.setup(name             = pkg_name,
                  version          = pkg_version,
                  description      = pkg_desc,
@@ -477,11 +479,11 @@ try:
                  data_files       = win32_data_files,
                  script_args      = ["sdist", "--format=zip"])
 
-      g_qkc_option = "-u"
+
       # for examples
+      g_qkc_option = "-u"
       pkg_name      = "OpenRTM-aist-Python-example"
       pkg_desc      = "Python example components for OpenRTM-aist-1.0"
-
       is_examples   = True
 
       core.setup(name             = pkg_name,
@@ -496,11 +498,12 @@ try:
                  data_files       = example_data_files,
                  script_args      = ["sdist", "--no-defaults"])
 
+
       is_examples   = False
 
     else:
-      g_qkc_option = "-u"
       # for examples
+      g_qkc_option = "-u"
       pkg_name      = "OpenRTM-aist-Python-example"
       pkg_desc      = "Python example components for OpenRTM-aist-1.0"
 
