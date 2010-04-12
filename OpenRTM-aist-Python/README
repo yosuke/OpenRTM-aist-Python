@@ -1,25 +1,30 @@
 -----------------------------
  OpenRTM-aist-1.0 Python版
 -----------------------------
-栗原 眞二 (2009年01月30日)
+栗原 眞二 (2010年03月31日)
 
 
 確認済み動作環境
 ---------------
- OS : Ubuntu 8.10, Vine Linux 3.1, Windows XP Professional
+ OS : 
+  - Vine Linux 4.0, 4.1, 4.2
+  - Fedora 10, 11
+  - Ubuntu 8.04, 8.10, 9.04, 9.10
+  - Debian 4.0, 5.0
+  - Windows XP Professional, Windows Vista, Windows7
    
 
 必要なもの
 ----------
- Python(version: 2.3以上), omniORB(version: 4.0.7), omniORBpy
- (version: 2.3または、2.7以上)
+ -Python(version: 2.4以上)
+ -omniORBpy(version: 2.7以上)
 
 
 環境変数PYTHONPATHの設定
 --------------
  (Vine Linux)
- cshの場合  : setenv PYTHONPATH /usr/lib/python2.3/site-packages
- bashの場合 : export PYTHONPATH=/usr/lib/python2.3/site-packages
+ cshの場合  : setenv PYTHONPATH /usr/lib/python2.4/site-packages
+ bashの場合 : export PYTHONPATH=/usr/lib/python2.4/site-packages
  ※ /usr/lib/python2.3の箇所は、インストールした環境にあわせて下さい。
 
  (WindowsXP)
@@ -27,7 +32,7 @@
  定] -> [環境変数(N)] -> [新規(N)]
 
  変数名(N) : PYTHONPATH
- 変数値(V) : C:\Python23\Lib\site-packages
+ 変数値(V) : C:\Python24\Lib\site-packages
 
 
 インストール方法
@@ -45,10 +50,10 @@
 [Vine Linuxの場合]
 
  1. アーカイブの解凍
-    $ tar xvzf OpenRTM-1.0-Python.tar.gz
+    $ tar xvzf OpenRTM-aist-Python-1.0.0.tar.gz
 
  2. ビルド
-    $ cd OpenRTM-aist-1.0-Python
+    $ cd OpenRTM-aist-Python-1.0.0
     $ python setup.py build
 
  3. インストール
@@ -57,9 +62,9 @@
 
 
 [Windows XPの場合]
- <OpenRTM-aist-Python-1.0.zipの場合>
+ <OpenRTM-aist-Python-1.0.0.zipの場合>
  1. アーカイブの解凍
-    OpenRTM-aist-Python-1.0.zipを解凍ソフトにて解凍して下さい。
+    OpenRTM-aist-Python-1.0.0.zipを解凍ソフトにて解凍して下さい。
 
  2. ビルド
     > cd <アーカイブを展開したフォルダ>
@@ -68,7 +73,7 @@
  3. インストール
     > python setup.py install
 
- <OpenRTM-aist-Python24-1.0.win32.exeの場合>
+ <OpenRTM-aist-Python-1.0.0.msiの場合>
  1. インストーラーを起動し、指示にしたがってインストールを行って下さい。
 
 
