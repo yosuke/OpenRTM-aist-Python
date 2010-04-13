@@ -26,6 +26,7 @@
 @set OMNIORB_PY24=%DISTRIBUTION%\omniORBpy-3.0-Python2.4
 @set OMNIORB_PY25=%DISTRIBUTION%\omniORBpy-3.4-Python2.5
 @set OMNIORB_PY26=%DISTRIBUTION%\omniORBpy-3.4-Python2.6
+@set RTSE_ROOT=C:\distribution\OpenRTP\RTSystemEditor
 
 @rem ------------------------------------------------------------
 @rem Supported languages
@@ -61,6 +62,34 @@ python omniORBpy24wxs.py
 python omniORBpy25wxs.py
 python omniORBpy26wxs.py
 python OpenRTMpywxs.py
+
+@rem ------------------------------------------------------------
+@rem Generate RTSystemEditor wxs file
+@rem
+@rem RTSystemEditorRCP.exe should be under %RTSE_ROOT%
+@rem
+@rem ------------------------------------------------------------
+if "x%RTSE_ROOT%" == "x" (
+   echo Envrionment variable "RTSE_ROOT" is not set. Abort.
+   goto END
+)
+if not exist "%RTSE_ROOT%\RTSystemEditorRCP.exe" (
+   echo RTSystemEditorRCP.exe does not found. Abort
+   goto END
+)
+set INCLUDE_RTSE=YES
+set INCLUDE_OPENRTP=YES
+
+if not exist OpenRTP_inc.wxs (
+   cd OpenRTP
+rem set TMP_PYTHONPATH=%PYTHONPATH%
+rem set PYTHONPATH=../../bin;%PYTHONPATH%
+rem echo Generating OpenRTP_inc.wxs......
+rem openrtpwxs.py
+rem set PYTHONPATH=%TMP_PYTHONPATH%
+   copy OpenRTP_inc.wxs ..
+   cd ..
+)
 
 @rem ============================================================
 @rem compile wxs file and link msi

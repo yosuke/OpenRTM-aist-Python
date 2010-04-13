@@ -18,28 +18,34 @@
 
     <!-- プロパティ -->
     <Property Id='USERPROFILEDIR' Value='%USERPROFILE%' />
+
     <Property Id="PYTHON24">
       <RegistrySearch Id="Python24"
                       Root="HKLM"
                       Key="SOFTWARE\Python\PythonCore\2.4\InstallPath"
                       Type="raw" />
     </Property>
+
     <Property Id="PYTHON25">
       <RegistrySearch Id="Python25"
                       Root="HKLM"
                       Key="SOFTWARE\Python\PythonCore\2.5\InstallPath"
                       Type="raw" />
     </Property>
+
     <Property Id="PYTHON26">
       <RegistrySearch Id="Python26"
                       Root="HKLM"
                       Key="SOFTWARE\Python\PythonCore\2.6\InstallPath"
                       Type="raw" />
     </Property>
+
     <SetProperty Id="PYTHON24DIR" After="AppSearch" Value="[PYTHON24]">
     </SetProperty>
+
     <SetProperty Id="PYTHON25DIR" After="AppSearch" Value="[PYTHON25]">
     </SetProperty>
+
     <SetProperty Id="PYTHON26DIR" After="AppSearch" Value="[PYTHON26]">
     </SetProperty>
 
@@ -456,11 +462,6 @@
               </Component>
 
               <Component Id="Rtm_Bin2" Guid="{% RtmIdlcompiler.GUID %}">
-		<Environment Id='RTM_ROOT' Name='RTM_ROOT' Action='set'
-			     System='yes' Part='all' Value='[Version]' />
-		<Environment Id='UpdatePath' Name='PATH' Action='set'
-			     System='yes' Part='last'
-			     Value='[bin]' />
                 <RemoveFile Id='Rtm_Bin2' On='uninstall' Name='*.pyc' />
                 <RemoveFolder Id='Rtm_Bin2_f' On='uninstall' />
 
@@ -834,6 +835,12 @@
 
           </Directory>
         </Directory>
+
+	<!-- rtmtools components -->
+	<?if $(env.INCLUDE_OPENRTP) = YES ?>
+	<?include OpenRTP_inc.wxs ?>
+	<?endif ?>
+	<!-- end of rtmtools -->
 
       <!-- end of Program Files フォルダ -->
       </Directory>
@@ -1247,6 +1254,26 @@
 
     </Feature>
 
+    <!-- OpenRTP tools -->
+    <?if $(env.INCLUDE_OPENRTP) = YES ?>
+    <Feature Id="OpenRTP" Level="1" Title="OpenRT Platform Tool Chain">
+      <!-- rtse rcp -->
+      <Feature Id="RTSystemEditor" Level="1" Title="RTSystemEditor">
+	<ComponentRef Id="RTSystemEditor" />
+	<ComponentRef Id="configuration" />
+	<ComponentRef Id="plugins" />
+	<ComponentRef Id="org.eclipse.core.runtime.compatibility.registry_3.2.1.R32x_v20060907" />
+	<ComponentRef Id="META_INF" />
+	<ComponentRef Id="org.eclipse.jdt.junit.runtime.nl1_3.2.1.v200609270227" />
+	<ComponentRef Id="META_INF_1" />
+	<ComponentRef Id="org.eclipse.jdt.junit.runtime_3.2.1.r321_v20060721" />
+	<ComponentRef Id="META_INF_2" />
+	<ComponentRef Id="org.junit_3.8.1" />
+	<ComponentRef Id="META_INF_3" />
+      </Feature>
+    </Feature>
+    <?endif ?>
+
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="Bitmaps/bannrbmp.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="Bitmaps/dlgbmp.bmp" />
@@ -1260,10 +1287,12 @@
     <!-- インストール完了時のIDLコンパイル実行 -->
     <CustomAction Id='IDLCOMPILE_PY24' Directory="PYTHON24DIR"
                   ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.4 "[Version]examples\Python"' 
-                  Return='asyncNoWait' />
+                  Return='check' />
+
     <CustomAction Id='IDLCOMPILE_PY25' Directory="PYTHON25DIR"
                   ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.5 "[Version]examples\Python"' 
-                  Return='asyncNoWait' />
+                  Return='check' />
+
     <CustomAction Id='IDLCOMPILE_PY26' Directory="PYTHON26DIR"
                   ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.6 "[Version]examples\Python"' 
                   Return='check' />
