@@ -25,8 +25,11 @@ is_examples = False
 if os.sep == '/':
   g_os = "unix"
   if sys.version_info[0:3] >= (2, 6, 0):
-    #sitedir = os.path.join("lib", "python" + sys.version[:3], "dist-packages")
-    sitedir = os.path.join("lib", "python" + sys.version[:3], "site-packages")
+    dist_dir = os.path.join(sys.prefix,'lib','python'+sys.version[:3],'dist-packages')
+    if os.path.isdir(dist_dir):
+      sitedir = os.path.join("lib", "python" + sys.version[:3], "dist-packages")
+    else:
+      sitedir = os.path.join("lib", "python" + sys.version[:3], "site-packages")
     example_sitedir = os.path.join("share", "OpenRTM-aist", "examples", "python")
   elif sys.version_info[0:3] >= (2, 2, 0):
     sitedir = os.path.join("lib", "python" + sys.version[:3], "site-packages")
