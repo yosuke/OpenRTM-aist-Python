@@ -328,11 +328,17 @@ for ex in example_dir:
     conf_path_ = glob.glob(os.path.join("OpenRTM_aist", "examples",ex,"*.conf")) 
     idl_path_  = glob.glob(os.path.join("OpenRTM_aist", "examples",ex,"*.idl")) 
     if py_path_:
-      example_data_files.append((os.path.join(example_sitedir, ex),[py_path_]))
+      for pp_ in py_path_:
+        example_data_files.append((os.path.join(example_sitedir, ex),[pp_]))
+
     if conf_path_:
-      example_data_files.append((os.path.join(example_sitedir, ex),[conf_path_]))
+      for cp_ in conf_path_:
+        example_data_files.append((os.path.join(example_sitedir, ex),[cp_]))
+
     if idl_path_:
-      example_data_files.append((os.path.join(example_sitedir, ex),[idl_path_]))
+      for ip_ in idl_path_:
+        example_data_files.append((os.path.join(example_sitedir, ex),[ip_]))
+
   elif isinstance(ex, dict):
     vals_ = ex.values()
     key_  = ex.keys()[0]
@@ -342,23 +348,28 @@ for ex in example_dir:
           stub_path_   = glob.glob(os.path.join("OpenRTM_aist","examples",
                                                 key_, val_,"*.py"))
           if stub_path_:
-            example_data_files.append((os.path.join(example_sitedir, key_, val_),[stub_path_]))
+            for sp_ in stub_path_:
+              example_data_files.append((os.path.join(example_sitedir, key_, val_),[sp_]))
       elif isinstance(vals_[0], str):
         stub_path_   = glob.glob(os.path.join("OpenRTM_aist","examples",
                                               key_, vals_[0],"*.py"))
         if stub_path_:
-          example_data_files.append((os.path.join(example_sitedir, key_, vals_[0]),[stub_path_]))
+            for sp_ in stub_path_:
+              example_data_files.append((os.path.join(example_sitedir, key_, vals_[0]),[sp_]))
 
     py_path_   = glob.glob(os.path.join("OpenRTM_aist", "examples",key_, "*.py"))
     conf_path_ = glob.glob(os.path.join("OpenRTM_aist", "examples",key_,"*.conf")) 
     idl_path_  = glob.glob(os.path.join("OpenRTM_aist", "examples",key_,"*.idl")) 
 
     if py_path_:
-      example_data_files.append((os.path.join(example_sitedir, key_),[py_path_]))
+      for pp_ in py_path_:
+        example_data_files.append((os.path.join(example_sitedir, key_),[pp_]))
     if conf_path_:
-      example_data_files.append((os.path.join(example_sitedir, key_),[conf_path_]))
+      for cp_ in conf_path_:
+        example_data_files.append((os.path.join(example_sitedir, key_),[cp_]))
     if idl_path_:
-      example_data_files.append((os.path.join(example_sitedir, key_),[idl_path_]))
+      for ip_ in idl_path_:
+        example_data_files.append((os.path.join(example_sitedir, key_),[ip_]))
 
 
 win32_packages = ["OpenRTM_aist",
