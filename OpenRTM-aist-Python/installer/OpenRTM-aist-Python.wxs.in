@@ -70,9 +70,9 @@
       <RemoveExistingProducts Before="InstallInitialize"/>
 
       <!-- インストール完了時のIDLコンパイル実行 -->
-      <Custom Action="IDLCOMPILE_PY24" After='InstallFinalize'>NOT Installed</Custom>
-      <Custom Action="IDLCOMPILE_PY25" After='InstallFinalize'>NOT Installed</Custom>
-      <Custom Action="IDLCOMPILE_PY26" After='InstallFinalize'>NOT Installed</Custom>
+      <Custom Action="IDLCOMPILE_PY24" After='InstallFinalize'>PYTHON24</Custom>
+      <Custom Action="IDLCOMPILE_PY25" After='InstallFinalize'>PYTHON25</Custom>
+      <Custom Action="IDLCOMPILE_PY26" After='InstallFinalize'>PYTHON26</Custom>
 
       <!-- アンインストール時のフォルダー削除(IDLコンパイル分) -->
       <Custom Action="REMOVEFOLDER_PY24" Before='InstallInitialize'>Installed</Custom>
