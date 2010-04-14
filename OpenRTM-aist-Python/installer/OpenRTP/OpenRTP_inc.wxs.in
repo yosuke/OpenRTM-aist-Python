@@ -11,7 +11,7 @@
 	      DiskId="1" Source="{% file.Source %}">
 	  {% if file.Name is RTSystemEditorRCP.exe %}
 	  <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
-		    Name="RTSystemEditor"
+		    Name="RTSystemEditor" Advertise="yes"
 		    Show="normal" WorkingDirectory="tools"/>
 	  {% endif %}
 	</File>
