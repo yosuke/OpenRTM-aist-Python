@@ -182,8 +182,9 @@ class Build_doc(cmd.Command):
 
   def run(self):
     global g_os
+    global is_examples
 
-    if g_os == "unix":
+    if g_os == "unix" and not is_examples:
       curr_dir = os.getcwd()
       docs_dir = os.path.join(os.getcwd(), 'OpenRTM_aist', 'docs')
       os.chdir(docs_dir)
@@ -300,6 +301,14 @@ class OtherSetupForSdist(sdist):
 ############################### data for setup() ###########################################
 unix_packages = ["OpenRTM_aist",
                  "OpenRTM_aist.RTM_IDL",
+                 "OpenRTM_aist.RTM_IDL.OpenRTM",
+                 "OpenRTM_aist.RTM_IDL.OpenRTM__POA",
+                 "OpenRTM_aist.RTM_IDL.RTC",
+                 "OpenRTM_aist.RTM_IDL.RTC__POA",
+                 "OpenRTM_aist.RTM_IDL.RTM",
+                 "OpenRTM_aist.RTM_IDL.RTM__POA",
+                 "OpenRTM_aist.RTM_IDL.SDOPackage",
+                 "OpenRTM_aist.RTM_IDL.SDOPackage__POA",
                  "OpenRTM_aist.RTM_IDL.device_interfaces",
                  "OpenRTM_aist.utils",
                  "OpenRTM_aist.utils.rtcd",
@@ -455,25 +464,34 @@ Please see http://www.openrtm.org/ for more detail.
 """
 pkg_license   = "EPL"
 
+examples_install = False
+
+cwd_ = os.getcwd()
+if cwd_.find("OpenRTM-aist-Python-example-1.0.0") != -1 or \
+      cwd_.find("openrtm-aist-python-example-1.0.0") != -1:
+
+  examples_install = True
+
 try:
   if g_os == "unix":
     g_qkc_option = "-u"
-    # for RTM
-    core.setup(name             = pkg_name,
-               version          = pkg_version,
-               description      = pkg_desc,
-               author           = pkg_author,
-               author_email     = pkg_email,
-               url              = pkg_url,
-               long_description = pkg_long_desc,
-               license          = pkg_license,
-               cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc, "sdist":OtherSetupForSdist },
-               packages         = unix_packages,
-               scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python',
-                         'OpenRTM_aist/utils/rtcd/rtcd_python'],
-               data_files       = unix_data_files)
-
-    # for RTM zip
+    # for RTM (sdist, build, install)
+    if not examples_install:
+      core.setup(name             = pkg_name,
+                 version          = pkg_version,
+                 description      = pkg_desc,
+                 author           = pkg_author,
+                 author_email     = pkg_email,
+                 url              = pkg_url,
+                 long_description = pkg_long_desc,
+                 license          = pkg_license,
+                 cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc, "sdist":OtherSetupForSdist },
+                 packages         = unix_packages,
+                 scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python',
+                           'OpenRTM_aist/utils/rtcd/rtcd_python'],
+                 data_files       = unix_data_files)
+      
+    # for RTM zip (sdist)
     if sys.argv[1] == "sdist":
       g_qkc_option = "-m"
       is_examples   = False
@@ -494,7 +512,7 @@ try:
                  script_args      = ["sdist", "--format=zip"])
 
 
-      # for examples
+      # for examples (sdist)
       g_qkc_option = "-u"
       pkg_name      = "OpenRTM-aist-Python-example"
       pkg_desc      = "Python example components for OpenRTM-aist-1.0"
@@ -516,21 +534,22 @@ try:
       is_examples   = False
 
     else:
-      # for examples
-      g_qkc_option = "-u"
-      pkg_name      = "OpenRTM-aist-Python-example"
-      pkg_desc      = "Python example components for OpenRTM-aist-1.0"
+      if examples_install:
+        # for examples (build, install)
+        g_qkc_option = "-u"
+        pkg_name      = "OpenRTM-aist-Python-example"
+        pkg_desc      = "Python example components for OpenRTM-aist-1.0"
 
-      core.setup(name             = pkg_name,
-                 version          = pkg_version,
-                 description      = pkg_desc,
-                 author           = pkg_author,
-                 author_email     = pkg_email,
-                 url              = pkg_url,
-                 long_description = pkg_long_desc,
-                 license          = pkg_license,
-                 cmdclass         = { "build":Build_examples, "build_examples_idl":Build_examples_idl, "sdist":OtherSetupForSdist },
-                 data_files       = example_data_files)
+        core.setup(name             = pkg_name,
+                   version          = pkg_version,
+                   description      = pkg_desc,
+                   author           = pkg_author,
+                   author_email     = pkg_email,
+                   url              = pkg_url,
+                   long_description = pkg_long_desc,
+                   license          = pkg_license,
+                   cmdclass         = { "build":Build_examples, "build_examples_idl":Build_examples_idl, "sdist":OtherSetupForSdist },
+                   data_files       = example_data_files)
 
   elif g_os == "win32":
     g_qkc_option = "-m"
