@@ -7,7 +7,7 @@
            Codepage='$(var.codepage)'
            Version="1.0.0" 
            Manufacturer="AIST"
-           UpgradeCode="F3C4C38B-AF6A-45CE-9393-5582CDA2F5EC">
+           UpgradeCode="958ED570-5471-4E82-8378-01C6068F31C2">
     <Package Id="*" 
              Keywords="Installer"
              Description="OpenRTM-aist-Pyton Installer"
@@ -50,7 +50,7 @@
     </SetProperty>
 
     <!-- アップグレード -->
-    <Upgrade Id="572C59A1-4637-4624-AD55-FC4533CE4C8A">
+    <Upgrade Id="958ED570-5471-4E82-8378-01C6068F31C2">
       <UpgradeVersion OnlyDetect="yes"
                       Minimum="1.0.0"
                       Maximum="1.1.0"
@@ -1256,7 +1256,8 @@
 
     <!-- OpenRTP tools -->
     <?if $(env.INCLUDE_OPENRTP) = YES ?>
-    <Feature Id="OpenRTP" Level="1" Title="OpenRT Platform Tool Chain">
+    <Feature Id="OpenRTP" Level="1" Title="OpenRT Platform Tool Chain"
+			 ConfigurableDirectory="INSTALLLOCATION">
       <!-- rtse rcp -->
       <Feature Id="RTSystemEditor" Level="1" Title="RTSystemEditor">
 	<ComponentRef Id="RTSystemEditor" />
@@ -1287,15 +1288,15 @@
     <!-- インストール完了時のIDLコンパイル実行 -->
     <CustomAction Id='IDLCOMPILE_PY24' Directory="PYTHON24DIR"
                   ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.4 "[Version]examples\Python"' 
-                  Return='check' />
+                  Return='asyncWait' />
 
     <CustomAction Id='IDLCOMPILE_PY25' Directory="PYTHON25DIR"
                   ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.5 "[Version]examples\Python"' 
-                  Return='check' />
+                  Return='asyncWait' />
 
     <CustomAction Id='IDLCOMPILE_PY26' Directory="PYTHON26DIR"
                   ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.6 "[Version]examples\Python"' 
-                  Return='check' />
+                  Return='asyncWait' />
 
     <!-- アンインストール時のフォルダー削除(IDLコンパイル分) -->
     <CustomAction Id='REMOVEFOLDER_PY24' Directory="PYTHON24DIR"
