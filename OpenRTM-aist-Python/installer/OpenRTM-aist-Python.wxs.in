@@ -70,14 +70,26 @@
       <RemoveExistingProducts Before="InstallInitialize"/>
 
       <!-- インストール完了時のIDLコンパイル実行 -->
-      <Custom Action="IDLCOMPILE_PY24" After='InstallFinalize'>PYTHON24</Custom>
-      <Custom Action="IDLCOMPILE_PY25" After='InstallFinalize'>PYTHON25</Custom>
-      <Custom Action="IDLCOMPILE_PY26" After='InstallFinalize'>PYTHON26</Custom>
+      <Custom Action="IDLCOMPILE_PY24" After='InstallFinalize'>
+	NOT Installed AND PYTHON24
+      </Custom>
+      <Custom Action="IDLCOMPILE_PY25" After='InstallFinalize'>
+	NOT Installed AND PYTHON25
+      </Custom>
+      <Custom Action="IDLCOMPILE_PY26" After='InstallFinalize'>
+	NOT Installed AND PYTHON26
+      </Custom>
 
       <!-- アンインストール時のフォルダー削除(IDLコンパイル分) -->
-      <Custom Action="REMOVEFOLDER_PY24" Before='InstallInitialize'>Installed</Custom>
-      <Custom Action="REMOVEFOLDER_PY25" Before='InstallInitialize'>Installed</Custom>
-      <Custom Action="REMOVEFOLDER_PY26" Before='InstallInitialize'>Installed</Custom>
+      <Custom Action="REMOVEFOLDER_PY24" Before='InstallInitialize'>
+	Installed AND PYTHON24
+      </Custom>
+      <Custom Action="REMOVEFOLDER_PY25" Before='InstallInitialize'>
+	Installed AND PYTHON25
+      </Custom>
+      <Custom Action="REMOVEFOLDER_PY26" Before='InstallInitialize'>
+	Installed AND PYTHON26
+      </Custom>
 
       <!-- アンインストール時のフォルダー削除(examples/Python) -->
       <Custom Action="REMOVEFOLDER_RTM" Before='InstallInitialize'>Installed</Custom>
