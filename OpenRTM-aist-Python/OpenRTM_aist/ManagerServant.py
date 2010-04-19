@@ -309,12 +309,15 @@ class ManagerServant(RTM__POA.Manager):
     # since Python2.5 
     # pos = (lambda x: pos0 if x == -1 else pos1)(pos0)
     if pos0 == -1:
-      pos = pos0
-    else:
       pos = pos1
+    else:
+      pos = pos0
     
     endpos = arg.find('&', pos + 1)
-    mgrstr = arg[(pos + 1): (endpos - 1 - pos)]
+    if endpos == -1:
+      mgrstr = arg[(pos + 1):]
+    else:
+      mgrstr = arg[(pos + 1): endpos]
     self._rtcout.RTC_VERBOSE("Manager arg: %s", mgrstr)
     mgrvstr = mgrstr.split(":")
     if len(mgrvstr) != 2:
@@ -332,7 +335,7 @@ class ManagerServant(RTM__POA.Manager):
     # find manager
     mgrobj = self.findManager(mgrstr)
     if CORBA.is_nil(mgrobj):
-      cmd = "rtcd.py -p "
+      cmd = "rtcd_python -p "
       cmd += mgrvstr[1] # port number
 
       self._rtcout.RTC_DEBUG("Invoking command: %s.", cmd)
@@ -355,8 +358,11 @@ class ManagerServant(RTM__POA.Manager):
       self._rtcout.RTC_WARN("Manager cannot be found.")
       return RTC.RTObject._nil
     
-    # create component on the manager    
-    arg = arg[:pos + 1] + arg[endpos:]
+    # create component on the manager
+    if endpos == -1:
+      arg = arg[:pos]
+    else:
+      arg = arg[:pos] + arg[endpos:]
     self._rtcout.RTC_DEBUG("Creating component on %s",  mgrstr)
     self._rtcout.RTC_DEBUG("arg: %s", arg)
     try:

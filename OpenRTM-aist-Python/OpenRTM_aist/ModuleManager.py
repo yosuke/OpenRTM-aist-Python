@@ -460,10 +460,10 @@ class ModuleManager:
     try:
       imp_file = __import__(basename.split(".")[0])
     except:
-      return OpenRTM_aist.Properties()
+      return None
     comp_spec = getattr(imp_file,comp_spec_name,None)
     if not comp_spec:
-      return OpenRTM_aist.Properties()
+      return None
     newp = OpenRTM_aist.Properties(defaults_str=comp_spec)
 
     profs = []
@@ -481,12 +481,10 @@ class ModuleManager:
         
     # loaded component profile have to be one
     if len(profs) == 0:
-      print "Load failed. not exist or already loaded. file name: ", fname
       return OpenRTM_aist.Properties()
 
     if len(profs) > 1:
-      print "One or more modules loaded."
-      return OpenRTM_aist.Properties()
+      return None
 
     return profs[0]
 
@@ -506,7 +504,7 @@ class ModuleManager:
   # @endif
   def getLoadableModules(self):
     # getting loadable module file path list.
-    dlls = []
+    modules_ = []
     for path in self._loadPath:
       if path == "":
         continue
@@ -514,16 +512,16 @@ class ModuleManager:
       flist = glob.glob(path+"/"+'*.py')
       for file in flist:
         if file.find("__init__.py") == -1:
-          dlls.append(file)
+          modules_.append(file)
     
     props = []
     # getting module properties from loadable modules
-    for dll in dlls:
-      prop = self.__getRtcProfile(dll)
-
-      prop.setProperty("module_file_name",os.path.basename(dll))
-      prop.setProperty("module_file_path", dll)
-      props.append(prop)
+    for mod_ in modules_:
+      prop = self.__getRtcProfile(mod_)
+      if prop:
+        prop.setProperty("module_file_name",os.path.basename(mod_))
+        prop.setProperty("module_file_path", mod_)
+        props.append(prop)
     
     return props
 
@@ -608,9 +606,6 @@ class ModuleManager:
   # @endif
   def findFile(self, fname, load_path):
     file_name = fname
-
-    if len(load_path) == 1:
-      load_path.append(".")
 
     for path in load_path:
       if fname.find(".py") == -1:

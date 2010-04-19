@@ -475,8 +475,14 @@ class Manager:
     self._rtcout.RTC_TRACE("Manager.load(fname = %s, initfunc = %s)",
                            (fname, initfunc))
     try:
+      fname_ = fname.split(os.sep)
+      if len(fname_) > 1:
+        fname_ = fname_[-1]
+      else:
+        fname_ = fname_[0]
+
       if not initfunc:
-        mod = [s.strip() for s in fname.split(".")]
+        mod = [s.strip() for s in fname_.split(".")]
         initfunc = mod[0]+"Init"
       path = self._module.load(fname, initfunc)
       self._rtcout.RTC_DEBUG("module path: %s", path)

@@ -31,6 +31,8 @@ def main():
   fullname  = sys.argv[1]
   # directory name
   dirname   = os.path.dirname(sys.argv[1])
+  sys.path.append(dirname)
+
   # basename
   basename  = os.path.basename(sys.argv[1])
   # classname
@@ -55,7 +57,13 @@ def main():
 
   # for new
   comp_spec_name = classname+"_spec"
-  imp_file = __import__(basename.split(".")[0])
+
+  try:
+    imp_file = __import__(basename.split(".")[0])
+  except:
+    print "import error: ", basename.split(".")[0]
+    return
+
   comp_spec = getattr(imp_file,comp_spec_name,None)
   if not comp_spec:
     return

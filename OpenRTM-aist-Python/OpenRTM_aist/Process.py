@@ -28,14 +28,16 @@ import signal
 #
 # int launch_shell(std::string command)
 def launch_shell(command):
-  signal.signal(signal.SIGCHLD, signal.SIG_IGN)
+  try:
+    signal.signal(signal.SIGCHLD, signal.SIG_IGN)
+  except:
+    pass
 
-  cwd = "."
   args = command.split(" ")
   subproc_args = { 'stdin':     None,
                    'stdout':    None,
                    'stderr':    None,
-                   'cwd':       cwd,
+                   'cwd':       None,
                    'close_fds': False }
   try:
     p = subprocess.Popen(args, **subproc_args)
@@ -43,6 +45,5 @@ def launch_shell(command):
     # fork failed
     print sys.exc_info()[0]
     return -1
-
-    return 0
+  return 0
 
