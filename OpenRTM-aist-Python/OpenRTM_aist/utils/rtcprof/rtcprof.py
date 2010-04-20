@@ -31,6 +31,7 @@ def main():
   fullname  = sys.argv[1]
   # directory name
   dirname   = os.path.dirname(sys.argv[1])
+  tmp_path = sys.path
   sys.path.append(dirname)
 
   # basename
@@ -61,11 +62,12 @@ def main():
   try:
     imp_file = __import__(basename.split(".")[0])
   except:
-    print "import error: ", basename.split(".")[0]
+    sys.path = tmp_path
     return
 
   comp_spec = getattr(imp_file,comp_spec_name,None)
   if not comp_spec:
+    sys.path = tmp_path
     return
 
   newp = OpenRTM_aist.Properties(defaults_str=comp_spec)
@@ -86,16 +88,19 @@ def main():
   # loaded component profile have to be one
   if len(profs) == 0:
     print "Load failed. file name: ", fname
+    sys.path = tmp_path
     return OpenRTM_aist.Properties()
 
   if len(profs) > 1:
     print "One or more modules loaded."
+    sys.path = tmp_path
     return OpenRTM_aist.Properties()
 
   keys = profs[0].propertyNames()
   for key in keys:
-    print key, ": ", profs[0].getProperty(key)
+    print "%s:%s"%(key,profs[0].getProperty(key))
 
+  sys.path = tmp_path
   return
 
 if __name__ == "__main__":
