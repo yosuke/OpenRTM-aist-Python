@@ -22,39 +22,45 @@ sysinfo = platform.uname()
 hostname= sysinfo[1]
 plat=sys.platform
 
-if plat == "win32":
+def main():
+  if plat == "win32":
     os.system("start python ..\\..\\..\\bin\\rtm-naming.py")
     os.system("start python ConsoleIn.py")
     os.system("start python Consoleout.py")
     time.sleep(3)
     os.system("python Connector.py")
 
-else:
+  else:
     status,term=commands.getstatusoutput("which kterm")
     if status != 0:
-        status,term=commands.getstatusoutput("which xterm")
+      status,term=commands.getstatusoutput("which xterm")
 
     if status != 0:
-        status,term=commands.getstatusoutput("which uxterm")
+      status,term=commands.getstatusoutput("which uxterm")
+      
+    if status != 0:
+      status,term=commands.getstatusoutput("which gnome-terminal")
 
     if status != 0:
-        status,term=commands.getstatusoutput("which gnome-terminal")
-
-    if status != 0:
-        print "No terminal program (kterm/xterm/gnome-terminal) exists."
-        sys.exit(0)
+      print "No terminal program (kterm/xterm/gnome-terminal) exists."
+      sys.exit(0)
 
     path = None
     for p in sys.path:
-        if os.path.exists(os.path.join(p,"OpenRTM_aist")):
-            path = os.path.join(p,"OpenRTM_aist","utils","rtm-naming")
-            break
+      if os.path.exists(os.path.join(p,"OpenRTM_aist")):
+        path = os.path.join(p,"OpenRTM_aist","utils","rtm-naming")
+        break
     if path is None:
-        print "rtm-naming directory not exist."
-        sys.exit(0)
+      print "rtm-naming directory not exist."
+      sys.exit(0)
 
     os.system('python %s/rtm-naming.py'%path)
     os.system('%s -e python ConsoleIn.py &'%term)
     os.system('%s -e python ConsoleOut.py &'%term)
     time.sleep(3)
     os.system("python Connector.py")
+
+  return
+
+if __name__ == "__main__":
+  main()
