@@ -859,19 +859,20 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       # to <instance_name>.<port_name>, the following processing was added. 
       # (since r1648)
 
-      exported_ports = conf.getProperty("exported_ports").split(",")
-      exported_ports_str = ""
-      for i in range(len(exported_ports)):
-        keyval = exported_ports[i].split(".")
-        if len(keyval) > 2:
-          exported_ports_str += keyval[0] + "." + keyval[-1]
-        else:
-          exported_ports_str += exported_ports[i]
+      if conf.findNode("exported_ports"):
+        exported_ports = conf.getProperty("exported_ports").split(",")
+        exported_ports_str = ""
+        for i in range(len(exported_ports)):
+          keyval = exported_ports[i].split(".")
+          if len(keyval) > 2:
+            exported_ports_str += keyval[0] + "." + keyval[-1]
+          else:
+            exported_ports_str += exported_ports[i]
 
-        if i != (len(exported_ports)-1):
-          exported_ports_str += ","
-
-      conf.setProperty("exported_ports",exported_ports_str)
+          if i != (len(exported_ports)-1):
+            exported_ports_str += ","
+            
+        conf.setProperty("exported_ports",exported_ports_str)
       #---------------------------------------------------------------------------
       return self._configsets.setConfigurationSetValues(conf)
     except:
