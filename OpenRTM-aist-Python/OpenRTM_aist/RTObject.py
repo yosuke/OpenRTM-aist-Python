@@ -852,13 +852,16 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   #   get_context_handle(ExecutionContext_ptr cxt)
   def get_context_handle(self, cxt):
     self._rtcout.RTC_TRACE("get_context_handle()")
-    # ec_id 0 : owned context
-    # ec_id 1-: participating context
-    if cxt._is_equivalent(self._ecMine[0]):
-      return 0
+
+    num = OpenRTM_aist.CORBA_SeqUtil.find(self._ecMine, self.ec_find(cxt))
+    if num != -1:
+      return long(num)
 
     num = OpenRTM_aist.CORBA_SeqUtil.find(self._ecOther, self.ec_find(cxt))
-    return long(num + 1)
+    if num != -1:
+      return long(num)
+
+    return long(-1)
 
 
   #============================================================
