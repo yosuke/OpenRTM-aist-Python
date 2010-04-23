@@ -1384,7 +1384,8 @@ class Manager:
         endpoints.append(ep)
 
       self._rtcout.RTC_DEBUG("corba.endpoints: %s", self._config.getProperty("corba.endpoints"))
-    elif self._config.findNode("corba.endpoint"):
+
+    if self._config.findNode("corba.endpoint"):
       endpoints_ = [s.strip() for s in self._config.getProperty("corba.endpoint").split(",")]
       for ep in endpoints_:
         endpoints.append(ep)
@@ -1394,6 +1395,7 @@ class Manager:
     # master manager's endpoint inserted at the top of endpoints
     self._rtcout.RTC_DEBUG("manager.is_master: %s",
                            self._config.getProperty("manager.is_master"))
+
     if OpenRTM_aist.toBool(self._config.getProperty("manager.is_master"), "YES", "NO", False):
       mm = self._config.getProperty("corba.master_manager", ":2810")
       mmm = [s.strip() for s in mm.split(":")]
@@ -1402,6 +1404,8 @@ class Manager:
       else:
         endpoints.insert(0, ":2810")
 
+    endpoints = OpenRTM_aist.unique_sv(endpoints)
+    
     return
 
     
@@ -1423,7 +1427,11 @@ class Manager:
     self._rtcout.RTC_DEBUG("corba.id: %s", corba)
 
     for i in range(len(endpoints)):
-      endpoint = endpoints[i]
+      if endpoints[i]:
+        endpoint = endpoints[i]
+      else:
+        continue
+
       self._rtcout.RTC_DEBUG("Endpoint is : %s", endpoint)
       if endpoint.find(":") == -1:
         endpoint += ":"
