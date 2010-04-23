@@ -374,7 +374,10 @@ class ManagerConfig :
   #
   # @endif
   def setSystemInformation(self, prop):
-    sysinfo = platform.uname()
+    if sys.platform == 'win32':
+      sysinfo = platform.uname()
+    else:
+      sysinfo = os.uname()
 
     prop.setProperty("manager.os.name",     sysinfo[0])
     prop.setProperty("manager.os.hostname", sysinfo[1])
@@ -382,7 +385,7 @@ class ManagerConfig :
     prop.setProperty("manager.os.version",  sysinfo[3])
     prop.setProperty("manager.os.arch",     sysinfo[4])
     prop.setProperty("manager.pid",         os.getpid())
-    
+
     return prop
 
 
