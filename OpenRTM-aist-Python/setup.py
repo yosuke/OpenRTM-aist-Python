@@ -260,6 +260,18 @@ class OtherSetupForSdist(sdist):
       #self.manifest = "MANIFEST"
       self.use_defaults = 0
       self.force_manifest = 1
+    else:
+      self.use_defaults = 0
+      self.force_manifest = 1
+      stub_dirs = ["OpenRTM","OpenRTM__POA",
+                   "RTC","RTC__POA",
+                   "RTM","RTM__POA",
+                   "SDOPackage","SDOPackage__POA"]
+
+      for dir_ in stub_dirs:
+        if not os.path.isdir(os.path.join(os.getcwd(),"OpenRTM_aist","RTM_IDL",dir_)):
+          os.mkdir(os.path.join(os.getcwd(),"OpenRTM_aist","RTM_IDL",dir_))
+    
 
   def make_distribution (self):
     """Create the source distribution(s).  First, we create the release
@@ -271,6 +283,7 @@ class OtherSetupForSdist(sdist):
     """
     global g_os
     global g_qkc_option
+
     # Don't warn about missing meta-data here -- should be (and is!)
     # done elsewhere.
     base_dir = self.distribution.get_fullname()
@@ -299,6 +312,8 @@ class OtherSetupForSdist(sdist):
 
 
 ############################### data for setup() ###########################################
+
+
 unix_packages = ["OpenRTM_aist",
                  "OpenRTM_aist.RTM_IDL",
                  "OpenRTM_aist.RTM_IDL.OpenRTM",
