@@ -450,6 +450,8 @@ win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'examples'),
                          ['OpenRTM_aist/examples/component.conf']))
 win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'utils', 'rtcd'),
                          ['OpenRTM_aist/utils/rtcd/rtcd.conf']))
+win32_data_files.append((os.path.join(sitedir,'OpenRTM_aist', 'utils', 'rtcd'),
+                         ['OpenRTM_aist/utils/rtcd/make_exe.bat']))
 
 templates_xml = glob.glob(os.path.join('OpenRTM_aist',
                                        'examples',
@@ -522,7 +524,7 @@ try:
                  cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc, "sdist":OtherSetupForSdist  },
                  packages         = win32_packages,
                  scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python.bat',
-                           'OpenRTM_aist/utils/rtcd/rtcd_python.bat'],
+                           'OpenRTM_aist/utils/rtcd/make_exe.bat'],
                  data_files       = win32_data_files,
                  script_args      = ["sdist", "--format=zip"])
 
@@ -581,7 +583,7 @@ try:
                cmdclass         = { "build":Build, "build_idl":Build_idl, "build_doc":Build_doc  },
                packages         = win32_packages,
                scripts= ['OpenRTM_aist/utils/rtcprof/rtcprof_python.bat',
-                         'OpenRTM_aist/utils/rtcd/rtcd_python.bat'],
+                         'OpenRTM_aist/utils/rtcd/make_exe.bat'],
                data_files       = win32_data_files,
                script_args      = ["sdist", "--format=zip"])
 
