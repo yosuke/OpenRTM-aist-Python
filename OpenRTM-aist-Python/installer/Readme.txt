@@ -1,7 +1,9 @@
 OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 
-　作成日： 2010/3/19
+　作成日： 2010/3/19 
 　作成者： 白田
+
+  改訂: 2010/04/24 栗原
 
 ●　目次
 1. 前提条件
@@ -22,8 +24,11 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 
 　　　・Python2.4, 2.5, 2.6 の何れか
 　　　・PyYAML-3.09.win32-py2.4, 2.5, 2.6 の何れか
+　　　・PyInstaller
 　　　・WiX3.5 Toolset
 　　　・環境変数の「PATH」と「PYTHONPATH」に、使用するPython情報が設定
+　　　　されている事。
+　　　・環境変数の「PATH」に、使用するPyInstaller情報が設定
 　　　　されている事。
 
 
@@ -70,12 +75,16 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 　　　　│　　　　　└─ x86_win32
 　　　　│
 　　　　│
-　　　　└─ omniORBpy-3.4-Python2.6
-　　　　　　　├─ bin
-　　　　　　　│　　└─ x86_win32
-　　　　　　　└─ lib
-　　　　　　　　　　├─ Python
-　　　　　　　　　　└─ x86_win32
+　　　　├─ omniORBpy-3.4-Python2.6
+　　　　│　　├─ bin
+　　　　│　　│　　└─ x86_win32
+　　　　│　　└─ lib
+　　　　│　　　　　├─ Python
+　　　　│　　　　　└─ x86_win32
+        │
+        │
+　　　　└─ pyinstaller-1.4
+
 
 　　(1) OpenRTM-aist-Python-1.0.0 は、
 　　　　Python版OpenRTM-aistのインストール対象ファイルであり、
@@ -91,6 +100,9 @@ OpenRTM-aist-Python Windows インストーラー作成ツールの解説
 
 　　(4) omniORBpy-3.4-Python2.6 は、
 　　　　Python2.6用omniORBpy-3.4である。
+
+　　(5) pyinstaller-1.4 は、
+        Pythonファイルからexeを作成するためのツールである。
 
 　　※上記構成は、msi作成バッチ build.cmd で定義しており、変更可能です。
 　　　変更する場合、build.cmd, OpenRTMpywxs.py, omniORBpy24wxs.py, 
