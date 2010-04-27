@@ -17,7 +17,6 @@
 
 import os,sys
 import subprocess
-import signal
 
 ##
 # @if jp
@@ -28,17 +27,24 @@ import signal
 #
 # int launch_shell(std::string command)
 def launch_shell(command):
-  try:
-    signal.signal(signal.SIGCHLD, signal.SIG_IGN)
-  except:
-    pass
-
   args = command.split(" ")
-  subproc_args = { 'stdin':     None,
-                   'stdout':    None,
-                   'stderr':    None,
-                   'cwd':       None,
-                   'close_fds': False }
+
+  if sys.platform == "win32":
+    CREATE_NEW_PROCESS_GROUP = 0x00000200
+    subproc_args = { 'stdin':     None,
+                     'stdout':    None,
+                     'stderr':    None,
+                     'cwd':       None,
+                     'close_fds': False,
+                     'creationflags': CREATE_NEW_PROCESS_GROUP}
+  else:
+    subproc_args = { 'stdin':     None,
+                     'stdout':    None,
+                     'stderr':    None,
+                     'cwd':       None,
+                     'close_fds': False,
+                     'preexec_fn': os.setsid}
+
   try:
     p = subprocess.Popen(args, **subproc_args)
   except OSError:
