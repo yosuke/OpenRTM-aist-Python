@@ -19,6 +19,17 @@
     <!-- プロパティ -->
     <Property Id='USERPROFILEDIR' Value='%USERPROFILE%' />
 
+    <!-- RTSE Property-->
+    <Property Id="RTSE_FILEEXISTS">
+      <DirectorySearch Id="CheckFileDir" Path="C:\Program Files">
+        <DirectorySearch Id="CheckFileDir2" Path ="OpenRTP">
+          <DirectorySearch Id="CheckFileDir3" Path ="RTSystemEditor">
+            <FileSearch Id="CheckFile" Name="RTSystemEditorRCP.exe" />
+          </DirectorySearch>
+        </DirectorySearch>
+      </DirectorySearch>
+    </Property>
+
     <Property Id="PYTHON24">
       <RegistrySearch Id="Python24"
                       Root="HKLM"
@@ -1270,6 +1281,9 @@
     <?if $(env.INCLUDE_OPENRTP) = YES ?>
     <Feature Id="OpenRTP" Level="1" Title="OpenRT Platform Tool Chain"
 			 ConfigurableDirectory="INSTALLLOCATION">
+      <Condition Level ="1"><![CDATA[ (RTSE_FILEEXISTS =  "") ]]></Condition>
+      <Condition Level ="0"><![CDATA[ (RTSE_FILEEXISTS <> "") ]]></Condition>
+
       <!-- rtse rcp -->
       <Feature Id="RTSystemEditor" Level="1" Title="RTSystemEditor">
 	<ComponentRef Id="RTSystemEditor" />

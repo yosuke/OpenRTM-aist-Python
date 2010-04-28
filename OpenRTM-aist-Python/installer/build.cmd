@@ -59,11 +59,6 @@ if not exist %PYINSTALLER% (
    goto END
 )
 
-@set cur_dir=%CD%
-cd %RTCD_ROOT%
-call %RTCD_ROOT%\make_exe.bat
-cd %cur_dir%
-
 @rem ------------------------------------------------------------
 @rem Import Language-Country, Language codes, Codepages
 @rem from langs.txt
@@ -167,5 +162,5 @@ cscript WiLangId.vbs %TARGET_FULL%.msi Package %IDS%
 
 
 :END
-@rem del *.yaml
+del *.yaml
 
