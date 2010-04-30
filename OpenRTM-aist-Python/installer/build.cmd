@@ -27,8 +27,6 @@
 @set OMNIORB_PY25=%DISTRIBUTION%\omniORBpy-3.4-Python2.5
 @set OMNIORB_PY26=%DISTRIBUTION%\omniORBpy-3.4-Python2.6
 @set RTSE_ROOT=C:\distribution\OpenRTP\RTSystemEditor
-@set PYINSTALLER=%DISTRIBUTION%\pyinstaller-1.4
-@set RTCD_ROOT=%OPENRTM_PY%\OpenRTM_aist\utils\rtcd
 
 @rem ------------------------------------------------------------
 @rem Supported languages
@@ -43,19 +41,6 @@ echo off
 if "x%WIX%" == "x" (
    echo "Windows Installer XML (WiX) is not installed"
    echo "Please download WiX 3.5 or later from http://wix.sourceforge.net/"
-   goto END
-)
-
-echo off
-@rem ------------------------------------------------------------
-@rem Checking PyInstaller
-@rem ------------------------------------------------------------
-if not exist %PYINSTALLER% (
-   echo "PyInstaller is not installed"
-   echo "Please download PyInstaller from http://www.pyinstaller.org/"
-   echo "And perform the following."
-   echo "  1. DoubleClick on PYINSTALLER\Configure.py"
-   echo "  2. Add PyInstaller directory to the environment variable PATH." 
    goto END
 )
 
