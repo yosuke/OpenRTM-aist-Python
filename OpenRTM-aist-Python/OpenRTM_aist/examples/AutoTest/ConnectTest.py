@@ -21,26 +21,19 @@ g_test_name = "<< component connection test >>"
 #list0 = env.name_space["localhost:2809"].list_obj()
 #env.name_space['localhost:2809'].rtc_handles.keys()
 #ns = env.name_space['localhost:2809']
-print "deb 0"
 env = RtmEnv(sys.argv, ["localhost:2809"])
-print "deb 0"
 list0 = env.name_space["localhost:2809"].list_obj()
-print "deb 0"
 env.name_space['localhost:2809'].rtc_handles.keys()
-print "deb 0"
 ns = env.name_space['localhost:2809']
-print "deb 0"
 
 g_compo_send = ns.rtc_handles["AutoTestOut0.rtc"]
 g_compo_recv = ns.rtc_handles["AutoTestIn0.rtc"]
 
-print "deb 0"
 ec_send = g_compo_send.rtc_ref.get_owned_contexts()
 ec_recv = g_compo_recv.rtc_ref.get_owned_contexts()
 
 g_out_ports = g_compo_send.rtc_ref.get_ports()
 g_in_ports = g_compo_recv.rtc_ref.get_ports()
-print "deb 0"
 #print "<<< g_out_ports.length=",len(g_out_ports)
 #SeqOutの場合
 #length=8 [0]:Short [1]:Long [2]:Float [3]:Double [4]:ShortSeq [5]:LongSeq [6]:FloatSeq [7]:DoubleSeq
@@ -48,7 +41,6 @@ print "deb 0"
 
 time.sleep(2)
 
-print "deb 0"
 ##--------------------------------------------------------------------
 ## コネクタープロファイルデフォルト定義
 g_interface_type1 = "corba_cdr"
@@ -93,8 +85,8 @@ g_conprof3 = RTC.ConnectorProfile(g_name3, g_connector_id3, [g_out_ports[g_port3
 
 ##--------------------------------------------------------------------
 ## 送受信結果判定関連
-g_diff_send_file = "/usr/users/kurihara/svn/PYTHON/REVISIONNEW/OpenRTM-aist-Python/OpenRTM_aist/examples/AutoTest/original-data"
-g_diff_recv_file = "/usr/users/kurihara/svn/PYTHON/REVISIONNEW/OpenRTM-aist-Python/OpenRTM_aist/examples/AutoTest/received-data"
+g_diff_send_file = "/usr/share/OpenRTM-aist/examples/python/AutoTest/original-data"
+g_diff_recv_file = "/usr/share/OpenRTM-aist/examples/python/AutoTest/received-data"
 #g_diff_send_file = "/usr/users/kurihara/svn/REVISION1932/OpenRTM-aist/examples/AutoTest/original-data"
 #g_diff_recv_file = "/usr/users/kurihara/svn/REVISION1932/OpenRTM-aist/examples/AutoTest/received-data"
 g_check_message = g_diff_recv_file + " file not found."
@@ -253,7 +245,6 @@ fout.write(message + '\n')
 fout.close()
 print message
 
-print "deb 1"
 for i in range(loop_count):
 
     ## 1 コネクタープロファイル設定

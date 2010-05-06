@@ -5,8 +5,8 @@ import sys
 
 from omniORB import CORBA
 
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 
 def main():

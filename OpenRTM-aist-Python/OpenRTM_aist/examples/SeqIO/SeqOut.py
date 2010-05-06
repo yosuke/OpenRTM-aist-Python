@@ -3,8 +3,8 @@
 
 import sys
 
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 import random
 import time

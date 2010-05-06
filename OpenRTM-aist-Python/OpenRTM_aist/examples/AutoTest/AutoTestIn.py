@@ -13,8 +13,8 @@ import time
 sys.path.append(".")
 
 # Import RTM module
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 import math
 import AutoTest, AutoTest__POA
 import os.path
@@ -126,9 +126,9 @@ class AutoTestIn(OpenRTM_aist.DataFlowComponentBase):
     return RTC.RTC_OK
   
   def onDeactivated(self, ec_id): 
-            self._file.close()
-            self._myservice0_var.reset_message()
-            return RTC.RTC_OK
+    self._file.close()
+    self._myservice0_var.reset_message()
+    return RTC.RTC_OK
   
   def onExecute(self, ec_id):
     if not self._msg:

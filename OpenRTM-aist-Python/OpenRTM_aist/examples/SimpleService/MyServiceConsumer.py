@@ -4,9 +4,9 @@
 import sys
 import string
 
-import OpenRTM_aist
 import RTC
 import SimpleService
+import OpenRTM_aist
 from omniORB import CORBA
 
 myserviceconsumer_spec = ["implementation_id", "MyServiceConsumer",

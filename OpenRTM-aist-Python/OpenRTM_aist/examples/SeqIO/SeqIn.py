@@ -4,8 +4,8 @@
 import sys
 import time
 
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 seqin_spec = ["implementation_id", "SeqIn",
               "type_name",         "SequenceInComponent",

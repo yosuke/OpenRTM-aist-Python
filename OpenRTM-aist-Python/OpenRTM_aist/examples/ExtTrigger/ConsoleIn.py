@@ -3,8 +3,8 @@
 
 import sys
 
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 consolein_spec = ["implementation_id", "ConsoleIn",
                   "type_name",         "ConsoleIn",

@@ -4,8 +4,8 @@
 import sys
 import time
 
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 consoleout_spec = ["implementation_id", "ConsoleOut",
                    "type_name",         "ConsoleOut",

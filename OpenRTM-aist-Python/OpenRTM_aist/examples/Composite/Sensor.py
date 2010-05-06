@@ -5,8 +5,8 @@ import sys
 import time
 sys.path.append(".")
 
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 sensor_spec = ["implementation_id", "Sensor", 
                "type_name",         "Sensor", 

@@ -5,9 +5,9 @@ import sys
 import string
 import time
 
-import OpenRTM_aist
 import RTC
 import SimpleService, SimpleService__POA
+import OpenRTM_aist
 
 # Module specification
 myserviceprovider_spec = ["implementation_id", "MyServiceProvider",

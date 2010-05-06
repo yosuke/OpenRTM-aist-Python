@@ -24,8 +24,8 @@ import time
 import math
 
 # Import RTM module
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 # This module's spesification
 # <rtc-template block="module_spec">
 mobilerobotcanvas_spec = ["implementation_id", "MobileRobotCanvas", 

@@ -4,8 +4,8 @@
 import sys
 import time
 
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 # Module specification
 configsample_spec = ["implementation_id", "ConfigSample",

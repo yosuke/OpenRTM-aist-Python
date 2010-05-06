@@ -6,8 +6,8 @@ import sys
 from omniORB import CORBA
 from optparse import OptionParser, OptionError
 
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 def usage():
   print "usage: ConnectorComp [options]"

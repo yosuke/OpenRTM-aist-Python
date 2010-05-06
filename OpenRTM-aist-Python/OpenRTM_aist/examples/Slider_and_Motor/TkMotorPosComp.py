@@ -3,8 +3,8 @@
 import sys
 sys.path.append(".")
 
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 import tkmotor
 import time

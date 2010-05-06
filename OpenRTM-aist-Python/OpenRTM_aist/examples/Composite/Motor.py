@@ -6,8 +6,8 @@ import time
 sys.path.append(".")
 
 # Import RTM module
-import OpenRTM_aist
 import RTC
+import OpenRTM_aist
 
 motor_spec = ["implementation_id", "Motor", 
               "type_name",         "Motor", 
