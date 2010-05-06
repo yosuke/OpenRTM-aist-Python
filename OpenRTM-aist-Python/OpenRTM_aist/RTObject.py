@@ -16,10 +16,12 @@
 
 
 
-from omniORB import any
-from omniORB import CORBA
 import string
 import sys
+import copy
+
+from omniORB import any
+from omniORB import CORBA
 
 import OpenRTM__POA
 import RTC
@@ -2695,15 +2697,13 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # new interface. since 1.0.0-RELEASE
   def addInPort(self, name, inport):
     self._rtcout.RTC_TRACE("addInPort(%s)", name)
-    if self._properties.hasKey("port.inport"):
-      inport.properties().mergeProperties(self._properties.getNode("port.inport"))
 
-    propkey = "port.dataport." + name
-    prop = self._properties.getNode(propkey)
-    if prop:
-      self._properties.getNode(propkey).mergeProperties(self._properties.getNode("port.inport.dataport"))
+    propkey = "port.inport." + name
+    prop_ = copy.copy(self._properties.getNode(propkey))
+    prop_.mergeProperties(self._properties.getNode("port.inport.dataport"))
 
     ret = self.addPort(inport)
+
     if not ret:
       self._rtcout.RTC_ERROR("addInPort() failed.")
       return ret
@@ -2741,12 +2741,10 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
   # void addOutPort(const char* name, OutPortBase& outport);
   def addOutPort(self, name, outport):
     self._rtcout.RTC_TRACE("addOutPort(%s)", name)
-    propkey = "port.dataport." + name
 
-    prop = self._properties.getNode(propkey)
-    if prop:
-      self._properties.getNode(propkey).mergeProperties(self._properties.getNode("port.outport.dataport"))
-    outport.properties().mergeProperties(self._properties.getNode(propkey))
+    propkey = "port.outport." + name
+    prop_ = copy.copy(self._properties.getNode(propkey))
+    prop_.mergeProperties(self._properties.getNode("port.outport.dataport"))
 
     ret = self.addPort(outport)
 
