@@ -1406,6 +1406,9 @@ class CorbaPort(OpenRTM_aist.PortBase):
       self.deactivate()
       return
 
+    def __del__(self):
+      self.deactivate()
+      
     # std::string instanceName() { return m_instanceName; }
     def instanceName(self):
       return self._instanceName

@@ -439,6 +439,7 @@ class PortAdmin:
   #
   # @endif
   def finalizePorts(self):
+    self.deactivatePorts()
     ports = []
     ports = self._portServants.getObjects()
     len_ = len(ports)
