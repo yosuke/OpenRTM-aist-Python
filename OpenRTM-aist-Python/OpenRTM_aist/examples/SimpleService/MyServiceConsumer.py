@@ -57,7 +57,7 @@ class MyServiceConsumer(OpenRTM_aist.DataFlowComponentBase):
     self._myServicePort.registerConsumer("myservice0", "MyService", self._myservice0)
 
     # Set CORBA Service Ports
-    self.registerPort(self._myServicePort)
+    self.addPort(self._myServicePort)
 
     return RTC.RTC_OK
 
