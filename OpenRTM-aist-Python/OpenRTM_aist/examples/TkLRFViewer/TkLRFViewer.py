@@ -1,5 +1,8 @@
 #!/usr/bin/env python
-# -*- coding:sjis -*-
+# -*- coding: utf-8 -*-
+# -*- Python -*-
+
+
 # @brief LRFViewer component
 # @date $Date$
 # @author Norkai Ando <n-ando@aist.go.jp>
@@ -628,13 +631,13 @@ class TkLRFViewer(Frame):
   #------------------------------------------------------------
   # 
   def real_to_canvas(self, x, y, dx, dy, dt):
-    # ƒVƒ~ƒ…ƒŒ[ƒ^À•W¨‰æ–ÊÀ•W‚Ö‚Ì•ÏŠ·
-    # x, y: Œ³‚ÌˆÊ’u
-    # dx, dy, dt: •ÀiƒxƒNƒgƒ‹‚¨‚æ‚Ñ‰ñ“]
-    # •ÀiE‰ñ“]
+    # ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚¿åº§æ¨™â†’ç”»é¢åº§æ¨™ã¸ã®å¤‰æ›
+    # x, y: å…ƒã®ä½ç½®
+    # dx, dy, dt: ä¸¦é€²ãƒ™ã‚¯ãƒˆãƒ«ãŠã‚ˆã³å›è»¢
+    # ä¸¦é€²ãƒ»å›è»¢
     x_tmp = (math.cos(dt) * x - math.sin(dt) * y + dx)/self.scale
     y_tmp = (math.sin(dt) * x + math.cos(dt) * y + dy)/self.scale
-    # ƒLƒƒƒ“ƒoƒX‚ÌÀ•WŒn(’†S‚ªŒ´“_Ay+‚ªã)‚É‡‚í‚¹‚é
+    # ã‚­ãƒ£ãƒ³ãƒã‚¹ã®åº§æ¨™ç³»(ä¸­å¿ƒãŒåŸç‚¹ã€y+ãŒä¸Š)ã«åˆã‚ã›ã‚‹
     xo =  x_tmp  + self.x0
     yo = -y_tmp + self.y0
     return xo, yo

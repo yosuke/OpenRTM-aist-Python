@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: euc-jp -*-
+# -*- coding: utf-8 -*-
+# -*- Python -*-
 
 """
  \file AutoTestOut.py
@@ -109,11 +110,11 @@ class AutoTestOut(OpenRTM_aist.DataFlowComponentBase):
 
         if str3:
           if self._myservice0_var._ptr():
-            # �񤭽Ф�
+            # 書き出し
             self._OutOut.write()
             self._SeqOutOut.write()
 
-            # echo��ƤӽФ�
+            # echoを呼び出す
             retmsg = self._myservice0_var._ptr().echo(str3.rstrip('\r\n'))
           
     return RTC.RTC_OK

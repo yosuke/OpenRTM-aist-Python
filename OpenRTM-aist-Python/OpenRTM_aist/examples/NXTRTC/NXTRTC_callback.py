@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding:shift_jis -*-
+# -*- coding:utf-8 -*-
 # -*- Python -*-
 
 import sys

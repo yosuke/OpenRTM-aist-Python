@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: euc-jp -*-
+# -*- coding: utf-8 -*-
+# -*- Python -*-
 
 #
 # @brief tk joystick
@@ -177,34 +178,34 @@ class CanvasLine(ToggleItem):
 class Stick:
     def __init__(self, canvas, x, y, r, **key):
         self.canvas = canvas
-        # ¥¸¥ç¥¤¥¹¥Æ¥£¥Ã¥¯ID
+        # ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ID
         self.key = key
         self.id = self.canvas.create_oval(x-r, y-r, x+r, y+r, **key)
-        # Ãæ¿´¤«¤é¥¸¥ç¥¤¥¹¥Æ¥£¥Ã¥¯¤Ø¤ÎÀşID
+        # ä¸­å¿ƒã‹ã‚‰ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã¸ã®ç·šID
         self.line = None
-        # (x,y) ¥Æ¥­¥¹¥ÈÉ½¼¨ID
+        # (x,y) ãƒ†ã‚­ã‚¹ãƒˆè¡¨ç¤ºID
         self.xy_text = None
-        # (r,th) ¥Æ¥­¥¹¥ÈÉ½¼¨ID
+        # (r,th) ãƒ†ã‚­ã‚¹ãƒˆè¡¨ç¤ºID
         self.pol_text = None
 
-        # ²èÌÌºÂÉ¸·Ï¤«¤é²èÌÌ¥¸¥ç¥¤¥¹¥Æ¥£¥Ã¥¯ºÂÉ¸·Ï¤Ø¤Î¥ª¥Õ¥»¥Ã¥È
+        # ç”»é¢åº§æ¨™ç³»ã‹ã‚‰ç”»é¢ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯åº§æ¨™ç³»ã¸ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
         self.offsetx = x
         self.offsety = y
 
-        # ²èÌÌ¥¸¥ç¥¤¥¹¥Æ¥£¥Ã¥¯ºÂÉ¸·Ï¤Ç¤Î¥¸¥ç¥¤¥¹¥Æ¥£¥Ã¥¯°ÌÃÖ
+        # ç”»é¢ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯åº§æ¨™ç³»ã§ã®ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ä½ç½®
         self.x = 0
         self.y = 0
 
-        # ¥¸¥ç¥¤¥¹¥Æ¥£¥Ã¥¯ºÂÉ¸·Ï¤Ç¤Î¥¸¥ç¥¤¥¹¥Æ¥£¥Ã¥¯°ÌÃÖ
+        # ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯åº§æ¨™ç³»ã§ã®ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ä½ç½®
         self.pos_x = 0
         self.pos_y = 0
 
         self.coffx = 0
         self.coffy = 0
 
-        # ¥¸¥ç¥¤¥¹¥Æ¥£¥Ã¥¯¤Ø¤Î¥Ğ¥¤¥ó¥É
+        # ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã¸ã®ãƒã‚¤ãƒ³ãƒ‰
         self.make_binds()
-        # ¥Æ¥­¥¹¥ÈÉÁ²è
+        # ãƒ†ã‚­ã‚¹ãƒˆæç”»
 
     def set_on_drag_start(self, func):
         self.on_drag_start = func
@@ -221,7 +222,7 @@ class Stick:
         self.canvas.tag_bind(self.id, '<Button1-ButtonRelease>', self.drag_end)
         
     def drag_start(self, event):
-        # ¥¯¥ê¥Ã¥¯°ÌÃÖ¤Î¥ª¥Õ¥»¥Ã¥È¤ò·×»»
+        # ã‚¯ãƒªãƒƒã‚¯ä½ç½®ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—
         x1 = event.x - self.offsetx
         y1 = event.y - self.offsety
         self.coffx = x1 - self.x
@@ -230,35 +231,35 @@ class Stick:
         self.calc_pol(self.pos_x, self.pos_y)
 #        self.draw_text()
 
-        # ¥³¡¼¥ë¥Ğ¥Ã¥¯
+        # ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
         if self.on_drag_start != None:
             self.on_drag_start((self.pos_x, self.pos_y), (self.r, self.th))
         
     def dragging(self, event):
-        # ¥É¥é¥Ã¥°¤Î°ÜÆ°ÎÌ
+        # ãƒ‰ãƒ©ãƒƒã‚°ã®ç§»å‹•é‡
         x1 = event.x - self.offsetx
         y1 = event.y - self.offsety
         dx = (x1 - self.x) - self.coffx
         dy = (y1 - self.y) - self.coffy
 
-        # ±ß¤ò°ÜÆ°
+        # å††ã‚’ç§»å‹•
         self.canvas.move(self.id, dx, dy)
         self.canvas.tag_raise(self.id)
-        # ¥¸¥ç¥¤¥¹¥Æ¥£¥Ã¥¯°ÌÃÖ¤ò·×»»
+        # ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ä½ç½®ã‚’è¨ˆç®—
         self.x = x1 - self.coffx
         self.y = y1 - self.coffy
         self.pos_x = self.x
         self.pos_y = -self.y 
         self.calc_pol(self.pos_x, self.pos_y)
 
-        # ¥³¡¼¥ë¥Ğ¥Ã¥¯
+        # ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
         if self.on_dragging != None:
             self.on_dragging((self.pos_x, self.pos_y), (self.r, self.th))
 
     def drag_end(self, event):
         x1 = event.x - self.offsetx
         y1 = event.y - self.offsety
-        # Ìá¤¹¤¿¤á¤Î°ÜÆ°ÎÌ
+        # æˆ»ã™ãŸã‚ã®ç§»å‹•é‡
         dx = x1 - self.coffx
         dy = y1 - self.coffy
         self.canvas.move(self.id, -dx, -dy)
@@ -267,7 +268,7 @@ class Stick:
         self.pos_x = 0
         self.pos_y = 0
         self.calc_pol(self.pos_x, self.pos_y)
-        # ¥³¡¼¥ë¥Ğ¥Ã¥¯
+        # ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
         if self.on_drag_end != None:
             self.on_drag_end((self.pos_x, self.pos_y), (self.r, self.th))
 

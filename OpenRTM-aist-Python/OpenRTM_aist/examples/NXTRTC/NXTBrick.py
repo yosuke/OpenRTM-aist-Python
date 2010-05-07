@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# -*- coding:shift_jis -*-
+# -*- coding: utf-8 -*-
+# -*- Python -*-
 
 import nxt.locator
 from nxt.sensor import *
@@ -9,9 +10,9 @@ import time
 class NXTBrick:
   def __init__(self, bsock=None):
     """
-    ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-    NXTƒuƒƒbƒN‚Ö‚ÌƒRƒlƒNƒVƒ‡ƒ“‚ğs‚¢Aƒ‚[ƒ^‚âAƒZƒ“ƒTƒIƒuƒWƒFƒNƒg‚ğ
-    ì¬‚·‚éBƒ‚[ƒ^‚ÌƒGƒ“ƒR[ƒ_‚ÌƒŠƒZƒbƒg‚ğs‚¤B
+    ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    NXTãƒ–ãƒ­ãƒƒã‚¯ã¸ã®ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã‚’è¡Œã„ã€ãƒ¢ãƒ¼ã‚¿ã‚„ã€ã‚»ãƒ³ã‚µã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’
+    ä½œæˆã™ã‚‹ã€‚ãƒ¢ãƒ¼ã‚¿ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ã®ãƒªã‚»ãƒƒãƒˆã‚’è¡Œã†ã€‚
     """
     if bsock:
       self.sock = bsock
@@ -30,22 +31,22 @@ class NXTBrick:
 
   def close(self):
     """
-    NXTƒuƒƒbƒN‚Æ‚ÌÚ‘±‚ğI—¹‚·‚é
+    NXTãƒ–ãƒ­ãƒƒã‚¯ã¨ã®æ¥ç¶šã‚’çµ‚äº†ã™ã‚‹
     """
     self.sock.close()
 
   def resetPosition(self, relative = 0):
     """
-    NXT‚Ìƒ‚[ƒ^‚ÌƒGƒ“ƒR[ƒ_‚ğƒŠƒZƒbƒg‚·‚é
+    NXTã®ãƒ¢ãƒ¼ã‚¿ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
     """
     for m in self.motors:
       m.reset_position(relative)
 
   def setMotors(self, vels):
     """
-    ”z—ñ‚ğó‚¯æ‚èAƒ‚[ƒ^‚Ìƒpƒ[‚Æ‚µ‚ÄƒZƒbƒg‚·‚éB
-    vels‚Ì”‚Æƒ‚[ƒ^‚Ì”‚ªˆê’v‚µ‚È‚¢ê‡A—¼Ò‚Ì—v‘f”‚Ì‚¤‚¿
-    ¬‚³‚¢•û‚Åƒ‹[ƒv‚ğ‰ñ‚·B
+    é…åˆ—ã‚’å—ã‘å–ã‚Šã€ãƒ¢ãƒ¼ã‚¿ã®ãƒ‘ãƒ¯ãƒ¼ã¨ã—ã¦ã‚»ãƒƒãƒˆã™ã‚‹ã€‚
+    velsã®æ•°ã¨ãƒ¢ãƒ¼ã‚¿ã®æ•°ãŒä¸€è‡´ã—ãªã„å ´åˆã€ä¸¡è€…ã®è¦ç´ æ•°ã®ã†ã¡
+    å°ã•ã„æ–¹ã§ãƒ«ãƒ¼ãƒ—ã‚’å›ã™ã€‚
     """
     for i, v in enumerate(vels[:min(len(vels),len(self.motors))]):
       self.motors[i].power = max(min(v,127),-127)
@@ -57,7 +58,7 @@ class NXTBrick:
 
   def getMotors(self):
     """
-    ƒ‚[ƒ^‚ÌˆÊ’u(Šp“x)‚ğæ“¾‚·‚é
+    ãƒ¢ãƒ¼ã‚¿ã®ä½ç½®(è§’åº¦)ã‚’å–å¾—ã™ã‚‹
     """
     state = []
     for m in self.motors:
@@ -81,7 +82,7 @@ class NXTBrick:
 
   def getSensors(self):
     """
-    ƒZƒ“ƒT‚Ì’l‚ğæ“¾‚·‚éB“¾‚ç‚ê‚½ƒf[ƒ^‚Í”z—ñ‚Å•Ô‚³‚ê‚éB
+    ã‚»ãƒ³ã‚µã®å€¤ã‚’å–å¾—ã™ã‚‹ã€‚å¾—ã‚‰ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã¯é…åˆ—ã§è¿”ã•ã‚Œã‚‹ã€‚
     """
     state = []
     for s in self.sensors:
@@ -103,16 +104,16 @@ class NXTBrick:
 
 
 """
-ƒeƒXƒgƒvƒƒOƒ‰ƒ€
-ƒ‚[ƒ^‚É“K“–‚Èo—Í‚ğ—^‚¦AŠp“x‚ğ“Ç‚İ•\¦‚·‚éB
-ƒZƒ“ƒT‚©‚ç’l‚ğ“Ç‚İ‚İ•\¦‚·‚éB
+ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ 
+ãƒ¢ãƒ¼ã‚¿ã«é©å½“ãªå‡ºåŠ›ã‚’ä¸ãˆã€è§’åº¦ã‚’èª­ã¿è¡¨ç¤ºã™ã‚‹ã€‚
+ã‚»ãƒ³ã‚µã‹ã‚‰å€¤ã‚’èª­ã¿è¾¼ã¿è¡¨ç¤ºã™ã‚‹ã€‚
 """
 if __name__ == "__main__":
   import time
   nxt = NXTBrick()
   print "connected"
     
-  # ƒ‚[ƒ^‚ÌƒeƒXƒg
+  # ãƒ¢ãƒ¼ã‚¿ã®ãƒ†ã‚¹ãƒˆ
   for i in range(0):
     nxt.setMotors([80,-80,80])
     print "Motor: "
@@ -122,7 +123,7 @@ if __name__ == "__main__":
     time.sleep(0.1)
   nxt.setMotors([0,0,0])
 
-  # ƒZƒ“ƒT‚ÌƒeƒXƒg
+  # ã‚»ãƒ³ã‚µã®ãƒ†ã‚¹ãƒˆ
   for i in range(100):
     sensors = ["Touch", "Sound", "Light", "USonic"]
     sval = nxt.getSensors()

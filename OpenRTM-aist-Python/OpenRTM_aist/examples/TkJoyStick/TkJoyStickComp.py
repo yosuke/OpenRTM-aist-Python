@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # -*- Python -*-
 
 import sys
@@ -75,7 +76,7 @@ class TkJoyStick(OpenRTM_aist.DataFlowComponentBase):
     return RTC.RTC_OK
 
   """
-   \brief Canvas$B$N%G!<%?$r(BMobileRobotCanvas$BMQ$N%G!<%?$KJQ49$9$k!#(B
+   \brief CanvasのデータをMobileRobotCanvas用のデータに変換する。
   """
   def convert(self, x, y):
     _th = math.atan2(y,x)

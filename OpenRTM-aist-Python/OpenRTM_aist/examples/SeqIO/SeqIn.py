@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # -*- Python -*-
 
 import sys
@@ -92,7 +93,7 @@ class SeqIn(OpenRTM_aist.DataFlowComponentBase):
       print '%3.2s %10.8s %10.8s %10.8s %10.8s' \
           % (i, shortSeq_.data[i], longSeq_.data[i], floatSeq_.data[i], doubleSeq_.data[i])
 
-    # $B%+!<%=%k$N0\F0(B   (^[[nA : n$B9T>e$X0\F0(B)
+    # カーソルの移動   (^[[nA : n行上へ移動)
     print "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r"
 
     time.sleep(0.5)

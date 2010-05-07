@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: euc-jp -*-
+# -*- coding: utf-8 -*-
+# -*- Python -*-
 
 import sys
 
@@ -84,7 +85,7 @@ class SeqOut(OpenRTM_aist.DataFlowComponentBase):
       doubleSeq.append(float(random.uniform(0.0, 10.0)))
       print str(i), " : ", shortSeq[i], "      ", longSeq[i], "    ", floatSeq[i], "    ", doubleSeq[i]
 
-    # ¥«¡¼¥½¥ë¤Î°ÜÆ°   (^[[nA : n¹Ô¾å¤Ø°ÜÆ°)
+    # ã‚«ãƒ¼ã‚½ãƒ«ã®ç§»å‹•   (^[[nA : nè¡Œä¸Šã¸ç§»å‹•)
     print "[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r"
         
     self._shortSeq.data = shortSeq
