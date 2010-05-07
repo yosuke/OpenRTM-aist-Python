@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # -*- Python -*-
-
-
+#
 # @brief LRFViewer component
 # @date $Date$
 # @author Norkai Ando <n-ando@aist.go.jp>
@@ -631,13 +630,13 @@ class TkLRFViewer(Frame):
   #------------------------------------------------------------
   # 
   def real_to_canvas(self, x, y, dx, dy, dt):
-    # シミュレータ座標→画面座標への変換
-    # x, y: 元の位置
-    # dx, dy, dt: 並進ベクトルおよび回転
-    # 並進・回転
+    # Simulator coordinate system -> display coordinate system
+    # x, y: original position
+    # dx, dy, dt: translation and rotation vector
+    # translation and rotation
     x_tmp = (math.cos(dt) * x - math.sin(dt) * y + dx)/self.scale
     y_tmp = (math.sin(dt) * x + math.cos(dt) * y + dy)/self.scale
-    # キャンバスの座標系(中心が原点、y+が上)に合わせる
+    # align to canvas coordinate system (origin is center and y+ is upward)
     xo =  x_tmp  + self.x0
     yo = -y_tmp + self.y0
     return xo, yo

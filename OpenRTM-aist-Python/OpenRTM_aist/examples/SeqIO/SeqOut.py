@@ -85,7 +85,7 @@ class SeqOut(OpenRTM_aist.DataFlowComponentBase):
       doubleSeq.append(float(random.uniform(0.0, 10.0)))
       print str(i), " : ", shortSeq[i], "      ", longSeq[i], "    ", floatSeq[i], "    ", doubleSeq[i]
 
-    # カーソルの移動   (^[[nA : n行上へ移動)
+    # Moving cursor (^[[nA : n lines upward)
     print "[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r[A\r"
         
     self._shortSeq.data = shortSeq

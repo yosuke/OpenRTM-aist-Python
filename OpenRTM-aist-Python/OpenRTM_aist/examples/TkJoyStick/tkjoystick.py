@@ -178,34 +178,35 @@ class CanvasLine(ToggleItem):
 class Stick:
     def __init__(self, canvas, x, y, r, **key):
         self.canvas = canvas
-        # ジョイスティックID
+        # Joystick ID
         self.key = key
         self.id = self.canvas.create_oval(x-r, y-r, x+r, y+r, **key)
-        # 中心からジョイスティックへの線ID
+        # ID of the line from center to joystick handle
         self.line = None
-        # (x,y) テキスト表示ID
+        # (x,y) text ID
         self.xy_text = None
-        # (r,th) テキスト表示ID
+        # (r,th) text ID
         self.pol_text = None
 
-        # 画面座標系から画面ジョイスティック座標系へのオフセット
+        # Offset from display coordinate system to joystick coordinate
+        # system
         self.offsetx = x
         self.offsety = y
 
-        # 画面ジョイスティック座標系でのジョイスティック位置
+        # Position of the joystick in the display joystick coordinate
+        # system
         self.x = 0
         self.y = 0
 
-        # ジョイスティック座標系でのジョイスティック位置
+        # Position of the jpystick in the jpystick coordinate system
         self.pos_x = 0
         self.pos_y = 0
 
         self.coffx = 0
         self.coffy = 0
 
-        # ジョイスティックへのバインド
+        # Binding to joystick
         self.make_binds()
-        # テキスト描画
 
     def set_on_drag_start(self, func):
         self.on_drag_start = func
@@ -222,7 +223,7 @@ class Stick:
         self.canvas.tag_bind(self.id, '<Button1-ButtonRelease>', self.drag_end)
         
     def drag_start(self, event):
-        # クリック位置のオフセットを計算
+        # Calculate offset on the clocked position
         x1 = event.x - self.offsetx
         y1 = event.y - self.offsety
         self.coffx = x1 - self.x
@@ -231,35 +232,35 @@ class Stick:
         self.calc_pol(self.pos_x, self.pos_y)
 #        self.draw_text()
 
-        # コールバック
+        # Callback
         if self.on_drag_start != None:
             self.on_drag_start((self.pos_x, self.pos_y), (self.r, self.th))
         
     def dragging(self, event):
-        # ドラッグの移動量
+        # Moving length of drag
         x1 = event.x - self.offsetx
         y1 = event.y - self.offsety
         dx = (x1 - self.x) - self.coffx
         dy = (y1 - self.y) - self.coffy
 
-        # 円を移動
+        # Moving circle
         self.canvas.move(self.id, dx, dy)
         self.canvas.tag_raise(self.id)
-        # ジョイスティック位置を計算
+        # Calculate joystick position
         self.x = x1 - self.coffx
         self.y = y1 - self.coffy
         self.pos_x = self.x
         self.pos_y = -self.y 
         self.calc_pol(self.pos_x, self.pos_y)
 
-        # コールバック
+        # Callback
         if self.on_dragging != None:
             self.on_dragging((self.pos_x, self.pos_y), (self.r, self.th))
 
     def drag_end(self, event):
         x1 = event.x - self.offsetx
         y1 = event.y - self.offsety
-        # 戻すための移動量
+        # Moving length to return back
         dx = x1 - self.coffx
         dy = y1 - self.coffy
         self.canvas.move(self.id, -dx, -dy)
@@ -268,7 +269,7 @@ class Stick:
         self.pos_x = 0
         self.pos_y = 0
         self.calc_pol(self.pos_x, self.pos_y)
-        # コールバック
+        # Callback
         if self.on_drag_end != None:
             self.on_drag_end((self.pos_x, self.pos_y), (self.r, self.th))
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# -*- Python -*-
+# -*- coding:utf-8 -*-
 
 ##
 # @file AutoTestIn.py

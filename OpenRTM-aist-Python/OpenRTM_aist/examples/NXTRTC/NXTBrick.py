@@ -10,9 +10,9 @@ import time
 class NXTBrick:
   def __init__(self, bsock=None):
     """
-    コンストラクタ
-    NXTブロックへのコネクションを行い、モータや、センサオブジェクトを
-    作成する。モータのエンコーダのリセットを行う。
+    Ctor
+    Connecting to NXT brick and creating motor object, sensor object
+    and so on. Motor encoders will be reset.
     """
     if bsock:
       self.sock = bsock
@@ -31,22 +31,22 @@ class NXTBrick:
 
   def close(self):
     """
-    NXTブロックとの接続を終了する
+    Finalizing connection with NXT brick.
     """
     self.sock.close()
 
   def resetPosition(self, relative = 0):
     """
-    NXTのモータのエンコーダをリセットする
+    Resetting encoders of NXT motors
     """
     for m in self.motors:
       m.reset_position(relative)
 
   def setMotors(self, vels):
     """
-    配列を受け取り、モータのパワーとしてセットする。
-    velsの数とモータの数が一致しない場合、両者の要素数のうち
-    小さい方でループを回す。
+    This operation receives array and set them as motor power.  If the
+    number of vels items does not match with the number of motors,
+    smaller number of them will be taken and set respectively.
     """
     for i, v in enumerate(vels[:min(len(vels),len(self.motors))]):
       self.motors[i].power = max(min(v,127),-127)
@@ -58,7 +58,7 @@ class NXTBrick:
 
   def getMotors(self):
     """
-    モータの位置(角度)を取得する
+    Getting motors' angle (degrees)
     """
     state = []
     for m in self.motors:
@@ -82,7 +82,7 @@ class NXTBrick:
 
   def getSensors(self):
     """
-    センサの値を取得する。得られたデータは配列で返される。
+    Getting sensors' values. Data will be returned as array.
     """
     state = []
     for s in self.sensors:
@@ -104,16 +104,16 @@ class NXTBrick:
 
 
 """
-テストプログラム
-モータに適当な出力を与え、角度を読み表示する。
-センサから値を読み込み表示する。
+Test program
+It gives appropriate values to motors, and angles of motors are
+obtained and shown.  Sensor data are also obtained and shown.
 """
 if __name__ == "__main__":
   import time
   nxt = NXTBrick()
   print "connected"
     
-  # モータのテスト
+  # Testing motors
   for i in range(0):
     nxt.setMotors([80,-80,80])
     print "Motor: "
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     time.sleep(0.1)
   nxt.setMotors([0,0,0])
 
-  # センサのテスト
+  # Testing sensors
   for i in range(100):
     sensors = ["Touch", "Sound", "Light", "USonic"]
     sval = nxt.getSensors()

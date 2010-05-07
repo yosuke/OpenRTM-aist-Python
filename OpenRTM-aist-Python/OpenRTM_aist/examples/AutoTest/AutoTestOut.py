@@ -110,11 +110,11 @@ class AutoTestOut(OpenRTM_aist.DataFlowComponentBase):
 
         if str3:
           if self._myservice0_var._ptr():
-            # 書き出し
+            # Write out data
             self._OutOut.write()
             self._SeqOutOut.write()
 
-            # echoを呼び出す
+            # invoking echo operation
             retmsg = self._myservice0_var._ptr().echo(str3.rstrip('\r\n'))
           
     return RTC.RTC_OK

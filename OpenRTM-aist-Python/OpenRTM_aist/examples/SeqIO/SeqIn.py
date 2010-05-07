@@ -93,7 +93,7 @@ class SeqIn(OpenRTM_aist.DataFlowComponentBase):
       print '%3.2s %10.8s %10.8s %10.8s %10.8s' \
           % (i, shortSeq_.data[i], longSeq_.data[i], floatSeq_.data[i], doubleSeq_.data[i])
 
-    # カーソルの移動   (^[[nA : n行上へ移動)
+    # Moving cursor (^[[nA : n lines upward)
     print "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r"
 
     time.sleep(0.5)
