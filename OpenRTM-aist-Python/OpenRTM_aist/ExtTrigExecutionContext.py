@@ -91,8 +91,8 @@ class ExtTrigExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
   # 
   # @endif
   # 
-  def run(self):
-    self._rtcout.RTC_TRACE("run()")
+  def svc(self):
+    self._rtcout.RTC_TRACE("svc()")
     flag = True
 
     while flag:
