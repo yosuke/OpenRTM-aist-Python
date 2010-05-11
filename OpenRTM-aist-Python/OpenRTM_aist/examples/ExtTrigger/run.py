@@ -45,7 +45,16 @@ else:
         print "No terminal program (kterm/xterm/gnome-terminal) exists."
         exit
 
-    os.system("python ../../rtm-naming/rtm-naming.py")
+    path = None
+    for p in sys.path:
+        if os.path.exists(os.path.join(p,"OpenRTM_aist")):
+            path = os.path.join(p,"OpenRTM_aist","utils","rtm-naming")
+            break
+    if path is None:
+        print "rtm-naming directory not exist."
+        sys.exit(0)
+
+    os.system('python %s/rtm-naming.py'%path)
     os.system('%s -e python ConsoleIn.py &'%term)
     os.system('%s -e python ConsoleOut.py &'%term)
     time.sleep(1)
