@@ -24,7 +24,7 @@ hostname= sysinfo[1]
 plat=sys.platform
 
 if plat == "win32":
-    os.system("start python ..\\..\\rtm-naming\\rtm-naming.py")
+    os.system("start python ..\\..\\..\\bin\\rtm-naming.py")
     os.system("start python ConsoleIn.py")
     os.system("start python Consoleout.py")
     time.sleep(1)

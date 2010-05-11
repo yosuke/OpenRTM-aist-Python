@@ -24,7 +24,7 @@ hostname= sysinfo[1]
 plat=sys.platform
 
 if plat == "win32":
-    os.system("start python ..\\..\\rtm-naming\\rtm-naming.py")
+    os.system("start python ..\\..\\..\\bin\\rtm-naming.py")
     os.system("start python SliderComp.py")
     os.system("start python TkMotorComp.py")
     time.sleep(2)
@@ -45,7 +45,16 @@ else:
         print "No terminal program (kterm/xterm/gnome-terminal) exists."
         exit
 
-    os.system("python ../../rtm-naming/rtm-naming.py")
+    path = None
+    for p in sys.path:
+        if os.path.exists(os.path.join(p,"OpenRTM_aist")):
+            path = os.path.join(p,"OpenRTM_aist","utils","rtm-naming")
+            break
+    if path is None:
+        print "rtm-naming directory not exist."
+        sys.exit(0)
+
+    os.system('python %s/rtm-naming.py'%path)
     os.system('%s -e python SliderComp.py &'%term)
     os.system('%s -e python TkMotorComp.py &'%term)
     time.sleep(3)
