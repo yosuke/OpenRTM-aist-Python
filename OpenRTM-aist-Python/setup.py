@@ -260,6 +260,11 @@ class OtherSetupForSdist(sdist):
       #self.manifest = "MANIFEST"
       self.use_defaults = 0
       self.force_manifest = 1
+      stub_dirs = ["SimpleService","SimpleService__POA"]
+
+      for dir_ in stub_dirs:
+        if not os.path.isdir(os.path.join(os.getcwd(),"OpenRTM_aist","examples","SimpleService",dir_)):
+          os.mkdir(os.path.join(os.getcwd(),"OpenRTM_aist","examples","SimpleService",dir_))
     else:
       self.use_defaults = 0
       self.force_manifest = 1
@@ -339,29 +344,44 @@ example_dir = ["AutoControl",
                "NXTRTC",
                "SeqIO",
                "SimpleIO",
-               {"SimpleService":["_GlobalIDL","_GlobalIDL__POA"]},
+               {"SimpleService":["SimpleService","SimpleService__POA"]},
                "Slider_and_Motor",
                "TkLRFViewer",
                "TkJoyStick"]
 
 example_data_files = []
 
+simpleservice_path = glob.glob(os.path.join("OpenRTM_aist", "examples", "SimpleService"))[0]
+simpleservice_path += "/SimpleService/__init__.py"
+example_data_files.append((os.path.join(example_sitedir, "SimpleService", "SimpleService"),
+                           [simpleservice_path]))
+
+simpleservice__poa_path = glob.glob(os.path.join("OpenRTM_aist", "examples", "SimpleService"))[0]
+simpleservice__poa_path += "/SimpleService__POA/__init__.py"
+example_data_files.append((os.path.join(example_sitedir, "SimpleService", "SimpleService__POA"),
+                           [simpleservice__poa_path]))
+
+simpleservice_idl_path = glob.glob(os.path.join("OpenRTM_aist", "examples", "SimpleService"))[0]
+simpleservice_idl_path += "/MyService_idl.py"
+example_data_files.append((os.path.join(example_sitedir, "SimpleService"),
+                           [simpleservice_idl_path]))
+
 for ex in example_dir:
   if isinstance(ex, str):
     py_path_   = glob.glob(os.path.join("OpenRTM_aist", "examples", ex, "*.py"))
-    conf_path_ = glob.glob(os.path.join("OpenRTM_aist", "examples",ex,"*.conf")) 
-    idl_path_  = glob.glob(os.path.join("OpenRTM_aist", "examples",ex,"*.idl")) 
+    conf_path_ = glob.glob(os.path.join("OpenRTM_aist", "examples", ex, "*.conf")) 
+    idl_path_  = glob.glob(os.path.join("OpenRTM_aist", "examples", ex, "*.idl")) 
     if py_path_:
       for pp_ in py_path_:
-        example_data_files.append((os.path.join(example_sitedir, ex),[pp_]))
+        example_data_files.append((os.path.join(example_sitedir, ex), [pp_]))
 
     if conf_path_:
       for cp_ in conf_path_:
-        example_data_files.append((os.path.join(example_sitedir, ex),[cp_]))
+        example_data_files.append((os.path.join(example_sitedir, ex), [cp_]))
 
     if idl_path_:
       for ip_ in idl_path_:
-        example_data_files.append((os.path.join(example_sitedir, ex),[ip_]))
+        example_data_files.append((os.path.join(example_sitedir, ex), [ip_]))
 
   elif isinstance(ex, dict):
     vals_ = ex.values()
@@ -369,31 +389,31 @@ for ex in example_dir:
     if isinstance(vals_, list):
       if isinstance(vals_[0], list):
         for val_ in vals_[0]:
-          stub_path_   = glob.glob(os.path.join("OpenRTM_aist","examples",
-                                                key_, val_,"*.py"))
+          stub_path_   = glob.glob(os.path.join("OpenRTM_aist", "examples",
+                                                key_, val_, "*.py"))
           if stub_path_:
             for sp_ in stub_path_:
-              example_data_files.append((os.path.join(example_sitedir, key_, val_),[sp_]))
+              example_data_files.append((os.path.join(example_sitedir, key_, val_), [sp_]))
       elif isinstance(vals_[0], str):
-        stub_path_   = glob.glob(os.path.join("OpenRTM_aist","examples",
-                                              key_, vals_[0],"*.py"))
+        stub_path_   = glob.glob(os.path.join("OpenRTM_aist", "examples",
+                                              key_, vals_[0], "*.py"))
         if stub_path_:
             for sp_ in stub_path_:
-              example_data_files.append((os.path.join(example_sitedir, key_, vals_[0]),[sp_]))
+              example_data_files.append((os.path.join(example_sitedir, key_, vals_[0]), [sp_]))
 
-    py_path_   = glob.glob(os.path.join("OpenRTM_aist", "examples",key_, "*.py"))
-    conf_path_ = glob.glob(os.path.join("OpenRTM_aist", "examples",key_,"*.conf")) 
-    idl_path_  = glob.glob(os.path.join("OpenRTM_aist", "examples",key_,"*.idl")) 
+    py_path_   = glob.glob(os.path.join("OpenRTM_aist", "examples", key_, "*.py"))
+    conf_path_ = glob.glob(os.path.join("OpenRTM_aist", "examples", key_, "*.conf")) 
+    idl_path_  = glob.glob(os.path.join("OpenRTM_aist", "examples", key_, "*.idl")) 
 
     if py_path_:
       for pp_ in py_path_:
-        example_data_files.append((os.path.join(example_sitedir, key_),[pp_]))
+        example_data_files.append((os.path.join(example_sitedir, key_), [pp_]))
     if conf_path_:
       for cp_ in conf_path_:
-        example_data_files.append((os.path.join(example_sitedir, key_),[cp_]))
+        example_data_files.append((os.path.join(example_sitedir, key_), [cp_]))
     if idl_path_:
       for ip_ in idl_path_:
-        example_data_files.append((os.path.join(example_sitedir, key_),[ip_]))
+        example_data_files.append((os.path.join(example_sitedir, key_), [ip_]))
 
 
 win32_packages = ["OpenRTM_aist",
@@ -482,6 +502,7 @@ pkg_license   = "EPL"
 examples_install = False
 
 cwd_ = os.getcwd()
+
 if cwd_.find("OpenRTM-aist-Python-example-1.0.0") != -1 or \
       cwd_.find("openrtm-aist-python-example-1.0.0") != -1:
 
