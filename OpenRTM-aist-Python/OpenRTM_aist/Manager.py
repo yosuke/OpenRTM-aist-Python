@@ -26,7 +26,6 @@ from types import IntType, ListType
 import OpenRTM_aist
 import RTC
 import SDOPackage
-import copy
 
 
 #------------------------------------------------------------
