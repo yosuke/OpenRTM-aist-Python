@@ -30,21 +30,21 @@ import RTC
 import OpenRTM_aist
 # This module's spesification
 # <rtc-template block="module_spec">
-mobilerobotcanvas_spec = ["implementation_id", "MobileRobotCanvas", 
-                          "type_name",         "MobileRobotCanvas", 
-                          "description",       "sample component for Python and Tkinter", 
-                          "version",           "1.0", 
-                          "vendor",            "Noriaki Ando, AIST", 
-                          "category",          "example", 
-                          "activity_type",     "DataFlowComponent", 
-                          "max_instance",      "10", 
-                          "language",          "Python", 
-                          "lang_type",         "SCRIPT",
-                          ""]
+tkmobilerobotsimulator_spec = ["implementation_id", "TkMobileRobotSimulator", 
+                               "type_name",         "TkMobileRobotSimulator", 
+                               "description",       "sample component for Python and Tkinter", 
+                               "version",           "1.0", 
+                               "vendor",            "Noriaki Ando, AIST", 
+                               "category",          "example", 
+                               "activity_type",     "DataFlowComponent", 
+                               "max_instance",      "10", 
+                               "language",          "Python", 
+                               "lang_type",         "SCRIPT",
+                               ""]
 # </rtc-template>
 
 
-class MobileRobotCanvas(OpenRTM_aist.DataFlowComponentBase):
+class TkMobileRobotSimulator(OpenRTM_aist.DataFlowComponentBase):
   def __init__(self, manager):
     OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
         
@@ -534,7 +534,7 @@ class DDMobileRobot(SimulatedObject):
     self.wr = 0.0
     self.name = "DDMobileRobot" + str(self.__class__.count)
     self.__class__.count += 1 
-    self.comp = OpenRTM_aist.Manager.instance().createComponent("MobileRobotCanvas")
+    self.comp = OpenRTM_aist.Manager.instance().createComponent("TkMobileRobotSimulator")
 
     # properties
     self.rentry = StringVar()
@@ -554,7 +554,7 @@ class DDMobileRobot(SimulatedObject):
   def __del__(self):
     try:
       self.comp.exit()
-      del(self.comp)
+      del self.comp
     except:
       pass
     self.delete()
@@ -935,13 +935,21 @@ class TkMobileRobot(Frame):
     return xo, yo
 
 
+def TkMobileRobotSimulatorInit(manager):
+  profile = OpenRTM_aist.Properties(defaults_str=tkmobilerobotsimulator_spec)
+  manager.registerFactory(profile,
+                          TkMobileRobotSimulator,
+                          OpenRTM_aist.Delete)
+  return
+
+
 def main():
   m = TkMobileRobot(Tk())
   m.master.title("Tk Mobile Robot Simulator")
   mgr = OpenRTM_aist.Manager.init(sys.argv)
   mgr.activateManager()
-  profile = OpenRTM_aist.Properties(defaults_str=mobilerobotcanvas_spec)
-  mgr.registerFactory(profile, MobileRobotCanvas, OpenRTM_aist.Delete)
+  profile = OpenRTM_aist.Properties(defaults_str=tkmobilerobotsimulator_spec)
+  mgr.registerFactory(profile, TkMobileRobotSimulator, OpenRTM_aist.Delete)
   mgr.runManager(True)
   m.mainloop()
 
