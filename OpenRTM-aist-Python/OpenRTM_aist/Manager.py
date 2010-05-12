@@ -814,7 +814,7 @@ class Manager:
 
 
     # get default configuration of component.
-    prop = copy.copy(factory.profile())
+    prop = factory.profile()
 
     inherit_prop = ["exec_cxt.periodic.type",
                     "exec_cxt.periodic.rate",
@@ -1761,7 +1761,7 @@ class Manager:
   #
   # @endif
   def cleanupComponent(self, comp):
-    self._rtcout.RTC_TRACE("Manager.cleanupComponents")
+    self._rtcout.RTC_TRACE("Manager.cleanupComponent()")
     self.unregisterComponent(comp)
 
     return
