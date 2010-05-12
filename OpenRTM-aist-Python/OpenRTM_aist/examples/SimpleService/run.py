@@ -53,7 +53,7 @@ else:
     path = None
     for p in sys.path:
         if os.path.exists(os.path.join(p,"OpenRTM_aist")):
-            path = os.path.join(p,"OpenRTM_aist","rtm-naming")
+            path = os.path.join(p,"OpenRTM_aist","utils","rtm-naming")
             break
     if path is None:
         print "rtm-naming directory not exist."
