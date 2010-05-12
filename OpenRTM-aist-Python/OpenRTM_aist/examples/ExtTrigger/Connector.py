@@ -39,8 +39,6 @@ def main():
   # activate ConsoleIn0
   eclisti = inobj.get_owned_contexts()
   eclisti[0].activate_component(inobj)
-  print "eclisti",eclisti
-  print "eclisti[0]",eclisti[0]
   ec0.setObject(eclisti[0])
 
 
@@ -85,8 +83,6 @@ def main():
       print "cmd? >",
       cmd = str(sys.stdin.readline())
       if cmd == "0\n":
-        print "ec0", ec0
-        print "ec0.ptr()", ec0._ptr()
         ec0._ptr().tick()
       elif cmd == "1\n":
         ec1._ptr().tick()
