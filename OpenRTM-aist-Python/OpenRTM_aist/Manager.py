@@ -835,6 +835,8 @@ class Manager:
     self._rtcout.RTC_TRACE("RTC Created: %s", comp_id.getProperty("implementation_id"))
 
     # The property specified by the parameter of createComponent() is merged.
+    # The property("instance_name") specified by the parameter of createComponent()
+    # must be merged here.
     prop.mergeProperties(comp_prop)
 
     #------------------------------------------------------------
@@ -846,7 +848,9 @@ class Manager:
     self.configureComponent(comp,prop)
 
     # The property specified by the parameter of createComponent() is set.
-    # comp.setProperties(comp_prop)
+    # The property("exported_ports") specified by the parameter of createComponent()
+    # must be set here.
+    comp.setProperties(comp_prop)
 
     # Component initialization
     if comp.initialize() != RTC.RTC_OK:
