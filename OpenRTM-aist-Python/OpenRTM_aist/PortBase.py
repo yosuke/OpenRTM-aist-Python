@@ -208,10 +208,10 @@ class PortBase(RTC__POA.PortService):
   # PortProfile struct has the following members,
   #
   # - name              [string ] The name of the Port.
-  # - interfaces        [PortInterfaceProfileList ·¿] The sequence of 
+  # - interfaces        [PortInterfaceProfileList] The sequence of 
   #                     PortInterfaceProfile owned by the Port
   # - port_ref          [Port Object] The object reference of the Port.
-  # - connector_profile [ConnectorProfileList ·¿] The sequence of 
+  # - connector_profile [ConnectorProfileList] The sequence of 
   #                     ConnectorProfile owned by the Port.
   # - owner             [RTObject Object] The object reference of 
   #                     RTObject that is owner of the Port.

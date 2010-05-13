@@ -176,6 +176,9 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # @param configsets ConfigurationSetList
   # 
   # @else
+  # @brief class constructor
+  # @param self
+  # @param configsets ConfigurationSetList
   #
   # @endif
   def __init__(self, configsets):
@@ -241,6 +244,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # have DeviceProfile, the operation will create a new DeviceProfile,
   # otherwise it will replace the existing DeviceProfile.
   #
+  # @param self
   # @param dProfile The device profile that is to be assigned to this SDO.
   #
   # @return If the operation was successfully completed.
@@ -301,6 +305,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # null, the target SDO searches for ServiceProfile in it with the same id.
   # It adds the ServiceProfile if not exist, or overwrites if exist.
   #
+  # @param self
   # @param sProfile ServiceProfile to be added.
   #
   # @return If the operation was successfully completed.
@@ -362,6 +367,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #
   # This operation adds reference of an Organization object.
   #
+  # @param self
   # @param org Organization to be added.
   #
   # @return If the operation was successfully completed.
@@ -370,7 +376,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #                         is mapped to CORBA standard system exception
   #                         OBJECT_NOT_EXIST.)
   # @exception NotAvailable The target SDO is reachable but cannot respond.
-  # @exception InvalidParameter The argument “organization” is null.
+  # @exception InvalidParameter The argument "organization" is null.
   # @exception InternalError The target SDO cannot execute the operation
   #                          completely due to some internal error.
   # @endif
@@ -416,6 +422,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # Configuration interface. The ServiceProfile object to be removed is
   # specified by argument.
   #
+  # @param self
   # @param id_ serviceID of a ServiceProfile to be removed.
   #
   # @return If the operation was successfully completed.
@@ -468,6 +475,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #
   # This operation removes the reference of an Organization object.
   #
+  # @param self
   # @param organization_id Unique id of the organization to be removed.
   #
   # @return If the operation was successfully completed.
@@ -521,6 +529,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # This operation returns a list of Parameters. An empty list is returned
   # if the SDO does not have any configurable parameter.
   #
+  # @param self
   # @return The list with definitions of parameters characterizing the
   #          configuration.
   #
@@ -566,6 +575,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #
   # This operation returns all configuration parameters and their values.
   #
+  # @param self
   # @return List of all configuration parameters and their values.
   #
   # @exception SDONotExists if the target SDO does not exist.(This exception 
@@ -608,6 +618,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # This operation returns a value of parameter that is specified by
   # argument "name."
   #
+  # @param self
   # @param Name of the parameter whose value is requested.
   #
   # @return The value of the specified parameter.
@@ -660,6 +671,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # This operation sets a parameter to a value that is specified by argument
   # "value." The parameter to be modified is specified by argument " name."
   #
+  # @param self
   # @param name The name of parameter to be modified.
   # @param value New value of the specified parameter.
   #
@@ -708,6 +720,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # This operation returns a list of all ConfigurationSets of the SDO.
   # If no predefined ConfigurationSets exist, then empty list is returned.
   #
+  # @param self
   # @return The list of stored configuration with their current values.
   #
   # @exception SDONotExists if the target SDO does not exist.(This exception 
@@ -763,6 +776,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # This operation returns the ConfigurationSet specified by the parameter
   # configurationSetID.
   #
+  # @param self
   # @param config_id Identifier of ConfigurationSet requested.
   #
   # @return The configuration set specified by the parameter config_id.
@@ -807,7 +821,6 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # このオペレーションは指定された id の ConfigurationSet を更新する。
   #
   # @param self
-  # @param config_id 変更する ConfigurationSet の ID。
   # @param configuration_set 変更する ConfigurationSet そのもの。
   #
   # @return ConfigurationSet が正常に更新できた場合は true。
@@ -826,8 +839,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #
   # This operation modifies the specified ConfigurationSet of an SDO.
   #
-  # ※ パラメータの数が spec と IDL で異なる！！！
-  # @param configu_id The ID of ConfigurationSet to be modified.
+  # @param self
   # @param configuration_set ConfigurationSet to be replaced.
   #
   # @return A flag indicating if the ConfigurationSet was modified 
@@ -922,6 +934,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #
   # Empty ConfigurationSet is returned in these cases.
   #
+  # @param self
   # @return The active ConfigurationSet.
   #
   # @exception SDONotExists if the target SDO does not exist.(This exception 
@@ -973,6 +986,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #
   # This operation adds a ConfigurationSet to the ConfigurationProfile.
   #
+  # @param self
   # @param configuration_set The ConfigurationSet that is added.
   #
   # @return If the operation was successfully completed.
@@ -1030,6 +1044,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   #
   # This operation removes a ConfigurationSet from the ConfigurationProfile.
   #
+  # @param self
   # @param config_id The id of ConfigurationSet which is removed.
   #
   # @return If the operation was successfully completed.
@@ -1095,6 +1110,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   # In other words, values of the specified ConfigurationSet are now copied
   # to the active configuration.
   #
+  # @param self
   # @param Identifier of ConfigurationSet to be activated.
   #
   # @return If the operation was successfully completed.

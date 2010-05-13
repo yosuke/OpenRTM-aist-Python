@@ -237,8 +237,6 @@ class Organization_impl(SDOPackage__POA.Organization):
   # 
   # @brief [CORBA interface] Set OrganizationProperty
   # 
-  # ※ SDO Specification の PIM 記述とオペレーション名が異なる。
-  # ※ addOrganizationProperty に対応か？
   # This operation adds the OrganizationProperty to an Organization. The
   # OrganizationProperty is the property description of an Organization.
   # 
