@@ -780,7 +780,8 @@ class Manager:
 
     factory = self._factory.find(comp_id)
     if factory is None:
-      self._rtcout.RTC_ERROR("createComponent: Factory not found: %s", comp_id.getProperty("implementation_id"))
+      self._rtcout.RTC_ERROR("createComponent: Factory not found: %s",
+                             comp_id.getProperty("implementation_id"))
 
       # automatic module loading
       mp = self._module.getLoadableModules()
@@ -830,7 +831,8 @@ class Manager:
     comp = factory.create(self)
 
     if comp is None:
-      self._rtcout.RTC_ERROR("createComponent: RTC creation failed: %s", comp_id.getProperty("implementation_id"))
+      self._rtcout.RTC_ERROR("createComponent: RTC creation failed: %s",
+                             comp_id.getProperty("implementation_id"))
       return None
     self._rtcout.RTC_TRACE("RTC Created: %s", comp_id.getProperty("implementation_id"))
 
@@ -854,12 +856,14 @@ class Manager:
 
     # Component initialization
     if comp.initialize() != RTC.RTC_OK:
-      self._rtcout.RTC_TRACE("RTC initialization failed: %s", comp_id.getProperty("implementation_id"))
+      self._rtcout.RTC_TRACE("RTC initialization failed: %s",
+                             comp_id.getProperty("implementation_id"))
       comp.exit()
       self._rtcout.RTC_TRACE("%s was finalized", comp_id.getProperty("implementation_id"))
       return None
       
-    self._rtcout.RTC_TRACE("RTC initialization succeeded: %s", comp_id.getProperty("implementation_id"))
+    self._rtcout.RTC_TRACE("RTC initialization succeeded: %s",
+                           comp_id.getProperty("implementation_id"))
     self.registerComponent(comp)
     return comp
 
@@ -1124,7 +1128,8 @@ class Manager:
     config = OpenRTM_aist.ManagerConfig(argv)
     self._config = OpenRTM_aist.Properties()
     config.configure(self._config)
-    self._config.setProperty("logger.file_name",self.formatString(self._config.getProperty("logger.file_name"), self._config))
+    self._config.setProperty("logger.file_name",self.formatString(self._config.getProperty("logger.file_name"), 
+                                                                  self._config))
     self._module = OpenRTM_aist.ModuleManager(self._config)
     self._terminator = self.Terminator(self)
     guard = OpenRTM_aist.ScopedLock(self._terminate.mutex)
@@ -1141,7 +1146,8 @@ class Manager:
 
     if OpenRTM_aist.toBool(self._config.getProperty("manager.shutdown_auto"),
                            "YES", "NO", True) and \
-                           not OpenRTM_aist.toBool(self._config.getProperty("manager.is_master"), "YES", "NO", False):
+                           not OpenRTM_aist.toBool(self._config.getProperty("manager.is_master"),
+                                                   "YES", "NO", False):
       if self._timer:
         tm = OpenRTM_aist.TimeValue(10, 0)
         self._timer.registerListenerObj(self,
