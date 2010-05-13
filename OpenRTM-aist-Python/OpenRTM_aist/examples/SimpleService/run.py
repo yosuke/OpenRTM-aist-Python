@@ -24,8 +24,8 @@ hostname= sysinfo[1]
 plat=sys.platform
 
 if plat == "win32":
-    os.system("rd /S /Q _GlobalIDL")
-    os.system("rd /S /Q _GlobalIDL__POA")
+    os.system("rd /S /Q SimpleService")
+    os.system("rd /S /Q SimpleService__POA")
     os.system("omniidl.exe -bpython MyService.idl")
     os.system("start python ..\\..\\..\\bin\\rtm-naming.py")
     os.system("start python MyServiceConsumer.py")
@@ -34,7 +34,7 @@ if plat == "win32":
     os.system("python Connector.py")
 
 else:
-    os.system('rm -rf _GlobalIDL*')
+    os.system('rm -rf SimpleService*')
     os.system('omniidl -bpython MyService.idl')
     status,term=commands.getstatusoutput("which kterm")
     if status != 0:
