@@ -2169,8 +2169,8 @@ class Manager:
   #
   # @endif
   class InstanceName:
-
-
+    """
+    """
 
     ##
     # @if jp
@@ -2332,8 +2332,8 @@ class Manager:
   # @brief OrbRunner class
   # @endif
   class OrbRunner:
-
-
+    """
+    """
 
     ##
     # @if jp
@@ -2430,8 +2430,8 @@ class Manager:
   #
   # @endif
   class Terminator:
-
-
+    """
+    """
 
     ##
     # @if jp

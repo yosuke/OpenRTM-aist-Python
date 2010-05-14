@@ -59,8 +59,8 @@ def Delete(rtc):
 #
 # @endif
 class FactoryBase:
-
-
+  """
+  """
 
   ##
   # @if jp
@@ -201,8 +201,8 @@ class FactoryBase:
 #
 # @endif
 class FactoryPython(FactoryBase):
-
-
+  """
+  """
 
   ##
   # @if jp

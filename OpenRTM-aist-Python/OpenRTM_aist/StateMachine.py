@@ -132,12 +132,13 @@ class StateHolder:
 #
 # @endif
 class StateMachine:
+  """
+  """
+
   state_array = (RTC.CREATED_STATE,
                  RTC.INACTIVE_STATE,
                  RTC.ACTIVE_STATE,
                  RTC.ERROR_STATE)
-
-
 
   ##
   # @if jp

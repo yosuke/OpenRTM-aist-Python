@@ -20,12 +20,14 @@ import OpenRTM_aist
 from OpenRTM_aist import *
 
 class CdrRingBuffer(OpenRTM_aist.RingBuffer):
-    def __init__(self):
-        OpenRTM_aist.RingBuffer.__init__(self)
-        pass
+  """
+  """
+  def __init__(self):
+    OpenRTM_aist.RingBuffer.__init__(self)
+    pass
 
 
 def CdrRingBufferInit():
-    OpenRTM_aist.CdrBufferFactory.instance().addFactory("ring_buffer",
-                                                        OpenRTM_aist.CdrRingBuffer,
-                                                        OpenRTM_aist.Delete)
+  OpenRTM_aist.CdrBufferFactory.instance().addFactory("ring_buffer",
+                                                      OpenRTM_aist.CdrRingBuffer,
+                                                      OpenRTM_aist.Delete)

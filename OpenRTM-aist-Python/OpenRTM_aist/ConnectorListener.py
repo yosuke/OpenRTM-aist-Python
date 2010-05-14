@@ -87,6 +87,9 @@ class ConnectorDataListenerType:
 # @endif
 #
 class ConnectorDataListener:
+  """
+  """
+
   def __del__(self):
     pass
 
@@ -247,6 +250,9 @@ class ConnectorListenerType:
 # @endif
 #
 class ConnectorListener:
+  """
+  """
+
   def __del__(self):
     pass
 

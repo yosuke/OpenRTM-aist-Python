@@ -44,6 +44,8 @@ import OpenRTM_aist
 # @endif
 #
 class PeriodicTask(OpenRTM_aist.Task):
+  """
+  """
 
   ##
   # @if jp

@@ -50,6 +50,8 @@ import OpenRTM
 # @endif
 #
 class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsumer):
+  """
+  """
 
   ##
   # @if jp

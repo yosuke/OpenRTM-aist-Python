@@ -104,8 +104,8 @@ class NumberingPolicy:
 #
 # @endif
 class DefaultNumberingPolicy(NumberingPolicy):
-
-
+  """
+  """
 
   ##
   # @if jp

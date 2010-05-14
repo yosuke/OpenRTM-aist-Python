@@ -36,8 +36,8 @@ logger = None
 #
 # @endif
 class Logger:
-
-
+  """
+  """
 
   SILENT    = 0  # ()
   FATAL     = 41 # (FATAL)
@@ -265,6 +265,8 @@ class Logger:
 #
 # @endif
 class LogStream:
+  """
+  """
 
   ##
   # @if jp

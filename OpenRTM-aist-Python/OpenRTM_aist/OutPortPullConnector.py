@@ -75,6 +75,8 @@ import OpenRTM_aist
 # @endif
 #
 class OutPortPullConnector(OpenRTM_aist.OutPortConnector):
+  """
+  """
 
   ##
   # @if jp

@@ -39,8 +39,8 @@ import OpenRTM_aist
 #
 # @endif
 class NamingBase:
-
-
+  """
+  """
 
   ##
   # @if jp
@@ -115,8 +115,8 @@ class NamingBase:
 #
 # @endif
 class NamingOnCorba(NamingBase):
-
-
+  """
+  """
 
   ##
   # @if jp

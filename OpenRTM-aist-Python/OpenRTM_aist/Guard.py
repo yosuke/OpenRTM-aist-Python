@@ -30,8 +30,8 @@
 #
 # @endif
 class ScopedLock:
-
-
+  """
+  """
 
   ##
   # @if jp

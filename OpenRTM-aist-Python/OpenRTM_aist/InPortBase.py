@@ -56,6 +56,8 @@ import RTC
 # @endif
 #
 class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
+  """
+  """
 
   ##
   # @if jp

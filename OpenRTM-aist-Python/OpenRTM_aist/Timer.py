@@ -37,8 +37,6 @@ class Timer:
   """
   """
 
-
-
   ##
   # @if jp
   # @brief コンストラクタ

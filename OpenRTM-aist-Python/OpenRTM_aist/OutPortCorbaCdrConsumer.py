@@ -49,6 +49,8 @@ import OpenRTM
 # @endif
 #
 class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaConsumer):
+  """
+  """
 
   ##
   # @if jp

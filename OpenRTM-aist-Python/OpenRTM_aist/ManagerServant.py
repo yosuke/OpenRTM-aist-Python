@@ -26,6 +26,8 @@ import SDOPackage
 
 
 class ManagerServant(RTM__POA.Manager):
+  """
+  """
 
   ##
   # @if jp

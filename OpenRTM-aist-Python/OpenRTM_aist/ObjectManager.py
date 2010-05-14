@@ -36,8 +36,8 @@ import OpenRTM_aist
 #
 # @endif
 class ObjectManager:
-
-
+  """
+  """
 
   ##
   # @if jp

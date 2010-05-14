@@ -162,8 +162,8 @@ def toConfigurationSet(conf, prop):
 #
 # @endif
 class Configuration_impl(SDOPackage__POA.Configuration):
-
-
+  """
+  """
 
   ##
   # @if jp

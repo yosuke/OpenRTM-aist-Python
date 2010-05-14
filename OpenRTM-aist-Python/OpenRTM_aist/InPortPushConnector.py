@@ -74,6 +74,8 @@ import OpenRTM_aist
 # @endif
 #
 class InPortPushConnector(OpenRTM_aist.InPortConnector):
+  """
+  """
 
   ##
   # @if jp

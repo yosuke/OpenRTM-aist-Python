@@ -84,6 +84,8 @@ class ConnectorInfo:
 #
 # @endif
 class ConnectorBase(OpenRTM_aist.DataPortStatus):
+  """
+  """
 
   ##
   # @if jp

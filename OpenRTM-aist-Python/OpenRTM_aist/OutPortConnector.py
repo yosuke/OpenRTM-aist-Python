@@ -42,6 +42,8 @@ import RTC
 # @endif
 #
 class OutPortConnector(OpenRTM_aist.ConnectorBase):
+  """
+  """
 
   ##
   # @if jp

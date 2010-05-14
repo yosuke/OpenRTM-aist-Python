@@ -30,8 +30,8 @@
 # @brief ListenerBase class
 # @endif
 class ListenerBase:
-
-
+  """
+  """
 
   ##
   # @if jp
@@ -64,8 +64,8 @@ class ListenerBase:
 # @brief ListenerObject class
 # @endif
 class ListenerObject(ListenerBase):
-
-
+  """
+  """
 
   ##
   # @if jp
@@ -115,8 +115,8 @@ class ListenerObject(ListenerBase):
 # @brief ListenerFunc class
 # @endif
 class ListenerFunc(ListenerBase):
-
-
+  """
+  """
 
   ##
   # @if jp

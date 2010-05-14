@@ -123,8 +123,8 @@ class ExtTrigExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
   #
   # @endif
   class Worker:
-    
-    
+    """
+    """
     
     ##
     # @if jp

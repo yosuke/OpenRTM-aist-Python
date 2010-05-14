@@ -60,8 +60,8 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
   #
   # @endif
   class DFP:
-
-
+    """
+    """
 
     ##
     # @if jp

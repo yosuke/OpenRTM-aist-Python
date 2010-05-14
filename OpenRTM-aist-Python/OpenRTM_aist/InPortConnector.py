@@ -41,6 +41,9 @@ import RTC
 # @endif
 #
 class InPortConnector(OpenRTM_aist.ConnectorBase):
+  """
+  """
+
   ##
   # @if jp
   # @brief コンストラクタ

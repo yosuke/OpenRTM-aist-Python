@@ -45,6 +45,8 @@ import SDOPackage, SDOPackage__POA
 # 
 # @endif
 class Organization_impl(SDOPackage__POA.Organization):
+  """
+  """
 
   ##
   # @if jp

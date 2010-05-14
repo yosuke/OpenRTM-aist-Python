@@ -36,8 +36,8 @@ import SDOPackage, SDOPackage__POA
 #
 # @endif
 class SDOServiceProfile:
-
-
+  """
+  """
 
   ##
   # @if jp

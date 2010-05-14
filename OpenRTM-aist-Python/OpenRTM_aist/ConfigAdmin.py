@@ -95,6 +95,8 @@ class OnActivateSetCallback:
 # 
 # @endif
 class Config:
+  """
+  """
 
   ##
   # @if jp

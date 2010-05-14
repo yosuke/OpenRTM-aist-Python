@@ -56,8 +56,8 @@ def ECDelete(ec):
 #
 # @endif
 class ECFactoryBase :
-
-
+  """
+  """
 
   ##
   # @if jp
@@ -130,8 +130,8 @@ class ECFactoryBase :
 #
 # @endif
 class ECFactoryPython(ECFactoryBase):
-
-
+  """
+  """
 
   ##
   # @if jp
