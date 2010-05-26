@@ -1396,11 +1396,6 @@ class CorbaPort(OpenRTM_aist.PortBase):
       _mgr = OpenRTM_aist.Manager.instance()
       self._oid = _mgr.getPOA().servant_to_id(self._servant)
 
-      try:
-        _mgr.getPOA().activate_object_with_id(self._oid, self._servant)
-      except:
-        print sys.exc_info()[0]
-        
       obj = _mgr.getPOA().id_to_reference(self._oid)
       self._ior = _mgr.getORB().object_to_string(obj)
       self.deactivate()
