@@ -59,7 +59,7 @@ else:
         print "rtm-naming directory not exist."
         sys.exit(0)
 
-    os.system('python %s/rtm-naming.py'%path)
+    os.system('python %s/rtm-naming.py &'%path)
     os.system('%s -e python MyServiceConsumer.py &'%term)
     os.system('%s -e python MyServiceProvider.py &'%term)
     time.sleep(3)

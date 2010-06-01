@@ -55,7 +55,7 @@ def main():
       print "rtm-naming directory not exist."
       sys.exit(0)
 
-    os.system('python %s/rtm-naming.py'%path)
+    os.system('python %s/rtm-naming.py &'%path)
     os.system('%s -e python ConsoleIn.py &'%term)
     os.system('%s -e python ConsoleOut.py &'%term)
     time.sleep(3)
