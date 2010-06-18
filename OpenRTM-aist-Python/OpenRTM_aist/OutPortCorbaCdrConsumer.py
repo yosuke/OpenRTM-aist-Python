@@ -194,7 +194,8 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
     self._rtcout.RTC_PARANOID("get()")
 
     try:
-      ret,cdr_data = self._ptr().get()
+      outportcdr = self.getObject()._narrow(OpenRTM.OutPortCdr)
+      ret,cdr_data = outportcdr.get()
       
       if ret == OpenRTM.PORT_OK:
         self._rtcout.RTC_DEBUG("get() successful")

@@ -149,8 +149,10 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
     self._rtcout.RTC_PARANOID("put()")
 
     try:
-      if self._ptr():
-        return self.convertReturnCode(self._ptr().put(data))
+      ref_ = self.getObject()
+      if ref_:
+        inportcdr = ref_._narrow(OpenRTM.InPortCdr)
+        return self.convertReturnCode(inportcdr.put(data))
       return self.CONNECTION_LOST
     except:
       self._rtcout.RTC_ERROR(sys.exc_info()[0])
