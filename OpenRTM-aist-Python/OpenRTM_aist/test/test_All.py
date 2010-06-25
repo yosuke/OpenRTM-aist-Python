@@ -73,7 +73,7 @@ def test_main():
     TestManager,
     TestManagerConfig,
     TestModuleManager,
-    TestNamingOnCorba,
+#    TestNamingOnCorba,
     TestDefaultNumberingPolicy,
     TestNVUtil,
     TestObjectManager,
@@ -94,7 +94,7 @@ def test_main():
     TestSDOServiceProfile,
     TestStateMachine,
     TestStringUtil,
-    TestLogbuf,
+#    TestLogbuf,
     TestTimer,
     TestTimeValue,
     )
