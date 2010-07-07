@@ -52,6 +52,7 @@ class TestModuleManager(unittest.TestCase):
 
   def tearDown(self):
     del self.mm
+    OpenRTM_aist.Manager.instance().shutdownManager()
     
     
   def test_load_unload(self):
@@ -97,20 +98,20 @@ class TestModuleManager(unittest.TestCase):
 
     
   def test_setLoadpath(self):
-    self.mm.setLoadpath(["/usr/lib/python/site-packages"])
+    self.mm.setLoadpath(["/usr/lib/python/site-packages","."])
     return
   
   def test_getLoadPath(self):
-    self.mm.setLoadpath(["/usr/lib/python/site-packages"])
+    self.mm.setLoadpath(["/usr/lib/python/site-packages","."])
     self.assertEqual(self.mm.getLoadPath()[0],"/usr/lib/python/site-packages")
     return
 
     
   def test_addLoadpath(self):
-    self.mm.setLoadpath(["/usr/lib/python/site-packages"])
+    self.mm.setLoadpath(["/usr/lib/python/site-packages","."])
     self.mm.addLoadpath(["/usr/local/lib/python/site-packages"])
     self.assertEqual(self.mm.getLoadPath()[0],"/usr/lib/python/site-packages")
-    self.assertEqual(self.mm.getLoadPath()[1],"/usr/local/lib/python/site-packages")
+    self.assertEqual(self.mm.getLoadPath()[-1],"/usr/local/lib/python/site-packages")
     return
 
   
@@ -162,9 +163,9 @@ class TestModuleManager(unittest.TestCase):
     
 
   def test_getRtcProfile(self):
-    self.assertNotEqual(self.mm._ModuleManager__getRtcProfile("./ConfigSample.py").size(),0)
-    self.assertNotEqual(self.mm._ModuleManager__getRtcProfile("ConfigSample.py").size(),0)
-    self.assertNotEqual(self.mm._ModuleManager__getRtcProfile("ConfigSample").size(),0)
+    self.assertEqual(self.mm._ModuleManager__getRtcProfile("./ConfigSample.py"),None)
+    self.assertEqual(self.mm._ModuleManager__getRtcProfile("ConfigSample.py"),None)
+    self.assertEqual(self.mm._ModuleManager__getRtcProfile("ConfigSample"),None)
     return
 
 

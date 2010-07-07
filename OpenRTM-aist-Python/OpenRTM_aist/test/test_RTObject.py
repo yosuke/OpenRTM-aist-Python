@@ -22,6 +22,7 @@ sys.path.insert(1,"../RTM_IDL")
 import RTC
 import SDOPackage
 import OpenRTM_aist
+from omniORB import CORBA, PortableServer
 from omniORB import any
 
 import unittest
@@ -48,9 +49,9 @@ configsample_spec = ["implementation_id", "TestComp",
 
 com = None
 
-class TestComp(OpenRTM_aist.DataFlowComponentBase):
-  def __init__(self, manager):
-    OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
+class TestComp(OpenRTM_aist.RTObject_impl):
+  def __init__(self, orb_, poa_):
+    OpenRTM_aist.RTObject_impl.__init__(self, orb=orb_, poa=poa_)
 
   def onInitialize(self):
     print "onInitialize"
@@ -109,15 +110,9 @@ def TestCompInit(manager):
 
 class TestRTObject_impl(unittest.TestCase):
   def setUp(self):
-    global com
-    time.sleep(0.1)
-    if not com:
-      print "init"
-      self.manager = OpenRTM_aist.Manager.init(sys.argv)
-      self.manager.setModuleInitProc(TestCompInit)
-      self.manager.activateManager()
-      self.manager.runManager(True)
-    self.rtobj = com
+    self._orb = CORBA.ORB_init(sys.argv)
+    self._poa = self._orb.resolve_initial_references("RootPOA")
+    self._poa._get_the_POAManager().activate()
     return
 
   def tearDown(self):
@@ -125,136 +120,176 @@ class TestRTObject_impl(unittest.TestCase):
     #self.rtobj.exit()
     #self.manager.terminate()
     time.sleep(0.1)
+    OpenRTM_aist.Manager.instance().shutdownManager()
     #com = None
     return
 
   def test_is_alive(self):
-    ec = self.rtobj.get_context(0)
-    self.assertEqual(self.rtobj.is_alive(ec),True)
+    rtobj = TestComp(self._orb, self._poa)
+    ec = rtobj.getObjRef().get_context(0)
+    self.assertEqual(ec,None)
+    ec_args = "PeriodicExecutionContext"+"?" + "rate=1000"
+    ec=OpenRTM_aist.Manager.instance().createContext(ec_args)
+    ec.bindComponent(rtobj)
+    self.assertNotEqual(rtobj.getObjRef().get_owned_contexts(),[])
+    self.assertEqual(rtobj.is_alive(ec.getObjRef()),True)
+    ec.remove_component(rtobj.getObjRef())
+    ec.stop()
+    del ec
+
     return
 
   def test_get_owned_contexts(self):
-    self.assertNotEqual(self.rtobj.get_owned_contexts(),[])
+    rtobj = TestComp(self._orb, self._poa)
+    self.assertEqual(rtobj.getObjRef().get_owned_contexts(),[])
+    ec_args = "PeriodicExecutionContext"+"?" + "rate=1000"
+    ec=OpenRTM_aist.Manager.instance().createContext(ec_args)
+    ec.bindComponent(rtobj)
+    self.assertNotEqual(rtobj.getObjRef().get_owned_contexts(),[])
+    ec.remove_component(rtobj.getObjRef())
+    ec.stop()
+    del ec
+
     return
 
-"""
   def test_get_participating_contexts(self):
-    self.assertEqual(self.rtobj.get_participating_contexts(),[])
+    rtobj = TestComp(self._orb, self._poa)
+    self.assertEqual(rtobj.getObjRef().get_participating_contexts(),[])
     return
 
   def test_get_context(self):
-    print self.rtobj.get_context(0)
+    rtobj = TestComp(self._orb, self._poa)
+    print rtobj.getObjRef().get_context(0)
     return
 
   def test_get_component_profile(self):
-    prof = self.rtobj.get_component_profile()
+    rtobj = TestComp(self._orb, self._poa)
+    rtobj.setInstanceName("TestComp0")
+    prof = rtobj.getObjRef().get_component_profile()
     self.assertEqual(prof.instance_name, "TestComp0")
     return
 
   def test_get_ports(self):
-    self.assertEqual(self.rtobj.get_ports(), [])
+    rtobj = TestComp(self._orb, self._poa)
+    self.assertEqual(rtobj.getObjRef().get_ports(), [])
     return
 
 
   def test_attach_context(self):
-    ec = OpenRTM_aist.PeriodicExecutionContext(self.rtobj, 10)
-    id = self.rtobj.attach_context(ec.getObjRef())
+    rtobj = TestComp(self._orb, self._poa)
+    ec = OpenRTM_aist.PeriodicExecutionContext(rtobj.getObjRef(), 10)
+    id = rtobj.getObjRef().attach_context(ec.getObjRef())
     print "attach_context: ", id
-    print self.rtobj.detach_context(id)
-    poa = self.manager.getPOA()
+    print rtobj.getObjRef().detach_context(id)
+    poa = OpenRTM_aist.Manager.instance().getPOA()
     poa.deactivate_object(poa.servant_to_id(ec))
     return
 
   def test_get_owned_organizations(self):
-    self.assertEqual(self.rtobj.get_owned_organizations(),[])
+    rtobj = TestComp(self._orb, self._poa)
+    self.assertEqual(rtobj.getObjRef().get_owned_organizations(),[])
     return
     
   def test_get_sdo_id(self):
-    self.assertEqual(self.rtobj.get_sdo_id(), "TestComp0")
+    rtobj = TestComp(self._orb, self._poa)
+    rtobj.setInstanceName("TestComp0")
+    self.assertEqual(rtobj.getObjRef().get_sdo_id(), "TestComp0")
     return
 
   def test_get_sdo_type(self):
-    self.assertEqual(self.rtobj.get_sdo_type(), "Test example component")
+    rtobj = TestComp(self._orb, self._poa)
+    prop = OpenRTM_aist.Properties(defaults_str=configsample_spec)
+    rtobj.setProperties(prop)
+    self.assertEqual(rtobj.getObjRef().get_sdo_type(), "Test example component")
     return
 
   def test_get_device_profile(self):
-    prof = self.rtobj.get_device_profile()
+    rtobj = TestComp(self._orb, self._poa)
+    prof = rtobj.getObjRef().get_device_profile()
     self.assertEqual(prof.device_type, "")
     return
 
   def test_get_service_profiles(self):
-    self.assertEqual(self.rtobj.get_service_profiles(),[])
+    rtobj = TestComp(self._orb, self._poa)
+    self.assertEqual(rtobj.getObjRef().get_service_profiles(),[])
     return
 
 
   def test_get_service_profile(self):
-    #self.rtobj.get_service_profile("TestComp")
+    #rtobj.getObjRef().get_service_profile("TestComp")
     return
 
 
   def test_get_sdo_service(self):
-    #self.rtobj.get_sdo_service(None)
+    #rtobj.getObjRef().get_sdo_service(None)
     return
 
   def test_get_configuration(self):
-    print self.rtobj.get_configuration()
+    rtobj = TestComp(self._orb, self._poa)
+    print rtobj.getObjRef().get_configuration()
     return
 
   def test_get_monitoring(self):
-    #self.rtobj.get_monitoring()
+    #rtobj.getObjRef().get_monitoring()
     return
 
   def test_get_organizations(self):
-    self.assertEqual(self.rtobj.get_organizations(), [])
+    rtobj = TestComp(self._orb, self._poa)
+    self.assertEqual(rtobj.getObjRef().get_organizations(), [])
     return
 
   def test_get_status_list(self):
-    self.assertEqual(self.rtobj.get_status_list(), [])
+    rtobj = TestComp(self._orb, self._poa)
+    self.assertEqual(rtobj.getObjRef().get_status_list(), [])
     return
 
   def test_get_status(self):
-    #self.rtobj.get_status("status")
+    #rtobj.getObjRef().get_status("status")
     return
 
   def test_getPropTestCase(self):
-    self.assertEqual(self.rtobj.getInstanceName(), "TestComp0")
-    self.rtobj.setInstanceName("TestComp0")
-    self.assertEqual(self.rtobj.getInstanceName(), "TestComp0")
-    self.assertEqual(self.rtobj.getTypeName(), "TestComp")
-    self.assertEqual(self.rtobj.getDescription(), "Test example component")
-    self.assertEqual(self.rtobj.getVersion(), "1.0")
-    self.assertEqual(self.rtobj.getVendor(), "Shinji Kurihara, AIST")
-    self.assertEqual(self.rtobj.getCategory(), "example")
-    self.assertEqual(self.rtobj.getNamingNames(),["TestComp0.rtc"])
+    rtobj = TestComp(self._orb, self._poa)
+    self.assertEqual(rtobj.getInstanceName(), "")
+    prop = OpenRTM_aist.Properties(defaults_str=configsample_spec)
+    rtobj.setInstanceName("TestComp0")
+    rtobj.setProperties(prop)
+    self.assertEqual(rtobj.getInstanceName(), "TestComp0")
+    self.assertEqual(rtobj.getTypeName(), "TestComp")
+    self.assertEqual(rtobj.getDescription(), "Test example component")
+    self.assertEqual(rtobj.getVersion(), "1.0")
+    self.assertEqual(rtobj.getVendor(), "Shinji Kurihara, AIST")
+    self.assertEqual(rtobj.getCategory(), "example")
+    self.assertNotEqual(rtobj.getNamingNames(),["TestComp0.rtc"])
     return
 
   def test_setObjRef(self):
-    self.rtobj.setObjRef("test")
-    self.assertEqual(self.rtobj.getObjRef(),"test")
+    rtobj = TestComp(self._orb, self._poa)
+    rtobj.setObjRef("test")
+    self.assertEqual(rtobj.getObjRef(),"test")
     return
 
-
   def test_bindParameter(self):
+    rtobj = TestComp(self._orb, self._poa)
     conf_ = [123]
-    self.assertEqual(self.rtobj.bindParameter("config", conf_, 0), True)
-    self.rtobj.updateParameters("")
+    self.assertEqual(rtobj.bindParameter("config", conf_, 0), True)
+    rtobj.updateParameters("")
     return
 
   def test_PortTestCase(self):
+    rtobj = TestComp(self._orb, self._poa)
     ringbuf = OpenRTM_aist.RingBuffer(8)
     outp = OpenRTM_aist.OutPort("out", RTC.TimedLong(RTC.Time(0,0),0), ringbuf)
-    self.rtobj.registerOutPort("out",outp)
+    rtobj.registerOutPort("out",outp)
 
     ringbuf = OpenRTM_aist.RingBuffer(8)
     inp = OpenRTM_aist.InPort("in", RTC.TimedLong(RTC.Time(0,0),0), ringbuf)
-    self.rtobj.registerInPort("in",inp)
+    rtobj.registerInPort("in",inp)
     
-    self.rtobj.deletePort(outp)
-    self.rtobj.deletePort(inp)
+    rtobj.deletePort(outp)
+    rtobj.deletePort(inp)
 
-    self.rtobj.finalizePorts()
+    rtobj.finalizePorts()
     return
-"""
 
 
 

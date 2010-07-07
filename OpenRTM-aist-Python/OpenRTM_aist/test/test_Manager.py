@@ -74,6 +74,12 @@ class TestManager(unittest.TestCase):
   def setUp(self):
     self.manager = OpenRTM_aist.Manager.init(sys.argv)
 
+  def tearDown(self):
+    self.manager.shutdownManager()
+    time.sleep(0.1)
+    del self.manager
+    time.sleep(0.1)
+    
 
   def COMMENTtest_terminate(self):
     self.manager.activateManager()
@@ -111,17 +117,17 @@ class TestManager(unittest.TestCase):
     self.manager.unloadAll()
     self.manager.load("hoge", "echo")
     self.assertEqual(len(self.manager.getLoadedModules()), 1)
-    self.assertNotEqual(len(self.manager.getLoadableModules()), 0)
+    self.assertEqual(len(self.manager.getLoadableModules()), 0)
     return
 
   def test_getLoadedModules(self):
     self.manager.activateManager()
-    self.assertNotEqual(self.manager.getLoadedModules(),[])
+    self.assertEqual(self.manager.getLoadedModules(),[])
     return
 
   def test_getLoadableModules(self):
     self.manager.activateManager()
-    self.assertNotEqual(self.manager.getLoadableModules(),[])
+    self.assertEqual(self.manager.getLoadableModules(),[])
     return
 
   def test_registerFactory(self):
@@ -296,7 +302,7 @@ class TestManager(unittest.TestCase):
     return
 
   def test_initManagerServant(self):
-    self.assertEqual(self.manager.initManagerServant(), False)
+    self.assertEqual(self.manager.initManagerServant(), True)
     return
 
   def test_procComponentArgs(self):

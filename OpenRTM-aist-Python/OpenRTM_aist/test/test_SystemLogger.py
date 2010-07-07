@@ -48,7 +48,6 @@ class TestLogger(unittest.TestCase):
 		self.assertEqual(self.logger.strToLogLevel("ERROR"), Logger.ERROR)
 		self.assertEqual(self.logger.strToLogLevel("WARN"), Logger.WARN)
 		self.assertEqual(self.logger.strToLogLevel("INFO"), Logger.INFO)
-		self.assertEqual(self.logger.strToLogLevel("NORMAL"), Logger.NORMAL)
 		self.assertEqual(self.logger.strToLogLevel("DEBUG"), Logger.DEBUG)
 		self.assertEqual(self.logger.strToLogLevel("TRACE"), Logger.TRACE)
 		self.assertEqual(self.logger.strToLogLevel("VERBOSE"), Logger.VERBOSE)
@@ -97,10 +96,6 @@ class TestLogger(unittest.TestCase):
 
 	def test_RTC_INFO(self):
 		self.logstr.RTC_INFO("info!!!!!")
-
-
-	def test_RTC_NORMAL(self):
-		self.logstr.RTC_NORMAL("normal!!!!")
 
 
 	def test_RTC_DEBUG(self):

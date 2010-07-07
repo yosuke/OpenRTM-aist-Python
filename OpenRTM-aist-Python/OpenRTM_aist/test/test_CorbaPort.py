@@ -65,6 +65,7 @@ class TestCorbaPort(unittest.TestCase):
 
   def test_registerProvider(self):
     self.assertEqual(self._cpSvc.registerProvider("myservice0", "MyService", self._mysvc),True)
+    self._cpSvc.activateInterfaces()
     self._cpSvc.deactivateInterfaces()
 
 
@@ -74,13 +75,17 @@ class TestCorbaPort(unittest.TestCase):
 
   def test_activateInterfaces(self):
     self.assertEqual(self._cpSvc.registerProvider("myservice0", "MyService", self._mysvc),True)
+    self._cpSvc.activateInterfaces()
     self._cpSvc.deactivateInterfaces()
     self._cpSvc.activateInterfaces()
     self._cpSvc.deactivateInterfaces()
 
+
   def test_deactivateInterfaces(self):
     self.assertEqual(self._cpSvc.registerProvider("myservice0", "MyService", self._mysvc),True)
+    self._cpSvc.activateInterfaces()
     self._cpSvc.deactivateInterfaces()
+
 
   def test_publishInterfaces(self):
     prof = RTC.ConnectorProfile("","",[],[])
@@ -102,14 +107,15 @@ class TestCorbaPort(unittest.TestCase):
 
   def test_findProvider(self):
     self.assertEqual(self._cpSvc.registerProvider("myservice0", "MyService", self._mysvc),True)
-    consHolder = CorbaPort.CorbaConsumerHolder("myservice0","MyService",self._mycon)
-    self.assertEqual(self._cpSvc.findProvider([],consHolder),False)
-
+    consHolder = CorbaPort.CorbaConsumerHolder("myservice0","MyService",self._mycon,self._cpCon)
+    ior=[]
+    self.assertEqual(self._cpSvc.findProvider([],consHolder,ior),False)
 
   def test_findProviderOld(self):
     self.assertEqual(self._cpSvc.registerProvider("myservice0", "MyService", self._mysvc),True)
-    consHolder = CorbaPort.CorbaConsumerHolder("myservice0","MyService",self._mycon)
-    self.assertEqual(self._cpSvc.findProviderOld([],consHolder),False)
+    consHolder = CorbaPort.CorbaConsumerHolder("myservice0","MyService",self._mycon,self._cpCon)
+    ior=[]
+    self.assertEqual(self._cpSvc.findProviderOld([],consHolder,ior),False)
 
 
 
