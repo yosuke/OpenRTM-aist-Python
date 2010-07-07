@@ -96,7 +96,6 @@ class ExtTrigExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
     flag = True
 
     while flag:
-      flag = self._running
       sec_ = float(self._usec)/1000000.0
       self._worker._cond.acquire()
       while not self._worker._called and self._running:
@@ -105,10 +104,9 @@ class ExtTrigExecutionContext(OpenRTM_aist.PeriodicExecutionContext):
         self._worker._called = False
         for comp in self._comps:
           comp._sm.worker()
-        while not self._running:
-          time.sleep(sec_)
-        time.sleep(sec_)
+
       self._worker._cond.release()
+      flag = self._running
 
   ##
   # @if jp
