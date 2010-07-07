@@ -33,7 +33,8 @@ class ExecutionContextBase(OpenRTM__POA.ExtTrigExecutionContextService):
   """
   """
 
-
+  def __del__(self):
+    return
 
   ##
   # @if jp

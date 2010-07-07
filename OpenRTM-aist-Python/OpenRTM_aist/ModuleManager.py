@@ -81,7 +81,7 @@ class ModuleManager:
       tmp = [self._configPath[i]]
       OpenRTM_aist.eraseHeadBlank(tmp)
       self._configPath[i] = tmp[0]
-    self._loadPath = prop.getProperty(MOD_LOADPTH).split(",")
+    self._loadPath = prop.getProperty(MOD_LOADPTH,"./").split(",")
     for i in range(len(self._loadPath)):
       tmp = [self._loadPath[i]]
       OpenRTM_aist.eraseHeadBlank(tmp)
@@ -522,7 +522,7 @@ class ModuleManager:
         prop.setProperty("module_file_name",os.path.basename(mod_))
         prop.setProperty("module_file_path", mod_)
         props.append(prop)
-    
+
     return props
 
 

@@ -105,6 +105,7 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
       self._rtcout.RTC_PARANOID("task finalized.")
 
       OpenRTM_aist.PeriodicTaskFactory.instance().deleteObject(self._task)
+      del self._task
       self._rtcout.RTC_PARANOID("task deleted.")
 
     # "consumer" should be deleted in the Connector
@@ -646,6 +647,9 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   def pushAll(self):
     self._rtcout.RTC_TRACE("pushAll()")
 
+    if not self._buffer:
+      return self.PRECONDITION_NOT_MET      
+
     if self.bufferIsEmpty():
       return self.BUFFER_EMPTY
 
@@ -672,6 +676,9 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   # PublisherBase::ReturnCode PublisherPeriodic::pushFifo()
   def pushFifo(self):
     self._rtcout.RTC_TRACE("pushFifo()")
+    if not self._buffer:
+      return self.PRECONDITION_NOT_MET      
+
     if self.bufferIsEmpty():
       return self.BUFFER_EMPTY
 
@@ -697,6 +704,9 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   # PublisherBase::ReturnCode PublisherPeriodic::pushSkip()
   def pushSkip(self):
     self._rtcout.RTC_TRACE("pushSkip()")
+    if not self._buffer:
+      return self.PRECONDITION_NOT_MET      
+
     if self.bufferIsEmpty():
       return self.BUFFER_EMPTY
 
@@ -730,6 +740,9 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   # PublisherBase::ReturnCode PublisherPeriodic::pushNew()
   def pushNew(self):
     self._rtcout.RTC_TRACE("pushNew()")
+    if not self._buffer:
+      return self.PRECONDITION_NOT_MET      
+
     if self.bufferIsEmpty():
       return self.BUFFER_EMPTY
 
@@ -1072,7 +1085,7 @@ class PublisherPeriodic(OpenRTM_aist.PublisherBase):
   #
   # bool bufferIsEmpty()
   def bufferIsEmpty(self):
-    if self._buffer.empty() and  not self._readback:
+    if self._buffer and self._buffer.empty() and  not self._readback:
       self._rtcout.RTC_DEBUG("buffer empty")
       self.onBufferEmpty()
       self.onSenderEmpty()

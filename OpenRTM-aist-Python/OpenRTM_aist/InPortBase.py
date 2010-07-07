@@ -120,7 +120,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
   #
   # @endif
   #
-  def __del__(self):
+  def __del__(self, PortBase=OpenRTM_aist.PortBase):
     self._rtcout.RTC_TRACE("InPortBase destructor")
 
     if len(self._connectors) != 0:
@@ -134,6 +134,7 @@ class InPortBase(OpenRTM_aist.PortBase, OpenRTM_aist.DataPortStatus):
       if not self._singlebuffer:
         self._rtcout.RTC_ERROR("Although singlebuffer flag is true, the buffer != 0")
 
+    PortBase.__del__(self)
     return
 
 

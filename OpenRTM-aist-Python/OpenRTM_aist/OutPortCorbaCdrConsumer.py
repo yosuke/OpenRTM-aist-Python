@@ -90,7 +90,9 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
   #
   # @endif
   #
-  def __del__(self):
+  def __del__(self, CorbaConsumer=OpenRTM_aist.CorbaConsumer):
+    self._rtcout.RTC_PARANOID("~OutPortCorbaCdrConsumer()")
+    CorbaConsumer.__del__(self)
     pass
 
 

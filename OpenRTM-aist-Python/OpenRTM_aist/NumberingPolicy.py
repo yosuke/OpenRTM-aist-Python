@@ -171,7 +171,11 @@ class DefaultNumberingPolicy(NumberingPolicy):
   # @endif
   def onDelete(self, obj):
     pos = 0
-    pos = self.find(obj)
+    try:
+      pos = self.find(obj)
+    except:
+      return
+
     if (pos < len(self._objects)):
       self._objects[pos] = None
     self._num -= 1

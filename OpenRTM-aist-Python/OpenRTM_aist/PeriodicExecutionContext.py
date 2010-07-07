@@ -202,7 +202,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     # @brief RTコンポーネントがエラー状態の時に呼ばれる関数
     #
     # 管理対象のRTコンポーネントがエラー状態にいる間、 
-    # 管理対象コンポーネントの on_aborting を定期的に呼びだす。
+    # 管理対象コンポーネントの on_error を定期的に呼びだす。
     #
     # @param self
     # @param st 対象RTコンポーネントの現在の状態
@@ -380,7 +380,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     return
 
 
-  def __del__(self):
+  def __del__(self, Task=OpenRTM_aist.Task):
     self._rtcout.RTC_TRACE("~PeriodicExecutionContext()")
     self._worker._cond.acquire()
     self._worker._running = True
@@ -392,6 +392,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     self._profile.owner = None
     self._profile.paarticipants = []
     self._profile.properties = []
+    Task.__del__(self)
 
   ##
   # @if jp
@@ -600,7 +601,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
     for comp in self._comps:
       comp._sm.on_shutdown()
 
-    self.wait()
+    #self.wait()
     return RTC.RTC_OK
 
 

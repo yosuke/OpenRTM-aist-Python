@@ -18,61 +18,64 @@
 import threading
 
 class Task:
-    def __init__(self):
-        self._count = 0
-        self._thread = None
-        return
+  def __init__(self):
+    self._count = 0
+    self._thread = None
+    return
 
     
-    def __del__(self):
-        self._count = 0
-        return
+  def __del__(self):
+    self._count = 0
+    if self._thread:
+      self._thread.join()
+    return
 
 
-    def open(self, args = None):
-        return 0
+  def open(self, args = None):
+    return 0
 
 
-    def close(self, flags = 0):
-        return 0
+  def close(self, flags = 0):
+    return 0
 
 
-    def svc(self):
-        return 0
+  def svc(self):
+    return 0
 
 
-    def activate(self):
-        if self._count == 0:
-            self._thread = threading.Thread(target=self.svc_run)
-            self._count += 1
-            self._thread.start()
+  def activate(self):
+    if self._count == 0:
+      self._thread = threading.Thread(target=self.svc_run)
+      self._count += 1
+      self._thread.start()
 
-        return
-
-
-    def wait(self):
-        if self._count > 0:
-            self._thread.join()
-        return
+    return
 
 
-    def suspend(self):
-        return 0
+  def wait(self):
+    if self._count > 0:
+      self._thread.join()
+    return
 
 
-    def resume(self):
-        return 0
+  def suspend(self):
+    return 0
 
 
-    def reset(self):
-        self._count = 0
-        return
+  def resume(self):
+    return 0
 
 
-    def finalize(self):
-        self.reset()
-        return
+  def reset(self):
+    self._count = 0
+    return
 
-    def svc_run(self):
-        self.svc()
-        self.finalize()
+
+  def finalize(self):
+    self.reset()
+    return
+
+  def svc_run(self):
+    self.svc()
+    self.finalize()
+    return

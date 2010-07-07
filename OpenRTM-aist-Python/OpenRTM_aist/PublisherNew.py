@@ -100,6 +100,7 @@ class PublisherNew(OpenRTM_aist.PublisherBase):
       self._task.finalize()
 
       OpenRTM_aist.PeriodicTaskFactory.instance().deleteObject(self._task)
+      del self._task
       self._rtcout.RTC_PARANOID("task deleted.")
 
     # "consumer" should be deleted in the Connector

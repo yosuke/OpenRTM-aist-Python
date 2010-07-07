@@ -89,8 +89,9 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
   #
   # @endif
   #
-  def __del__(self):
+  def __del__(self, CorbaConsumer=OpenRTM_aist.CorbaConsumer):
     self._rtcout.RTC_PARANOID("~InPortCorbaCdrConsumer()")
+    CorbaConsumer.__del__(self)
     return
 
   ##
@@ -109,6 +110,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
   #
   # virtual void init(coil::Properties& prop);
   def init(self, prop):
+    self._rtcout.RTC_TRACE("init()")
     self._properties = prop
     return
 

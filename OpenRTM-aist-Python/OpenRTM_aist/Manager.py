@@ -272,6 +272,9 @@ class Manager:
       self.join()
 
     self.shutdownLogger()
+    global manager
+    if manager:
+      manager = None
 
 
   ##

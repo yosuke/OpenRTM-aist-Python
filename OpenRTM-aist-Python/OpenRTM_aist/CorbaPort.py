@@ -628,6 +628,10 @@ class CorbaPort(OpenRTM_aist.PortBase):
     return
 
 
+  def __del__(self, PortBase=OpenRTM_aist.PortBase):
+    PortBase.__del__(self)
+
+
   ##
   # @if jp
   # @brief プロパティの初期化
