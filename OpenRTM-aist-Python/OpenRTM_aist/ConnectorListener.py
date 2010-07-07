@@ -167,10 +167,36 @@ class ConnectorDataListener:
 # @endif
 #
 class ConnectorDataListenerT(ConnectorDataListener):
+  """
+  """
+
   def __del__(self):
     pass
 
 
+  ##
+  # @if jp
+  #
+  # @brief コールバックメソッド
+  #
+  # データをデータポートで使用される変数型に変換して ConnectorDataListenerT
+  # のコールバックメソッドを呼び出す。
+  #
+  # @param info ConnectorInfo 
+  # @param cdrdata cdrMemoryStream型のデータ
+  #
+  # @else
+  #
+  # @brief Callback method
+  #
+  # This method invokes the callback method of ConnectorDataListenerT. 
+  # Data is converted into the variable type used in DataPort.
+  #
+  # @param info ConnectorInfo 
+  # @param cdrdata Data of cdrMemoryStream type
+  #
+  # @endif
+  #
   # virtual void operator()(const ConnectorInfo& info,
   #                         const cdrMemoryStream& cdrdata)
   def __call__(self, info, cdrdata, data):
@@ -315,11 +341,28 @@ class ConnectorListener:
 # @endif
 #
 class ConnectorDataListenerHolder:
+  """
+  """
+
+  ##
+  # @if jp
+  # @brief コンストラクタ
+  # @else
+  # @brief Constructor
+  # @endif
+  #
   def __init__(self):
     self._listeners = []
     return
 
 
+  ##
+  # @if jp
+  # @brief デストラクタ
+  # @else
+  # @brief Destructor
+  # @endif
+  #
   def __del__(self):
     for listener in self._listeners:
       for (k,v) in listener.iteritems():
@@ -328,12 +371,54 @@ class ConnectorDataListenerHolder:
     return
 
     
+  ##
+  # @if jp
+  #
+  # @brief リスナーの追加
+  #
+  # リスナーを追加する。
+  #
+  # @param self
+  # @param listener 追加するリスナ
+  # @param autoclean true:デストラクタで削除する,
+  #                  false:デストラクタで削除しない
+  # @else
+  #
+  # @brief Add the listener.
+  #
+  # This method adds the listener. 
+  #
+  # @param self
+  # @param listener Added listener
+  # @param autoclean true:The listener is deleted at the destructor.,
+  #                  false:The listener is not deleted at the destructor. 
+  # @endif
+  #
   # void addListener(ConnectorDataListener* listener, bool autoclean);
   def addListener(self, listener, autoclean):
     self._listeners.append({listener:autoclean})
     return
 
     
+  ##
+  # @if jp
+  #
+  # @brief リスナーの削除
+  #
+  # リスナを削除する。
+  #
+  # @param self
+  # @param listener 削除するリスナ
+  # @else
+  #
+  # @brief Remove the listener. 
+  #
+  # This method removes the listener. 
+  #
+  # @param self
+  # @param listener Removed listener
+  # @endif
+  #
   # void removeListener(ConnectorDataListener* listener);
   def removeListener(self, listener):
     for (i, _listener) in enumerate(self._listeners):
@@ -342,6 +427,27 @@ class ConnectorDataListenerHolder:
         return
 
     
+  ##
+  # @if jp
+  #
+  # @brief リスナーへ通知する
+  #
+  # 登録されているリスナのコールバックメソッドを呼び出す。
+  #
+  # @param self
+  # @param info ConnectorInfo
+  # @param cdrdata データ
+  # @else
+  #
+  # @brief Notify listeners. 
+  #
+  # This calls the Callback method of the registered listener. 
+  #
+  # @param self
+  # @param info ConnectorInfo
+  # @param cdrdata Data
+  # @endif
+  #
   # void notify(const ConnectorInfo& info,
   #             const cdrMemoryStream& cdrdata);
   def notify(self, info, cdrdata):
@@ -365,12 +471,28 @@ class ConnectorDataListenerHolder:
 # @endif
 #
 class ConnectorListenerHolder:
+  """
+  """
 
+  ##
+  # @if jp
+  # @brief コンストラクタ
+  # @else
+  # @brief Constructor
+  # @endif
+  #
   def __init__(self):
     self._listeners = []
     return
 
     
+  ##
+  # @if jp
+  # @brief デストラクタ
+  # @else
+  # @brief Destructor
+  # @endif
+  #
   def __del__(self):
     for listener in self._listeners:
       for (k,v) in listener.iteritems():
@@ -379,12 +501,54 @@ class ConnectorListenerHolder:
     return
         
     
+  ##
+  # @if jp
+  #
+  # @brief リスナーの追加
+  #
+  # リスナーを追加する。
+  #
+  # @param self
+  # @param listener 追加するリスナ
+  # @param autoclean true:デストラクタで削除する,
+  #                  false:デストラクタで削除しない
+  # @else
+  #
+  # @brief Add the listener.
+  #
+  # This method adds the listener. 
+  #
+  # @param self
+  # @param listener Added listener
+  # @param autoclean true:The listener is deleted at the destructor.,
+  #                  false:The listener is not deleted at the destructor. 
+  # @endif
+  #
   # void addListener(ConnectorListener* listener, bool autoclean);
   def addListener(self, listener, autoclean):
     self._listeners.append({listener:autoclean})
     return
 
 
+  ##
+  # @if jp
+  #
+  # @brief リスナーの削除
+  #
+  # リスナを削除する。
+  #
+  # @param self
+  # @param listener 削除するリスナ
+  # @else
+  #
+  # @brief Remove the listener. 
+  #
+  # This method removes the listener. 
+  #
+  # @param self
+  # @param listener Removed listener
+  # @endif
+  #
   # void removeListener(ConnectorListener* listener);
   def removeListener(self, listener):
     for (i, _listener) in enumerate(self._listeners):
@@ -393,6 +557,25 @@ class ConnectorListenerHolder:
         return
 
 
+  ##
+  # @if jp
+  #
+  # @brief リスナーへ通知する
+  #
+  # 登録されているリスナのコールバックメソッドを呼び出す。
+  #
+  # @param self
+  # @param info ConnectorInfo
+  # @else
+  #
+  # @brief Notify listeners. 
+  #
+  # This calls the Callback method of the registered listener. 
+  #
+  # @param self
+  # @param info ConnectorInfo
+  # @endif
+  #
   # void notify(const ConnectorInfo& info);
   def notify(self, info):
     for listener in self._listeners:

@@ -48,9 +48,32 @@
 # @endif
 #
 class ConnectionCallback:
-  def __del__(self):
-    pass
+  """
+  """
 
+  ##
+  # @if jp
+  #
+  # @brief コールバック関数
+  #
+  # connect/notify_connect() 等が呼び出される時に呼び出される
+  # コールバック関数
+  #
+  # @param self
+  # @param profile ConnectorProfile
+  #
+  # @else
+  #
+  # @brief Callback method
+  #
+  # This is the callback method invoked when connect/notify_connect()
+  # invocation in Port.
+  #
+  # @param self
+  # @param profile ConnectorProfile
+  #
+  # @endif
+  #
   # virtual void operator()(RTC::ConnectorProfile& profile) = 0;
   def __call__(self, profile):
     pass
@@ -64,8 +87,6 @@ class ConnectionCallback:
 # Portに対してdisconnect/notify_disconnect() 等が呼び出される時に呼び出される
 # コールバックファンクタ。引数に接続IDを取る。
 #
-# @param connector_id Connector ID
-#
 # @since 1.0.0
 #
 # @else
@@ -76,17 +97,37 @@ class ConnectionCallback:
 # disconnect/notify_disconnect() invocation in Port.
 # Argument is connector ID is given these functions.
 #
-# @param connector_id Connector ID
-#
 # @since 1.0.0
 #
 # @endif
 #
 class DisconnectCallback:
-  def __del__(self):
-    pass
+  """
+  """
 
-
+  ##
+  # @if jp
+  #
+  # @brief コールバック関数
+  #
+  # disconnect/notify_disconnect() 等が呼び出される時に呼び出される
+  # コールバック関数
+  #
+  # @param self
+  # @param connector_id Connector ID
+  #
+  # @else
+  #
+  # @brief Callback method
+  #
+  # This is the callback method invoked when disconnect/notify_disconnect()
+  # invocation in Port.
+  #
+  # @param self
+  # @param connector_id Connector ID
+  #
+  # @endif
+  #
   # virtual void operator()(const char* connector_id) = 0;
   def __call__(self, connector_id):
     pass
@@ -100,8 +141,6 @@ class DisconnectCallback:
 # DataPortのバッファにデータがwrite()される直前に呼び出されるコールバック用<BR>
 # ※サブクラスでの実装参照用
 #
-# @param DataType バッファに書き込むデータ型
-#
 # @since 0.4.0
 #
 # @else
@@ -110,6 +149,31 @@ class DisconnectCallback:
 #
 # @endif
 class OnWrite:
+  """
+  """
+
+  ##
+  # @if jp
+  #
+  # @brief コールバック関数
+  #
+  # バッファにデータが書き込まれる直前に呼び出されるコールバック関数
+  #
+  # @param self
+  # @param value バッファに書き込まれるデータ
+  #
+  # @else
+  #
+  # @brief Callback function
+  #
+  # This is the callback method invoked immediately before data is written
+  # into the buffer.
+  #
+  # @param self
+  # @param value Data that is written into the buffer
+  #
+  # @endif
+  #
   def __call__(self, value):
     pass
 
@@ -133,6 +197,33 @@ class OnWrite:
 #
 # @endif
 class OnWriteConvert:
+  """
+  """
+
+  ##
+  # @if jp
+  #
+  # @brief コールバック関数
+  #
+  # バッファにデータが書き込まれる際に呼び出されるコールバック関数。
+  #
+  # @param self
+  # @param value 変換前データ
+  # @return 変換後データ
+  #
+  # @else
+  #
+  # @brief Callback function
+  #
+  # This is the callback function invoked when data is written into the
+  # buffer.
+  #
+  # @param self
+  # @param value Data to be converted
+  # @return Converted data
+  #
+  # @endif
+  #
   def __call__(self,value):
     pass
 
@@ -155,6 +246,24 @@ class OnWriteConvert:
 #
 # @endif
 class OnRead:
+  """
+  """
+
+  ##
+  # @if jp
+  #
+  # @brief コールバックメソッド
+  #
+  # バッファからデータが読み出される直前に呼び出されるコールバック関数。
+  #
+  # @else
+  #
+  # @brief Callback function
+  #
+  # This is the callback method invoked immediately before data is readout
+  # from the buffer.
+  #
+  # @endif
   def __call__(self):
     pass
 
@@ -178,5 +287,36 @@ class OnRead:
 #
 # @endif
 class OnReadConvert:
+  """
+  """
+
+  ##
+  # @if jp
+  #
+  # @brief コールバックメソッド
+  #
+  # バッファからデータが読み出される際に呼び出されるコールバック関数
+  # であり、operator()() の戻り値は InPort の read() の戻り値となる、
+  # またはデータ変数に格納される。
+  #
+  # @param self
+  # @param value バッファから読みだされたデータ
+  # @return 変換後のデータ。データポート変数にはこの値が格納される。
+  #
+  # @else
+  #
+  # @brief Callback method
+  #
+  # This function is the callback function invoked when data is
+  # readout from the buffer, and the return value of operator()()
+  # is used as return value of InPort's read() or it is stored in
+  # the InPort data variable.
+  #
+  # @param self
+  # @param value Data that is readout from buffer
+  # @return Converted data. These data are stored in the port's variable.
+  #
+  # @endif
+  #
   def __call__(self,value):
     pass

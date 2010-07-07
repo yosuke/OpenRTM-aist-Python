@@ -86,13 +86,17 @@ class OnActivateSetCallback:
 # @brief Config クラス
 # 
 # コンフィギュレーションパラメータの情報を保持するクラス。
-# コンフィギュレーションのデータ型と設定されたデータ型を文字列に変換する
-# 変換関数を指定する。
-# 
+#
 # @since 0.4.0
-# 
+#
 # @else
+# @class Config
+# @brief Config class
 # 
+# Class to hold the configuration parameter information.
+#
+# @since 0.4.0
+#
 # @endif
 class Config:
   """
@@ -112,7 +116,17 @@ class Config:
   # @param trans 文字列形式変換関数(デフォルト値:None)
   # 
   # @else
+  #
+  # @brief Constructor
   # 
+  # Constructor
+  #
+  # @param self 
+  # @param name Configuration parameter name
+  # @param var Configuration parameter variable
+  # @param def_val Default value in string format
+  # @param trans Function to transform into string format
+  #
   # @endif
   def __init__(self, name, var, def_val, trans=None):
     self.name = name
@@ -138,6 +152,15 @@ class Config:
   # 
   # @else
   # 
+  # @brief Update a bind parameter value
+  # 
+  # Update configuration paramater by the configuration value.
+  #
+  # @param self 
+  # @param val The parameter values converted into character string format
+  #
+  # @return Update result (Successful:true, Failed:false)
+  # 
   # @endif
   # virtual bool update(const char* val)
   def update(self, val):
@@ -154,17 +177,147 @@ class Config:
 # @brief ConfigAdmin クラス
 # 
 # 各種コンフィギュレーション情報を管理するクラス。
-# 
+# 用語を以下のように定義する。
+#
+# - コンフィギュレーション: コンポーネントの設定情報。
+#
+# - (コンフィギュレーション)パラメータ： key-value からなる設定情報。
+#   coil::Properties 変数として扱われ、key、value 共に文字列として保
+#   持される。key をコンフィギュレーションパラメータ名、value をコン
+#   フィギュレーションパラメータ値と呼ぶ。
+#
+# - コンフィギュレーションセット： コンフィギュレーションパラメータ
+#   のリストで、名前 (ID) によって区別される。IDをコンフィギュレーショ
+#   ンセットIDと呼ぶ。
+#
+# - (コンフィギュレーション)パラメータ変数：コンフィギュレーションパ
+#   ラメータをRTCのアクティビティ内で実際に利用する際に参照される変
+#   数。パラメータごとに固有の型を持つ。
+#
+# - アクティブ(コンフィギュレーション)セット：現在有効なコンフィギュ
+#   レーションセットのことであり、唯一つ存在する。原則として、アクティ
+#   ブコンフィギュレーションセットのパラメータがコンフィギュレーショ
+#   ンパラメータ変数に反映される。
+#
+# このクラスでは、コンフィギュレーションのための以下の2つの情報を保
+# 持している。
+#
+# -# コンフィギュレーションセットのリスト
+# -# パラメータ変数のリスト
+#
+# 基本的には、(1) のコンフィギュレーションセットのリストのうち一つを、
+# (2) のパラメータ変数へ反映させる、のが本クラスの目的である。通常、
+# パラメータ変数の変更操作は、コンフィギュレーションセットの変更とパ
+# ラメータ変数への反映の2段階で行われる。
+#
+# コンフィギュレーションセットのリストの操作には、以下の関数を用いる。
+#
+# - getConfigurationSets()
+# - getConfigurationSet()
+# - setConfigurationSetValues()
+# - getActiveConfigurationSet()
+# - addConfigurationSet()
+# - removeConfigurationSet()
+# - activateConfigurationSet()
+#
+# これらの関数により、コンフィギュレーションセットの変更、追加、削除、
+# 取得、アクティブ化を行う。これらの操作により変更されたコンフィギュ
+# レーションセットを、RTCのアクティビティから使用するパラメータ変数
+# に反映させるには、以下の update() 関数を用いる。
+#
+# - update(void)
+# - update(const char* config_set)
+# - update(const char* config_set, const char* config_param)
+#
+# コンフィギュレーション操作をフックするためにコールバックファンクタ
+# を与えることができる。フックできる操作は以下の通り。
+#
+# - ON_UPDATE                   : update() コール時
+# - ON_UPDATE_PARAM             : update(param) コール時
+# - ON_SET_CONFIGURATIONSET     : setConfigurationSet() コール時
+# - ON_ADD_CONFIGURATIONSET     : addConfigurationSet() コール時
+# - ON_REMOVE_CONFIGURATIONSET  : removeConfigurationSet() コール時
+# - ON_ACTIVATE_CONFIGURATIONSET: activateConfigurationSet() コール時
+#
 # @since 0.4.0
-# 
+#
 # @else
+# @class ConfigAdmin
+# @brief ConfigAdmin class
 # 
+# Class to manage various configuration information.
+# Now terms for this class are defined as follows.
+#
+# - Configurations: The configuration information for the RTCs.
+#
+# - (Configuration) parameters: Configuration information that
+#   consists of a key-value pair. The "key" and the "value" are
+#   both stored as character string values in a coil::Properties
+#   variable in this class. The "key" is called the "configuration
+#   parameter name", and the "value" is called the "configuration
+#   parameter value".
+#
+# - Configuration-sets: This is a list of configuration parameters,
+#   and it is distinguished by name (ID). The ID is called
+#   configuration-set ID.
+#
+# - (Configuration) parameter variables: The variables to be
+#   referred when configuration parameters are actually used within
+#   the activity of an RTC. Each variable has each type.
+#
+# - Active (configuration) set: This is the only configuration-set
+#   that is currently active. The parameter values of the active
+#    configuration-set are substituted into configuration variables
+#   in principle.
+#
+# The following two configuration informations are stored in this class.
+#
+# -# A list of configuration-set
+# -# A list of configuration parameter variables
+#
+# Basically, the purpose of this class is to set one of the
+# configuration-set in the list of (1) into parameter variables of
+# (2). Usually, configuration parameter variables manipulation is
+# performed with two-phases of configuration-set setting and
+# parameter variables setting.
+#
+# The configuration-set manipulations are performed by the
+# following functions.
+#
+# - getConfigurationSets()
+# - getConfigurationSet()
+# - setConfigurationSetValues()
+# - getActiveConfigurationSet()
+# - addConfigurationSet()
+# - removeConfigurationSet()
+# - activateConfigurationSet()
+#
+# Modification, addition, deletion, acquisition and activation of
+# configuration-set are performed by these functions. In order to
+# reflect configuration-set, which is manipulated by these
+# functions, on parameter variables that are used from RTC
+# activities, the following update() functions are used .
+#
+# - update(void)
+# - update(const char* config_set)
+# - update(const char* config_set, const char* config_param)
+#
+# Callback functors can be given to hook configuration
+# operation. Operations to be hooked are as follows.
+#
+# - ON_UPDATE                   : when update() is called
+# - ON_UPDATE_PARAM             : when update(param) is called
+# - ON_SET_CONFIGURATIONSET     : when setConfigurationSet() is called
+# - ON_ADD_CONFIGURATIONSET     : when addConfigurationSet() is called
+# - ON_REMOVE_CONFIGURATIONSET  : when removeConfigurationSet() is called
+# - ON_ACTIVATE_CONFIGURATIONSET: when activateConfigurationSet() is called
+#
+# @since 0.4.0
+#
 # @endif
 class ConfigAdmin:
   """
   """
-
-
 
   ##
   # @if jp
@@ -177,6 +330,11 @@ class ConfigAdmin:
   # @param configsets 設定対象プロパティ名
   # 
   # @else
+  # 
+  # Constructor
+  #
+  # @param self 
+  # @param prop The target property name for setup
   # 
   # @endif
   # ConfigAdmin(coil::Properties& prop);
@@ -209,6 +367,10 @@ class ConfigAdmin:
   # 
   # @else
   # 
+  # @brief Destructor
+  # 
+  # @param self 
+  # 
   # @endif
   def __del__(self):
     del self._params
@@ -233,6 +395,22 @@ class ConfigAdmin:
   # @return 設定結果(設定成功:true，設定失敗:false)
   # 
   # @else
+  # 
+  # @brief Setup for configuration parameters
+  # 
+  # Bind configuration parameter to its variable.
+  # Return false, if configuration parameter of specified name has already 
+  # existed.
+  #
+  # @param self 
+  # @param param_name Configuration parameter name
+  # @param var Configuration parameter variable
+  # @param def_val Default value of configuration parameter
+  # @param trans Function to transform configuration parameter type into 
+  #        string format
+  #
+  # @return Setup result (Successful:true, Failed:false)
+  #
   # 
   # @endif
   #template <typename VarType>
@@ -397,6 +575,16 @@ class ConfigAdmin:
   # 
   # @else
   # 
+  # @brief Check the existence of configuration parameters
+  # 
+  # Check the existence of configuration parameters of specified name.
+  #
+  # @param self 
+  # @param name Configuration parameter name
+  #
+  # @return Result of existance confirmation 
+  #         (Parameters exist:true, else:false)
+  # 
   # @endif
   # bool isExist(const char* name);
   def isExist(self, param_name):
@@ -423,6 +611,15 @@ class ConfigAdmin:
   # 
   # @else
   # 
+  # @brief Confirm to change configuration parameters
+  # 
+  # Confirm that configuration parameters have changed.
+  #
+  # @param self 
+  #
+  # @return Result of change confirmation
+  #         (There is a change:true、No change:false)
+  # 
   # @endif
   # bool isChanged(void) {return m_changed;}
   def isChanged(self):
@@ -441,6 +638,14 @@ class ConfigAdmin:
   # @return アクティブ・コンフィギュレーションセットID
   # 
   # @else
+  # 
+  # @brief Get ID of active configuration set
+  # 
+  # Get ID of the current active configuration set.
+  #
+  # @param self 
+  #
+  # @return The active configuration set ID
   # 
   # @endif
   # const char* getActiveId(void);
@@ -462,6 +667,14 @@ class ConfigAdmin:
   # 
   # @else
   # 
+  # @brief Check the existence of configuration set
+  # 
+  # Check the existence of specified configuration set.
+  #
+  # @param self 
+  # @param config_id ID of target configuration set for confirmation
+  # @return Result of existence confirmation 
+  #         (Specified ConfigSet exists:true, else:false)
   # @endif
   # bool haveConfig(const char* config_id);
   def haveConfig(self, config_id):
@@ -484,6 +697,15 @@ class ConfigAdmin:
   # 
   # @else
   # 
+  # @brief Confirm to activate configuration set
+  # 
+  # Confirm that configuration set has been activated.
+  #
+  # @param self 
+  #
+  # @return Result of state confirmation
+  #         (Active state:true, Inactive state:false)
+  # 
   # @endif
   # bool isActive(void);
   def isActive(self):
@@ -502,6 +724,14 @@ class ConfigAdmin:
   # @return 全コンフィギュレーションセット
   # 
   # @else
+  # 
+  # @brief Get all configuration sets
+  # 
+  # Get all specified configuration sets
+  #
+  # @param self 
+  #
+  # @return All configuration sets
   # 
   # @endif
   # const std::vector<coil::Properties*>& getConfigurationSets(void);
@@ -525,6 +755,17 @@ class ConfigAdmin:
   # 
   # @else
   # 
+  # @brief Get a configuration set by specified ID
+  # 
+  # Get a configuration set that was specified by ID
+  # Return empty configuration set, if a configuration set of
+  # specified ID doesn't exist.
+  #
+  # @param self 
+  # @param config_id ID of the target configuration set for getting
+  #
+  # @return The configuration set
+  # 
   # @endif
   # const coil::Properties& getConfigurationSet(const char* config_id);
   def getConfigurationSet(self, config_id):
@@ -547,6 +788,15 @@ class ConfigAdmin:
   # @return 追加処理実行結果(追加成功:true、追加失敗:false)
   # 
   # @else
+  # 
+  # @brief Add to configuration set from specified property
+  # 
+  # Add specified property to configuration set.
+  #
+  # @param self 
+  # @param configuration_set Property to add
+  #
+  # @return Add result (Successful:true, Failed:false)
   # 
   # @endif
   # bool setConfigurationSetValues(const coil::Properties& config_set)
@@ -583,6 +833,15 @@ class ConfigAdmin:
   # 
   # @else
   # 
+  # @brief Get the active configuration set
+  # 
+  # Get the current active configuration set.
+  # Return empty configuration set, if an active configuration set 
+  # doesn't exist.
+  #
+  # @param self 
+  # @return The active configuration set
+  # 
   # @endif
   # const coil::Properties& getActiveConfigurationSet(void);
   def getActiveConfigurationSet(self):
@@ -606,6 +865,15 @@ class ConfigAdmin:
   # @return 追加処理結果(追加成功:true、追加失敗:false)
   # 
   # @else
+  # 
+  # @brief Add the configuration value to configuration set
+  # 
+  # Add the configuration value to configuration set
+  #
+  # @param self 
+  # @param configuration_set Property to add
+  #
+  # @return Add Result (Successful:true, Failed:false)
   # 
   # @endif
   # bool addConfigurationSet(const coil::Properties& configuration_set);
@@ -632,21 +900,60 @@ class ConfigAdmin:
 
   ##
   # @if jp
-  # 
+  #
   # @brief コンフィギュレーションセットの削除
   # 
   # 指定したIDのコンフィギュレーションセットを削除する。
+  #
   # 指定したIDのコンフィギュレーションセットが存在しない場合は、
-  # falseを返す。
-  # 
+  # falseを返す。削除可能なコンフィギュレーションセットは、
+  # addConfigruationSet() によって追加したコンフィギュレーションセッ
+  # トのみであり、デフォルトコンフィギュレーションセット、コンポーネ
+  # ント起動時にファイルから読み込まれるコンフィギュレーションセット
+  # は削除することができない。
+  #
+  # また、指定したコンフィギュレーションセットが現在アクティブである
+  # 場合には、いかなるコンフィギュレーションセットでも削除できない。
+  #
+  # この関数により実際にコンフィギュレーションセットが削除された場合、
+  # setOnRemoveConfigurationSet() でセットされたコールバック関数が呼
+  # び出される。
+  #
   # @param self 
   # @param config_id 削除対象コンフィギュレーションセットのID
-  # 
+  #
   # @return 削除処理結果(削除成功:true、削除失敗:false)
-  # 
+  #
   # @else
+  #
+  # @brief Remove the configuration set
   # 
+  # Remove the configuration set of specified ID Return empty
+  # configuration set, if a configuration set of specified ID
+  # doesn't exist.
+  #
+  # The configuration-sets that can be removed by this function are
+  # only configuration-sets newly added by the
+  # addConfigurationSet() function. The configuration that can be
+  # removed by this function is only newly added configuration-set
+  # by addConfigurationSet() function.  The "default"
+  # configuration-set and configurationi-sets that is loaded from
+  # configuration file cannot be removed.
+  #
+  # If the specified configuration is active currently, any
+  # configurations are not deleted.
+  #
+  # Callback functions that are set by
+  # addOnRemovedConfigurationSet() will be called if a
+  # configuration-set is deleted actually by this function.
+  #
+  # @param self 
+  # @param config_id ID of the target configuration set for remove
+  #
+  # @return Remove result (Successful:true, Failed:false)
+  #
   # @endif
+  #
   # bool removeConfigurationSet(const char* config_id);
   def removeConfigurationSet(self, config_id):
     if config_id == "default":
@@ -694,6 +1001,17 @@ class ConfigAdmin:
   # 
   # @else
   # 
+  # @brief Activate the configuration set
+  # 
+  # Activate the configuration set of specified ID
+  # Return empty configuration set, if a configuration set of
+  # specified ID doesn't exist.
+  #
+  # @param self 
+  # @param config_id ID of the target configuration set for remove
+  #
+  # @return Activate result (Remove success:true、Remove failure:false)
+  # 
   # @endif
   # bool activateConfigurationSet(const char* config_id);
   def activateConfigurationSet(self, config_id):
@@ -713,76 +1031,330 @@ class ConfigAdmin:
     return True
 
 
+  ##
+  # @if jp
+  #
+  # @brief OnUpdate のコールバックの設定
+  #
+  # OnUpdate で呼ばれるコールバックのオブジェクトを設定する。
+  # 
+  # @param self 
+  # @param cb OnUpdateCallback型のオブジェクト
+  #
+  # @else
+  #
+  # @brief Set callback that is called by OnUpdate. 
+  # 
+  # @param self 
+  # @param cb OnUpdateCallback type object
+  #
+  # @endif
+  #
   # void setOnUpdate(OnUpdateCallback* cb);
   def setOnUpdate(self, cb):
     self._updateCb = cb
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief OnUpdateParam のコールバックの設定
+  #
+  # OnUpdateParam で呼ばれるコールバックのオブジェクトを設定する。
+  # 
+  # @param self 
+  # @param cb OnUpdateParamCallback型のオブジェクト
+  #
+  # @else
+  #
+  # @brief Set callback that is called by OnUpdateParam. 
+  # 
+  # @param self 
+  # @param cb OnUpdateParamCallback type object
+  #
+  # @endif
+  #
   # void setOnUpdateParam(OnUpdateParamCallback* cb);
   def setOnUpdateParam(self, cb):
     self._updateParamCb = cb
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief OnSetConfigurationSet のコールバックの設定
+  #
+  # OnSetConfigurationSet で呼ばれるコールバックのオブジェクトを設定する。
+  # 
+  # @param self 
+  # @param cb OnSetConfigurationSetCallback型のオブジェクト
+  #
+  # @else
+  #
+  # @brief Set callback that is called by OnSetConfiguration. 
+  # 
+  # @param self 
+  # @param cb OnSetConfigurationSetCallback type object
+  #
+  # @endif
+  #
   # void setOnSetConfigurationSet(OnSetConfigurationSetCallback* cb);
   def setOnSetConfigurationSet(self, cb):
     self._setConfigSetCb = cb
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief OnAddConfigurationSet のコールバックの設定
+  #
+  # OnAddConfigurationSet で呼ばれるコールバックのオブジェクトを設定する。
+  # 
+  # @param self 
+  # @param cb OnAddConfigurationAddCallback型のオブジェクト
+  #
+  # @else
+  #
+  # @brief Set callback that is called by OnSetConfiguration. 
+  # 
+  # @param self 
+  # @param cb OnSetConfigurationSetCallback type object
+  #
+  # @endif
+  #
   # void setOnAddConfigurationSet(OnAddConfigurationAddCallback* cb);
   def setOnAddConfigurationSet(self, cb):
     self._addConfigSetCb = cb
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief OnRemoveConfigurationSet のコールバックの設定
+  #
+  # OnRemoveConfiguration で呼ばれるコールバックのオブジェクトを設定する。
+  # 
+  # @param self 
+  # @param cb OnRemoveConfigurationSetCallback型のオブジェクト
+  #
+  # @else
+  #
+  # @brief Set callback that is called by OnRemoveConfigurationSet. 
+  # 
+  # @param self 
+  # @param cb OnRemoveConfigurationSetCallback type object
+  #
+  # @endif
+  #
   # void setOnRemoveConfigurationSet(OnRemoveConfigurationSetCallback* cb);
   def setOnRemoveConfigurationSet(self, cb):
     self._removeConfigSetCb = cb
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief OnActivateSet のコールバックの設定
+  #
+  # OnActivateSet で呼ばれるコールバックのオブジェクトを設定する。
+  # 
+  # @param self 
+  # @param cb OnActivateSetCallback型のオブジェクト
+  #
+  # @else
+  #
+  # @brief Set callback that is called by OnActivateSet. 
+  # 
+  # @param self 
+  # @param cb OnActivateSetCallback type object
+  #
+  # @endif
+  #
   # void setOnActivateSet(OnActivateSetCallback* cb);
   def setOnActivateSet(self, cb):
     self._activateSetCb = cb
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief コンフィギュレーションパラメータの更新(ID指定)時にコールされる
+  #
+  # 設定されてるコールバックオブジェクトを呼び出す。
+  #
+  # @param self 
+  # @param config_set 設定対象のコンフィギュレーションセットID
+  #
+  # @else
+  #
+  # @brief When the configuration parameter is updated, it is called. 
+  #
+  # Call the set callback object.
+  # 
+  # @param self 
+  # @param config_set The target configuration set's ID to setup
+  #
+  # @endif
+  #
   # void onUpdate(const char* config_set);
   def onUpdate(self, config_set):
     if self._updateCb is not None:
       self._updateCb(config_set)
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief コンフィギュレーションパラメータの更新(名称指定)時にコールされる
+  #
+  # 設定されてるコールバックオブジェクトを呼び出す。
+  #
+  # @param self 
+  # @param config_set コンフィギュレーションID
+  # @param config_param コンフィギュレーションパラメータ名
+  #
+  # @else
+  #
+  # @brief When the configuration parameter is updated, it is called. 
+  #
+  # Call the set callback object.
+  # 
+  # @param self 
+  # @param config_set configuration-set ID.
+  # @param config_param configuration parameter name.
+  #
+  # @endif
+  #
   # void onUpdateParam(const char* config_set, const char* config_param);
   def onUpdateParam(self, config_set, config_param):
     if self._updateParamCb is not None:
       self._updateParamCb(config_set, config_param)
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief コンフィギュレーションセットへの追加時にコールされる
+  #
+  # 設定されてるコールバックオブジェクトを呼び出す。
+  #
+  # @param self 
+  # @param configuration_set プロパティ
+  #
+  # @else
+  #
+  # @brief Called when the property is added to the configuration set
+  #
+  # Call the set callback object.
+  # 
+  # @param self 
+  # @param configuration_set property
+  #
+  # @endif
+  #
   # void onSetConfigurationSet(const coil::Properties& config_set);
   def onSetConfigurationSet(self, config_set):
     if self._setConfigSetCb is not None:
       self._setConfigSetCb(config_set)
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief 設定値が追加されたときにコールされる。
+  #
+  # 設定されてるコールバックオブジェクトを呼び出す。
+  #
+  # @param self 
+  # @param configuration_set プロパティ
+  #
+  # @else
+  #
+  # @brief Called when a set value is added to the configuration set
+  #
+  # Call the set callback object.
+  # 
+  # @param self 
+  # @param configuration_set property
+  #
+  # @endif
+  #
   # void onAddConfigurationSet(const coil::Properties& config_set);
   def onAddConfigurationSet(self, config_set):
     if self._addConfigSetCb is not None:
       self._addConfigSetCb(config_set)
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief セットが削除されてるときにコールされる。
+  #
+  # 設定されてるコールバックオブジェクトを呼び出す。
+  #
+  # @param self 
+  # @param config_id プロパティ
+  #
+  # @else
+  #
+  # @brief Called when the configuration set has been deleted
+  #
+  # Call the set callback object.
+  # 
+  # @param self 
+  # @param config_id property
+  #
+  # @endif
+  #
   # void onRemoveConfigurationSet(const char* config_id);
   def onRemoveConfigurationSet(self, config_id):
     if self._removeConfigSetCb is not None:
       self._removeConfigSetCb(config_id)
+    return
 
 
+  ##
+  # @if jp
+  #
+  # @brief セットがアクティブ化されたときにコールされる。
+  #
+  # 設定されてるコールバックオブジェクトを呼び出す。
+  #
+  # @param self 
+  # @param config_id プロパティ
+  #
+  # @else
+  #
+  # @brief Called when the configuration set is made active
+  #
+  # Call the set callback object.
+  # 
+  # @param self 
+  # @param config_id property
+  #
+  # @endif
+  #
   # void onActivateSet(const char* config_id);
   def onActivateSet(self, config_id):
     if self._activateSetCb is not None:
       self._activateSetCb(config_id)
-
+    return
 
 
   class find_conf:
     def __init__(self, name):
       self._name = name
+      return
 
     def __call__(self, conf):
       if conf is None or conf is 0:
