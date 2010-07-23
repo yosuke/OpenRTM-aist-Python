@@ -134,6 +134,9 @@ class OutPort(OpenRTM_aist.OutPortBase):
     #self._OnDisconnect   = None
     
 
+  def __del__(self, OutPortBase=OpenRTM_aist.OutPortBase):
+    OutPortBase.__del__(self)
+    return
 
   ##
   # @if jp

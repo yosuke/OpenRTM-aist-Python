@@ -97,7 +97,7 @@ class ModuleManager:
     self._initFuncPrefix = prop.getProperty(INITFUNC_PFX)
     self._modules = OpenRTM_aist.ObjectManager(self.DLLPred)
     self._rtcout = None
-
+    self._mgr = OpenRTM_aist.Manager.instance()
 
   ##
   # @if jp
@@ -244,7 +244,7 @@ class ModuleManager:
   #                                 const std::string& init_func)
   def load(self, file_name, init_func=None):
     if not self._rtcout:
-      self._rtcout = OpenRTM_aist.Manager.instance().getLogbuf("ModuleManager")
+      self._rtcout = self._mgr.getLogbuf("ModuleManager")
 
     self._rtcout.RTC_TRACE("load(fname = %s)", file_name)
     if file_name == "":
@@ -291,7 +291,7 @@ class ModuleManager:
     if init_func is None:
       return file_name
 
-    self.symbol(file_name,init_func)(OpenRTM_aist.Manager.instance())
+    self.symbol(file_name,init_func)(self._mgr)
 
     return file_name
 
@@ -450,9 +450,8 @@ class ModuleManager:
     classname  = basename.split(".")[0].lower()
 
     # loaded profile = old profiles - new profiles
-    mgr = OpenRTM_aist.Manager.instance()
     # for old
-    oldp = mgr.getFactoryProfiles()
+    oldp = self._mgr.getFactoryProfiles()
 
     # for new
     comp_spec_name = classname+"_spec"
@@ -606,7 +605,6 @@ class ModuleManager:
   # @endif
   def findFile(self, fname, load_path):
     file_name = fname
-
     for path in load_path:
       if fname.find(".py") == -1:
         f = str(path)+"/"+str(file_name)+".py"

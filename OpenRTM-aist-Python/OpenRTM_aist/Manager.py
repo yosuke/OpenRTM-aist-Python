@@ -109,6 +109,9 @@ class Manager:
     self._terminate = self.Term()
     self._ecs = []
     self._timer = None
+    self._orb = None
+    self._poa = None
+    self._poaManager = None 
     self._finalized = self.Finalized()
     signal.signal(signal.SIGINT, handler)
     
@@ -445,9 +448,12 @@ class Manager:
       self._runner = self.OrbRunner(self._orb)
     else:
       self._rtcout.RTC_TRACE("Manager.runManager(): blocking mode")
-      self._orb.run()
-      self._rtcout.RTC_TRACE("Manager.runManager(): ORB was terminated")
-      self.join()
+      try:
+        self._orb.run()
+        self._rtcout.RTC_TRACE("Manager.runManager(): ORB was terminated")
+        self.join()
+      except:
+        pass
     return
 
 
@@ -1144,6 +1150,9 @@ class Manager:
       tick = self._config.getProperty("timer.tick")
       if tick != "":
         tm = tm.set_time(float(tick))
+        if self._timer:
+          self._timer.stop()
+          self._timer.join()
         self._timer = OpenRTM_aist.Timer(tm)
         self._timer.start()
 
@@ -1183,6 +1192,7 @@ class Manager:
     if self._timer:
       self._timer.stop()
       self._timer.join()
+      self._timer = None
 
     return
 
@@ -2355,11 +2365,12 @@ class Manager:
       self._orb = orb
       self._th = threading.Thread(target=self.run)
       self._th.start()
-      self._evt = threading.Event()
 
 
     def __del__(self):
       self._th.join()
+      self._th = None
+      return
 
 
     ##
@@ -2377,11 +2388,9 @@ class Manager:
       try:
         self._orb.run()
         #Manager.instance().shutdown()
-        self._evt.set()
       except:
         traceback.print_exception(*sys.exc_info())
         pass
-      self._evt.set()
       return
 
 
@@ -2397,7 +2406,7 @@ class Manager:
     #
     # @endif
     def wait(self):
-      self._evt.wait()
+      return
 
     ##
     # @if jp

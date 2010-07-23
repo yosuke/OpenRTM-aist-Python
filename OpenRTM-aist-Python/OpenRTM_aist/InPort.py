@@ -156,6 +156,10 @@ class InPort(OpenRTM_aist.InPortBase):
     self._OnReadConvert  = None
 
 
+  def __del__(self, InPortBase=OpenRTM_aist.InPortBase):
+    InPortBase.__del__(self)
+    return
+
   ##
   # @if jp
   # @brief ポート名称を取得する。

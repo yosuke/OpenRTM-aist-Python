@@ -28,6 +28,7 @@ class Task:
     self._count = 0
     if self._thread:
       self._thread.join()
+      self._thread = None
     return
 
 

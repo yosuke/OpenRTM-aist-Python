@@ -299,6 +299,10 @@ class LogStream:
     self.logger = logging.getLogger(name)
 
 
+  def __del__(self):
+    logging.shutdown()
+    return
+
   def addHandler(self, *args):
     if self._loggerObj is not None:
       self._loggerObj.addHandler(*args)
