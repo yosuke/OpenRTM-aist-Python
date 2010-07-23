@@ -71,6 +71,7 @@ class TestInPortBase(unittest.TestCase):
 
 
   def tearDown(self):
+    OpenRTM_aist.Manager.instance().shutdownManager()
     return
 
   def test_properties(self):

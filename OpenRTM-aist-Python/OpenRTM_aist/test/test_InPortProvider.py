@@ -26,20 +26,24 @@ import OpenRTM_aist
 
 
 class TestInPortProvider(unittest.TestCase):
-	def setUp(self):
-		return
+  def setUp(self):
+    return
 
-	def test_publishInterfaceProfile(self):
-		InPortProviderFactory.instance().setInterfaceType("corba_cdr")
-		InPortProviderFactory.instance().setDataFlowType("push,pull")
-		InPortProviderFactory.instance().setSubscriptionType("flush,new,periodic")
-		InPortProviderFactory.instance().publishInterfaceProfile([])
+  def tearDown(self):
+    OpenRTM_aist.Manager.instance().shutdownManager()
+    return
 
-	def test_publishInterface(self):
-		InPortProviderFactory.instance().setInterfaceType("corba_cdr")
-		InPortProviderFactory.instance().setDataFlowType("push,pull")
-		InPortProviderFactory.instance().setSubscriptionType("flush,new,periodic")
-		self.assertEqual(InPortProviderFactory.instance().publishInterface([OpenRTM_aist.NVUtil.newNV("dataport.interface_type","corba_cdr")]),True)
+  def test_publishInterfaceProfile(self):
+    InPortProviderFactory.instance().setInterfaceType("corba_cdr")
+    InPortProviderFactory.instance().setDataFlowType("push,pull")
+    InPortProviderFactory.instance().setSubscriptionType("flush,new,periodic")
+    InPortProviderFactory.instance().publishInterfaceProfile([])
+
+  def test_publishInterface(self):
+    InPortProviderFactory.instance().setInterfaceType("corba_cdr")
+    InPortProviderFactory.instance().setDataFlowType("push,pull")
+    InPortProviderFactory.instance().setSubscriptionType("flush,new,periodic")
+    self.assertEqual(InPortProviderFactory.instance().publishInterface([OpenRTM_aist.NVUtil.newNV("dataport.interface_type","corba_cdr")]),True)
 
 
 ############### test #################

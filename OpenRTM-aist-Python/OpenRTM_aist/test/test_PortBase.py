@@ -49,6 +49,10 @@ class TestPortBase(unittest.TestCase):
     self._pb = PortBase()
     return
 
+  def tearDown(self):
+    OpenRTM_aist.Manager.instance().shutdownManager()
+    return
+
   def test_get_port_profile(self):
     self._pb.setName("test_connect")
     prof = self._pb.get_port_profile()

@@ -23,41 +23,46 @@ sys.path.insert(1,"../RTM_IDL")
 import unittest
 
 from SdoService import *
+import OpenRTM_aist
 
 
 class TestSDOServiceProfile(unittest.TestCase):
-	def setUp(self):
-		self.sdosp = SDOServiceProfile()
+  def setUp(self):
+    self.sdosp = SDOServiceProfile()
 
-	def test_getProfile(self):
-		sdosp = SDOServiceProfile("test", "test_type")
-		prof = sdosp.getProfile()
-		self.assertEqual(prof.id,"test")
-		self.assertEqual(prof.type,"test_type")
+  def tearDown(self):
+    OpenRTM_aist.Manager.instance().shutdownManager()
+    return
+
+  def test_getProfile(self):
+    sdosp = SDOServiceProfile("test", "test_type")
+    prof = sdosp.getProfile()
+    self.assertEqual(prof.id,"test")
+    self.assertEqual(prof.type,"test_type")
     
-	def test_setName(self):
-		self.sdosp.setName("test")
-		self.assertEqual(self.sdosp.getName(),"test")
+  def test_setName(self):
+    self.sdosp.setName("test")
+    self.assertEqual(self.sdosp.getName(),"test")
 
 
-	def test_setInterfaceType(self):
-		self.sdosp.setInterfaceType("test_type")
-		self.assertEqual(self.sdosp.getInterfaceType(),"test_type")
+  def test_setInterfaceType(self):
+    self.sdosp.setInterfaceType("test_type")
+    self.assertEqual(self.sdosp.getInterfaceType(),"test_type")
     
 
-	def test_setIdlDefinition(self):
-		self.sdosp.setIdlDefinition("test_idl")
-		self.assertEqual(self.sdosp.getIdlDefinition(),"test_idl")
+  def test_setIdlDefinition(self):
+    self.sdosp.setIdlDefinition("test_idl")
+    self.assertEqual(self.sdosp.getIdlDefinition(),"test_idl")
 
 
-	def test_setProperties(self):
-		self.sdosp.setProperties(None)
-		self.assertEqual(self.sdosp.getProperties(),None)
+  def test_setProperties(self):
+    self.sdosp.setProperties(None)
+    self.assertEqual(self.sdosp.getProperties(),None)
 
 
-	def test_setServiceRef(self):
-		self.sdosp.setServiceRef(None)
-		self.assertEqual(self.sdosp.getServiceRef(),None)
+  def test_setServiceRef(self):
+    self.sdosp.setServiceRef(None)
+    self.assertEqual(self.sdosp.getServiceRef(),None)
 
   
 ############### test #################

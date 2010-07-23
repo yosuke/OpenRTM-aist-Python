@@ -15,7 +15,7 @@
 #     All rights reserved.
 #
 
-import sys
+import sys,time
 sys.path.insert(1,"../RTM_IDL")
 sys.path.insert(1,"../")
 
@@ -76,6 +76,13 @@ class TestManagerServant(unittest.TestCase):
   def setUp(self):
     self.managerservant = OpenRTM_aist.ManagerServant()
 
+  def tearDown(self):
+    self.managerservant.__del__()
+    del self.managerservant
+    #OpenRTM_aist.Manager.instance().shutdownManager()
+    OpenRTM_aist.Manager.instance().shutdown()
+    time.sleep(0.1)
+    return
 
   """
   def test_terminate(self):
@@ -200,7 +207,6 @@ class TestManagerServant(unittest.TestCase):
     self.assertEqual(self.managerservant.remove_slave_manager(owner),RTC.RTC_OK)
     self.assertEqual(len(self.managerservant.get_slave_managers()),0)
     return
-
 
     
 """

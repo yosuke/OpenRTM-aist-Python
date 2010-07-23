@@ -17,7 +17,7 @@
 import sys
 sys.path.insert(1,"../")
 
-from omniORB import any
+#from omniORB import any
 
 import unittest
 from OutPortBase import *
@@ -64,12 +64,15 @@ class ConsumerMock:
   def init(self,prop):
     return
 
-
 class TestOutPortBase(unittest.TestCase):
   def setUp(self):
     OpenRTM_aist.Manager.init(sys.argv)
-    self._opb = OutPortBase("test",str(any.to_any(RTC.TimedLong(RTC.Time(0,0),0)).typecode().name()))
+    self._opb = OutPortBase("test","TimedLong")
     self._opb.init(OpenRTM_aist.Properties())
+    return
+
+  def tearDown(self):
+    OpenRTM_aist.Manager.instance().shutdownManager()
     return
 
   def test_getName(self):
@@ -266,4 +269,4 @@ class TestOutPortBase(unittest.TestCase):
 
 ############### test #################
 if __name__ == '__main__':
-        unittest.main()
+  unittest.main()

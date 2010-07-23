@@ -21,34 +21,36 @@ sys.path.insert(1,"../")
 import unittest
 
 from ECFactory import *
+import OpenRTM_aist
 
 
 class TestECFactoryPython(unittest.TestCase):
 
-	def setUp(self):
-		self.ecfact = ECFactoryPython("test", self.create_func, self.del_func)
-		return
-	
-	def tearDown(self):
-		del self
-		return
+  def setUp(self):
+    self.ecfact = ECFactoryPython("test", self.create_func, self.del_func)
+    return
+  
+  def tearDown(self):
+    OpenRTM_aist.Manager.instance().shutdownManager()
+    del self
+    return
 
-	def create_func(self):
-		print "create_func"
+  def create_func(self):
+    print "create_func"
 
-	def del_func(self, ec):
-		print "del_func"
-		
-	def test_name(self):
-		name = self.ecfact.name()
-		self.assertEqual(name,"test", "name is false.")
+  def del_func(self, ec):
+    print "del_func"
+    
+  def test_name(self):
+    name = self.ecfact.name()
+    self.assertEqual(name,"test", "name is false.")
 
-	def test_create(self):
-		self.ecfact.create()
+  def test_create(self):
+    self.ecfact.create()
 
 
-	def test_destroy(self):
-		self.ecfact.destroy("hoge")
+  def test_destroy(self):
+    self.ecfact.destroy("hoge")
     
 ############### test #################
 if __name__ == '__main__':

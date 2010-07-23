@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 # -*- Python -*-
 
+hoge_spec = ["implementation_id", "hoge",
+             "type_name",         "hoge",
+             "description",       "hoge component",
+             "version",           "1.0",
+             "vendor",            "Shinji Kurihara",
+             "category",          "example",
+             "activity_type",     "DataFlowComponent",
+             "max_instance",      "10",
+             "language",          "Python",
+             "lang_type",         "script",
+             ""]
+
 class HOGE:
     def __init__(self):
         pass

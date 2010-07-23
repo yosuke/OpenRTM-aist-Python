@@ -53,6 +53,9 @@ class TestCorbaPort(unittest.TestCase):
     self._cpSvc = CorbaPort("MyService")
     self._cpCon = CorbaPort("MyService")
 
+  def tearDown(self):
+    OpenRTM_aist.Manager.instance().shutdownManager()
+    return
 
   def test_init(self):
     prop = OpenRTM_aist.Properties()

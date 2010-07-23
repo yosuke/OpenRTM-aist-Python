@@ -174,6 +174,7 @@ class TestPeriodicExecutionContext(unittest.TestCase):
     # import gc
     self._pec.__del__()
     self._pec = None
+    OpenRTM_aist.Manager.instance().shutdownManager()
 
   def getState(self, state):
     if state == 0:

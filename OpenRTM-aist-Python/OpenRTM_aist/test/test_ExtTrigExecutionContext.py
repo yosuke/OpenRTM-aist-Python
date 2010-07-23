@@ -46,6 +46,10 @@ class TestExtTrigExecutionContext(unittest.TestCase):
     self.etec = ExtTrigExecutionContext()
     #self.etec = ExtTrigExecutionContext(self._dfp._ref)
 
+  def tearDown(self):
+    OpenRTM_aist.Manager.instance().shutdownManager()
+    return
+
   def test_tick(self):
     pass
 
