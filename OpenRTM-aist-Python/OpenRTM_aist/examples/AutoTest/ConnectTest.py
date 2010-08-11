@@ -87,8 +87,8 @@ g_conprof3 = RTC.ConnectorProfile(g_name3, g_connector_id3, [g_out_ports[g_port3
 
 ##--------------------------------------------------------------------
 ## 送受信結果判定関連
-g_diff_send_file = "/usr/share/OpenRTM-aist/examples/python/AutoTest/original-data"
-g_diff_recv_file = "/usr/share/OpenRTM-aist/examples/python/AutoTest/received-data"
+g_diff_send_file = "./original-data"
+g_diff_recv_file = "./received-data"
 g_check_message = g_diff_recv_file + " file not found."
 g_test_result_file = "./ResultTest.log"
 g_test_case = "case"
