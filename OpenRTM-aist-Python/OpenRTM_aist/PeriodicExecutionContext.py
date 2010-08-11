@@ -557,7 +557,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
       self._worker._running = False
       self._worker._cond.notify()
       self._worker._cond.release()
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
     return RTC.RTC_OK
 
@@ -883,7 +883,7 @@ class PeriodicExecutionContext(OpenRTM_aist.ExecutionContextBase,
       self._profile.participants.append(rtc_)
       return RTC.RTC_OK
     except CORBA.Exception:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.BAD_PARAMETER
 
     return RTC.RTC_OK

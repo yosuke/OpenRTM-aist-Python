@@ -613,7 +613,7 @@ class Manager:
       self._factory.registerObject(factory)
       return True
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return False
 
     return
@@ -671,7 +671,7 @@ class Manager:
       self._ecfactory.registerObject(OpenRTM_aist.ECFactoryPython(name, new_func, delete_func))
       return True
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return False
 
     return False
@@ -1503,8 +1503,7 @@ class Manager:
 
       self._rtcout.RTC_DEBUG("No pending works of ORB. Shutting down POA and ORB.")
     except:
-      #traceback.print_exception(*sys.exc_info())
-      self._rtcout.RTC_TRACE(sys.exc_info()[0])
+      self._rtcout.RTC_TRACE(OpenRTM_aist.Logger.print_exception())
       pass
 
     if not CORBA.is_nil(self._poa):
@@ -1727,7 +1726,7 @@ class Manager:
       try:
         reffile = file(self._config.getProperty("manager.refstring_path"),'w')
       except:
-        self._rtcout.RTC_ERROR(sys.exc_info()[0])
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
         return False
       else:
         reffile.write(self._orb.object_to_string(self._mgrservant.getObjRef()))
@@ -1756,16 +1755,14 @@ class Manager:
         p = OpenRTM_aist.Properties(key=comp.getInstanceName())
         p.mergeProperties(comp.getProperties())
       except:
-        #traceback.print_exception(*sys.exc_info())
-        self._rtcout.RTC_TRACE(sys.exc_info()[0])
+        self._rtcout.RTC_TRACE(OpenRTM_aist.Logger.print_exception())
         pass
 
     for ec in self._ecs:
       try:
         self._poa.deactivate_object(self._poa.servant_to_id(ec))
       except:
-        #traceback.print_exception(*sys.exc_info())
-        self._rtcout.RTC_TRACE(sys.exc_info()[0])
+        self._rtcout.RTC_TRACE(OpenRTM_aist.Logger.print_exception())
         pass
 
 
@@ -2389,7 +2386,7 @@ class Manager:
         self._orb.run()
         #Manager.instance().shutdown()
       except:
-        traceback.print_exception(*sys.exc_info())
+        traceback.print_exception(OpenRTM_aist.Logger.print_exception())
         pass
       return
 

@@ -175,7 +175,7 @@ class InPortCorbaCdrProvider(OpenRTM_aist.InPortProvider,
       return self.convertReturn(ret, data)
 
     except:
-      self._rtcout.RTC_TRACE(sys.exc_info()[0])
+      self._rtcout.RTC_TRACE(OpenRTM_aist.Logger.print_exception())
       return OpenRTM.UNKNOWN_ERROR
     return OpenRTM.UNKNOWN_ERROR
 

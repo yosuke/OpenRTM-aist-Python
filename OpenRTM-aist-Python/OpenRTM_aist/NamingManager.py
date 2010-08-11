@@ -179,7 +179,7 @@ class NamingOnCorba(NamingBase):
     try:
       self._cosnaming.unbind(name)
     except:
-      traceback.print_exception(*sys.exc_info())
+      traceback.print_exception(OpenRTM_aist.Logger.print_exception())
 
 
   ##

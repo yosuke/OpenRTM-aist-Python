@@ -208,7 +208,7 @@ class Organization_impl(SDOPackage__POA.Organization):
       value = omniORB.any.to_any(self._orgProperty.properties[index].value)
       return value
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_organization_property_value()")
 
     # never reach here
@@ -265,7 +265,7 @@ class Organization_impl(SDOPackage__POA.Organization):
       self._orgProperty = org_property
       return True
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("add_organization_property()")
 
     return False
@@ -387,7 +387,7 @@ class Organization_impl(SDOPackage__POA.Organization):
       OpenRTM_aist.CORBA_SeqUtil.erase(self._orgProperty.properties, index)
       return True
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("remove_organization_property_value()")
 
     return False
@@ -481,7 +481,7 @@ class Organization_impl(SDOPackage__POA.Organization):
       self._varOwner = sdo
       return True
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("set_owner()")
 
     return True
@@ -527,7 +527,7 @@ class Organization_impl(SDOPackage__POA.Organization):
     try:
       return self._memberList
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_members()")
 
 
@@ -584,7 +584,7 @@ class Organization_impl(SDOPackage__POA.Organization):
       self._memberList = sdos
       return True
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("set_members()")
 
     return True
@@ -637,7 +637,7 @@ class Organization_impl(SDOPackage__POA.Organization):
       OpenRTM_aist.CORBA_SeqUtil.push_back_list(self._memberList, sdo_list)
       return True
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("add_members()")
 
     return False
@@ -797,7 +797,7 @@ class Organization_impl(SDOPackage__POA.Organization):
       self._dependency = dependency
       return True
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("set_dependency(): Unknown.")
 
     return False

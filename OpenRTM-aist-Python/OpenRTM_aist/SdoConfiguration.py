@@ -266,7 +266,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       guard = OpenRTM_aist.ScopedLock(self._dprofile_mutex)
       self._deviceProfile = dProfile
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Unknown Error")
 
     return True
@@ -338,7 +338,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       OpenRTM_aist.CORBA_SeqUtil.push_back(self._serviceProfiles, sProfile)
       return True
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration.add_service_profile")
 
     return True
@@ -388,7 +388,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
     try:
       OpenRTM_aist.CORBA_SeqUtil.push_back(self._organizations, org)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration.add_organization")
 
     return True
@@ -444,7 +444,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
     try:
       OpenRTM_aist.CORBA_SeqUtil.erase_if(self._serviceProfiles, self.service_id(id_))
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration.remove_service_profile")
 
     return True
@@ -500,7 +500,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       OpenRTM_aist.CORBA_SeqUtil.erase_if(self._organizations,
                                           self.org_id(organization_id))
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration.remove_organization")
 
     return True
@@ -547,7 +547,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       param = copy.copy(self._parameters)
       return param
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration.get_configuration_parameters")
 
     return []
@@ -637,7 +637,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
   def get_configuration_parameter_value(self, name):
     self._rtcout.RTC_TRACE("get_configuration_parameter_value(%s)", name)
     if not name:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InvalidParameter("Name is empty.")
 
     return None
@@ -745,7 +745,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       return config_sets
 
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration.get_configuration_sets")
 
     return []
@@ -807,7 +807,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       toConfigurationSet(config, configset)
       return config
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration::get_configuration_set()")
 
     return SDOPackage.ConfigurationSet("","",[])
@@ -888,7 +888,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       #---------------------------------------------------------------------------
       return self._configsets.setConfigurationSetValues(conf)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration::set_configuration_set_values()")
 
     return True
@@ -955,7 +955,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       toConfigurationSet(config, self._configsets.getActiveConfigurationSet())
       return config
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration.get_active_configuration_set()")
 
     return SDOPackage.ConfigurationSet("","",[])
@@ -1014,7 +1014,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       toProperties(config, configuration_set)
       return self._configsets.addConfigurationSet(config)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration::add_configuration_set()")
 
     return True
@@ -1068,7 +1068,7 @@ class Configuration_impl(SDOPackage__POA.Configuration):
       guard = OpenRTM_aist.ScopedLock(self._config_mutex)
       return self._configsets.removeConfigurationSet(config_id)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("Configuration.remove_configuration_set()")
 
     return False

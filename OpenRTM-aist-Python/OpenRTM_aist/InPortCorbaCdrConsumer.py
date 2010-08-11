@@ -157,7 +157,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
         return self.convertReturnCode(inportcdr.put(data))
       return self.CONNECTION_LOST
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return self.CONNECTION_LOST
         
     return self.UNKNOWN_ERROR
@@ -281,7 +281,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
     try:
       ior = any.from_any(properties[index].value, keep_structs=True)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
     if not ior:
       self._rtcout.RTC_ERROR("inport_ior has no string")
@@ -326,7 +326,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
     try:
       obj = any.from_any(properties[index].value, keep_structs=True)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
     
     if not obj:
       self._rtcout.RTC_ERROR("prop[inport_ref] is not objref")
@@ -368,7 +368,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
     try:
       ior = any.from_any(properties[index].value, keep_structs=True)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
     if not ior:
       self._rtcout.RTC_ERROR("prop[inport_ior] is not string")
@@ -409,7 +409,7 @@ class InPortCorbaCdrConsumer(OpenRTM_aist.InPortConsumer,OpenRTM_aist.CorbaConsu
     try:
       obj = any.from_any(properties[index].value, keep_structs=True)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
     
     if not obj:
       return False

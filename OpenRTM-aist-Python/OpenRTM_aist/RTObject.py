@@ -914,8 +914,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       #               self._profile.properties)
     
     except:
-      #traceback.print_exception(*sys.exc_info())
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
     assert(False)
     return None
@@ -947,8 +946,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._portAdmin.getPortServiceList()
     except:
-      #traceback.print_exception(*sys.exc_info())
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
     assert(False)
     return []
@@ -1142,7 +1140,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
           self._configsets.update("default")
 
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
 
     return ret
@@ -1178,7 +1176,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       ret = self.onFinalize()
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1217,7 +1215,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       ret = self.onStartup(ec_id)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1256,7 +1254,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       ret = self.onShutdown(ec_id)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1295,7 +1293,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       ret = self.onActivated(ec_id)
       self._portAdmin.activatePorts()
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1333,7 +1331,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       self._portAdmin.deactivatePorts()
       ret = self.onDeactivated(ec_id)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1376,7 +1374,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       ret = self.onAborting(ec_id)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1431,7 +1429,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       ret = self.onError(ec_id)
       self._configsets.update()
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1475,7 +1473,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       ret = self.onReset(ec_id)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1534,7 +1532,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
         self.writeAll()
       
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1587,7 +1585,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       ret = self.onStateUpdate(ec_id)
       self._configsets.update()
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1633,7 +1631,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       ret = self.onRateChanged(ec_id)
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTC_ERROR
     
     return ret
@@ -1688,7 +1686,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._sdoOwnedOrganizations
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.NotAvailable("NotAvailable: get_owned_organizations")
 
     return []
@@ -1739,7 +1737,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._profile.instance_name
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_sdo_id()")
 
 
@@ -1784,7 +1782,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._profile.description
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_sdo_type()")
     return ""
 
@@ -1833,7 +1831,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._SdoConfigImpl.getDeviceProfile()
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_device_profile()")
 
     return SDOPackage.DeviceProfile("","","","",[])
@@ -1884,7 +1882,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._sdoSvcProfiles
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_service_profiles()")
 
     return []
@@ -1947,7 +1945,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
 
       return self._sdoSvcProfiles[index]
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_service_profile()")
 
     return SDOPackage.ServiceProfile("", "", [], None)
@@ -2015,7 +2013,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._sdoSvcProfiles[index].service
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_service()")
     return SDOPackage.SDOService._nil
 
@@ -2073,7 +2071,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._SdoConfig
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_configuration()")
     return SDOPackage.Configuration._nil
 
@@ -2172,7 +2170,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._sdoOrganizations
     except:
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_organizations()")
     return []
 
@@ -3091,8 +3089,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
       self._poa.deactivate_object(self._poa.servant_to_id(self._SdoConfigImpl))
       self._poa.deactivate_object(self._poa.servant_to_id(self))
     except:
-      #traceback.print_exception(*sys.exc_info())
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
     if self._manager:
       self._rtcout.RTC_DEBUG("Cleanup on Manager")

@@ -291,7 +291,7 @@ class OutPortCorbaCdrProvider(OpenRTM_aist.OutPortProvider,
           return (OpenRTM.BUFFER_EMPTY, None)
       
     except:
-      self._rtcout.RTC_TRACE(sys.exc_info()[0])
+      self._rtcout.RTC_TRACE(OpenRTM_aist.Logger.print_exception())
       return (OpenRTM.UNKNOWN_ERROR, None)
 
     return self.convertReturn(ret, cdr[0])

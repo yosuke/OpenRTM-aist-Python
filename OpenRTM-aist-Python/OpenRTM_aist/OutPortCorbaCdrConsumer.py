@@ -262,8 +262,7 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
       try:
         ior = any.from_any(properties[index].value, keep_structs=True)
       except:
-        # traceback.print_exception(*sys.exc_info())
-        self._rtcout.RTC_ERROR(sys.exc_info()[0])
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
             
       orb = OpenRTM_aist.Manager.instance().getORB()
       obj = orb.string_to_object(ior)
@@ -320,8 +319,7 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
         self._rtcout.RTC_ERROR("hmm. Inconsistent object reference.")
 
     except:
-      # traceback.print_exception(*sys.exc_info())
-      self._rtcout.RTC_ERROR(sys.exc_info()[0])
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
     return
 
