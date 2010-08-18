@@ -84,6 +84,7 @@ class ManagerServant(RTM__POA.Manager):
         return
       except:
         self._rtcout.RTC_ERROR("Unknown exception cought.")
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
         
         
     return
@@ -373,6 +374,7 @@ class ManagerServant(RTM__POA.Manager):
       return rtobj
     except CORBA.SystemException:
       self._rtcout.RTC_DEBUG("Exception was caught while creating component.")
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return RTC.RTObject._nil
     except:
       self._rtcout.RTC_DEBUG(OpenRTM_aist.Logger.print_exception())

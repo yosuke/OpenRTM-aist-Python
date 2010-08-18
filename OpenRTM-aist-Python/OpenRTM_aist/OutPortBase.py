@@ -1236,6 +1236,7 @@ class OutPortBase(OpenRTM_aist.PortBase,OpenRTM_aist.DataPortStatus):
 
     except:
       self._rtcout.RTC_ERROR("Exeption: OutPortPushConnector creation failed")
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return 0
 
 

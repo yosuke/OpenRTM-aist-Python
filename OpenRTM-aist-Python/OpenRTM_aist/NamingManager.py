@@ -158,7 +158,9 @@ class NamingOnCorba(NamingBase):
     try:
       self._cosnaming.rebindByString(name, rtobj.getObjRef(), True)
     except:
-      pass
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
+
+    return
 
 
   ##
@@ -179,7 +181,9 @@ class NamingOnCorba(NamingBase):
     try:
       self._cosnaming.unbind(name)
     except:
-      traceback.print_exception(OpenRTM_aist.Logger.print_exception())
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
+
+    return
 
 
   ##

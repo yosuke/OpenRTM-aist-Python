@@ -194,6 +194,7 @@ class ManagerConfig :
         fd.close()
       except:
         print "Error: file open."
+        print OpenRTM_aist.Logger.print_exception()
 
     self.setSystemInformation(prop)
     if self._isMaster:
@@ -256,6 +257,7 @@ class ManagerConfig :
       opts, args = getopt.getopt(argv[1:], "adlf:o:p:")
     except getopt.GetoptError:
       print "Error: getopt error!"
+      print OpenRTM_aist.Logger.print_exception()
       return
 
     for opt, arg in opts:
@@ -414,6 +416,7 @@ class ManagerConfig :
     try:
       fp = open(filename)
     except:
+      print OpenRTM_aist.Logger.print_exception()
       return False
     else:
       fp.close()

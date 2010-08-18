@@ -18,6 +18,8 @@
 import omniORB.CORBA as CORBA
 import CosNaming
 import string
+import sys
+import traceback
 
 ##
 # @if jp
@@ -91,6 +93,7 @@ class CorbaNaming:
           print "CorbaNaming: Failed to narrow the root naming context."
 
       except CORBA.ORB.InvalidName:
+        self.__print_exception()
         print "Service required is invalid [does not exist]."
 
     return
@@ -155,6 +158,7 @@ class CorbaNaming:
         return False
       return True
     except:
+      self.__print_exception()
       return False
 
     return False
@@ -342,12 +346,14 @@ class CorbaNaming:
       if force:
         self.rebindRecursive(self._rootContext, name_list, obj)
       else:
+        self.__print_exception()
         raise
 
     except CosNaming.NamingContext.CannotProceed, err:
       if force:
         self.rebindRecursive(err.cxt, err,rest_of_name, obj)
       else:
+        self.__print_exception()
         raise
       
     return
@@ -569,6 +575,7 @@ class CorbaNaming:
       obj = self._rootContext.resolve(name_)
       return obj
     except CosNaming.NamingContext.NotFound, ex:
+      self.__print_exception()
       return None
 
 
@@ -608,7 +615,7 @@ class CorbaNaming:
     try:
       self._rootContext.unbind(name_)
     except:
-      pass
+      self.__print_exception()
 
     return
 
@@ -673,11 +680,13 @@ class CorbaNaming:
       if force:
         self.bindRecursive(self._rootContext, name_, self.newContext())
       else:
+        self.__print_exception()
         raise
     except CosNaming.NamingContext.CannotProceed, err:
       if force:
         self.bindRecursive(err.cxt, err.rest_of_name, self.newContext())
       else:
+        self.__print_exception()
         raise
     return None
 
@@ -1213,3 +1222,25 @@ class CorbaNaming:
         pre_pos   = begin_pos
 
     return len(results)
+
+
+  ##
+  # @if jp
+  #
+  # @brief 例外情報出力
+  #  例外情報を出力する。
+  #
+  # @else
+  #
+  # @brief Print exception information 
+  #  Print exception information 
+  # @endif
+  def __print_exception(self):
+    if sys.version_info[0:3] >= (2, 4, 0):
+      print traceback.format_exc()
+    else:
+      _exc_list = traceback.format_exception(*sys.exc_info())
+      _exc_str = "".join(_exc_list)
+      print _exc_str
+
+    return

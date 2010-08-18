@@ -354,7 +354,7 @@ class PortAdmin:
         return False
       return True
     except:
-      traceback.print_exception(OpenRTM_aist.Logger.print_exception())
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return False
 
 

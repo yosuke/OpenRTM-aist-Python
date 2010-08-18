@@ -632,6 +632,7 @@ class PublisherNew(OpenRTM_aist.PublisherBase):
 
       return self.PORT_OK
     except:
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return self.CONNECTION_LOST
 
     return self.PORT_ERROR
@@ -659,6 +660,7 @@ class PublisherNew(OpenRTM_aist.PublisherBase):
         
       return self.PORT_OK
     except:
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return self.CONNECTION_LOST
 
     return self.PORT_ERROR
@@ -706,6 +708,7 @@ class PublisherNew(OpenRTM_aist.PublisherBase):
       return ret
 
     except:
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return self.CONNECTION_LOST
 
     return self.PORT_ERROR
@@ -735,6 +738,7 @@ class PublisherNew(OpenRTM_aist.PublisherBase):
       return self.PORT_OK
 
     except:
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return self.CONNECTION_LOST
 
     return self.PORT_ERROR

@@ -714,7 +714,7 @@ class PeriodicECSharedComposite(OpenRTM_aist.RTObject_impl):
     try:
       self._org.set_members(sdos)
     except:
-      print "exception caught"
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
     return RTC.RTC_OK
 

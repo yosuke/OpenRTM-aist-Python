@@ -219,6 +219,7 @@ class OutPortCorbaCdrConsumer(OpenRTM_aist.OutPortConsumer,OpenRTM_aist.CorbaCon
 
     except:
       self._rtcout.RTC_WARN("Exception caught from OutPort.get().")
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return self.CONNECTION_LOST
 
     self._rtcout.RTC_ERROR("get(): Never comes here.")

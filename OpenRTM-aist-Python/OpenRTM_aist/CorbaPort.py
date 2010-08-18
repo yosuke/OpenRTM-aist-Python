@@ -724,6 +724,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
                                                       provider))
     except:
       self._rtcout.RTC_ERROR("appending provider interface failed")
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return False
 
     
@@ -1527,7 +1528,7 @@ class CorbaPort(OpenRTM_aist.PortBase):
             obj = any.from_any(nv.value, keep_structs=True)
             self._cons[i].setObject(obj)
           except:
-            OpenRTM_aist.Logger.print_exception()
+            print OpenRTM_aist.Logger.print_exception()
 
 
 

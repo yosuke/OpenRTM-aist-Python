@@ -2213,6 +2213,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return self._sdoStatus
     except:
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_status_list()")
     return []
 
@@ -2263,6 +2264,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
     try:
       return any.to_any(self._sdoStatus[index].value)
     except:
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       raise SDOPackage.InternalError("get_status()")
     return any.to_any("")
 
@@ -2787,7 +2789,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
           try:
             self._inports.remove(port)
           except:
-            self._rtcout.RTC_ERROR("Can not remove inport.")
+            self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
             
           return True
 
@@ -2826,7 +2828,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
           try:
             self._outports.remove(port)
           except:
-            self._rtcout.RTC_ERROR("Can not remove outport.")
+            self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
             
           return True
 
@@ -3151,6 +3153,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
           ec = ecs._narrow(RTC.ExecutionContext)
           return self._ec._is_equivalent(ec)
       except:
+        print OpenRTM_aist.Logger.print_exception()
         return False
 
       return False
@@ -3188,7 +3191,7 @@ class RTObject_impl(OpenRTM__POA.DataFlowComponent):
         if not CORBA.is_nil(ec) and not ec._non_existent():
           ec.deactivate_component(self._comp)
       except:
-        pass
+        print OpenRTM_aist.Logger.print_exception()
 
 
 # RtcBase = RTObject_impl

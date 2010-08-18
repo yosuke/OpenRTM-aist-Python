@@ -175,7 +175,7 @@ class PortBase(RTC__POA.PortService):
       oid = mgr.servant_to_id(self)
       mgr.deactivate_object(oid)
     except:
-      self._rtcout.RTC_ERROR("Unknown exception caught.")
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
     
 
   ##
@@ -544,6 +544,7 @@ class PortBase(RTC__POA.PortService):
       return (retval, connector_profile)
       #return connector_profile.ports[0].notify_connect(connector_profile)
     except:
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return (RTC.BAD_PARAMETER, connector_profile)
 
     return (RTC.RTC_ERROR, connector_profile)
@@ -808,7 +809,7 @@ class PortBase(RTC__POA.PortService):
       try:
         return p.notify_disconnect(connector_id)
       except:
-        self._rtcout.RTC_WARN("Unknown exception caught.")
+        self._rtcout.RTC_WARN(OpenRTM_aist.Logger.print_exception())
         continue
 
     self._rtcout.RTC_ERROR("notify_disconnect() for all ports failed.")
@@ -1561,7 +1562,7 @@ class PortBase(RTC__POA.PortService):
       try:
         return p.notify_disconnect(connector_profile.connector_id)
       except:
-        self._rtcout.RTC_WARN("Unknown exception caught.")
+        self._rtcout.RTC_WARN(OpenRTM_aist.Logger.print_exception())
         continue
 
     return RTC.RTC_ERROR
@@ -2201,6 +2202,7 @@ class PortBase(RTC__POA.PortService):
           self._rtcout.RTC_WARN("Dead Port reference detected.")
           return False
       except:
+        self._rtcout.RTC_WARN(OpenRTM_aist.Logger.print_exception())
         return False
 
     return True

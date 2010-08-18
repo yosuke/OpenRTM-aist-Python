@@ -121,7 +121,7 @@ def copyToProperties(prop, nvlist):
       val = str(any.from_any(nv.value, keep_structs=True))
       prop.setProperty(str(nv.name),val)
     except:
-      traceback.print_exception(OpenRTM_aist.Logger.print_exception())
+      print OpenRTM_aist.Logger.print_exception()
       pass
 
 
@@ -316,7 +316,7 @@ def toString(nv, name):
     if type(val) == str:
       str_value = val
   except:
-    traceback.print_exception(OpenRTM_aist.Logger.print_exception())
+    print OpenRTM_aist.Logger.print_exception()
     pass
   
   return str_value

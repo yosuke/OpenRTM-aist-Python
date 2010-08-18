@@ -285,6 +285,7 @@ class FactoryPython(FactoryBase):
 
       return rtobj
     except:
+      print OpenRTM_aist.Logger.print_exception()
       return None
 
 

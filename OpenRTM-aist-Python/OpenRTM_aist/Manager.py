@@ -372,6 +372,7 @@ class Manager:
       self._rtcout.RTC_TRACE("POA Manager activated.")
     except:
       self._rtcout.RTC_ERROR("Exception: POA Manager activation failed.")
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return False
 
     mods = [s.strip() for s in self._config.getProperty("manager.modules.preload").split(",")]
@@ -453,7 +454,8 @@ class Manager:
         self._rtcout.RTC_TRACE("Manager.runManager(): ORB was terminated")
         self.join()
       except:
-        pass
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
+
     return
 
 
@@ -1345,6 +1347,7 @@ class Manager:
 
     except:
       self._rtcout.RTC_ERROR("Exception: Caught unknown exception in initORB().")
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       return False
 
     return True
@@ -1516,8 +1519,10 @@ class Manager:
         self._rtcout.RTC_DEBUG("POA was destroyed.")
       except CORBA.SystemException, ex:
         self._rtcout.RTC_ERROR("Caught SystemException during root POA destruction")
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       except:
         self._rtcout.RTC_ERROR("Caught unknown exception during destruction")
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
     if self._orb:
       try:
@@ -1526,8 +1531,10 @@ class Manager:
         self._orb = CORBA.Object._nil
       except CORBA.SystemException, ex:
         self._rtcout.RTC_ERROR("Caught CORBA::SystemException during ORB shutdown.")
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       except:
         self._rtcout.RTC_ERROR("Caught unknown exception during ORB shutdown.")
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
 
 
   #============================================================
@@ -1949,6 +1956,7 @@ class Manager:
         conff = open(self._config.getProperty(name_conf))
       except:
         print "Not found. : %s" % self._config.getProperty(name_conf)
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       else:
         name_prop.load(conff)
 
@@ -1957,6 +1965,7 @@ class Manager:
         conff = open(self._config.getProperty(type_conf))
       except:
         print "Not found. : %s" % self._config.getProperty(type_conf)
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       else:
         type_prop.load(conff)
 
@@ -2004,6 +2013,7 @@ class Manager:
         conff = open(file_name)
       except:
         print "Not found. : %s" % file_name
+        self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       else:
         prop.load(conff)
         conff.close()
@@ -2162,6 +2172,7 @@ class Manager:
                              OpenRTM_aist.Delete)
     except:
       self._rtcout.RTC_ERROR("Module load error: %s", file_name)
+      self._rtcout.RTC_ERROR(OpenRTM_aist.Logger.print_exception())
       
     return
 
@@ -2386,7 +2397,7 @@ class Manager:
         self._orb.run()
         #Manager.instance().shutdown()
       except:
-        traceback.print_exception(OpenRTM_aist.Logger.print_exception())
+        print OpenRTM_aist.Logger.print_exception()
         pass
       return
 
