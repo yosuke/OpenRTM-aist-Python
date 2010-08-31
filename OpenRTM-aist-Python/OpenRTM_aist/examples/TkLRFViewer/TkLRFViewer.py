@@ -50,26 +50,25 @@ lrfviewer_spec = ["implementation_id",     "LRFViewer",
 class LRFViewer(OpenRTM_aist.DataFlowComponentBase):
   def __init__(self, manager):
     OpenRTM_aist.DataFlowComponentBase.__init__(self, manager)
-        
+
     self.range_data = []
     self.start_point = 0
     self.end_point   = 768
     return
 
   def onInitialize(self):
-    self._d_range = RTC.TimedShortSeq(RTC.Time(0,0),[])
-    self._rangeIn = OpenRTM_aist.InPort("range_data", self._d_range)
-        
-    self._d_start = RTC.TimedShort(RTC.Time(0,0), 0)
-    self._startIn = OpenRTM_aist.InPort("start_point", self._d_start)
+    _pose3D = RTC.Pose3D(RTC.Point3D(0.0, 0.0, 0.0),
+                         RTC.Orientation3D(0.0, 0.0, 0.0))
+    _size3D = RTC.Size3D(0.0, 0.0, 0.0)
+    _geometry3D = RTC.Geometry3D(_pose3D, _size3D)
+    _rangerConfig = RTC.RangerConfig(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+    self._d_rangeData = RTC.RangeData(RTC.Time(0,0),
+                                      [],
+                                      RTC.RangerGeometry(_geometry3D, []),
+                                      _rangerConfig)
 
-    self._d_end   = RTC.TimedShort(RTC.Time(0,0), 0)
-    self._endIn   = OpenRTM_aist.InPort("end_point", self._d_end)
-        
-    # Set InPort buffers
-    self.addInPort("range_data",  self._rangeIn)
-    self.addInPort("start_point", self._startIn)
-    self.addInPort("end_point",   self._endIn)
+    self._rangeDataIn = OpenRTM_aist.InPort("range_data", self._d_rangeData)
+    self.addInPort("range_data",  self._rangeDataIn)
 
     return RTC.RTC_OK
 
@@ -83,10 +82,11 @@ class LRFViewer(OpenRTM_aist.DataFlowComponentBase):
     return RTC.RTC_OK
 
   def onExecute(self, ec_id):
-    if self._rangeIn.isNew():
-      self.range_data = self._rangeIn.read().data
-      self.start_point = self._startIn.read().data
-      self.end_point = self._endIn.read().data
+    if self._rangeDataIn.isNew():
+      _rangeData = self._rangeDataIn.read()
+      self.range_data = _rangeData.ranges
+      self.start_point = _rangeData.config.minAngle
+      self.end_point = _rangeData.config.maxAngle
     time.sleep(0.01)
     return RTC.RTC_OK
 
