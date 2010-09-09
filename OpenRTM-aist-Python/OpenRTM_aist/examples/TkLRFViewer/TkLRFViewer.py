@@ -54,6 +54,7 @@ class LRFViewer(OpenRTM_aist.DataFlowComponentBase):
     self.range_data = []
     self.start_point = 0
     self.end_point   = 768
+    self.angular_res = 0.0
     return
 
   def onInitialize(self):
@@ -87,6 +88,7 @@ class LRFViewer(OpenRTM_aist.DataFlowComponentBase):
       self.range_data = _rangeData.ranges
       self.start_point = _rangeData.config.minAngle
       self.end_point = _rangeData.config.maxAngle
+      self.angular_res = _rangeData.config.angularRes
     time.sleep(0.01)
     return RTC.RTC_OK
 
@@ -98,6 +100,9 @@ class LRFViewer(OpenRTM_aist.DataFlowComponentBase):
 
   def get_end_point(self):
     return self.end_point
+
+  def get_angular_res(self):
+    return self.angular_res
 
 
 class ToggleItem:
@@ -175,7 +180,7 @@ class CanvasGrid(ToggleItem):
   def draw(self):
     if self.active == False: return
     self.delete()
-
+    
     x_start = int(self.x0 % self.pitch)
     x_num   = int((self.width - x_start) / self.pitch) + 1
     for x in range(x_num):
@@ -207,7 +212,9 @@ class CanvasGrid(ToggleItem):
     return
 
   def set_pitch(self, pitch):
-    self.pitch = pitch
+    if pitch != 0:
+      self.pitch = pitch
+
     self.draw()
     return
 
@@ -440,10 +447,11 @@ class LRFrange(ScaledObject):
             
       # n: step number
       # d: length data
-      deg = (n + self.offset_step) * self.angle_per_step + self.beg_angle
-      th = deg * math.pi / 180
-      x = d * math.cos(th) / 10
-      y = d * math.sin(th) / 10
+      #deg = (n + self.offset_step) * self.angle_per_step + self.beg_angle
+      #th = deg * math.pi / 180
+      th = (n + self.offset_step) * self.angle_per_step + self.beg_angle
+      x = d * math.cos(th)
+      y = d * math.sin(th)
       pos.append(self.translate(x, y, 0, 0, 0))
     self.pre_data = data
     return pos
@@ -458,6 +466,19 @@ class LRFrange(ScaledObject):
       rdata = self.source.get_range_data()
       if len(rdata) != 0:
         self.rdata = rdata
+
+      res = self.source.get_angular_res()
+      if res:
+        self.angle_per_step = res
+
+      beg_angle = self.source.get_start_point()
+      if beg_angle:
+        self.beg_angle = beg_angle
+
+      end_angle = self.source.get_end_point()
+      if end_angle:
+        self.end_angle = end_angle
+
     else:
       pass
     self.draw()
