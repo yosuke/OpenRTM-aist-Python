@@ -685,6 +685,11 @@
                                 Name="NXTRTC.py"
                                 Show="normal" WorkingDirectory="NXTRTC"/>
                       {% endif %}
+                      {% if file.Name is NXTRTC20.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="NXTRTC20.py"
+                                Show="normal" WorkingDirectory="NXTRTC"/>
+                      {% endif %}
                     </File>
                     {% endfor %}
                   </Component>
