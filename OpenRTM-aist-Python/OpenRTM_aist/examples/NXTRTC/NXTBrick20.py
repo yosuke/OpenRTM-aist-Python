@@ -50,7 +50,7 @@ class NXTBrick:
     """
     for i, v in enumerate(vels[:min(len(vels),len(self.motors))]):
       self.motors[i].sync = 1
-      self.motors[i].weak_turn(max(min(v,127),-127),0)
+      self.motors[i].run(max(min(v,127),-127))
 
   def getMotors(self):
     """
