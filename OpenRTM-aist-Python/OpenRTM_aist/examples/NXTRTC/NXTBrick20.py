@@ -17,24 +17,17 @@ class NXTBrick:
     if bsock:
       self.sock = bsock
     else:
-      #self.sock = nxt.locator.find_one_brick().connect()
-      print "connect 0"
       self.sock = nxt.locator.find_one_brick()
-      print "connect 1"
 
-    print "deb0"
     self.motors = [Motor(self.sock, PORT_A),
                    Motor(self.sock, PORT_B),
                    Motor(self.sock, PORT_C)]
             
-    print "deb1"
     self.sensors = [Touch(self.sock, PORT_1),
                     Sound(self.sock, PORT_2),
                     Light(self.sock, PORT_3),
                     Ultrasonic(self.sock, PORT_4)]
-    print "deb2"
     self.resetPosition()
-    print "deb3"
 
   def close(self):
     """
@@ -56,24 +49,8 @@ class NXTBrick:
     smaller number of them will be taken and set respectively.
     """
     for i, v in enumerate(vels[:min(len(vels),len(self.motors))]):
-      print "setMotors0"
       self.motors[i].sync = 1
-      print "setMotors1"
       self.motors[i].weak_turn(max(min(v,127),-127),0)
-      print "setMotors2"
-      """
-      self.motors[i].power = max(min(v,127),-127)
-      print "setMotors1"
-      self.motors[i].mode = MODE_MOTOR_ON | MODE_REGULATED
-      print "setMotors2"
-      self.motors[i].regulation = REGULATION_MOTOR_SYNC
-      print "setMotors3"
-      self.motors[i].run_state = RUN_STATE_RUNNING
-      print "setMotors4"
-      self.motors[i].tacho_limit = 0
-      print "setMotors5"
-      self.motors[i].set_output_state()
-      """
 
   def getMotors(self):
     """
@@ -84,7 +61,6 @@ class NXTBrick:
       stat = None
       for i in range(3):
         try:
-          #stat = m.get_output_state()
           stat = m.get_tacho().tacho_count
           break
         except:
