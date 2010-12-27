@@ -1,0 +1,14 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	autocrlf = false
+[svn-remote "svn"]
+	url = http://openrtp.jp/openrtm/svn/OpenRTM-aist-Python
+	fetch = trunk:refs/remotes/trunk
+	branches = branches/*:refs/remotes/*
+	tags = tags/*:refs/remotes/tags/*
+[remote "origin"]
+	url = git@github.com:yosuke/OpenRTM-aist-Python.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
