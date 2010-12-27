@@ -416,7 +416,6 @@ class ManagerConfig :
     try:
       fp = open(filename)
     except:
-      print OpenRTM_aist.Logger.print_exception()
       return False
     else:
       fp.close()
